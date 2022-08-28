@@ -1,4 +1,3 @@
 package hous.release.domain
 
-class MyClass {
-}
+class MyClass

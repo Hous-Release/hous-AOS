@@ -46,6 +46,7 @@ dependencies {
 
     Deps.Test.run {
         testImplementation(junit)
+        androidTestImplementation(androidTest)
         androidTestImplementation(espresso)
     }
 }
