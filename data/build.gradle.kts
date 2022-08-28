@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     kotlin("android")
     kotlin("kapt")
     id("org.jlleitschuh.gradle.ktlint") version ktlintVersion
