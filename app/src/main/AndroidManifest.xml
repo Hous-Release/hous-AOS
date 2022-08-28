@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="hous.release.android">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".HousApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HousReleaseAos"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
