@@ -1,0 +1,60 @@
+name: Hous PR Builder
+
+on:
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Gradle cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+        
+    - name: set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Lint Check
+      run: ./gradlew ktlintCheck
+
+    - name: Build with Gradle
+      run: ./gradlew build
+      
+    - name: On Success!! Congratulations
+      if: ${{ success() }}
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_COLOR: '#53A551'
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_TITLE: 'Hous/PR Check S.U.C.C.E.S.S 🎉🎉🎉'
+        MSG_MINIMAL: true
+        SLACK_USERNAME: Hous-AOS
+        SLACK_MESSAGE: 'PR이 완료되었습니다!!! 🎉🎉🎉'
+
+    - name: On Failed, Notify in Slack
+      if: ${{ failure() }}
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_COLOR: '#ff0000'
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_TITLE: 'Hous/Android Debug build Fail❌'
+        MSG_MINIMAL: true
+        SLACK_USERNAME: Hous-AOS
+        SLACK_MESSAGE: '에러를 확인해주세요'
