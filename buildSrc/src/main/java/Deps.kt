@@ -52,7 +52,7 @@ object Deps {
 
         const val interceptor = "com.squareup.okhttp3:logging-interceptor:4.10.0"
         const val gson = "com.google.code.gson:gson:$version"
-        const val retrofit2 = "com.squareup.retrofit2:$version"
+        const val retrofit2 = "com.squareup.retrofit2:retrofit:$version"
         const val retrofit2Converter = "com.squareup.retrofit2:converter-gson:$version"
     }
 
