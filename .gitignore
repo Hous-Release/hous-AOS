@@ -167,5 +167,9 @@ fabric.properties
 ### AndroidStudio Patch ###
 
 !/gradle/wrapper/gradle-wrapper.jar
+# Sonarlint plugin
+.idea/**/sonarlint/
 
+# SonarQube Plugin
+.idea/**/sonarIssues.xml
 # End of https://www.toptal.com/developers/gitignore/api/kotlin,androidstudio
