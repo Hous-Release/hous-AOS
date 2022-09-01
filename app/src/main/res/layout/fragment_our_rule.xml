@@ -40,7 +40,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_empty"
+        android:id="@+id/cl_empty_rules"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
@@ -74,9 +74,9 @@
         android:textAppearance="@style/B2"
         android:textColor="@color/hous_g_5"
         android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@id/cl_empty"
-        app:layout_constraintStart_toStartOf="@id/cl_empty"
-        app:layout_constraintTop_toBottomOf="@id/cl_empty" />
+        app:layout_constraintEnd_toEndOf="@id/cl_empty_rules"
+        app:layout_constraintStart_toStartOf="@id/cl_empty_rules"
+        app:layout_constraintTop_toBottomOf="@id/cl_empty_rules" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_our_rules"

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cv_circle"
+        android:id="@+id/cv_dot_indicator"
         android:layout_width="8dp"
         android:layout_height="8dp"
         android:layout_marginStart="8dp"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_description"
+        android:id="@+id/tv_rule_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="34dp"
@@ -35,5 +35,5 @@
         android:background="@color/hous_g_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_description" />
+        app:layout_constraintTop_toBottomOf="@id/tv_rule_description" />
 </androidx.constraintlayout.widget.ConstraintLayout>
