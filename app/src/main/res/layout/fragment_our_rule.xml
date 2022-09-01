@@ -7,7 +7,7 @@
     tools:context=".presentation.our_rules.OurRulesFragment">
 
     <TextView
-        android:id="@+id/tv_our_house_rule"
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/iv_back"
+        android:id="@+id/iv_back_button"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="24dp"
@@ -30,6 +30,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/iv_setting_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="38dp"
@@ -48,7 +49,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_our_house_rule">
+        app:layout_constraintTop_toBottomOf="@id/tv_title">
 
         <TextView
             android:id="@+id/tv_representative_rule_empty"
@@ -88,7 +89,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_our_house_rule"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
         tools:itemCount="3"
         tools:listitem="@layout/item_our_rules_representative_rule_bottom" />
 </androidx.constraintlayout.widget.ConstraintLayout>
