@@ -6,14 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".presentation.our_rules.OurRulesActivity">
 
-    <TextView
-        android:id="@+id/tv_our_house_rule"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="@string/ourHouseRules"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
