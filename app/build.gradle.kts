@@ -10,6 +10,14 @@ android {
     compileSdk = AppConfig.compileSdkVersion
     buildToolsVersion = AppConfig.buildToolsVersion
 
+    lint {
+        abortOnError = false
+        baseline = file("lint-baseline.xml")
+        disable.add("JvmStaticProvidesInObjectDetector")
+        disable.add("FieldSiteTargetOnQualifierAnnotation")
+        disable.add("ModuleCompanionObjects")
+        disable.add("ModuleCompanionObjectsNotInModuleParent")
+    }
     defaultConfig {
         applicationId = AppConfig.applicationId
         minSdk = AppConfig.minSdkVersion
