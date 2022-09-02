@@ -67,6 +67,9 @@ dependencies {
     implementation(project(":domain"))
 
     Deps.AndroidX.run {
+        implementation(hilt_navigation)
+        implementation(navigation)
+        implementation(navigationFragment)
         implementation(core)
         implementation(appcompat)
         implementation(material)
