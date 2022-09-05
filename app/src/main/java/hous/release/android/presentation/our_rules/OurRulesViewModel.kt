@@ -52,7 +52,7 @@ class OurRulesViewModel @Inject constructor() : ViewModel() {
                 tmpRuleList[idx] = value
             }
             _uiState.value = _uiState.value.copy(
-                ourRuleList = tmpRuleList.toList()
+                ourRuleList = tmpRuleList
             )
             _isEmptyRepresentativeRuleList.value = false
             _isEmptyGeneralRuleList.value = true
