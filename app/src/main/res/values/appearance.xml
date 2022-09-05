@@ -57,4 +57,11 @@
         <item name="android:lineSpacingExtra">6.5sp</item>
     </style>
 
+    <style name="Description">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="android:lineSpacingExtra">3.6sp</item>
+    </style>
 </resources>

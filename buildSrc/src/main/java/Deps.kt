@@ -3,7 +3,7 @@ const val kotlinVersion = "1.7.10"
 
 object AppConfig {
     const val applicationId = "hous.release.android"
-    const val buildToolsVersion = "30.0.2"
+    const val buildToolsVersion = "30.0.3"
     const val compileSdkVersion = 32
     const val minSdkVersion = 26
     const val targetSdkVersion = 32
@@ -13,6 +13,10 @@ object AppConfig {
 
 object Deps {
     object AndroidX {
+        const val hilt_navigation = "androidx.hilt:hilt-navigation-fragment:1.0.0"
+        private const val version = "2.5.1"
+        const val navigation = "androidx.navigation:navigation-ui-ktx:$version"
+        const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:$version"
         const val core = "androidx.core:core-ktx:1.8.0"
         const val appcompat = "androidx.appcompat:appcompat:1.5.0"
         const val material = "com.google.android.material:material:1.6.1"
@@ -35,7 +39,7 @@ object Deps {
     }
 
     object DI {
-        private const val version = "2.38.1"
+        private const val version = "2.43.2"
         const val hiltClassPath = "com.google.dagger:hilt-android-gradle-plugin:$version"
         const val hilt = "com.google.dagger:hilt-android:$version"
         const val hiltKapt = "com.google.dagger:hilt-compiler:$version"

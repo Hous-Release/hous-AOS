@@ -6,4 +6,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="our_house_representative_rules_empty">아직 우리 집 Rules가 없어요!</string>
     <string name="our_house_general_rules_empty">다른 Rule도 추가해보세요!</string>
+    <string name="our_house_representative_rules_number_one">1.</string>
+    <string name="our_house_representative_rules_number_two">2.</string>
+    <string name="our_house_representative_rules_number_three">3.</string>
 </resources>

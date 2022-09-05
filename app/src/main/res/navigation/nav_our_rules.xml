@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_our_rules"
+    app:startDestination="@id/ourRulesFragment">
+
+    <fragment
+        android:id="@+id/ourRulesFragment"
+        android:name="hous.release.android.presentation.our_rules.OurRulesFragment"
+        android:label="fragment_our_rule"
+        app:defaultNavHost="true"
+        tools:layout="@layout/fragment_our_rule" />
+</navigation>
