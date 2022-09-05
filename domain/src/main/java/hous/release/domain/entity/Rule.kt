@@ -1,6 +1,6 @@
 package hous.release.domain.entity
 
-data class RuleInfo(
+data class Rule(
     val id: String = "",
     val description: String = ""
 )

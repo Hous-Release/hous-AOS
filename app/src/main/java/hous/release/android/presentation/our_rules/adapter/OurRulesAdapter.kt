@@ -10,9 +10,9 @@ import hous.release.android.databinding.ItemOurRulesRepresentativeRuleBottomBind
 import hous.release.android.databinding.ItemOurRulesRepresentativeRuleMiddleBinding
 import hous.release.android.databinding.ItemOurRulesRepresentativeRuleTopBinding
 import hous.release.android.presentation.our_rules.type.RuleItemViewType
-import hous.release.domain.entity.RuleInfo
+import hous.release.domain.entity.Rule
 
-class OurRulesAdapter : ListAdapter<RuleInfo, RecyclerView.ViewHolder>(ourRulesDiffUtilCallback) {
+class OurRulesAdapter : ListAdapter<Rule, RecyclerView.ViewHolder>(ourRulesDiffUtilCallback) {
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
@@ -72,7 +72,7 @@ class OurRulesAdapter : ListAdapter<RuleInfo, RecyclerView.ViewHolder>(ourRulesD
         private val binding: ItemOurRulesRepresentativeRuleTopBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun onBind(data: RuleInfo) {
+        fun onBind(data: Rule) {
             binding.data = data
         }
     }
@@ -81,7 +81,7 @@ class OurRulesAdapter : ListAdapter<RuleInfo, RecyclerView.ViewHolder>(ourRulesD
         private val binding: ItemOurRulesRepresentativeRuleMiddleBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun onBind(data: RuleInfo) {
+        fun onBind(data: Rule) {
             binding.data = data
         }
     }
@@ -90,7 +90,7 @@ class OurRulesAdapter : ListAdapter<RuleInfo, RecyclerView.ViewHolder>(ourRulesD
         private val binding: ItemOurRulesRepresentativeRuleBottomBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun onBind(data: RuleInfo) {
+        fun onBind(data: Rule) {
             binding.data = data
         }
     }
@@ -99,24 +99,24 @@ class OurRulesAdapter : ListAdapter<RuleInfo, RecyclerView.ViewHolder>(ourRulesD
         private val binding: ItemOurRulesGeneralRuleBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun onBind(data: RuleInfo) {
+        fun onBind(data: Rule) {
             binding.data = data
         }
     }
 
     companion object {
         private val ourRulesDiffUtilCallback =
-            object : DiffUtil.ItemCallback<RuleInfo>() {
+            object : DiffUtil.ItemCallback<Rule>() {
                 override fun areItemsTheSame(
-                    oldItem: RuleInfo,
-                    newItem: RuleInfo
+                    oldItem: Rule,
+                    newItem: Rule
                 ): Boolean {
                     return oldItem.id == newItem.id
                 }
 
                 override fun areContentsTheSame(
-                    oldItem: RuleInfo,
-                    newItem: RuleInfo
+                    oldItem: Rule,
+                    newItem: Rule
                 ): Boolean {
                     return oldItem == newItem
                 }
