@@ -67,6 +67,7 @@ dependencies {
     implementation(project(":domain"))
 
     Deps.AndroidX.run {
+        implementation(kakao_login)
         implementation(hilt_navigation)
         implementation(navigation)
         implementation(navigationFragment)
