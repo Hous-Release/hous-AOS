@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">Hous-Release-Aos</string>
+    <string name="kakao_native_app_key">dUEcOR9EeKNcIf71QgMJo6oEuos=</string>
     <!--    ourRules-->
     <string name="our_house_rules">우리 집 규칙</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="our_house_representative_rules_empty">아직 우리 집 Rules가 없어요!</string>
     <string name="our_house_general_rules_empty">다른 Rule도 추가해보세요!</string>
     <string name="our_house_representative_rules_number_one">1.</string>
