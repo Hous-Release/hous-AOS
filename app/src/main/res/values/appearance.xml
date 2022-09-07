@@ -4,64 +4,64 @@
     <style name="H1">
         <item name="android:fontFamily">@font/spoqa_han_sans_neo</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">28dp</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">8.4sp</item>
+        <item name="android:lineSpacingExtra">8.4dp</item>
     </style>
 
     <style name="H2">
         <item name="android:fontFamily">@font/spoqa_han_sans_neo</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">22dp</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">6.6sp</item>
+        <item name="android:lineSpacingExtra">6.6dp</item>
     </style>
 
     <style name="H3">
         <item name="android:fontFamily">@font/spoqa_han_sans_neo</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">20dp</item>
         <item name="android:letterSpacing">-0.02</item>
-        <item name="android:lineSpacingExtra">8sp</item>
+        <item name="android:lineSpacingExtra">8dp</item>
     </style>
 
     <style name="H4">
         <item name="android:fontFamily">@font/spoqa_han_sans_neo</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">18dp</item>
         <item name="android:letterSpacing">-0.02</item>
-        <item name="android:lineSpacingExtra">5.4sp</item>
+        <item name="android:lineSpacingExtra">5.4dp</item>
     </style>
 
     <style name="B1">
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">16dp</item>
         <item name="android:letterSpacing">-0.02</item>
-        <item name="android:lineSpacingExtra">8sp</item>
+        <item name="android:lineSpacingExtra">8dp</item>
     </style>
 
     <style name="B2">
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">14dp</item>
         <item name="android:letterSpacing">-0.02</item>
-        <item name="android:lineSpacingExtra">7sp</item>
+        <item name="android:lineSpacingExtra">7dp</item>
     </style>
 
     <style name="B3">
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">13dp</item>
         <item name="android:letterSpacing">-0.02</item>
-        <item name="android:lineSpacingExtra">6.5sp</item>
+        <item name="android:lineSpacingExtra">6.5dp</item>
     </style>
 
     <style name="Description">
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">12dp</item>
         <item name="android:letterSpacing">-0.02</item>
-        <item name="android:lineSpacingExtra">3.6sp</item>
+        <item name="android:lineSpacingExtra">3.6dp</item>
     </style>
 </resources>
