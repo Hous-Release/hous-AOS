@@ -6,13 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".presentation.main.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bot_nav_main"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="@drawable/shape_white_fill_top20_rect"
+        app:itemIconTint="@drawable/selector_bottom_item"
+        app:itemTextAppearanceActive="@style/BottomNavigationViewTextStyle"
+        app:itemTextAppearanceInactive="@style/BottomNavigationViewTextStyle"
+        app:itemTextColor="@drawable/selector_bottom_item"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:menu="@menu/menu_bottom_nav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
