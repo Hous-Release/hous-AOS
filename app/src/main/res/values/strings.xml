@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Hous-Release-Aos</string>
     <!-- Title -->
-    <string name="title_home">Home</string>
+    <string name="title_hous">Home</string>
     <string name="title_profile">Profile</string>
     <string name="title_to_do">To-Do</string>
 

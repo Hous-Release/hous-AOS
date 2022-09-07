@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/housFragment">
+
+    <fragment
+        android:id="@+id/housFragment"
+        android:name="hous.release.android.presentation.hous.HousFragment"
+        android:label="HousFragment"
+        tools:layout="@layout/fragment_hous" />
+    <fragment
+        android:id="@+id/toDoFragment"
+        android:name="hous.release.android.presentation.todo.ToDoFragment"
+        android:label="ToDoFragment"
+        tools:layout="@layout/fragment_to_do" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="hous.release.android.presentation.profile.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
+</navigation>
