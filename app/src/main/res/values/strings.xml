@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Hous-Release-Aos</string>
+    <string name="kakao_native_app_key">23a6d7ad94f44f0e474ee41b4e6d9fab</string>
+    <string name="kakao_redirection_scheme">kakao23a6d7ad94f44f0e474ee41b4e6d9fab</string>
+    <string name="login_kakao_login">카카오톡으로 계속하기</string>
+
     <!-- Title -->
     <string name="title_hous">Hous-</string>
     <string name="title_profile">Profile</string>
