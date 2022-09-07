@@ -20,6 +20,24 @@
         <activity
             android:name=".login.LoginActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".login.UserInputActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presentation.our_rules.OurRulesActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presentation.main.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true"
@@ -32,23 +50,9 @@
 
                 <data
                     android:host="oauth"
-                    android:scheme="@string/kakao_redirection_scheme" />
+                    android:scheme="${KAKAO_REDIRECT_SCHEME}" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.our_rules.OurRulesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.main.MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".login.UserInputActivity"
-            android:exported="false" />
     </application>
 
 </manifest>
