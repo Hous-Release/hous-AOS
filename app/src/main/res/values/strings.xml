@@ -32,7 +32,8 @@
     <!-- CreateRoom -->
     <string name="create_room_title">방 만들기</string>
     <string name="create_room_desc">멤버들이 확인할 수 있도록 방 이름을 설정해주세요.</string>
-    <string name="create_room_edit_text_hint">방 이름 설정</string>
+    <string name="create_room_edit_text_hint">방 이름 설정</string>\
+    <string name="create_room_name_count">%d/8</string>
 
     <!-- EnterRoomCode -->
     <string name="enter_room_code_title">방 초대코드 입력하기</string>
@@ -40,4 +41,5 @@
     <string name="enter_room_code_edit_text_hint">방 코드 입력</string>
     <string name="enter_room_code_warning">* 참여할 수 없는 코드예요.</string>
     <string name="enter_room_code_btn">방 참여하기</string>
+
 </resources>

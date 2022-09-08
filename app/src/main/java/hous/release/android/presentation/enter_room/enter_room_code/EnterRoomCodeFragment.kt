@@ -1,4 +1,4 @@
-package hous.release.android.presentation.enter_room
+package hous.release.android.presentation.enter_room.enter_room_code
 
 import android.os.Bundle
 import android.view.View

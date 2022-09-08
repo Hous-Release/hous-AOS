@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/hous_white"
-        tools:context=".presentation.enter_room.EnterRoomCodeFragment">
+        tools:context=".presentation.enter_room.enter_room_code.EnterRoomCodeFragment">
 
         <ImageButton
             android:id="@+id/btn_enter_room_code_back"
