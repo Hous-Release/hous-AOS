@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/housFragment"
+        android:title="@string/title_hous"
+        android:icon="@drawable/selector_bottom_hous"/>
+
+    <item
+        android:id="@+id/toDoFragment"
+        android:title="@string/title_to_do"
+        android:icon="@drawable/selector_bottom_to_do"/>
+
+    <item
+        android:id="@+id/profileFragment"
+        android:title="@string/title_profile"
+        android:icon="@drawable/selector_bottom_profile"/>
+</menu>
