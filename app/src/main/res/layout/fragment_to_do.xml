@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,15 +10,65 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/hous_white"
         tools:context=".presentation.todo.ToDoFragment">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/title_to_do"
-            android:textColor="@color/hous_blue"
-            android:textSize="100dp" />
+            android:id="@+id/tv_to_do_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="08.18"
+            android:textColor="@color/hous_blue_l1"
+            android:textSize="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/tv_to_do_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Thursday"
+            android:textColor="@color/hous_blue"
+            android:textSize="24dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_to_do_date"
+            app:layout_constraintTop_toBottomOf="@+id/tv_to_do_date" />
+
+        <LinearLayout
+            android:id="@+id/ll_to_do_view_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="17dp"
+            android:background="@drawable/shape_blue_i2_fill_8_rect"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_to_do_day"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_to_do_date">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="@string/to_do_small_letter"
+                android:textColor="@color/hous_blue"
+                android:textSize="14dp"
+                tools:layout_editor_absoluteX="261dp"
+                tools:layout_editor_absoluteY="68dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                android:text="@string/to_do_view_all"
+                android:textColor="@color/hous_blue"
+                android:textSize="12dp"
+                tools:layout_editor_absoluteX="261dp"
+                tools:layout_editor_absoluteY="91dp" />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
