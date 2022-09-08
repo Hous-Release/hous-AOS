@@ -34,13 +34,15 @@ jobs:
       - name: Create Local Properties
         run: touch local.properties
 
-      - name: Access Local Properties
+      - name: Access KAKAO_NATIVE_APP_KEY
         env:
           KAKAO_NATIVE_APP_KEY: ${{ secrets.KAKAO_NATIVE_APP_KEY }}
-          KAKAO_REDIRECT_SCHEME: ${{ secrets.KAKAO_REDIRECT_SCHEME }}
-        run: |
-          echo "KAKAO_NATIVE_APP_KEY=\"$KAKAO_NATIVE_APP_KEY\"" >> local.properties
-          echo "KAKAO_REDIRECT_SCHEME=\"$KAKAO_REDIRECT_SCHEME\"" >> local.properties
+        run: echo "KAKAO_NATIVE_APP_KEY=\"$KAKAO_NATIVE_APP_KEY\"" >> local.properties
+
+      - name: Access KAKAO_REDIRECT_SCHEME
+        env:
+            KAKAO_REDIRECT_SCHEME: ${{ secrets.KAKAO_REDIRECT_SCHEME }}
+        run: echo "KAKAO_REDIRECT_SCHEME=\"$KAKAO_REDIRECT_SCHEME\"" >> local.properties
 
       - name: Lint Check
         run: ./gradlew ktlintCheck
