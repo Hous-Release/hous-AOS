@@ -55,6 +55,10 @@ dependencies {
         implementation(hilt)
         kapt(hiltKapt)
     }
+
+    Deps.AndroidX.run {
+        implementation(kakao_login)
+    }
 }
 
 ktlint {
