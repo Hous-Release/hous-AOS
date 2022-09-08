@@ -12,7 +12,6 @@ import hous.release.android.util.binding.BindingActivity
 import timber.log.Timber
 
 class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
-    private lateinit var kakaoLogin: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +19,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun kakaoLogin() {
-        kakaoLogin = binding.btnLoginKakaoLogin
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
             if (error != null) {
                 Timber.d(error, "토큰 정보 보기 실패")
@@ -69,7 +67,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                 finish()
             }
         }
-        kakaoLogin.setOnClickListener {
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
                 UserApiClient.instance.loginWithKakaoTalk(this, callback = callback)
             } else {
