@@ -67,6 +67,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                 finish()
             }
         }
+        binding.btnLoginKakao.setOnClickListener {
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
                 UserApiClient.instance.loginWithKakaoTalk(this, callback = callback)
             } else {
