@@ -5,5 +5,4 @@ import hous.release.android.databinding.FragmentCreateRoomBinding
 import hous.release.android.util.binding.BindingFragment
 
 class CreateRoomFragment :
-    BindingFragment<FragmentCreateRoomBinding>(R.layout.fragment_create_room) {
-}
+    BindingFragment<FragmentCreateRoomBinding>(R.layout.fragment_create_room)

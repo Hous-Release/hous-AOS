@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="20dp"
-            android:backgroundTint="@{true ? @color/hous_blue : @color/hous_g_4}"
+            android:backgroundTint="@{false ? @color/hous_blue : @color/hous_g_4}"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:minHeight="0dp"

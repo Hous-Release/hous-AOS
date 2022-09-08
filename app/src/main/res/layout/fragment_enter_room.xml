@@ -66,10 +66,10 @@
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 android:layout_marginTop="50dp"
+                android:background="@color/hous_white"
                 android:contentDescription="@string/enter_room_create_img_desc"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:background="@color/hous_white" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -113,10 +113,10 @@
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 android:layout_marginTop="50dp"
+                android:background="@color/hous_white"
                 android:contentDescription="@string/enter_room_enter_code_img_desc"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:background="@color/hous_white" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
