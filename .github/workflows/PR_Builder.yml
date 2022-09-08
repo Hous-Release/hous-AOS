@@ -20,7 +20,7 @@ jobs:
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
-        
+
     - name: set up JDK 11
       uses: actions/setup-java@v3
       with:
@@ -31,12 +31,23 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
+    - name: Create Local Properties
+      run: touch local.properties
+
+    - name: Access Local Properties
+      env:
+        KAKAO_NATIVE_APP_KEY: ${{ secrets.KAKAO_NATIVE_APP_KEY }}
+        KAKAO_REDIRECT_SCHEME: ${{ secrets.KAKAO_REDIRECT_SCHEME }}
+      run: |
+        echo "KAKAO_NATIVE_APP_KEY=\"$KAKAO_NATIVE_APP_KEY\"" >> local.properties
+        echo "KAKAO_REDIRECT_SCHEME=\"$KAKAO_REDIRECT_SCHEME\"" >> local.properties
+
     - name: Lint Check
       run: ./gradlew ktlintCheck
 
     - name: Build with Gradle
       run: ./gradlew build
-      
+
     - name: On Success!! Congratulations
       if: ${{ success() }}
       uses: rtCamp/action-slack-notify@v2
