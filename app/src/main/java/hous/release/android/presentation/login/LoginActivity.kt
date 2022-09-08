@@ -1,4 +1,4 @@
-package hous.release.android.login
+package hous.release.android.presentation.login
 
 import android.content.Intent
 import android.os.Bundle
