@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="hous.release.android.presentation.enter_room.enter_room_code.EnterRoomCodeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -63,6 +66,7 @@
             android:inputType="text"
             android:maxLength="8"
             android:paddingVertical="2dp"
+            android:text="@{viewModel.roomCode}"
             android:textAppearance="@style/B2"
             android:textColor="@color/hous_black"
             android:textColorHint="@color/hous_g_4"
@@ -87,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="20dp"
-            android:backgroundTint="@{false ? @color/hous_blue : @color/hous_g_4}"
+            android:backgroundTint="@{viewModel.roomCode.length != 0 ? @color/hous_blue : @color/hous_g_4}"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:minHeight="0dp"
