@@ -15,4 +15,13 @@
     <string name="our_house_representative_rules_number_one">1.</string>
     <string name="our_house_representative_rules_number_two">2.</string>
     <string name="our_house_representative_rules_number_three">3.</string>
+
+    <!-- EnterRoom -->
+    <string name="enter_room_title">이제 하우스를 입장해볼까요?</string>
+    <string name="enter_room_create_title">방 만들기</string>
+    <string name="enter_room_create_desc">가장 먼저 방을 만들어\n호미들을 초대해보세요!</string>
+    <string name="enter_room_create_img_desc">img of create room</string>
+    <string name="enter_room_enter_code_title">초대코드 입력하기</string>
+    <string name="enter_room_enter_code_desc">초대코드를 입력해\n방에 입장하세요!</string>
+    <string name="enter_room_enter_code_img_desc">img of enter code</string>
 </resources>
