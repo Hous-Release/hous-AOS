@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/hous_white"
         tools:context=".presentation.enter_room.CreateRoomFragment">
 
         <ImageButton
@@ -110,7 +111,6 @@
             android:textColor="@color/hous_white"
             app:cornerRadius="8dp"
             app:layout_constraintBottom_toBottomOf="parent" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
