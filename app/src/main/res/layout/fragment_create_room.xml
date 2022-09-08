@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/hous_white"
+        tools:context=".presentation.enter_room.CreateRoomFragment">
+
+        <ImageButton
+            android:id="@+id/btn_create_room_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="14dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/back_btn_image_desc"
+            android:padding="6dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_create_room_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/create_room_title"
+            android:textAppearance="@style/H3"
+            android:textColor="@color/hous_black"
+            app:layout_constraintBottom_toTopOf="@id/tv_create_room_desc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.4"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tv_create_room_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/create_room_desc"
+            android:textAppearance="@style/B2"
+            android:textColor="@color/hous_g_5"
+            app:layout_constraintBottom_toTopOf="@id/et_create_room_name"
+            app:layout_constraintStart_toStartOf="@id/tv_create_room_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_create_room_title" />
+
+        <EditText
+            android:id="@+id/et_create_room_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:background="@null"
+            android:hint="@string/create_room_edit_text_hint"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLength="8"
+            android:paddingVertical="2dp"
+            android:textAppearance="@style/B2"
+            android:textColor="@color/hous_black"
+            android:textColorHint="@color/hous_g_4"
+            app:layout_constraintBottom_toTopOf="@id/view_create_room"
+            app:layout_constraintEnd_toStartOf="@id/tv_create_room_count"
+            app:layout_constraintStart_toStartOf="@id/tv_create_room_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_create_room_desc" />
+
+        <TextView
+            android:id="@+id/tv_create_room_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            android:text="0/8"
+            android:textAppearance="@style/B2"
+            android:textColor="@color/hous_g_4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/et_create_room_name" />
+
+        <View
+            android:id="@+id/view_create_room"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="6dp"
+            android:background="@color/hous_blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_create_room_name" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_create_room_done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@{false ? @color/hous_blue : @color/hous_g_4}"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="0dp"
+            android:paddingVertical="10dp"
+            android:stateListAnimator="@null"
+            android:text="@string/create_room_title"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_white"
+            app:cornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
