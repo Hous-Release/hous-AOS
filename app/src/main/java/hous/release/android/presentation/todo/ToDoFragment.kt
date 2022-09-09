@@ -9,5 +9,8 @@ import hous.release.android.util.binding.BindingFragment
 class ToDoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_do) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.cvToDoProgress.setContent {
+            RoundedLinearIndicatorWithHomie(currentProgress = 0.3f)
+        }
     }
 }

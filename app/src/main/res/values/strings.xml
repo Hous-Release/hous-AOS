@@ -19,4 +19,7 @@
     <!-- To-Do -->
     <string name="to_do_small_letter">to-do</string>
     <string name="to_do_view_all">전체보기</string>
+    <string name="to_do_homie_message_notting">아직 하나도 못했어요!</string>
+    <string name="to_do_homie_message_in_progress">오늘 to-do 끝~!</string>
+    <string name="to_do_homie_message_finish">전체보기</string>
 </resources>
