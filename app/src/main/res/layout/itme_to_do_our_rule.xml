@@ -4,27 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp">
+    android:layout_marginBottom="12dp">
 
     <ImageView
-        android:id="@+id/iv_to_do_my_check_box"
+        android:id="@+id/iv_to_do_our_check_box"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/selector_to_do_my_check"
+        android:src="@drawable/ic_to_do_our_unchecked"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_to_do_my_rule"
+        android:id="@+id/tv_to_do_our_rule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:textAppearance="@style/B2"
-        android:textColor="@color/selector_to_do_my_rule"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_to_do_my_check_box"
-        app:layout_constraintStart_toEndOf="@+id/iv_to_do_my_check_box"
-        app:layout_constraintTop_toTopOf="@+id/iv_to_do_my_check_box"
-        tools:text="청소기 돌리기" />
+        android:textColor="@color/hous_g_5"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_to_do_our_check_box"
+        app:layout_constraintStart_toEndOf="@+id/iv_to_do_our_check_box"
+        app:layout_constraintTop_toTopOf="@+id/iv_to_do_our_check_box"
+        tools:text="최코코 밥 주기" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
