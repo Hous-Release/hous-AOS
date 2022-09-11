@@ -128,6 +128,7 @@ dependencies {
     Deps.ThirdParty.run {
         implementation(timber)
         implementation(lottie)
+        implementation(ballon)
     }
 
     Deps.ThirdParty.Glide.run {

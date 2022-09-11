@@ -70,7 +70,7 @@ class ToDoViewModel @Inject constructor() : ViewModel() {
                     isChecked = true,
                     todoId = 9,
                     todoName = "10월 말"
-                ),
+                )
             ),
             myTodosCount = 10,
             ourTodos = listOf(

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/hous_blue"
+    android:paddingVertical="21dp">
+
+    <TextView
+        android:id="@+id/tv_tool_tip_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:text="to-do 상태 가이드"
+        android:textAppearance="@style/B2"
+        android:textColor="@color/hous_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_tool_tip_unchecked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="9dp"
+        android:src="@drawable/ic_to_do_guide_unchecked"
+        app:layout_constraintStart_toStartOf="@+id/tv_tool_tip_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tool_tip_title" />
+
+    <TextView
+        android:id="@+id/tv_tool_tip_unchecked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="완료되지 않음"
+        android:textAppearance="@style/B3"
+        android:textColor="@color/hous_g_2"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_tool_tip_unchecked"
+        app:layout_constraintStart_toEndOf="@+id/iv_tool_tip_unchecked"
+        app:layout_constraintTop_toTopOf="@+id/iv_tool_tip_unchecked" />
+
+    <ImageView
+        android:id="@+id/iv_tool_tip_half"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_to_do_guide_half"
+        app:layout_constraintStart_toStartOf="@+id/iv_tool_tip_unchecked"
+        app:layout_constraintTop_toBottomOf="@+id/iv_tool_tip_unchecked" />
+
+    <TextView
+        android:id="@+id/tv_tool_tip_half"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="1명 이상 완료"
+        android:textAppearance="@style/B3"
+        android:textColor="@color/hous_g_2"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_tool_tip_half"
+        app:layout_constraintStart_toEndOf="@+id/iv_tool_tip_half"
+        app:layout_constraintTop_toTopOf="@+id/iv_tool_tip_half" />
+
+    <ImageView
+        android:id="@+id/iv_tool_tip_checked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_to_do_guide_checked"
+        app:layout_constraintStart_toStartOf="@+id/iv_tool_tip_half"
+        app:layout_constraintTop_toBottomOf="@+id/iv_tool_tip_half" />
+
+    <TextView
+        android:id="@+id/tv_tool_tip_checked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="모두 완료"
+        android:textAppearance="@style/B3"
+        android:textColor="@color/hous_g_2"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_tool_tip_checked"
+        app:layout_constraintStart_toEndOf="@+id/iv_tool_tip_checked"
+        app:layout_constraintTop_toTopOf="@+id/iv_tool_tip_checked" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

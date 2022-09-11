@@ -5,6 +5,9 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import com.skydoves.balloon.ArrowOrientation
+import com.skydoves.balloon.ArrowPositionRules
+import com.skydoves.balloon.Balloon
 import hous.release.android.R
 import hous.release.android.databinding.FragmentToDoBinding
 import hous.release.android.util.binding.BindingFragment
@@ -20,7 +23,7 @@ class ToDoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
         super.onViewCreated(view, savedInstanceState)
         binding.vm = toDoViewModel
         initAdapter()
-
+        onClickHelpButton()
         toDoViewModel.uiState
             .flowWithLifecycle(lifecycle)
             .onEach { toDoUiState ->
@@ -38,6 +41,22 @@ class ToDoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
         ourToDoAdapter = OurToDoAdapter()
         binding.rvToDoMyRules.adapter = myToDoAdapter
         binding.rvToDoOurRules.adapter = ourToDoAdapter
+    }
+
+    private fun onClickHelpButton() {
+        val balloon = Balloon.Builder(requireContext())
+            .setLayout(R.layout.item_to_do_tool_tip)
+            .setArrowOrientation(ArrowOrientation.TOP)
+            .setArrowPositionRules(ArrowPositionRules.ALIGN_ANCHOR)
+            .setCornerRadius(4f)
+            .setBackgroundColorResource(R.color.hous_blue)
+            .setMarginRight(18)
+            .setLifecycleOwner(viewLifecycleOwner)
+            .build()
+        
+        binding.ivToDoHelp.setOnClickListener {
+            balloon.showAlignBottom(binding.ivToDoHelp)
+        }
     }
 
     override fun onDestroyView() {

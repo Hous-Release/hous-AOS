@@ -65,6 +65,7 @@ object Deps {
     object ThirdParty {
         const val timber = "com.jakewharton.timber:timber:5.0.1"
         const val lottie = "com.airbnb.android:lottie:5.2.0"
+        const val ballon = "com.github.skydoves:balloon:1.4.7"
 
         object Glide {
             private const val version = "4.13.2"
