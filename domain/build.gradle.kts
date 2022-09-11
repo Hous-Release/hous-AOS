@@ -19,6 +19,9 @@ dependencies {
         implementation(core)
         implementation(android)
     }
+    Deps.Network.run {
+        implementation(gson)
+    }
 }
 
 ktlint {
