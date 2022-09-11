@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="hous.release.android.presentation.todo.ToDoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +24,7 @@
             android:fontFamily="@font/montserrat_bold"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="7.2sp"
+            android:text="@{vm.uiState.date}"
             android:textColor="@color/hous_blue_l1"
             android:textSize="24dp"
             android:textStyle="bold"
@@ -29,12 +33,13 @@
             tools:text="08.18" />
 
         <TextView
-            android:id="@+id/tv_to_do_day"
+            android:id="@+id/tv_to_do_dayOfWeek"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_bold"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="7.2sp"
+            android:text="@{vm.uiState.dayOfWeek}"
             android:textColor="@color/hous_blue"
             android:textSize="24dp"
             android:textStyle="bold"
@@ -52,7 +57,7 @@
             android:orientation="vertical"
             android:paddingHorizontal="12dp"
             android:paddingVertical="6dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_to_do_day"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_to_do_dayOfWeek"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_to_do_date">
 
@@ -84,143 +89,165 @@
             android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_to_do_day" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_to_do_dayOfWeek" />
 
-        <TextView
-            android:id="@+id/tv_to_do_my_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_marginTop="28dp"
-            android:fontFamily="@font/montserrat_semibold"
-            android:letterSpacing="-0.02"
-            android:lineSpacingExtra="6sp"
-            android:text="My to-do"
-            android:textColor="@color/hous_black"
-            android:textSize="20sp"
-            android:textStyle="normal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cv_to_do_progress" />
-
-        <ImageView
-            android:id="@+id/iv_to_do_my_dot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/shape_blue_l1_fill_5_circle"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_to_do_my_title"
-            app:layout_constraintStart_toEndOf="@+id/tv_to_do_my_title"
-            app:layout_constraintTop_toTopOf="@+id/tv_to_do_my_title" />
-
-        <TextView
-            android:id="@+id/tv_to_do_my_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/montserrat_semibold"
-            android:letterSpacing="-0.02"
-            android:lineSpacingExtra="7sp"
-            android:textColor="@color/hous_blue_l1"
-            android:textSize="14sp"
-            android:textStyle="normal"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_to_do_my_dot"
-            app:layout_constraintStart_toEndOf="@+id/iv_to_do_my_dot"
-            app:layout_constraintTop_toTopOf="@+id/iv_to_do_my_dot"
-            tools:text="2" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_to_do_my_rules"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_to_do_my_title"
-            tools:itemCount="4"
-            tools:listitem="@layout/item_to_do_my_rule" />
+            app:layout_constraintTop_toBottomOf="@+id/cv_to_do_progress">
 
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/divider_to_do_my"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            app:dividerColor="@color/hous_g_2"
-            app:layout_constraintEnd_toEndOf="@+id/rv_to_do_my_rules"
-            app:layout_constraintStart_toStartOf="@+id/rv_to_do_my_rules"
-            app:layout_constraintTop_toBottomOf="@+id/rv_to_do_my_rules" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_to_do_our_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:fontFamily="@font/montserrat_semibold"
-            android:letterSpacing="-0.02"
-            android:lineSpacingExtra="6sp"
-            android:text="Our to-do"
-            android:textColor="@color/hous_black"
-            android:textSize="20sp"
-            android:textStyle="normal"
-            app:layout_constraintStart_toStartOf="@+id/divider_to_do_my"
-            app:layout_constraintTop_toBottomOf="@+id/divider_to_do_my" />
+                <TextView
+                    android:id="@+id/tv_to_do_my_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="6sp"
+                    android:text="My to-do"
+                    android:textColor="@color/hous_black"
+                    android:textSize="20sp"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_to_do_our_dot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="9dp"
-            android:src="@drawable/shape_blue_l1_fill_5_circle"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_to_do_our_title"
-            app:layout_constraintStart_toEndOf="@+id/tv_to_do_our_title"
-            app:layout_constraintTop_toTopOf="@+id/tv_to_do_our_title" />
+                <ImageView
+                    android:id="@+id/iv_to_do_my_dot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/shape_blue_l1_fill_5_circle"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_to_do_my_title"
+                    app:layout_constraintStart_toEndOf="@+id/tv_to_do_my_title"
+                    app:layout_constraintTop_toTopOf="@+id/tv_to_do_my_title" />
 
-        <TextView
-            android:id="@+id/tv_to_do_our_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="7dp"
-            android:fontFamily="@font/montserrat_semibold"
-            android:letterSpacing="-0.02"
-            android:lineSpacingExtra="7sp"
-            android:textColor="@color/hous_blue_l1"
-            android:textSize="14sp"
-            android:textStyle="normal"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_to_do_our_dot"
-            app:layout_constraintStart_toEndOf="@+id/iv_to_do_our_dot"
-            app:layout_constraintTop_toTopOf="@+id/iv_to_do_our_dot"
-            tools:text="2" />
+                <TextView
+                    android:id="@+id/tv_to_do_my_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="7sp"
+                    android:text="@{Integer.toString(vm.uiState.myTodosCount)}"
+                    android:textColor="@color/hous_blue_l1"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_to_do_my_dot"
+                    app:layout_constraintStart_toEndOf="@+id/iv_to_do_my_dot"
+                    app:layout_constraintTop_toTopOf="@+id/iv_to_do_my_dot"
+                    tools:text="2" />
 
-        <ImageView
-            android:id="@+id/iv_to_do_help"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="27dp"
-            android:src="@drawable/ic_to_do_help"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_to_do_our_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_to_do_our_title" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_to_do_my_rules"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_to_do_my_title"
+                    tools:itemCount="4"
+                    tools:listitem="@layout/item_to_do_my_rule" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_to_do_our_rules"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_to_do_our_title"
-            tools:itemCount="4"
-            tools:listitem="@layout/itme_to_do_our_rule" />
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/divider_to_do_my"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    app:dividerColor="@color/hous_g_2"
+                    app:layout_constraintEnd_toEndOf="@+id/rv_to_do_my_rules"
+                    app:layout_constraintStart_toStartOf="@+id/rv_to_do_my_rules"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_to_do_my_rules" />
 
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/divider_to_do_our"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="12dp"
-            app:dividerColor="@color/hous_g_2"
-            app:layout_constraintEnd_toEndOf="@+id/rv_to_do_our_rules"
-            app:layout_constraintStart_toStartOf="@+id/rv_to_do_our_rules"
-            app:layout_constraintTop_toBottomOf="@+id/rv_to_do_our_rules" />
+                <TextView
+                    android:id="@+id/tv_to_do_our_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="6sp"
+                    android:text="Our to-do"
+                    android:textColor="@color/hous_black"
+                    android:textSize="20sp"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toStartOf="@+id/divider_to_do_my"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_to_do_my" />
+
+                <ImageView
+                    android:id="@+id/iv_to_do_our_dot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:src="@drawable/shape_blue_l1_fill_5_circle"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_to_do_our_title"
+                    app:layout_constraintStart_toEndOf="@+id/tv_to_do_our_title"
+                    app:layout_constraintTop_toTopOf="@+id/tv_to_do_our_title" />
+
+                <TextView
+                    android:id="@+id/tv_to_do_our_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="7sp"
+                    android:text="@{Integer.toString(vm.uiState.ourTodosCount)}"
+                    android:textColor="@color/hous_blue_l1"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_to_do_our_dot"
+                    app:layout_constraintStart_toEndOf="@+id/iv_to_do_our_dot"
+                    app:layout_constraintTop_toTopOf="@+id/iv_to_do_our_dot"
+                    tools:text="2" />
+
+                <ImageView
+                    android:id="@+id/iv_to_do_help"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="27dp"
+                    android:src="@drawable/ic_to_do_help"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_to_do_our_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_to_do_our_title" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_to_do_our_rules"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_to_do_our_title"
+                    tools:itemCount="4"
+                    tools:listitem="@layout/item_to_do_our_rule" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/divider_to_do_our"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
+                    app:dividerColor="@color/hous_g_2"
+                    app:layout_constraintEnd_toEndOf="@+id/rv_to_do_our_rules"
+                    app:layout_constraintStart_toStartOf="@+id/rv_to_do_our_rules"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_to_do_our_rules" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
