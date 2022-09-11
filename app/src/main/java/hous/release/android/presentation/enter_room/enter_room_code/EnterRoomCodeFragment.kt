@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentEnterRoomCodeBinding
 import hous.release.android.util.binding.BindingFragment
 
+@AndroidEntryPoint
 class EnterRoomCodeFragment :
     BindingFragment<FragmentEnterRoomCodeBinding>(R.layout.fragment_enter_room_code) {
     private val viewModel by viewModels<EnterRoomCodeViewModel>()
