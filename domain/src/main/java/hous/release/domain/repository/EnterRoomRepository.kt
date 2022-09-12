@@ -1,12 +1,11 @@
 package hous.release.domain.repository
 
-import hous.release.domain.entity.request.CreateRoomRequest
-import hous.release.domain.entity.response.BaseResponse
-import hous.release.domain.entity.response.CreateRoomResponse
-import hous.release.domain.entity.response.EnterRoomCodeResponse
+import hous.release.domain.entity.request.DomainCreateRoomRequest
+import hous.release.domain.entity.response.DomainCreateRoomResponse
+import hous.release.domain.entity.response.DomainEnterRoomCodeResponse
 
 interface EnterRoomRepository {
-    suspend fun postCreateRoom(createRoomRequest: CreateRoomRequest): Result<BaseResponse<CreateRoomResponse>>
+    suspend fun postCreateRoom(createRoomRequest: DomainCreateRoomRequest): Result<DomainCreateRoomResponse>
 
-    suspend fun getEnterRoomCode(roomCode: String): Result<BaseResponse<EnterRoomCodeResponse>>
+    suspend fun getEnterRoomCode(roomCode: String): Result<DomainEnterRoomCodeResponse>
 }

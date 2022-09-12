@@ -1,6 +1,6 @@
 package hous.release.domain.entity.response
 
-data class CreateRoomResponse(
+data class DomainCreateRoomResponse(
     val roomCode: String,
     val roomId: Int
 )

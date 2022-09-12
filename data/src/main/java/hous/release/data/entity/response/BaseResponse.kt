@@ -1,4 +1,4 @@
-package hous.release.domain.entity.response
+package hous.release.data.entity.response
 
 import com.google.gson.annotations.SerializedName
 
