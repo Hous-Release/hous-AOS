@@ -9,6 +9,7 @@ import hous.release.android.R
 import hous.release.android.databinding.FragmentCreateRoomBinding
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
+import timber.log.Timber
 
 @AndroidEntryPoint
 class CreateRoomFragment :
@@ -20,7 +21,7 @@ class CreateRoomFragment :
         binding.viewModel = viewModel
         initBackBtnClickListener()
         initDoneBtnClickListener()
-        initIsSuccessCreateRoomCollector()
+        initNewRoomCollector()
     }
 
     private fun initBackBtnClickListener() {
@@ -33,12 +34,11 @@ class CreateRoomFragment :
         }
     }
 
-    private fun initIsSuccessCreateRoomCollector() {
+    private fun initNewRoomCollector() {
         repeatOnStarted {
-            viewModel.isSuccessCreateRoom.collect { isSuccess ->
-                if (isSuccess) {
-                    // TODO 방 이름 추가 후 다이얼로그 띄우기
-                }
+            viewModel.newRoom.collect { newRoom ->
+                // TODO 방 이름 추가 후 다이얼로그 띄우기
+                Timber.tag("EnterRoom - createRoom").d(newRoom.roomCode)
             }
         }
     }
