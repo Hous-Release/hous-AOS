@@ -7,6 +7,7 @@ import hous.release.domain.entity.response.DomainEnterRoomCodeResponse
 import hous.release.domain.repository.EnterRoomRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -18,7 +19,7 @@ class EnterRoomCodeViewModel @Inject constructor(
     val roomCode = MutableStateFlow<String>("")
 
     private val _roomInfo = MutableStateFlow(DomainEnterRoomCodeResponse())
-    val roomInfo: StateFlow<DomainEnterRoomCodeResponse> = _roomInfo
+    val roomInfo: StateFlow<DomainEnterRoomCodeResponse> = _roomInfo.asStateFlow()
 
     fun getEnterRoomCode() {
         viewModelScope.launch {
