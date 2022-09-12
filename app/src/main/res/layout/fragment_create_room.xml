@@ -108,6 +108,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:minHeight="0dp"
+            android:onClick="@{()->viewModel.postCreateRoom()}"
             android:paddingVertical="10dp"
             android:stateListAnimator="@null"
             android:text="@string/create_room_title"

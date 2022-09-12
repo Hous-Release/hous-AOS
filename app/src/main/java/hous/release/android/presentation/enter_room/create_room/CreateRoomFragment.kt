@@ -20,18 +20,11 @@ class CreateRoomFragment :
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         initBackBtnClickListener()
-        initDoneBtnClickListener()
         initNewRoomCollector()
     }
 
     private fun initBackBtnClickListener() {
         binding.btnCreateRoomBack.setOnClickListener { findNavController().popBackStack() }
-    }
-
-    private fun initDoneBtnClickListener() {
-        binding.btnCreateRoomDone.setOnClickListener {
-            viewModel.postCreateRoom()
-        }
     }
 
     private fun initNewRoomCollector() {
