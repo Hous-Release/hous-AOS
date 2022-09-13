@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_enter_room"
+    app:startDestination="@id/enterRoomFragment">
+
+    <fragment
+        android:id="@+id/enterRoomFragment"
+        android:name="hous.release.android.presentation.enter_room.EnterRoomFragment"
+        android:label="EnterRoomFragment"
+        tools:layout="@layout/fragment_enter_room">
+        <action
+            android:id="@+id/action_enterRoomFragment_to_createRoomFragment"
+            app:destination="@id/createRoomFragment" />
+        <action
+            android:id="@+id/action_enterRoomFragment_to_enterRoomCodeFragment"
+            app:destination="@id/enterRoomCodeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createRoomFragment"
+        android:name="hous.release.android.presentation.enter_room.create_room.CreateRoomFragment"
+        android:label="CreateRoomFragment"
+        tools:layout="@layout/fragment_create_room"/>
+    <fragment
+        android:id="@+id/enterRoomCodeFragment"
+        android:name="hous.release.android.presentation.enter_room.enter_room_code.EnterRoomCodeFragment"
+        android:label="EnterRoomCodeFragment"
+        tools:layout="@layout/fragment_enter_room_code"/>
+</navigation>
