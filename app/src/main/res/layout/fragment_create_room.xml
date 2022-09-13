@@ -5,13 +5,16 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="hous.release.android.presentation.enter_room.create_room.CreateRoomViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/hous_white"
-        tools:context=".presentation.enter_room.CreateRoomFragment">
+        tools:context=".presentation.enter_room.create_room.CreateRoomFragment">
 
         <ImageButton
             android:id="@+id/btn_create_room_back"
@@ -64,6 +67,7 @@
             android:inputType="text"
             android:maxLength="8"
             android:paddingVertical="2dp"
+            android:text="@={viewModel.roomName}"
             android:textAppearance="@style/B2"
             android:textColor="@color/hous_black"
             android:textColorHint="@color/hous_g_4"
@@ -77,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="18dp"
-            android:text="0/8"
+            android:text="@{@string/create_room_name_count(viewModel.roomName.length)}"
             android:textAppearance="@style/B2"
             android:textColor="@color/hous_g_4"
             app:layout_constraintEnd_toEndOf="parent"
@@ -99,10 +103,12 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="20dp"
-            android:backgroundTint="@{false ? @color/hous_blue : @color/hous_g_4}"
+            android:backgroundTint="@{viewModel.roomName.length != 0 ? @color/hous_blue : @color/hous_g_4}"
+            android:clickable="@{viewModel.roomName.length != 0 ? true : false}"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:minHeight="0dp"
+            android:onClick="@{()->viewModel.postCreateRoom()}"
             android:paddingVertical="10dp"
             android:stateListAnimator="@null"
             android:text="@string/create_room_title"
