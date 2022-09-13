@@ -1,4 +1,4 @@
-package hous.release.data.remote.service
+package hous.release.data.service
 
 import android.content.Context
 import com.kakao.sdk.auth.model.OAuthToken
