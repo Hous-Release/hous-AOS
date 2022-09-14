@@ -7,6 +7,4 @@ import hous.release.android.databinding.DialogCreateRoomBinding
 class CreateRoomDialogFragment : DialogFragment() {
     private var _binding: DialogCreateRoomBinding? = null
     val binding get() = _binding ?: error(getString(R.string.binding_error))
-
-
 }
