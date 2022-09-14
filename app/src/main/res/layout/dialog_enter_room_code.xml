@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="hous.release.android.presentation.enter_room.enter_room_code.EnterRoomCodeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,18 +24,19 @@
             android:id="@+id/iv_enter_room_code_dialog"
             android:layout_width="148dp"
             android:layout_height="148dp"
+            android:background="@color/hous_blue"
             android:contentDescription="@string/create_room_dialog_img_desc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:background="@color/hous_blue" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_enter_room_code_dialog_owner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/spoqa_han_sans_neo_bold"
-            android:text="최소현"
+            android:text="@{viewModel.roomInfo.nickname}"
             android:textColor="@color/hous_black"
             android:textSize="24dp"
             app:layout_constraintEnd_toStartOf="@id/tv_enter_room_code_dialog_owner_desc"
