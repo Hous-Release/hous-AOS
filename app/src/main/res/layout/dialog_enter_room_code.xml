@@ -75,6 +75,7 @@
             android:insetBottom="0dp"
             android:minHeight="0dp"
             android:paddingVertical="10dp"
+            android:stateListAnimator="@null"
             android:text="@string/enter_room_code_dialog_enter"
             android:textAppearance="@style/B1"
             android:textColor="@color/hous_white"

@@ -14,18 +14,18 @@
         android:paddingHorizontal="24dp"
         android:paddingTop="36dp"
         android:paddingBottom="26dp"
-        tools:background="@color/hous_black"
+        tools:background="@color/hous_blue_l2"
         tools:context=".presentation.enter_room.create_room.CreateRoomDialogFragment">
 
         <ImageView
             android:id="@+id/iv_create_room_dialog"
             android:layout_width="148dp"
             android:layout_height="148dp"
+            android:background="@color/hous_blue"
             android:contentDescription="@string/create_room_dialog_img_desc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:background="@color/hous_blue" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_create_room_dialog_desc"
@@ -53,6 +53,7 @@
             android:text="@string/create_room_dialog_copy_code"
             android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
+            android:stateListAnimator="@null"
             app:cornerRadius="8dp"
             app:layout_constraintTop_toBottomOf="@id/tv_create_room_dialog_desc" />
 
@@ -63,6 +64,7 @@
             android:layout_marginTop="12dp"
             android:backgroundTint="@color/kakao_yellow"
             android:insetTop="0dp"
+            android:stateListAnimator="@null"
             android:insetBottom="0dp"
             android:minHeight="0dp"
             android:paddingVertical="10dp"
