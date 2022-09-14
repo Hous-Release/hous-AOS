@@ -1,10 +1,11 @@
 import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
-    id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+    id("com.android.application")
     id("dagger.hilt.android.plugin")
+    id("com.google.gms.google-services")
     id("org.jlleitschuh.gradle.ktlint") version ktlintVersion
 }
 
@@ -135,6 +136,11 @@ dependencies {
         implementation(gson)
         implementation(retrofit2)
         implementation(retrofit2Converter)
+    }
+
+    Deps.Google.run {
+        implementation(platform(firebaseBom))
+        implementation(firebaseMessaging)
     }
 
     Deps.ThirdParty.run {
