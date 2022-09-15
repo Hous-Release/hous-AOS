@@ -24,6 +24,6 @@ interface EnterRoomService {
 
     @POST("/v1/room/{roomId}/join")
     suspend fun postEnterRoomId(
-        @Path("roomId") roomId:String
-    ):BaseResponse<EnterRoomResponse>
+        @Path("roomId") roomId: String
+    ): BaseResponse<EnterRoomResponse>
 }

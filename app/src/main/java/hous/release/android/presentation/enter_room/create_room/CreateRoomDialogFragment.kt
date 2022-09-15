@@ -70,5 +70,4 @@ class CreateRoomDialogFragment : DialogFragment() {
             requireContext().showToast("참여코드가 복사되었습니다.")
         }
     }
-
 }
