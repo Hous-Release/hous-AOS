@@ -27,16 +27,30 @@ class EnterRoomCodeViewModel @Inject constructor(
     private val _roomInfo = MutableStateFlow(DomainGetRoomResponse())
     val roomInfo: StateFlow<DomainGetRoomResponse> = _roomInfo.asStateFlow()
 
+    private val _isSuccessEnterRoom = MutableSharedFlow<Boolean>()
+    val isSuccessEnterRoom: SharedFlow<Boolean> = _isSuccessEnterRoom.asSharedFlow()
+
     fun getEnterRoomCode() {
         viewModelScope.launch {
             enterRoomRepository.getEnterRoomCode(roomCode.value)
                 .onSuccess { response ->
                     _roomInfo.value = response
                     _isSuccessGetRoom.emit(true)
-                    Timber.tag("EnterRoom - getEnterRoomCode").d(response.toString())
                 }
                 .onFailure {
                     Timber.tag("EnterRoom - getEnterRoomCode").d(it.message.toString())
+                }
+        }
+    }
+
+    fun postEnterRoomId() {
+        viewModelScope.launch {
+            enterRoomRepository.postEnterRoomId(roomInfo.value.roomId.toString())
+                .onSuccess {
+                    _isSuccessEnterRoom.emit(true)
+                }
+                .onFailure {
+                    Timber.tag("EnterRoom - postEnterRoomId").d(it.message.toString())
                 }
         }
     }
