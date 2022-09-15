@@ -9,8 +9,6 @@ import hous.release.domain.repository.EnterRoomRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -24,15 +22,15 @@ class CreateRoomViewModel @Inject constructor(
     private val _isSuccessCreateRoom = MutableSharedFlow<Boolean>()
     val isSuccessCreateRoom: SharedFlow<Boolean> = _isSuccessCreateRoom
 
-    private val _newRoomInfo = MutableStateFlow(DomainCreateRoomResponse())
-    val newRoomInfo: StateFlow<DomainCreateRoomResponse> = _newRoomInfo.asStateFlow()
+    var newRoomInfo: DomainCreateRoomResponse = DomainCreateRoomResponse()
+        private set
 
     fun postCreateRoom() {
         viewModelScope.launch {
             enterRoomRepository.postCreateRoom(DomainCreateRoomRequest(roomName.value))
                 .onSuccess { response ->
+                    newRoomInfo = response
                     _isSuccessCreateRoom.emit(true)
-                    _newRoomInfo.value = response
                 }
                 .onFailure {
                     Timber.tag("EnterRoom - postCreateRoom").d(it.message.toString())
