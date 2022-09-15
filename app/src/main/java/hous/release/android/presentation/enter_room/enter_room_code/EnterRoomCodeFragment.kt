@@ -9,6 +9,7 @@ import hous.release.android.R
 import hous.release.android.databinding.FragmentEnterRoomCodeBinding
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
+import kotlinx.coroutines.flow.filter
 
 @AndroidEntryPoint
 class EnterRoomCodeFragment :
@@ -19,17 +20,17 @@ class EnterRoomCodeFragment :
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         initBackBtnClickListener()
-        initIsNewRoomInfoCollector()
+        initIsSuccessGetRoomCollector()
     }
 
     private fun initBackBtnClickListener() {
         binding.btnEnterRoomCodeBack.setOnClickListener { findNavController().popBackStack() }
     }
 
-    private fun initIsNewRoomInfoCollector() {
+    private fun initIsSuccessGetRoomCollector() {
         repeatOnStarted {
-            viewModel.isNewRoomInfo.collect { isNew ->
-                if (isNew && viewModel.roomInfo.value.roomId != null) {
+            viewModel.isSuccessGetRoom.filter { it }.collect {
+                if (viewModel.roomInfo.value.roomId != null) {
                     EnterRoomCodeDialogFragment().show(parentFragmentManager, this.javaClass.name)
                 }
             }
