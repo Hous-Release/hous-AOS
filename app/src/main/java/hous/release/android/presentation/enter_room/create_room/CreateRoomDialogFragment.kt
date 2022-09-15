@@ -3,6 +3,7 @@ package hous.release.android.presentation.enter_room.create_room
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import hous.release.android.R
 import hous.release.android.databinding.DialogCreateRoomBinding
+import hous.release.android.presentation.main.MainActivity
 import hous.release.android.util.showToast
 
 class CreateRoomDialogFragment : DialogFragment() {
@@ -38,6 +40,12 @@ class CreateRoomDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
         initCopyCodeBtnClickListener()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireActivity().finish()
+        startActivity(Intent(requireContext(), MainActivity::class.java))
     }
 
     private fun initLayout() {

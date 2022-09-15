@@ -56,9 +56,9 @@ class EnterRoomCodeDialogFragment : DialogFragment() {
     private fun initIsSuccessEnterRoomCollector() {
         repeatOnStarted {
             viewModel.isSuccessEnterRoom.filter { it }.collect {
+                dismiss()
                 requireActivity().finish()
                 startActivity(Intent(requireContext(), MainActivity::class.java))
-                dismiss()
             }
         }
     }
