@@ -3,7 +3,7 @@ package hous.release.android.presentation.enter_room.enter_room_code
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hous.release.domain.entity.response.DomainEnterRoomCodeResponse
+import hous.release.domain.entity.response.DomainGetRoomResponse
 import hous.release.domain.repository.EnterRoomRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,8 +24,8 @@ class EnterRoomCodeViewModel @Inject constructor(
     private val _isSuccessGetRoom = MutableSharedFlow<Boolean>()
     val isSuccessGetRoom: SharedFlow<Boolean> = _isSuccessGetRoom.asSharedFlow()
 
-    private val _roomInfo = MutableStateFlow(DomainEnterRoomCodeResponse())
-    val roomInfo: StateFlow<DomainEnterRoomCodeResponse> = _roomInfo.asStateFlow()
+    private val _roomInfo = MutableStateFlow(DomainGetRoomResponse())
+    val roomInfo: StateFlow<DomainGetRoomResponse> = _roomInfo.asStateFlow()
 
     fun getEnterRoomCode() {
         viewModelScope.launch {
