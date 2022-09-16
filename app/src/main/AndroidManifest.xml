@@ -18,17 +18,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.enter_room.EnterRoomActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".login.LoginActivity"
             android:exported="false" />
-
         <activity
             android:name=".login.UserInputActivity"
             android:exported="false" />
-
         <activity
             android:name=".presentation.our_rules.OurRulesActivity"
             android:exported="false" />
-
         <activity
             android:name=".presentation.main.MainActivity"
             android:exported="true">
@@ -37,7 +38,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true"

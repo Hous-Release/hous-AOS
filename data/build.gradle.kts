@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("kapt")
+    id("dagger.hilt.android.plugin")
     id("org.jlleitschuh.gradle.ktlint") version ktlintVersion
 }
 
@@ -48,6 +49,11 @@ dependencies {
         testImplementation(junit)
         androidTestImplementation(androidTest)
         androidTestImplementation(espresso)
+    }
+
+    Deps.DI.run {
+        implementation(hilt)
+        kapt(hiltKapt)
     }
 }
 

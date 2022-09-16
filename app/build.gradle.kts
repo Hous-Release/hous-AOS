@@ -34,6 +34,18 @@ android {
 
         buildConfigField(
             "String",
+            "HOST_URI",
+            properties.getProperty("HOST_URI")
+        )
+
+        buildConfigField(
+            "String",
+            "DUMMY_ACCESS_TOKEN",
+            properties.getProperty("DUMMY_ACCESS_TOKEN")
+        )
+
+        buildConfigField(
+            "String",
             "KAKAO_NATIVE_APP_KEY",
             properties.getProperty("KAKAO_NATIVE_APP_KEY")
         )
