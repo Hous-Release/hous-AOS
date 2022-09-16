@@ -29,7 +29,7 @@ class EnterRoomCodeFragment :
 
     private fun initIsSuccessGetRoomCollector() {
         repeatOnStarted {
-            viewModel.isSuccessGetRoom.filter { it }.collect {
+            viewModel.isSuccessGetRoom.filter { isSuccess -> isSuccess }.collect {
                 if (viewModel.roomInfo.value.roomId != null && viewModel.roomInfo.value.roomId != -1) {
                     EnterRoomCodeDialogFragment().show(parentFragmentManager, this.javaClass.name)
                 }
