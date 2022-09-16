@@ -80,4 +80,10 @@ object Deps {
         const val espresso = "androidx.test.espresso:espresso-core:3.4.0"
         const val compose = "androidx.compose.ui:ui-test-junit4:1.2.1"
     }
+
+    object Google {
+        const val googleServices = "com.google.gms:google-services:4.3.13"
+        const val firebaseBom = "com.google.firebase:firebase-bom:30.4.1"
+        const val firebaseMessaging = "com.google.firebase:firebase-messaging-ktx"
+    }
 }

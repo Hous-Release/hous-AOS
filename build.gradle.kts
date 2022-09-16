@@ -4,6 +4,7 @@ buildscript {
         classpath("com.android.tools.build:gradle:7.2.2")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         classpath(Deps.DI.hiltClassPath)
+        classpath(Deps.Google.googleServices)
     }
 }
 
