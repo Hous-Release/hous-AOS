@@ -23,7 +23,7 @@ class ToDoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
         super.onViewCreated(view, savedInstanceState)
         binding.vm = toDoViewModel
         initAdapter()
-        onClickHelpButton()
+        showToolTip()
         toDoViewModel.uiState
             .flowWithLifecycle(lifecycle)
             .onEach { toDoUiState ->
@@ -43,7 +43,7 @@ class ToDoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
         binding.rvToDoOurRules.adapter = ourToDoAdapter
     }
 
-    private fun onClickHelpButton() {
+    private fun showToolTip() {
         val balloon = Balloon.Builder(requireContext())
             .setLayout(R.layout.item_to_do_tool_tip)
             .setArrowOrientation(ArrowOrientation.TOP)
@@ -53,9 +53,9 @@ class ToDoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
             .setMarginRight(18)
             .setLifecycleOwner(viewLifecycleOwner)
             .build()
-        
-        binding.ivToDoHelp.setOnClickListener {
-            balloon.showAlignBottom(binding.ivToDoHelp)
+
+        binding.ivToDoToolTip.setOnClickListener {
+            balloon.showAlignBottom(binding.ivToDoToolTip)
         }
     }
 

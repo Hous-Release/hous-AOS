@@ -51,10 +51,16 @@
     <string name="enter_room_code_dialog_enter">참여하기</string>
 
 
-    <!-- To-Do -->to_do_homie_message_finish
+    <!-- To-Do -->
     <string name="to_do_small_letter">to-do</string>
     <string name="to_do_view_all">전체보기</string>
     <string name="to_do_homie_message_notting">아직 하나도 못했어요!</string>
     <string name="to_do_homie_message_finish">오늘 to-do 끝~!</string>
     <string name="to_do_homie_message_in_progress">잘하고 있어요!</string>
+    <string name="to_do_our_title">Our to-do</string>
+    <string name="to_do_my_title">My to-do</string>
+    <string name="to_do_tool_tip_title">to-do 상태 가이드</string>
+    <string name="to_do_tool_tip_empty">완료되지 않음</string>
+    <string name="to_do_tool_tip_half">1명 이상 완료</string>
+    <string name="to_do_tool_tip_full">모두 완료</string>
 </resources>

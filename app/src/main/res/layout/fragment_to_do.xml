@@ -56,7 +56,8 @@
             android:gravity="center"
             android:orientation="vertical"
             android:paddingHorizontal="12dp"
-            android:paddingVertical="6dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="9dp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_to_do_dayOfWeek"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_to_do_date">
@@ -112,7 +113,7 @@
                     android:fontFamily="@font/montserrat_semibold"
                     android:letterSpacing="-0.02"
                     android:lineSpacingExtra="6sp"
-                    android:text="My to-do"
+                    android:text="@string/to_do_my_title"
                     android:textColor="@color/hous_black"
                     android:textSize="20sp"
                     android:textStyle="normal"
@@ -124,6 +125,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="3dp"
                     android:src="@drawable/shape_blue_l1_fill_5_circle"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_to_do_my_title"
                     app:layout_constraintStart_toEndOf="@+id/tv_to_do_my_title"
@@ -178,7 +180,7 @@
                     android:fontFamily="@font/montserrat_semibold"
                     android:letterSpacing="-0.02"
                     android:lineSpacingExtra="6sp"
-                    android:text="Our to-do"
+                    android:text="@string/to_do_our_title"
                     android:textColor="@color/hous_black"
                     android:textSize="20sp"
                     android:textStyle="normal"
@@ -190,6 +192,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="9dp"
+                    android:layout_marginTop="3dp"
                     android:src="@drawable/shape_blue_l1_fill_5_circle"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_to_do_our_title"
                     app:layout_constraintStart_toEndOf="@+id/tv_to_do_our_title"
@@ -213,7 +216,7 @@
                     tools:text="2" />
 
                 <ImageView
-                    android:id="@+id/iv_to_do_help"
+                    android:id="@+id/iv_to_do_tool_tip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="27dp"
