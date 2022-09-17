@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.ToDo
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class ToDoViewModel @Inject constructor() : ViewModel() {
@@ -91,7 +91,7 @@ class ToDoViewModel @Inject constructor() : ViewModel() {
                 )
             ),
             ourTodosCount = 3,
-            progress = 0.4f
+            progress = 1.0f
         )
         delay(300)
         _uiState.value = tempUiState
