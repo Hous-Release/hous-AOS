@@ -24,6 +24,10 @@ class ToDoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
         binding.vm = toDoViewModel
         initAdapter()
         showToolTip()
+        collectUiState()
+    }
+
+    private fun collectUiState() {
         toDoViewModel.uiState
             .flowWithLifecycle(lifecycle)
             .onEach { toDoUiState ->
