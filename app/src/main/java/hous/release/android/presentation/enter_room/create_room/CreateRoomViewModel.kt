@@ -9,6 +9,7 @@ import hous.release.domain.repository.EnterRoomRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -20,7 +21,7 @@ class CreateRoomViewModel @Inject constructor(
     val roomName = MutableStateFlow<String>("")
 
     private val _isSuccessCreateRoom = MutableSharedFlow<Boolean>()
-    val isSuccessCreateRoom: SharedFlow<Boolean> = _isSuccessCreateRoom
+    val isSuccessCreateRoom: SharedFlow<Boolean> = _isSuccessCreateRoom.asSharedFlow()
 
     var newRoomInfo: DomainCreateRoomResponse = DomainCreateRoomResponse()
         private set
