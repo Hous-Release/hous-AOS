@@ -21,19 +21,17 @@ class OurToDoAdapter :
                 this.todo = todo
 
                 when (todo.status) {
-                    "EMPTY" -> ivToDoOurCheckBox.setImageResource(R.drawable.ic_to_do_our_unchecked)
-                    "FULL" -> ivToDoOurCheckBox.setImageResource(R.drawable.ic_to_do_our_half)
-                    "FULL_CHECK" -> ivToDoOurCheckBox.setImageResource(R.drawable.ic_to_do_our_checked)
+                    NO_ONE_CHECKED -> ivToDoOurCheckBox.setImageResource(R.drawable.ic_to_do_our_unchecked)
+                    FEW_CHECKED -> ivToDoOurCheckBox.setImageResource(R.drawable.ic_to_do_our_half)
+                    ALL_CHECKED -> ivToDoOurCheckBox.setImageResource(R.drawable.ic_to_do_our_checked)
                 }
 
                 when (todo.nicknames.size) {
-                    1 -> tvToDoOurRuleParticipants.text = todo.nicknames[0]
-                    2 ->
-                        tvToDoOurRuleParticipants.text =
-                            "${todo.nicknames[0]},${todo.nicknames[1]}"
+                    ONE_PARTICIPANT -> tvToDoOurRuleParticipants.text = todo.nicknames[0]
+                    TWO_PARTICIPANT ->
+                        tvToDoOurRuleParticipants.text = todo.nicknames.joinToString(", ")
                     else ->
-                        tvToDoOurRuleParticipants.text =
-                            "${todo.nicknames[0]} 외 ${todo.nicknames.size - 1}"
+                        tvToDoOurRuleParticipants.text = "${todo.nicknames[0]} 외 ${todo.nicknames.size - 1}"
                 }
             }
         }
@@ -51,6 +49,11 @@ class OurToDoAdapter :
     }
 
     companion object {
+        const val NO_ONE_CHECKED = "EMPTY"
+        const val FEW_CHECKED = "FULL"
+        const val ALL_CHECKED = "FULL_CHECK"
+        const val ONE_PARTICIPANT = 1
+        const val TWO_PARTICIPANT = 2
         private val ToDo_COMPARATOR = object : DiffUtil.ItemCallback<ToDo>() {
             override fun areItemsTheSame(oldItem: ToDo, newItem: ToDo): Boolean {
                 return oldItem === newItem
