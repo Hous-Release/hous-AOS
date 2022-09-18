@@ -13,15 +13,18 @@ class KakaoLoginService @Inject constructor(@ActivityContext private val context
             else KAKAO_ACCOUNT_LOGIN
 
         when (kakaoLoginState) {
-            KAKAO_LOGIN -> UserApiClient.instance.loginWithKakaoTalk(
-                context,
-                callback = kakaoLoginCallBack
-            )
-            KAKAO_ACCOUNT_LOGIN -> UserApiClient.instance.loginWithKakaoAccount(
-                context,
-                callback = kakaoLoginCallBack
-            )
             KAKAO_APP_LOGIN -> {
+                UserApiClient.instance.loginWithKakaoTalk(
+                    context,
+                    callback = kakaoLoginCallBack
+                )
+            }
+            KAKAO_ACCOUNT_LOGIN -> {
+                UserApiClient.instance.loginWithKakaoAccount(
+                    context,
+                    callback = kakaoLoginCallBack
+                )
+            }
         }
     }
 
