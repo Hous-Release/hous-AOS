@@ -1,4 +1,4 @@
-package hous.release.data.model.request
+package hous.release.data.entity.request
 
 data class LoginRequest(
     val fcmToken: String,
