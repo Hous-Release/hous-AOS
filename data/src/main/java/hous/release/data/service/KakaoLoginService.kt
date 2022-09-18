@@ -9,7 +9,7 @@ import javax.inject.Inject
 class KakaoLoginService @Inject constructor(@ActivityContext private val context: Context) {
     fun startKakaoLogin(kakaoLoginCallBack: (OAuthToken?, Throwable?) -> Unit) {
         val kakaoLoginState =
-            if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) KAKAO_LOGIN
+            if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) KAKAO_APP_LOGIN
             else KAKAO_ACCOUNT_LOGIN
 
         when (kakaoLoginState) {
@@ -21,11 +21,12 @@ class KakaoLoginService @Inject constructor(@ActivityContext private val context
                 context,
                 callback = kakaoLoginCallBack
             )
+            KAKAO_APP_LOGIN -> {
         }
     }
 
     companion object {
-        const val KAKAO_LOGIN = 0
+        const val KAKAO_APP_LOGIN = 0
         const val KAKAO_ACCOUNT_LOGIN = 1
     }
 }
