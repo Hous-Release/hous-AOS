@@ -8,12 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.databinding.ItemToDoMyRuleBinding
 import hous.release.domain.entity.ToDo
 
-class MyToDoAdapter : ListAdapter<ToDo, MyToDoAdapter.TodoViewHolder>(ToDo_COMPARATOR) {
+class MyToDoAdapter(
+    private val checkToDo: (Int, Boolean) -> Unit
+) : ListAdapter<ToDo, MyToDoAdapter.TodoViewHolder>(ToDo_COMPARATOR) {
 
     class TodoViewHolder(private val binding: ItemToDoMyRuleBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(todo: ToDo) {
+        fun bind(
+            todo: ToDo,
+            checkToDo: (Int, Boolean) -> Unit
+        ) {
             with(binding) {
                 this.todo = todo
 
@@ -21,8 +26,7 @@ class MyToDoAdapter : ListAdapter<ToDo, MyToDoAdapter.TodoViewHolder>(ToDo_COMPA
                 tvToDoMyRule.isSelected = todo.isChecked
 
                 ivToDoMyCheckBox.setOnClickListener {
-                    ivToDoMyCheckBox.isSelected = !ivToDoMyCheckBox.isSelected
-                    tvToDoMyRule.isSelected = !tvToDoMyRule.isSelected
+                    checkToDo(todo.todoId, !todo.isChecked)
                 }
             }
         }
@@ -35,7 +39,7 @@ class MyToDoAdapter : ListAdapter<ToDo, MyToDoAdapter.TodoViewHolder>(ToDo_COMPA
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current)
+        holder.bind(current, checkToDo)
     }
 
     companion object {

@@ -1,6 +1,5 @@
 package hous.release.android.presentation.todo
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,6 +8,7 @@ import hous.release.domain.repository.ToDoRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,7 +27,6 @@ class ToDoViewModel @Inject constructor(
     suspend fun fetchToDoMainContent() {
         toDoRepository.getToDoMainContent()
             .onSuccess { result ->
-                Log.d("sjhksahlkas", "result $result")
                 _uiState.value = ToDoUiState(
                     date = result.date,
                     dayOfWeek = result.dayOfWeek,
@@ -38,7 +37,14 @@ class ToDoViewModel @Inject constructor(
                     progress = (result.progress) / 100f
                 )
             }
-            .onFailure { Log.d("sdkfhskdjhfj", "error: ${it.message}") }
+            .onFailure { Timber.d("error: ${it.message}") }
+    }
+
+    fun checkTodo(todoId: Int, isChecked: Boolean) {
+        viewModelScope.launch {
+            toDoRepository.checkToDo(todoId = todoId, isChecked = isChecked)
+            fetchToDoMainContent()
+        }
     }
 }
 
