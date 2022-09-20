@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="hous.release.domain.entity.Rule" />
+            type="hous.release.domain.entity.OurRuleEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
