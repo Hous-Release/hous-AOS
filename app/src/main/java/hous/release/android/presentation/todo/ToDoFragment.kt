@@ -45,8 +45,14 @@ class ToDoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
     private fun initAdapter() {
         myToDoAdapter = MyToDoAdapter(toDoViewModel::checkTodo)
         ourToDoAdapter = OurToDoAdapter()
-        binding.rvToDoMyRules.adapter = myToDoAdapter
-        binding.rvToDoOurRules.adapter = ourToDoAdapter
+        binding.rvToDoMyRules.apply {
+            adapter = myToDoAdapter
+            itemAnimator = null
+        }
+        binding.rvToDoOurRules.apply {
+            adapter = ourToDoAdapter
+            itemAnimator = null
+        }
     }
 
     private fun showToolTip() {
