@@ -1,5 +1,6 @@
 package hous.release.android.presentation.todo
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -31,7 +32,8 @@ class OurToDoAdapter :
                     TWO_PARTICIPANT ->
                         tvToDoOurRuleParticipants.text = todo.nicknames.joinToString(", ")
                     else ->
-                        tvToDoOurRuleParticipants.text = "${todo.nicknames[0]} 외 ${todo.nicknames.size - 1}"
+                        tvToDoOurRuleParticipants.text =
+                            "${todo.nicknames[0]} 외 ${todo.nicknames.size - 1}"
                 }
             }
         }
@@ -56,11 +58,12 @@ class OurToDoAdapter :
         const val TWO_PARTICIPANT = 2
         private val ToDo_COMPARATOR = object : DiffUtil.ItemCallback<ToDo>() {
             override fun areItemsTheSame(oldItem: ToDo, newItem: ToDo): Boolean {
-                return oldItem === newItem
+                return oldItem.todoId == newItem.todoId
             }
 
+            @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(oldItem: ToDo, newItem: ToDo): Boolean {
-                return oldItem.todoId == newItem.todoId
+                return oldItem === newItem
             }
         }
     }

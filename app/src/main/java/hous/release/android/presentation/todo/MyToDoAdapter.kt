@@ -1,5 +1,6 @@
 package hous.release.android.presentation.todo
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -45,11 +46,12 @@ class MyToDoAdapter(
     companion object {
         private val ToDo_COMPARATOR = object : DiffUtil.ItemCallback<ToDo>() {
             override fun areItemsTheSame(oldItem: ToDo, newItem: ToDo): Boolean {
-                return oldItem === newItem
+                return oldItem.todoId == newItem.todoId
             }
 
+            @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(oldItem: ToDo, newItem: ToDo): Boolean {
-                return oldItem.todoId == newItem.todoId
+                return oldItem === newItem
             }
         }
     }
