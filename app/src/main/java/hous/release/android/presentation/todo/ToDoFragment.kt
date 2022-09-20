@@ -8,12 +8,14 @@ import androidx.lifecycle.lifecycleScope
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.ArrowPositionRules
 import com.skydoves.balloon.Balloon
+import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentToDoBinding
 import hous.release.android.util.binding.BindingFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
+@AndroidEntryPoint
 class ToDoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_do) {
     private val toDoViewModel: ToDoViewModel by viewModels()
     private var myToDoAdapter: MyToDoAdapter? = null
@@ -41,10 +43,16 @@ class ToDoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
     }
 
     private fun initAdapter() {
-        myToDoAdapter = MyToDoAdapter()
+        myToDoAdapter = MyToDoAdapter(toDoViewModel::checkTodo)
         ourToDoAdapter = OurToDoAdapter()
-        binding.rvToDoMyRules.adapter = myToDoAdapter
-        binding.rvToDoOurRules.adapter = ourToDoAdapter
+        binding.rvToDoMyRules.apply {
+            adapter = myToDoAdapter
+            itemAnimator = null
+        }
+        binding.rvToDoOurRules.apply {
+            adapter = ourToDoAdapter
+            itemAnimator = null
+        }
     }
 
     private fun showToolTip() {

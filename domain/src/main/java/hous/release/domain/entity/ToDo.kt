@@ -1,9 +1,9 @@
 package hous.release.domain.entity
 
-data class ToDo(
-    val isChecked: Boolean = false,
-    val todoId: Int = 0,
-    val todoName: String = "",
-    val nicknames: List<String> = emptyList(),
-    val status: String = ""
-)
+interface ToDo {
+    val isChecked: Boolean
+    val todoId: Int
+    val todoName: String
+    val nicknames: List<String>
+    val status: String
+}

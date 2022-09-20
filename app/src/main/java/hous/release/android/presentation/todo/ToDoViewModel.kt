@@ -4,14 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.ToDo
-import javax.inject.Inject
-import kotlinx.coroutines.delay
+import hous.release.domain.repository.ToDoRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
+import javax.inject.Inject
 
 @HiltViewModel
-class ToDoViewModel @Inject constructor() : ViewModel() {
+class ToDoViewModel @Inject constructor(
+    private val toDoRepository: ToDoRepository
+) : ViewModel() {
     private val _uiState = MutableStateFlow(ToDoUiState())
     val uiState = _uiState.asStateFlow()
 
@@ -22,79 +25,26 @@ class ToDoViewModel @Inject constructor() : ViewModel() {
     }
 
     suspend fun fetchToDoMainContent() {
-        val tempUiState = ToDoUiState(
-            date = "09.12",
-            dayOfWeek = "Sunday",
-            myTodos = listOf(
-                ToDo(
-                    isChecked = false,
-                    todoId = 1,
-                    todoName = "하우스"
-                ),
-                ToDo(
-                    isChecked = false,
-                    todoId = 2,
-                    todoName = "릴리즈"
-                ),
-                ToDo(
-                    isChecked = true,
-                    todoId = 3,
-                    todoName = "10월 말"
-                ),
-                ToDo(
-                    isChecked = false,
-                    todoId = 4,
-                    todoName = "하우스"
-                ),
-                ToDo(
-                    isChecked = false,
-                    todoId = 5,
-                    todoName = "릴리즈"
-                ),
-                ToDo(
-                    isChecked = true,
-                    todoId = 6,
-                    todoName = "10월 말"
-                ),
-                ToDo(
-                    isChecked = false,
-                    todoId = 7,
-                    todoName = "하우스"
-                ),
-                ToDo(
-                    isChecked = false,
-                    todoId = 8,
-                    todoName = "릴리즈"
-                ),
-                ToDo(
-                    isChecked = true,
-                    todoId = 9,
-                    todoName = "10월 말"
+        toDoRepository.getToDoMainContent()
+            .onSuccess { result ->
+                _uiState.value = ToDoUiState(
+                    date = result.date,
+                    dayOfWeek = result.dayOfWeek,
+                    myTodos = result.myTodos,
+                    ourTodos = result.ourTodos,
+                    myTodosCount = result.myTodosCnt,
+                    ourTodosCount = result.ourTodosCnt,
+                    progress = (result.progress) / 100f
                 )
-            ),
-            myTodosCount = 10,
-            ourTodos = listOf(
-                ToDo(
-                    nicknames = listOf("강원용"),
-                    status = "EMPTY",
-                    todoName = "내일"
-                ),
-                ToDo(
-                    nicknames = listOf("강원용", "이준원"),
-                    status = "FULL",
-                    todoName = "개강"
-                ),
-                ToDo(
-                    nicknames = listOf("강원용", "이준원", "손연주", "이영주"),
-                    status = "FULL_CHECK",
-                    todoName = "실화"
-                )
-            ),
-            ourTodosCount = 3,
-            progress = 1.0f
-        )
-        delay(300)
-        _uiState.value = tempUiState
+            }
+            .onFailure { Timber.d("error: ${it.message}") }
+    }
+
+    fun checkTodo(todoId: Int, isChecked: Boolean) {
+        viewModelScope.launch {
+            toDoRepository.checkToDo(todoId = todoId, isChecked = isChecked)
+            fetchToDoMainContent()
+        }
     }
 }
 
