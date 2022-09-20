@@ -8,8 +8,10 @@ import hous.release.data.datasource.EnterRoomDataSource
 import hous.release.data.datasource.OurRulesDataSource
 import hous.release.data.repository.EnterRoomRepositoryImpl
 import hous.release.data.repository.OurRulesRepositoryImpl
+import hous.release.data.repository.ToDoRepositoryImpl
 import hous.release.domain.repository.EnterRoomRepository
 import hous.release.domain.repository.OurRulesRepository
+import hous.release.domain.repository.ToDoRepository
 import javax.inject.Singleton
 
 @Module
@@ -24,4 +26,8 @@ class RepositoryModule {
     @Singleton
     fun providesOurRulesRepository(ourRulesDataSource: OurRulesDataSource): OurRulesRepository =
         OurRulesRepositoryImpl(ourRulesDataSource)
+
+    @Provides
+    @Singleton
+    fun providesToDoRepository(impl: ToDoRepositoryImpl): ToDoRepository = impl
 }

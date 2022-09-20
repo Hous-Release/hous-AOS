@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import hous.release.data.service.EnterRoomService
 import hous.release.data.service.OurRulesService
+import hous.release.data.service.ToDoService
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
@@ -21,4 +22,9 @@ class RetrofitServiceModule {
     @Singleton
     fun providesOurRulesService(retrofit: Retrofit): OurRulesService =
         retrofit.create(OurRulesService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesToDoService(retrofit: Retrofit): ToDoService =
+        retrofit.create(ToDoService::class.java)
 }
