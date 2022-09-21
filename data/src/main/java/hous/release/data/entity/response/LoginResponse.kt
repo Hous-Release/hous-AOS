@@ -1,11 +1,8 @@
 package hous.release.data.entity.response
 
-data class LoginResponse(
-    val token: Token,
-    val userId: String
-)
+import hous.release.data.entity.TokenEntity
+import hous.release.domain.entity.response.Login
 
-data class Token(
-    val accessToken: String,
-    val refreshToken: String
-)
+data class LoginResponse(
+    override val userId: String
+) : Login
