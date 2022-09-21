@@ -20,14 +20,18 @@ class CreateRoomViewModel @Inject constructor(
 ) : ViewModel() {
     val roomName = MutableStateFlow<String>("")
 
-    private val _newRoom = MutableSharedFlow<DomainCreateRoomResponse>()
-    val newRoom: SharedFlow<DomainCreateRoomResponse> = _newRoom.asSharedFlow()
+    private val _isSuccessCreateRoom = MutableSharedFlow<Boolean>()
+    val isSuccessCreateRoom: SharedFlow<Boolean> = _isSuccessCreateRoom.asSharedFlow()
+
+    var newRoomInfo: DomainCreateRoomResponse = DomainCreateRoomResponse()
+        private set
 
     fun postCreateRoom() {
         viewModelScope.launch {
             enterRoomRepository.postCreateRoom(DomainCreateRoomRequest(roomName.value))
                 .onSuccess { response ->
-                    _newRoom.emit(response)
+                    newRoomInfo = response
+                    _isSuccessCreateRoom.emit(true)
                 }
                 .onFailure {
                     Timber.tag("EnterRoom - postCreateRoom").d(it.message.toString())

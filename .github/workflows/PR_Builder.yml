@@ -28,6 +28,14 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
+    - name: Create Google-Services.json
+      env:
+        GOOGLE_SERVICES: ${{ secrets.GOOGLE_SERVICES }}
+      run: |
+        touch ./app/google-services.json
+        echo $GOOGLE_SERVICES >> ./app/google-services.json
+        cat ./app/google-services.json
+
     - name: Create Local Properties
       run: touch local.properties
 
@@ -38,10 +46,10 @@ jobs:
         KAKAO_REDIRECT_SCHEME: ${{ secrets.KAKAO_REDIRECT_SCHEME }}
         DUMMY_ACCESS_TOKEN: ${{ secrets.DUMMY_ACCEESS_TOKEN }}
       run: |
-        echo "HOST_URI=\"$HOST_URI\"" >> local.properties
-        echo "KAKAO_NATIVE_APP_KEY=\"$KAKAO_NATIVE_APP_KEY\"" >> local.properties
-        echo "KAKAO_REDIRECT_SCHEME=\"$KAKAO_REDIRECT_SCHEME\"" >> local.properties
-        echo "DUMMY_ACCESS_TOKEN=\"$DUMMY_ACCESS_TOKEN\"" >> local.properties
+        echo HOST_URI=\"$HOST_URI\" >> local.properties
+        echo KAKAO_NATIVE_APP_KEY=\"$KAKAO_NATIVE_APP_KEY\" >> local.properties
+        echo KAKAO_REDIRECT_SCHEME=\"$KAKAO_REDIRECT_SCHEME\" >> local.properties
+        echo DUMMY_ACCESS_TOKEN=\"$DUMMY_ACCESS_TOKEN\" >> local.properties
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
