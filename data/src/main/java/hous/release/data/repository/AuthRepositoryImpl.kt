@@ -5,6 +5,7 @@ import hous.release.data.entity.request.LoginRequest
 import hous.release.data.entity.response.LoginResponse
 import hous.release.domain.entity.response.Login
 import hous.release.domain.repository.AuthRepository
+import java.lang.IllegalStateException
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
@@ -25,10 +26,10 @@ class AuthRepositoryImpl @Inject constructor(
             )
         }.onSuccess { response ->
             return Result.success(
-                DomainLoginResponse(
-                    token = Token(
-                        response.data.token.accessToken,
-                        response.data.token.refreshToken
+                LoginResponse(
+                    token = listOf(
+                        response.data.token[REFRESH_TOKEN],
+                        response.data.token[ACCESS_TOKEN]
                     ),
                     userId = response.data.userId
                 )
@@ -39,5 +40,7 @@ class AuthRepositoryImpl @Inject constructor(
 
     companion object {
         const val UNKNOWN_ERROR = "네트워크 통신 중 알 수 없는 오류"
+        const val REFRESH_TOKEN = 0
+        const val ACCESS_TOKEN = 1
     }
 }
