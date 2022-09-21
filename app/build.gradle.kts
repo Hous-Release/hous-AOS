@@ -1,10 +1,11 @@
 import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
-    id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+    id("com.android.application")
     id("dagger.hilt.android.plugin")
+    id("com.google.gms.google-services")
     id("org.jlleitschuh.gradle.ktlint") version ktlintVersion
 }
 
@@ -31,6 +32,18 @@ android {
         versionName = AppConfig.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField(
+            "String",
+            "HOST_URI",
+            properties.getProperty("HOST_URI")
+        )
+
+        buildConfigField(
+            "String",
+            "DUMMY_ACCESS_TOKEN",
+            properties.getProperty("DUMMY_ACCESS_TOKEN")
+        )
 
         buildConfigField(
             "String",
@@ -125,9 +138,15 @@ dependencies {
         implementation(retrofit2Converter)
     }
 
+    Deps.Google.run {
+        implementation(platform(firebaseBom))
+        implementation(firebaseMessaging)
+    }
+
     Deps.ThirdParty.run {
         implementation(timber)
         implementation(lottie)
+        implementation(ballon)
     }
 
     Deps.ThirdParty.Glide.run {

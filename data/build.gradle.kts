@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("org.jlleitschuh.gradle.ktlint") version ktlintVersion
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -48,6 +49,15 @@ dependencies {
         testImplementation(junit)
         androidTestImplementation(androidTest)
         androidTestImplementation(espresso)
+    }
+
+    Deps.DI.run {
+        implementation(hilt)
+        kapt(hiltKapt)
+    }
+
+    Deps.AndroidX.run {
+        implementation(kakao_login)
     }
 }
 

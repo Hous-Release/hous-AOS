@@ -65,6 +65,7 @@ object Deps {
     object ThirdParty {
         const val timber = "com.jakewharton.timber:timber:5.0.1"
         const val lottie = "com.airbnb.android:lottie:5.2.0"
+        const val ballon = "com.github.skydoves:balloon:1.4.7"
 
         object Glide {
             private const val version = "4.13.2"
@@ -79,5 +80,11 @@ object Deps {
         const val androidTest = "androidx.test.ext:junit:1.1.3"
         const val espresso = "androidx.test.espresso:espresso-core:3.4.0"
         const val compose = "androidx.compose.ui:ui-test-junit4:1.2.1"
+    }
+
+    object Google {
+        const val googleServices = "com.google.gms:google-services:4.3.13"
+        const val firebaseBom = "com.google.firebase:firebase-bom:30.4.1"
+        const val firebaseMessaging = "com.google.firebase:firebase-messaging-ktx"
     }
 }
