@@ -2,77 +2,82 @@ package hous.release.android.presentation.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.common.model.AuthErrorCause
-import com.kakao.sdk.user.UserApiClient
+import android.util.Log
+import androidx.activity.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityLoginBinding
 import hous.release.android.util.binding.BindingActivity
+import hous.release.android.util.extension.EventObserver
+import hous.release.data.service.KakaoLoginService
 import timber.log.Timber
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
+    @Inject
+    lateinit var kakaoLoginService: KakaoLoginService
+    private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        kakaoLogin()
+        Log.d("asdfasdf", "LoginActivity 실행")
+        initKakaoLoginBtnClickListener()
+        initIsSuccessKakaoLoginObserver()
+        initIsInitUserInfoObserver()
+        initIsSucessLoginObserver()
     }
 
-    private fun kakaoLogin() {
-        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
-            if (error != null) {
-                Timber.d(error, "토큰 정보 보기 실패")
-            } else if (tokenInfo != null) {
-                Timber.d("토큰 정보 보기 성공")
-                val intent = Intent(this, UserInputActivity::class.java)
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                finish()
-            }
-        }
-        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-            if (error != null) {
-                when {
-                    error.toString() == AuthErrorCause.AccessDenied.toString() -> {
-                        Timber.d(error, "접근이 거부 됨(동의 취소)")
-                    }
-                    error.toString() == AuthErrorCause.InvalidClient.toString() -> {
-                        Timber.d(error, "유효하지 않은 앱")
-                    }
-                    error.toString() == AuthErrorCause.InvalidGrant.toString() -> {
-                        Timber.d(error, "인증 수단이 유효하지 않아 인증할 수 없는 상태")
-                    }
-                    error.toString() == AuthErrorCause.InvalidRequest.toString() -> {
-                        Timber.d(error, "요청 파라미터 오류")
-                    }
-                    error.toString() == AuthErrorCause.InvalidScope.toString() -> {
-                        Timber.d(error, "유효하지 않은 scope ID")
-                    }
-                    error.toString() == AuthErrorCause.Misconfigured.toString() -> {
-                        Timber.d(error, "설정이 올바르지 않음(android key hash)")
-                    }
-                    error.toString() == AuthErrorCause.ServerError.toString() -> {
-                        Timber.d(error, "서버 내부 에러")
-                    }
-                    error.toString() == AuthErrorCause.Unauthorized.toString() -> {
-                        Timber.d(error, "앱이 요청 권한이 없음")
-                    }
-                    else -> {
-                        Timber.d(error, "기타 에러")
-                    }
-                }
-            } else if (token != null) {
-                Timber.d("로그인 성공")
-                val intent = Intent(this, UserInputActivity::class.java)
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                finish()
-            }
-        }
+    private fun initKakaoLoginBtnClickListener() {
         binding.btnLoginKakao.setOnClickListener {
-            if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
-                UserApiClient.instance.loginWithKakaoTalk(this, callback = callback)
-            } else {
-                UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
-            }
+            Log.d("asdfasdf", "카카오로그인 버튼 클릭")
+            startKakaoLogin()
         }
+    }
+
+    private fun startKakaoLogin() {
+        Log.d("asdfasdf", "카카오 로그인 시작")
+        kakaoLoginService.startKakaoLogin(loginViewModel.kakaoLoginCallback)
+    }
+
+    private fun initIsSuccessKakaoLoginObserver() {
+        loginViewModel.isSuccessKakaoLogin.observe(
+            this,
+            EventObserver { isSuccess ->
+                if (isSuccess) {
+                    Timber.d("카카오 로그인 성공")
+                    Log.d("asdfasdf", "로그인 성공")
+                } else {
+                    Timber.d("카카오 로그인 실패")
+                    Log.d("asdfasdf", "로그인 실패")
+                }
+            }
+        )
+    }
+
+    private fun initIsInitUserInfoObserver() {
+        loginViewModel.isInitUserInfo.observe(
+            this,
+            EventObserver { isSuccess ->
+                if (isSuccess) loginViewModel.postLogin()
+            }
+        )
+    }
+
+    private fun initIsSucessLoginObserver() {
+        loginViewModel.isSuccessLogin.observe(
+            this,
+            EventObserver { isSuccess ->
+                if (isSuccess) {
+                    Timber.d("로그인 성공")
+                    Log.d("asdfasdf", "로그인 성공")
+                    startActivity(Intent(this, UserInputActivity::class.java))
+                    finish()
+                } else {
+                    Timber.d("로그인 실패")
+                    Log.d("asdfasdf", "로그인 실패")
+                }
+            }
+        )
     }
 }
