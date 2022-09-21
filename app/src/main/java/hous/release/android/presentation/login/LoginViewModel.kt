@@ -88,7 +88,7 @@ class LoginViewModel @Inject constructor(
                 Timber.d("로그인 성공")
                 _isSuccessLogin.postValue(Event(true))
             }.onFailure {
-                Timber.d("로그인 실패")
+                Timber.d("로그인 실패 ${it.message}")
             }
         }
     }
