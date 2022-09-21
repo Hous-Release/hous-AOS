@@ -18,9 +18,9 @@ class AuthRepositoryImpl @Inject constructor(
         kotlin.runCatching {
             authDataSource.postLogin(
                 LoginRequest(
-                    fcmToken = loginRequest.fcmToken,
-                    socialType = loginRequest.socialType,
-                    token = loginRequest.token
+                    fcmToken = fcmToken,
+                    socialType = socialType,
+                    token = token
                 )
             )
         }.onSuccess { response ->
