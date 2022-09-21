@@ -12,9 +12,9 @@ data class OurRulesEntity(
 ) : OurRulesContent {
     companion object {
         val defaultRuleList = listOf(
-            OurRulesResponse(1111, ""),
-            OurRulesResponse(2222, ""),
-            OurRulesResponse(3333, "")
+            OurRulesResponse(),
+            OurRulesResponse(),
+            OurRulesResponse()
         )
     }
 }
