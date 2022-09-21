@@ -2,16 +2,19 @@ package hous.release.data.repository
 
 import hous.release.data.datasource.AuthDataSource
 import hous.release.data.entity.request.LoginRequest
-import hous.release.domain.entity.request.DomainLoginRequest
-import hous.release.domain.entity.response.DomainLoginResponse
-import hous.release.domain.entity.response.Token
+import hous.release.data.entity.response.LoginResponse
+import hous.release.domain.entity.response.Login
 import hous.release.domain.repository.AuthRepository
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val authDataSource: AuthDataSource
 ) : AuthRepository {
-    override suspend fun postLogin(loginRequest: DomainLoginRequest): Result<DomainLoginResponse> {
+    override suspend fun postLogin(
+        fcmToken: String,
+        socialType: String,
+        token: String
+    ): Result<Login> {
         kotlin.runCatching {
             authDataSource.postLogin(
                 LoginRequest(
