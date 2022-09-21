@@ -8,7 +8,6 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.util.extension.Event
-import hous.release.domain.entity.request.DomainLoginRequest
 import hous.release.domain.repository.AuthRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -82,11 +81,9 @@ class LoginViewModel @Inject constructor(
     fun postLogin() {
         viewModelScope.launch {
             authRepository.postLogin(
-                DomainLoginRequest(
-                    fcmToken = "dfdafjdslkfjslfjslifsjvmdsklvdosijiofjamvsdlkvmiodsjfdiosmvsdjvosadjvosd",
-                    socialType = "KAKAO",
-                    token = requireNotNull(kakaoToken.value)
-                )
+                fcmToken = "hello world",
+                socialType = "KAKAO",
+                token = requireNotNull(kakaoToken.value)
             ).onSuccess { response ->
                 Timber.d("로그인 성공")
                 _isSuccessLogin.postValue(Event(true))
