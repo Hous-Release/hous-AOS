@@ -2,7 +2,6 @@ package hous.release.android.presentation.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
@@ -21,7 +20,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("asdfasdf", "LoginActivity 실행")
         initKakaoLoginBtnClickListener()
         initIsSuccessKakaoLoginObserver()
         initIsInitUserInfoObserver()
@@ -30,13 +28,11 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
 
     private fun initKakaoLoginBtnClickListener() {
         binding.btnLoginKakao.setOnClickListener {
-            Log.d("asdfasdf", "카카오로그인 버튼 클릭")
             startKakaoLogin()
         }
     }
 
     private fun startKakaoLogin() {
-        Log.d("asdfasdf", "카카오 로그인 시작")
         kakaoLoginService.startKakaoLogin(loginViewModel.kakaoLoginCallback)
     }
 
@@ -46,10 +42,8 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             EventObserver { isSuccess ->
                 if (isSuccess) {
                     Timber.d("카카오 로그인 성공")
-                    Log.d("asdfasdf", "로그인 성공")
                 } else {
                     Timber.d("카카오 로그인 실패")
-                    Log.d("asdfasdf", "로그인 실패")
                 }
             }
         )
@@ -70,12 +64,10 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             EventObserver { isSuccess ->
                 if (isSuccess) {
                     Timber.d("로그인 성공")
-                    Log.d("asdfasdf", "로그인 성공")
                     startActivity(Intent(this, UserInputActivity::class.java))
                     finish()
                 } else {
                     Timber.d("로그인 실패")
-                    Log.d("asdfasdf", "로그인 실패")
                 }
             }
         )
