@@ -11,6 +11,5 @@ import hous.release.android.util.binding.BindingFragment
 class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        startActivity(Intent(context, OurRulesActivity::class.java))
     }
 }
