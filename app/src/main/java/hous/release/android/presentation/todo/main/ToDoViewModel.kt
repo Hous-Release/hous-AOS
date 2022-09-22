@@ -1,4 +1,4 @@
-package hous.release.android.presentation.todo
+package hous.release.android.presentation.todo.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

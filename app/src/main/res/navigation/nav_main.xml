@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_hous" />
     <fragment
         android:id="@+id/toDoFragment"
-        android:name="hous.release.android.presentation.todo.ToDoFragment"
+        android:name="hous.release.android.presentation.todo.main.ToDoFragment"
         android:label="ToDoFragment"
         tools:layout="@layout/fragment_to_do" />
     <fragment

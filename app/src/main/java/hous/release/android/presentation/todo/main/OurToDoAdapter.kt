@@ -1,4 +1,4 @@
-package hous.release.android.presentation.todo
+package hous.release.android.presentation.todo.main
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
