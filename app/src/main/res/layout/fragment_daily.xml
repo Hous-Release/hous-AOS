@@ -38,23 +38,19 @@
             android:id="@+id/ll_daily_change_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="23dp"
             android:layout_marginEnd="16dp"
             android:gravity="center"
             android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_daily_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="@+id/tv_daily_title">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/spoqa_han_sans_neo_medium"
-                android:letterSpacing="-0.02"
-                android:lineSpacingExtra="6dp"
                 android:text="@string/todo_member_title"
-                android:textColor="@color/hous_g_5"
-                android:textSize="12dp"
-                android:textStyle="normal" />
+                android:textAppearance="@style/Description"
+                android:textColor="@color/hous_g_5" />
 
             <ImageView
                 android:layout_width="wrap_content"

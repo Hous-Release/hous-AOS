@@ -5,6 +5,8 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.ArrowPositionRules
 import com.skydoves.balloon.Balloon
@@ -27,6 +29,11 @@ class ToDoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
         initAdapter()
         showToolTip()
         collectUiState()
+        goToDoDetail()
+    }
+
+    private fun goToDoDetail() {
+        binding.llToDoViewAll.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_toDoFragment_to_nav_todo))
     }
 
     private fun collectUiState() {

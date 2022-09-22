@@ -65,4 +65,13 @@
     <string name="to_do_tool_tip_full">모두 완료</string>
     <string name="todo_member_title">멤버별 보기</string>
     <string name="todo_daily_title">요일별 보기</string>
+    <string-array name="to_do_week_of_day">
+        <item>월</item>
+        <item>화</item>
+        <item>수</item>
+        <item>목</item>
+        <item>금</item>
+        <item>토</item>
+        <item>일</item>
+    </string-array>
 </resources>

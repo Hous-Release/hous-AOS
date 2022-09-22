@@ -14,10 +14,15 @@
         android:id="@+id/toDoFragment"
         android:name="hous.release.android.presentation.todo.main.ToDoFragment"
         android:label="ToDoFragment"
-        tools:layout="@layout/fragment_to_do" />
+        tools:layout="@layout/fragment_to_do" >
+        <action
+            android:id="@+id/action_toDoFragment_to_nav_todo"
+            app:destination="@id/nav_todo" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="hous.release.android.presentation.profile.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile" />
+    <include app:graph="@navigation/nav_todo" />
 </navigation>
