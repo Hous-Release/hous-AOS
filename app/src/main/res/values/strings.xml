@@ -63,4 +63,6 @@
     <string name="to_do_tool_tip_empty">완료되지 않음</string>
     <string name="to_do_tool_tip_half">1명 이상 완료</string>
     <string name="to_do_tool_tip_full">모두 완료</string>
+    <string name="todo_member_title">멤버별 보기</string>
+    <string name="todo_daily_title">요일별 보기</string>
 </resources>
