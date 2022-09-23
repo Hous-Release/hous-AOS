@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="hous.release.domain.entity.Rule" />
+            type="hous.release.domain.entity.response.OurRule" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +35,7 @@
             android:textAppearance="@style/B2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{data.description}"
+            android:text="@{data.name}"
             tools:text="우리 집 대장은 최코코" />
 
         <View

@@ -57,7 +57,7 @@
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="28dp"
             android:background="@drawable/shape_blue_i2_fill_8_rect"
-            android:visibility="@{vm.isEmptyRepresentativeRuleList() ? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="@{vm.uiState.isEmptyRepresentativeRuleList() ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title">
@@ -84,7 +84,7 @@
             android:text="@string/our_house_general_rules_empty"
             android:textAppearance="@style/B2"
             android:textColor="@color/hous_g_5"
-            android:visibility="@{vm.isEmptyGeneralRuleList ? View.VISIBLE : View.GONE}"
+            android:visibility="@{vm.uiState.isEmptyGeneralRuleList ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@id/cl_empty_rules"
             app:layout_constraintStart_toStartOf="@id/cl_empty_rules"
             app:layout_constraintTop_toBottomOf="@id/cl_empty_rules" />
@@ -98,7 +98,7 @@
             android:clipToPadding="false"
             android:layout_marginBottom="100dp"
             android:overScrollMode="never"
-            android:visibility="@{vm.isEmptyRepresentativeRuleList ? View.GONE : View.VISIBLE}"
+            android:visibility="@{vm.uiState.isEmptyRepresentativeRuleList ? View.GONE : View.VISIBLE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
