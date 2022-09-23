@@ -15,4 +15,6 @@ class ToDoDataSource @Inject constructor(
     suspend fun checkToDo(todoId: Int, isChecked: Boolean) {
         toDoService.checkToDo(todoId, ToDoCheckRequest(isChecked))
     }
+
+    suspend fun getDailyToDos() = toDoService.getDailyToDos()
 }

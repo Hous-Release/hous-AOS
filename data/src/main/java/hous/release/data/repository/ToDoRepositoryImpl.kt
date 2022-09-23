@@ -17,4 +17,7 @@ class ToDoRepositoryImpl @Inject constructor(
             .onSuccess { Timber.d("check todo 통신 성공") }
             .onFailure { Timber.d("check todo 통신 실패 : ${it.message}") }
     }
+
+    override suspend fun getDailyToDos(): Result<List<ToDoMain>> =
+        runCatching { toDoDataSource.getDailyToDos().data }
 }

@@ -17,4 +17,7 @@ interface ToDoService {
         @Path("todoId") todoId: Int,
         @Body body: ToDoCheckRequest
     )
+
+    @GET("v1/todos/day")
+    suspend fun getDailyToDos(): BaseResponse<List<ToDoMainResponse>>
 }
