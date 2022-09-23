@@ -2,15 +2,21 @@ package hous.release.android.presentation.todo.daily
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentDailyBinding
 import hous.release.android.util.binding.BindingFragment
-import hous.release.data.entity.ToDoEntity
-import hous.release.domain.entity.ToDo
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
+@AndroidEntryPoint
 class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_daily) {
     private val dailyAdapter = DailyAdapter()
+    private val dailyViewModel: DailyViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -19,59 +25,11 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
     }
 
     private fun initViewPager() {
-        val dummyList = mutableListOf<ToDo>(
-            ToDoEntity(
-                isChecked = true,
-                todoId = 1,
-                todoName = "청소기",
-                nicknames = emptyList(),
-                status = ""
-            ),
-            ToDoEntity(
-                isChecked = true,
-                todoId = 2,
-                todoName = "청소기",
-                nicknames = emptyList(),
-                status = ""
-            ),
-            ToDoEntity(
-                isChecked = true,
-                todoId = 3,
-                todoName = "청소기",
-                nicknames = emptyList(),
-                status = ""
-            ),
-            ToDoEntity(
-                isChecked = true,
-                todoId = 4,
-                todoName = "청소기",
-                nicknames = emptyList(),
-                status = ""
-            ),
-            ToDoEntity(
-                isChecked = true,
-                todoId = 5,
-                todoName = "청소기",
-                nicknames = emptyList(),
-                status = ""
-            ),
-            ToDoEntity(
-                isChecked = true,
-                todoId = 6,
-                todoName = "청소기",
-                nicknames = emptyList(),
-                status = ""
-            ),
-            ToDoEntity(
-                isChecked = true,
-                todoId = 7,
-                todoName = "청소기",
-                nicknames = emptyList(),
-                status = ""
-            )
-        )
+        dailyViewModel.dailyToDos
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { dailyTodos -> dailyAdapter.submitList(dailyTodos) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
         binding.vpDailyTodos.adapter = dailyAdapter
-        dailyAdapter.submitList(dummyList)
     }
 
     private fun initTabLayout() {
