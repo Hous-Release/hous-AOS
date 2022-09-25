@@ -11,15 +11,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_to_do_daily_total"
+        <LinearLayout
+            android:id="@+id/ll_to_do_daily_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="21dp"
-            android:text="총4개"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="총"
+                android:textAppearance="@style/B1"
+                android:textColor="@color/hous_g_5" />
+
+            <TextView
+                android:id="@+id/tv_to_do_daily_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4"
+                android:textAppearance="@style/H3"
+                android:textColor="@color/hous_blue" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="개"
+                android:textAppearance="@style/B1"
+                android:textColor="@color/hous_g_5" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_to_do_daily_my_title"
@@ -35,7 +58,7 @@
             android:textSize="20dp"
             android:textStyle="normal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_to_do_daily_total" />
+            app:layout_constraintTop_toBottomOf="@+id/ll_to_do_daily_total" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_to_do_daily_my_rules"
