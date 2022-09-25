@@ -74,4 +74,5 @@
         <item>토</item>
         <item>일</item>
     </string-array>
+    <string name="to_do_plus">+</string>
 </resources>

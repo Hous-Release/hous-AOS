@@ -2,6 +2,7 @@ package hous.release.android.presentation.todo.daily
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -9,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentDailyBinding
+import hous.release.android.util.HousFloatingButton
 import hous.release.android.util.binding.BindingFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -20,9 +22,11 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initStatusBarColor()
         initViewPager()
         initTabLayout()
         onClickBackButton()
+        initFloatingButton()
     }
 
     private fun onClickBackButton() {
@@ -56,5 +60,17 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
                 binding.vpDailyTodos.currentItem = currIndex
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private fun initFloatingButton() {
+        binding.cvDailyFloatingButton.setContent {
+            HousFloatingButton {
+                /* TO DO 추가하기 뷰로 이동하는 함수 */
+            }
+        }
+    }
+
+    private fun initStatusBarColor() {
+        activity?.window?.statusBarColor = getColor(requireActivity(), R.color.hous_g_1)
     }
 }
