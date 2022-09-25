@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/hous_g_1"
         tools:context=".presentation.todo.daily.DailyFragment">
 
         <ImageView
@@ -60,28 +61,21 @@
 
         </LinearLayout>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tl_daily_week_of_day"
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/cv_daily_week_of_day_tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="34dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_daily_title"
-            app:tabIndicator="@drawable/ic_daily_tab_indicator"
-            app:tabIndicatorColor="@color/hous_blue"
-            app:tabIndicatorFullWidth="false"
-            app:tabIndicatorHeight="6dp"
-            app:tabMode="fixed"
-            app:tabRippleColor="@null"
-            app:tabTextColor="@color/hous_g_5" />
+            tools:layout_editor_absoluteX="0dp" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_daily_todos"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@color/hous_white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tl_daily_week_of_day"
+            app:layout_constraintTop_toBottomOf="@+id/cv_daily_week_of_day_tab"
             tools:layout_editor_absoluteX="0dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

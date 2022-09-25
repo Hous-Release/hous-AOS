@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.tabs.TabLayoutMediator
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentDailyBinding
@@ -22,6 +22,13 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
         super.onViewCreated(view, savedInstanceState)
         initViewPager()
         initTabLayout()
+        onClickBackButton()
+    }
+
+    private fun onClickBackButton() {
+        binding.ivDailyBackButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     private fun initViewPager() {
@@ -29,13 +36,25 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
             .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { dailyTodos -> dailyAdapter.submitList(dailyTodos) }
             .launchIn(viewLifecycleOwner.lifecycleScope)
-        binding.vpDailyTodos.adapter = dailyAdapter
+
+        binding.vpDailyTodos.apply {
+            adapter = dailyAdapter
+            isUserInputEnabled = false
+        }
     }
 
     private fun initTabLayout() {
-        val weekOfDayArray = resources.getStringArray(R.array.to_do_week_of_day)
-        TabLayoutMediator(binding.tlDailyWeekOfDay, binding.vpDailyTodos) { tab, position ->
-            tab.text = weekOfDayArray[position]
-        }.attach()
+        dailyViewModel.dailyTabCurrIndex
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { currIndex ->
+                binding.cvDailyWeekOfDayTab.setContent {
+                    DailyTab(
+                        currIndex = currIndex,
+                        setCurrIndex = dailyViewModel::setTabCurrIndex
+                    )
+                }
+                binding.vpDailyTodos.currentItem = currIndex
+            }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 }

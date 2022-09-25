@@ -19,6 +19,9 @@ class DailyViewModel @Inject constructor(
     private val _dailyToDos: MutableStateFlow<List<ToDoMain>> = MutableStateFlow(emptyList())
     val dailyToDos = _dailyToDos.asStateFlow()
 
+    private val _dailyTabCurrIndex: MutableStateFlow<Int> = MutableStateFlow(0)
+    val dailyTabCurrIndex = _dailyTabCurrIndex.asStateFlow()
+
     init {
         fetchDailyToDos()
     }
@@ -35,5 +38,9 @@ class DailyViewModel @Inject constructor(
                     Log.d("sdafkj", "success ${it.message}")
                 }
         }
+    }
+
+    fun setTabCurrIndex(index: Int) {
+        _dailyTabCurrIndex.value = index
     }
 }
