@@ -22,7 +22,7 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
-        setOurRulesAdapter()
+        initOurRulesAdapter()
         observeOurRules()
     }
 
@@ -38,7 +38,7 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
         ourRulesAdapter = null
     }
 
-    private fun setOurRulesAdapter() {
+    private fun initOurRulesAdapter() {
         ourRulesAdapter = OurRulesAdapter()
         safeLet(ourRulesAdapter, context) { ourRulesAdapter, context ->
             binding.rvOurRules.run {
