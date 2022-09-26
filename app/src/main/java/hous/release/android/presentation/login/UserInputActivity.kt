@@ -27,5 +27,8 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
             }
         )
     }
+    private fun initChangeBtnNextColor() {
+        binding.tvUserInputNext.backgroundTintList = this.getColorStateList(R.color.hous_blue)
+    }
     }
 }
