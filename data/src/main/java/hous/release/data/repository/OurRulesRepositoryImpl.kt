@@ -3,6 +3,7 @@ package hous.release.data.repository
 import android.util.Log
 import hous.release.data.datasource.OurRulesDataSource
 import hous.release.data.entity.OurRulesEntity
+import hous.release.data.entity.OurRulesEntity.Companion.defaultRuleList
 import hous.release.domain.entity.OurRulesContent
 import hous.release.domain.repository.OurRulesRepository
 import kotlinx.coroutines.flow.Flow
@@ -17,14 +18,18 @@ class OurRulesRepositoryImpl @Inject constructor(private val ourRulesDataSource:
             .catch { exception ->
                 // 서버 통신 에러 핸들링
                 if (exception is Exception) {
-                    Log.e("로그", "${exception.message}")
+                    // TODO 추후 Timber.e 로 수정
+                    Log.e(
+                        "로그",
+                        "OurRulesRepositoryImpl - fetchOurRulesContent()- 서버 통신 에러: ${exception.message}"
+                    )
                 }
             }.map { ourRuleList ->
                 if (ourRuleList.isEmpty()) {
                     OurRulesEntity().copy(errorState = false)
                 } else if (ourRuleList.size <= 3) {
-                    val tmpRuleList = ourRuleList.toMutableList()
-                    OurRulesEntity.defaultRuleList.forEachIndexed { idx, value ->
+                    val tmpRuleList = defaultRuleList.toMutableList()
+                    ourRuleList.forEachIndexed { idx, value ->
                         tmpRuleList[idx] = value
                     }
                     OurRulesEntity().copy(
@@ -42,9 +47,12 @@ class OurRulesRepositoryImpl @Inject constructor(private val ourRulesDataSource:
                     )
                 }
             }.catch { exception ->
-                // upStream 에러 핸들링
                 if (exception is Exception) {
-                    Log.e("로그", "${exception.message}")
+                    // TODO 추후 Timber.e 로 수정
+                    Log.e(
+                        "로그",
+                        "OurRulesRepositoryImpl - fetchOurRulesContent()- map 연산 error: ${exception.message}"
+                    )
                     emit(OurRulesEntity().copy())
                 }
             }
