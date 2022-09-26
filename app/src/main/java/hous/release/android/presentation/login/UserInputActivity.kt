@@ -1,12 +1,17 @@
 package hous.release.android.presentation.login
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
+import hous.release.android.databinding.ActivityUserInputBinding
+import hous.release.android.util.binding.BindingActivity
 
-class UserInputActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.activity_user_input) {
+    private val userInputViewModel: UserInputViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_input)
     }
 }
