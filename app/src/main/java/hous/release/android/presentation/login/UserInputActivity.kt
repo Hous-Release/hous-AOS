@@ -1,9 +1,11 @@
 package hous.release.android.presentation.login
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
+import hous.release.android.TutorialActivity
 import hous.release.android.databinding.ActivityUserInputBinding
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.extension.EventObserver
@@ -17,8 +19,10 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
         binding.vm = userInputViewModel
         initIsInputUserInfoObserver()
         initBtnBackOnClickListener()
+        initBtnCheckBirthdayOnClickListener()
         userInputViewModel.birthday.value = "1999-08-02"
     }
+
     private fun initIsInputUserInfoObserver() {
         userInputViewModel.isInputUserInfo.observe(
             this,
@@ -47,5 +51,15 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
     private fun initChangeBtnNextColor() {
         binding.tvUserInputNext.backgroundTintList = this.getColorStateList(R.color.hous_blue)
     }
+
+    private fun initBtnNextOnClickListener() {
+        binding.tvUserInputNext.setOnClickListener {
+            val intent = Intent(this, TutorialActivity::class.java).apply {
+                putExtra("nickname", userInputViewModel.nickname.value)
+                putExtra("birthday", userInputViewModel.birthday.value)
+            }
+            startActivity(intent)
+            finish()
+        }
     }
 }
