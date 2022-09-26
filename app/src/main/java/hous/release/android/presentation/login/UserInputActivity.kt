@@ -13,5 +13,6 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.vm = userInputViewModel
     }
 }
