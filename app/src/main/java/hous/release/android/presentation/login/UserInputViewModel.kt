@@ -22,4 +22,6 @@ class UserInputViewModel : ViewModel() {
     }
     val isInputUserInfo get() = _isInputUserInfo
 
+    private val _isBtnCheckBirthday = MutableLiveData(false)
+    val isBtnCheckBirthday get() = _isBtnCheckBirthday
 }
