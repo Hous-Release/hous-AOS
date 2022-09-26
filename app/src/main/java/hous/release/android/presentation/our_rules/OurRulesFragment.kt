@@ -42,6 +42,7 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
         ourRulesAdapter = OurRulesAdapter()
         safeLet(ourRulesAdapter, context) { ourRulesAdapter, context ->
             binding.rvOurRules.run {
+                itemAnimator = null
                 adapter = ourRulesAdapter
                 addItemDecoration(
                     ItemDecorationUtil(context, MARGIN, POSITION)

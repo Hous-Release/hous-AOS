@@ -63,7 +63,7 @@ class OurToDoAdapter :
 
             @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(oldItem: ToDo, newItem: ToDo): Boolean {
-                return oldItem === newItem
+                return oldItem == newItem
             }
         }
     }
