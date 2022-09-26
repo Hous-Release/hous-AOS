@@ -14,7 +14,7 @@
     <string name="login_kakao_login">카카오톡으로 계속하기</string>
 
     <!-- OurRules -->
-    <string name="our_house_rules">우리 집 규칙</string>
+    <string name="our_house_rules">우리 집 Rules</string>
     <string name="our_house_representative_rules_empty">아직 우리 집 Rules가 없어요!</string>
     <string name="our_house_general_rules_empty">다른 Rule도 추가해보세요!</string>
     <string name="our_house_representative_rules_number_one">1.</string>
