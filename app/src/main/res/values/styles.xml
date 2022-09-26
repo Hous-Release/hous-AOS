@@ -5,4 +5,8 @@
         <item name="fontFamily">@font/montserrat_semibold</item>
         <item name="android:textSize">13dp</item>
     </style>
+
+    <style name="DatePickerTheme" parent="android:Widget.Material.Light.DatePicker">
+        <item name="android:datePickerMode">spinner</item>
+    </style>
 </resources>
