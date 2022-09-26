@@ -45,10 +45,9 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
                 dispatcher.onBackPressed()
             } ?: Timber.e("safeLet에 null이 들어감!!")
         }
-
         binding.ivSettingButton.setOnClickListener {
-            val ourRulesBottomSheetDialog = OurRulesBottomSheetDialogFragment()
-            ourRulesBottomSheetDialog.show(childFragmentManager, OUR_RULES_BOTTOM_SHEET)
+            val ourRulesBottomSheetDialog = OurRulesBottomSheetDialogFragment.newInstance()
+            ourRulesBottomSheetDialog.show(parentFragmentManager, this.javaClass.name)
         }
     }
 
@@ -81,6 +80,5 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
     companion object {
         private const val MARGIN = 4
         private const val POSITION = 3
-        private const val OUR_RULES_BOTTOM_SHEET = "ourRulesBottomSheet"
     }
 }
