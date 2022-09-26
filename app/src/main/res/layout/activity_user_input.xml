@@ -1,14 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.login.UserInputActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
+    <data>
+
+        <variable
+            name="viewModel"
+            type="hous.release.android.presentation.login.UserInputViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="HELLO" />
+        tools:context=".presentation.login.UserInputActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/btn_user_input_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/transparent"
+            android:padding="6dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_user_input_user_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/user_input_user_info"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            app:layout_constraintBottom_toBottomOf="@id/btn_user_input_back"
+            app:layout_constraintStart_toEndOf="@id/btn_user_input_back"
+            app:layout_constraintTop_toTopOf="@id/btn_user_input_back" />
+
+        <TextView
+            android:id="@+id/tv_user_input_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="99dp"
+            android:text="@string/user_input_nickname"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_user_input_back" />
+
+        <EditText
+            android:id="@+id/et_user_input_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            android:hint="@string/user_input_nickname_hint"
+            android:inputType="text"
+            android:maxLength="5"
+            android:paddingVertical="2dp"
+            android:text="@{viewModel.nickname}"
+            android:textAppearance="@style/B2"
+            android:textColor="@color/hous_black"
+            android:textColorHint="@color/hous_g_4"
+            app:layout_constraintTop_toBottomOf="@id/tv_user_input_nickname" />
+
+        <View
+            android:id="@+id/view_user_input_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/hous_blue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_user_input_nickname" />
+
+        <TextView
+            android:id="@+id/tv_user_input_birthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="99dp"
+            android:text="@string/user_input_birthday"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_user_input_nickname" />
+
+        <TextView
+            android:id="@+id/tv_user_input_birthday_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            android:hint="@string/user_input_birthday_hint"
+            android:inputType="date"
+            android:letterSpacing="0.3"
+            android:maxLength="10"
+            android:paddingVertical="2dp"
+            android:text="@={viewModel.birthday}"
+            android:textAppearance="@style/B2"
+            android:textColor="@color/hous_black"
+            android:textColorHint="@color/hous_g_4"
+            app:layout_constraintTop_toBottomOf="@id/tv_user_input_birthday" />
+
+        <View
+            android:id="@+id/view_user_input_birthday"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/hous_blue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_user_input_birthday_info" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
