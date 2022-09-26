@@ -22,10 +22,10 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".login.LoginActivity"
+            android:name="hous.release.android.presentation.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".login.UserInputActivity"
+            android:name="hous.release.android.presentation.login.UserInputActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.our_rules.OurRulesActivity"
@@ -38,6 +38,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true"
