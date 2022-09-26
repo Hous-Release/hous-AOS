@@ -99,7 +99,6 @@
             android:layout_marginTop="20dp"
             android:background="@null"
             android:hint="@string/user_input_birthday_hint"
-            android:inputType="date"
             android:letterSpacing="0.3"
             android:maxLength="10"
             android:paddingVertical="2dp"
@@ -118,6 +117,43 @@
             android:background="@color/hous_blue"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_user_input_birthday_info" />
+
+        <ImageButton
+            android:id="@+id/btn_user_input_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="15dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_user_input_check_not"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_user_input_birthday" />
+
+        <TextView
+            android:id="@+id/tv_user_input_open_birthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/user_input_open_birthday"
+            android:textAppearance="@style/Description"
+            android:textColor="@color/hous_g_5"
+            app:layout_constraintBottom_toBottomOf="@id/btn_user_input_check"
+            app:layout_constraintStart_toEndOf="@id/btn_user_input_check"
+            app:layout_constraintTop_toTopOf="@id/btn_user_input_check" />
+
+        <TextView
+            android:id="@+id/tv_user_input_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/shape_g4_fill_16_rect"
+            android:gravity="center"
+            android:paddingVertical="10dp"
+            android:text="@string/user_input_next"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_white"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
