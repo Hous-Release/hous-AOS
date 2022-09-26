@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="vm"
             type="hous.release.android.presentation.login.UserInputViewModel" />
 
     </data>
@@ -63,7 +63,7 @@
             android:inputType="text"
             android:maxLength="5"
             android:paddingVertical="2dp"
-            android:text="@{viewModel.nickname}"
+            android:text="@={vm.nickname}"
             android:textAppearance="@style/B2"
             android:textColor="@color/hous_black"
             android:textColorHint="@color/hous_g_4"
@@ -102,7 +102,7 @@
             android:letterSpacing="0.3"
             android:maxLength="10"
             android:paddingVertical="2dp"
-            android:text="@={viewModel.birthday}"
+            android:text="@={vm.birthday}"
             android:textAppearance="@style/B2"
             android:textColor="@color/hous_black"
             android:textColorHint="@color/hous_g_4"
@@ -118,14 +118,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_user_input_birthday_info" />
 
-        <ImageButton
-            android:id="@+id/btn_user_input_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <CheckBox
+            android:id="@+id/cb_check_birthday"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginStart="18dp"
             android:layout_marginTop="15dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_user_input_check_not"
+            android:background="@drawable/selector_user_input_check_birthday"
+            android:button="@android:color/transparent"
+            android:clickable="true"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_user_input_birthday" />
 
@@ -137,9 +139,9 @@
             android:text="@string/user_input_open_birthday"
             android:textAppearance="@style/Description"
             android:textColor="@color/hous_g_5"
-            app:layout_constraintBottom_toBottomOf="@id/btn_user_input_check"
-            app:layout_constraintStart_toEndOf="@id/btn_user_input_check"
-            app:layout_constraintTop_toTopOf="@id/btn_user_input_check" />
+            app:layout_constraintBottom_toBottomOf="@id/cb_check_birthday"
+            app:layout_constraintStart_toEndOf="@id/cb_check_birthday"
+            app:layout_constraintTop_toTopOf="@id/cb_check_birthday" />
 
         <TextView
             android:id="@+id/tv_user_input_next"
