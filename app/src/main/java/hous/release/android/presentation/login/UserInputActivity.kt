@@ -17,6 +17,8 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
         binding.vm = userInputViewModel
         initIsInputUserInfoObserver()
         initBtnBackOnClickListener()
+        userInputViewModel.birthday.value = "1999-08-02"
+    }
     private fun initIsInputUserInfoObserver() {
         userInputViewModel.isInputUserInfo.observe(
             this,
