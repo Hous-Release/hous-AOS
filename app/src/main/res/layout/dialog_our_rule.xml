@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_white_fill_top10_rect"
-    android:paddingHorizontal="16dp">
+    android:paddingHorizontal="16dp"
+    app:behavior_hideable="true"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <TextView
         android:id="@+id/tv_our_rule_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:gravity="center"
         android:paddingTop="22dp"
         android:paddingBottom="17dp"
