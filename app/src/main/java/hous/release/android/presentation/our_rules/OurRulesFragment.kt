@@ -22,6 +22,7 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
+        initClickListener()
         initOurRulesAdapter()
         observeOurRules()
     }
@@ -36,6 +37,19 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
     override fun onDestroyView() {
         super.onDestroyView()
         ourRulesAdapter = null
+    }
+
+    private fun initClickListener() {
+        binding.ivBackButton.setOnClickListener {
+            safeLet(activity, activity?.onBackPressedDispatcher) { _, dispatcher ->
+                dispatcher.onBackPressed()
+            } ?: Timber.e("safeLet에 null이 들어감!!")
+        }
+
+        binding.ivSettingButton.setOnClickListener {
+            val ourRulesBottomSheetDialog = OurRulesBottomSheetDialogFragment()
+            ourRulesBottomSheetDialog.show(childFragmentManager, OUR_RULES_BOTTOM_SHEET)
+        }
     }
 
     private fun initOurRulesAdapter() {
@@ -67,5 +81,6 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
     companion object {
         private const val MARGIN = 4
         private const val POSITION = 3
+        private const val OUR_RULES_BOTTOM_SHEET = "ourRulesBottomSheet"
     }
 }
