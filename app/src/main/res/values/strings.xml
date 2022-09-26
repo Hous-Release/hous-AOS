@@ -63,4 +63,7 @@
     <string name="to_do_tool_tip_empty">완료되지 않음</string>
     <string name="to_do_tool_tip_half">1명 이상 완료</string>
     <string name="to_do_tool_tip_full">모두 완료</string>
+    <string name="our_rule_add">추가하기</string>
+    <string name="our_rule_delete">삭제하기</string>
+    <string name="our_rule_edit">수정하기</string>
 </resources>
