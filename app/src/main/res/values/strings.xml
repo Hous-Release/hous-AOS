@@ -19,6 +19,8 @@
     <string name="user_input_nickname_hint">Hous-에서 사용할 이름을 입력해주세요.</string>
     <string name="user_input_birthday">생년월일</string>
     <string name="user_input_birthday_hint">YYYY/MM/DD</string>
+    <string name="user_input_open_birthday">생년월일 호미들에게 공개</string>
+    <string name="user_input_next">다음으로</string>
 
     <!-- OurRules -->
     <string name="our_house_rules">우리 집 규칙</string>
