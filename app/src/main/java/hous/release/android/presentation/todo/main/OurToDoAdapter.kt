@@ -11,7 +11,7 @@ import hous.release.android.databinding.ItemToDoOurRuleBinding
 import hous.release.domain.entity.ToDo
 
 class OurToDoAdapter :
-    ListAdapter<ToDo, OurToDoAdapter.OurToDoViewHolder>(ToDo_COMPARATOR) {
+    ListAdapter<ToDo, OurToDoAdapter.OurToDoViewHolder>(ToDoComparator) {
 
     class OurToDoViewHolder(
         private val binding: ItemToDoOurRuleBinding
@@ -56,7 +56,7 @@ class OurToDoAdapter :
         const val ALL_CHECKED = "FULL_CHECK"
         const val ONE_PARTICIPANT = 1
         const val TWO_PARTICIPANT = 2
-        private val ToDo_COMPARATOR = object : DiffUtil.ItemCallback<ToDo>() {
+        private val ToDoComparator = object : DiffUtil.ItemCallback<ToDo>() {
             override fun areItemsTheSame(oldItem: ToDo, newItem: ToDo): Boolean {
                 return oldItem.todoId == newItem.todoId
             }

@@ -10,7 +10,7 @@ import hous.release.android.databinding.ItemToDoDailyBinding
 import hous.release.domain.entity.ToDo
 import hous.release.domain.entity.response.ToDoMain
 
-class DailyAdapter : ListAdapter<ToDoMain, DailyAdapter.DailyViewHolder>(ToDoMain_COMPARATOR) {
+class DailyAdapter : ListAdapter<ToDoMain, DailyAdapter.DailyViewHolder>(ToDoMainComparator) {
     private lateinit var inflater: LayoutInflater
 
     class DailyViewHolder(
@@ -48,7 +48,7 @@ class DailyAdapter : ListAdapter<ToDoMain, DailyAdapter.DailyViewHolder>(ToDoMai
     }
 
     companion object {
-        private val ToDoMain_COMPARATOR = object : DiffUtil.ItemCallback<ToDoMain>() {
+        private val ToDoMainComparator = object : DiffUtil.ItemCallback<ToDoMain>() {
             override fun areItemsTheSame(oldItem: ToDoMain, newItem: ToDoMain): Boolean {
                 return oldItem == newItem
             }

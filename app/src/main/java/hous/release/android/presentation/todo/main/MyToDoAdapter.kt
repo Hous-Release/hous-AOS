@@ -11,7 +11,7 @@ import hous.release.domain.entity.ToDo
 
 class MyToDoAdapter(
     private val checkToDo: (Int, Boolean) -> Unit
-) : ListAdapter<ToDo, MyToDoAdapter.TodoViewHolder>(ToDo_COMPARATOR) {
+) : ListAdapter<ToDo, MyToDoAdapter.TodoViewHolder>(ToDoComparator) {
 
     class TodoViewHolder(private val binding: ItemToDoMyRuleBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -44,7 +44,7 @@ class MyToDoAdapter(
     }
 
     companion object {
-        private val ToDo_COMPARATOR = object : DiffUtil.ItemCallback<ToDo>() {
+        private val ToDoComparator = object : DiffUtil.ItemCallback<ToDo>() {
             override fun areItemsTheSame(oldItem: ToDo, newItem: ToDo): Boolean {
                 return oldItem.todoId == newItem.todoId
             }
