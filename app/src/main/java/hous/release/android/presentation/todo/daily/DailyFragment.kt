@@ -25,11 +25,11 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
         initStatusBarColor()
         initViewPager()
         initTabLayout()
-        onClickBackButton()
+        initClickListener()
         initFloatingButton()
     }
 
-    private fun onClickBackButton() {
+    private fun initClickListener() {
         binding.ivDailyBackButton.setOnClickListener {
             findNavController().navigateUp()
         }
