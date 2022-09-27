@@ -11,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/img_login_bg"
-        tools:context=".login.LoginActivity">
+        tools:context=".presentation.login.LoginActivity">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_login_kakao_login"
+            android:id="@+id/btn_login_kakao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
