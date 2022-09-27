@@ -36,15 +36,14 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
     }
 
     private fun initViewPager() {
-        dailyViewModel.dailyToDos
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .onEach { dailyTodos -> dailyAdapter.submitList(dailyTodos) }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
-
         binding.vpDailyTodos.apply {
             adapter = dailyAdapter
             isUserInputEnabled = false
         }
+        dailyViewModel.dailyToDos
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { dailyTodos -> dailyAdapter.submitList(dailyTodos) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun initTabLayout() {
