@@ -1,34 +1,33 @@
 package hous.release.android.presentation.todo.daily
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.databinding.ItemToDoDailyBinding
-import hous.release.domain.entity.ToDo
-import hous.release.domain.entity.response.ToDoMain
+import hous.release.domain.entity.Todo
+import hous.release.domain.entity.response.TodoMain
 
-class DailyAdapter : ListAdapter<ToDoMain, DailyAdapter.DailyViewHolder>(ToDoMainComparator) {
+class DailyAdapter : ListAdapter<TodoMain, DailyAdapter.DailyViewHolder>(TodoMainComparator) {
     private lateinit var inflater: LayoutInflater
 
     class DailyViewHolder(
         private val binding: ItemToDoDailyBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(todo: ToDoMain) {
+        fun bind(todo: TodoMain) {
             binding.tvToDoDailyTotal.text = "${todo.ourTodosCnt}"
         }
 
-        fun fetchDailyMyToDos(myToDos: List<ToDo>) {
-            val dailyMyToDoAdapter = DailyMyToDoAdapter()
+        fun fetchDailyMyToDos(myToDos: List<Todo>) {
+            val dailyMyToDoAdapter = DailyMyTodoAdapter()
             binding.rvToDoDailyMyRules.adapter = dailyMyToDoAdapter
             dailyMyToDoAdapter.submitList(myToDos)
         }
 
-        fun fetchDailyOurToDos(ourToDos: List<ToDo>) {
-            val dailyOurToDoAdapter = DailyOurToDoAdapter()
+        fun fetchDailyOurToDos(ourToDos: List<Todo>) {
+            val dailyOurToDoAdapter = DailyOurTodoAdapter()
             binding.rvToDoDailyOurRules.adapter = dailyOurToDoAdapter
             dailyOurToDoAdapter.submitList(ourToDos)
         }
@@ -48,13 +47,12 @@ class DailyAdapter : ListAdapter<ToDoMain, DailyAdapter.DailyViewHolder>(ToDoMai
     }
 
     companion object {
-        private val ToDoMainComparator = object : DiffUtil.ItemCallback<ToDoMain>() {
-            override fun areItemsTheSame(oldItem: ToDoMain, newItem: ToDoMain): Boolean {
+        private val TodoMainComparator = object : DiffUtil.ItemCallback<TodoMain>() {
+            override fun areItemsTheSame(oldItem: TodoMain, newItem: TodoMain): Boolean {
                 return oldItem == newItem
             }
 
-            @SuppressLint("DiffUtilEquals")
-            override fun areContentsTheSame(oldItem: ToDoMain, newItem: ToDoMain): Boolean {
+            override fun areContentsTheSame(oldItem: TodoMain, newItem: TodoMain): Boolean {
                 return oldItem == newItem
             }
         }

@@ -1,20 +1,20 @@
 package hous.release.android.presentation.todo.daily
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.databinding.ItemToDoDailyMyRuleBinding
-import hous.release.domain.entity.ToDo
+import hous.release.domain.entity.Todo
 
-class DailyMyToDoAdapter : ListAdapter<ToDo, DailyMyToDoAdapter.TodoViewHolder>(ToDoMainComparator) {
+class DailyMyTodoAdapter :
+    ListAdapter<Todo, DailyMyTodoAdapter.TodoViewHolder>(TodoMainComparator) {
 
     class TodoViewHolder(private val binding: ItemToDoDailyMyRuleBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(todo: ToDo) {
+        fun bind(todo: Todo) {
             with(binding) {
                 this.todo = todo
             }
@@ -22,7 +22,8 @@ class DailyMyToDoAdapter : ListAdapter<ToDo, DailyMyToDoAdapter.TodoViewHolder>(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
-        val view = ItemToDoDailyMyRuleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view =
+            ItemToDoDailyMyRuleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TodoViewHolder(view)
     }
 
@@ -32,14 +33,13 @@ class DailyMyToDoAdapter : ListAdapter<ToDo, DailyMyToDoAdapter.TodoViewHolder>(
     }
 
     companion object {
-        private val ToDoMainComparator = object : DiffUtil.ItemCallback<ToDo>() {
-            override fun areItemsTheSame(oldItem: ToDo, newItem: ToDo): Boolean {
+        private val TodoMainComparator = object : DiffUtil.ItemCallback<Todo>() {
+            override fun areItemsTheSame(oldItem: Todo, newItem: Todo): Boolean {
                 return oldItem.todoId == newItem.todoId
             }
 
-            @SuppressLint("DiffUtilEquals")
-            override fun areContentsTheSame(oldItem: ToDo, newItem: ToDo): Boolean {
-                return oldItem === newItem
+            override fun areContentsTheSame(oldItem: Todo, newItem: Todo): Boolean {
+                return oldItem == newItem
             }
         }
     }

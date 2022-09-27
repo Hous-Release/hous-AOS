@@ -1,11 +1,19 @@
 package hous.release.data.entity
 
-import hous.release.domain.entity.ToDo
+import hous.release.domain.entity.Todo
 
 data class ToDoEntity(
-    override val isChecked: Boolean,
-    override val todoId: Int,
-    override val todoName: String,
-    override val nicknames: List<String>,
-    override val status: String
-) : ToDo
+    val isChecked: Boolean,
+    val todoId: Int,
+    val todoName: String,
+    val nicknames: List<String>,
+    val status: String
+) {
+    fun toTodo() = Todo(
+        isChecked = isChecked,
+        todoId = todoId,
+        todoName = todoName,
+        nicknames = nicknames,
+        status = status
+    )
+}

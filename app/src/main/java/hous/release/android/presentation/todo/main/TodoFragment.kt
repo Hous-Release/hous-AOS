@@ -17,10 +17,10 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
-class ToDoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_do) {
-    private val toDoViewModel: ToDoViewModel by viewModels()
-    private var myToDoAdapter: MyToDoAdapter? = null
-    private var ourToDoAdapter: OurToDoAdapter? = null
+class TodoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_do) {
+    private val toDoViewModel: TodoViewModel by viewModels()
+    private var myToDoAdapter: MyTodoAdapter? = null
+    private var ourToDoAdapter: OurTodoAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,8 +51,8 @@ class ToDoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
     }
 
     private fun initAdapter() {
-        myToDoAdapter = MyToDoAdapter(toDoViewModel::checkTodo)
-        ourToDoAdapter = OurToDoAdapter()
+        myToDoAdapter = MyTodoAdapter(toDoViewModel::checkTodo)
+        ourToDoAdapter = OurTodoAdapter()
         binding.rvToDoMyRules.apply {
             adapter = myToDoAdapter
             itemAnimator = null

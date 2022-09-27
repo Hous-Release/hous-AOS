@@ -7,13 +7,13 @@
 
         <variable
             name="vm"
-            type="hous.release.android.presentation.todo.main.ToDoViewModel" />
+            type="hous.release.android.presentation.todo.main.TodoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.todo.main.ToDoFragment">
+        tools:context=".presentation.todo.main.TodoFragment">
 
         <TextView
             android:id="@+id/tv_to_do_date"

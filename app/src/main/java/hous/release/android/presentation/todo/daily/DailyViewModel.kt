@@ -3,8 +3,8 @@ package hous.release.android.presentation.todo.daily
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hous.release.domain.entity.response.ToDoMain
-import hous.release.domain.usecase.GetDailyToDosUseCase
+import hous.release.domain.entity.response.TodoMain
+import hous.release.domain.usecase.GetDailyTodosUseCase
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,9 +13,9 @@ import timber.log.Timber
 
 @HiltViewModel
 class DailyViewModel @Inject constructor(
-    private val dailyToDosUseCase: GetDailyToDosUseCase
+    private val dailyTodosUseCase: GetDailyTodosUseCase
 ) : ViewModel() {
-    private val _dailyToDos: MutableStateFlow<List<ToDoMain>> = MutableStateFlow(emptyList())
+    private val _dailyToDos: MutableStateFlow<List<TodoMain>> = MutableStateFlow(emptyList())
     val dailyToDos = _dailyToDos.asStateFlow()
 
     private val _dailyTabCurrIndex: MutableStateFlow<Int> = MutableStateFlow(0)
@@ -27,7 +27,7 @@ class DailyViewModel @Inject constructor(
 
     private fun fetchDailyToDos() {
         viewModelScope.launch {
-            dailyToDosUseCase()
+            dailyTodosUseCase()
                 .onSuccess { result ->
                     _dailyToDos.value = result
                 }

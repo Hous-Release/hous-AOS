@@ -10,11 +10,11 @@ import hous.release.data.repository.AuthRepositoryImpl
 import hous.release.data.datasource.OurRulesDataSource
 import hous.release.data.repository.EnterRoomRepositoryImpl
 import hous.release.data.repository.OurRulesRepositoryImpl
-import hous.release.data.repository.ToDoRepositoryImpl
+import hous.release.data.repository.TodoRepositoryImpl
 import hous.release.domain.repository.AuthRepository
 import hous.release.domain.repository.EnterRoomRepository
 import hous.release.domain.repository.OurRulesRepository
-import hous.release.domain.repository.ToDoRepository
+import hous.release.domain.repository.TodoRepository
 import javax.inject.Singleton
 
 @Module
@@ -37,5 +37,5 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesToDoRepository(impl: ToDoRepositoryImpl): ToDoRepository = impl
+    fun providesTodoRepository(impl: TodoRepositoryImpl): TodoRepository = impl
 }

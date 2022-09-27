@@ -1,14 +1,24 @@
 package hous.release.data.entity.response
 
 import hous.release.data.entity.ToDoEntity
-import hous.release.domain.entity.response.ToDoMain
+import hous.release.domain.entity.response.TodoMain
 
 data class ToDoMainResponse(
-    override val date: String,
-    override val dayOfWeek: String,
-    override val myTodos: List<ToDoEntity>,
-    override val myTodosCnt: Int,
-    override val ourTodos: List<ToDoEntity>,
-    override val ourTodosCnt: Int,
-    override val progress: Int
-) : ToDoMain
+    val date: String,
+    val dayOfWeek: String,
+    val myTodos: List<ToDoEntity>,
+    val myTodosCnt: Int,
+    val ourTodos: List<ToDoEntity>,
+    val ourTodosCnt: Int,
+    val progress: Int
+) {
+    fun toTodoMain() = TodoMain(
+        date = date,
+        dayOfWeek = dayOfWeek,
+        myTodos = myTodos.map { todo -> todo.toTodo() },
+        myTodosCnt = myTodosCnt,
+        ourTodos = ourTodos.map { todo -> todo.toTodo() },
+        ourTodosCnt = ourTodosCnt,
+        progress = progress
+    )
+}
