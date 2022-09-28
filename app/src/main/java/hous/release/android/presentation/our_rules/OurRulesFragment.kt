@@ -74,6 +74,7 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
                     }
                 }
             }
+            // TODO 추후에 Loading뷰, Error뷰 처리
         }
     }
 
