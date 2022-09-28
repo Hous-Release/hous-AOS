@@ -36,9 +36,7 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
 
     private fun initClickListener() {
         binding.ivMainRuleBackButton.setOnClickListener {
-            binding.ivMainRuleBackButton.setOnClickListener {
-                activity?.finish() ?: Timber.e(getString(R.string.null_point_exception))
-            }
+            activity?.finish() ?: Timber.e(getString(R.string.null_point_exception))
         }
         binding.ivMainRuleSettingButton.setOnClickListener {
             val ourRulesBottomSheetDialog = OurRulesBottomSheetDialogFragment()
