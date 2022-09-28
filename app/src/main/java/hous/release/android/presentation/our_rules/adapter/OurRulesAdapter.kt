@@ -11,8 +11,10 @@ import hous.release.android.databinding.ItemOurRulesRepresentativeRuleMiddleBind
 import hous.release.android.databinding.ItemOurRulesRepresentativeRuleTopBinding
 import hous.release.android.presentation.our_rules.type.RuleItemViewType
 import hous.release.domain.entity.response.OurRule
+import timber.log.Timber
 
 class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(ourRulesDiffUtilCallback) {
+    private lateinit var inflater: LayoutInflater
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
@@ -24,17 +26,20 @@ class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(ourRulesDi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        if (!::inflater.isInitialized) inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            RuleItemViewType.REPRESENTATVIE_TOP.id -> RepresentationTopViewHolder(
-                ItemOurRulesRepresentativeRuleTopBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
+            RuleItemViewType.REPRESENTATVIE_TOP.id -> {
+                RepresentationTopViewHolder(
+                    ItemOurRulesRepresentativeRuleTopBinding.inflate(
+                        inflater,
+                        parent,
+                        false
+                    )
                 )
-            )
+            }
             RuleItemViewType.REPRESENTATVIE_MIDDLE.id -> RepresentationMiddleViewHolder(
                 ItemOurRulesRepresentativeRuleMiddleBinding.inflate(
-                    LayoutInflater.from(parent.context),
+                    inflater,
                     parent,
                     false
                 )
@@ -48,7 +53,7 @@ class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(ourRulesDi
             )
             RuleItemViewType.GENERAL.id -> GeneralViewHolder(
                 ItemOurRulesGeneralRuleBinding.inflate(
-                    LayoutInflater.from(parent.context),
+                    inflater,
                     parent,
                     false
                 )
@@ -64,7 +69,7 @@ class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(ourRulesDi
             is RepresentationMiddleViewHolder -> holder.onBind(data)
             is RepresentationBottomViewHolder -> holder.onBind(data)
             is GeneralViewHolder -> holder.onBind(data)
-            else -> throw IllegalArgumentException("holder : $holder")
+            else -> Timber.e(IllegalArgumentException("holder : $holder"))
         }
     }
 
