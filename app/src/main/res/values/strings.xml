@@ -66,4 +66,16 @@
     <string name="our_rule_add">추가하기</string>
     <string name="our_rule_delete">삭제하기</string>
     <string name="our_rule_edit">수정하기</string>
+    <string name="todo_member_title">멤버별 보기</string>
+    <string name="todo_daily_title">요일별 보기</string>
+    <string-array name="to_do_week_of_day">
+        <item>월</item>
+        <item>화</item>
+        <item>수</item>
+        <item>목</item>
+        <item>금</item>
+        <item>토</item>
+        <item>일</item>
+    </string-array>
+    <string name="to_do_plus">+</string>
 </resources>

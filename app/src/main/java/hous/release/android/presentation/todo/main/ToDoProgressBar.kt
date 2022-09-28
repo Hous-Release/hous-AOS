@@ -1,4 +1,4 @@
-package hous.release.android.presentation.todo
+package hous.release.android.presentation.todo.main
 
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState

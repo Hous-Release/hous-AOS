@@ -1,4 +1,4 @@
-package hous.release.android.login
+package hous.release.android.presentation.login
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
