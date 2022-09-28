@@ -2,6 +2,7 @@
     <string name="app_name">Hous-Release-Aos</string>
 
     <!-- Util -->
+    <string name="null_point_exception">NullPointException occurs..</string>
     <string name="binding_error">Binding not initialized to reference the view.</string>
     <string name="back_btn_image_desc">img of back btn</string>
 
@@ -14,7 +15,7 @@
     <string name="login_kakao_login">카카오톡으로 계속하기</string>
 
     <!-- OurRules -->
-    <string name="our_house_rules">우리 집 규칙</string>
+    <string name="our_house_rules">우리 집 Rules</string>
     <string name="our_house_representative_rules_empty">아직 우리 집 Rules가 없어요!</string>
     <string name="our_house_general_rules_empty">다른 Rule도 추가해보세요!</string>
     <string name="our_house_representative_rules_number_one">1.</string>
@@ -63,6 +64,9 @@
     <string name="to_do_tool_tip_empty">완료되지 않음</string>
     <string name="to_do_tool_tip_half">1명 이상 완료</string>
     <string name="to_do_tool_tip_full">모두 완료</string>
+    <string name="our_rule_add">추가하기</string>
+    <string name="our_rule_delete">삭제하기</string>
+    <string name="our_rule_edit">수정하기</string>
     <string name="todo_member_title">멤버별 보기</string>
     <string name="todo_daily_title">요일별 보기</string>
     <string-array name="to_do_week_of_day">
@@ -75,4 +79,7 @@
         <item>일</item>
     </string-array>
     <string name="to_do_plus">+</string>
+    <string name="our_rule_add_new_rule">새로운 Rules 추가</string>
+    <string name="our_rule_save_new_rule">저장</string>
+    <string name="our_rule_input">Rules 입력</string>
 </resources>

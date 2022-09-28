@@ -2,7 +2,6 @@ package hous.release.android.presentation.our_rules.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.databinding.ItemOurRulesGeneralRuleBinding
@@ -10,9 +9,14 @@ import hous.release.android.databinding.ItemOurRulesRepresentativeRuleBottomBind
 import hous.release.android.databinding.ItemOurRulesRepresentativeRuleMiddleBinding
 import hous.release.android.databinding.ItemOurRulesRepresentativeRuleTopBinding
 import hous.release.android.presentation.our_rules.type.RuleItemViewType
+import hous.release.android.util.ItemDiffCallback
 import hous.release.domain.entity.response.OurRule
+import timber.log.Timber
 
-class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(ourRulesDiffUtilCallback) {
+class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(
+    itemDiffCallback
+) {
+    private lateinit var inflater: LayoutInflater
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
@@ -24,17 +28,20 @@ class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(ourRulesDi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        if (!::inflater.isInitialized) inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            RuleItemViewType.REPRESENTATVIE_TOP.id -> RepresentationTopViewHolder(
-                ItemOurRulesRepresentativeRuleTopBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
+            RuleItemViewType.REPRESENTATVIE_TOP.id -> {
+                RepresentationTopViewHolder(
+                    ItemOurRulesRepresentativeRuleTopBinding.inflate(
+                        inflater,
+                        parent,
+                        false
+                    )
                 )
-            )
+            }
             RuleItemViewType.REPRESENTATVIE_MIDDLE.id -> RepresentationMiddleViewHolder(
                 ItemOurRulesRepresentativeRuleMiddleBinding.inflate(
-                    LayoutInflater.from(parent.context),
+                    inflater,
                     parent,
                     false
                 )
@@ -48,7 +55,7 @@ class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(ourRulesDi
             )
             RuleItemViewType.GENERAL.id -> GeneralViewHolder(
                 ItemOurRulesGeneralRuleBinding.inflate(
-                    LayoutInflater.from(parent.context),
+                    inflater,
                     parent,
                     false
                 )
@@ -64,7 +71,7 @@ class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(ourRulesDi
             is RepresentationMiddleViewHolder -> holder.onBind(data)
             is RepresentationBottomViewHolder -> holder.onBind(data)
             is GeneralViewHolder -> holder.onBind(data)
-            else -> throw IllegalArgumentException("holder : $holder")
+            else -> Timber.e(IllegalArgumentException("holder : $holder"))
         }
     }
 
@@ -105,21 +112,9 @@ class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(ourRulesDi
     }
 
     companion object {
-        private val ourRulesDiffUtilCallback =
-            object : DiffUtil.ItemCallback<OurRule>() {
-                override fun areItemsTheSame(
-                    oldItem: OurRule,
-                    newItem: OurRule
-                ): Boolean {
-                    return oldItem.id == newItem.id
-                }
-
-                override fun areContentsTheSame(
-                    oldItem: OurRule,
-                    newItem: OurRule
-                ): Boolean {
-                    return oldItem == newItem
-                }
-            }
+        private val itemDiffCallback = ItemDiffCallback<OurRule>(
+            onItemsTheSame = { old, new -> old.id == new.id },
+            onContentsTheSame = { old, new -> old == new }
+        )
     }
 }

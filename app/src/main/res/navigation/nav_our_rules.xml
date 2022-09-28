@@ -9,6 +9,30 @@
         android:id="@+id/ourRulesFragment"
         android:name="hous.release.android.presentation.our_rules.OurRulesFragment"
         android:label="fragment_our_rule"
-        app:defaultNavHost="true"
-        tools:layout="@layout/fragment_our_rule" />
+        tools:layout="@layout/fragment_our_rule">
+        <action
+            android:id="@+id/action_ourRulesFragment_to_ourRuleAddFragment"
+            app:destination="@id/ourRuleAddFragment" />
+        <action
+            android:id="@+id/action_ourRulesFragment_to_ourRuleDeleteFragment"
+            app:destination="@id/ourRuleDeleteFragment" />
+        <action
+            android:id="@+id/action_ourRulesFragment_to_ourRuleEditFragment"
+            app:destination="@id/ourRuleEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ourRuleAddFragment"
+        android:name="hous.release.android.presentation.our_rules.OurRuleAddFragment"
+        android:label="OurRuleAddFragment"
+        tools:layout="@layout/fragment_our_rule_add" />
+    <fragment
+        android:id="@+id/ourRuleDeleteFragment"
+        android:name="hous.release.android.presentation.our_rules.OurRuleDeleteFragment"
+        android:label="OurRuleDeleteFragment"
+        tools:layout="@layout/fragment_our_rule_delete" />
+    <fragment
+        android:id="@+id/ourRuleEditFragment"
+        android:name="hous.release.android.presentation.our_rules.OurRuleEditFragment"
+        android:label="OurRuleEditFragment"
+        tools:layout="@layout/fragment_our_rule_edit" />
 </navigation>
