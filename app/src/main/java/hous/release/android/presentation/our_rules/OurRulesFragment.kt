@@ -42,7 +42,7 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
             }
         }
         binding.ivSettingButton.setOnClickListener {
-            val ourRulesBottomSheetDialog = OurRulesBottomSheetDialogFragment.newInstance()
+            val ourRulesBottomSheetDialog = OurRulesBottomSheetDialogFragment()
             ourRulesBottomSheetDialog.show(parentFragmentManager, this.javaClass.name)
         }
     }

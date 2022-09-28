@@ -14,10 +14,7 @@ import hous.release.domain.entity.response.OurRule
 import timber.log.Timber
 
 class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(
-    ItemDiffCallback<OurRule>(
-        onItemsTheSame = { old, new -> old.id == new.id },
-        onContentsTheSame = { old, new -> old == new }
-    )
+    itemDiffCallback
 ) {
     private lateinit var inflater: LayoutInflater
 
@@ -112,5 +109,12 @@ class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(
         fun onBind(data: OurRule) {
             binding.data = data
         }
+    }
+
+    companion object {
+        private val itemDiffCallback = ItemDiffCallback<OurRule>(
+            onItemsTheSame = { old, new -> old.id == new.id },
+            onContentsTheSame = { old, new -> old == new }
+        )
     }
 }

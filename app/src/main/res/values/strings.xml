@@ -2,6 +2,7 @@
     <string name="app_name">Hous-Release-Aos</string>
 
     <!-- Util -->
+    <string name="null_point_exception">NullPointException occurs..</string>
     <string name="binding_error">Binding not initialized to reference the view.</string>
     <string name="back_btn_image_desc">img of back btn</string>
 
@@ -78,4 +79,7 @@
         <item>일</item>
     </string-array>
     <string name="to_do_plus">+</string>
+    <string name="our_rule_add_new_rule">새로운 Rules 추가</string>
+    <string name="our_rule_save_new_rule">저장</string>
+    <string name="our_rule_input">Rules 입력</string>
 </resources>
