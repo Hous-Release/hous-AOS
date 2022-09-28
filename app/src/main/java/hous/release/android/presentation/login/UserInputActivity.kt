@@ -23,7 +23,7 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
         userInputViewModel.birthday.value = "1999-08-02"
     }
 
-    private fun observeInputState()  {
+    private fun observeInputState() {
         userInputViewModel.isInputUserInfo.observe(
             this,
             EventObserver { full ->
