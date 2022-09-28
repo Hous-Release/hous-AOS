@@ -3,7 +3,6 @@ package hous.release.android.presentation.our_rules
 import android.os.Bundle
 import android.view.View
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
-import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentOurRuleBinding
@@ -36,12 +35,12 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
     }
 
     private fun initClickListener() {
-        binding.ivBackButton.setOnClickListener {
-            binding.ivBackButton.setOnClickListener {
-                findNavController().popBackStack()
+        binding.ivMainRuleBackButton.setOnClickListener {
+            binding.ivMainRuleBackButton.setOnClickListener {
+                activity?.finish() ?: Timber.e(getString(R.string.null_point_exception))
             }
         }
-        binding.ivSettingButton.setOnClickListener {
+        binding.ivMainRuleSettingButton.setOnClickListener {
             val ourRulesBottomSheetDialog = OurRulesBottomSheetDialogFragment()
             ourRulesBottomSheetDialog.show(parentFragmentManager, this.javaClass.name)
         }
@@ -50,7 +49,7 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
     private fun initOurRulesAdapter() {
         ourRulesAdapter = OurRulesAdapter()
         safeLet(ourRulesAdapter, context) { ourRulesAdapter, context ->
-            binding.rvOurRules.run {
+            binding.rvMainRuleOurRules.run {
                 itemAnimator = null
                 adapter = ourRulesAdapter
                 addItemDecoration(
@@ -65,7 +64,7 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
             viewModel.uiState.collect { uiState ->
                 // this callback runs when the list is updated
                 ourRulesAdapter.submitList(uiState.ourRuleList) {
-                    binding.rvOurRules.invalidateItemDecorations()
+                    binding.rvMainRuleOurRules.invalidateItemDecorations()
                 }
             }
             // TODO 추후에 Loading뷰, Error뷰 처리
