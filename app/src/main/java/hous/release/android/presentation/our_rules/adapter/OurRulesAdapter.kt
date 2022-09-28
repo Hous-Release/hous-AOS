@@ -2,7 +2,6 @@ package hous.release.android.presentation.our_rules.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.databinding.ItemOurRulesGeneralRuleBinding
@@ -10,10 +9,16 @@ import hous.release.android.databinding.ItemOurRulesRepresentativeRuleBottomBind
 import hous.release.android.databinding.ItemOurRulesRepresentativeRuleMiddleBinding
 import hous.release.android.databinding.ItemOurRulesRepresentativeRuleTopBinding
 import hous.release.android.presentation.our_rules.type.RuleItemViewType
+import hous.release.android.util.ItemDiffCallback
 import hous.release.domain.entity.response.OurRule
 import timber.log.Timber
 
-class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(ourRulesDiffUtilCallback) {
+class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(
+    ItemDiffCallback<OurRule>(
+        onItemsTheSame = { old, new -> old.id == new.id },
+        onContentsTheSame = { old, new -> old == new }
+    )
+) {
     private lateinit var inflater: LayoutInflater
 
     override fun getItemViewType(position: Int): Int {
@@ -107,24 +112,5 @@ class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(ourRulesDi
         fun onBind(data: OurRule) {
             binding.data = data
         }
-    }
-
-    companion object {
-        private val ourRulesDiffUtilCallback =
-            object : DiffUtil.ItemCallback<OurRule>() {
-                override fun areItemsTheSame(
-                    oldItem: OurRule,
-                    newItem: OurRule
-                ): Boolean {
-                    return oldItem.id == newItem.id
-                }
-
-                override fun areContentsTheSame(
-                    oldItem: OurRule,
-                    newItem: OurRule
-                ): Boolean {
-                    return oldItem == newItem
-                }
-            }
     }
 }
