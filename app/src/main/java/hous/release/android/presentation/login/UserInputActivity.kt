@@ -37,7 +37,6 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
 
     private fun initBackBtnOnClickListener() {
         binding.btnUserInputBack.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
     }

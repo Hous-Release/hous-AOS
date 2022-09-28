@@ -65,7 +65,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                 if (isSuccess) {
                     Timber.d("로그인 성공")
                     startActivity(Intent(this, UserInputActivity::class.java))
-                    finish()
                 } else {
                     Timber.d("로그인 실패")
                 }
