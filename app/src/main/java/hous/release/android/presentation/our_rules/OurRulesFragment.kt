@@ -3,6 +3,7 @@ package hous.release.android.presentation.our_rules
 import android.os.Bundle
 import android.view.View
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentOurRuleBinding
@@ -36,9 +37,9 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
 
     private fun initClickListener() {
         binding.ivBackButton.setOnClickListener {
-            safeLet(activity, activity?.onBackPressedDispatcher) { _, dispatcher ->
-                dispatcher.onBackPressed()
-            } ?: Timber.e("safeLet에 null이 들어감!!")
+            binding.ivBackButton.setOnClickListener {
+                findNavController().popBackStack()
+            }
         }
         binding.ivSettingButton.setOnClickListener {
             val ourRulesBottomSheetDialog = OurRulesBottomSheetDialogFragment.newInstance()
