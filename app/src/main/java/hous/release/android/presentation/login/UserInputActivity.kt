@@ -17,13 +17,13 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.vm = userInputViewModel
-        initIsInputUserInfoObserver()
-        initBtnBackOnClickListener()
-        initBtnCheckBirthdayOnClickListener()
+        observeInputState()
+        initBackBtnOnClickListener()
+        initCheckBirthdayBtnOnClickListener()
         userInputViewModel.birthday.value = "1999-08-02"
     }
 
-    private fun initIsInputUserInfoObserver() {
+    private fun observeInputState()  {
         userInputViewModel.isInputUserInfo.observe(
             this,
             EventObserver { full ->
@@ -35,14 +35,14 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
         )
     }
 
-    private fun initBtnBackOnClickListener() {
+    private fun initBackBtnOnClickListener() {
         binding.btnUserInputBack.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
     }
 
-    private fun initBtnCheckBirthdayOnClickListener() {
+    private fun initCheckBirthdayBtnOnClickListener() {
         binding.cbCheckBirthday.setOnClickListener {
             userInputViewModel.isBtnCheckBirthday.value = binding.cbCheckBirthday.isChecked
         }
