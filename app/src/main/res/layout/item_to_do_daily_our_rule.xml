@@ -16,28 +16,31 @@
         android:layout_marginBottom="12dp">
 
         <ImageView
-            android:id="@+id/iv_to_do_our_check_box"
+            android:id="@+id/iv_to_do_daily_our_dot_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_to_do_our_unchecked"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="4dp"
+            android:src="@drawable/shape_g_3_fill_8_circle"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_to_do_daily_our_rule"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/tv_to_do_daily_our_rule" />
 
         <TextView
-            android:id="@+id/tv_to_do_our_rule"
+            android:id="@+id/tv_to_do_daily_our_rule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="16dp"
             android:text="@{todo.todoName}"
             android:textAppearance="@style/B2"
             android:textColor="@color/hous_g_5"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_to_do_our_check_box"
-            app:layout_constraintStart_toEndOf="@+id/iv_to_do_our_check_box"
-            app:layout_constraintTop_toTopOf="@+id/iv_to_do_our_check_box"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_to_do_daily_our_dot_indicator"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="최코코 밥 주기" />
 
         <TextView
-            android:id="@+id/tv_to_do_our_rule_participants"
+            android:id="@+id/tv_to_do_daily_our_rule_participants"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"

@@ -1,7 +1,6 @@
 package hous.release.android
 
 import android.app.Application
-import androidx.databinding.ktx.BuildConfig
 import com.kakao.sdk.common.KakaoSdk
 import dagger.hilt.android.HiltAndroidApp
 import hous.release.android.BuildConfig.KAKAO_NATIVE_APP_KEY
