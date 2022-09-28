@@ -30,10 +30,10 @@
             android:id="@+id/tv_rule_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="34dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:textAppearance="@style/B2"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cv_dot_indicator"
             app:layout_constraintTop_toTopOf="parent"
             android:text="@{data.name}"
             tools:text="우리 집 대장은 최코코" />
@@ -41,7 +41,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:background="@color/hous_g_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
