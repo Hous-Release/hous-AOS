@@ -54,6 +54,7 @@
     <string name="hous_our_rules_num_2">2.</string>
     <string name="hous_our_rules_num_3">3.</string>
     <string name="hous_homies">Homies</string>
+    <string name="hous_homies_profile_img_desc">img of profile color</string>
 
     <!-- EnterRoomCode -->
     <string name="enter_room_code_title">방 초대코드 입력하기</string>
