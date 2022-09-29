@@ -1,5 +1,8 @@
 package hous.release.data.entity.response
 
+import hous.release.domain.entity.response.Homy
+import hous.release.domain.entity.response.Hous
+
 data class HousResponse(
     val homies: List<HomyEntity>,
     val myTodos: List<String>,
@@ -8,7 +11,23 @@ data class HousResponse(
     val progress: Int,
     val roomName: String,
     val userNickname: String
-)
+) {
+    fun toHous(): Hous = Hous(
+        homies = this.homies.map { homyEntity ->
+            Homy(
+                color = homyEntity.color,
+                homieId = homyEntity.homieId,
+                userNickname = homyEntity.userNickname
+            )
+        },
+        myTodos = this.myTodos,
+        myTodosCnt = this.myTodosCnt,
+        ourRules = this.ourRules,
+        progress = this.progress,
+        roomName = this.roomName,
+        userNickname = this.userNickname
+    )
+}
 
 data class HomyEntity(
     val color: String,

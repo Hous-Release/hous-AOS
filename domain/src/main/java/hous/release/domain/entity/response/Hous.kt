@@ -1,6 +1,6 @@
 package hous.release.domain.entity.response
 
-data class DomainHousResponse(
+data class Hous(
     val homies: List<Homy>,
     val myTodos: List<String>,
     val myTodosCnt: Int,
