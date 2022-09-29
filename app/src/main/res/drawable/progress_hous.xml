@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="8dp" />
+            <solid android:color="@color/hous_blue_l2" />
+        </shape>
+    </item>
+
+    <item android:id="@android:id/progress">
+        <clip>
+            <scale
+                android:scaleWidth="100%"
+                android:useIntrinsicSizeAsMinimum="true">
+                <shape>
+                    <corners android:radius="8dp" />
+                    <solid android:color="@color/hous_blue" />
+                </shape>
+            </scale>
+        </clip>
+    </item>
+
+</layer-list>
