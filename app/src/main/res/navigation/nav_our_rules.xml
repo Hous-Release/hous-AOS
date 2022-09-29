@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/ourRuleAddFragment"
-        android:name="hous.release.android.presentation.our_rules.OurRuleAddFragment"
+        android:name="hous.release.android.presentation.our_rules.add_rule.OurRuleAddFragment"
         android:label="OurRuleAddFragment"
         tools:layout="@layout/fragment_our_rule_add" />
     <fragment
