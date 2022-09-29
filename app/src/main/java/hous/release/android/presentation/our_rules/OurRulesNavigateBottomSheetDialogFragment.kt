@@ -7,24 +7,29 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import hous.release.android.R
-import hous.release.android.databinding.DialogOurRuleBinding
+import hous.release.android.databinding.DialogOurRuleNavigateBinding
 import timber.log.Timber
 
-class OurRulesBottomSheetDialogFragment : BottomSheetDialogFragment() {
-    private var _binding: DialogOurRuleBinding? = null
+class OurRulesNavigateBottomSheetDialogFragment : BottomSheetDialogFragment() {
+    private var _binding: DialogOurRuleNavigateBinding? = null
     private val binding get() = _binding ?: error(getString(R.string.binding_error))
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = DialogOurRuleBinding.inflate(layoutInflater, container, false)
+        _binding = DialogOurRuleNavigateBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initClickListener()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun initClickListener() {
