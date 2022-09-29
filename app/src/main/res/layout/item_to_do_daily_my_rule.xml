@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="todo"
+            type="hous.release.domain.entity.Todo" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp">
+
+        <ImageView
+            android:id="@+id/iv_to_do_daily_my_dot_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="4dp"
+            android:src="@drawable/shape_g_3_fill_8_circle"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_to_do_daily_my_rule"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_to_do_daily_my_rule"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_to_do_daily_my_rule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{todo.todoName}"
+            android:textAppearance="@style/B2"
+            android:textColor="@color/hous_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_to_do_daily_my_dot_indicator"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="청소기 돌리기" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

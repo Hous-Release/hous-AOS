@@ -9,7 +9,7 @@
 
         <variable
             name="data"
-            type="hous.release.domain.entity.Rule" />
+            type="hous.release.domain.entity.response.OurRule" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +29,7 @@
             android:text="@string/our_house_representative_rules_number_two"
             android:textColor="@color/hous_blue"
             android:textSize="16sp"
-            android:visibility="@{data.description.empty ? View.GONE : View.VISIBLE }"
+            android:visibility="@{data.name.empty ? View.GONE : View.VISIBLE }"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="2." />
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="52dp"
             android:layout_marginTop="15dp"
-            android:text="@{data.description}"
+            android:text="@{data.name}"
             android:textAppearance="@style/B2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -49,7 +49,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:visibility="@{data.description.empty ? View.GONE : View.VISIBLE }"
+            android:visibility="@{data.name.empty ? View.GONE : View.VISIBLE }"
             android:layout_marginHorizontal="22dp"
             android:layout_marginTop="12dp"
             android:background="@color/hous_blue_l1"
