@@ -40,6 +40,21 @@
     <string name="crate_room_dialog_desc">방 생성이 완료 되었습니다.\n참여 코드를 복사해서\n룸메이트에게 공유해보세요!</string>
     <string name="create_room_dialog_kakao_share">카카오톡으로 공유하기</string>
 
+    <!-- Hous -->
+    <string name="hous_title">%s님의,\n%s 하우스</string>
+    <string name="hous_btn_copy_code_desc">참여코드 복사 버튼</string>
+    <string name="hous_btn_edit_desc">수정하기 버튼</string>
+    <string name="hous_to_do_progress_title">오늘 우리의 to-do 진행률</string>
+    <string name="hous_my_todo">MY to-do</string>
+    <string name="hous_my_todo_img_desc">img of myTod in hous</string>
+    <string name="hous_my_todo_cheer">동글이의\n응원을 받고\n오늘도 화이팅!</string>
+    <string name="hous_our_rules">Our Rules</string>
+    <string name="hous_our_rules_img_desc">btn_of_our_rules</string>
+    <string name="hous_our_rules_num_1">1.</string>
+    <string name="hous_our_rules_num_2">2.</string>
+    <string name="hous_our_rules_num_3">3.</string>
+    <string name="hous_homies">Homies</string>
+
     <!-- EnterRoomCode -->
     <string name="enter_room_code_title">방 초대코드 입력하기</string>
     <string name="enter_room_code_desc">초대코드를 입력해야 방에 들어갈 수 있어요.</string>
@@ -49,4 +64,5 @@
     <string name="enter_room_code_dialog_owner_desc">님이</string>
     <string name="enter_room_code_dialog_desc">초대한 방에 참여할까요?</string>
     <string name="enter_room_code_dialog_enter">참여하기</string>
+
 </resources>
