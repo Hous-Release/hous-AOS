@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import hous.release.data.service.AuthService
 import hous.release.data.service.EnterRoomService
+import hous.release.data.service.HousService
 import hous.release.data.service.OurRulesService
 import hous.release.data.service.TodoService
 import retrofit2.Retrofit
@@ -23,6 +24,11 @@ class RetrofitServiceModule {
     @Singleton
     fun providesEnterRoomService(retrofit: Retrofit): EnterRoomService =
         retrofit.create(EnterRoomService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideHousService(retrofit: Retrofit): HousService =
+        retrofit.create(HousService::class.java)
 
     @Provides
     @Singleton
