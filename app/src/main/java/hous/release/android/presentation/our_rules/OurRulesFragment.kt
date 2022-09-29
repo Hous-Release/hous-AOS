@@ -2,7 +2,7 @@ package hous.release.android.presentation.our_rules
 
 import android.os.Bundle
 import android.view.View
-import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentOurRuleBinding
@@ -16,7 +16,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragment_our_rule) {
 
-    private val viewModel: OurRulesViewModel by hiltNavGraphViewModels(R.id.nav_our_rules)
+    private val viewModel: OurRulesViewModel by viewModels()
     private lateinit var ourRulesAdapter: OurRulesAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,7 +60,6 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
     private fun observeOurRules() {
         repeatOnStarted {
             viewModel.uiState.collect { uiState ->
-                // this callback runs when the list is updated
                 ourRulesAdapter.submitList(uiState.ourRuleList) {
                     binding.rvMainRuleOurRules.invalidateItemDecorations()
                 }
