@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class OurRulesUseCase @Inject constructor(private val repository: OurRulesRepository) {
+class FetchOurRulesUseCase @Inject constructor(private val repository: OurRulesRepository) {
 
     fun fetchOurRules(): Flow<ApiResult<List<OurRule>>> =
         repository.fetchOurRulesContent()

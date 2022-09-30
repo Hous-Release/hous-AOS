@@ -23,4 +23,12 @@ class OurRulesRepositoryImpl @Inject constructor(private val ourRulesDataSource:
             emit(ApiResult.Success(data))
         }
     }.flowOn(Dispatchers.IO)
+
+    override fun postAddedRule(addedRuleList: List<String>) = flow {
+        val response = ourRulesDataSource.postAddedRuleContent(addedRuleList)
+        response?.also {
+            emit(ApiResult.Error(response.message))
+        } ?: emit(ApiResult.Success(""))
+    }
 }
+
