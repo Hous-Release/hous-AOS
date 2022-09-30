@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import hous.release.android.R
 import hous.release.android.databinding.DialogOurRuleAddErrorBinding
+import timber.log.Timber
 
 class OurRuleAddErrorDialogFragment : DialogFragment() {
     private var _binding: DialogOurRuleAddErrorBinding? = null
@@ -22,6 +23,7 @@ class OurRuleAddErrorDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dialog?.setCancelable(false) ?: Timber.e(getString(R.string.null_point_exception))
         initClickListener()
     }
 
@@ -31,6 +33,8 @@ class OurRuleAddErrorDialogFragment : DialogFragment() {
     }
 
     private fun initClickListener() {
-        // TODO 확인하기 로직 추가
+        binding.tvOurRuleAddErrorOkBtn.setOnClickListener {
+            dialog?.dismiss() ?: Timber.e(getString(R.string.null_point_exception))
+        }
     }
 }
