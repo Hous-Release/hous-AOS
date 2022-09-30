@@ -5,6 +5,11 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="hous.release.android.presentation.hous.HousViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -23,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
-                android:text="@string/hous_title"
+                android:text="@{@string/hous_title(vm.hous.userNickname, vm.hous.roomName)}"
                 android:textAppearance="@style/H3"
                 android:textColor="@color/hous_black"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -124,7 +129,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:fontFamily="@font/montserrat_semibold"
-                    android:text="4"
+                    android:text="@{String.valueOf(vm.hous.myTodosCnt)}"
                     android:textColor="@color/hous_blue_l1"
                     android:textSize="14dp"
                     app:layout_constraintBottom_toBottomOf="@id/view_hous_my_todo"
@@ -137,6 +142,7 @@
                     android:layout_height="3dp"
                     android:layout_marginTop="14dp"
                     android:background="@drawable/shape_blue_fill_oval"
+                    android:visibility="@{vm.hous.myTodosCnt >= 1 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_hous_my_todo_title" />
 
@@ -147,9 +153,10 @@
                     android:layout_marginStart="10dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="최코코 밥 주기"
+                    android:text="@{vm.hous.myTodosCnt >= 1 ? vm.hous.myTodos[0] : ``}"
                     android:textAppearance="@style/Description"
                     android:textColor="@color/hous_g_7"
+                    android:visibility="@{vm.hous.myTodosCnt >= 1 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@id/view_hous_my_todo_1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/view_hous_my_todo_1"
@@ -161,6 +168,7 @@
                     android:layout_height="3dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/shape_blue_fill_oval"
+                    android:visibility="@{vm.hous.myTodosCnt >= 2 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintStart_toStartOf="@id/view_hous_my_todo_1"
                     app:layout_constraintTop_toBottomOf="@id/view_hous_my_todo_1" />
 
@@ -171,9 +179,10 @@
                     android:layout_marginStart="10dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="유초록씨 물 주기"
+                    android:text="@{vm.hous.myTodosCnt >= 2 ? vm.hous.myTodos[1] : ``}"
                     android:textAppearance="@style/Description"
                     android:textColor="@color/hous_g_7"
+                    android:visibility="@{vm.hous.myTodosCnt >= 2 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@id/view_hous_my_todo_2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/view_hous_my_todo_2"
@@ -185,6 +194,7 @@
                     android:layout_height="3dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/shape_blue_fill_oval"
+                    android:visibility="@{vm.hous.myTodosCnt >= 3 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintStart_toStartOf="@id/view_hous_my_todo_2"
                     app:layout_constraintTop_toBottomOf="@id/view_hous_my_todo_2" />
 
@@ -195,9 +205,10 @@
                     android:layout_marginStart="10dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="청소기돌리기돌리기돌리기돌리기"
+                    android:text="@{vm.hous.myTodosCnt >= 3 ? vm.hous.myTodos[2] : ``}"
                     android:textAppearance="@style/Description"
                     android:textColor="@color/hous_g_7"
+                    android:visibility="@{vm.hous.myTodosCnt >= 3 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@id/view_hous_my_todo_3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/view_hous_my_todo_3"
@@ -296,6 +307,7 @@
                     android:textColor="@color/hous_blue"
                     android:textSize="16dp"
                     android:textStyle="normal"
+                    android:visibility="@{vm.hous.ourRules.size >= 1 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -304,9 +316,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
-                    android:text="우리 집 대장은 최코코"
+                    android:text="@{vm.hous.ourRules.size >= 1 ? vm.hous.ourRules[0] : ``}"
                     android:textAppearance="@style/B2"
                     android:textColor="@color/hous_g_7"
+                    android:visibility="@{vm.hous.ourRules.size >= 1 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_hous_our_rules_num_1"
                     app:layout_constraintStart_toEndOf="@id/tv_hous_our_rules_num_1"
                     app:layout_constraintTop_toTopOf="@id/tv_hous_our_rules_num_1" />
@@ -318,6 +331,7 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="12dp"
                     android:background="@color/hous_blue_l1"
+                    android:visibility="@{vm.hous.ourRules.size >= 2 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_hous_our_rules_num_1" />
@@ -334,6 +348,7 @@
                     android:textColor="@color/hous_blue"
                     android:textSize="16dp"
                     android:textStyle="normal"
+                    android:visibility="@{vm.hous.ourRules.size >= 2 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintStart_toStartOf="@id/tv_hous_our_rules_num_1"
                     app:layout_constraintTop_toBottomOf="@id/view_hous_our_rules_division_1" />
 
@@ -342,9 +357,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
-                    android:text="10시, 18시 코코님 밥 챙겨드리기"
+                    android:text="@{vm.hous.ourRules.size >= 2 ? vm.hous.ourRules[1] : ``}"
                     android:textAppearance="@style/B2"
                     android:textColor="@color/hous_g_7"
+                    android:visibility="@{vm.hous.ourRules.size >= 2 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_hous_our_rules_num_2"
                     app:layout_constraintStart_toEndOf="@id/tv_hous_our_rules_num_2"
                     app:layout_constraintTop_toTopOf="@id/tv_hous_our_rules_num_2" />
@@ -356,6 +372,7 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="12dp"
                     android:background="@color/hous_blue_l1"
+                    android:visibility="@{vm.hous.ourRules.size >= 3 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_hous_our_rules_num_2" />
@@ -372,6 +389,7 @@
                     android:textColor="@color/hous_blue"
                     android:textSize="16dp"
                     android:textStyle="normal"
+                    android:visibility="@{vm.hous.ourRules.size >= 3 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintStart_toStartOf="@id/tv_hous_our_rules_num_1"
                     app:layout_constraintTop_toBottomOf="@id/view_hous_our_rules_division_2" />
 
@@ -380,9 +398,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
-                    android:text="자기가 먹은 건 자기가 치우기!"
+                    android:text="@{vm.hous.ourRules.size >= 3 ? vm.hous.ourRules[2] : ``}"
                     android:textAppearance="@style/B2"
                     android:textColor="@color/hous_g_7"
+                    android:visibility="@{vm.hous.ourRules.size >= 3 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_hous_our_rules_num_3"
                     app:layout_constraintStart_toEndOf="@id/tv_hous_our_rules_num_3"
                     app:layout_constraintTop_toTopOf="@id/tv_hous_our_rules_num_3" />
