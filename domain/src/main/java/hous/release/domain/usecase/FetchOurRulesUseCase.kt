@@ -3,14 +3,16 @@ package hous.release.domain.usecase
 import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.OurRulesContent
 import hous.release.domain.entity.OurRulesContent.Companion.defaultRuleList
+import hous.release.domain.entity.response.OurRule
 import hous.release.domain.repository.OurRulesRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class OurRulesUseCase @Inject constructor(private val repository: OurRulesRepository) {
+
+    fun fetchOurRules(): Flow<ApiResult<List<OurRule>>> =
+        repository.fetchOurRulesContent()
 
     fun fetchOurMainRules(): Flow<ApiResult<OurRulesContent>> = flow {
         repository.fetchOurRulesContent().collect { apiResult ->
@@ -47,5 +49,5 @@ class OurRulesUseCase @Inject constructor(private val repository: OurRulesReposi
                 }
             }
         }
-    }.flowOn(Dispatchers.IO)
+    }
 }
