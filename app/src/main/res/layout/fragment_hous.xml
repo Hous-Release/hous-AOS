@@ -1,23 +1,435 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/hous_white"
-        tools:context=".presentation.hous.HousFragment">
+        android:layout_height="match_parent">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/title_hous"
-            android:textColor="@color/hous_blue"
-            android:textSize="100dp" />
+            android:background="@color/hous_white"
+            tools:context=".presentation.hous.HousFragment">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tv_hous_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/hous_title"
+                android:textAppearance="@style/H3"
+                android:textColor="@color/hous_black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btn_hous_copy_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:background="@null"
+                android:contentDescription="@string/hous_btn_copy_code_desc"
+                android:padding="8dp"
+                android:src="@drawable/ic_hous_copy_code"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btn_hous_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:contentDescription="@string/hous_btn_edit_desc"
+                android:padding="8dp"
+                android:src="@drawable/ic_hous_edit"
+                app:layout_constraintEnd_toStartOf="@id/btn_hous_copy_code"
+                app:layout_constraintTop_toTopOf="@id/btn_hous_copy_code" />
+
+            <TextView
+                android:id="@+id/tv_hous_to_do_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/hous_to_do_progress_title"
+                android:textAppearance="@style/Description"
+                android:textColor="@color/hous_g_5"
+                app:layout_constraintStart_toStartOf="@id/tv_hous_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_hous_title" />
+
+            <ProgressBar
+                android:id="@+id/pb_hous_to_do"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="8dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:max="100"
+                android:progress="50"
+                android:progressDrawable="@drawable/progress_hous"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_hous_to_do_progress" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_hous_my_todo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/shape_blue_i2_fill_8_rect"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="16dp"
+                app:layout_constraintEnd_toStartOf="@id/iv_hous_my_todo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pb_hous_to_do">
+
+                <TextView
+                    android:id="@+id/tv_hous_my_todo_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="8dp"
+                    android:text="@string/hous_my_todo"
+                    android:textColor="@color/hous_black"
+                    android:textSize="16dp"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/view_hous_my_todo"
+                    android:layout_width="3dp"
+                    android:layout_height="3dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/shape_blue_l1_fill_oval"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_hous_my_todo_title"
+                    app:layout_constraintStart_toEndOf="@id/tv_hous_my_todo_title"
+                    app:layout_constraintTop_toTopOf="@id/tv_hous_my_todo_title" />
+
+                <TextView
+                    android:id="@+id/tv_hous_my_todo_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="4"
+                    android:textColor="@color/hous_blue_l1"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="@id/view_hous_my_todo"
+                    app:layout_constraintStart_toEndOf="@id/view_hous_my_todo"
+                    app:layout_constraintTop_toTopOf="@id/view_hous_my_todo" />
+
+                <View
+                    android:id="@+id/view_hous_my_todo_1"
+                    android:layout_width="3dp"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@drawable/shape_blue_fill_oval"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_hous_my_todo_title" />
+
+                <TextView
+                    android:id="@+id/tv_hous_my_todo_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="최코코 밥 주기"
+                    android:textAppearance="@style/Description"
+                    android:textColor="@color/hous_g_7"
+                    app:layout_constraintBottom_toBottomOf="@id/view_hous_my_todo_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/view_hous_my_todo_1"
+                    app:layout_constraintTop_toTopOf="@id/view_hous_my_todo_1" />
+
+                <View
+                    android:id="@+id/view_hous_my_todo_2"
+                    android:layout_width="3dp"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/shape_blue_fill_oval"
+                    app:layout_constraintStart_toStartOf="@id/view_hous_my_todo_1"
+                    app:layout_constraintTop_toBottomOf="@id/view_hous_my_todo_1" />
+
+                <TextView
+                    android:id="@+id/tv_hous_my_todo_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="유초록씨 물 주기"
+                    android:textAppearance="@style/Description"
+                    android:textColor="@color/hous_g_7"
+                    app:layout_constraintBottom_toBottomOf="@id/view_hous_my_todo_2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/view_hous_my_todo_2"
+                    app:layout_constraintTop_toTopOf="@id/view_hous_my_todo_2" />
+
+                <View
+                    android:id="@+id/view_hous_my_todo_3"
+                    android:layout_width="3dp"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/shape_blue_fill_oval"
+                    app:layout_constraintStart_toStartOf="@id/view_hous_my_todo_2"
+                    app:layout_constraintTop_toBottomOf="@id/view_hous_my_todo_2" />
+
+                <TextView
+                    android:id="@+id/tv_hous_my_todo_3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="청소기돌리기돌리기돌리기돌리기"
+                    android:textAppearance="@style/Description"
+                    android:textColor="@color/hous_g_7"
+                    app:layout_constraintBottom_toBottomOf="@id/view_hous_my_todo_3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/view_hous_my_todo_3"
+                    app:layout_constraintTop_toTopOf="@id/view_hous_my_todo_3" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/iv_hous_my_todo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/hous_my_todo_img_desc"
+                android:src="@drawable/ic_hous_my_todo"
+                app:layout_constraintBottom_toBottomOf="@id/layout_hous_my_todo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/layout_hous_my_todo" />
+
+            <TextView
+                android:id="@+id/tv_hous_my_todo_cheer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                android:gravity="center_horizontal"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="4.8dp"
+                android:text="@string/hous_my_todo_cheer"
+                android:textColor="@color/hous_black"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="@id/iv_hous_my_todo"
+                app:layout_constraintStart_toStartOf="@id/iv_hous_my_todo"
+                app:layout_constraintTop_toTopOf="@id/iv_hous_my_todo" />
+
+            <View
+                android:id="@+id/view_hous_division_1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:background="@color/hous_g_0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_hous_my_todo" />
+
+            <TextView
+                android:id="@+id/tv_hous_our_rules_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="9dp"
+                android:text="@string/hous_our_rules"
+                android:textColor="@color/hous_black"
+                android:textSize="18dp"
+                android:textStyle="normal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_hous_division_1" />
+
+            <ImageButton
+                android:id="@+id/btn_hous_our_rules"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:background="@null"
+                android:contentDescription="@string/hous_our_rules_img_desc"
+                android:src="@drawable/ic_arrow_right"
+                app:layout_constraintBottom_toBottomOf="@id/tv_hous_our_rules_title"
+                app:layout_constraintStart_toEndOf="@id/tv_hous_our_rules_title"
+                app:layout_constraintTop_toTopOf="@id/tv_hous_our_rules_title" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_hous_our_rules"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/shape_blue_i2_fill_8_rect"
+                android:paddingVertical="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_hous_our_rules_title">
+
+                <TextView
+                    android:id="@+id/tv_hous_our_rules_num_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="8dp"
+                    android:text="@string/hous_our_rules_num_1"
+                    android:textColor="@color/hous_blue"
+                    android:textSize="16dp"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_hous_our_rules_rule_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:text="우리 집 대장은 최코코"
+                    android:textAppearance="@style/B2"
+                    android:textColor="@color/hous_g_7"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_hous_our_rules_num_1"
+                    app:layout_constraintStart_toEndOf="@id/tv_hous_our_rules_num_1"
+                    app:layout_constraintTop_toTopOf="@id/tv_hous_our_rules_num_1" />
+
+                <View
+                    android:id="@+id/view_hous_our_rules_division_1"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/hous_blue_l1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_hous_our_rules_num_1" />
+
+                <TextView
+                    android:id="@+id/tv_hous_our_rules_num_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="8dp"
+                    android:text="@string/hous_our_rules_num_2"
+                    android:textColor="@color/hous_blue"
+                    android:textSize="16dp"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toStartOf="@id/tv_hous_our_rules_num_1"
+                    app:layout_constraintTop_toBottomOf="@id/view_hous_our_rules_division_1" />
+
+                <TextView
+                    android:id="@+id/tv_hous_our_rules_rule_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:text="10시, 18시 코코님 밥 챙겨드리기"
+                    android:textAppearance="@style/B2"
+                    android:textColor="@color/hous_g_7"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_hous_our_rules_num_2"
+                    app:layout_constraintStart_toEndOf="@id/tv_hous_our_rules_num_2"
+                    app:layout_constraintTop_toTopOf="@id/tv_hous_our_rules_num_2" />
+
+                <View
+                    android:id="@+id/view_hous_our_rules_division_2"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/hous_blue_l1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_hous_our_rules_num_2" />
+
+                <TextView
+                    android:id="@+id/tv_hous_our_rules_num_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="8dp"
+                    android:text="@string/hous_our_rules_num_3"
+                    android:textColor="@color/hous_blue"
+                    android:textSize="16dp"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toStartOf="@id/tv_hous_our_rules_num_1"
+                    app:layout_constraintTop_toBottomOf="@id/view_hous_our_rules_division_2" />
+
+                <TextView
+                    android:id="@+id/tv_hous_our_rules_rule_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:text="자기가 먹은 건 자기가 치우기!"
+                    android:textAppearance="@style/B2"
+                    android:textColor="@color/hous_g_7"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_hous_our_rules_num_3"
+                    app:layout_constraintStart_toEndOf="@id/tv_hous_our_rules_num_3"
+                    app:layout_constraintTop_toTopOf="@id/tv_hous_our_rules_num_3" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/view_hous_division_2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="32dp"
+                android:background="@color/hous_g_0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_hous_our_rules" />
+
+            <TextView
+                android:id="@+id/tv_hous_homies_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="9dp"
+                android:text="@string/hous_homies"
+                android:textColor="@color/hous_black"
+                android:textSize="18dp"
+                android:textStyle="normal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_hous_division_2" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_hous_homies_title"
+                app:spanCount="2"
+                tools:listitem="@layout/item_hous_homies" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
 </layout>
