@@ -347,7 +347,7 @@
                     android:layout_marginStart="14dp"
                     android:text="@{vm.hous.ourRules.size >= 1 ? vm.hous.ourRules[0] : @string/hous_empty_our_rules_add}"
                     android:textAppearance="@style/B2"
-                    android:textColor="@{vm.hous.ourRules.size == 1 ? @color/hous_g_7 : @color/hous_g_4}"
+                    android:textColor="@{vm.hous.ourRules.size >= 1 ? @color/hous_g_7 : @color/hous_g_4}"
                     android:visibility="@{vm.hous.ourRules.size > 0 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_hous_our_rules_num_1"
                     app:layout_constraintStart_toEndOf="@id/tv_hous_our_rules_num_1"
@@ -388,7 +388,7 @@
                     android:layout_marginStart="14dp"
                     android:text="@{vm.hous.ourRules.size >= 2 ? vm.hous.ourRules[1] : @string/hous_empty_our_rules_add}"
                     android:textAppearance="@style/B2"
-                    android:textColor="@{vm.hous.ourRules.size == 2 ? @color/hous_g_7 : @color/hous_g_4}"
+                    android:textColor="@{vm.hous.ourRules.size >= 2 ? @color/hous_g_7 : @color/hous_g_4}"
                     android:visibility="@{vm.hous.ourRules.size > 0 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_hous_our_rules_num_2"
                     app:layout_constraintStart_toEndOf="@id/tv_hous_our_rules_num_2"
@@ -429,7 +429,7 @@
                     android:layout_marginStart="14dp"
                     android:text="@{vm.hous.ourRules.size >= 3 ? vm.hous.ourRules[2] : @string/hous_empty_our_rules_add}"
                     android:textAppearance="@style/B2"
-                    android:textColor="@{vm.hous.ourRules.size == 3 ? @color/hous_g_7 : @color/hous_g_4}"
+                    android:textColor="@{vm.hous.ourRules.size >= 3 ? @color/hous_g_7 : @color/hous_g_4}"
                     android:visibility="@{vm.hous.ourRules.size > 0 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_hous_our_rules_num_3"
                     app:layout_constraintStart_toEndOf="@id/tv_hous_our_rules_num_3"
@@ -465,6 +465,7 @@
                 app:layout_constraintTop_toBottomOf="@id/view_hous_division_2" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_hous_homies"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
