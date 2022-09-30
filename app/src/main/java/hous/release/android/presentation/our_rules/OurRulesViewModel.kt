@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.response.OurRule
-import hous.release.domain.usecase.OurRulesUseCase
+import hous.release.domain.usecase.FetchOurRulesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +15,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class OurRulesViewModel @Inject constructor(private val ourRulesUseCase: OurRulesUseCase) :
+class OurRulesViewModel @Inject constructor(private val ourRulesUseCase: FetchOurRulesUseCase) :
     ViewModel() {
     private var _uiState = MutableStateFlow(OurRulesUiState())
     val uiState: StateFlow<OurRulesUiState> = _uiState.asStateFlow()
