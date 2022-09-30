@@ -34,9 +34,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_to_do_days" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_to_do_days"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_to_do_participant" />
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/divider_to_do_1"
