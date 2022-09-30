@@ -100,6 +100,21 @@
                 app:layout_constraintTop_toBottomOf="@id/pb_hous_to_do">
 
                 <TextView
+                    android:id="@+id/tv_hous_my_todo_empty"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/hous_empty_my_todo"
+                    android:textAppearance="@style/B3"
+                    android:textColor="@color/hous_g_5"
+                    android:visibility="@{vm.hous.myTodosCnt == 0 ? View.VISIBLE : View.INVISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.6" />
+
+                <TextView
                     android:id="@+id/tv_hous_my_todo_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -296,6 +311,20 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_hous_our_rules_title">
 
                 <TextView
+                    android:id="@+id/tv_hous_our_rules_empty"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/hous_empty_our_rules"
+                    android:textAppearance="@style/B2"
+                    android:textColor="@color/hous_g_5"
+                    android:visibility="@{vm.hous.ourRules.size == 0 ? View.VISIBLE : View.INVISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
                     android:id="@+id/tv_hous_our_rules_num_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -307,7 +336,7 @@
                     android:textColor="@color/hous_blue"
                     android:textSize="16dp"
                     android:textStyle="normal"
-                    android:visibility="@{vm.hous.ourRules.size >= 1 ? View.VISIBLE : View.INVISIBLE}"
+                    android:visibility="@{vm.hous.ourRules.size > 0 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -316,10 +345,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
-                    android:text="@{vm.hous.ourRules.size >= 1 ? vm.hous.ourRules[0] : ``}"
+                    android:text="@{vm.hous.ourRules.size >= 1 ? vm.hous.ourRules[0] : @string/hous_empty_our_rules_add}"
                     android:textAppearance="@style/B2"
-                    android:textColor="@color/hous_g_7"
-                    android:visibility="@{vm.hous.ourRules.size >= 1 ? View.VISIBLE : View.INVISIBLE}"
+                    android:textColor="@{vm.hous.ourRules.size == 1 ? @color/hous_g_7 : @color/hous_g_4}"
+                    android:visibility="@{vm.hous.ourRules.size > 0 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_hous_our_rules_num_1"
                     app:layout_constraintStart_toEndOf="@id/tv_hous_our_rules_num_1"
                     app:layout_constraintTop_toTopOf="@id/tv_hous_our_rules_num_1" />
@@ -331,7 +360,7 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="12dp"
                     android:background="@color/hous_blue_l1"
-                    android:visibility="@{vm.hous.ourRules.size >= 2 ? View.VISIBLE : View.INVISIBLE}"
+                    android:visibility="@{vm.hous.ourRules.size > 0 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_hous_our_rules_num_1" />
@@ -348,7 +377,7 @@
                     android:textColor="@color/hous_blue"
                     android:textSize="16dp"
                     android:textStyle="normal"
-                    android:visibility="@{vm.hous.ourRules.size >= 2 ? View.VISIBLE : View.INVISIBLE}"
+                    android:visibility="@{vm.hous.ourRules.size > 0 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintStart_toStartOf="@id/tv_hous_our_rules_num_1"
                     app:layout_constraintTop_toBottomOf="@id/view_hous_our_rules_division_1" />
 
@@ -357,10 +386,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
-                    android:text="@{vm.hous.ourRules.size >= 2 ? vm.hous.ourRules[1] : ``}"
+                    android:text="@{vm.hous.ourRules.size >= 2 ? vm.hous.ourRules[1] : @string/hous_empty_our_rules_add}"
                     android:textAppearance="@style/B2"
-                    android:textColor="@color/hous_g_7"
-                    android:visibility="@{vm.hous.ourRules.size >= 2 ? View.VISIBLE : View.INVISIBLE}"
+                    android:textColor="@{vm.hous.ourRules.size == 2 ? @color/hous_g_7 : @color/hous_g_4}"
+                    android:visibility="@{vm.hous.ourRules.size > 0 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_hous_our_rules_num_2"
                     app:layout_constraintStart_toEndOf="@id/tv_hous_our_rules_num_2"
                     app:layout_constraintTop_toTopOf="@id/tv_hous_our_rules_num_2" />
@@ -372,7 +401,7 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="12dp"
                     android:background="@color/hous_blue_l1"
-                    android:visibility="@{vm.hous.ourRules.size >= 3 ? View.VISIBLE : View.INVISIBLE}"
+                    android:visibility="@{vm.hous.ourRules.size > 0 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_hous_our_rules_num_2" />
@@ -389,7 +418,7 @@
                     android:textColor="@color/hous_blue"
                     android:textSize="16dp"
                     android:textStyle="normal"
-                    android:visibility="@{vm.hous.ourRules.size >= 3 ? View.VISIBLE : View.INVISIBLE}"
+                    android:visibility="@{vm.hous.ourRules.size > 0 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintStart_toStartOf="@id/tv_hous_our_rules_num_1"
                     app:layout_constraintTop_toBottomOf="@id/view_hous_our_rules_division_2" />
 
@@ -398,10 +427,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
-                    android:text="@{vm.hous.ourRules.size >= 3 ? vm.hous.ourRules[2] : ``}"
+                    android:text="@{vm.hous.ourRules.size >= 3 ? vm.hous.ourRules[2] : @string/hous_empty_our_rules_add}"
                     android:textAppearance="@style/B2"
-                    android:textColor="@color/hous_g_7"
-                    android:visibility="@{vm.hous.ourRules.size >= 3 ? View.VISIBLE : View.INVISIBLE}"
+                    android:textColor="@{vm.hous.ourRules.size == 3 ? @color/hous_g_7 : @color/hous_g_4}"
+                    android:visibility="@{vm.hous.ourRules.size > 0 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_hous_our_rules_num_3"
                     app:layout_constraintStart_toEndOf="@id/tv_hous_our_rules_num_3"
                     app:layout_constraintTop_toTopOf="@id/tv_hous_our_rules_num_3" />

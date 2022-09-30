@@ -56,6 +56,9 @@
     <string name="hous_our_rules_num_3">3.</string>
     <string name="hous_homies">Homies</string>
     <string name="hous_homies_profile_img_desc">img of profile color</string>
+    <string name="hous_empty_my_todo">아직 내 to-do가 없어요!</string>
+    <string name="hous_empty_our_rules">아직 우리 집 Rules가 없어요!</string>
+    <string name="hous_empty_our_rules_add">다른 Rule도 추가해보세요!</string>
 
     <!-- EnterRoomCode -->
     <string name="enter_room_code_title">방 초대코드 입력하기</string>
