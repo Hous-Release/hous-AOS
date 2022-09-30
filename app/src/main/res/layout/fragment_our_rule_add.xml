@@ -5,6 +5,11 @@
 
     <data>
 
+        <import type="hous.release.android.presentation.our_rules.type.SaveButtonState" />
+
+        <variable
+            name="vm"
+            type="hous.release.android.presentation.our_rules.add_rule.OurRuleAddViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,16 +41,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/iv_add_rule_setting_button"
+            android:id="@+id/iv_add_rule_save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:clickable="@{vm.uiState.saveButtonState == SaveButtonState.ACTIVE}"
             android:paddingStart="20dp"
             android:paddingEnd="10dp"
             android:paddingBottom="10dp"
             android:text="@string/our_rule_save_new_rule"
             android:textAppearance="@style/B1"
-            android:textColor="@color/hous_g_5"
+            android:textColor="@{vm.uiState.saveButtonState == SaveButtonState.ACTIVE ? @color/hous_blue : @color/hous_g_5}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_add_rule_title" />
 
@@ -56,11 +62,12 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="42dp"
             android:hint="@string/our_rule_input"
+            android:text="@={vm.inputRuleNameField}"
             app:layout_constraintTop_toBottomOf="@+id/tv_add_rule_title"
             app:theme="@style/OurRuleEditText" />
 
         <ImageView
-            android:id="@+id/iv_add_rule_plus_btn"
+            android:id="@+id/iv_add_rule_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="3dp"
