@@ -51,7 +51,6 @@ class OurRuleAddViewModel @Inject constructor(
     }
 
     fun setSaveButtonState(saveButtonState: SaveButtonState) {
-        Timber.i("saveButtonState is active? ${saveButtonState == SaveButtonState.ACTIVE}")
         _uiState.value = uiState.value.copy(
             saveButtonState = saveButtonState
         )
@@ -77,7 +76,7 @@ class OurRuleAddViewModel @Inject constructor(
 
     fun putAddRuleList() {
         viewModelScope.launch {
-            putAddRulesUseCase.putAddRule(uiState.value.addedRuleList).collect { apiResult ->
+            putAddRulesUseCase.postAddedRule(uiState.value.addedRuleList).collect { apiResult ->
                 when (apiResult) {
                     is ApiResult.Success -> Timber.i("putAddRuleList success")
                     is ApiResult.Error -> Timber.e("putAddRuleList error -${apiResult.throwable}")
