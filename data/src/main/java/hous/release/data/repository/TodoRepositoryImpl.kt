@@ -1,6 +1,7 @@
 package hous.release.data.repository
 
 import hous.release.data.datasource.TodoDataSource
+import hous.release.domain.entity.TodoDetail
 import hous.release.domain.entity.response.TodoMain
 import hous.release.domain.repository.TodoRepository
 import timber.log.Timber
@@ -20,4 +21,7 @@ class TodoRepositoryImpl @Inject constructor(
 
     override suspend fun getDailyTodos(): Result<List<TodoMain>> =
         runCatching { todoDataSource.getDailyTodos().data.map { todoMain -> todoMain.toTodoMain() } }
+
+    override suspend fun getTodoDetail(todoId: Int): Result<TodoDetail> =
+        runCatching { todoDataSource.getTodoDetail(todoId).data.toTodoDetail() }
 }

@@ -17,4 +17,6 @@ class TodoDataSource @Inject constructor(
     }
 
     suspend fun getDailyTodos() = toDoService.getDailyTodos()
+
+    suspend fun getTodoDetail(todoId: Int) = toDoService.getTodoDetail(todoId)
 }

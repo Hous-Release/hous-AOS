@@ -11,13 +11,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentDailyBinding
 import hous.release.android.util.HousFloatingButton
+import hous.release.android.util.TodoBottomSheet
 import hous.release.android.util.binding.BindingFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_daily) {
-    private val dailyAdapter = DailyAdapter()
+    private val dailyAdapter = DailyAdapter(this::showTodoBottomSheet)
     private val dailyViewModel: DailyViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,6 +60,15 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
                 binding.vpDailyTodos.currentItem = currIndex
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private fun showTodoBottomSheet(todoId: Int) {
+        val bundle = Bundle()
+        val todoBottomSheet = TodoBottomSheet()
+        bundle.putInt("todoId", todoId)
+
+        todoBottomSheet.arguments = bundle
+        todoBottomSheet.show(parentFragmentManager, this.javaClass.name)
     }
 
     private fun initFloatingButton() {

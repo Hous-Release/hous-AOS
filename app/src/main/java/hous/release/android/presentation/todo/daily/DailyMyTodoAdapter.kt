@@ -8,15 +8,23 @@ import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.databinding.ItemToDoDailyMyRuleBinding
 import hous.release.domain.entity.Todo
 
-class DailyMyTodoAdapter :
+class DailyMyTodoAdapter(
+    private val showTodoBottomSheet: (Int) -> Unit
+) :
     ListAdapter<Todo, DailyMyTodoAdapter.TodoViewHolder>(TodoMainComparator) {
 
-    class TodoViewHolder(private val binding: ItemToDoDailyMyRuleBinding) :
+    class TodoViewHolder(
+        private val binding: ItemToDoDailyMyRuleBinding,
+        private val showTodoBottomSheet: (Int) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(todo: Todo) {
             with(binding) {
                 this.todo = todo
+                tvToDoDailyMyRule.setOnClickListener {
+                    showTodoBottomSheet(todo.todoId)
+                }
             }
         }
     }
@@ -24,7 +32,7 @@ class DailyMyTodoAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         val view =
             ItemToDoDailyMyRuleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TodoViewHolder(view)
+        return TodoViewHolder(view, showTodoBottomSheet)
     }
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
