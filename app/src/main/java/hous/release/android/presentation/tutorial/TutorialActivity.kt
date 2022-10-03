@@ -11,8 +11,16 @@ import hous.release.android.util.binding.BindingActivity
 import hous.release.domain.entity.TutorialEntity
 
 class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activity_tutorial) {
+    private lateinit var tutorialAdapter: TutorialAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initAdapter()
+    private fun initAdapter() {
+        tutorialAdapter = TutorialAdapter()
+        tutorialAdapter.submitList(tutorialList)
+        binding.vpTutorial.adapter = tutorialAdapter
+        binding.vpTutorial.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
     }
 }
