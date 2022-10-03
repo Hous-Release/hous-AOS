@@ -12,9 +12,7 @@ import hous.release.domain.entity.TutorialEntity
 
 class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activity_tutorial) {
 
-class TutorialActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tutorial)
     }
 }
