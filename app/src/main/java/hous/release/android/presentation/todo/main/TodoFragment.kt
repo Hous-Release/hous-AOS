@@ -23,6 +23,11 @@ class TodoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
     private var myToDoAdapter: MyTodoAdapter? = null
     private var ourToDoAdapter: OurTodoAdapter? = null
 
+    override fun onResume() {
+        super.onResume()
+        toDoViewModel.fetchTodoMainContent()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = toDoViewModel

@@ -52,7 +52,7 @@ class DailyAdapter(
     companion object {
         private val TodoMainComparator = object : DiffUtil.ItemCallback<TodoMain>() {
             override fun areItemsTheSame(oldItem: TodoMain, newItem: TodoMain): Boolean {
-                return oldItem == newItem
+                return oldItem.myTodosCnt == newItem.myTodosCnt
             }
 
             override fun areContentsTheSame(oldItem: TodoMain, newItem: TodoMain): Boolean {

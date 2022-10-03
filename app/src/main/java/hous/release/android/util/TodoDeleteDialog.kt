@@ -5,21 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.DialogToDoDeleteBinding
-import hous.release.domain.usecase.DeleteTodoUseCase
-import javax.inject.Inject
+import hous.release.android.presentation.todo.daily.DailyViewModel
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class TodoDeleteDialog : DialogFragment() {
-    @Inject
-    lateinit var deleteTodoUseCase: DeleteTodoUseCase
     private var todoId: Int = 0
     private var _binding: DialogToDoDeleteBinding? = null
     private val binding get() = _binding ?: error(getString(R.string.binding_error))
+    private val dailyViewModel: DailyViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,7 +50,7 @@ class TodoDeleteDialog : DialogFragment() {
     private fun initDeleteOnClick() {
         binding.tvDialogDelete.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
-                deleteTodoUseCase(todoId)
+                dailyViewModel.deleteTodo(todoId)
                 dialog?.dismiss()
             }
         }

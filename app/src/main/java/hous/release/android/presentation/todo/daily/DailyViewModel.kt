@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.response.TodoMain
+import hous.release.domain.usecase.DeleteTodoUseCase
 import hous.release.domain.usecase.GetDailyTodosUseCase
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +14,8 @@ import timber.log.Timber
 
 @HiltViewModel
 class DailyViewModel @Inject constructor(
-    private val dailyTodosUseCase: GetDailyTodosUseCase
+    private val dailyTodosUseCase: GetDailyTodosUseCase,
+    private val deleteTodoUseCase: DeleteTodoUseCase
 ) : ViewModel() {
     private val _dailyToDos: MutableStateFlow<List<TodoMain>> = MutableStateFlow(emptyList())
     val dailyToDos = _dailyToDos.asStateFlow()
@@ -39,5 +41,12 @@ class DailyViewModel @Inject constructor(
 
     fun setTabCurrIndex(index: Int) {
         _dailyTabCurrIndex.value = index
+    }
+
+    fun deleteTodo(todoId: Int) {
+        viewModelScope.launch {
+            deleteTodoUseCase(todoId)
+            fetchDailyToDos()
+        }
     }
 }

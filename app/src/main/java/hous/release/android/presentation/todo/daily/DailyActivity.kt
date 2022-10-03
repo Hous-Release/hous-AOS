@@ -25,6 +25,7 @@ class DailyActivity : BindingActivity<ActivityDailyBinding>(R.layout.activity_da
         initTabLayout()
         initClickListener()
         initFloatingButton()
+        collectDailyTodos()
     }
 
     private fun initClickListener() {
@@ -38,6 +39,9 @@ class DailyActivity : BindingActivity<ActivityDailyBinding>(R.layout.activity_da
             adapter = dailyAdapter
             isUserInputEnabled = false
         }
+    }
+
+    private fun collectDailyTodos() {
         dailyViewModel.dailyToDos
             .flowWithLifecycle(lifecycle)
             .onEach { dailyTodos -> dailyAdapter.submitList(dailyTodos) }
