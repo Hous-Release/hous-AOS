@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/shape_blue_fill_circle"
+        android:state_selected="true"/>
+
+    <item android:drawable="@drawable/shape_g3_fill_circle"/>
+</selector>
