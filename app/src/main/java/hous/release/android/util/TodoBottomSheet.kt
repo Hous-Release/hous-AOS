@@ -96,6 +96,7 @@ class TodoBottomSheet : BottomSheetDialogFragment() {
                 }
                 .also { todoDeleteDialog ->
                     todoDeleteDialog.show(parentFragmentManager, this.javaClass.name)
+                    dialog?.dismiss()
                 }
         }
     }
