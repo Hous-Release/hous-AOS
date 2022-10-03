@@ -1,17 +1,18 @@
 package hous.release.android.presentation.todo.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.ArrowPositionRules
 import com.skydoves.balloon.Balloon
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentToDoBinding
+import hous.release.android.presentation.todo.daily.DailyActivity
 import hous.release.android.util.binding.BindingFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -33,7 +34,8 @@ class TodoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
 
     private fun initClickListener() {
         binding.llToDoViewAll.setOnClickListener {
-            findNavController().navigate(R.id.action_toDoFragment_to_nav_todo)
+            Intent(requireActivity(), DailyActivity::class.java)
+                .also { intent -> startActivity(intent) }
         }
     }
 

@@ -1,28 +1,25 @@
 package hous.release.android.presentation.todo.daily
 
 import android.os.Bundle
-import android.view.View
-import androidx.core.content.ContextCompat.getColor
-import androidx.fragment.app.viewModels
+import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
-import hous.release.android.databinding.FragmentDailyBinding
+import hous.release.android.databinding.ActivityDailyBinding
 import hous.release.android.util.HousFloatingButton
 import hous.release.android.util.TodoBottomSheet
-import hous.release.android.util.binding.BindingFragment
+import hous.release.android.util.binding.BindingActivity
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
-class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_daily) {
+class DailyActivity : BindingActivity<ActivityDailyBinding>(R.layout.activity_daily) {
     private val dailyAdapter = DailyAdapter(this::showTodoBottomSheet)
     private val dailyViewModel: DailyViewModel by viewModels()
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         initStatusBarColor()
         initViewPager()
         initTabLayout()
@@ -32,7 +29,7 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
 
     private fun initClickListener() {
         binding.ivDailyBackButton.setOnClickListener {
-            findNavController().navigateUp()
+            finish()
         }
     }
 
@@ -42,14 +39,14 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
             isUserInputEnabled = false
         }
         dailyViewModel.dailyToDos
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .flowWithLifecycle(lifecycle)
             .onEach { dailyTodos -> dailyAdapter.submitList(dailyTodos) }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
+            .launchIn(lifecycleScope)
     }
 
     private fun initTabLayout() {
         dailyViewModel.dailyTabCurrIndex
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .flowWithLifecycle(lifecycle)
             .onEach { currIndex ->
                 binding.cvDailyWeekOfDayTab.setContent {
                     DailyTab(
@@ -59,7 +56,7 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
                 }
                 binding.vpDailyTodos.currentItem = currIndex
             }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
+            .launchIn(lifecycleScope)
     }
 
     private fun showTodoBottomSheet(todoId: Int) {
@@ -70,7 +67,7 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
                 arguments = bundle
             }
             .also { todoBottomSheet ->
-                todoBottomSheet.show(parentFragmentManager, this.javaClass.name)
+                todoBottomSheet.show(supportFragmentManager, this.javaClass.name)
             }
     }
 
@@ -83,6 +80,6 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
     }
 
     private fun initStatusBarColor() {
-        activity?.window?.statusBarColor = getColor(requireActivity(), R.color.hous_g_1)
+        window?.statusBarColor = ContextCompat.getColor(this, R.color.hous_g_1)
     }
 }
