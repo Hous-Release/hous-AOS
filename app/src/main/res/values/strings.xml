@@ -55,7 +55,7 @@
     <string name="hous_our_rules_num_2">2.</string>
     <string name="hous_our_rules_num_3">3.</string>
     <string name="hous_homies">Homies</string>
-    <string name="hous_homies_profile_img_desc">img of profile color</string>
+    <string name="hous_homies_profile_img_decnsc">img of profile color</string>
 
     <!-- EnterRoomCode -->
     <string name="enter_room_code_title">방 초대코드 입력하기</string>
@@ -106,4 +106,7 @@
     <string name="our_rule_add_error_ok">알겠어요!</string>
     <string name="to_do_bottom_sheet_delete">삭제하기</string>
     <string name="to_do_bottom_sheet_edit">수정하기</string>
+    <string name="dialog_to_do_title">안녕, to-do...</string>
+    <string name="dialog_to_do_content">to-do는 한 번 삭제하면 복구되지 않아요.</string>
+    <string name="dialog_cancel">취소하기</string>
 </resources>
