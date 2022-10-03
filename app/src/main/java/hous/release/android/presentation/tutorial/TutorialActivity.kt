@@ -49,6 +49,10 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
         binding.vpTutorial.adapter = tutorialAdapter
         binding.vpTutorial.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
+        TabLayoutMediator(binding.tlTutorialDot, binding.vpTutorial) { tab, position ->
+            tab.view.isClickable = false
+        }.attach()
+
     private fun initSkipBtnOnClickListener() {
         binding.tvTutorialSkip.setOnClickListener {
             binding.vpTutorial.currentItem = 3
