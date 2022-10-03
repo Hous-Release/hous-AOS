@@ -10,6 +10,7 @@ import hous.release.android.presentation.tutorial.adapter.TutorialAdapter
 import hous.release.android.util.binding.BindingActivity
 import hous.release.domain.entity.TutorialEntity
 
+class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activity_tutorial) {
 
 class TutorialActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
