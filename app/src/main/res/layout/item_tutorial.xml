@@ -48,11 +48,10 @@
             android:layout_height="0dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="26dp"
-            android:layout_marginBottom="46dp"
             android:src="@{data.image}"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="@id/tv_tutorial_body"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tutorial_body"
             tools:src="@drawable/shape_blue_fill_16_rect" />
 
 
