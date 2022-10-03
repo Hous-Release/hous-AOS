@@ -1,10 +1,11 @@
-package hous.release.android.presentation.todo
+package hous.release.android.presentation.todo.main
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.ArrowPositionRules
 import com.skydoves.balloon.Balloon
@@ -16,10 +17,10 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
-class ToDoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_do) {
-    private val toDoViewModel: ToDoViewModel by viewModels()
-    private var myToDoAdapter: MyToDoAdapter? = null
-    private var ourToDoAdapter: OurToDoAdapter? = null
+class TodoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_do) {
+    private val toDoViewModel: TodoViewModel by viewModels()
+    private var myToDoAdapter: MyTodoAdapter? = null
+    private var ourToDoAdapter: OurTodoAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,6 +28,13 @@ class ToDoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
         initAdapter()
         showToolTip()
         collectUiState()
+        initClickListener()
+    }
+
+    private fun initClickListener() {
+        binding.llToDoViewAll.setOnClickListener {
+            findNavController().navigate(R.id.action_toDoFragment_to_nav_todo)
+        }
     }
 
     private fun collectUiState() {
@@ -43,8 +51,8 @@ class ToDoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
     }
 
     private fun initAdapter() {
-        myToDoAdapter = MyToDoAdapter(toDoViewModel::checkTodo)
-        ourToDoAdapter = OurToDoAdapter()
+        myToDoAdapter = MyTodoAdapter(toDoViewModel::checkTodo)
+        ourToDoAdapter = OurTodoAdapter()
         binding.rvToDoMyRules.apply {
             adapter = myToDoAdapter
             itemAnimator = null

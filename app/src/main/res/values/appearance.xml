@@ -64,4 +64,13 @@
         <item name="android:letterSpacing">-0.02</item>
         <item name="android:lineSpacingExtra">3.6dp</item>
     </style>
+
+    <style name="HousDialogDiscription">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="android:lineSpacingExtra">7.2sp</item>
+        <item name="android:textColor">@color/hous_g_5</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 </resources>

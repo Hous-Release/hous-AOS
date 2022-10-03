@@ -17,12 +17,13 @@ import timber.log.Timber
 class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragment_our_rule) {
 
     private val viewModel: OurRulesViewModel by hiltNavGraphViewModels(R.id.nav_our_rules)
-    private var ourRulesAdapter: OurRulesAdapter? = null
+    private lateinit var ourRulesAdapter: OurRulesAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
-        setOurRulesAdapter()
+        initClickListener()
+        initOurRulesAdapter()
         observeOurRules()
     }
 
@@ -33,15 +34,20 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
         viewModel.getOurRulesInfo()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        ourRulesAdapter = null
+    private fun initClickListener() {
+        binding.ivMainRuleBackButton.setOnClickListener {
+            activity?.finish() ?: Timber.e(getString(R.string.null_point_exception))
+        }
+        binding.ivMainRuleSettingButton.setOnClickListener {
+            val ourRulesBottomSheetDialog = OurRulesNavigateBottomSheetDialogFragment()
+            ourRulesBottomSheetDialog.show(parentFragmentManager, this.javaClass.name)
+        }
     }
 
-    private fun setOurRulesAdapter() {
+    private fun initOurRulesAdapter() {
         ourRulesAdapter = OurRulesAdapter()
         safeLet(ourRulesAdapter, context) { ourRulesAdapter, context ->
-            binding.rvOurRules.run {
+            binding.rvMainRuleOurRules.run {
                 itemAnimator = null
                 adapter = ourRulesAdapter
                 addItemDecoration(
@@ -54,13 +60,12 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
     private fun observeOurRules() {
         repeatOnStarted {
             viewModel.uiState.collect { uiState ->
-                ourRulesAdapter?.let { ourRulesAdapter ->
-                    // this callback runs when the list is updated
-                    ourRulesAdapter.submitList(uiState.ourRuleList) {
-                        binding.rvOurRules.invalidateItemDecorations()
-                    }
+                // this callback runs when the list is updated
+                ourRulesAdapter.submitList(uiState.ourRuleList) {
+                    binding.rvMainRuleOurRules.invalidateItemDecorations()
                 }
             }
+            // TODO 추후에 Loading뷰, Error뷰 처리
         }
     }
 

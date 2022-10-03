@@ -7,7 +7,7 @@
 
         <variable
             name="todo"
-            type="hous.release.domain.entity.ToDo" />
+            type="hous.release.domain.entity.Todo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,6 +1,5 @@
-package hous.release.android.presentation.todo
+package hous.release.android.presentation.todo.main
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,16 +7,16 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.R
 import hous.release.android.databinding.ItemToDoOurRuleBinding
-import hous.release.domain.entity.ToDo
+import hous.release.domain.entity.Todo
 
-class OurToDoAdapter :
-    ListAdapter<ToDo, OurToDoAdapter.OurToDoViewHolder>(ToDo_COMPARATOR) {
+class OurTodoAdapter :
+    ListAdapter<Todo, OurTodoAdapter.OurToDoViewHolder>(TodoComparator) {
 
     class OurToDoViewHolder(
         private val binding: ItemToDoOurRuleBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(todo: ToDo) {
+        fun bind(todo: Todo) {
             with(binding) {
                 this.todo = todo
 
@@ -56,13 +55,12 @@ class OurToDoAdapter :
         const val ALL_CHECKED = "FULL_CHECK"
         const val ONE_PARTICIPANT = 1
         const val TWO_PARTICIPANT = 2
-        private val ToDo_COMPARATOR = object : DiffUtil.ItemCallback<ToDo>() {
-            override fun areItemsTheSame(oldItem: ToDo, newItem: ToDo): Boolean {
+        private val TodoComparator = object : DiffUtil.ItemCallback<Todo>() {
+            override fun areItemsTheSame(oldItem: Todo, newItem: Todo): Boolean {
                 return oldItem.todoId == newItem.todoId
             }
 
-            @SuppressLint("DiffUtilEquals")
-            override fun areContentsTheSame(oldItem: ToDo, newItem: ToDo): Boolean {
+            override fun areContentsTheSame(oldItem: Todo, newItem: Todo): Boolean {
                 return oldItem == newItem
             }
         }
