@@ -34,7 +34,7 @@ class CreateRoomViewModel @Inject constructor(
                     _isSuccessCreateRoom.emit(true)
                 }
                 .onFailure {
-                    Timber.tag("EnterRoom - postCreateRoom").d(it.message.toString())
+                    Timber.d(it.message.toString())
                 }
         }
     }
