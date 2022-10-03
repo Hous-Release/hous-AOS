@@ -63,12 +63,15 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
     }
 
     private fun showTodoBottomSheet(todoId: Int) {
-        val bundle = Bundle()
-        val todoBottomSheet = TodoBottomSheet()
-        bundle.putInt("todoId", todoId)
-
-        todoBottomSheet.arguments = bundle
-        todoBottomSheet.show(parentFragmentManager, this.javaClass.name)
+        TodoBottomSheet()
+            .apply {
+                val bundle = Bundle()
+                bundle.putInt("todoId", todoId)
+                arguments = bundle
+            }
+            .also { todoBottomSheet ->
+                todoBottomSheet.show(parentFragmentManager, this.javaClass.name)
+            }
     }
 
     private fun initFloatingButton() {

@@ -12,7 +12,6 @@ import hous.release.android.R
 import hous.release.android.databinding.DialogToDoBottomSheetBinding
 import hous.release.domain.entity.TodoDetail
 import hous.release.domain.usecase.GetTodoDetailUseCase
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,6 +19,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TodoBottomSheet : BottomSheetDialogFragment() {
@@ -43,7 +43,6 @@ class TodoBottomSheet : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         todoId = arguments?.getInt("todoId") ?: 0
-        Timber.d("todoId: $todoId")
         fetchTodoDetailContent()
         _binding = DialogToDoBottomSheetBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -89,7 +88,15 @@ class TodoBottomSheet : BottomSheetDialogFragment() {
 
     private fun initDeleteButtonOnClickListener() {
         binding.tvToDoDelete.setOnClickListener {
-            /* todo 제거 api 연결 */
+            TodoDeleteDialog()
+                .apply {
+                    val bundle = Bundle()
+                    bundle.putInt("todoId", todoId)
+                    arguments = bundle
+                }
+                .also { todoDeleteDialog ->
+                    todoDeleteDialog.show(parentFragmentManager, this.javaClass.name)
+                }
         }
     }
 

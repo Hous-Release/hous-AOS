@@ -4,8 +4,8 @@ import hous.release.data.datasource.TodoDataSource
 import hous.release.domain.entity.TodoDetail
 import hous.release.domain.entity.response.TodoMain
 import hous.release.domain.repository.TodoRepository
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 class TodoRepositoryImpl @Inject constructor(
     private val todoDataSource: TodoDataSource
@@ -24,4 +24,10 @@ class TodoRepositoryImpl @Inject constructor(
 
     override suspend fun getTodoDetail(todoId: Int): Result<TodoDetail> =
         runCatching { todoDataSource.getTodoDetail(todoId).data.toTodoDetail() }
+
+    override suspend fun deleteTodo(todoId: Int) {
+        runCatching { todoDataSource.deleteTodo(todoId) }
+            .onSuccess { Timber.d("delete todo 통신 성공") }
+            .onFailure { Timber.d("delete todo 통신 실패 : ${it.message}") }
+    }
 }

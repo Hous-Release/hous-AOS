@@ -8,4 +8,5 @@ interface TodoRepository {
     suspend fun checkTodo(todoId: Int, isChecked: Boolean)
     suspend fun getDailyTodos(): Result<List<TodoMain>>
     suspend fun getTodoDetail(todoId: Int): Result<TodoDetail>
+    suspend fun deleteTodo(todoId: Int)
 }
