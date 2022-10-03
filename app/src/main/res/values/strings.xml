@@ -21,9 +21,6 @@
     <string name="user_input_birthday_hint">YYYY/MM/DD</string>
     <string name="user_input_open_birthday">생년월일 호미들에게 공개</string>
     <string name="user_input_next">다음으로</string>
-    
-    <!-- Tutorial -->
-    <string name="tutorial_skip">건너뛰기</string>
 
     <!-- OurRules -->
     <string name="our_house_rules">우리 집 규칙</string>
@@ -61,7 +58,6 @@
     <string name="enter_room_code_dialog_owner_desc">님이</string>
     <string name="enter_room_code_dialog_desc">초대한 방에 참여할까요?</string>
     <string name="enter_room_code_dialog_enter">참여하기</string>
-
 
     <!-- To-Do -->
     <string name="to_do_small_letter">to-do</string>
