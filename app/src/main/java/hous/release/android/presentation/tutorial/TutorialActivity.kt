@@ -12,11 +12,35 @@ import hous.release.domain.entity.TutorialEntity
 
 class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activity_tutorial) {
     private lateinit var tutorialAdapter: TutorialAdapter
+    private lateinit var tutorialList: List<TutorialEntity>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initAdapter()
     private fun initAdapter() {
+        tutorialList = mutableListOf(
+            TutorialEntity(
+                R.string.tutorial_1_head,
+                R.string.tutorial_1_body,
+                R.drawable.shape_blue_fill_16_rect
+            ),
+            TutorialEntity(
+                R.string.tutorial_2_head,
+                R.string.tutorial_2_body,
+                R.drawable.shape_red_fill_10_rect
+            ),
+            TutorialEntity(
+                R.string.tutorial_3_head,
+                R.string.tutorial_3_body,
+                R.drawable.shape_blue_fill_16_rect
+            ),
+            TutorialEntity(
+                R.string.tutorial_4_head,
+                R.string.tutorial_4_body,
+                R.drawable.shape_red_fill_10_rect
+            )
+        )
+
         tutorialAdapter = TutorialAdapter()
         tutorialAdapter.submitList(tutorialList)
         binding.vpTutorial.adapter = tutorialAdapter
