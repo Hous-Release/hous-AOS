@@ -68,5 +68,13 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
         }
     }
 
+    private fun showBtnNext() {
+        binding.tlTutorialDot.visibility = View.INVISIBLE
+        binding.tvTutorialNext.visibility = View.VISIBLE
+    }
+
+    private fun hideBtnNext() {
+        binding.tlTutorialDot.visibility = View.VISIBLE
+        binding.tvTutorialNext.visibility = View.INVISIBLE
     }
 }
