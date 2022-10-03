@@ -17,6 +17,9 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initAdapter()
+        initSkipBtnOnClickListener()
+    }
+
     private fun initAdapter() {
         tutorialList = mutableListOf(
             TutorialEntity(
@@ -45,6 +48,12 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
         tutorialAdapter.submitList(tutorialList)
         binding.vpTutorial.adapter = tutorialAdapter
         binding.vpTutorial.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
+    private fun initSkipBtnOnClickListener() {
+        binding.tvTutorialSkip.setOnClickListener {
+            binding.vpTutorial.currentItem = 3
+        }
+    }
 
     }
 }
