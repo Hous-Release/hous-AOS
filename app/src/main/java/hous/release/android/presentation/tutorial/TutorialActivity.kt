@@ -53,6 +53,15 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
             tab.view.isClickable = false
         }.attach()
 
+        binding.vpTutorial.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                if (position == 3) showBtnNext()
+                else hideBtnNext()
+            }
+        })
+    }
+
     private fun initSkipBtnOnClickListener() {
         binding.tvTutorialSkip.setOnClickListener {
             binding.vpTutorial.currentItem = 3
