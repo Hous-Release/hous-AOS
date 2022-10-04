@@ -61,7 +61,7 @@
             android:background="@null"
             android:hint="@string/user_input_nickname_hint"
             android:inputType="text"
-            android:maxLength="5"
+            android:maxLength="3"
             android:paddingVertical="2dp"
             android:text="@={vm.nickname}"
             android:textAppearance="@style/B2"
