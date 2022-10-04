@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
-import hous.release.android.presentation.tutorial.TutorialActivity
 import hous.release.android.databinding.ActivityUserInputBinding
+import hous.release.android.presentation.tutorial.TutorialActivity
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.extension.EventObserver
 
@@ -20,7 +20,6 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
         observeInputState()
         initBackBtnOnClickListener()
         initCheckBirthdayBtnOnClickListener()
-        userInputViewModel.birthday.value = "1999-08-02"
     }
 
     private fun observeInputState() {
