@@ -26,10 +26,10 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
     private fun observeInputState() {
         userInputViewModel.isInputUserInfo.observe(
             this,
-            EventObserver { full ->
-                if (full) {
+            EventObserver { inputAll ->
+                if (inputAll) {
                     initChangeBtnNextColor()
-                    initBtnNextOnClickListener()
+                    initNextBtnOnClickListener()
                 }
             }
         )
@@ -51,7 +51,7 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
         binding.tvUserInputNext.backgroundTintList = this.getColorStateList(R.color.hous_blue)
     }
 
-    private fun initBtnNextOnClickListener() {
+    private fun initNextBtnOnClickListener() {
         binding.tvUserInputNext.setOnClickListener {
             val intent = Intent(this, TutorialActivity::class.java).apply {
                 putExtra("nickname", userInputViewModel.nickname.value)
