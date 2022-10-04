@@ -56,7 +56,7 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
                 putExtra("nickname", userInputViewModel.nickname.value)
                 putExtra("birthday", userInputViewModel.birthday.value)
             }
-            startActivity(intent)
+            setResult(RESULT_OK, intent)
             finish()
         }
     }
