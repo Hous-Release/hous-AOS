@@ -96,7 +96,7 @@ class TodoBottomSheet : BottomSheetDialogFragment() {
                 }
                 .also { todoDeleteDialog ->
                     todoDeleteDialog.show(parentFragmentManager, this.javaClass.name)
-                    dialog?.dismiss()
+                    dialog?.dismiss() ?: Timber.e(getString(R.string.null_point_exception))
                 }
         }
     }

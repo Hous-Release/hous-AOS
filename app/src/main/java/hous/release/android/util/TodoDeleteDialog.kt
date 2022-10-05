@@ -12,6 +12,7 @@ import hous.release.android.R
 import hous.release.android.databinding.DialogToDoDeleteBinding
 import hous.release.android.presentation.todo.daily.DailyViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class TodoDeleteDialog : DialogFragment() {
@@ -44,21 +45,21 @@ class TodoDeleteDialog : DialogFragment() {
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
             setBackgroundDrawableResource(R.drawable.inset_shape_white_fill_8_rect)
-        }
+        } ?: Timber.e(getString(R.string.null_point_exception))
     }
 
     private fun initDeleteOnClick() {
         binding.tvDialogDelete.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
                 dailyViewModel.deleteTodo(todoId)
-                dialog?.dismiss()
+                dialog?.dismiss() ?: Timber.e(getString(R.string.null_point_exception))
             }
         }
     }
 
     private fun initCancelOnClick() {
         binding.tvDialogCancel.setOnClickListener {
-            dialog?.dismiss()
+            dialog?.dismiss() ?: Timber.e(getString(R.string.null_point_exception))
         }
     }
 
