@@ -67,7 +67,7 @@ class DailyActivity : BindingActivity<ActivityDailyBinding>(R.layout.activity_da
         TodoBottomSheet()
             .apply {
                 val bundle = Bundle()
-                bundle.putInt("todoId", todoId)
+                bundle.putInt(TODO_ID, todoId)
                 arguments = bundle
             }
             .also { todoBottomSheet ->
@@ -85,5 +85,9 @@ class DailyActivity : BindingActivity<ActivityDailyBinding>(R.layout.activity_da
 
     private fun initStatusBarColor() {
         window?.statusBarColor = ContextCompat.getColor(this, R.color.hous_g_1)
+    }
+
+    companion object {
+        const val TODO_ID = "todo_id"
     }
 }

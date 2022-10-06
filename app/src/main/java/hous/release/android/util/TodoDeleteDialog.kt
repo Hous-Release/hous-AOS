@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.DialogToDoDeleteBinding
+import hous.release.android.presentation.todo.daily.DailyActivity.Companion.TODO_ID
 import hous.release.android.presentation.todo.daily.DailyViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -26,7 +27,7 @@ class TodoDeleteDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        todoId = arguments?.getInt("todoId") ?: 0
+        todoId = arguments?.getInt(TODO_ID) ?: 0
         _binding = DialogToDoDeleteBinding.inflate(inflater, container, false)
         return binding.root
     }

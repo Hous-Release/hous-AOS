@@ -10,6 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.DialogToDoBottomSheetBinding
+import hous.release.android.presentation.todo.daily.DailyActivity.Companion.TODO_ID
 import hous.release.domain.entity.TodoDetail
 import hous.release.domain.usecase.GetTodoDetailUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -42,7 +43,7 @@ class TodoBottomSheet : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        todoId = arguments?.getInt("todoId") ?: 0
+        todoId = arguments?.getInt(TODO_ID) ?: 0
         fetchTodoDetailContent()
         _binding = DialogToDoBottomSheetBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -91,7 +92,7 @@ class TodoBottomSheet : BottomSheetDialogFragment() {
             TodoDeleteDialog()
                 .apply {
                     val bundle = Bundle()
-                    bundle.putInt("todoId", todoId)
+                    bundle.putInt(TODO_ID, todoId)
                     arguments = bundle
                 }
                 .also { todoDeleteDialog ->
