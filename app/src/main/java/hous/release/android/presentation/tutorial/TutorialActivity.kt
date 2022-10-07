@@ -21,6 +21,7 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
         super.onCreate(savedInstanceState)
         binding.vm = tutorialViewModel
         initAdapter()
+        observeTutorialState()
         initSkipBtnOnClickListener()
     }
 
@@ -65,8 +66,8 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
         })
     }
 
-    private fun observeSkipTutorial() {
         tutorialViewModel.skipTutorial.observe(this) { skip ->
+    private fun observeTutorialState() {
             if (skip) {
                 val toLogin = Intent(this, LoginActivity::class.java)
                 startActivity(toLogin)
