@@ -15,13 +15,13 @@ class TutorialViewModel @Inject constructor(
 ) : ViewModel() {
     val showNextBtn = MutableLiveData<Boolean>()
 
-    private val _isSkipTutorial = MutableLiveData<Boolean>()
-    val skipTutorial: LiveData<Boolean> = _isSkipTutorial
+    private val _isTutorialState = MutableLiveData<Boolean>()
+    val isTutorialState: LiveData<Boolean> = _isTutorialState
 
     init {
         viewModelScope.launch {
             if (tutorialDataSource.getShowTutorial()) {
-                _isSkipTutorial.value = true
+                _isTutorialState.value = true
             }
         }
     }
