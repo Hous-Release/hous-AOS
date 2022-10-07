@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_to_do_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:textAppearance="@style/B1"
+        android:textColor="@color/hous_black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="청소기 돌리기" />
+
+    <TextView
+        android:id="@+id/tv_to_do_days"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/B3"
+        android:textColor="@color/hous_g_6"
+        app:layout_constraintStart_toStartOf="@+id/tv_to_do_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_to_do_title"
+        tools:text="월, 화, 수, 목, 금" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_to_do_participants"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_to_do_days"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_to_do_participant" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider_to_do_1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_to_do_edit" />
+
+    <TextView
+        android:id="@+id/tv_to_do_edit"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:paddingTop="18dp"
+        android:paddingBottom="20dp"
+        android:text="@string/to_do_bottom_sheet_edit"
+        android:textAlignment="center"
+        android:textAppearance="@style/B2"
+        android:textColor="@color/hous_black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_to_do_2" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider_to_do_2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_to_do_participants" />
+
+    <TextView
+        android:id="@+id/tv_to_do_delete"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:paddingTop="18dp"
+        android:paddingBottom="25dp"
+        android:text="@string/to_do_bottom_sheet_delete"
+        android:textAlignment="center"
+        android:textAppearance="@style/B2"
+        android:textColor="@color/hous_red"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_to_do_1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
