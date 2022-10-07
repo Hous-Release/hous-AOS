@@ -1,9 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.tutorial.TutorialActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="hous.release.android.presentation.tutorial.TutorialViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.tutorial.TutorialActivity">
+
+        <TextView
+            android:id="@+id/tv_tutorial_skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="10dp"
+            android:padding="14dp"
+            android:text="@string/tutorial_skip"
+            android:textAppearance="@style/B2"
+            android:textColor="@color/hous_g_4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_tutorial"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toTopOf="@id/tv_tutorial_next"
+            app:layout_constraintTop_toBottomOf="@id/tv_tutorial_skip" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tl_tutorial_dot"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:visibility="@{vm.showNextBtn?View.INVISIBLE:View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@id/tv_tutorial_next"
+            app:layout_constraintTop_toTopOf="@id/tv_tutorial_next"
+            app:tabBackground="@drawable/selector_tutorial_index"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tv_tutorial_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/shape_blue_fill_16_rect"
+            android:gravity="center"
+            android:onClick="@{()->vm.nextOnClick()}"
+            android:paddingVertical="10dp"
+            android:text="@string/user_input_next"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_white"
+            android:visibility="@{vm.showNextBtn?View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

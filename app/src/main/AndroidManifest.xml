@@ -21,6 +21,9 @@
             android:name=".presentation.tutorial.TutorialActivity"
             android:exported="false" />
         <activity
+            android:name=".presentation.todo.daily.DailyActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.enter_room.EnterRoomActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />

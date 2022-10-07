@@ -9,5 +9,9 @@ import javax.inject.Inject
 class OurRulesDataSource @Inject constructor(private val ourRulesService: OurRulesService) {
 
     fun getOurRulesContent(): Flow<List<OurRulesResponse>> =
-        flow { emit(ourRulesService.getOurRuleContent().data) }
+        flow {
+            emit(
+                ourRulesService.getOurRuleContent().data
+            )
+        }
 }
