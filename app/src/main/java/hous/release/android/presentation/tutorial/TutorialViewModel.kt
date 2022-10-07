@@ -29,6 +29,7 @@ class TutorialViewModel @Inject constructor(
     fun nextOnClick() {
         viewModelScope.launch {
             tutorialDataSource.setShowTutorial(skipTutorial = true)
+            _isTutorialState.value = true
         }
     }
 }
