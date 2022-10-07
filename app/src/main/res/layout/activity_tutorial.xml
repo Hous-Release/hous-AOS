@@ -5,6 +5,11 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="hous.release.android.presentation.tutorial.TutorialViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,6 +45,7 @@
             android:layout_height="0dp"
             android:layout_gravity="center"
             android:clickable="false"
+            android:visibility="@{vm.showNextBtn?View.INVISIBLE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@id/tv_tutorial_next"
             app:layout_constraintTop_toTopOf="@id/tv_tutorial_next"
             app:tabBackground="@drawable/selector_tutorial_index"
@@ -58,6 +64,7 @@
             android:text="@string/user_input_next"
             android:textAppearance="@style/B1"
             android:textColor="@color/hous_white"
+            android:visibility="@{vm.showNextBtn?View.VISIBLE:View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
