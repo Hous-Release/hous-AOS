@@ -6,7 +6,7 @@ import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityUserInputBinding
-import hous.release.android.presentation.tutorial.TutorialActivity
+import hous.release.android.presentation.enter_room.EnterRoomActivity
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.extension.EventObserver
 
@@ -52,11 +52,12 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
 
     private fun initNextBtnOnClickListener() {
         binding.tvUserInputNext.setOnClickListener {
-            val intent = Intent(this, TutorialActivity::class.java).apply {
+            val toEnterRoom = Intent(this, EnterRoomActivity::class.java).apply {
                 putExtra("nickname", userInputViewModel.nickname.value)
                 putExtra("birthday", userInputViewModel.birthday.value)
             }
-            setResult(RESULT_OK, intent)
+            setResult(RESULT_OK, toEnterRoom)
+            startActivity(toEnterRoom)
             finish()
         }
     }
