@@ -1,11 +1,13 @@
 package hous.release.android.presentation.tutorial
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import hous.release.android.R
 import hous.release.android.databinding.ActivityTutorialBinding
+import hous.release.android.presentation.login.LoginActivity
 import hous.release.android.presentation.tutorial.adapter.TutorialAdapter
 import hous.release.android.util.binding.BindingActivity
 import hous.release.domain.entity.TutorialEntity
@@ -61,6 +63,16 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
                 tutorialViewModel.showNextBtn.value = position == 3
             }
         })
+    }
+
+    private fun observeSkipTutorial() {
+        tutorialViewModel.skipTutorial.observe(this) { skip ->
+            if (skip) {
+                val toLogin = Intent(this, LoginActivity::class.java)
+                startActivity(toLogin)
+                finish()
+            }
+        }
     }
 
     private fun initSkipBtnOnClickListener() {
