@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityTutorialBinding
 import hous.release.android.presentation.login.LoginActivity
@@ -12,6 +13,7 @@ import hous.release.android.presentation.tutorial.adapter.TutorialAdapter
 import hous.release.android.util.binding.BindingActivity
 import hous.release.domain.entity.TutorialEntity
 
+@AndroidEntryPoint
 class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activity_tutorial) {
     private lateinit var tutorialAdapter: TutorialAdapter
     private lateinit var tutorialList: List<TutorialEntity>
