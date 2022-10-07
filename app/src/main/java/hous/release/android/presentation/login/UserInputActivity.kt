@@ -8,7 +8,6 @@ import hous.release.android.R
 import hous.release.android.databinding.ActivityUserInputBinding
 import hous.release.android.presentation.enter_room.EnterRoomActivity
 import hous.release.android.util.binding.BindingActivity
-import hous.release.android.util.extension.EventObserver
 
 @AndroidEntryPoint
 class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.activity_user_input) {
@@ -17,21 +16,9 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.vm = userInputViewModel
-        observeInputState()
+        initNextBtnOnClickListener()
         initBackBtnOnClickListener()
         initCheckBirthdayBtnOnClickListener()
-    }
-
-    private fun observeInputState() {
-        userInputViewModel.isInputUserInfo.observe(
-            this,
-            EventObserver { inputAll ->
-                if (inputAll) {
-                    initChangeBtnNextColor()
-                    initNextBtnOnClickListener()
-                }
-            }
-        )
     }
 
     private fun initBackBtnOnClickListener() {
@@ -46,17 +33,9 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
         }
     }
 
-    private fun initChangeBtnNextColor() {
-        binding.tvUserInputNext.backgroundTintList = this.getColorStateList(R.color.hous_blue)
-    }
-
     private fun initNextBtnOnClickListener() {
         binding.tvUserInputNext.setOnClickListener {
-            val toEnterRoom = Intent(this, EnterRoomActivity::class.java).apply {
-                putExtra("nickname", userInputViewModel.nickname.value)
-                putExtra("birthday", userInputViewModel.birthday.value)
-            }
-            setResult(RESULT_OK, toEnterRoom)
+            val toEnterRoom = Intent(this, EnterRoomActivity::class.java)
             startActivity(toEnterRoom)
             finish()
         }
