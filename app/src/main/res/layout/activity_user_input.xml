@@ -124,7 +124,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="18dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/selector_user_input_check_birthday"
+            android:background="@drawable/selector_userinput_check"
             android:button="@android:color/transparent"
             android:clickable="true"
             app:layout_constraintDimensionRatio="1:1"
@@ -143,13 +143,14 @@
             app:layout_constraintStart_toEndOf="@id/cb_check_birthday"
             app:layout_constraintTop_toTopOf="@id/cb_check_birthday" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/tv_user_input_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/shape_g4_fill_16_rect"
+            android:background="@drawable/selector_userinput_button"
+            android:enabled="@{vm.nickname.length() > 0 &amp;&amp; vm.birthday.length() > 0}"
             android:gravity="center"
             android:paddingVertical="10dp"
             android:text="@string/user_input_next"
