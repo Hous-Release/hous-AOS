@@ -20,9 +20,7 @@ class TutorialViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            if (tutorialDataSource.getShowTutorial()) {
-                _isTutorialState.value = true
-            }
+            _isTutorialState.value = tutorialDataSource.getShowTutorial()
         }
     }
 
