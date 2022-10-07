@@ -1,7 +1,7 @@
 package hous.release.android.presentation.tutorial
 
 import android.os.Bundle
-import android.view.View
+import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import hous.release.android.R
@@ -13,9 +13,11 @@ import hous.release.domain.entity.TutorialEntity
 class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activity_tutorial) {
     private lateinit var tutorialAdapter: TutorialAdapter
     private lateinit var tutorialList: List<TutorialEntity>
+    private val tutorialViewModel: TutorialViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.vm = tutorialViewModel
         initAdapter()
         initSkipBtnOnClickListener()
     }
@@ -56,8 +58,7 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
         binding.vpTutorial.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                if (position == 3) showBtnNext()
-                else hideBtnNext()
+                tutorialViewModel.showNextBtn.value = position == 3
             }
         })
     }
@@ -66,15 +67,5 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
         binding.tvTutorialSkip.setOnClickListener {
             binding.vpTutorial.currentItem = 3
         }
-    }
-
-    private fun showBtnNext() {
-        binding.tlTutorialDot.visibility = View.INVISIBLE
-        binding.tvTutorialNext.visibility = View.VISIBLE
-    }
-
-    private fun hideBtnNext() {
-        binding.tlTutorialDot.visibility = View.VISIBLE
-        binding.tvTutorialNext.visibility = View.INVISIBLE
     }
 }
