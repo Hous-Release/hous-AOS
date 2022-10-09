@@ -1,6 +1,5 @@
 package hous.release.android.presentation.todo.member
 
-import androidx.annotation.ColorRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,10 +17,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,16 +26,16 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hous.release.android.R
 import hous.release.domain.entity.HomyType
+import hous.release.domain.entity.response.MemberTodoContent
 
 @Composable
 fun MemberTodoTap(
     currIndex: Int,
-    members: List<String>,
+    members: List<MemberTodoContent>,
     setCurrIndex: (Int) -> Unit
 ) {
     LazyRow(
@@ -51,8 +46,7 @@ fun MemberTodoTap(
     ) {
         itemsIndexed(members) { index, item ->
             MemberTapItem(
-                memberName = item,
-                memberColor = R.color.hous_blue,
+                member = item,
                 index = index,
                 currIndex = currIndex,
                 setCurrIndex = setCurrIndex
@@ -63,21 +57,19 @@ fun MemberTodoTap(
 
 @Composable
 private fun MemberTapItem(
-    memberName: String,
-    @ColorRes memberColor: Int,
-    a: HomyType,
+    member: MemberTodoContent,
     index: Int,
     currIndex: Int,
     setCurrIndex: (Int) -> Unit
 ) {
-//    when (a) {
-//        HomyType.RED -> colorResource(id = R.color.hous_red)
-//        HomyType.YELLOW -> colorResource(id = R.color.hous_yellow)
-//        HomyType.BLUE -> colorResource(id = R.color.hous_blue)
-//        HomyType.PURPLE -> colorResource(id = R.color.hous_purple)
-//        HomyType.GREEN -> colorResource(id = R.color.hous_green)
-//        HomyType.GRAY -> colorResource(id = R.color.hous_g_5)
-//    }
+    val memberColor = when (member.color) {
+        HomyType.RED -> colorResource(id = R.color.hous_red)
+        HomyType.YELLOW -> colorResource(id = R.color.hous_yellow)
+        HomyType.BLUE -> colorResource(id = R.color.hous_blue)
+        HomyType.PURPLE -> colorResource(id = R.color.hous_purple)
+        HomyType.GREEN -> colorResource(id = R.color.hous_green)
+        HomyType.GRAY -> colorResource(id = R.color.hous_g_5)
+    }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -86,7 +78,7 @@ private fun MemberTapItem(
                 .clickable { setCurrIndex(index) }
                 .size(40.dp)
                 .clip(CircleShape)
-                .background(colorResource(id = memberColor))
+                .background(memberColor)
                 .padding(8.dp),
             contentAlignment = Alignment.Center
         ) {
@@ -99,7 +91,7 @@ private fun MemberTapItem(
         }
         Spacer(modifier = Modifier.height(5.dp))
         Text(
-            text = memberName,
+            text = member.userName,
             style = TextStyle(
                 fontFamily = FontFamily(Font(R.font.spoqa_han_sans_neo)),
                 fontWeight = FontWeight.Normal,
@@ -117,28 +109,4 @@ private fun MemberTapItem(
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun MemberItemPreview() {
-    MemberTapItem(
-        memberName = "강원용",
-        memberColor = R.color.hous_blue,
-        index = 1,
-        currIndex = 1,
-        setCurrIndex = {}
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun MemberTapPreview() {
-    var index by remember { mutableStateOf(0) }
-    val setCurrIndex: (Int) -> Unit = { i -> index = i }
-    MemberTodoTap(
-        currIndex = index,
-        members = listOf("강원용", "강원용", "강원용"),
-        setCurrIndex = { i -> setCurrIndex(i) }
-    )
 }

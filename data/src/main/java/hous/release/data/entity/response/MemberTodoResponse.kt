@@ -1,6 +1,7 @@
 package hous.release.data.entity.response
 
 import hous.release.data.entity.ToDoEntity
+import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.MemberTodo
 import hous.release.domain.entity.response.MemberTodoContent
 
@@ -11,7 +12,7 @@ data class MemberTodoResponse(
     val userName: String
 ) {
     data class MemberTodoEntity(
-        val dayOfWeek: Int,
+        val dayOfWeek: String,
         val todoCnt: Int,
         val dayOfWeekTodos: List<ToDoEntity>
     ) {
@@ -23,7 +24,7 @@ data class MemberTodoResponse(
     }
 
     fun toMemberTodoContent() = MemberTodoContent(
-        color = color,
+        color = HomyType.valueOf(color),
         dayOfWeekTodos = dayOfWeekTodos.map { memberTodo -> memberTodo.toMemberTodo() },
         totalTodoCnt = totalTodoCnt,
         userName = userName
