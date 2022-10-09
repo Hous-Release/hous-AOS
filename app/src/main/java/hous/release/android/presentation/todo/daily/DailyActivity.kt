@@ -1,5 +1,6 @@
 package hous.release.android.presentation.todo.daily
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
@@ -8,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityDailyBinding
+import hous.release.android.presentation.todo.member.MemberActivity
 import hous.release.android.util.HousFloatingButton
 import hous.release.android.util.TodoBottomSheet
 import hous.release.android.util.binding.BindingActivity
@@ -22,6 +24,7 @@ class DailyActivity : BindingActivity<ActivityDailyBinding>(R.layout.activity_da
         super.onCreate(savedInstanceState)
         initStatusBarColor()
         initViewPager()
+        initMemberTodosOnClick()
         initTabLayout()
         initClickListener()
         initFloatingButton()
@@ -31,6 +34,14 @@ class DailyActivity : BindingActivity<ActivityDailyBinding>(R.layout.activity_da
     private fun initClickListener() {
         binding.ivDailyBackButton.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun initMemberTodosOnClick() {
+        binding.llDailyChangeView.setOnClickListener {
+            Intent(this, MemberActivity::class.java).also { intent ->
+                startActivity(intent)
+            }
         }
     }
 
