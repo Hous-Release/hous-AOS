@@ -1,10 +1,12 @@
 package hous.release.android.presentation.todo.member
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import hous.release.android.R
 import hous.release.android.databinding.ItemToDoMemberDayOfWeekBinding
 import hous.release.android.presentation.todo.daily.DailyMyTodoAdapter
 import hous.release.domain.entity.MemberTodo
@@ -29,6 +31,21 @@ class MemberTodoAdapter(
             binding.rvMemberToDo.adapter = dailyAdapter
             dailyAdapter.submitList(todos)
         }
+
+        fun initTodoDetailOnClick(memberTodo: MemberTodo) {
+            if (memberTodo.todoCnt != 0) {
+                binding.ivToDoDetail.setOnClickListener { view ->
+                    view.isSelected = !view.isSelected
+                    if (view.isSelected) {
+                        binding.rvMemberToDo.visibility = View.GONE
+                        binding.ivToDoDetail.setImageResource(R.drawable.ic_to_do_up)
+                    } else {
+                        binding.rvMemberToDo.visibility = View.VISIBLE
+                        binding.ivToDoDetail.setImageResource(R.drawable.ic_to_do_down)
+                    }
+                }
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberTodoViewHolder {
@@ -41,6 +58,7 @@ class MemberTodoAdapter(
         val current = getItem(position)
         holder.onBind(current)
         holder.fetchTodos(current.dayOfWeekTodos)
+        holder.initTodoDetailOnClick(current)
     }
 
     companion object {

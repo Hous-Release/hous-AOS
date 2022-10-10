@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp">
+        android:layout_marginTop="12dp">
 
         <ImageView
             android:id="@+id/iv_to_do_daily_my_dot_indicator"
