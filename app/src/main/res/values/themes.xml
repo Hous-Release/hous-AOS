@@ -14,5 +14,6 @@
         <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+        <item name="android:datePickerStyle">@style/DatePickerTheme</item>
     </style>
 </resources>

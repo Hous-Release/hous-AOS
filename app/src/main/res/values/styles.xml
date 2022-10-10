@@ -26,4 +26,7 @@
         <item name="android:textColorHint">@color/hous_g_5</item>
     </style>
 
+    <style name="DatePickerTheme" parent="android:Widget.Material.Light.DatePicker">
+        <item name="android:datePickerMode">spinner</item>
+    </style>
 </resources>
