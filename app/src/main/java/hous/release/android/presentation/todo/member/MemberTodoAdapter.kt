@@ -10,12 +10,14 @@ import hous.release.android.presentation.todo.daily.DailyMyTodoAdapter
 import hous.release.domain.entity.MemberTodo
 import hous.release.domain.entity.Todo
 
-class MemberTodoAdapter :
-    ListAdapter<MemberTodo, MemberTodoAdapter.MemberTodoViewHolder>(MemberTodoComparator) {
+class MemberTodoAdapter(
+    private val showTodoBottomSheet: (Int) -> Unit
+) : ListAdapter<MemberTodo, MemberTodoAdapter.MemberTodoViewHolder>(MemberTodoComparator) {
     private lateinit var inflater: LayoutInflater
 
     class MemberTodoViewHolder(
-        private val binding: ItemToDoMemberDayOfWeekBinding
+        private val binding: ItemToDoMemberDayOfWeekBinding,
+        private val showTodoBottomSheet: (Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(memberTodo: MemberTodo) {
             binding.tvMemberDayOfWeek.text = "${memberTodo.dayOfWeek}요일"
@@ -23,7 +25,7 @@ class MemberTodoAdapter :
         }
 
         fun fetchTodos(todos: List<Todo>) {
-            val dailyAdapter = DailyMyTodoAdapter({})
+            val dailyAdapter = DailyMyTodoAdapter(showTodoBottomSheet)
             binding.rvMemberToDo.adapter = dailyAdapter
             dailyAdapter.submitList(todos)
         }
@@ -32,7 +34,7 @@ class MemberTodoAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberTodoViewHolder {
         if (!::inflater.isInitialized) inflater = LayoutInflater.from(parent.context)
         val binding = ItemToDoMemberDayOfWeekBinding.inflate(inflater, parent, false)
-        return MemberTodoViewHolder(binding)
+        return MemberTodoViewHolder(binding, showTodoBottomSheet)
     }
 
     override fun onBindViewHolder(holder: MemberTodoViewHolder, position: Int) {

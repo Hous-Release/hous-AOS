@@ -68,7 +68,7 @@
         android:id="@+id/rv_member_to_do"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingStart="16dp"
+        android:paddingStart="8dp"
         android:paddingTop="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout"

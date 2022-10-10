@@ -9,19 +9,21 @@ import hous.release.android.databinding.ItemToDoMemberBinding
 import hous.release.domain.entity.MemberTodo
 import hous.release.domain.entity.response.MemberTodoContent
 
-class MemberAdapter :
-    ListAdapter<MemberTodoContent, MemberAdapter.MemberViewHolder>(TodoMemberComparator) {
+class MemberAdapter(
+    private val showTodoBottomSheet: (Int) -> Unit
+) : ListAdapter<MemberTodoContent, MemberAdapter.MemberViewHolder>(TodoMemberComparator) {
     private lateinit var inflater: LayoutInflater
 
     class MemberViewHolder(
-        private val binding: ItemToDoMemberBinding
+        private val binding: ItemToDoMemberBinding,
+        private val showTodoBottomSheet: (Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(memberTodo: MemberTodoContent) {
             binding.tvToDoDailyTotal.text = memberTodo.totalTodoCnt.toString()
         }
 
         fun fetchMemberTodos(memberTodos: List<MemberTodo>) {
-            val memberTodoAdapter = MemberTodoAdapter()
+            val memberTodoAdapter = MemberTodoAdapter(showTodoBottomSheet)
             binding.rvToDoMember.adapter = memberTodoAdapter
             memberTodoAdapter.submitList(memberTodos)
         }
@@ -30,7 +32,7 @@ class MemberAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberViewHolder {
         if (!::inflater.isInitialized) inflater = LayoutInflater.from(parent.context)
         val binding = ItemToDoMemberBinding.inflate(inflater, parent, false)
-        return MemberViewHolder(binding)
+        return MemberViewHolder(binding, showTodoBottomSheet)
     }
 
     override fun onBindViewHolder(holder: MemberViewHolder, position: Int) {

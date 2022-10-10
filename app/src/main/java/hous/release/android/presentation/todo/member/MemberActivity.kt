@@ -8,7 +8,9 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityMemberBinding
+import hous.release.android.presentation.todo.daily.DailyActivity
 import hous.release.android.util.HousFloatingButton
+import hous.release.android.util.TodoBottomSheet
 import hous.release.android.util.binding.BindingActivity
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -16,7 +18,7 @@ import kotlinx.coroutines.flow.onEach
 @AndroidEntryPoint
 class MemberActivity : BindingActivity<ActivityMemberBinding>(R.layout.activity_member) {
     private val memberViewModel: MemberViewModel by viewModels()
-    private val memberAdapter = MemberAdapter()
+    private val memberAdapter = MemberAdapter(this::showTodoBottomSheet)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initClickListener()
@@ -61,6 +63,18 @@ class MemberActivity : BindingActivity<ActivityMemberBinding>(R.layout.activity_
         binding.ivMemberBackButton.setOnClickListener {
             finish()
         }
+    }
+
+    private fun showTodoBottomSheet(todoId: Int) {
+        TodoBottomSheet()
+            .apply {
+                val bundle = Bundle()
+                bundle.putInt(DailyActivity.TODO_ID, todoId)
+                arguments = bundle
+            }
+            .also { todoBottomSheet ->
+                todoBottomSheet.show(supportFragmentManager, this.javaClass.name)
+            }
     }
 
     private fun initFloatingButton() {

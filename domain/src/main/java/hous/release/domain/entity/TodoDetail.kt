@@ -7,7 +7,7 @@ data class TodoDetail(
 ) {
     data class User(
         val onboardingId: Int,
-        val color: String,
+        val color: HomyType,
         val nickname: String
     )
 }
