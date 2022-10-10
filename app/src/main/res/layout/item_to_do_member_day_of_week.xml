@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/shape_g_1_fill_8_rect"
+        android:paddingVertical="8dp"
+        app:layout_constraintEnd_toEndOf=" parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_member_day_of_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:textAppearance="@style/B2"
+            android:textColor="@color/hous_black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="월요일" />
+
+        <ImageView
+            android:id="@+id/iv_member_dot_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/shape_blue_l1_fill_5_circle"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_member_day_of_week"
+            app:layout_constraintStart_toEndOf="@+id/tv_member_day_of_week"
+            app:layout_constraintTop_toTopOf="@+id/tv_member_day_of_week" />
+
+        <TextView
+            android:id="@+id/tv_member_to_do_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="7dp"
+            android:textColor="@color/hous_blue_l1"
+            android:textSize="14dp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_member_dot_indicator"
+            app:layout_constraintStart_toEndOf="@+id/iv_member_dot_indicator"
+            app:layout_constraintTop_toTopOf="@+id/iv_member_dot_indicator"
+            tools:text="4" />
+
+        <ImageView
+            android:id="@+id/iv_to_do_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_to_do_down"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_member_to_do"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_to_do_daily_my_rule" />
+</androidx.constraintlayout.widget.ConstraintLayout>

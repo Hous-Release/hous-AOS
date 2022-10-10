@@ -16,12 +16,29 @@ import kotlinx.coroutines.flow.onEach
 @AndroidEntryPoint
 class MemberActivity : BindingActivity<ActivityMemberBinding>(R.layout.activity_member) {
     private val memberViewModel: MemberViewModel by viewModels()
+    private val memberAdapter = MemberAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initClickListener()
         initFloatingButton()
         initStatusBarColor()
         initTabLayout()
+        initViewPager()
+        collectMemberTodos()
+    }
+
+    private fun initViewPager() {
+        binding.vpMemberTodos.apply {
+            adapter = memberAdapter
+            isUserInputEnabled = false
+        }
+    }
+
+    private fun collectMemberTodos() {
+        memberViewModel.memberTodoUiState
+            .flowWithLifecycle(lifecycle)
+            .onEach { uiState -> memberAdapter.submitList(uiState.memberToDos) }
+            .launchIn(lifecycleScope)
     }
 
     private fun initTabLayout() {
