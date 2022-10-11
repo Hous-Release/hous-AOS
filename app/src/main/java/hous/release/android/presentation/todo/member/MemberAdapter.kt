@@ -2,10 +2,10 @@ package hous.release.android.presentation.todo.member
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.databinding.ItemToDoMemberBinding
+import hous.release.android.util.ItemDiffCallback
 import hous.release.domain.entity.MemberTodo
 import hous.release.domain.entity.response.MemberTodoContent
 
@@ -42,20 +42,9 @@ class MemberAdapter(
     }
 
     companion object {
-        private val TodoMemberComparator = object : DiffUtil.ItemCallback<MemberTodoContent>() {
-            override fun areItemsTheSame(
-                oldItem: MemberTodoContent,
-                newItem: MemberTodoContent
-            ): Boolean {
-                return oldItem.totalTodoCnt == newItem.totalTodoCnt
-            }
-
-            override fun areContentsTheSame(
-                oldItem: MemberTodoContent,
-                newItem: MemberTodoContent
-            ): Boolean {
-                return oldItem == newItem
-            }
-        }
+        private val TodoMemberComparator = ItemDiffCallback<MemberTodoContent>(
+            onItemsTheSame = { old, new -> old.totalTodoCnt == new.totalTodoCnt },
+            onContentsTheSame = { old, new -> old == new }
+        )
     }
 }

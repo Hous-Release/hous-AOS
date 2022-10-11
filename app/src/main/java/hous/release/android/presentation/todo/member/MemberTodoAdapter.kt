@@ -3,12 +3,12 @@ package hous.release.android.presentation.todo.member
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.R
 import hous.release.android.databinding.ItemToDoMemberDayOfWeekBinding
 import hous.release.android.presentation.todo.daily.DailyMyTodoAdapter
+import hous.release.android.util.ItemDiffCallback
 import hous.release.domain.entity.MemberTodo
 import hous.release.domain.entity.Todo
 
@@ -62,14 +62,9 @@ class MemberTodoAdapter(
     }
 
     companion object {
-        private val MemberTodoComparator = object : DiffUtil.ItemCallback<MemberTodo>() {
-            override fun areItemsTheSame(oldItem: MemberTodo, newItem: MemberTodo): Boolean {
-                return oldItem.todoCnt == newItem.todoCnt
-            }
-
-            override fun areContentsTheSame(oldItem: MemberTodo, newItem: MemberTodo): Boolean {
-                return oldItem == newItem
-            }
-        }
+        private val MemberTodoComparator = ItemDiffCallback<MemberTodo>(
+            onItemsTheSame = { old, new -> old.todoCnt == new.todoCnt },
+            onContentsTheSame = { old, new -> old == new }
+        )
     }
 }
