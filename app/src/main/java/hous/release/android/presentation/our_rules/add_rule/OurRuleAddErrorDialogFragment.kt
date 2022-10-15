@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import hous.release.android.R
 import hous.release.android.databinding.DialogOurRuleAddErrorBinding
+import hous.release.android.util.extension.initLayout
 import timber.log.Timber
 
 class OurRuleAddErrorDialogFragment : DialogFragment() {
@@ -16,14 +17,14 @@ class OurRuleAddErrorDialogFragment : DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = DialogOurRuleAddErrorBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dialog?.setCancelable(false) ?: Timber.e(getString(R.string.null_point_exception))
+        initLayout()
         initClickListener()
     }
 
