@@ -39,7 +39,7 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
             activity?.finish() ?: Timber.e(getString(R.string.null_point_exception))
         }
         binding.ivMainRuleSettingButton.setOnClickListener {
-            val ourRulesBottomSheetDialog = OurRulesNavigateBottomSheetDialogFragment()
+            val ourRulesBottomSheetDialog = OurRulesNavigateBottomSheet()
             ourRulesBottomSheetDialog.show(parentFragmentManager, this.javaClass.name)
         }
     }
