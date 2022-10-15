@@ -1,6 +1,5 @@
 package hous.release.android.util.extension
 
-import android.view.Window
 import androidx.fragment.app.DialogFragment
 import hous.release.android.R
 import timber.log.Timber
