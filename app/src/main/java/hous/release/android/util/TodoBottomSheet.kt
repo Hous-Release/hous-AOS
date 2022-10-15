@@ -13,6 +13,7 @@ import hous.release.android.databinding.DialogToDoBottomSheetBinding
 import hous.release.android.presentation.todo.daily.DailyActivity.Companion.TODO_ID
 import hous.release.domain.entity.TodoDetail
 import hous.release.domain.usecase.GetTodoDetailUseCase
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,12 +21,12 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class TodoBottomSheet : BottomSheetDialogFragment() {
     @Inject
     lateinit var getTodoDetailUseCase: GetTodoDetailUseCase
+    private lateinit var participantAdapter: TodoParticipantAdapter
     private var todoId: Int = 0
     private var _binding: DialogToDoBottomSheetBinding? = null
     private val binding get() = _binding ?: error(getString(R.string.binding_error))
@@ -45,6 +46,7 @@ class TodoBottomSheet : BottomSheetDialogFragment() {
     ): View {
         todoId = arguments?.getInt(TODO_ID) ?: 0
         fetchTodoDetailContent()
+        participantAdapter = TodoParticipantAdapter()
         _binding = DialogToDoBottomSheetBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -71,12 +73,14 @@ class TodoBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun bindingTodoDetailContent() {
+        binding.rvToDoParticipants.adapter = participantAdapter
         todoDetailContent.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { todoDetail ->
                 with(binding) {
                     tvToDoTitle.text = todoDetail.name
                     tvToDoDays.text = todoDetail.dayOfWeeks
                 }
+                participantAdapter.submitList(todoDetail.selectedUsers)
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }

@@ -1,5 +1,6 @@
 package hous.release.data.entity.response
 
+import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.TodoDetail
 
 data class TodoDetailResponse(
@@ -14,7 +15,7 @@ data class TodoDetailResponse(
     ) {
         fun toUser() = TodoDetail.User(
             onboardingId = onboardingId,
-            color = color,
+            color = HomyType.valueOf(color),
             nickname = nickname
         )
     }

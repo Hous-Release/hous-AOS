@@ -2,10 +2,10 @@ package hous.release.android.presentation.todo.daily
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.databinding.ItemToDoDailyBinding
+import hous.release.android.util.ItemDiffCallback
 import hous.release.domain.entity.Todo
 import hous.release.domain.entity.response.TodoMain
 
@@ -50,14 +50,9 @@ class DailyAdapter(
     }
 
     companion object {
-        private val TodoMainComparator = object : DiffUtil.ItemCallback<TodoMain>() {
-            override fun areItemsTheSame(oldItem: TodoMain, newItem: TodoMain): Boolean {
-                return oldItem.myTodosCnt == newItem.myTodosCnt
-            }
-
-            override fun areContentsTheSame(oldItem: TodoMain, newItem: TodoMain): Boolean {
-                return oldItem == newItem
-            }
-        }
+        private val TodoMainComparator = ItemDiffCallback<TodoMain>(
+            onItemsTheSame = { old, new -> old.myTodosCnt == new.myTodosCnt },
+            onContentsTheSame = { old, new -> old == new }
+        )
     }
 }
