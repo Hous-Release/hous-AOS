@@ -1,12 +1,15 @@
 package hous.release.android.presentation.todo.daily
 
 import android.os.Bundle
-import androidx.fragment.app.viewModels
+import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentDailyBinding
+import hous.release.android.presentation.todo.detail.TodoDetailViewModel
 import hous.release.android.util.TodoBottomSheet
 import hous.release.android.util.binding.BindingFragment
 import kotlinx.coroutines.flow.launchIn
@@ -15,21 +18,20 @@ import kotlinx.coroutines.flow.onEach
 @AndroidEntryPoint
 class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_daily) {
     private val dailyAdapter = DailyAdapter(this::showTodoBottomSheet)
-    private val dailyViewModel: DailyViewModel by viewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private val todoDetailViewModel: TodoDetailViewModel by activityViewModels()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initViewPager()
-        initMemberTodosOnClick()
+        changeTodoDetail()
         initTabLayout()
         collectDailyTodos()
     }
 
-    private fun initMemberTodosOnClick() {
-//        binding.llDailyChangeView.setOnClickListener {
-//            Intent(this, MemberFragment::class.java).also { intent ->
-//                startActivity(intent)
-//            }
-//        }
+    private fun changeTodoDetail() {
+        binding.llDailyChangeView.setOnClickListener {
+            findNavController().navigate(R.id.action_dailyFragment_to_memberFragment)
+        }
     }
 
     private fun initViewPager() {
@@ -40,23 +42,23 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
     }
 
     private fun collectDailyTodos() {
-        dailyViewModel.dailyToDos
+        todoDetailViewModel.uiState
             .flowWithLifecycle(lifecycle)
-            .onEach { dailyTodos -> dailyAdapter.submitList(dailyTodos) }
+            .onEach { uiState -> dailyAdapter.submitList(uiState.dailyTodos) }
             .launchIn(lifecycleScope)
     }
 
     private fun initTabLayout() {
-        dailyViewModel.dailyTabCurrIndex
+        todoDetailViewModel.uiState
             .flowWithLifecycle(lifecycle)
-            .onEach { currIndex ->
+            .onEach { uiState ->
                 binding.cvDailyWeekOfDayTab.setContent {
                     DailyTab(
-                        currIndex = currIndex,
-                        setCurrIndex = dailyViewModel::setTabCurrIndex
+                        currIndex = uiState.dailyTabIndex,
+                        setCurrIndex = todoDetailViewModel::setDailyTabIndex
                     )
                 }
-                binding.vpDailyTodos.currentItem = currIndex
+                binding.vpDailyTodos.currentItem = uiState.dailyTabIndex
             }
             .launchIn(lifecycleScope)
     }

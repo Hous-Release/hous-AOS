@@ -1,18 +1,18 @@
 package hous.release.android.presentation.todo.detail
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityTodoDetailBinding
 import hous.release.android.util.HousFloatingButton
+import hous.release.android.util.binding.BindingActivity
 
-class TodoDetailActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityTodoDetailBinding
+@AndroidEntryPoint
+class TodoDetailActivity :
+    BindingActivity<ActivityTodoDetailBinding>(R.layout.activity_todo_detail) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityTodoDetailBinding.inflate(layoutInflater)
-            .also { binding -> setContentView(binding.root) }
         initStatusBarColor()
         initFloatingButton()
     }

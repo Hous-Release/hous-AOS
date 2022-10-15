@@ -1,16 +1,16 @@
 package hous.release.android.presentation.todo.member
 
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
+import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentMemberBinding
 import hous.release.android.presentation.todo.daily.DailyFragment
-import hous.release.android.util.HousFloatingButton
+import hous.release.android.presentation.todo.detail.TodoDetailViewModel
 import hous.release.android.util.TodoBottomSheet
 import hous.release.android.util.binding.BindingFragment
 import kotlinx.coroutines.flow.launchIn
@@ -18,13 +18,21 @@ import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class MemberFragment : BindingFragment<FragmentMemberBinding>(R.layout.fragment_member) {
-    private val memberViewModel: MemberViewModel by viewModels()
+    private val todoDetailViewModel: TodoDetailViewModel by activityViewModels()
     private val memberAdapter = MemberAdapter(this::showTodoBottomSheet)
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initTabLayout()
         initViewPager()
         collectMemberTodos()
+        changeTodoDetail()
+    }
+
+    private fun changeTodoDetail() {
+        binding.llMemberChangeView.setOnClickListener {
+            findNavController().navigate(R.id.action_memberFragment_to_dailyFragment)
+        }
     }
 
     private fun initViewPager() {
@@ -35,24 +43,24 @@ class MemberFragment : BindingFragment<FragmentMemberBinding>(R.layout.fragment_
     }
 
     private fun collectMemberTodos() {
-        memberViewModel.memberTodoUiState
+        todoDetailViewModel.uiState
             .flowWithLifecycle(lifecycle)
             .onEach { uiState -> memberAdapter.submitList(uiState.memberToDos) }
             .launchIn(lifecycleScope)
     }
 
     private fun initTabLayout() {
-        memberViewModel.memberTodoUiState
+        todoDetailViewModel.uiState
             .flowWithLifecycle(lifecycle)
             .onEach { uiState ->
                 binding.cvMemberWeekOfDayTab.setContent {
                     MemberTodoTap(
-                        currIndex = uiState.memberTabCurrIndex,
+                        currIndex = uiState.memberTabIndex,
                         members = uiState.memberToDos,
-                        setCurrIndex = memberViewModel::setTabCurrIndex
+                        setCurrIndex = todoDetailViewModel::setMemberTabIndex
                     )
                 }
-                binding.vpMemberTodos.currentItem = uiState.memberTabCurrIndex
+                binding.vpMemberTodos.currentItem = uiState.memberTabIndex
             }
             .launchIn(lifecycleScope)
     }

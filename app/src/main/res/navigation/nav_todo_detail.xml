@@ -6,17 +6,21 @@
     <fragment
         android:id="@+id/dailyFragment"
         android:name="hous.release.android.presentation.todo.daily.DailyFragment"
-        android:label="DailyFragment" >
+        android:label="DailyFragment">
         <action
-            android:id="@+id/action_dailyFragment2_to_memberFragment2"
-            app:destination="@id/memberFragment" />
+            android:id="@+id/action_dailyFragment_to_memberFragment"
+            app:destination="@id/memberFragment"
+            app:popUpTo="@id/dailyFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/memberFragment"
         android:name="hous.release.android.presentation.todo.member.MemberFragment"
-        android:label="MemberFragment" >
+        android:label="MemberFragment">
         <action
-            android:id="@+id/action_memberFragment2_to_dailyFragment2"
-            app:destination="@id/dailyFragment" />
+            android:id="@+id/action_memberFragment_to_dailyFragment"
+            app:destination="@id/dailyFragment"
+            app:popUpTo="@id/memberFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
