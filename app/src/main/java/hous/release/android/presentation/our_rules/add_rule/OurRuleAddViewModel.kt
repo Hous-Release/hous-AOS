@@ -76,13 +76,14 @@ class OurRuleAddViewModel @Inject constructor(
 
     fun putAddRuleList() {
         viewModelScope.launch {
-            putAddRulesUseCase.postAddedRule(uiState.value.addedRuleList).collect { apiResult ->
-                when (apiResult) {
-                    is ApiResult.Success -> Timber.i("putAddRuleList success")
-                    is ApiResult.Error -> Timber.e("putAddRuleList error -${apiResult.throwable}")
-                    is ApiResult.Empty -> Timber.e("IllegalArgument Exception")
+            putAddRulesUseCase.postAddedRule(uiState.value.addedRuleList)
+                .collect { apiResult ->
+                    when (apiResult) {
+                        is ApiResult.Success -> Timber.i("putAddRuleList success")
+                        is ApiResult.Error -> Timber.e("putAddRuleList error -${apiResult.throwable}")
+                        is ApiResult.Empty -> Timber.e("IllegalArgument Exception")
+                    }
                 }
-            }
         }
     }
 

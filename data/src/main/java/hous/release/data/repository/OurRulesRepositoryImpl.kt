@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import timber.log.Timber
 import javax.inject.Inject
 
 class OurRulesRepositoryImpl @Inject constructor(private val ourRulesDataSource: OurRulesDataSource) :
@@ -24,11 +25,14 @@ class OurRulesRepositoryImpl @Inject constructor(private val ourRulesDataSource:
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun postAddedRule(addedRuleList: List<String>) = flow {
-        val response = ourRulesDataSource.postAddedRuleContent(addedRuleList)
-        response?.also {
-            emit(ApiResult.Error(response.message))
-        } ?: emit(ApiResult.Success(""))
+    override fun postAddedRule(addedRuleList: List<String>): Flow<ApiResult<String>> = flow {
+        Timber.e("postAddedRule Error2")
+        if (ourRulesDataSource.postAddedRuleContent(addedRuleList).isSuccessful) {
+            Timber.e("postAddedRule Success")
+            emit(ApiResult.Success("postAddedRule Success"))
+        } else {
+            Timber.e("postAddedRule Error")
+            emit(ApiResult.Error("postAddedRule Error"))
+        }
     }
 }
-
