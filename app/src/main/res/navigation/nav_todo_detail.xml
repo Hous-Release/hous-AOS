@@ -2,21 +2,21 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_todo_detail"
-    app:startDestination="@id/dailyFragment2">
+    app:startDestination="@id/dailyFragment">
     <fragment
-        android:id="@+id/dailyFragment2"
+        android:id="@+id/dailyFragment"
         android:name="hous.release.android.presentation.todo.daily.DailyFragment"
         android:label="DailyFragment" >
         <action
             android:id="@+id/action_dailyFragment2_to_memberFragment2"
-            app:destination="@id/memberFragment2" />
+            app:destination="@id/memberFragment" />
     </fragment>
     <fragment
-        android:id="@+id/memberFragment2"
+        android:id="@+id/memberFragment"
         android:name="hous.release.android.presentation.todo.member.MemberFragment"
         android:label="MemberFragment" >
         <action
             android:id="@+id/action_memberFragment2_to_dailyFragment2"
-            app:destination="@id/dailyFragment2" />
+            app:destination="@id/dailyFragment" />
     </fragment>
 </navigation>
