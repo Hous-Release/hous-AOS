@@ -2,7 +2,6 @@ package hous.release.android.util
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.R
@@ -43,20 +42,9 @@ class TodoParticipantAdapter :
     }
 
     companion object {
-        private val TodoUserComparator = object : DiffUtil.ItemCallback<TodoDetail.User>() {
-            override fun areItemsTheSame(
-                oldItem: TodoDetail.User,
-                newItem: TodoDetail.User
-            ): Boolean {
-                return oldItem.onboardingId == newItem.onboardingId
-            }
-
-            override fun areContentsTheSame(
-                oldItem: TodoDetail.User,
-                newItem: TodoDetail.User
-            ): Boolean {
-                return oldItem == newItem
-            }
-        }
+        private val TodoUserComparator = ItemDiffCallback<TodoDetail.User>(
+            onItemsTheSame = { old, new -> old.onboardingId == new.onboardingId },
+            onContentsTheSame = { old, new -> old == new }
+        )
     }
 }
