@@ -23,13 +23,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="7dp"
-        android:layout_marginBottom="3dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAppearance="@style/Description"
+        android:textColor="@color/hous_g_6"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_to_do_personal_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_to_do_personal_color"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_to_do_personal_color"
         tools:text="강원용" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
