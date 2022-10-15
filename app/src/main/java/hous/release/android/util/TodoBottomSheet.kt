@@ -10,7 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.DialogToDoBottomSheetBinding
-import hous.release.android.presentation.todo.daily.DailyActivity.Companion.TODO_ID
+import hous.release.android.presentation.todo.daily.DailyFragment.Companion.TODO_ID
 import hous.release.domain.entity.TodoDetail
 import hous.release.domain.usecase.GetTodoDetailUseCase
 import javax.inject.Inject

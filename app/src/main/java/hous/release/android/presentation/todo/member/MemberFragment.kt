@@ -3,27 +3,25 @@ package hous.release.android.presentation.todo.member
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
-import hous.release.android.databinding.ActivityMemberBinding
-import hous.release.android.presentation.todo.daily.DailyActivity
+import hous.release.android.databinding.FragmentMemberBinding
+import hous.release.android.presentation.todo.daily.DailyFragment
 import hous.release.android.util.HousFloatingButton
 import hous.release.android.util.TodoBottomSheet
-import hous.release.android.util.binding.BindingActivity
+import hous.release.android.util.binding.BindingFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
-class MemberActivity : BindingActivity<ActivityMemberBinding>(R.layout.activity_member) {
+class MemberFragment : BindingFragment<FragmentMemberBinding>(R.layout.fragment_member) {
     private val memberViewModel: MemberViewModel by viewModels()
     private val memberAdapter = MemberAdapter(this::showTodoBottomSheet)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initClickListener()
-        initFloatingButton()
-        initStatusBarColor()
         initTabLayout()
         initViewPager()
         collectMemberTodos()
@@ -59,33 +57,15 @@ class MemberActivity : BindingActivity<ActivityMemberBinding>(R.layout.activity_
             .launchIn(lifecycleScope)
     }
 
-    private fun initClickListener() {
-        binding.ivMemberBackButton.setOnClickListener {
-            finish()
-        }
-    }
-
     private fun showTodoBottomSheet(todoId: Int) {
         TodoBottomSheet()
             .apply {
                 val bundle = Bundle()
-                bundle.putInt(DailyActivity.TODO_ID, todoId)
+                bundle.putInt(DailyFragment.TODO_ID, todoId)
                 arguments = bundle
             }
             .also { todoBottomSheet ->
-                todoBottomSheet.show(supportFragmentManager, this.javaClass.name)
+                todoBottomSheet.show(childFragmentManager, this.javaClass.name)
             }
-    }
-
-    private fun initFloatingButton() {
-        binding.cvMemberFloatingButton.setContent {
-            HousFloatingButton {
-                /* TO DO 추가하기 뷰로 이동하는 함수 */
-            }
-        }
-    }
-
-    private fun initStatusBarColor() {
-        window?.statusBarColor = ContextCompat.getColor(this, R.color.hous_g_1)
     }
 }
