@@ -3,6 +3,7 @@ package hous.release.android.presentation.our_rules
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentOurRuleBinding
@@ -11,6 +12,8 @@ import hous.release.android.util.ItemDecorationUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.extension.safeLet
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -29,9 +32,11 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
 
     override fun onResume() {
         super.onResume()
-        // 여기에서 서버통신을 하는게 맞을 지 고민이 되네요
-        // 일단은 프래그먼트 백스택에서 꺼내올 때, 서버통신을 하도록 넣어놓았습니다 ㅎ ㅎ ㅎ
-        viewModel.getOurRulesInfo()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getOurRulesInfo()
+            delay(500L) // 즉시 반영이 되지 않기 때문에 delay(500L)을 추가했습니다.
+            viewModel.getOurRulesInfo()
+        }
     }
 
     private fun initClickListener() {
