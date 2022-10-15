@@ -8,24 +8,26 @@ import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import hous.release.android.R
 import hous.release.android.databinding.DialogOurRuleAddOutBinding
+import hous.release.android.util.extension.initLayout
 import timber.log.Timber
 
-class OurRuleAddOutDialogFragment : DialogFragment() {
+class OurRuleAddOutDialogFragment() :
+    DialogFragment() {
     private var _binding: DialogOurRuleAddOutBinding? = null
     private val binding get() = _binding ?: error(getString(R.string.binding_error))
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = DialogOurRuleAddOutBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dialog?.setCancelable(false) ?: Timber.e(getString(R.string.null_point_exception))
         initClickListener()
+        initLayout()
     }
 
     override fun onDestroyView() {
