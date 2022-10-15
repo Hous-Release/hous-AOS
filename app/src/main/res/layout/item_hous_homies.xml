@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="homy"
+            type="hous.release.domain.entity.response.Homy" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginBottom="12dp">
+
+        <ImageView
+            android:id="@+id/iv_hous_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/hous_homies_profile_img_desc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_profile_purple" />
+
+        <TextView
+            android:id="@+id/tv_hous_profile_name"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/shape_white_fill_bottom_right_8_rect"
+            android:gravity="center"
+            android:text="@{homy.userNickname}"
+            android:textAppearance="@style/B2"
+            android:textColor="@color/hous_black"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.37"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.42" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

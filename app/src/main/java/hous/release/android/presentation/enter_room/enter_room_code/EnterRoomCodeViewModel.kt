@@ -38,7 +38,7 @@ class EnterRoomCodeViewModel @Inject constructor(
                     _isSuccessGetRoom.emit(true)
                 }
                 .onFailure {
-                    Timber.tag("EnterRoom - getEnterRoomCode").d(it.message.toString())
+                    Timber.d(it.message.toString())
                 }
         }
     }
@@ -50,7 +50,7 @@ class EnterRoomCodeViewModel @Inject constructor(
                     _isSuccessEnterRoom.emit(true)
                 }
                 .onFailure {
-                    Timber.tag("EnterRoom - postEnterRoomId").d(it.message.toString())
+                    Timber.d(it.message.toString())
                 }
         }
     }

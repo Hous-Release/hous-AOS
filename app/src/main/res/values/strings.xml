@@ -16,6 +16,15 @@
     <!-- Kakao -->
     <string name="login_kakao_login">카카오톡으로 계속하기</string>
 
+    <!-- UserInput -->
+    <string name="user_input_user_info">회원 정보 입력</string>
+    <string name="user_input_nickname">닉네임</string>
+    <string name="user_input_nickname_hint">Hous-에서 사용할 이름을 입력해주세요.</string>
+    <string name="user_input_birthday">생년월일</string>
+    <string name="user_input_birthday_hint">YYYY/MM/DD</string>
+    <string name="user_input_open_birthday">생년월일 호미들에게 공개</string>
+    <string name="user_input_next">다음으로</string>
+
     <!-- OurRules -->
     <string name="our_house_rules">우리 집 Rules</string>
     <string name="our_house_representative_rules_empty">아직 우리 집 Rules가 없어요!</string>
@@ -43,6 +52,26 @@
     <string name="crate_room_dialog_desc">방 생성이 완료 되었습니다.\n참여 코드를 복사해서\n룸메이트에게 공유해보세요!</string>
     <string name="create_room_dialog_kakao_share">카카오톡으로 공유하기</string>
 
+    <!-- Hous -->
+    <string name="hous_title">%s님의,\n%s 하우스</string>
+    <string name="hous_btn_copy_code_desc">참여코드 복사 버튼</string>
+    <string name="hous_btn_edit_desc">수정하기 버튼</string>
+    <string name="hous_to_do_progress_title">오늘 우리의 to-do 진행률</string>
+    <string name="hous_my_todo">MY to-do</string>
+    <string name="hous_my_todo_img_desc">img of myTod in hous</string>
+    <string name="hous_my_todo_cheer">동글이의\n응원을 받고\n오늘도 화이팅!</string>
+    <string name="hous_our_rules">Our Rules</string>
+    <string name="hous_our_rules_img_desc">btn_of_our_rules</string>
+    <string name="hous_our_rules_num_1">1.</string>
+    <string name="hous_our_rules_num_2">2.</string>
+    <string name="hous_our_rules_num_3">3.</string>
+    <string name="hous_homies">Homies</string>
+    <string name="hous_homies_profile_img_decnsc">img of profile color</string>
+    <string name="hous_homies_profile_img_desc">img of profile color</string>
+    <string name="hous_empty_my_todo">아직 내 to-do가 없어요!</string>
+    <string name="hous_empty_our_rules">아직 우리 집 Rules가 없어요!</string>
+    <string name="hous_empty_our_rules_add">다른 Rule도 추가해보세요!</string>
+
     <!-- EnterRoomCode -->
     <string name="enter_room_code_title">방 초대코드 입력하기</string>
     <string name="enter_room_code_desc">초대코드를 입력해야 방에 들어갈 수 있어요.</string>
@@ -52,7 +81,6 @@
     <string name="enter_room_code_dialog_owner_desc">님이</string>
     <string name="enter_room_code_dialog_desc">초대한 방에 참여할까요?</string>
     <string name="enter_room_code_dialog_enter">참여하기</string>
-
 
     <!-- To-Do -->
     <string name="to_do_small_letter">to-do</string>
@@ -91,4 +119,20 @@
     <string name="our_rule_add_error_title">Rules 개수 초과</string>
     <string name="our_rule_add_error_description">우리 집 Rules가 너무 많아요!\n필요하지 않은 Rule은 삭제하고\n다시 시도해주세요~</string>
     <string name="our_rule_add_error_ok">알겠어요!</string>
+    <string name="to_do_bottom_sheet_delete">삭제하기</string>
+    <string name="to_do_bottom_sheet_edit">수정하기</string>
+    <string name="dialog_to_do_title">안녕, to-do...</string>
+    <string name="dialog_to_do_content">to-do는 한 번 삭제하면 복구되지 않아요.</string>
+    <string name="dialog_cancel">취소하기</string>
+
+    <!-- Tutorial -->
+    <string name="tutorial_skip">건너뛰기</string>
+    <string name="tutorial_1_head">Welcome to\nYour Hous-</string>
+    <string name="tutorial_1_body">슬기로운 공동생활을 위한 서비스, Hous-\n\n우리의 Hous-를 위한 How is-\n반가워요, 호미들!</string>
+    <string name="tutorial_2_head">Rules</string>
+    <string name="tutorial_2_body">우리 집의 기둥이 될 Rules예요!\n\n항상 놓치지 않고 지켜야 하는 것들을\nRules로 등록할 수 있어요 :)</string>
+    <string name="tutorial_3_head">To-do</string>
+    <string name="tutorial_3_body">요일과 담당자를 설정할 수 있는 to-do!\n\n매일 매일 My to-do를 체크하고\n채워지는 Our to-do를 확인해봐요~</string>
+    <string name="tutorial_4_head">Homies</string>
+    <string name="tutorial_4_body">생활 성향 테스트를 참여하면 우리 집 모든\n호미들에게 내 성향 카드를 보여줄 수 있어요.\n\n호미 카드는 나 대신 나를 잘 설명해줄 거예요!</string>
 </resources>

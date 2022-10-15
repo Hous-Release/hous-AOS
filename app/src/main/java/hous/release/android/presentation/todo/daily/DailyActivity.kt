@@ -1,37 +1,47 @@
 package hous.release.android.presentation.todo.daily
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import androidx.core.content.ContextCompat.getColor
-import androidx.fragment.app.viewModels
+import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
-import hous.release.android.databinding.FragmentDailyBinding
+import hous.release.android.databinding.ActivityDailyBinding
+import hous.release.android.presentation.todo.member.MemberActivity
 import hous.release.android.util.HousFloatingButton
-import hous.release.android.util.binding.BindingFragment
+import hous.release.android.util.TodoBottomSheet
+import hous.release.android.util.binding.BindingActivity
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
-class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_daily) {
-    private val dailyAdapter = DailyAdapter()
+class DailyActivity : BindingActivity<ActivityDailyBinding>(R.layout.activity_daily) {
+    private val dailyAdapter = DailyAdapter(this::showTodoBottomSheet)
     private val dailyViewModel: DailyViewModel by viewModels()
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         initStatusBarColor()
         initViewPager()
+        initMemberTodosOnClick()
         initTabLayout()
         initClickListener()
         initFloatingButton()
+        collectDailyTodos()
     }
 
     private fun initClickListener() {
         binding.ivDailyBackButton.setOnClickListener {
-            findNavController().navigateUp()
+            finish()
+        }
+    }
+
+    private fun initMemberTodosOnClick() {
+        binding.llDailyChangeView.setOnClickListener {
+            Intent(this, MemberActivity::class.java).also { intent ->
+                startActivity(intent)
+            }
         }
     }
 
@@ -40,15 +50,18 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
             adapter = dailyAdapter
             isUserInputEnabled = false
         }
+    }
+
+    private fun collectDailyTodos() {
         dailyViewModel.dailyToDos
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .flowWithLifecycle(lifecycle)
             .onEach { dailyTodos -> dailyAdapter.submitList(dailyTodos) }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
+            .launchIn(lifecycleScope)
     }
 
     private fun initTabLayout() {
         dailyViewModel.dailyTabCurrIndex
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .flowWithLifecycle(lifecycle)
             .onEach { currIndex ->
                 binding.cvDailyWeekOfDayTab.setContent {
                     DailyTab(
@@ -58,7 +71,19 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
                 }
                 binding.vpDailyTodos.currentItem = currIndex
             }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
+            .launchIn(lifecycleScope)
+    }
+
+    private fun showTodoBottomSheet(todoId: Int) {
+        TodoBottomSheet()
+            .apply {
+                val bundle = Bundle()
+                bundle.putInt(TODO_ID, todoId)
+                arguments = bundle
+            }
+            .also { todoBottomSheet ->
+                todoBottomSheet.show(supportFragmentManager, this.javaClass.name)
+            }
     }
 
     private fun initFloatingButton() {
@@ -70,6 +95,10 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
     }
 
     private fun initStatusBarColor() {
-        activity?.window?.statusBarColor = getColor(requireActivity(), R.color.hous_g_1)
+        window?.statusBarColor = ContextCompat.getColor(this, R.color.hous_g_1)
+    }
+
+    companion object {
+        const val TODO_ID = "todo_id"
     }
 }
