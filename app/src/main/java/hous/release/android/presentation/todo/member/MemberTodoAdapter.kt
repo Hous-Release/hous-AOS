@@ -34,14 +34,16 @@ class MemberTodoAdapter(
 
         fun initTodoDetailOnClick(memberTodo: MemberTodo) {
             if (memberTodo.todoCnt != 0) {
-                binding.ivToDoDetail.setOnClickListener { view ->
-                    view.isSelected = !view.isSelected
-                    if (view.isSelected) {
-                        binding.rvMemberToDo.visibility = View.GONE
-                        binding.ivToDoDetail.setImageResource(R.drawable.ic_to_do_up)
-                    } else {
-                        binding.rvMemberToDo.visibility = View.VISIBLE
-                        binding.ivToDoDetail.setImageResource(R.drawable.ic_to_do_down)
+                with(binding) {
+                    clMemberDayOfWeekDetail.setOnClickListener { view ->
+                        view.isSelected = !view.isSelected
+                        if (view.isSelected) {
+                            rvMemberToDo.visibility = View.GONE
+                            ivToDoDetail.setImageResource(R.drawable.ic_to_do_up)
+                        } else {
+                            rvMemberToDo.visibility = View.VISIBLE
+                            ivToDoDetail.setImageResource(R.drawable.ic_to_do_down)
+                        }
                     }
                 }
             }
