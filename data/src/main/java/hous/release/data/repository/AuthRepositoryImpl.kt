@@ -49,9 +49,9 @@ class AuthRepositoryImpl @Inject constructor(
     }
 
     companion object {
-        const val UNKNOWN_ERROR = "네트워크 통신 중 알 수 없는 오류"
-        const val REFRESH_TOKEN = 0
-        const val ACCESS_TOKEN = 1
-        const val SKIP_TUTORIAL = "SkipTutorial"
+        private const val UNKNOWN_ERROR = "네트워크 통신 중 알 수 없는 오류"
+        private const val REFRESH_TOKEN = 0
+        private const val ACCESS_TOKEN = 1
+        private const val SKIP_TUTORIAL = "SkipTutorial"
     }
 }
