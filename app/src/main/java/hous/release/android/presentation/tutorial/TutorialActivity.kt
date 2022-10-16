@@ -32,7 +32,7 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
         binding.vpTutorial.adapter = tutorialAdapter
         binding.vpTutorial.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
-        TabLayoutMediator(binding.tlTutorialDot, binding.vpTutorial) { tab, position ->
+        TabLayoutMediator(binding.tlTutorialDot, binding.vpTutorial) { tab, _ ->
             tab.view.isClickable = false
         }.attach()
 
