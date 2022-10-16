@@ -8,11 +8,13 @@ import hous.release.domain.entity.response.TodoMain
 import hous.release.domain.usecase.DeleteTodoUseCase
 import hous.release.domain.usecase.GetDailyTodosUseCase
 import hous.release.domain.usecase.GetMemberTodosUseCase
-import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
 @HiltViewModel
 class TodoDetailViewModel @Inject constructor(
@@ -22,6 +24,9 @@ class TodoDetailViewModel @Inject constructor(
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(TodoDetailUiState())
     val uiState = _uiState.asStateFlow()
+
+    private val _isFinish = MutableSharedFlow<Boolean>()
+    val isFinish = _isFinish.asSharedFlow()
 
     init {
         fetchMemberToDos()
@@ -66,6 +71,10 @@ class TodoDetailViewModel @Inject constructor(
 
     fun setDailyTabIndex(index: Int) {
         _uiState.value = _uiState.value.copy(dailyTabIndex = index)
+    }
+
+    fun setIsFinish() {
+        viewModelScope.launch { _isFinish.emit(true) }
     }
 }
 

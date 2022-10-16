@@ -27,6 +27,11 @@ class MemberFragment : BindingFragment<FragmentMemberBinding>(R.layout.fragment_
         initViewPager()
         collectMemberTodos()
         changeTodoDetail()
+        initFinishOnClick()
+    }
+
+    private fun initFinishOnClick() {
+        binding.ivMemberBackButton.setOnClickListener { todoDetailViewModel.setIsFinish() }
     }
 
     private fun changeTodoDetail() {
