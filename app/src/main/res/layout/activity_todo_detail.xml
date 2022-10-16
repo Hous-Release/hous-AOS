@@ -16,8 +16,10 @@
             android:id="@+id/fc_todo_detail"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             app:defaultNavHost="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:navGraph="@navigation/nav_todo_detail" />
 
         <androidx.compose.ui.platform.ComposeView
