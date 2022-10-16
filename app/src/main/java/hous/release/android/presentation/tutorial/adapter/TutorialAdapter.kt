@@ -32,18 +32,9 @@ class TutorialAdapter :
     }
 
     companion object {
-        private val tutorialDiffUtil = object : DiffUtil.ItemCallback<TutorialEntity>() {
-            override fun areItemsTheSame(
-                oldItem: TutorialEntity,
-                newItem: TutorialEntity
-            ): Boolean =
-                oldItem.head == newItem.head
-
-            override fun areContentsTheSame(
-                oldItem: TutorialEntity,
-                newItem: TutorialEntity
-            ): Boolean =
-                oldItem == newItem
-        }
+        private val tutorialDiffUtil = object : DiffUtil.ItemCallback<TutorialEntity>(
+            onItemsTheSame = { old, new -> old.head == new.head },
+            onContentsTheSame = { old, new -> old == new }
+        )
     }
 }
