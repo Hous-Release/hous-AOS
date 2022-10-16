@@ -43,7 +43,7 @@ class MemberAdapter(
 
     companion object {
         private val TodoMemberComparator = ItemDiffCallback<MemberTodoContent>(
-            onItemsTheSame = { old, new -> old.totalTodoCnt == new.totalTodoCnt },
+            onItemsTheSame = { old, new -> old === new },
             onContentsTheSame = { old, new -> old == new }
         )
     }
