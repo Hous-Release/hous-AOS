@@ -5,13 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hous.release.data.datasource.SharedPrefDataSource
+import hous.release.domain.usecase.GetSkipTutorialUseCase
+import hous.release.domain.usecase.InitSkipTutorialUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class TutorialViewModel @Inject constructor(
-    private val sharedPrefDataSource: SharedPrefDataSource
+    private val getSkipTutorialUseCase: GetSkipTutorialUseCase,
+    private val initSkipTutorialUseCase: InitSkipTutorialUseCase
 ) : ViewModel() {
     val showNextBtn = MutableLiveData<Boolean>()
 
@@ -20,13 +22,13 @@ class TutorialViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            _isTutorialState.value = sharedPrefDataSource.getShowTutorial()
+            _isTutorialState.value = getSkipTutorialUseCase.invoke()
         }
     }
 
     fun nextOnClick() {
         viewModelScope.launch {
-            sharedPrefDataSource.initShowTutorial(skipTutorial = true)
+            initSkipTutorialUseCase.invoke(skipTutorial = true)
             _isTutorialState.value = true
         }
     }
