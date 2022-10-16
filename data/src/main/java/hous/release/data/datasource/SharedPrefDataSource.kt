@@ -5,12 +5,12 @@ import android.content.SharedPreferences
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class LocalPreferenceDataSource @Inject constructor(@ApplicationContext context: Context) {
+class SharedPrefDataSource @Inject constructor(@ApplicationContext context: Context) {
     private val prefs: SharedPreferences =
         context.getSharedPreferences(STORAGE_KEY, Context.MODE_PRIVATE)
 
     fun initShowTutorial(skipTutorial: Boolean) {
-        prefs.edit().putBoolean(LocalPreferenceDataSource.SKIP_TUTORIAL, skipTutorial).apply()
+        prefs.edit().putBoolean(SKIP_TUTORIAL, skipTutorial).apply()
     }
 
     fun getShowTutorial(): Boolean {
