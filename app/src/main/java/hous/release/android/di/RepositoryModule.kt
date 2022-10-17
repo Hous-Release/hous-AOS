@@ -5,16 +5,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import hous.release.data.datasource.*
-import hous.release.data.repository.AuthRepositoryImpl
-import hous.release.data.repository.EnterRoomRepositoryImpl
-import hous.release.data.repository.HousRepositoryImpl
-import hous.release.data.repository.OurRulesRepositoryImpl
-import hous.release.data.repository.TodoRepositoryImpl
-import hous.release.domain.repository.AuthRepository
-import hous.release.domain.repository.EnterRoomRepository
-import hous.release.domain.repository.HousRepository
-import hous.release.domain.repository.OurRulesRepository
-import hous.release.domain.repository.TodoRepository
+import hous.release.data.repository.*
+import hous.release.domain.repository.*
 import javax.inject.Singleton
 
 @Module
@@ -24,9 +16,9 @@ class RepositoryModule {
     @Singleton
     fun providesAuthRepository(
         authDataSource: AuthDataSource,
-        sharedPrefDataSource: SharedPrefDataSource
+        localPrefSkipTutorialDataSource: LocalPrefSkipTutorialDataSource
     ): AuthRepository =
-        AuthRepositoryImpl(authDataSource, sharedPrefDataSource)
+        AuthRepositoryImpl(authDataSource, localPrefSkipTutorialDataSource)
 
     @Provides
     @Singleton

@@ -1,7 +1,7 @@
 package hous.release.data.repository
 
 import hous.release.data.datasource.AuthDataSource
-import hous.release.data.datasource.SharedPrefDataSource
+import hous.release.data.datasource.LocalPrefSkipTutorialDataSource
 import hous.release.data.entity.request.LoginRequest
 import hous.release.data.entity.response.LoginResponse
 import hous.release.domain.entity.response.Login
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val authDataSource: AuthDataSource,
-    private val sharedPrefDataSource: SharedPrefDataSource
+    private val localPrefSkipTutorialDataSource: LocalPrefSkipTutorialDataSource
 ) : AuthRepository {
     override suspend fun postLogin(
         fcmToken: String,
