@@ -21,9 +21,23 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.vm = tutorialViewModel
-        initAdapter()
         observeTutorialState()
+        initAdapter()
         initSkipBtnOnClickListener()
+    }
+
+    private fun observeTutorialState() {
+        tutorialViewModel.isTutorialState.observe(this) { skip ->
+            if (skip) {
+                intentToLogin()
+            }
+        }
+    }
+
+    private fun intentToLogin() {
+        val toLogin = Intent(this, LoginActivity::class.java)
+        startActivity(toLogin)
+        finish()
     }
 
     private fun initAdapter() {
@@ -42,16 +56,6 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
                 tutorialViewModel.showNextBtn.value = position == 3
             }
         })
-    }
-
-    private fun observeTutorialState() {
-        tutorialViewModel.isTutorialState.observe(this) { skip ->
-            if (skip) {
-                val toLogin = Intent(this, LoginActivity::class.java)
-                startActivity(toLogin)
-                finish()
-            }
-        }
     }
 
     private fun initSkipBtnOnClickListener() {
