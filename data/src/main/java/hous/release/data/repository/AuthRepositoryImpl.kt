@@ -40,18 +40,13 @@ class AuthRepositoryImpl @Inject constructor(
         throw IllegalStateException(UNKNOWN_ERROR)
     }
 
-    override suspend fun initShowTutorial(skipTutorial: Boolean) {
-        sharedPrefDataSource.prefs.edit().putBoolean(SKIP_TUTORIAL, skipTutorial).apply()
-    }
-
-    override suspend fun getShowTutorial(): Boolean {
-        return sharedPrefDataSource.prefs.getBoolean(SKIP_TUTORIAL, false)
+    override suspend fun initSkipTutorial(skipTutorial: Boolean) {
+        localPrefSkipTutorialDataSource.showTutorial = skipTutorial
     }
 
     companion object {
         private const val UNKNOWN_ERROR = "네트워크 통신 중 알 수 없는 오류"
         private const val REFRESH_TOKEN = 0
         private const val ACCESS_TOKEN = 1
-        private const val SKIP_TUTORIAL = "SkipTutorial"
     }
 }
