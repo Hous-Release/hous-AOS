@@ -1,4 +1,4 @@
-package hous.release.android.util
+package hous.release.android.presentation.todo.detail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.R
 import hous.release.android.databinding.ItemToDoParticipantBinding
+import hous.release.android.util.ItemDiffCallback
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.TodoDetail
 

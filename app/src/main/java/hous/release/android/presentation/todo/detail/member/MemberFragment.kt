@@ -1,4 +1,4 @@
-package hous.release.android.presentation.todo.member
+package hous.release.android.presentation.todo.detail.member
 
 import android.os.Bundle
 import android.view.View
@@ -9,9 +9,9 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentMemberBinding
-import hous.release.android.presentation.todo.daily.DailyFragment
+import hous.release.android.presentation.todo.detail.daily.DailyFragment
 import hous.release.android.presentation.todo.detail.TodoDetailViewModel
-import hous.release.android.util.TodoBottomSheet
+import hous.release.android.presentation.todo.detail.TodoBottomSheet
 import hous.release.android.util.binding.BindingFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

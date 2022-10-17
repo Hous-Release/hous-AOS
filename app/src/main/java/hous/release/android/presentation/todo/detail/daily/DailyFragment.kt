@@ -1,4 +1,4 @@
-package hous.release.android.presentation.todo.daily
+package hous.release.android.presentation.todo.detail.daily
 
 import android.os.Bundle
 import android.view.View
@@ -10,7 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentDailyBinding
 import hous.release.android.presentation.todo.detail.TodoDetailViewModel
-import hous.release.android.util.TodoBottomSheet
+import hous.release.android.presentation.todo.detail.TodoBottomSheet
 import hous.release.android.util.binding.BindingFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

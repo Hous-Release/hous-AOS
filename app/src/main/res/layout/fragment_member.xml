@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.todo.member.MemberFragment">
+        tools:context=".presentation.todo.detail.member.MemberFragment">
 
         <ImageView
             android:id="@+id/iv_member_back_button"

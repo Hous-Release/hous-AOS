@@ -5,7 +5,7 @@
     app:startDestination="@id/dailyFragment">
     <fragment
         android:id="@+id/dailyFragment"
-        android:name="hous.release.android.presentation.todo.daily.DailyFragment"
+        android:name="hous.release.android.presentation.todo.detail.daily.DailyFragment"
         android:label="DailyFragment">
         <action
             android:id="@+id/action_dailyFragment_to_memberFragment"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/memberFragment"
-        android:name="hous.release.android.presentation.todo.member.MemberFragment"
+        android:name="hous.release.android.presentation.todo.detail.member.MemberFragment"
         android:label="MemberFragment">
         <action
             android:id="@+id/action_memberFragment_to_dailyFragment"

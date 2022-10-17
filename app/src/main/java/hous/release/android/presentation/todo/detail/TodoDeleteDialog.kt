@@ -1,4 +1,4 @@
-package hous.release.android.util
+package hous.release.android.presentation.todo.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.DialogToDoDeleteBinding
-import hous.release.android.presentation.todo.daily.DailyFragment.Companion.TODO_ID
-import hous.release.android.presentation.todo.detail.TodoDetailViewModel
+import hous.release.android.presentation.todo.detail.daily.DailyFragment.Companion.TODO_ID
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
