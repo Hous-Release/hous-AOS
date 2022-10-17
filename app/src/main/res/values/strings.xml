@@ -7,7 +7,7 @@
     <string name="null_point_exception_detail_two_item">NullPointException occurs - %s : %s, %s : %s</string>
     <string name="binding_error">Binding not initialized to reference the view.</string>
     <string name="back_btn_image_desc">img of back btn</string>
-
+    <string name="finish_app_toast_msg">\'뒤로\'버튼을 한 번 더 누르시면 종료됩니다</string>
     <!-- Title -->
     <string name="title_hous">Hous-</string>
     <string name="title_profile">Profile</string>
