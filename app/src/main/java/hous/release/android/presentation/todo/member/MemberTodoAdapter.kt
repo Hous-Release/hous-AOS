@@ -27,9 +27,15 @@ class MemberTodoAdapter(
         }
 
         fun fetchTodos(todos: List<Todo>) {
-            val dailyAdapter = DailyMyTodoAdapter(showTodoBottomSheet)
-            binding.rvMemberToDo.adapter = dailyAdapter
-            dailyAdapter.submitList(todos)
+            requireNotNull(binding.rvMemberToDo.adapter as DailyMyTodoAdapter) { "adapter is null" }
+                .submitList(todos)
+        }
+
+        fun initAdapter() {
+            if (binding.rvMemberToDo.adapter == null) {
+                val dailyAdapter = DailyMyTodoAdapter(showTodoBottomSheet)
+                binding.rvMemberToDo.adapter = dailyAdapter
+            }
         }
 
         fun initTodoDetailOnClick(memberTodo: MemberTodo) {
@@ -58,6 +64,7 @@ class MemberTodoAdapter(
 
     override fun onBindViewHolder(holder: MemberTodoViewHolder, position: Int) {
         val current = getItem(position)
+        holder.initAdapter()
         holder.onBind(current)
         holder.fetchTodos(current.dayOfWeekTodos)
         holder.initTodoDetailOnClick(current)

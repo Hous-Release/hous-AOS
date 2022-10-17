@@ -19,7 +19,6 @@ import kotlinx.coroutines.flow.onEach
 @AndroidEntryPoint
 class MemberFragment : BindingFragment<FragmentMemberBinding>(R.layout.fragment_member) {
     private val todoDetailViewModel: TodoDetailViewModel by activityViewModels()
-    private val memberAdapter = MemberAdapter(this::showTodoBottomSheet)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,7 +41,7 @@ class MemberFragment : BindingFragment<FragmentMemberBinding>(R.layout.fragment_
 
     private fun initViewPager() {
         binding.vpMemberTodos.apply {
-            adapter = memberAdapter
+            adapter = MemberAdapter(this@MemberFragment::showTodoBottomSheet)
             isUserInputEnabled = false
         }
     }
@@ -50,7 +49,10 @@ class MemberFragment : BindingFragment<FragmentMemberBinding>(R.layout.fragment_
     private fun collectMemberTodos() {
         todoDetailViewModel.uiState
             .flowWithLifecycle(lifecycle)
-            .onEach { uiState -> memberAdapter.submitList(uiState.memberToDos) }
+            .onEach { uiState ->
+                requireNotNull(binding.vpMemberTodos.adapter as MemberAdapter) { "adapter is null" }
+                    .submitList(uiState.memberToDos)
+            }
             .launchIn(lifecycleScope)
     }
 
