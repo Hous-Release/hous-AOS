@@ -74,6 +74,11 @@ class OurRuleAddFragment :
     private fun initBackButtonListener() {
         safeLet(activity, activity?.onBackPressedDispatcher) { _, dispatcher ->
             dispatcher.addCallback {
+                if (!this@OurRuleAddFragment.isAdded) {
+                    this.remove()
+                    dispatcher.onBackPressed()
+                    return@addCallback
+                }
                 if (viewModel.uiState.value.saveButtonState == SaveButtonState.ACTIVE || viewModel.inputRuleNameField.value.isNotBlank()) {
                     val outDialogFragment = OurRuleAddOutDialogFragment()
                     outDialogFragment.show(parentFragmentManager, OUR_RULE_ADD_OUT_DIALOG)
@@ -81,7 +86,14 @@ class OurRuleAddFragment :
                 }
                 findNavController().popBackStack()
             }
-        } ?: Timber.e(getString(R.string.null_point_exception))
+        } ?: Timber.e(
+            getString(R.string.null_point_exception_detail_two_item).format(
+                "activity",
+                activity == null,
+                "window",
+                activity?.onBackPressedDispatcher == null
+            )
+        )
 
         binding.ivAddRuleBackButton.setOnClickListener {
             if (viewModel.uiState.value.saveButtonState == SaveButtonState.ACTIVE || viewModel.inputRuleNameField.value.isNotBlank()) {
