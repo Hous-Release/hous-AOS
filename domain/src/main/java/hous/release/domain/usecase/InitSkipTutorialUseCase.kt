@@ -7,5 +7,5 @@ class InitSkipTutorialUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
     suspend operator fun invoke(skipTutorial: Boolean) =
-        authRepository.initShowTutorial(skipTutorial)
+        authRepository.initSkipTutorial(skipTutorial)
 }
