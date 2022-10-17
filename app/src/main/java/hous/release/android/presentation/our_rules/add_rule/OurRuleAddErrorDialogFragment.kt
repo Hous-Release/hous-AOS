@@ -24,7 +24,7 @@ class OurRuleAddErrorDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initLayout()
+        initLayout(0.77)
         initClickListener()
     }
 
