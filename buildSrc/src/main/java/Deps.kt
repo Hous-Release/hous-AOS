@@ -24,7 +24,7 @@ object Deps {
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"
         const val recyclerview = "androidx.recyclerview:recyclerview:1.2.1"
         const val inject = "javax.inject:javax.inject:1"
-        const val activityKTX = "androidx.activity:activity-ktx:1.5.1"
+        const val activityKTX = "androidx.activity:activity-ktx:1.6.0"
         const val lifecycleKTX = "androidx.lifecycle:lifecycle-runtime-ktx:2.6.0-alpha01"
         const val fragmentKTX = "androidx.fragment:fragment-ktx:1.5.0"
 
