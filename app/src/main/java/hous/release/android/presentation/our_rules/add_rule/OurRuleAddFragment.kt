@@ -57,7 +57,7 @@ class OurRuleAddFragment :
         binding.ivAddRuleBtn.setOnClickListener {
             if (viewModel.uiState.value.ourRuleList.size >= 30) {
                 val errorDialogFragment = OurRuleAddErrorDialogFragment()
-                errorDialogFragment.show(parentFragmentManager, OUR_RULE_ADD_ERROR_DIALOG)
+                errorDialogFragment.show(childFragmentManager, OUR_RULE_ADD_ERROR_DIALOG)
                 return@setOnClickListener
             }
             viewModel.addRule()
@@ -81,7 +81,7 @@ class OurRuleAddFragment :
                 }
                 if (viewModel.uiState.value.saveButtonState == SaveButtonState.ACTIVE || viewModel.inputRuleNameField.value.isNotBlank()) {
                     val outDialogFragment = OurRuleAddOutDialogFragment()
-                    outDialogFragment.show(parentFragmentManager, OUR_RULE_ADD_OUT_DIALOG)
+                    outDialogFragment.show(childFragmentManager, OUR_RULE_ADD_OUT_DIALOG)
                     return@addCallback
                 }
                 findNavController().popBackStack()
@@ -98,7 +98,7 @@ class OurRuleAddFragment :
         binding.ivAddRuleBackButton.setOnClickListener {
             if (viewModel.uiState.value.saveButtonState == SaveButtonState.ACTIVE || viewModel.inputRuleNameField.value.isNotBlank()) {
                 val outDialogFragment = OurRuleAddOutDialogFragment()
-                outDialogFragment.show(parentFragmentManager, OUR_RULE_ADD_OUT_DIALOG)
+                outDialogFragment.show(childFragmentManager, OUR_RULE_ADD_OUT_DIALOG)
                 return@setOnClickListener
             }
             findNavController().popBackStack()
