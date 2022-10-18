@@ -1,9 +1,12 @@
 package hous.release.domain.entity.response
 
-import hous.release.domain.entity.Token
-
-data class DomainLoginResponse(
+data class Login(
     val isJoiningRoom: Boolean,
     val token: Token,
     val userId: String
-)
+) {
+    data class Token(
+        val accessToken: String,
+        val refreshToken: String
+    )
+}
