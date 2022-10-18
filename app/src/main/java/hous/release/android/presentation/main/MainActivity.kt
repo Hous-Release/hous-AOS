@@ -10,7 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityMainBinding
 import hous.release.android.util.binding.BindingActivity
-import hous.release.android.util.extension.showToast
+import hous.release.android.util.showToast
 import timber.log.Timber
 import kotlin.system.exitProcess
 
