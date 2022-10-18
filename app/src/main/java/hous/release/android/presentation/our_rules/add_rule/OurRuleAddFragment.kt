@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
@@ -13,6 +14,7 @@ import hous.release.android.presentation.our_rules.type.SaveButtonState
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.extension.safeLet
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -66,8 +68,10 @@ class OurRuleAddFragment :
 
     private fun initSaveButtonListener() {
         binding.ivAddRuleSaveButton.setOnClickListener {
-            viewModel.putAddRuleList()
-            findNavController().popBackStack()
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.putAddRuleList().join()
+                findNavController().popBackStack()
+            }
         }
     }
 

@@ -12,7 +12,6 @@ import hous.release.android.util.ItemDecorationUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.extension.safeLet
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -33,8 +32,6 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
     override fun onResume() {
         super.onResume()
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getOurRulesInfo()
-            delay(500L) // 즉시 반영이 되지 않기 때문에 delay(500L)을 추가했습니다.
             viewModel.getOurRulesInfo()
         }
     }

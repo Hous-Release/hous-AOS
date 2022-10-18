@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.response.OurRule
-import hous.release.domain.usecase.FetchOurRulesUseCase
+import hous.release.domain.usecase.GetOurMainRulesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,14 +15,16 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class OurRulesViewModel @Inject constructor(private val ourRulesUseCase: FetchOurRulesUseCase) :
+class OurRulesViewModel @Inject constructor(
+    private val ourMainRulesUseCase: GetOurMainRulesUseCase
+) :
     ViewModel() {
     private var _uiState = MutableStateFlow(OurRulesUiState())
     val uiState: StateFlow<OurRulesUiState> = _uiState.asStateFlow()
 
     fun getOurRulesInfo() {
         viewModelScope.launch {
-            ourRulesUseCase.fetchOurMainRules()
+            ourMainRulesUseCase()
                 .catch {
                     if (it is IndexOutOfBoundsException) {
                         Timber.e(it.message)

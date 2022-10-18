@@ -2,19 +2,18 @@ package hous.release.domain.usecase
 
 import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.OurRulesContent
-import hous.release.domain.entity.OurRulesContent.Companion.defaultRuleList
-import hous.release.domain.entity.response.OurRule
 import hous.release.domain.repository.OurRulesRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class FetchOurRulesUseCase @Inject constructor(private val repository: OurRulesRepository) {
-
-    fun fetchOurRules(): Flow<ApiResult<List<OurRule>>> =
-        repository.fetchOurRulesContent()
-
-    fun fetchOurMainRules(): Flow<ApiResult<OurRulesContent>> = flow {
+class GetOurMainRulesUseCase @Inject constructor(
+    private val repository: OurRulesRepository,
+    private val defaultDispatcher: CoroutineDispatcher
+) {
+    operator fun invoke(): Flow<ApiResult<OurRulesContent>> = flow {
         repository.fetchOurRulesContent().collect { apiResult ->
             when (apiResult) {
                 is ApiResult.Empty -> emit(ApiResult.Success(OurRulesContent()))
@@ -22,7 +21,7 @@ class FetchOurRulesUseCase @Inject constructor(private val repository: OurRulesR
                 is ApiResult.Success -> {
                     val ourRuleList = apiResult.data
                     if (ourRuleList.size <= 3) {
-                        val tmpRuleList = defaultRuleList.toMutableList()
+                        val tmpRuleList = OurRulesContent.defaultRuleList.toMutableList()
                         ourRuleList.forEachIndexed { idx, value ->
                             tmpRuleList[idx] = value
                         }
@@ -49,5 +48,5 @@ class FetchOurRulesUseCase @Inject constructor(private val repository: OurRulesR
                 }
             }
         }
-    }
+    }.flowOn(defaultDispatcher)
 }

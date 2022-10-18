@@ -1,5 +1,6 @@
 package hous.release.android.di
 
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,7 +11,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
+import java.util.concurrent.*
 import javax.inject.Singleton
 
 @Module
@@ -49,6 +50,10 @@ class RetrofitModule {
         Retrofit.Builder()
             .baseUrl(BuildConfig.HOST_URI)
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(
+                GsonConverterFactory.create(
+                    GsonBuilder().serializeNulls().create()
+                )
+            )
             .build()
 }

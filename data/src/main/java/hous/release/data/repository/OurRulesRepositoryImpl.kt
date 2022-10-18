@@ -4,14 +4,16 @@ import hous.release.data.datasource.OurRulesDataSource
 import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.response.OurRule
 import hous.release.domain.repository.OurRulesRepository
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import timber.log.Timber
 import javax.inject.Inject
 
-class OurRulesRepositoryImpl @Inject constructor(private val ourRulesDataSource: OurRulesDataSource) :
+class OurRulesRepositoryImpl @Inject constructor(
+    private val ourRulesDataSource: OurRulesDataSource,
+    private val ioDispatcher: CoroutineDispatcher
+) :
     OurRulesRepository {
     override fun fetchOurRulesContent(): Flow<ApiResult<List<OurRule>>> = flow {
         val response = ourRulesDataSource.getOurRulesContent()
@@ -23,16 +25,14 @@ class OurRulesRepositoryImpl @Inject constructor(private val ourRulesDataSource:
             val data = response.data.map { it.toOurRule() }
             emit(ApiResult.Success(data))
         }
-    }.flowOn(Dispatchers.IO)
+    }.flowOn(ioDispatcher)
 
     override fun postAddedRule(addedRuleList: List<String>): Flow<ApiResult<String>> = flow {
-        Timber.e("postAddedRule Error2")
-        if (ourRulesDataSource.postAddedRuleContent(addedRuleList).isSuccessful) {
-            Timber.e("postAddedRule Success")
-            emit(ApiResult.Success("postAddedRule Success"))
+        val response = ourRulesDataSource.postAddedRuleContent(addedRuleList)
+        if (response.success) {
+            emit(ApiResult.Success(response.message))
         } else {
-            Timber.e("postAddedRule Error")
-            emit(ApiResult.Error("postAddedRule Error"))
+            emit(ApiResult.Error(response.message))
         }
     }
 }

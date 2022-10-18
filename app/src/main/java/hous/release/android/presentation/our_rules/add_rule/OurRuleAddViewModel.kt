@@ -6,8 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.presentation.our_rules.type.SaveButtonState
 import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.response.OurRule
-import hous.release.domain.usecase.FetchOurRulesUseCase
-import hous.release.domain.usecase.PutAddRulesUseCase
+import hous.release.domain.usecase.GetOurRulesUseCase
+import hous.release.domain.usecase.PostAddRulesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,8 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OurRuleAddViewModel @Inject constructor(
-    private val ourRulesUseCase: FetchOurRulesUseCase,
-    private val putAddRulesUseCase: PutAddRulesUseCase
+    private val ourRulesUseCase: GetOurRulesUseCase,
+    private val postAddRulesUseCase: PostAddRulesUseCase
 ) :
     ViewModel() {
     private var tmpId = -1
@@ -28,7 +28,7 @@ class OurRuleAddViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            ourRulesUseCase.fetchOurRules().collect { apiResult ->
+            ourRulesUseCase().collect { apiResult ->
                 when (apiResult) {
                     is ApiResult.Success ->
                         _uiState.value =
@@ -74,18 +74,19 @@ class OurRuleAddViewModel @Inject constructor(
         }
     }
 
-    fun putAddRuleList() {
+    fun putAddRuleList() =
         viewModelScope.launch {
-            putAddRulesUseCase.postAddedRule(uiState.value.addedRuleList)
+            Timber.e("${Thread.currentThread().name} - putAddRuleList start")
+            postAddRulesUseCase(uiState.value.addedRuleList)
                 .collect { apiResult ->
                     when (apiResult) {
-                        is ApiResult.Success -> Timber.i("putAddRuleList success")
-                        is ApiResult.Error -> Timber.e("putAddRuleList error -${apiResult.throwable}")
+                        is ApiResult.Success -> Timber.i(apiResult.data)
+                        is ApiResult.Error -> Timber.e(apiResult.throwable)
                         is ApiResult.Empty -> Timber.e("IllegalArgument Exception")
                     }
                 }
+            Timber.e("${Thread.currentThread().name} - putAddRuleList end")
         }
-    }
 
     data class OurRuleAddUIState(
         val ourRuleList: List<OurRule> = emptyList(),
