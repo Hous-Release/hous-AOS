@@ -1,4 +1,4 @@
-package hous.release.android.util
+package hous.release.android.presentation.todo.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.DialogToDoDeleteBinding
-import hous.release.android.presentation.todo.daily.DailyActivity.Companion.TODO_ID
-import hous.release.android.presentation.todo.daily.DailyViewModel
+import hous.release.android.presentation.todo.detail.daily.DailyFragment.Companion.TODO_ID
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -20,7 +19,7 @@ class TodoDeleteDialog : DialogFragment() {
     private var todoId: Int = 0
     private var _binding: DialogToDoDeleteBinding? = null
     private val binding get() = _binding ?: error(getString(R.string.binding_error))
-    private val dailyViewModel: DailyViewModel by activityViewModels()
+    private val dailyViewModel: TodoDetailViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

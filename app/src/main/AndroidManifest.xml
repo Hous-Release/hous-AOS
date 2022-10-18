@@ -18,13 +18,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.todo.member.MemberActivity"
+            android:name=".presentation.todo.detail.TodoDetailActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.tutorial.TutorialActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.todo.daily.DailyActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.enter_room.EnterRoomActivity"

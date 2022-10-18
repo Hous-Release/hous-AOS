@@ -1,4 +1,4 @@
-package hous.release.android.presentation.todo.daily
+package hous.release.android.presentation.todo.detail.daily
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
