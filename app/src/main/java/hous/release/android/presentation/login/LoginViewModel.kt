@@ -80,15 +80,17 @@ class LoginViewModel @Inject constructor(
 
     fun postLogin() {
         viewModelScope.launch {
-            authRepository.postLogin(
+            val login = authRepository.postLogin(
                 fcmToken = "hello world",
                 socialType = "KAKAO",
                 token = requireNotNull(kakaoToken.value)
-            ).onSuccess { response ->
-                Timber.d("로그인 성공")
-                _isSuccessLogin.postValue(Event(true))
-            }.onFailure {
-                Timber.d("로그인 실패 ${it.message}")
+            )
+            when (login.status) {
+                200 -> Timber.e("200")
+                400 -> Timber.e("200")
+                401 -> Timber.e("401")
+                404 -> Timber.e("404")
+                500 -> Timber.e("500")
             }
         }
     }

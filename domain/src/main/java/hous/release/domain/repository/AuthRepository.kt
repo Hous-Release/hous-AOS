@@ -7,7 +7,7 @@ interface AuthRepository {
         fcmToken: String,
         socialType: String,
         token: String
-    ): Result<Login>
+    ): Login
 
     suspend fun initSkipTutorial(skipTutorial: Boolean)
 }

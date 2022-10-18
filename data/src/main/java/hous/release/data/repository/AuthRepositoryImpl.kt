@@ -2,10 +2,8 @@ package hous.release.data.repository
 
 import hous.release.data.datasource.AuthDataSource
 import hous.release.data.datasource.LocalPrefSkipTutorialDataSource
-import hous.release.data.entity.request.LoginRequest
 import hous.release.domain.entity.response.Login
 import hous.release.domain.repository.AuthRepository
-import java.lang.IllegalStateException
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
@@ -16,26 +14,24 @@ class AuthRepositoryImpl @Inject constructor(
         fcmToken: String,
         socialType: String,
         token: String
-    ): Result<Login> {
-        kotlin.runCatching {
-            authDataSource.postLogin(
-                LoginRequest(
-                    fcmToken = fcmToken,
-                    socialType = socialType,
-                    token = token
-                )
+    ): Login {
+        val response = authDataSource.postLogin(
+            fcmToken,
+            socialType,
+            token
+        )
+        return when (response.code()) {
+            200 -> Login(
+                response.code(),
+                response.body()!!.data.isJoiningRoom,
+                response.body()!!.data.token,
+                response.body()!!.data.userId
             )
-        }.onSuccess { response ->
-            Login(
-                isJoiningRoom = response.data.isJoiningRoom,
-                token = Login.Token(
-                    response.data.token.accessToken,
-                    response.data.token.refreshToken
-                ),
-                userId = response.data.userId
-            )
-        }.onFailure { throw it }
-        throw IllegalStateException(UNKNOWN_ERROR)
+            400 -> Login().copy(status = response.code())
+            401 -> Login().copy(status = response.code())
+            404 -> Login().copy(status = response.code())
+            else -> Login().copy(status = response.code())
+        }
     }
 
     override suspend fun initSkipTutorial(skipTutorial: Boolean) {
