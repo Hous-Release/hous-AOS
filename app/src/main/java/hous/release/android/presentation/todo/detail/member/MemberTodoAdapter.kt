@@ -1,4 +1,4 @@
-package hous.release.android.presentation.todo.member
+package hous.release.android.presentation.todo.detail.member
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.R
 import hous.release.android.databinding.ItemToDoMemberDayOfWeekBinding
-import hous.release.android.presentation.todo.daily.DailyMyTodoAdapter
+import hous.release.android.presentation.todo.detail.daily.DailyMyTodoAdapter
 import hous.release.android.util.ItemDiffCallback
 import hous.release.domain.entity.MemberTodo
 import hous.release.domain.entity.Todo
@@ -27,21 +27,29 @@ class MemberTodoAdapter(
         }
 
         fun fetchTodos(todos: List<Todo>) {
-            val dailyAdapter = DailyMyTodoAdapter(showTodoBottomSheet)
-            binding.rvMemberToDo.adapter = dailyAdapter
-            dailyAdapter.submitList(todos)
+            requireNotNull(binding.rvMemberToDo.adapter as DailyMyTodoAdapter) { "adapter is null" }
+                .submitList(todos)
+        }
+
+        fun initAdapter() {
+            if (binding.rvMemberToDo.adapter == null) {
+                val dailyAdapter = DailyMyTodoAdapter(showTodoBottomSheet)
+                binding.rvMemberToDo.adapter = dailyAdapter
+            }
         }
 
         fun initTodoDetailOnClick(memberTodo: MemberTodo) {
             if (memberTodo.todoCnt != 0) {
-                binding.ivToDoDetail.setOnClickListener { view ->
-                    view.isSelected = !view.isSelected
-                    if (view.isSelected) {
-                        binding.rvMemberToDo.visibility = View.GONE
-                        binding.ivToDoDetail.setImageResource(R.drawable.ic_to_do_up)
-                    } else {
-                        binding.rvMemberToDo.visibility = View.VISIBLE
-                        binding.ivToDoDetail.setImageResource(R.drawable.ic_to_do_down)
+                with(binding) {
+                    clMemberDayOfWeekDetail.setOnClickListener { view ->
+                        view.isSelected = !view.isSelected
+                        if (view.isSelected) {
+                            rvMemberToDo.visibility = View.GONE
+                            ivToDoDetail.setImageResource(R.drawable.ic_to_do_up)
+                        } else {
+                            rvMemberToDo.visibility = View.VISIBLE
+                            ivToDoDetail.setImageResource(R.drawable.ic_to_do_down)
+                        }
                     }
                 }
             }
@@ -56,6 +64,7 @@ class MemberTodoAdapter(
 
     override fun onBindViewHolder(holder: MemberTodoViewHolder, position: Int) {
         val current = getItem(position)
+        holder.initAdapter()
         holder.onBind(current)
         holder.fetchTodos(current.dayOfWeekTodos)
         holder.initTodoDetailOnClick(current)
