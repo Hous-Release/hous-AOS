@@ -3,9 +3,7 @@ package hous.release.data.repository
 import hous.release.data.datasource.AuthDataSource
 import hous.release.data.datasource.LocalPrefSkipTutorialDataSource
 import hous.release.data.entity.request.LoginRequest
-import hous.release.domain.entity.Token
-import hous.release.domain.entity.request.DomainLoginRequest
-import hous.release.domain.entity.response.DomainLoginResponse
+import hous.release.domain.entity.response.Login
 import hous.release.domain.repository.AuthRepository
 import java.lang.IllegalStateException
 import javax.inject.Inject
@@ -14,19 +12,23 @@ class AuthRepositoryImpl @Inject constructor(
     private val authDataSource: AuthDataSource,
     private val localPrefSkipTutorialDataSource: LocalPrefSkipTutorialDataSource
 ) : AuthRepository {
-    override suspend fun postLogin(loginRequest: DomainLoginRequest): Result<DomainLoginResponse> {
+    override suspend fun postLogin(
+        fcmToken: String,
+        socialType: String,
+        token: String
+    ): Result<Login> {
         kotlin.runCatching {
             authDataSource.postLogin(
                 LoginRequest(
-                    fcmToken = loginRequest.fcmToken,
-                    socialType = loginRequest.socialType,
-                    token = loginRequest.token
+                    fcmToken = fcmToken,
+                    socialType = socialType,
+                    token = token
                 )
             )
         }.onSuccess { response ->
-            DomainLoginResponse(
+            Login(
                 isJoiningRoom = response.data.isJoiningRoom,
-                token = Token(
+                token = Login.Token(
                     response.data.token.accessToken,
                     response.data.token.refreshToken
                 ),
@@ -42,8 +44,5 @@ class AuthRepositoryImpl @Inject constructor(
 
     companion object {
         private const val UNKNOWN_ERROR = "네트워크 통신 중 알 수 없는 오류"
-        private const val REFRESH_TOKEN = 0
-        private const val ACCESS_TOKEN = 1
-        private const val SKIP_TUTORIAL = "SkipTutorial"
     }
 }
