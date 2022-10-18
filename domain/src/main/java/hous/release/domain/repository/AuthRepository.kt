@@ -6,7 +6,5 @@ import hous.release.domain.entity.response.DomainLoginResponse
 interface AuthRepository {
     suspend fun postLogin(loginRequest: DomainLoginRequest): Result<DomainLoginResponse>
 
-    suspend fun initShowTutorial(skipTutorial: Boolean)
-
-    suspend fun getShowTutorial(): Boolean
+    suspend fun initSkipTutorial(skipTutorial: Boolean)
 }

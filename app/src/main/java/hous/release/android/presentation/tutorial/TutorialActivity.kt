@@ -2,6 +2,7 @@ package hous.release.android.presentation.tutorial
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
@@ -11,19 +12,55 @@ import hous.release.android.databinding.ActivityTutorialBinding
 import hous.release.android.presentation.login.LoginActivity
 import hous.release.android.presentation.tutorial.adapter.TutorialAdapter
 import hous.release.android.util.binding.BindingActivity
+import hous.release.android.util.showToast
 import hous.release.domain.entity.TutorialEntity
+import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activity_tutorial) {
     private lateinit var tutorialAdapter: TutorialAdapter
     private val tutorialViewModel: TutorialViewModel by viewModels()
+    private var onBackPressedTime = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.vm = tutorialViewModel
-        initAdapter()
         observeTutorialState()
+        initAdapter()
         initSkipBtnOnClickListener()
+        initBackPressedCallback()
+    }
+
+    private fun initBackPressedCallback() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (System.currentTimeMillis() - onBackPressedTime >= WAITING_DEADLINE) {
+                        onBackPressedTime = System.currentTimeMillis()
+                        showToast(getString(R.string.finish_app_toast_msg))
+                    } else {
+                        finishAffinity()
+                        System.runFinalization()
+                        exitProcess(0)
+                    }
+                }
+            }
+        )
+    }
+
+    private fun observeTutorialState() {
+        tutorialViewModel.isTutorialState.observe(this) { skip ->
+            if (skip) {
+                intentToLogin()
+            }
+        }
+    }
+
+    private fun intentToLogin() {
+        val toLogin = Intent(this, LoginActivity::class.java)
+        startActivity(toLogin)
+        finish()
     }
 
     private fun initAdapter() {
@@ -44,16 +81,6 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
         })
     }
 
-    private fun observeTutorialState() {
-        tutorialViewModel.isTutorialState.observe(this) { skip ->
-            if (skip) {
-                val toLogin = Intent(this, LoginActivity::class.java)
-                startActivity(toLogin)
-                finish()
-            }
-        }
-    }
-
     private fun initSkipBtnOnClickListener() {
         binding.tvTutorialSkip.setOnClickListener {
             binding.vpTutorial.currentItem = 3
@@ -61,7 +88,7 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
     }
 
     companion object {
-        val tutorialList = listOf(
+        private val tutorialList = listOf(
             TutorialEntity(
                 R.string.tutorial_1_head,
                 R.string.tutorial_1_body,
@@ -83,5 +110,6 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
                 R.drawable.shape_red_fill_10_rect
             )
         )
+        private const val WAITING_DEADLINE = 2000L
     }
 }
