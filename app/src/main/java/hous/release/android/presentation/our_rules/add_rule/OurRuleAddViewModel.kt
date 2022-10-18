@@ -76,7 +76,6 @@ class OurRuleAddViewModel @Inject constructor(
 
     fun putAddRuleList() =
         viewModelScope.launch {
-            Timber.e("${Thread.currentThread().name} - putAddRuleList start")
             postAddRulesUseCase(uiState.value.addedRuleList)
                 .collect { apiResult ->
                     when (apiResult) {
@@ -85,7 +84,6 @@ class OurRuleAddViewModel @Inject constructor(
                         is ApiResult.Empty -> Timber.e("IllegalArgument Exception")
                     }
                 }
-            Timber.e("${Thread.currentThread().name} - putAddRuleList end")
         }
 
     data class OurRuleAddUIState(
