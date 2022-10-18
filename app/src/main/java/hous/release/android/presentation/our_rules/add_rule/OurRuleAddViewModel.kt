@@ -21,7 +21,7 @@ class OurRuleAddViewModel @Inject constructor(
     private val putAddRulesUseCase: PutAddRulesUseCase
 ) :
     ViewModel() {
-    private var tmpId = -1 // 임시로 저장할 id가 필요 -- 서버야 id값 음수로는 안보내지는지 물어봐야함
+    private var tmpId = -1
     var inputRuleNameField = MutableStateFlow<String>("")
     private var _uiState = MutableStateFlow(OurRuleAddUIState())
     val uiState: StateFlow<OurRuleAddUIState> = _uiState.asStateFlow()
