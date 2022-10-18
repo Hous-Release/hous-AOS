@@ -2,34 +2,43 @@ package hous.release.android.presentation.login
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
-import hous.release.android.presentation.tutorial.TutorialActivity
 import hous.release.android.databinding.ActivityUserInputBinding
+import hous.release.android.presentation.enter_room.EnterRoomActivity
 import hous.release.android.util.binding.BindingActivity
-import hous.release.android.util.extension.EventObserver
+import hous.release.android.util.showToast
+import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.activity_user_input) {
     private val userInputViewModel: UserInputViewModel by viewModels()
+    private var onBackPressedTime = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.vm = userInputViewModel
-        observeInputState()
+        initNextBtnOnClickListener()
         initBackBtnOnClickListener()
         initCheckBirthdayBtnOnClickListener()
-        userInputViewModel.birthday.value = "1999-08-02"
+        initBackPressedCallback()
     }
 
-    private fun observeInputState() {
-        userInputViewModel.isInputUserInfo.observe(
+    private fun initBackPressedCallback() {
+        onBackPressedDispatcher.addCallback(
             this,
-            EventObserver { full ->
-                if (full) {
-                    initChangeBtnNextColor()
-                    initBtnNextOnClickListener()
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (System.currentTimeMillis() - onBackPressedTime >= WAITING_DEADLINE) {
+                        onBackPressedTime = System.currentTimeMillis()
+                        showToast(getString(R.string.finish_app_toast_msg))
+                    } else {
+                        finishAffinity()
+                        System.runFinalization()
+                        exitProcess(0)
+                    }
                 }
             }
         )
@@ -47,18 +56,15 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
         }
     }
 
-    private fun initChangeBtnNextColor() {
-        binding.tvUserInputNext.backgroundTintList = this.getColorStateList(R.color.hous_blue)
+    private fun initNextBtnOnClickListener() {
+        binding.tvUserInputNext.setOnClickListener {
+            val toEnterRoom = Intent(this, EnterRoomActivity::class.java)
+            startActivity(toEnterRoom)
+            finishAffinity()
+        }
     }
 
-    private fun initBtnNextOnClickListener() {
-        binding.tvUserInputNext.setOnClickListener {
-            val intent = Intent(this, TutorialActivity::class.java).apply {
-                putExtra("nickname", userInputViewModel.nickname.value)
-                putExtra("birthday", userInputViewModel.birthday.value)
-            }
-            startActivity(intent)
-            finish()
-        }
+    companion object {
+        private const val WAITING_DEADLINE = 2000L
     }
 }
