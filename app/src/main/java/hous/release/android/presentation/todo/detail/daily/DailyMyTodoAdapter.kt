@@ -1,4 +1,4 @@
-package hous.release.android.presentation.todo.daily
+package hous.release.android.presentation.todo.detail.daily
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

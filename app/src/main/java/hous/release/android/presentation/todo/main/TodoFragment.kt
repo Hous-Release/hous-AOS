@@ -12,7 +12,7 @@ import com.skydoves.balloon.Balloon
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentToDoBinding
-import hous.release.android.presentation.todo.daily.DailyActivity
+import hous.release.android.presentation.todo.detail.TodoDetailActivity
 import hous.release.android.util.binding.BindingFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -39,7 +39,7 @@ class TodoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
 
     private fun initClickListener() {
         binding.llToDoViewAll.setOnClickListener {
-            Intent(requireActivity(), DailyActivity::class.java)
+            Intent(requireActivity(), TodoDetailActivity::class.java)
                 .also { intent -> startActivity(intent) }
         }
     }
