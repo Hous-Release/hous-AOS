@@ -10,7 +10,7 @@ import hous.release.android.R
 import hous.release.android.databinding.DialogOurRuleNavigateBinding
 import timber.log.Timber
 
-class OurRulesNavigateBottomSheetDialogFragment : BottomSheetDialogFragment() {
+class OurRulesNavigateBottomSheet : BottomSheetDialogFragment() {
     private var _binding: DialogOurRuleNavigateBinding? = null
     private val binding get() = _binding ?: error(getString(R.string.binding_error))
     override fun onCreateView(

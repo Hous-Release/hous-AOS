@@ -2,7 +2,7 @@ package hous.release.android.presentation.tutorial
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
@@ -32,21 +32,16 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
     }
 
     private fun initBackPressedCallback() {
-        onBackPressedDispatcher.addCallback(
-            this,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    if (System.currentTimeMillis() - onBackPressedTime >= WAITING_DEADLINE) {
-                        onBackPressedTime = System.currentTimeMillis()
-                        showToast(getString(R.string.finish_app_toast_msg))
-                    } else {
-                        finishAffinity()
-                        System.runFinalization()
-                        exitProcess(0)
-                    }
-                }
+        onBackPressedDispatcher.addCallback {
+            if (System.currentTimeMillis() - onBackPressedTime >= WAITING_DEADLINE) {
+                onBackPressedTime = System.currentTimeMillis()
+                showToast(getString(R.string.finish_app_toast_msg))
+            } else {
+                finishAffinity()
+                System.runFinalization()
+                exitProcess(0)
             }
-        )
+        }
     }
 
     private fun observeTutorialState() {

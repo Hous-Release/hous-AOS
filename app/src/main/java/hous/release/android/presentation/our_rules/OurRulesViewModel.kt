@@ -3,40 +3,55 @@ package hous.release.android.presentation.our_rules
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.response.OurRule
-import hous.release.domain.usecase.OurRulesUseCase
+import hous.release.domain.usecase.GetOurMainRulesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class OurRulesViewModel @Inject constructor(private val ourRulesUseCase: OurRulesUseCase) :
+class OurRulesViewModel @Inject constructor(
+    private val ourMainRulesUseCase: GetOurMainRulesUseCase
+) :
     ViewModel() {
     private var _uiState = MutableStateFlow(OurRulesUiState())
     val uiState: StateFlow<OurRulesUiState> = _uiState.asStateFlow()
 
     fun getOurRulesInfo() {
         viewModelScope.launch {
-            ourRulesUseCase().collect() { ourRulesContent ->
-                if (!ourRulesContent.errorMsg.isNullOrBlank()) {
-                    Timber.e("ourRulesUseCase error msg - ${ourRulesContent.errorMsg}")
-                    _uiState.value = OurRulesUiState().copy(
-                        isLoading = false,
-                        isError = true
-                    )
-                    return@collect
+            ourMainRulesUseCase()
+                .catch {
+                    if (it is IndexOutOfBoundsException) {
+                        Timber.e(it.message)
+                        _uiState.value = OurRulesUiState().copy()
+                    }
+                    return@catch
                 }
-                _uiState.value = OurRulesUiState().copy(
-                    isLoading = false,
-                    isError = false,
-                    isEmptyGeneralRuleList = ourRulesContent.isEmptyGeneralRuleList,
-                    isEmptyRepresentativeRuleList = ourRulesContent.isEmptyRepresentativeRuleList,
-                    ourRuleList = ourRulesContent.ourRuleList
-                )
-            }
+                .collect { apiResult ->
+                    when (apiResult) {
+                        is ApiResult.Success -> {
+                            val ourRulesContent = apiResult.data
+                            _uiState.value = OurRulesUiState().copy(
+                                isEmptyGeneralRuleList = ourRulesContent.isEmptyGeneralRuleList,
+                                isEmptyRepresentativeRuleList = ourRulesContent.isEmptyRepresentativeRuleList,
+                                ourRuleList = ourRulesContent.ourRuleList
+                            )
+                        }
+                        is ApiResult.Empty -> {
+                            _uiState.value = OurRulesUiState().copy()
+                        }
+                        is ApiResult.Error -> {
+                            // TODO 추후에 error 뷰 로직 수정
+                            Timber.e("ourRulesUseCase error msg - ${apiResult.throwable}")
+                            _uiState.value = OurRulesUiState().copy()
+                        }
+                    }
+                }
         }
     }
 
