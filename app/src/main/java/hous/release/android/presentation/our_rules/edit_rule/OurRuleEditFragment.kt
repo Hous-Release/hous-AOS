@@ -1,4 +1,4 @@
-package hous.release.android.presentation.our_rules
+package hous.release.android.presentation.our_rules.edit_rule
 
 import hous.release.android.R
 import hous.release.android.databinding.FragmentOurRuleEditBinding
