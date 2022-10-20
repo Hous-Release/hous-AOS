@@ -110,7 +110,8 @@
         <item>일</item>
     </string-array>
     <string name="to_do_plus">+</string>
-    <string name="our_rule_add_new_rule">새로운 Rules 추가</string>
+    <string name="our_rule_add_new_rule_title">새로운 Rules 추가</string>
+    <string name="our_rule_edit_rule_title">우리 집 Rules</string>
     <string name="our_rule_save_new_rule">저장</string>
     <string name="our_rule_input">Rules 입력</string>
     <string name="our_rule_add_out_title">앗, 잠깐! 이대로 나가면\nRules가 추가되지 않아요!</string>

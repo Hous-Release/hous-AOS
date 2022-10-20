@@ -1,4 +1,4 @@
-package hous.release.android.presentation.our_rules
+package hous.release.android.presentation.our_rules.main_rule
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

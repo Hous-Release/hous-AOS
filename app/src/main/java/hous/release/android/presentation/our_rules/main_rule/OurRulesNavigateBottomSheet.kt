@@ -1,4 +1,4 @@
-package hous.release.android.presentation.our_rules
+package hous.release.android.presentation.our_rules.main_rule
 
 import android.os.Bundle
 import android.view.LayoutInflater

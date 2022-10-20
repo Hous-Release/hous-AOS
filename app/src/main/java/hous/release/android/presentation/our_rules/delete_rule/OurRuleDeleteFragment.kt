@@ -1,4 +1,4 @@
-package hous.release.android.presentation.our_rules
+package hous.release.android.presentation.our_rules.delete_rule
 
 import hous.release.android.R
 import hous.release.android.databinding.FragmentOurRuleDeleteBinding
