@@ -14,31 +14,16 @@ class AuthRepositoryImpl @Inject constructor(
         fcmToken: String,
         socialType: String,
         token: String
-        val response = authDataSource.postLogin(
-            fcmToken,
-            socialType,
-            token
-        )
-        return when (response.code()) {
-            200 -> Login(
-                response.code(),
-                response.body()!!.data.isJoiningRoom,
-                response.body()!!.data.token,
-                response.body()!!.data.userId
     ): Result<Login> =
+        kotlin.runCatching {
+            authDataSource.postLogin(
+                fcmToken,
+                socialType,
+                token
             )
-            400 -> Login().copy(status = response.code())
-            401 -> Login().copy(status = response.code())
-            404 -> Login().copy(status = response.code())
-            else -> Login().copy(status = response.code())
-        }
-    }
+        }.map { response -> response.data.toLogin() }
 
     override suspend fun initSkipTutorial(skipTutorial: Boolean) {
         localPrefSkipTutorialDataSource.showTutorial = skipTutorial
-    }
-
-    companion object {
-        private const val UNKNOWN_ERROR = "네트워크 통신 중 알 수 없는 오류"
     }
 }
