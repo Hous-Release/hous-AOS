@@ -6,4 +6,11 @@ data class LoginResponse(
     val isJoiningRoom: Boolean,
     val token: Login.Token,
     val userId: String
-)
+) {
+    fun toLogin(): Login =
+        Login(
+            isJoiningRoom = this.isJoiningRoom,
+            token = this.token,
+            userId = this.userId
+        )
+}
