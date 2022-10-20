@@ -1,5 +1,6 @@
 package hous.release.android.di
 
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,6 +50,10 @@ class RetrofitModule {
         Retrofit.Builder()
             .baseUrl(BuildConfig.HOST_URI)
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(
+                GsonConverterFactory.create(
+                    GsonBuilder().serializeNulls().create()
+                )
+            )
             .build()
 }

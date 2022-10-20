@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/ourRulesFragment"
-        android:name="hous.release.android.presentation.our_rules.OurRulesFragment"
+        android:name="hous.release.android.presentation.our_rules.main_rule.OurRulesFragment"
         android:label="fragment_our_rule"
         tools:layout="@layout/fragment_our_rule">
         <action
@@ -27,12 +27,12 @@
         tools:layout="@layout/fragment_our_rule_add" />
     <fragment
         android:id="@+id/ourRuleDeleteFragment"
-        android:name="hous.release.android.presentation.our_rules.OurRuleDeleteFragment"
+        android:name="hous.release.android.presentation.our_rules.delete_rule.OurRuleDeleteFragment"
         android:label="OurRuleDeleteFragment"
         tools:layout="@layout/fragment_our_rule_delete" />
     <fragment
         android:id="@+id/ourRuleEditFragment"
-        android:name="hous.release.android.presentation.our_rules.OurRuleEditFragment"
+        android:name="hous.release.android.presentation.our_rules.edit_rule.OurRuleEditFragment"
         android:label="OurRuleEditFragment"
         tools:layout="@layout/fragment_our_rule_edit" />
 </navigation>

@@ -3,6 +3,8 @@
 
     <!-- Util -->
     <string name="null_point_exception">NullPointException occurs..</string>
+    <string name="null_point_exception_detail">NullPointException occurs - %s : %s</string>
+    <string name="null_point_exception_detail_two_item">NullPointException occurs - %s : %s, %s : %s</string>
     <string name="binding_error">Binding not initialized to reference the view.</string>
     <string name="back_btn_image_desc">img of back btn</string>
     <string name="finish_app_toast_msg">뒤로가기를 한 번 더 누르시면 앱이 종료돼요!</string>
@@ -108,7 +110,8 @@
         <item>일</item>
     </string-array>
     <string name="to_do_plus">+</string>
-    <string name="our_rule_add_new_rule">새로운 Rules 추가</string>
+    <string name="our_rule_add_new_rule_title">새로운 Rules 추가</string>
+    <string name="our_rule_edit_rule_title">우리 집 Rules</string>
     <string name="our_rule_save_new_rule">저장</string>
     <string name="our_rule_input">Rules 입력</string>
     <string name="our_rule_add_out_title">앗, 잠깐! 이대로 나가면\nRules가 추가되지 않아요!</string>

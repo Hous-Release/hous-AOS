@@ -9,14 +9,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.our_rules.OurRuleDeleteFragment">
+        android:background="@color/hous_white"
+        tools:context=".presentation.our_rules.delete_rule.OurRuleDeleteFragment">
 
         <!-- TODO: Update blank fragment layout -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="70dp"
-            android:text="나는 삭제 뷰" />
+            android:text="나는 삭제 뷰"
+            android:textSize="70dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

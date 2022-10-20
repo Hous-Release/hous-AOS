@@ -7,6 +7,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.gms.google-services")
     id("org.jlleitschuh.gradle.ktlint") version ktlintVersion
+    id("kotlin-parcelize")
 }
 
 val properties = Properties()

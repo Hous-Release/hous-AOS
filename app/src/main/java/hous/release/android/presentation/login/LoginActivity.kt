@@ -2,7 +2,7 @@ package hous.release.android.presentation.login
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
@@ -62,21 +62,16 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun initBackPressedCallback() {
-        onBackPressedDispatcher.addCallback(
-            this,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    if (System.currentTimeMillis() - onBackPressedTime >= WAITING_DEADLINE) {
-                        onBackPressedTime = System.currentTimeMillis()
-                        showToast(getString(R.string.finish_app_toast_msg))
-                    } else {
-                        finishAffinity()
-                        System.runFinalization()
-                        exitProcess(0)
-                    }
-                }
+        onBackPressedDispatcher.addCallback {
+            if (System.currentTimeMillis() - onBackPressedTime >= WAITING_DEADLINE) {
+                onBackPressedTime = System.currentTimeMillis()
+                showToast(getString(R.string.finish_app_toast_msg))
+            } else {
+                finishAffinity()
+                System.runFinalization()
+                exitProcess(0)
             }
-        )
+        }
     }
 
     private fun initKakaoLoginBtnClickListener() {
