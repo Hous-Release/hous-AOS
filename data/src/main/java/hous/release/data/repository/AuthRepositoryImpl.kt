@@ -14,7 +14,6 @@ class AuthRepositoryImpl @Inject constructor(
         fcmToken: String,
         socialType: String,
         token: String
-    ): Login {
         val response = authDataSource.postLogin(
             fcmToken,
             socialType,
@@ -26,6 +25,7 @@ class AuthRepositoryImpl @Inject constructor(
                 response.body()!!.data.isJoiningRoom,
                 response.body()!!.data.token,
                 response.body()!!.data.userId
+    ): Result<Login> =
             )
             400 -> Login().copy(status = response.code())
             401 -> Login().copy(status = response.code())
