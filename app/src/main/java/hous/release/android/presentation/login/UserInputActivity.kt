@@ -21,7 +21,6 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
         super.onCreate(savedInstanceState)
         binding.vm = userInputViewModel
         initNextBtnOnClickListener()
-        initCheckBirthdayBtnOnClickListener()
         initBackPressedCallback()
     }
 
@@ -41,12 +40,6 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
                 }
             }
         )
-    }
-
-    private fun initCheckBirthdayBtnOnClickListener() {
-        binding.cbUserInputCheckBirthday.setOnClickListener {
-            userInputViewModel.isBtnCheckBirthday.value = binding.cbUserInputCheckBirthday.isChecked
-        }
     }
 
     private fun initNextBtnOnClickListener() {

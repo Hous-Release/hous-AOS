@@ -8,6 +8,5 @@ class UserInputViewModel : ViewModel() {
 
     val birthday = MutableLiveData<String>("1999-08-02")
 
-    private val _isBtnCheckBirthday = MutableLiveData(false)
-    val isBtnCheckBirthday get() = _isBtnCheckBirthday
+    val isCheckBirthday = MutableLiveData<Boolean>()
 }
