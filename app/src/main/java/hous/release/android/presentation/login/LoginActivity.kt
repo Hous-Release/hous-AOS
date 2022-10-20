@@ -27,7 +27,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         initKakaoLoginBtnClickListener()
         initIsSuccessKakaoLoginObserver()
         initIsInitUserInfoObserver()
-        initIsSucessLoginObserver()
         initBackPressedCallback()
     }
 
@@ -77,21 +76,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             this,
             EventObserver { isSuccess ->
                 if (isSuccess) loginViewModel.postLogin()
-            }
-        )
-    }
-
-    private fun initIsSucessLoginObserver() {
-        loginViewModel.isSuccessLogin.observe(
-            this,
-            EventObserver { isSuccess ->
-                if (isSuccess) {
-                    Timber.d("로그인 성공")
-                    val toUserInput = Intent(this, UserInputActivity::class.java)
-                    startActivity(toUserInput)
-                } else {
-                    Timber.d("로그인 실패")
-                }
             }
         )
     }
