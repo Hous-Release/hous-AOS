@@ -34,6 +34,7 @@ class LoginViewModel @Inject constructor(
     private val _isUser = MutableLiveData<Boolean>()
     val isUser: LiveData<Boolean> = _isUser
 
+    // 카카오중복로그인 처리할 때 사용할 변수
     private val _isSameToken = MutableLiveData<Boolean>()
     val isSameToken: LiveData<Boolean> = _isSameToken
 
