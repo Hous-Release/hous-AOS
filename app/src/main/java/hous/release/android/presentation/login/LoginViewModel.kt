@@ -1,5 +1,6 @@
 package hous.release.android.presentation.login
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,13 +19,13 @@ class LoginViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
     private val _kakaoToken = MutableLiveData<String>()
-    val kakaoToken get() = _kakaoToken
+    val kakaoToken: LiveData<String> = _kakaoToken
 
     private val _fcmToken = MutableLiveData<String>()
-    val fcmToken get() = _fcmToken
+    val fcmToken: LiveData<String> = _fcmToken
 
     private val _isSuccessKakaoLogin = MutableLiveData<Event<Boolean>>()
-    val isSuccessKakaoLogin get() = _isSuccessKakaoLogin
+    val isSuccessKakaoLogin: LiveData<Event<Boolean>> = _isSuccessKakaoLogin
 
     private val _isSuccessLogin = MutableLiveData<Event<Boolean>>()
     val isSuccessLogin get() = _isSuccessLogin
