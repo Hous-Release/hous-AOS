@@ -139,6 +139,7 @@
             android:background="@drawable/selector_userinput_button"
             android:enabled="@{vm.nickname.length() > 0 &amp;&amp; vm.birthday.length() > 0}"
             android:gravity="center"
+            android:onClick="@{()->vm.onClickNextBtn}"
             android:paddingVertical="10dp"
             android:text="@string/user_input_next"
             android:textAppearance="@style/B1"
