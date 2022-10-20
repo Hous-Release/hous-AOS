@@ -64,9 +64,9 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             this,
             EventObserver { isSuccess ->
                 if (isSuccess) {
-                    Timber.d("카카오 로그인 성공")
+                    Timber.e("카카오 로그인 성공")
                 } else {
-                    Timber.d("카카오 로그인 실패")
+                    Timber.e("카카오 로그인 실패")
                 }
             }
         )
