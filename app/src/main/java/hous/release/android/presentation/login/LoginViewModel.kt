@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.util.extension.Event
 import hous.release.domain.repository.AuthRepository
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -27,8 +28,14 @@ class LoginViewModel @Inject constructor(
     private val _isSuccessKakaoLogin = MutableLiveData<Event<Boolean>>()
     val isSuccessKakaoLogin: LiveData<Event<Boolean>> = _isSuccessKakaoLogin
 
-    private val _isSuccessLogin = MutableLiveData<Event<Boolean>>()
-    val isSuccessLogin get() = _isSuccessLogin
+    private val _isJoiningRoom = MutableLiveData<Boolean>()
+    val isJoiningRoom: LiveData<Boolean> = _isJoiningRoom
+
+    private val _isUser = MutableLiveData<Boolean>()
+    val isUser: LiveData<Boolean> = _isUser
+
+    private val _isSameToken = MutableLiveData<Boolean>()
+    val isSameToken: LiveData<Boolean> = _isSameToken
 
     private val _isInitUserInfo = MediatorLiveData<Event<Boolean>>().apply {
         addSource(_kakaoToken) { token ->
@@ -81,17 +88,30 @@ class LoginViewModel @Inject constructor(
 
     fun postLogin() {
         viewModelScope.launch {
-            val login = authRepository.postLogin(
+            authRepository.postLogin(
                 fcmToken = "hello world",
                 socialType = "KAKAO",
                 token = requireNotNull(kakaoToken.value)
-            )
-            when (login.status) {
-                200 -> Timber.e("200")
-                400 -> Timber.e("200")
-                401 -> Timber.e("401")
-                404 -> Timber.e("404")
-                500 -> Timber.e("500")
+            ).onSuccess { response ->
+                if (response.isJoiningRoom) {
+                    _isJoiningRoom.value = true
+                    Timber.e("로그인 성공 / 방 있음")
+                } else {
+                    _isJoiningRoom.value = false
+                    Timber.e("로그인 성공 / 방 없음")
+                }
+            }.onFailure { throwable ->
+                if (throwable is HttpException) {
+                    when (throwable.code()) {
+                        404 -> {
+                            _isUser.value = false
+                            Timber.e("404 Error")
+                        }
+                        else -> {
+                            Timber.e("500 Error")
+                        }
+                    }
+                }
             }
         }
     }
