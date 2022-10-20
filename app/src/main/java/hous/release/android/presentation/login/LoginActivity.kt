@@ -7,6 +7,8 @@ import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityLoginBinding
+import hous.release.android.presentation.enter_room.EnterRoomActivity
+import hous.release.android.presentation.main.MainActivity
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.extension.EventObserver
 import hous.release.android.util.showToast
@@ -28,6 +30,35 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         initIsSuccessKakaoLoginObserver()
         initIsInitUserInfoObserver()
         initBackPressedCallback()
+        initIsJoiningRoomObserve()
+        initIsUserObserve()
+    }
+
+    private fun initIsUserObserve() {
+        loginViewModel.isJoiningRoom.observe(this) {
+            if (loginViewModel.isJoiningRoom.value == true) {
+                val toMain = Intent(this, MainActivity::class.java)
+                startActivity(toMain)
+                finishAffinity()
+                Timber.e("메인으로 이동")
+            } else {
+                val toEnterRoom = Intent(this, EnterRoomActivity::class.java)
+                startActivity(toEnterRoom)
+                finishAffinity()
+                Timber.e("방입장으로 이동")
+            }
+        }
+    }
+
+    private fun initIsJoiningRoomObserve() {
+        loginViewModel.isUser.observe(this) {
+            if (loginViewModel.isUser.value == false) {
+                val toUserInput = Intent(this, UserInputActivity::class.java)
+                startActivity(toUserInput)
+                finishAffinity()
+                Timber.e("정보입력으로 이동")
+            }
+        }
     }
 
     private fun initBackPressedCallback() {
