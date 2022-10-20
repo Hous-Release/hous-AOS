@@ -21,7 +21,6 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
         super.onCreate(savedInstanceState)
         binding.vm = userInputViewModel
         initNextBtnOnClickListener()
-        initBackBtnOnClickListener()
         initCheckBirthdayBtnOnClickListener()
         initBackPressedCallback()
     }
@@ -44,20 +43,14 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
         )
     }
 
-    private fun initBackBtnOnClickListener() {
-        binding.btnUserInputBack.setOnClickListener {
-            finish()
-        }
-    }
-
     private fun initCheckBirthdayBtnOnClickListener() {
-        binding.cbCheckBirthday.setOnClickListener {
-            userInputViewModel.isBtnCheckBirthday.value = binding.cbCheckBirthday.isChecked
+        binding.cbUserInputCheckBirthday.setOnClickListener {
+            userInputViewModel.isBtnCheckBirthday.value = binding.cbUserInputCheckBirthday.isChecked
         }
     }
 
     private fun initNextBtnOnClickListener() {
-        binding.tvUserInputNext.setOnClickListener {
+        binding.btnUserInputNext.setOnClickListener {
             val toEnterRoom = Intent(this, EnterRoomActivity::class.java)
             startActivity(toEnterRoom)
             finishAffinity()
