@@ -10,6 +10,7 @@ import com.kakao.sdk.common.model.AuthErrorCause
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.util.extension.Event
 import hous.release.domain.repository.AuthRepository
+import hous.release.domain.usecase.InitSaveTokenUseCase
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import timber.log.Timber
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val initSaveTokenUseCase: InitSaveTokenUseCase
 ) : ViewModel() {
     private val _kakaoToken = MutableLiveData<String>()
     val kakaoToken: LiveData<String> = _kakaoToken
@@ -94,6 +96,7 @@ class LoginViewModel @Inject constructor(
                 socialType = "KAKAO",
                 token = requireNotNull(kakaoToken.value)
             ).onSuccess { response ->
+                initSaveTokenUseCase.invoke(_fcmToken.value, SOCIALTYPE, _kakaoToken.value)
                 if (response.isJoiningRoom) {
                     _isJoiningRoom.value = true
                     Timber.e("로그인 성공 / 방 있음")
