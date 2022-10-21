@@ -19,5 +19,7 @@ interface AuthRepository {
         token: String
     ): Result<SignUp>
 
+    suspend fun initSaveToken(fcmToken: String?, socialType: String?, token: String?)
+
     suspend fun initSkipTutorial(skipTutorial: Boolean)
 }
