@@ -77,6 +77,10 @@
     <string name="edit_hous_name_back_img_desc">back button</string>
     <string name="edit_hous_name_done">저장</string>
     <string name="edit_hous_name_title">우리 집 별명 바꾸기</string>
+    <string name="edit_hous_name_warning_title">앗, 잠깐! 이대로 나가면\n우리 집 별명이 저장되지 않아요!</string>
+    <string name="edit_hous_name_warning_desc">정말 취소하려면 나가기 버튼을 눌러주세요.</string>
+    <string name="edit_hous_name_warning_cancel">돌아가기</string>
+    <string name="edit_hous_name_warning_confirm">나가기</string>
 
     <!-- EnterRoomCode -->
     <string name="enter_room_code_title">방 초대코드 입력하기</string>
