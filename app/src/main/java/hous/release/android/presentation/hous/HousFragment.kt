@@ -1,5 +1,6 @@
 package hous.release.android.presentation.hous
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -7,6 +8,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentHousBinding
 import hous.release.android.presentation.hous.adapter.HomiesAdapter
+import hous.release.android.presentation.our_rules.OurRulesActivity
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
 
@@ -21,6 +23,9 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
         viewModel.getHome()
         initHomiesAdapter()
         initHomiesObserver()
+        binding.btnHousOurRules.setOnClickListener {
+            startActivity(Intent(activity, OurRulesActivity::class.java))
+        }
     }
 
     private fun initHomiesAdapter() {
