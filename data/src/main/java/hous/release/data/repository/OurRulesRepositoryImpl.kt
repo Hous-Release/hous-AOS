@@ -34,5 +34,14 @@ class OurRulesRepositoryImpl @Inject constructor(
         } else {
             emit(ApiResult.Error(response.message))
         }
-    }
+    }.flowOn(ioDispatcher)
+
+    override fun putEditedRuleContent(editedRuleList: List<Int>): Flow<ApiResult<String>> = flow {
+        val response = ourRulesDataSource.putEditedRuleContent(editedRuleList)
+        if (response.success) {
+            emit(ApiResult.Success(response.message))
+        } else {
+            emit(ApiResult.Error(response.message))
+        }
+    }.flowOn(ioDispatcher)
 }
