@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="hous.release.domain.entity.response.OurRule" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_rule_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/hous_white"
+        android:paddingHorizontal="16dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_dot_indicator"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="@color/hous_g_3"
+            android:elevation="0dp"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_rule_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:maxLines="1"
+            android:text="@{data.name}"
+            android:textAppearance="@style/B2"
+            app:layout_constraintStart_toEndOf="@id/cv_dot_indicator"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="우리 집 대장은 최코코" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_drag_handler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible">
+
+            <View
+                android:id="@+id/drag_handler_first"
+                android:layout_width="20dp"
+                android:layout_height="1dp"
+                android:background="@color/hous_g_5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/drag_handler_second"
+                android:layout_width="20dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/hous_g_5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/drag_handler_first" />
+
+            <View
+                android:id="@+id/drag_handler_third"
+                android:layout_width="20dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/hous_g_5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/drag_handler_second" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/hous_g_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_rule_description" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
