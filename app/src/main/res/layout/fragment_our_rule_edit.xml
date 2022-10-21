@@ -55,7 +55,7 @@
             app:layout_constraintTop_toTopOf="@id/tv_edit_rule_title" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_add_our_rules"
+            android:id="@+id/rv_edit_our_rules"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
