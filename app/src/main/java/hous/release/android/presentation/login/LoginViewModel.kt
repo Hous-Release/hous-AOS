@@ -36,6 +36,9 @@ class LoginViewModel @Inject constructor(
     private val _isUser = MutableLiveData<Boolean>()
     val isUser: LiveData<Boolean> = _isUser
 
+    private val _saveToken = MutableLiveData<Boolean>(false)
+    val saveToken: LiveData<Boolean> = _saveToken
+
     // 카카오중복로그인 처리할 때 사용할 변수
     private val _isSameToken = MutableLiveData<Boolean>()
     val isSameToken: LiveData<Boolean> = _isSameToken
@@ -105,6 +108,7 @@ class LoginViewModel @Inject constructor(
                     Timber.e("로그인 성공 / 방 없음")
                 }
             }.onFailure { throwable ->
+                initSaveTokenUseCase.invoke(_fcmToken.value, SOCIALTYPE, _kakaoToken.value)
                 if (throwable is HttpException) {
                     when (throwable.code()) {
                         404 -> {
@@ -118,5 +122,9 @@ class LoginViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    companion object {
+        private const val SOCIALTYPE = "KAKAO"
     }
 }
