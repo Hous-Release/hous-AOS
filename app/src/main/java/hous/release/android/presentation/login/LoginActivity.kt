@@ -40,12 +40,10 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                 val toMain = Intent(this, MainActivity::class.java)
                 startActivity(toMain)
                 finishAffinity()
-                Timber.e("메인으로 이동")
             } else {
                 val toEnterRoom = Intent(this, EnterRoomActivity::class.java)
                 startActivity(toEnterRoom)
                 finishAffinity()
-                Timber.e("방입장으로 이동")
             }
         }
     }
@@ -56,7 +54,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                 val toUserInput = Intent(this, UserInputActivity::class.java)
                 startActivity(toUserInput)
                 finishAffinity()
-                Timber.e("정보입력으로 이동")
             }
         }
     }
