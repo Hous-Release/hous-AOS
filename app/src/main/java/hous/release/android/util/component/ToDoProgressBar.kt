@@ -28,10 +28,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hous.release.android.R
-import hous.release.android.util.LEFT
-import hous.release.android.util.RIGHT
-import hous.release.android.util.RoundedLinearIndicator
-import hous.release.android.util.drawMessageShape
+import hous.release.android.util.component.LEFT
+import hous.release.android.util.component.RIGHT
+import hous.release.android.util.component.RoundedLinearIndicator
+import hous.release.android.util.component.drawMessageShape
 
 @Composable
 fun RoundedLinearIndicatorWithHomie(

@@ -1,4 +1,4 @@
-package hous.release.android.presentation.todo.detail.member
+package hous.release.android.util.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

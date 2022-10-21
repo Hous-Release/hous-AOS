@@ -8,7 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityTodoDetailBinding
-import hous.release.android.util.HousFloatingButton
+import hous.release.android.util.component.HousFloatingButton
 import hous.release.android.util.binding.BindingActivity
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

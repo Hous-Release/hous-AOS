@@ -1,4 +1,4 @@
-package hous.release.android.util
+package hous.release.android.util.component
 
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
