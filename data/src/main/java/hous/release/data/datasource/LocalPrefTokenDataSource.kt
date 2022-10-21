@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import javax.inject.Inject
 
-class LocalPrefSaveTokenDataSource @Inject constructor(
+class LocalPrefTokenDataSource @Inject constructor(
     private val prefs: SharedPreferences
 ) {
     var fcmToken: String?

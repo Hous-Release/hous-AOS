@@ -10,7 +10,6 @@ import com.kakao.sdk.common.model.AuthErrorCause
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.util.extension.Event
 import hous.release.domain.repository.AuthRepository
-import hous.release.domain.usecase.InitSaveTokenUseCase
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import timber.log.Timber
@@ -18,8 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val authRepository: AuthRepository,
-    private val initSaveTokenUseCase: InitSaveTokenUseCase
+    private val authRepository: AuthRepository
 ) : ViewModel() {
     private val _kakaoToken = MutableLiveData<String>()
     val kakaoToken: LiveData<String> = _kakaoToken
@@ -99,7 +97,7 @@ class LoginViewModel @Inject constructor(
                 socialType = "KAKAO",
                 token = requireNotNull(kakaoToken.value)
             ).onSuccess { response ->
-                initSaveTokenUseCase.invoke(_fcmToken.value, SOCIALTYPE, _kakaoToken.value)
+                authRepository.initToken(_fcmToken.value, SOCIALTYPE, _kakaoToken.value)
                 if (response.isJoiningRoom) {
                     _isJoiningRoom.value = true
                     Timber.e("로그인 성공 / 방 있음")
@@ -108,10 +106,10 @@ class LoginViewModel @Inject constructor(
                     Timber.e("로그인 성공 / 방 없음")
                 }
             }.onFailure { throwable ->
-                initSaveTokenUseCase.invoke(_fcmToken.value, SOCIALTYPE, _kakaoToken.value)
                 if (throwable is HttpException) {
                     when (throwable.code()) {
                         404 -> {
+                            authRepository.initToken(_fcmToken.value, SOCIALTYPE, _kakaoToken.value)
                             _isUser.value = false
                             Timber.e("404 Error")
                         }

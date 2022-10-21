@@ -1,7 +1,7 @@
 package hous.release.data.repository
 
 import hous.release.data.datasource.AuthDataSource
-import hous.release.data.datasource.LocalPrefSaveTokenDataSource
+import hous.release.data.datasource.LocalPrefTokenDataSource
 import hous.release.data.datasource.LocalPrefSkipTutorialDataSource
 import hous.release.domain.entity.response.Login
 import hous.release.domain.entity.response.SignUp
@@ -11,7 +11,7 @@ import javax.inject.Inject
 class AuthRepositoryImpl @Inject constructor(
     private val authDataSource: AuthDataSource,
     private val localPrefSkipTutorialDataSource: LocalPrefSkipTutorialDataSource,
-    private val localPrefSaveTokenDataSource: LocalPrefSaveTokenDataSource
+    private val localPrefSaveTokenDataSource: LocalPrefTokenDataSource
 ) : AuthRepository {
     override suspend fun postLogin(
         fcmToken: String,
@@ -45,7 +45,7 @@ class AuthRepositoryImpl @Inject constructor(
             )
         }.map { response -> response.data.toSignUp() }
 
-    override suspend fun initSaveToken(
+    override suspend fun initToken(
         saveFcmToken: String?,
         saveSocialType: String?,
         saveToken: String?
