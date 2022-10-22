@@ -2,14 +2,13 @@ package hous.release.android.util.component
 
 import androidx.annotation.ColorRes
 import androidx.compose.animation.*
-import androidx.compose.animation.core.*
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -26,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
 import hous.release.domain.entity.HomyType
+import kotlinx.coroutines.delay
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -151,40 +151,44 @@ private fun DrawScope.drawPentagonPath(
 @Composable
 private fun HousPentagonText() {
     val textList = stringArrayResource(id = R.array.pentagon_text)
-
-    BoxWithConstraints(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        val currentAngle = -0.5 * Math.PI
-        val angle = 2.0 * Math.PI / 5.0f
-        val radiusList = listOf(12, 13, 13, 13, 13).toFloatList()
-        with(LocalDensity.current) {
-            val radiusPxList = radiusList.onEach { radius -> radius.dp.toPx() }
-            val center = Offset(
-                this@BoxWithConstraints.maxWidth.toPx() / 2f,
-                this@BoxWithConstraints.maxHeight.toPx() / 2f
-            )
-            val xSite = listOf(-18, -40, -48, 0, -24)
-            val ySite = listOf(-28, -24, -30, -30, -8)
+    val xSite = listOf(-18, -40, -48, 0, -24)
+    val ySite = listOf(-28, -24, -30, -30, -8)
+    var textVisible by remember { mutableStateOf(false) }
+    val currentAngle = -0.5 * Math.PI
+    val angle = 2.0 * Math.PI / 5.0f
+    val radiusList = listOf(12, 13, 13, 13, 13).toFloatList()
+    LaunchedEffect(true) {
+        delay(10)
+        textVisible = true
+    }
+    with(LocalDensity.current) {
+        val radiusPxList = radiusList.onEach { radius -> radius.dp.toPx() }
+        AnimatedVisibility(
+            visible = textVisible,
+            enter = scaleIn(
+                tween(durationMillis = 1600)
+            ) +
+                expandVertically(expandFrom = Alignment.CenterVertically)
+        ) {
             BoxWithConstraints(
                 modifier = Modifier.fillMaxSize()
             ) {
+                val center = Offset(
+                    this@BoxWithConstraints.maxWidth.toPx() / 2f,
+                    this@BoxWithConstraints.maxHeight.toPx() / 2f
+                )
                 for (i in 0 until 5) {
-                    AnimatedContent(
-                        targetState = true
-                    ) {
-                        Text(
-                            text = textList[i],
-                            modifier = Modifier
-                                .offset(
-                                    (center.x + (radiusPxList[i] * cos(currentAngle + angle * i)).toFloat() + xSite[i]).toDp(),
-                                    (center.y + (radiusPxList[i] * sin(currentAngle + angle * i)).toFloat() + ySite[i]).toDp()
-                                ),
-                            fontStyle = FontStyle(R.style.Description),
-                            color = colorResource(id = R.color.hous_g_5),
-                            textAlign = TextAlign.Center
-                        )
-                    }
+                    Text(
+                        text = if (textVisible) textList[i] else "",
+                        modifier = Modifier
+                            .offset(
+                                (center.x + (radiusPxList[i] * cos(currentAngle + angle * i)).toFloat() + xSite[i]).toDp(),
+                                (center.y + (radiusPxList[i] * sin(currentAngle + angle * i)).toFloat() + ySite[i]).toDp()
+                            ),
+                        fontStyle = FontStyle(R.style.Description),
+                        color = colorResource(id = R.color.hous_g_5),
+                        textAlign = TextAlign.Center
+                    )
                 }
             }
         }
