@@ -7,17 +7,17 @@ import javax.inject.Inject
 class LocalPrefTokenDataSource @Inject constructor(
     private val prefs: SharedPreferences
 ) {
-    var fcmToken: String?
+    var fcmToken: String
         set(value) = prefs.edit { putString(FCM_TOKEN, value) }
-        get() = prefs.getString(FCM_TOKEN, "")
+        get() = prefs.getString(FCM_TOKEN, "") ?: ""
 
-    var socialType: String?
+    var socialType: String
         set(value) = prefs.edit { putString(SOCIAL_TYPE, value) }
-        get() = prefs.getString(SOCIAL_TYPE, "")
+        get() = prefs.getString(SOCIAL_TYPE, "") ?: ""
 
-    var token: String?
+    var token: String
         set(value) = prefs.edit { putString(TOKEN, value) }
-        get() = prefs.getString(TOKEN, "")
+        get() = prefs.getString(TOKEN, "") ?: ""
 
     companion object {
         private const val FCM_TOKEN = "fcm token"

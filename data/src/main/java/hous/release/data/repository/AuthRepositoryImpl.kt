@@ -46,9 +46,9 @@ class AuthRepositoryImpl @Inject constructor(
         }.map { response -> response.data.toSignUp() }
 
     override suspend fun initToken(
-        saveFcmToken: String?,
-        saveSocialType: String?,
-        saveToken: String?
+        fcmToken: String,
+        socialType: String,
+        token: String
     ) {
         localPrefSaveTokenDataSource.fcmToken = saveFcmToken
         localPrefSaveTokenDataSource.socialType = saveSocialType
