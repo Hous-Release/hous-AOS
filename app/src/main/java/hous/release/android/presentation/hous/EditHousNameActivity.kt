@@ -11,7 +11,8 @@ import hous.release.android.util.dialog.WarningDialogFragment.Companion.DIALOG_W
 import hous.release.android.util.dialog.WarningDialogFragment.Companion.WARNING_TYPE
 import hous.release.android.util.dialog.WarningType
 
-class EditHousNameActivity : BindingActivity<ActivityEditHousNameBinding>(R.layout.activity_edit_hous_name) {
+class EditHousNameActivity :
+    BindingActivity<ActivityEditHousNameBinding>(R.layout.activity_edit_hous_name) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initBackBtnClickListener()
@@ -22,7 +23,10 @@ class EditHousNameActivity : BindingActivity<ActivityEditHousNameBinding>(R.layo
             WarningDialogFragment().apply {
                 arguments = Bundle().apply {
                     putSerializable(WARNING_TYPE, WarningType.WARNING_EDIT_HOUS_NAME)
-                    putParcelable(CONFIRM_ACTION, ConfirmClickListener { finish() })
+                    putParcelable(
+                        CONFIRM_ACTION,
+                        ConfirmClickListener(confirmAction = { finish() })
+                    )
                 }
             }.show(supportFragmentManager, DIALOG_WARNING)
         }
