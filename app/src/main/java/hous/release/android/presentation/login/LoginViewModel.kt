@@ -94,7 +94,11 @@ class LoginViewModel @Inject constructor(
                 socialType = "KAKAO",
                 token = requireNotNull(_kakaoToken.value)
             ).onSuccess { response ->
-                authRepository.initToken(_fcmToken.value, SOCIALTYPE, _kakaoToken.value)
+                authRepository.initToken(
+                    token = "hello world",
+                    socialType = SOCIAL_TYPE,
+                    fcmToken = _kakaoToken.value!!
+                )
                 if (response.isJoiningRoom) {
                     _isJoiningRoom.value = true
                     Timber.e("로그인 성공 / 방 있음")
@@ -106,7 +110,11 @@ class LoginViewModel @Inject constructor(
                 if (throwable is HttpException) {
                     when (throwable.code()) {
                         404 -> {
-                            authRepository.initToken(_fcmToken.value, SOCIALTYPE, _kakaoToken.value)
+                            authRepository.initToken(
+                                fcmToken = "hello world",
+                                socialType = SOCIAL_TYPE,
+                                token = _kakaoToken.value!!
+                            )
                             _isUser.value = false
                             Timber.e("404 Error")
                         }
