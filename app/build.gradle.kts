@@ -110,6 +110,7 @@ dependencies {
         implementation(activityKTX)
         implementation(lifecycleKTX)
         implementation(fragmentKTX)
+        implementation(security)
     }
 
     Deps.AndroidX.Compose.run {

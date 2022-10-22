@@ -27,6 +27,7 @@ object Deps {
         const val activityKTX = "androidx.activity:activity-ktx:1.5.1"
         const val lifecycleKTX = "androidx.lifecycle:lifecycle-runtime-ktx:2.6.0-alpha01"
         const val fragmentKTX = "androidx.fragment:fragment-ktx:1.5.0"
+        const val security = "androidx.security:security-crypto-ktx:1.1.0-alpha03"
 
         object Compose {
             const val activity = "androidx.activity:activity-compose:1.5.1"
