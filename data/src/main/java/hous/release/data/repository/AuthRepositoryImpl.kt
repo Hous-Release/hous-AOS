@@ -11,7 +11,7 @@ import javax.inject.Inject
 class AuthRepositoryImpl @Inject constructor(
     private val authDataSource: AuthDataSource,
     private val localPrefSkipTutorialDataSource: LocalPrefSkipTutorialDataSource,
-    private val localPrefSaveTokenDataSource: LocalPrefTokenDataSource
+    private val localPrefTokenDataSource: LocalPrefTokenDataSource
 ) : AuthRepository {
     override suspend fun postLogin(
         fcmToken: String,
