@@ -1,8 +1,8 @@
 package hous.release.data.repository
 
 import hous.release.data.datasource.AuthDataSource
-import hous.release.data.datasource.LocalPrefTokenDataSource
 import hous.release.data.datasource.LocalPrefSkipTutorialDataSource
+import hous.release.data.datasource.LocalPrefTokenDataSource
 import hous.release.domain.entity.response.Login
 import hous.release.domain.entity.response.SignUp
 import hous.release.domain.repository.AuthRepository
@@ -50,9 +50,9 @@ class AuthRepositoryImpl @Inject constructor(
         socialType: String,
         token: String
     ) {
-        localPrefSaveTokenDataSource.fcmToken = saveFcmToken
-        localPrefSaveTokenDataSource.socialType = saveSocialType
-        localPrefSaveTokenDataSource.token = saveToken
+        localPrefTokenDataSource.fcmToken = fcmToken
+        localPrefTokenDataSource.socialType = socialType
+        localPrefTokenDataSource.token = token
     }
 
     override suspend fun initSkipTutorial(skipTutorial: Boolean) {

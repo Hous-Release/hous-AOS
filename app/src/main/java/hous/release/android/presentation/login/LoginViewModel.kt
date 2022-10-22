@@ -95,7 +95,7 @@ class LoginViewModel @Inject constructor(
             authRepository.postLogin(
                 fcmToken = "hello world",
                 socialType = "KAKAO",
-                token = requireNotNull(kakaoToken.value)
+                token = requireNotNull(_kakaoToken.value)
             ).onSuccess { response ->
                 authRepository.initToken(_fcmToken.value, SOCIALTYPE, _kakaoToken.value)
                 if (response.isJoiningRoom) {
@@ -123,6 +123,6 @@ class LoginViewModel @Inject constructor(
     }
 
     companion object {
-        private const val SOCIALTYPE = "KAKAO"
+        private const val SOCIAL_TYPE = "KAKAO"
     }
 }

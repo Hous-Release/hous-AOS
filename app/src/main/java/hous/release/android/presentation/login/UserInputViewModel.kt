@@ -23,7 +23,7 @@ class UserInputViewModel @Inject constructor(
     private val _isSignUp = MutableLiveData<Boolean>()
     val isSignUp: LiveData<Boolean> = _isSignUp
 
-    fun onClickNextBtn() {
+    fun nextOnClick() {
         viewModelScope.launch {
             authRepository.postSignUp(
                 birthday = birthday.value!!,
