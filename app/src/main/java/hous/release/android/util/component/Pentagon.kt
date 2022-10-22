@@ -1,9 +1,8 @@
 package hous.release.android.util.component
 
 import androidx.annotation.ColorRes
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.updateTransition
+import androidx.compose.animation.*
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -26,27 +25,57 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
+import hous.release.domain.entity.HomyType
 import kotlin.math.cos
 import kotlin.math.sin
 
 @Preview(showBackground = true)
 @Composable
-fun HousPersonalityPentagon() {
+private fun HousPersonalityPentagonPreview() {
+    HousPersonalityPentagon(
+        radiusList = listOf(5, 5, 5, 5, 5),
+        homyType = HomyType.BLUE
+    )
+}
+
+@Composable
+fun HousPersonalityPentagon(
+    radiusList: List<Int>,
+    homyType: HomyType
+) {
+    val backgroundColor = when (homyType) {
+        HomyType.YELLOW -> R.color.hous_yellow_b_1
+        HomyType.RED -> R.color.hous_red_b_1
+        HomyType.BLUE -> R.color.hous_blue_l1
+        HomyType.PURPLE -> R.color.hous_purple_b_1
+        HomyType.GREEN -> R.color.hous_green_b_1
+        HomyType.GRAY -> R.color.hous_g_1
+    }
+
+    val pentagonColor = when (homyType) {
+        HomyType.YELLOW -> R.color.hous_yellow
+        HomyType.RED -> R.color.hous_red
+        HomyType.BLUE -> R.color.hous_blue
+        HomyType.PURPLE -> R.color.hous_purple
+        HomyType.GREEN -> R.color.hous_green
+        HomyType.GRAY -> R.color.hous_g_1
+    }
     Column(
+        modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box {
             HousPentagonText()
             HousPentagon(
-                radiusList = listOf(350.0f, 350.0f, 350.0f, 350.0f, 350.0f),
+                radiusList = listOf(10, 10, 10, 10, 10),
                 duration = 2000,
-                backgroundColor = R.color.hous_blue_l1
+                backgroundColor = backgroundColor
             )
             HousPentagon(
-                radiusList = listOf(180.0f, 300.0f, 50.0f, 300.0f, 100.0f),
-                duration = 6000,
-                backgroundColor = R.color.hous_blue
+                radiusList = radiusList,
+                duration = 4000,
+                backgroundColor = pentagonColor
             )
         }
     }
@@ -57,8 +86,8 @@ enum class AniState {
 }
 
 @Composable
-fun HousPentagon(
-    radiusList: List<Float>,
+private fun HousPentagon(
+    radiusList: List<Int>,
     duration: Int,
     @ColorRes backgroundColor: Int
 ) {
@@ -72,11 +101,12 @@ fun HousPentagon(
         label = ""
     ) { state -> if (state == AniState.START) 0f else 1f }
     val pentagonColor = colorResource(id = backgroundColor)
+    val radiusFloatList = radiusList.toFloatList()
 
     Canvas(modifier = Modifier.fillMaxSize()) {
         drawIntoCanvas { canvas ->
             canvas.drawOutline(
-                outline = Outline.Generic(drawPentagonPath(radiusList, radiusAnimationSpec)),
+                outline = Outline.Generic(drawPentagonPath(radiusFloatList, radiusAnimationSpec)),
                 paint = Paint().apply {
                     color = pentagonColor
                     pathEffect = PathEffect.cornerPathEffect(15.0.dp.toPx())
@@ -117,45 +147,55 @@ private fun DrawScope.drawPentagonPath(
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 private fun HousPentagonText() {
     val textList = stringArrayResource(id = R.array.pentagon_text)
 
     BoxWithConstraints(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
         val currentAngle = -0.5 * Math.PI
         val angle = 2.0 * Math.PI / 5.0f
-        val radiusList = listOf(340.0f, 350.0f, 350.0f, 350.0f, 350.0f)
+        val radiusList = listOf(12, 13, 13, 13, 13).toFloatList()
         with(LocalDensity.current) {
             val radiusPxList = radiusList.onEach { radius -> radius.dp.toPx() }
             val center = Offset(
                 this@BoxWithConstraints.maxWidth.toPx() / 2f,
                 this@BoxWithConstraints.maxHeight.toPx() / 2f
             )
-            for (i in 0 until 5) {
-                BoxWithConstraints(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    Text(
-                        text = textList[i],
-                        modifier = Modifier
-                            .offset(
-                                (center.x + (radiusPxList[i] * cos(currentAngle + angle * i)).toFloat() - 35).toDp(),
-                                (center.y + (radiusPxList[i] * sin(currentAngle + angle * i)).toFloat() - 20).toDp()
-                            ),
-                        fontStyle = FontStyle(R.style.Description),
-                        color = colorResource(id = R.color.hous_g_5),
-                        textAlign = TextAlign.Center
-                    )
+            val xSite = listOf(-18, -40, -48, 0, -24)
+            val ySite = listOf(-28, -24, -30, -30, -8)
+            BoxWithConstraints(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                for (i in 0 until 5) {
+                    AnimatedContent(
+                        targetState = true
+                    ) {
+                        Text(
+                            text = textList[i],
+                            modifier = Modifier
+                                .offset(
+                                    (center.x + (radiusPxList[i] * cos(currentAngle + angle * i)).toFloat() + xSite[i]).toDp(),
+                                    (center.y + (radiusPxList[i] * sin(currentAngle + angle * i)).toFloat() + ySite[i]).toDp()
+                                ),
+                            fontStyle = FontStyle(R.style.Description),
+                            color = colorResource(id = R.color.hous_g_5),
+                            textAlign = TextAlign.Center
+                        )
+                    }
                 }
             }
-            Spacer(
-                modifier = Modifier
-                    .offset((center.x).dp, (center.y + 400.0f.dp.toPx()).dp)
-                    .size(16.dp)
-            )
         }
     }
 }
+
+private fun List<Int>.toFloatList(): List<Float> = listOf(
+    (this[0] * 22 + 36).toFloat(),
+    (this[4] * 22 + 36).toFloat(),
+    (this[3] * 22 + 36).toFloat(),
+    (this[2] * 22 + 36).toFloat(),
+    (this[1] * 22 + 36).toFloat(),
+    (this[0] * 22 + 36).toFloat()
+)
