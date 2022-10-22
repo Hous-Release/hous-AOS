@@ -5,14 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hous.release.domain.repository.AuthRepository
+import hous.release.domain.usecase.PostSignUpUseCase
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class UserInputViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+    private val postSignUpUseCase: PostSignUpUseCase
 ) : ViewModel() {
     val nickname = MutableLiveData<String>()
 
@@ -25,13 +24,13 @@ class UserInputViewModel @Inject constructor(
 
     fun nextOnClick() {
         viewModelScope.launch {
-            authRepository.postSignUp(
+            postSignUpUseCase.invoke(
                 birthday = birthday.value!!,
-                fcmToken =,
+                fcmToken = "",
                 isPublic = isCheckBirthday.value!!,
                 nickname = nickname.value!!,
-                socialType =,
-                token =
+                socialType = "",
+                token = ""
             ).onSuccess {
                 _isSignUp.value = true
             }.onFailure {
