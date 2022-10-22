@@ -20,8 +20,8 @@ class LocalPrefTokenDataSource @Inject constructor(
         get() = prefs.getString(TOKEN, "") ?: ""
 
     companion object {
-        private const val FCM_TOKEN = "fcm token"
-        private const val SOCIAL_TYPE = "social type"
+        private const val FCM_TOKEN = "fcm_token"
+        private const val SOCIAL_TYPE = "social_type"
         private const val TOKEN = "token"
     }
 }
