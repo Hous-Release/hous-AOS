@@ -37,11 +37,11 @@ class AuthRepositoryImpl @Inject constructor(
         kotlin.runCatching {
             authDataSource.postSignUp(
                 birthday,
-                fcmToken,
+                localPrefTokenDataSource.fcmToken,
                 isPublic,
                 nickname,
-                socialType,
-                token
+                localPrefTokenDataSource.socialType,
+                localPrefTokenDataSource.token
             )
         }.map { response -> response.data.toSignUp() }
 
