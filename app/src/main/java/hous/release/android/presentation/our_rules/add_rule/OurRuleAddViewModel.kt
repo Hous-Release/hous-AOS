@@ -11,6 +11,7 @@ import hous.release.domain.usecase.PostAddRulesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -31,15 +32,20 @@ class OurRuleAddViewModel @Inject constructor(
             ourRulesUseCase().collect { apiResult ->
                 when (apiResult) {
                     is ApiResult.Success ->
-                        _uiState.value =
-                            _uiState.value.copy(isLoading = false, ourRuleList = apiResult.data)
+                        _uiState.update { uiState ->
+                            uiState.copy(isLoading = false, ourRuleList = apiResult.data)
+                        }
                     is ApiResult.Empty -> {
                         // TODO EMPTY 뷰 나오면 ERROR 로직 처리해주기
-                        _uiState.value = _uiState.value.copy(isEmpty = true, isLoading = false)
+                        _uiState.update { uiState ->
+                            uiState.copy(isEmpty = true, isLoading = false)
+                        }
                     }
                     is ApiResult.Error -> {
                         // TODO ERROR 뷰 나오면 ERROR 로직 처리해주기
-                        _uiState.value = _uiState.value.copy(isError = true, isLoading = false)
+                        _uiState.update { uiState ->
+                            uiState.copy(isError = true, isLoading = false)
+                        }
                     }
                 }
             }
