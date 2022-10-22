@@ -6,20 +6,8 @@
     <data>
 
         <variable
-            name="title"
-            type="String" />
-
-        <variable
-            name="desc"
-            type="String" />
-
-        <variable
-            name="cancel"
-            type="String" />
-
-        <variable
-            name="confirm"
-            type="String" />
+            name="warning"
+            type="hous.release.android.util.dialog.WarningDialogContent" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,52 +17,56 @@
         android:paddingTop="24dp"
         android:paddingEnd="30dp"
         android:paddingBottom="20dp"
-        tools:context=".presentation.hous.WarningDialogFragment">
+        tools:context=".util.dialog.WarningDialogFragment">
 
         <TextView
             android:id="@+id/tv_warning_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="앗, 잠깐! 이대로 나가면\n우리 집 별명이 저장되지 않아요!"
+            android:text="@{warning.title}"
             android:textAppearance="@style/H4"
             android:textColor="@color/hous_black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="경고 제목" />
 
         <TextView
             android:id="@+id/tv_warning_desc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="정말 취소하려면 나가기 버튼을 눌러주세요."
+            android:text="@{warning.desc}"
             android:textAppearance="@style/Description"
             android:textColor="@color/hous_g_5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_warning_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_warning_title"
+            tools:text="경고 설명" />
 
         <TextView
             android:id="@+id/tv_warning_confirm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="나가기"
+            android:text="@{warning.confirm}"
             android:textAppearance="@style/B2"
             android:textColor="@color/hous_red"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_warning_desc" />
+            app:layout_constraintTop_toBottomOf="@id/tv_warning_desc"
+            tools:text="confirm 버튼" />
 
         <TextView
             android:id="@+id/tv_warning_cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
-            android:text="돌아가기"
+            android:text="@{warning.cancel}"
             android:textAppearance="@style/B2"
             android:textColor="@color/hous_g_6"
             app:layout_constraintEnd_toStartOf="@id/tv_warning_confirm"
-            app:layout_constraintTop_toTopOf="@id/tv_warning_confirm" />
+            app:layout_constraintTop_toTopOf="@id/tv_warning_confirm"
+            tools:text="cancel 버튼" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
