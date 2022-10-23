@@ -19,10 +19,14 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
-        viewModel.getHome()
         initClickListener()
         initHomiesAdapter()
         initHomiesObserver()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getHome()
     }
 
     private fun initClickListener() {

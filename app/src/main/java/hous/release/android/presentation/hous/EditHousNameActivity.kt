@@ -2,6 +2,7 @@ package hous.release.android.presentation.hous
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityEditHousNameBinding
 import hous.release.android.presentation.hous.HousFragment.Companion.ROOM_NAME
@@ -12,7 +13,9 @@ import hous.release.android.util.dialog.WarningDialogFragment.Companion.CONFIRM_
 import hous.release.android.util.dialog.WarningDialogFragment.Companion.DIALOG_WARNING
 import hous.release.android.util.dialog.WarningDialogFragment.Companion.WARNING_TYPE
 import hous.release.android.util.dialog.WarningType
+import hous.release.android.util.extension.repeatOnStarted
 
+@AndroidEntryPoint
 class EditHousNameActivity :
     BindingActivity<ActivityEditHousNameBinding>(R.layout.activity_edit_hous_name) {
     private val viewModel by viewModels<EditHousNameViewModel>()
@@ -22,6 +25,7 @@ class EditHousNameActivity :
         binding.vm = viewModel
         initBackBtnClickListener()
         initOriginalRoomName()
+        initIsSuccessEditHousNameCollector()
     }
 
     private fun initBackBtnClickListener() {
@@ -42,5 +46,13 @@ class EditHousNameActivity :
         viewModel.initOriginalRoomName(
             intent.getStringExtra(ROOM_NAME) ?: getString(R.string.edit_hous_name_hint_for_error)
         )
+    }
+
+    private fun initIsSuccessEditHousNameCollector() {
+        repeatOnStarted {
+            viewModel.isSuccessEditHousName.collect { isSuccess ->
+                if (isSuccess) finish()
+            }
+        }
     }
 }
