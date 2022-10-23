@@ -30,7 +30,7 @@ class CreateRoomFragment :
     private fun initIsSuccessCreateRoomCollector() {
         repeatOnStarted {
             viewModel.isSuccessCreateRoom.filter { isSuccess -> isSuccess }.collect {
-                CreateRoomDialogFragment().show(parentFragmentManager, this.javaClass.name)
+                CreateRoomDialogFragment().show(childFragmentManager, this.javaClass.name)
             }
         }
     }

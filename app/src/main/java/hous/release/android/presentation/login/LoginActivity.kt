@@ -7,6 +7,8 @@ import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityLoginBinding
+import hous.release.android.presentation.enter_room.EnterRoomActivity
+import hous.release.android.presentation.main.MainActivity
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.extension.EventObserver
 import hous.release.android.util.showToast
@@ -27,8 +29,33 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         initKakaoLoginBtnClickListener()
         initIsSuccessKakaoLoginObserver()
         initIsInitUserInfoObserver()
-        initIsSucessLoginObserver()
         initBackPressedCallback()
+        initIsJoiningRoomObserve()
+        initIsUserObserve()
+    }
+
+    private fun initIsUserObserve() {
+        loginViewModel.isJoiningRoom.observe(this) {
+            if (loginViewModel.isJoiningRoom.value == true) {
+                val toMain = Intent(this, MainActivity::class.java)
+                startActivity(toMain)
+                finishAffinity()
+            } else {
+                val toEnterRoom = Intent(this, EnterRoomActivity::class.java)
+                startActivity(toEnterRoom)
+                finishAffinity()
+            }
+        }
+    }
+
+    private fun initIsJoiningRoomObserve() {
+        loginViewModel.isUser.observe(this) {
+            if (loginViewModel.isUser.value == false) {
+                val toUserInput = Intent(this, UserInputActivity::class.java)
+                startActivity(toUserInput)
+                finishAffinity()
+            }
+        }
     }
 
     private fun initBackPressedCallback() {
@@ -59,9 +86,9 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             this,
             EventObserver { isSuccess ->
                 if (isSuccess) {
-                    Timber.d("카카오 로그인 성공")
+                    Timber.e("카카오 로그인 성공")
                 } else {
-                    Timber.d("카카오 로그인 실패")
+                    Timber.e("카카오 로그인 실패")
                 }
             }
         )
@@ -72,21 +99,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             this,
             EventObserver { isSuccess ->
                 if (isSuccess) loginViewModel.postLogin()
-            }
-        )
-    }
-
-    private fun initIsSucessLoginObserver() {
-        loginViewModel.isSuccessLogin.observe(
-            this,
-            EventObserver { isSuccess ->
-                if (isSuccess) {
-                    Timber.d("로그인 성공")
-                    val toUserInput = Intent(this, UserInputActivity::class.java)
-                    startActivity(toUserInput)
-                } else {
-                    Timber.d("로그인 실패")
-                }
             }
         )
     }

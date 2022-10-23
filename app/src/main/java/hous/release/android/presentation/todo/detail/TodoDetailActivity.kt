@@ -20,7 +20,6 @@ class TodoDetailActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initStatusBarColor()
-        initFloatingButton()
         collectIsFinish()
     }
 
@@ -32,13 +31,5 @@ class TodoDetailActivity :
         todoDetailViewModel.isFinish.flowWithLifecycle(lifecycle)
             .onEach { isFinish -> if (isFinish) finish() }
             .launchIn(lifecycleScope)
-    }
-
-    private fun initFloatingButton() {
-        binding.cvMemberFloatingButton.setContent {
-            HousFloatingButton {
-                /* TO DO 추가하기 뷰로 이동하는 함수 */
-            }
-        }
     }
 }
