@@ -9,6 +9,11 @@ class ConfirmClickListener(
     val confirmAction: () -> Unit = {},
     val confirmActionWithId: (Int) -> Unit = {}
 ) : Parcelable {
-    fun onConfirmClick() = confirmAction()
-    fun onConfirmClickWithId() = confirmActionWithId(id)
+    fun onConfirmClick() {
+        if (id == -1) {
+            confirmAction()
+        } else {
+            confirmActionWithId(id)
+        }
+    }
 }
