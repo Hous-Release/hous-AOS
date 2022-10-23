@@ -10,9 +10,7 @@ import androidx.compose.ui.graphics.drawOutline
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.unit.Dp
-
-const val LEFT = 0
-const val RIGHT = 1
+import hous.release.android.presentation.todo.main.HomiesPosition
 
 fun DrawScope.drawMessageShape(
     side: Dp,
@@ -20,9 +18,9 @@ fun DrawScope.drawMessageShape(
     secondX: Dp,
     cornerRadius: Dp,
     messageColor: Color,
-    direction: Int
+    homiesPosition: HomiesPosition
 ) {
-    if (direction == LEFT) {
+    if (homiesPosition == HomiesPosition.LEFT) {
         drawLeftMessageShape(
             side,
             firstX,
@@ -30,7 +28,7 @@ fun DrawScope.drawMessageShape(
             cornerRadius,
             messageColor
         )
-    } else if (direction == RIGHT) {
+    } else if (homiesPosition == HomiesPosition.RIGHT) {
         drawRightMessageShape(
             side,
             firstX,
