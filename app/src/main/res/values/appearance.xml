@@ -68,9 +68,64 @@
     <style name="HousDialogDiscription">
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
         <item name="android:letterSpacing">-0.02</item>
-        <item name="android:lineSpacingExtra">7.2sp</item>
+        <item name="android:lineSpacingExtra">7.2dp</item>
         <item name="android:textColor">@color/hous_g_5</item>
         <item name="android:textSize">12dp</item>
         <item name="android:textStyle">normal</item>
     </style>
+
+    <style name="Ebt1">
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">32dp</item>
+        <item name="android:lineSpacingExtra">6.4dp</item>
+    </style>
+
+    <style name="Ebt2">
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">7.2dp</item>
+    </style>
+
+    <style name="Emt1">
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="android:lineSpacingExtra">6dp</item>
+    </style>
+
+    <style name="Emt2">
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="android:lineSpacingExtra">9dp</item>
+    </style>
+
+    <style name="Emt3">
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="android:lineSpacingExtra">8dp</item>
+    </style>
+
+    <style name="En1">
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="android:lineSpacingExtra">7dp</item>
+    </style>
+
+    <style name="En2">
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
+    </style>
+
 </resources>
