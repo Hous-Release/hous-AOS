@@ -25,7 +25,7 @@
             android:exported="false" />
         <activity
             android:name=".presentation.tutorial.TutorialActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".presentation.enter_room.EnterRoomActivity"
             android:exported="false"

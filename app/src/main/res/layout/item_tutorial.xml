@@ -60,14 +60,13 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="26dp"
             android:layout_marginBottom="46dp"
-            android:src="@{data.image}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent="0.74"
-            tools:src="@drawable/shape_blue_fill_16_rect" />
+            tools:src="@drawable/ic_tutorial_1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
