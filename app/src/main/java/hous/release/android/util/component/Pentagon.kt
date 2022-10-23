@@ -151,7 +151,7 @@ private fun DrawScope.drawPentagonPath(
 @Composable
 private fun HousPentagonText() {
     val textList = stringArrayResource(id = R.array.pentagon_text)
-    val xSite = listOf(-18, -40, -48, 0, -24)
+    val xSite = listOf(-22, -40, -48, 0, -24)
     val ySite = listOf(-28, -24, -30, -30, -8)
     var textVisible by remember { mutableStateOf(false) }
     val currentAngle = -0.5 * Math.PI
