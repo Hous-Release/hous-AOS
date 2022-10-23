@@ -35,4 +35,8 @@ class UserInputViewModel @Inject constructor(
             }
         }
     }
+
+    fun initSelectedBirthDate(birth: String) {
+        birthday.value = birth
+    }
 }
