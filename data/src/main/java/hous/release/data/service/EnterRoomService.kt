@@ -1,20 +1,16 @@
 package hous.release.data.service
 
+import hous.release.data.entity.request.CreateRoomRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.CreateRoomResponse
 import hous.release.data.entity.response.EnterRoomResponse
 import hous.release.data.entity.response.GetRoomResponse
-import hous.release.domain.entity.request.DomainCreateRoomRequest
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface EnterRoomService {
     @POST("/v1/room")
     suspend fun postCreateRoom(
-        @Body body: DomainCreateRoomRequest
+        @Body body: CreateRoomRequest
     ): BaseResponse<CreateRoomResponse>
 
     @GET("/v1/room/info")
