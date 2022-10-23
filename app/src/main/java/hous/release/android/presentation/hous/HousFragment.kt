@@ -27,7 +27,11 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
 
     private fun initClickListener() {
         binding.btnHousEdit.setOnClickListener {
-            startActivity(Intent(requireContext(), EditHousNameActivity::class.java))
+            startActivity(
+                Intent(requireContext(), EditHousNameActivity::class.java).apply {
+                    putExtra(ROOM_NAME, viewModel.hous.value.roomName)
+                }
+            )
         }
     }
 
@@ -41,5 +45,9 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
                 homiesAdapter.submitList(homies)
             }
         }
+    }
+
+    companion object {
+        const val ROOM_NAME = "roomName"
     }
 }

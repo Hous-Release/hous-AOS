@@ -1,8 +1,10 @@
 package hous.release.android.presentation.hous
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import hous.release.android.R
 import hous.release.android.databinding.ActivityEditHousNameBinding
+import hous.release.android.presentation.hous.HousFragment.Companion.ROOM_NAME
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.WarningDialogFragment
@@ -13,9 +15,13 @@ import hous.release.android.util.dialog.WarningType
 
 class EditHousNameActivity :
     BindingActivity<ActivityEditHousNameBinding>(R.layout.activity_edit_hous_name) {
+    private val viewModel by viewModels<EditHousNameViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.vm = viewModel
         initBackBtnClickListener()
+        initOriginalRoomName()
     }
 
     private fun initBackBtnClickListener() {
@@ -30,5 +36,11 @@ class EditHousNameActivity :
                 }
             }.show(supportFragmentManager, DIALOG_WARNING)
         }
+    }
+
+    private fun initOriginalRoomName() {
+        viewModel.initOriginalRoomName(
+            intent.getStringExtra(ROOM_NAME) ?: getString(R.string.edit_hous_name_hint_for_error)
+        )
     }
 }
