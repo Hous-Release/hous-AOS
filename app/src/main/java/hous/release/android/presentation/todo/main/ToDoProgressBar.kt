@@ -5,7 +5,14 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.absoluteOffset
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,7 +30,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hous.release.android.R
-import hous.release.android.presentation.todo.main.HomiesPosition.*
 import hous.release.android.util.RoundedLinearIndicator
 import hous.release.android.util.drawMessageShape
 
@@ -44,10 +50,10 @@ fun RoundedLinearIndicatorWithHomie(
     )
 
     val homiesPosition = when (currentProgress) {
-        0.0f -> START
-        in 0.0f..0.49f -> LEFT
-        in 0.5f..0.99f -> RIGHT
-        else -> END
+        0.0f -> HomiesPosition.START
+        in 0.0f..0.49f -> HomiesPosition.LEFT
+        in 0.5f..0.99f -> HomiesPosition.RIGHT
+        else -> HomiesPosition.END
     }
 
     val homiesMessage = when (currentProgress) {
@@ -87,23 +93,23 @@ private fun MoveHomieWithMessage(
     val messageColor = colorResource(id = R.color.hous_g_2)
     val homiesSite by animateDpAsState(
         targetValue = when (homiesPosition) {
-            START -> 0.dp
-            LEFT, RIGHT -> 42.dp
-            END -> 84.dp
+            HomiesPosition.START -> 0.dp
+            HomiesPosition.LEFT, HomiesPosition.RIGHT -> 42.dp
+            HomiesPosition.END -> 84.dp
         }
     )
 
     val messageSite by animateDpAsState(
         targetValue = when (homiesPosition) {
-            START -> 88.dp
-            LEFT -> 48.dp
-            RIGHT -> (-168).dp
-            END -> (-216).dp
+            HomiesPosition.START -> 88.dp
+            HomiesPosition.LEFT -> 48.dp
+            HomiesPosition.RIGHT -> (-168).dp
+            HomiesPosition.END -> (-216).dp
         }
     )
     val messagePaddingValue = when (homiesPosition) {
-        START, LEFT -> PaddingValues(start = 24.dp, end = 12.dp, top = 6.dp, bottom = 5.dp)
-        RIGHT, END -> PaddingValues(start = 12.dp, end = 24.dp, top = 6.dp, bottom = 5.dp)
+        HomiesPosition.START, HomiesPosition.LEFT -> PaddingValues(start = 24.dp, end = 12.dp, top = 6.dp, bottom = 5.dp)
+        HomiesPosition.RIGHT, HomiesPosition.END -> PaddingValues(start = 12.dp, end = 24.dp, top = 6.dp, bottom = 5.dp)
     }
     BoxWithConstraints(Modifier.fillMaxWidth()) {
         Text(
