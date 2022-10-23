@@ -28,11 +28,8 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun postSignUp(
         birthday: String,
-        fcmToken: String,
         isPublic: Boolean,
-        nickname: String,
-        socialType: String,
-        token: String
+        nickname: String
     ): Result<SignUp> =
         kotlin.runCatching {
             authDataSource.postSignUp(

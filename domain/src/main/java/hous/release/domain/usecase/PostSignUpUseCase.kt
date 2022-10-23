@@ -8,10 +8,7 @@ class PostSignUpUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(
         birthday: String,
-        fcmToken: String,
         isPublic: Boolean,
         nickname: String,
-        socialType: String,
-        token: String
-    ) = authRepository.postSignUp(birthday, fcmToken, isPublic, nickname, socialType, token)
+    ) = authRepository.postSignUp(birthday, isPublic, nickname)
 }

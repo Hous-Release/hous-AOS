@@ -12,11 +12,8 @@ interface AuthRepository {
 
     suspend fun postSignUp(
         birthday: String,
-        fcmToken: String,
         isPublic: Boolean,
         nickname: String,
-        socialType: String,
-        token: String
     ): Result<SignUp>
 
     suspend fun initToken(fcmToken: String, socialType: String, token: String)

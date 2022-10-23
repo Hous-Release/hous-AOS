@@ -26,11 +26,8 @@ class UserInputViewModel @Inject constructor(
         viewModelScope.launch {
             postSignUpUseCase.invoke(
                 birthday = birthday.value!!,
-                fcmToken = "",
                 isPublic = isCheckBirthday.value!!,
-                nickname = nickname.value!!,
-                socialType = "",
-                token = ""
+                nickname = nickname.value!!
             ).onSuccess {
                 _isSignUp.value = true
             }.onFailure {
