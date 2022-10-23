@@ -95,9 +95,9 @@ class LoginViewModel @Inject constructor(
                 token = requireNotNull(_kakaoToken.value)
             ).onSuccess { response ->
                 authRepository.initToken(
-                    token = "hello world",
+                    fcmToken = "hello world",
                     socialType = SOCIAL_TYPE,
-                    fcmToken = _kakaoToken.value!!
+                    token = _kakaoToken.value!!
                 )
                 if (response.isJoiningRoom) {
                     _isJoiningRoom.value = true
