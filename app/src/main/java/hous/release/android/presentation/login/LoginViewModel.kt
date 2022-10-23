@@ -110,7 +110,6 @@ class LoginViewModel @Inject constructor(
                 if (throwable is HttpException) {
                     when (throwable.code()) {
                         USER_NOT_EXIST -> {
-                        404 -> {
                             authRepository.initToken(
                                 fcmToken = "hello world",
                                 socialType = SOCIAL_TYPE,
@@ -130,6 +129,7 @@ class LoginViewModel @Inject constructor(
 
     companion object {
         private const val SOCIAL_TYPE = "KAKAO"
+
         // private const val INVALID_TOKEN = 401
         private const val USER_NOT_EXIST = 404
     }
