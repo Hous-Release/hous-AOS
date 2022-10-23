@@ -200,4 +200,7 @@
     <string name="tutorial_4_head">Homies</string>
     <string name="tutorial_4_body">생활 성향 테스트를 참여하면 우리 집 모든\n호미들에게 내 성향 카드를 보여줄 수 있어요.\n\n호미 카드는 나 대신 나를 잘 설명해줄 거예요!</string>
 
+    <string name="to_do_limit_title">to-do 개수 초과</string>
+    <string name="to_do_limit_content">우리 집 to-do가 너무 많아요!\n필요하지 않은 to-do를 삭제하고\n다시 시도해주세요~</string>
+    <string name="todo_limit_confirm">알겠어요!</string>
 </resources>
