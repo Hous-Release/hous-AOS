@@ -70,7 +70,7 @@
             android:text="@={viewModel.roomName}"
             android:textAppearance="@style/B2"
             android:textColor="@color/hous_black"
-            android:textColorHint="@color/hous_g_4"
+            android:textColorHint="@color/hous_g_5"
             app:layout_constraintBottom_toTopOf="@id/view_create_room"
             app:layout_constraintEnd_toStartOf="@id/tv_create_room_count"
             app:layout_constraintStart_toStartOf="@id/tv_create_room_title"
@@ -93,7 +93,7 @@
             android:layout_height="2dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="6dp"
-            android:background="@color/hous_blue"
+            android:background="@{viewModel.roomName.length() == 0 ? @color/hous_g_3 : @color/hous_blue }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_create_room_name" />
 
