@@ -28,4 +28,9 @@
     <color name="hous_g_7">#3d3d3d</color>
     <color name="hous_black">#161616</color>
     <color name="hous_g_line">#F5F5F5</color>
+    <color name="hous_yellow_b_1">#fff4d9</color>
+    <color name="hous_red_b_1">#ffe6e6</color>
+    <color name="hous_purple_b_1">#f3deff</color>
+    <color name="hous_green_b_1">#dff8de</color>
+    <color name="hous_black_layer">#b3000000</color>
 </resources>
