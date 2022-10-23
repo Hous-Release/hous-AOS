@@ -104,7 +104,7 @@ class LoginViewModel @Inject constructor(
             }.onFailure { throwable ->
                 if (throwable is HttpException) {
                     when (throwable.code()) {
-                        404 -> {
+                        USER_NOT_EXIST -> {
                             _isUser.value = false
                             Timber.e("404 Error")
                         }
@@ -115,5 +115,10 @@ class LoginViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    companion object {
+        // private const val INVALID_TOKEN = 401
+        private const val USER_NOT_EXIST = 404
     }
 }
