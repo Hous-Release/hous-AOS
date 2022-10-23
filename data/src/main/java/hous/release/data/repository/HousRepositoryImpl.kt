@@ -11,4 +11,8 @@ class HousRepositoryImpl @Inject constructor(
     override suspend fun getHome(): Result<Hous> =
         kotlin.runCatching { housDataSource.getHome() }
             .map { response -> response.data.toHous() }
+
+    override suspend fun putHousName(name: String): Result<Boolean> =
+        kotlin.runCatching { housDataSource.putHousName(name) }
+            .map { response -> response.success }
 }

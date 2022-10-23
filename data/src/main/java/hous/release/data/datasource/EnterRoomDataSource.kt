@@ -6,14 +6,13 @@ import hous.release.data.entity.response.CreateRoomResponse
 import hous.release.data.entity.response.EnterRoomResponse
 import hous.release.data.entity.response.GetRoomResponse
 import hous.release.data.service.EnterRoomService
-import hous.release.domain.entity.request.DomainCreateRoomRequest
 import javax.inject.Inject
 
 class EnterRoomDataSource @Inject constructor(
     private val enterRoomService: EnterRoomService
 ) {
-    suspend fun postCreateRoom(createRoomRequest: CreateRoomRequest): BaseResponse<CreateRoomResponse> =
-        enterRoomService.postCreateRoom(DomainCreateRoomRequest(name = createRoomRequest.name))
+    suspend fun postCreateRoom(roomName: String): BaseResponse<CreateRoomResponse> =
+        enterRoomService.postCreateRoom(CreateRoomRequest(name = roomName))
 
     suspend fun getEnterRoomCode(roomCode: String): BaseResponse<GetRoomResponse> =
         enterRoomService.getEnterRoomCode(roomCode)
