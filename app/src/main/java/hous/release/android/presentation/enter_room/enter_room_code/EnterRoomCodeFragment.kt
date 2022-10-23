@@ -31,7 +31,7 @@ class EnterRoomCodeFragment :
         repeatOnStarted {
             viewModel.isSuccessGetRoom.filter { isSuccess -> isSuccess }.collect {
                 if (viewModel.roomInfo.value.roomId != null && viewModel.roomInfo.value.roomId != -1) {
-                    EnterRoomCodeDialogFragment().show(parentFragmentManager, this.javaClass.name)
+                    EnterRoomCodeDialogFragment().show(childFragmentManager, this.javaClass.name)
                 }
             }
         }
