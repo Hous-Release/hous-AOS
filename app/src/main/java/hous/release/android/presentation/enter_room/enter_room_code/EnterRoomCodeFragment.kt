@@ -23,6 +23,11 @@ class EnterRoomCodeFragment :
         initIsSuccessGetRoomCollector()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.resetRoomCode()
+    }
+
     private fun initBackBtnClickListener() {
         binding.btnEnterRoomCodeBack.setOnClickListener { findNavController().popBackStack() }
     }

@@ -23,6 +23,11 @@ class CreateRoomFragment :
         initIsSuccessCreateRoomCollector()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.resetRoomName()
+    }
+
     private fun initBackBtnClickListener() {
         binding.btnCreateRoomBack.setOnClickListener { findNavController().popBackStack() }
     }

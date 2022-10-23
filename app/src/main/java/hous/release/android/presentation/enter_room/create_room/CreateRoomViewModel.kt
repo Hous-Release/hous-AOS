@@ -26,6 +26,10 @@ class CreateRoomViewModel @Inject constructor(
     var newRoomInfo: DomainCreateRoomResponse = DomainCreateRoomResponse()
         private set
 
+    fun resetRoomName() {
+        roomName.value = ""
+    }
+
     fun postCreateRoom() {
         viewModelScope.launch {
             enterRoomRepository.postCreateRoom(DomainCreateRoomRequest(roomName.value))
