@@ -16,41 +16,28 @@
         android:layout_height="match_parent"
         tools:context=".presentation.login.UserInputActivity">
 
-        <ImageButton
-            android:id="@+id/btn_user_input_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
-            android:background="@android:color/transparent"
-            android:padding="6dp"
-            android:src="@drawable/ic_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/tv_user_input_user_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="20dp"
             android:text="@string/user_input_user_info"
             android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
-            app:layout_constraintBottom_toBottomOf="@id/btn_user_input_back"
-            app:layout_constraintStart_toEndOf="@id/btn_user_input_back"
-            app:layout_constraintTop_toTopOf="@id/btn_user_input_back" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_user_input_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
             android:layout_marginTop="99dp"
             android:text="@string/user_input_nickname"
             android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_user_input_back" />
+            app:layout_constraintStart_toStartOf="@id/tv_user_input_user_info"
+            app:layout_constraintTop_toBottomOf="@id/tv_user_input_user_info" />
 
         <EditText
             android:id="@+id/et_user_input_nickname"
@@ -83,12 +70,11 @@
             android:id="@+id/tv_user_input_birthday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
             android:layout_marginTop="99dp"
             android:text="@string/user_input_birthday"
             android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_user_input_nickname"
             app:layout_constraintTop_toBottomOf="@id/view_user_input_nickname" />
 
         <TextView
@@ -99,11 +85,10 @@
             android:layout_marginTop="20dp"
             android:background="@null"
             android:hint="@string/user_input_birthday_hint"
-            android:letterSpacing="0.3"
             android:maxLength="10"
             android:paddingVertical="2dp"
             android:text="@={vm.birthday}"
-            android:textAppearance="@style/B2"
+            android:textAppearance="@style/En2"
             android:textColor="@color/hous_black"
             android:textColorHint="@color/hous_g_4"
             app:layout_constraintTop_toBottomOf="@id/tv_user_input_birthday" />
@@ -119,32 +104,33 @@
             app:layout_constraintTop_toBottomOf="@id/tv_user_input_birthday_info" />
 
         <CheckBox
-            android:id="@+id/cb_check_birthday"
+            android:id="@+id/cb_user_input_check_birthday"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="18dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/selector_userinput_check"
             android:button="@android:color/transparent"
+            android:checked="@={vm.isCheckBirthday}"
             android:clickable="true"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_user_input_birthday" />
 
         <TextView
-            android:id="@+id/tv_user_input_open_birthday"
+            android:id="@+id/tv_user_input_private_birthday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/user_input_open_birthday"
             android:textAppearance="@style/Description"
             android:textColor="@color/hous_g_5"
-            app:layout_constraintBottom_toBottomOf="@id/cb_check_birthday"
-            app:layout_constraintStart_toEndOf="@id/cb_check_birthday"
-            app:layout_constraintTop_toTopOf="@id/cb_check_birthday" />
+            app:layout_constraintBottom_toBottomOf="@id/cb_user_input_check_birthday"
+            app:layout_constraintStart_toEndOf="@id/cb_user_input_check_birthday"
+            app:layout_constraintTop_toTopOf="@id/cb_user_input_check_birthday" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/tv_user_input_next"
+            android:id="@+id/btn_user_input_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
@@ -152,6 +138,7 @@
             android:background="@drawable/selector_userinput_button"
             android:enabled="@{vm.nickname.length() > 0 &amp;&amp; vm.birthday.length() > 0}"
             android:gravity="center"
+            android:onClick="@{()->vm.nextOnClick()}"
             android:paddingVertical="10dp"
             android:text="@string/user_input_next"
             android:textAppearance="@style/B1"
