@@ -86,7 +86,7 @@ class OurRuleAddViewModel @Inject constructor(
                 .collect { apiResult ->
                     when (apiResult) {
                         is ApiResult.Success -> Timber.i(apiResult.data)
-                        is ApiResult.Error -> Timber.e(apiResult.throwable)
+                        is ApiResult.Error -> Timber.e(apiResult.msg)
                         is ApiResult.Empty -> Timber.e("IllegalArgument Exception")
                     }
                 }
