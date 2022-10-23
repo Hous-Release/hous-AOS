@@ -52,14 +52,14 @@ class TodoDeleteDialog : DialogFragment() {
         binding.tvDialogDelete.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
                 dailyViewModel.deleteTodo(todoId)
-                dialog?.dismiss() ?: Timber.e(getString(R.string.null_point_exception))
+                dismiss()
             }
         }
     }
 
     private fun initCancelOnClick() {
         binding.tvDialogCancel.setOnClickListener {
-            dialog?.dismiss() ?: Timber.e(getString(R.string.null_point_exception))
+            dismiss()
         }
     }
 

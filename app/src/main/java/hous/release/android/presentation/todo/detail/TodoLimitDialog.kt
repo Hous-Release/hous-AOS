@@ -8,7 +8,6 @@ import androidx.fragment.app.DialogFragment
 import hous.release.android.R
 import hous.release.android.databinding.DialogTodoLimitBinding
 import hous.release.android.util.extension.initLayout
-import timber.log.Timber
 
 class TodoLimitDialog : DialogFragment() {
     private var _binding: DialogTodoLimitBinding? = null
@@ -31,7 +30,7 @@ class TodoLimitDialog : DialogFragment() {
 
     private fun initCancelOnClick() {
         binding.tvTodoLimitConfirm.setOnClickListener {
-            dialog?.dismiss() ?: Timber.e(getString(R.string.null_point_exception))
+            dismiss()
         }
     }
 

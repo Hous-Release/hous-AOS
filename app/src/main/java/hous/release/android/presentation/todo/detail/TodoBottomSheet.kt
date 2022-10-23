@@ -13,14 +13,10 @@ import hous.release.android.databinding.DialogToDoBottomSheetBinding
 import hous.release.android.presentation.todo.detail.daily.DailyFragment.Companion.TODO_ID
 import hous.release.domain.entity.TodoDetail
 import hous.release.domain.usecase.GetTodoDetailUseCase
-import javax.inject.Inject
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TodoBottomSheet : BottomSheetDialogFragment() {
@@ -101,7 +97,7 @@ class TodoBottomSheet : BottomSheetDialogFragment() {
                 }
                 .also { todoDeleteDialog ->
                     todoDeleteDialog.show(parentFragmentManager, this.javaClass.name)
-                    dialog?.dismiss() ?: Timber.e(getString(R.string.null_point_exception))
+                    dismiss()
                 }
         }
     }
