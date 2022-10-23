@@ -27,11 +27,24 @@ class ItemTouchHelperCallback(private val itemMoveListener: OnItemMoveListener) 
     }
 
     override fun isLongPressDragEnabled(): Boolean = false
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        return
+
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) = Unit
+
+    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+        if ((actionState == ItemTouchHelper.ACTION_STATE_DRAG) && viewHolder != null) {
+            itemMoveListener.onItemSelected(viewHolder)
+        }
+        super.onSelectedChanged(viewHolder, actionState)
+    }
+
+    override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+        super.clearView(recyclerView, viewHolder)
+        itemMoveListener.onItemCleared(viewHolder)
     }
 
     interface OnItemMoveListener {
         fun onItemMoved(fromPos: Int, toPos: Int)
+        fun onItemSelected(viewHolder: RecyclerView.ViewHolder)
+        fun onItemCleared(viewHolder: RecyclerView.ViewHolder)
     }
 }
