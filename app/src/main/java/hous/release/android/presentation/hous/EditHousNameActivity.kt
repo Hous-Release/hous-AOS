@@ -6,6 +6,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityEditHousNameBinding
 import hous.release.android.presentation.hous.HousFragment.Companion.ROOM_NAME
+import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.WarningDialogFragment
@@ -23,9 +24,16 @@ class EditHousNameActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.vm = viewModel
+        initEditTextClearFocus()
         initBackBtnClickListener()
         initOriginalRoomName()
         initIsSuccessEditHousNameCollector()
+    }
+
+    private fun initEditTextClearFocus() {
+        binding.layoutEditHousName.setOnClickListener {
+            KeyBoardUtil.hide(this@EditHousNameActivity)
+        }
     }
 
     private fun initBackBtnClickListener() {

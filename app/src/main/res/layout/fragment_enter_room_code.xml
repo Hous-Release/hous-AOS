@@ -13,6 +13,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_enter_room_code"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/hous_white"

@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentEnterRoomCodeBinding
+import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
 import kotlinx.coroutines.flow.filter
@@ -19,6 +20,7 @@ class EnterRoomCodeFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
+        initEditTextClearFocus()
         initBackBtnClickListener()
         initIsSuccessGetRoomCollector()
     }
@@ -26,6 +28,12 @@ class EnterRoomCodeFragment :
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel.resetRoomCode()
+    }
+
+    private fun initEditTextClearFocus() {
+        binding.layoutEnterRoomCode.setOnClickListener {
+            KeyBoardUtil.hide(requireActivity())
+        }
     }
 
     private fun initBackBtnClickListener() {
