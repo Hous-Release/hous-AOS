@@ -26,7 +26,13 @@
         <item name="android:textColorHint">@color/hous_g_5</item>
     </style>
 
-    <style name="DatePickerTheme" parent="android:Widget.Material.Light.DatePicker">
-        <item name="android:datePickerMode">spinner</item>
+    <style name="PickerTheme">
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+        <item name="android:textColor">@color/hous_black</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="android:lineSpacingExtra">10dp</item>
+        <item name="android:colorControlNormal">@android:color/transparent</item>
     </style>
 </resources>
