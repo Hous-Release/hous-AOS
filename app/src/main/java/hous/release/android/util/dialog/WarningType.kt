@@ -1,0 +1,15 @@
+package hous.release.android.util.dialog
+
+enum class WarningType {
+    WARNING_SPLASH,
+    WARNING_EDIT_HOUS_NAME,
+    WARNING_ADD_RULE,
+    WARNING_EDIT_RULE,
+    WARNING_DELETE_RULE,
+    WARNING_ADD_TO_DO,
+    WARNING_EDIT_TO_DO,
+    WARNING_DELETE_TO_DO,
+    WARNING_EDIT_PROFILE,
+    WARNING_LOGOUT,
+    WARNING_STOP_TEST
+}

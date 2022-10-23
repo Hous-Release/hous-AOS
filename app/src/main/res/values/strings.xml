@@ -5,9 +5,66 @@
     <string name="null_point_exception">NullPointException occurs..</string>
     <string name="null_point_exception_detail">NullPointException occurs - %s : %s</string>
     <string name="null_point_exception_detail_two_item">NullPointException occurs - %s : %s, %s : %s</string>
+    <string name="null_point_exception_warning_dialog_argument">"WarningDialogFragment에 필요한 arguments에 안들어옴"</string>
     <string name="binding_error">Binding not initialized to reference the view.</string>
     <string name="back_btn_image_desc">img of back btn</string>
     <string name="finish_app_toast_msg">뒤로가기를 한 번 더 누르시면 앱이 종료돼요!</string>
+
+    <!-- WarningDialogUtil -->
+    <string name="warning_splash_title">다른 기기에서 로그인 중이에요!</string>
+    <string name="warning_splash_desc">다른 기기에서 강제 로그아웃 후  현재 기기에서\nHous-를 사용해볼까요?</string>
+    <string name="warning_splash_cancel">취소</string>
+    <string name="warning_splash_confirm">현재 기기에서 로그인</string>
+
+    <string name="warning_edit_hous_name_title">앗, 잠깐! 이대로 나가면\n우리 집 별명이 저장되지 않아요!</string>
+    <string name="warning_edit_hous_name_desc">정말 취소하려면 나가기 버튼을 눌러주세요.</string>
+    <string name="warning_edit_hous_name_cancel">돌아가기</string>
+    <string name="warning_edit_hous_name_confirm">나가기</string>
+
+    <string name="warning_add_rule_title">앗, 잠깐! 이대로 나가면\nRules가 추가되지 않아요!</string>
+    <string name="warning_add_rule_desc">정말 취소하려면 나가기 버튼을 눌러주세요.</string>
+    <string name="warning_add_rule_cancel">계속 작성하기</string>
+    <string name="warning_add_rule_confirm">나가기</string>
+
+    <string name="warning_edit_rule_title">수정사항이 저장되지 않았어요!</string>
+    <string name="warning_edit_rule_desc">정말 취소하려면 나가기 버튼을 눌러주세요.</string>
+    <string name="warning_edit_rule_cancel">계속 수정하기</string>
+    <string name="warning_edit_rule_confirm">나가기</string>
+
+    <string name="warning_delete_rule_title">안녕, Rules...</string>
+    <string name="warning_delete_rule_desc">Rules는 한 번 삭제하면 복구되지 않아요.</string>
+    <string name="warning_delete_rule_cancel">취소하기</string>
+    <string name="warning_delete_rule_confirm">삭제하기</string>
+
+    <string name="warning_add_to_do_title">앗, 잠깐! 이대로 나가면\nto-do가 추가되지 않아요!</string>
+    <string name="warning_add_to_do_desc">정말 취소하려면 나가기 버튼을 눌러주세요.</string>
+    <string name="warning_add_to_do_cancel">계속 작성하기</string>
+    <string name="warning_add_to_do_confirm">나가기</string>
+
+    <string name="warning_edit_to_do_title">수정사항이 저장되지 않았어요!</string>
+    <string name="warning_edit_to_do_desc">정말 취소하려면 나가기 버튼을 눌러주세요.</string>
+    <string name="warning_edit_to_do_cancel">계속 수정하기</string>
+    <string name="warning_edit_to_do_confirm">나가기</string>
+
+    <string name="warning_delete_to_do_title">안녕, to-do...</string>
+    <string name="warning_delete_to_do_desc">to-do는 한 번 삭제하면 복구되지 않아요.</string>
+    <string name="warning_delete_to_do_cancel">취소하기</string>
+    <string name="warning_delete_to_do_confirm">삭제하기</string>
+
+    <string name="warning_edit_profile_title">수정사항이 저장되지 않았어요!</string>
+    <string name="warning_edit_profile_desc">정말 취소하려면 나가기 버튼을 눌러주세요.</string>
+    <string name="warning_edit_profile_cancel">계속 수정하기</string>
+    <string name="warning_edit_profile_confirm">나가기</string>
+
+    <string name="warning_stop_test_title">테스트를 완료하지 않았어요\n여기서 그만둘까요?</string>
+    <string name="warning_stop_test_desc">나중에 다시 할 수 있어요.</string>
+    <string name="warning_stop_test_cancel">계속하기</string>
+    <string name="warning_stop_test_confirm">그만두기</string>
+
+    <string name="warning_logout_title">정말 로그아웃 하시겠어요?</string>
+    <string name="warning_logout_desc">재로그인 시 현재 방을 계속 사용하실 수 있어요.</string>
+    <string name="warning_logout_cancel">취소하기</string>
+    <string name="warning_logout_confirm">로그아웃</string>
 
     <!-- Title -->
     <string name="title_hous">Hous-</string>
@@ -73,6 +130,11 @@
     <string name="hous_empty_our_rules">아직 우리 집 Rules가 없어요!</string>
     <string name="hous_empty_our_rules_add">다른 Rule도 추가해보세요!</string>
 
+    <!-- EditHousName -->
+    <string name="edit_hous_name_back_img_desc">back button</string>
+    <string name="edit_hous_name_done">저장</string>
+    <string name="edit_hous_name_title">우리 집 별명 바꾸기</string>
+
     <!-- EnterRoomCode -->
     <string name="enter_room_code_title">방 초대코드 입력하기</string>
     <string name="enter_room_code_desc">초대코드를 입력해야 방에 들어갈 수 있어요.</string>
@@ -137,4 +199,5 @@
     <string name="tutorial_3_body">요일과 담당자를 설정할 수 있는 to-do!\n\n매일 매일 My to-do를 체크하고\n채워지는 Our to-do를 확인해봐요~</string>
     <string name="tutorial_4_head">Homies</string>
     <string name="tutorial_4_body">생활 성향 테스트를 참여하면 우리 집 모든\n호미들에게 내 성향 카드를 보여줄 수 있어요.\n\n호미 카드는 나 대신 나를 잘 설명해줄 거예요!</string>
+
 </resources>

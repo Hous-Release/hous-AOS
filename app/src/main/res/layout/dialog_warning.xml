@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="warning"
+            type="hous.release.android.util.dialog.WarningDialogContent" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="24dp"
+        android:paddingTop="24dp"
+        android:paddingEnd="30dp"
+        android:paddingBottom="20dp"
+        tools:context=".util.dialog.WarningDialogFragment">
+
+        <TextView
+            android:id="@+id/tv_warning_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{warning.title}"
+            android:textAppearance="@style/H4"
+            android:textColor="@color/hous_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="경고 제목" />
+
+        <TextView
+            android:id="@+id/tv_warning_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@{warning.desc}"
+            android:textAppearance="@style/Description"
+            android:textColor="@color/hous_g_5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_warning_title"
+            tools:text="경고 설명" />
+
+        <TextView
+            android:id="@+id/tv_warning_confirm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@{warning.confirm}"
+            android:textAppearance="@style/B2"
+            android:textColor="@color/hous_red"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_warning_desc"
+            tools:text="confirm 버튼" />
+
+        <TextView
+            android:id="@+id/tv_warning_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:text="@{warning.cancel}"
+            android:textAppearance="@style/B2"
+            android:textColor="@color/hous_g_6"
+            app:layout_constraintEnd_toStartOf="@id/tv_warning_confirm"
+            app:layout_constraintTop_toTopOf="@id/tv_warning_confirm"
+            tools:text="cancel 버튼" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
