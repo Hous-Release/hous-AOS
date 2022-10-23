@@ -1,6 +1,7 @@
 package hous.release.android.presentation.todo.main
 
 import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -84,18 +85,22 @@ private fun MoveHomieWithMessage(
     homiesPosition: HomiesPosition
 ) {
     val messageColor = colorResource(id = R.color.hous_g_2)
-    val homiesSite = when (homiesPosition) {
-        START -> 0.dp
-        LEFT -> 42.dp
-        RIGHT -> 42.dp
-        END -> 84.dp
-    }
-    val messageSite = when (homiesPosition) {
-        START -> 88.dp
-        LEFT -> 48.dp
-        RIGHT -> (-168).dp
-        END -> (-216).dp
-    }
+    val homiesSite by animateDpAsState(
+        targetValue = when (homiesPosition) {
+            START -> 0.dp
+            LEFT, RIGHT -> 42.dp
+            END -> 84.dp
+        }
+    )
+
+    val messageSite by animateDpAsState(
+        targetValue = when (homiesPosition) {
+            START -> 88.dp
+            LEFT -> 48.dp
+            RIGHT -> (-168).dp
+            END -> (-216).dp
+        }
+    )
     val messagePaddingValue = when (homiesPosition) {
         START, LEFT -> PaddingValues(start = 24.dp, end = 12.dp, top = 6.dp, bottom = 5.dp)
         RIGHT, END -> PaddingValues(start = 12.dp, end = 24.dp, top = 6.dp, bottom = 5.dp)
