@@ -91,10 +91,14 @@ private fun MoveHomieWithMessage(
         END -> 84.dp
     }
     val messageSite = when (homiesPosition) {
-        START -> 84.dp
-        LEFT -> 42.dp
-        RIGHT -> 42.dp
-        END -> (-84).dp
+        START -> 88.dp
+        LEFT -> 48.dp
+        RIGHT -> (-168).dp
+        END -> (-216).dp
+    }
+    val messagePaddingValue = when (homiesPosition) {
+        START, LEFT -> PaddingValues(start = 24.dp, end = 12.dp, top = 6.dp, bottom = 5.dp)
+        RIGHT, END -> PaddingValues(start = 12.dp, end = 24.dp, top = 6.dp, bottom = 5.dp)
     }
     BoxWithConstraints(Modifier.fillMaxWidth()) {
         Text(
@@ -102,7 +106,7 @@ private fun MoveHomieWithMessage(
                 .absoluteOffset(
                     x = maxWidth
                         .times(progress)
-                        .plus(if (homiesPosition == RIGHT) 84.dp else (-162).dp)
+                        .plus(messageSite)
                 )
                 .align(Alignment.CenterStart)
                 .drawBehind {
@@ -115,12 +119,7 @@ private fun MoveHomieWithMessage(
                         homiesPosition = homiesPosition
                     )
                 }
-                .padding(
-                    start = if (homiesPosition == RIGHT) 24.dp else 12.dp,
-                    end = if (homiesPosition == RIGHT) 12.dp else 24.dp,
-                    top = 6.dp,
-                    bottom = 5.dp
-                ),
+                .padding(messagePaddingValue),
             text = homiesMessage,
             color = colorResource(id = R.color.hous_g_5),
             style = TextStyle(

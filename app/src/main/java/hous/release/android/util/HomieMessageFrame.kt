@@ -20,22 +20,25 @@ fun DrawScope.drawMessageShape(
     messageColor: Color,
     homiesPosition: HomiesPosition
 ) {
-    if (homiesPosition == HomiesPosition.LEFT) {
-        drawLeftMessageShape(
-            side,
-            firstX,
-            secondX,
-            cornerRadius,
-            messageColor
-        )
-    } else if (homiesPosition == HomiesPosition.RIGHT) {
-        drawRightMessageShape(
-            side,
-            firstX,
-            secondX,
-            cornerRadius,
-            messageColor
-        )
+    when (homiesPosition) {
+        HomiesPosition.START, HomiesPosition.LEFT -> {
+            drawRightMessageShape(
+                side,
+                firstX,
+                secondX,
+                cornerRadius,
+                messageColor
+            )
+        }
+        HomiesPosition.RIGHT, HomiesPosition.END -> {
+            drawLeftMessageShape(
+                side,
+                firstX,
+                secondX,
+                cornerRadius,
+                messageColor
+            )
+        }
     }
 }
 
