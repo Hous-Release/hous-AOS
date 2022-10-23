@@ -38,6 +38,8 @@ class TodoDetailViewModel @Inject constructor(
             getMemberTodosUseCase()
                 .onSuccess { result ->
                     _uiState.value = _uiState.value.copy(memberToDos = result)
+                    val count = result.sumOf { todo -> todo.totalTodoCnt }
+                    _uiState.value = _uiState.value.copy(totalTodoCount = count)
                 }
                 .onFailure {
                     Timber.e("error: ${it.message}")
@@ -82,5 +84,6 @@ data class TodoDetailUiState(
     val memberToDos: List<MemberTodoContent> = emptyList(),
     val dailyTodos: List<TodoMain> = emptyList(),
     val memberTabIndex: Int = 0,
-    val dailyTabIndex: Int = 0
+    val dailyTabIndex: Int = 0,
+    val totalTodoCount: Int = 0
 )
