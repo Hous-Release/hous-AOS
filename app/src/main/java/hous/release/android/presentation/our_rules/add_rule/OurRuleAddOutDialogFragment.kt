@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import hous.release.android.R
 import hous.release.android.databinding.DialogOurRuleAddOutBinding
 import hous.release.android.util.extension.initLayout
-import timber.log.Timber
 
 class OurRuleAddOutDialogFragment() :
     DialogFragment() {
@@ -37,13 +36,11 @@ class OurRuleAddOutDialogFragment() :
 
     private fun initClickListener() {
         binding.tvOurRuleAddContinueBtn.setOnClickListener {
-            dialog?.dismiss() ?: Timber.e(getString(R.string.null_point_exception))
+            dismiss()
         }
         binding.tvOurRuleAddOutBtn.setOnClickListener {
-            dialog?.also { dialog ->
-                dialog.dismiss()
-                findNavController().popBackStack()
-            } ?: Timber.e(getString(R.string.null_point_exception))
+            dismiss()
+            findNavController().popBackStack()
         }
     }
 }
