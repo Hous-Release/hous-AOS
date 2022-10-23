@@ -18,6 +18,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.hous.EditHousNameActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.todo.detail.TodoDetailActivity"
             android:exported="false" />
         <activity
