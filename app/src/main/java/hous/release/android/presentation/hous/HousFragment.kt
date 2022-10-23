@@ -1,5 +1,6 @@
 package hous.release.android.presentation.hous
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -19,8 +20,15 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
         viewModel.getHome()
+        initClickListener()
         initHomiesAdapter()
         initHomiesObserver()
+    }
+
+    private fun initClickListener() {
+        binding.btnHousEdit.setOnClickListener {
+            startActivity(Intent(requireContext(), EditHousNameActivity::class.java))
+        }
     }
 
     private fun initHomiesAdapter() {

@@ -9,9 +9,11 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentMemberBinding
-import hous.release.android.presentation.todo.detail.daily.DailyFragment
-import hous.release.android.presentation.todo.detail.TodoDetailViewModel
 import hous.release.android.presentation.todo.detail.TodoBottomSheet
+import hous.release.android.presentation.todo.detail.TodoDetailViewModel
+import hous.release.android.presentation.todo.detail.TodoLimitDialog
+import hous.release.android.presentation.todo.detail.daily.DailyFragment
+import hous.release.android.util.HousFloatingButton
 import hous.release.android.util.binding.BindingFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -27,6 +29,7 @@ class MemberFragment : BindingFragment<FragmentMemberBinding>(R.layout.fragment_
         collectMemberTodos()
         changeTodoDetail()
         initFinishOnClick()
+        initFloatingButton()
     }
 
     private fun initFinishOnClick() {
@@ -82,5 +85,17 @@ class MemberFragment : BindingFragment<FragmentMemberBinding>(R.layout.fragment_
             .also { todoBottomSheet ->
                 todoBottomSheet.show(childFragmentManager, this.javaClass.name)
             }
+    }
+
+    private fun initFloatingButton() {
+        binding.cvMemberFloatingButton.setContent {
+            HousFloatingButton {
+                if (todoDetailViewModel.uiState.value.totalTodoCount == 60) {
+                    TodoLimitDialog().show(childFragmentManager, this.javaClass.name)
+                    return@HousFloatingButton
+                }
+                /* TO DO 추가하기 뷰로 이동하는 함수 */
+            }
+        }
     }
 }
