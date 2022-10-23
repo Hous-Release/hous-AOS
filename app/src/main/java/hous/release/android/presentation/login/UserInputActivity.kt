@@ -23,6 +23,7 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
         initNextBtnOnClickListener()
         initBackPressedCallback()
         initSignUpObserve()
+        initBirthdayOnClickListener()
     }
 
     private fun initBackPressedCallback() {
@@ -60,6 +61,14 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
             val toEnterRoom = Intent(this, EnterRoomActivity::class.java)
             startActivity(toEnterRoom)
             finishAffinity()
+        }
+    }
+
+    private fun initBirthdayOnClickListener() {
+        binding.etUserInputBirthday.setOnClickListener {
+            DatePickerDialog { date ->
+                userInputViewModel.initSelectedBirthDate(date)
+            }.show(supportFragmentManager, "SELECT_BIRTH")
         }
     }
 
