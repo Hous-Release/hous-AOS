@@ -15,8 +15,9 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login_kakao"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/shape_kakao_yellow_fill_8_rect"
             android:gravity="center"
