@@ -32,11 +32,16 @@ class OurRuleEditViewModel @Inject constructor(
                     is ApiResult.Success ->
                         _uiState.update { uiState ->
                             val ourRuleList = initEditRuleList(apiResult.data)
-                            uiState.copy(isLoading = false, originalEditRuleList = ourRuleList, editRuleList = ourRuleList)
+                            uiState.copy(
+                                isEmpty = false,
+                                isLoading = false,
+                                originalEditRuleList = ourRuleList,
+                                editRuleList = ourRuleList
+                            )
                         }
                     is ApiResult.Empty -> {
                         _uiState.update { uiState ->
-                            uiState.copy(isEmpty = true, isLoading = false)
+                            uiState.copy(isLoading = false)
                         }
                     }
                     is ApiResult.Error -> {
@@ -94,7 +99,7 @@ class OurRuleEditViewModel @Inject constructor(
         val originalEditRuleList: List<OurRule> = emptyList(),
         val editRuleList: List<OurRule> = emptyList(),
         val isError: Boolean = false,
-        val isEmpty: Boolean = false,
+        val isEmpty: Boolean = true,
         val isLoading: Boolean = true,
         val saveButtonState: SaveButtonState = SaveButtonState.INACTIVE
     )
