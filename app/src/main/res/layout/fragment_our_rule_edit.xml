@@ -7,7 +7,7 @@
 
         <import type="android.view.View" />
 
-        <import type="hous.release.android.presentation.our_rules.type.SaveButtonState" />
+        <import type="hous.release.android.presentation.our_rules.type.ButtonState" />
 
         <variable
             name="vm"
@@ -49,13 +49,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:clickable="@{vm.uiState.saveButtonState == SaveButtonState.ACTIVE}"
+            android:clickable="@{vm.uiState.saveButtonState == ButtonState.ACTIVE}"
             android:paddingStart="20dp"
             android:paddingEnd="10dp"
             android:paddingBottom="10dp"
             android:text="@string/our_rule_save_new_rule"
             android:textAppearance="@style/B1"
-            android:textColor="@{vm.uiState.saveButtonState == SaveButtonState.ACTIVE ? @color/hous_blue : @color/hous_g_5}"
+            android:textColor="@{vm.uiState.saveButtonState == ButtonState.ACTIVE ? @color/hous_blue : @color/hous_g_5}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_edit_rule_title" />
 

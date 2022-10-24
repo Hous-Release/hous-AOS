@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentOurRuleEditBinding
 import hous.release.android.presentation.our_rules.adapter.OurRulesEditAdapter
-import hous.release.android.presentation.our_rules.type.SaveButtonState
+import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.android.util.ItemTouchHelperCallback
 import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.binding.BindingFragment
@@ -46,7 +46,7 @@ class OurRuleEditFragment :
 
     private fun initBackBtnClickListener() {
         binding.ivEditRuleBackButton.setOnClickListener {
-            if (viewModel.uiState.value.saveButtonState == SaveButtonState.ACTIVE) {
+            if (viewModel.uiState.value.saveButtonState == ButtonState.ACTIVE) {
                 showOutDialog()
                 return@setOnClickListener
             }
@@ -59,7 +59,7 @@ class OurRuleEditFragment :
                     this@apply.onBackPressed()
                     return@addCallback
                 }
-                if (viewModel.uiState.value.saveButtonState == SaveButtonState.ACTIVE) {
+                if (viewModel.isActiveSaveButton()) {
                     showOutDialog()
                     return@addCallback
                 }
@@ -85,7 +85,10 @@ class OurRuleEditFragment :
         val itemTouchHelper: ItemTouchHelper
         OurRulesEditAdapter(viewModel::updateEditRuleList)
             .also { adapter ->
-                binding.rvEditOurRules.adapter = adapter
+                binding.rvEditOurRules.run {
+                    this.adapter = adapter
+                    itemAnimator = null
+                }
             }.also { adapter ->
                 itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter)).apply {
                     attachToRecyclerView(binding.rvEditOurRules)
@@ -104,9 +107,9 @@ class OurRuleEditFragment :
             viewModel.uiState.collect { uiState ->
                 (binding.rvEditOurRules.adapter as OurRulesEditAdapter).submitList(uiState.editRuleList)
                 if (viewModel.isChangeRuleList()) {
-                    viewModel.setSaveButtonState(SaveButtonState.ACTIVE)
+                    viewModel.setSaveButtonState(ButtonState.ACTIVE)
                 } else {
-                    viewModel.setSaveButtonState(SaveButtonState.INACTIVE)
+                    viewModel.setSaveButtonState(ButtonState.INACTIVE)
                 }
             }
         }

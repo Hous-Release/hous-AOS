@@ -3,7 +3,7 @@ package hous.release.android.presentation.our_rules.add_rule
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hous.release.android.presentation.our_rules.type.SaveButtonState
+import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.response.OurRule
 import hous.release.domain.usecase.GetOurRulesUseCase
@@ -51,11 +51,12 @@ class OurRuleAddViewModel @Inject constructor(
         }
     }
 
-    fun initInputRuleNameField() {
+    private fun initInputRuleNameField() {
         inputRuleNameField.value = ""
     }
+    fun isActiveSaveButton() = (uiState.value.saveButtonState == ButtonState.ACTIVE)
 
-    fun setSaveButtonState(saveButtonState: SaveButtonState) {
+    fun setSaveButtonState(saveButtonState: ButtonState) {
         _uiState.value = uiState.value.copy(
             saveButtonState = saveButtonState
         )
@@ -97,6 +98,6 @@ class OurRuleAddViewModel @Inject constructor(
         val isError: Boolean = false,
         val isEmpty: Boolean = false,
         val isLoading: Boolean = true,
-        val saveButtonState: SaveButtonState = SaveButtonState.INACTIVE
+        val saveButtonState: ButtonState = ButtonState.INACTIVE
     )
 }

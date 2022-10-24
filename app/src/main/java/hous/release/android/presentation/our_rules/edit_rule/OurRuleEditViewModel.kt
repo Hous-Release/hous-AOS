@@ -3,7 +3,7 @@ package hous.release.android.presentation.our_rules.edit_rule
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hous.release.android.presentation.our_rules.type.SaveButtonState
+import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.RuleType
 import hous.release.domain.entity.response.OurRule
@@ -78,7 +78,7 @@ class OurRuleEditViewModel @Inject constructor(
         return false
     }
 
-    fun setSaveButtonState(saveButtonState: SaveButtonState) {
+    fun setSaveButtonState(saveButtonState: ButtonState) {
         _uiState.update { uiState ->
             uiState.copy(saveButtonState = saveButtonState)
         }
@@ -94,6 +94,7 @@ class OurRuleEditViewModel @Inject constructor(
                 }
             }
         }
+    fun isActiveSaveButton() = (uiState.value.saveButtonState == ButtonState.ACTIVE)
 
     data class OurRuleEditUIState(
         val originalEditRuleList: List<OurRule> = emptyList(),
@@ -101,6 +102,6 @@ class OurRuleEditViewModel @Inject constructor(
         val isError: Boolean = false,
         val isEmpty: Boolean = true,
         val isLoading: Boolean = true,
-        val saveButtonState: SaveButtonState = SaveButtonState.INACTIVE
+        val saveButtonState: ButtonState = ButtonState.INACTIVE
     )
 }
