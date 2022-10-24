@@ -12,7 +12,6 @@ import hous.release.android.databinding.ItemOurRulesEditItemBinding
 import hous.release.android.util.ItemDiffCallback
 import hous.release.android.util.ItemTouchHelperCallback
 import hous.release.domain.entity.response.OurRule
-import timber.log.Timber
 import java.util.*
 
 class OurRulesEditAdapter(
@@ -97,7 +96,6 @@ class OurRulesEditAdapter(
 
         @SuppressLint("ClickableViewAccessibility")
         fun onBind(data: OurRule) {
-            Timber.e(" ")
             binding.edtRuleDescription.setText(data.name)
             binding.edtRuleDescription.hint = data.name
 
