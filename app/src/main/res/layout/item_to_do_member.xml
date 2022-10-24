@@ -1,73 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="member_todo"
+            type="hous.release.domain.entity.response.MemberTodoContent" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/ll_to_do_daily_total"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="21dp"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="총"
-                android:textAppearance="@style/B1"
-                android:textColor="@color/hous_g_5" />
-
-            <TextView
-                android:id="@+id/tv_to_do_daily_total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4"
-                android:textAppearance="@style/H3"
-                android:textColor="@color/hous_blue" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="개"
-                android:textAppearance="@style/B1"
-                android:textColor="@color/hous_g_5" />
-        </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/fl_member_todos"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_to_do_daily_total">
+            android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_to_do_member"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:nestedScrollingEnabled="false"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            <LinearLayout
+                android:id="@+id/ll_to_do_daily_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="21dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tv_member_todo_empty"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="총"
+                    android:textAppearance="@style/B1"
+                    android:textColor="@color/hous_g_5" />
+
+                <TextView
+                    android:id="@+id/tv_to_do_daily_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{Integer.toString(member_todo.totalTodoCnt)}"
+                    android:textAppearance="@style/H3"
+                    android:textColor="@color/hous_blue" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="개"
+                    android:textAppearance="@style/B1"
+                    android:textColor="@color/hous_g_5" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_member_todos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="36dp"
-                android:paddingBottom="28dp"
-                android:text="@string/to_do_my_empty"
-                android:textAlignment="center"
-                android:textAppearance="@style/B2"
-                android:textColor="@color/hous_g_5" />
-        </FrameLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_to_do_daily_total">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_to_do_member"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <TextView
+                    android:id="@+id/tv_member_todo_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="36dp"
+                    android:paddingBottom="28dp"
+                    android:text="@string/to_do_my_empty"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/B2"
+                    android:textColor="@color/hous_g_5"
+                    android:visibility="@{member_todo.totalTodoCnt == 0 ? View.VISIBLE : View.GONE}" />
+            </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

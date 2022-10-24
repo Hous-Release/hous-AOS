@@ -1,7 +1,6 @@
 package hous.release.android.presentation.todo.detail.daily
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -21,14 +20,7 @@ class DailyAdapter(
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(todo: TodoMain) {
-            with(binding) {
-                tvToDoDailyTotal.text = "${todo.ourTodosCnt}"
-                if (todo.myTodos.isEmpty()) tvDailyMyEmpty.visibility = View.VISIBLE
-                else tvDailyMyEmpty.visibility = View.GONE
-
-                if (todo.ourTodos.isEmpty()) tvDailyOurEmpty.visibility = View.VISIBLE
-                else tvDailyOurEmpty.visibility = View.GONE
-            }
+            binding.todoMain = todo
         }
 
         fun fetchDailyMyToDos(myToDos: List<Todo>) {

@@ -1,7 +1,6 @@
 package hous.release.android.presentation.todo.detail.member
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -20,11 +19,7 @@ class MemberAdapter(
         private val showTodoBottomSheet: (Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(memberTodo: MemberTodoContent) {
-            with(binding) {
-                tvToDoDailyTotal.text = memberTodo.totalTodoCnt.toString()
-                if (memberTodo.totalTodoCnt == 0) tvMemberTodoEmpty.visibility = View.VISIBLE
-                else tvMemberTodoEmpty.visibility = View.GONE
-            }
+            binding.memberTodo = memberTodo
         }
 
         fun fetchMemberTodos(memberTodos: List<MemberTodo>) {

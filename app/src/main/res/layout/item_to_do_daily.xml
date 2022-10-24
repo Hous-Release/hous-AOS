@@ -5,6 +5,11 @@
 
     <data>
 
+        <variable
+            name="todo_main"
+            type="hous.release.domain.entity.response.TodoMain" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -36,7 +41,7 @@
                     android:id="@+id/tv_to_do_daily_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4"
+                    android:text="@{Integer.toString(todo_main.ourTodosCnt)}"
                     android:textAppearance="@style/H3"
                     android:textColor="@color/hous_blue" />
 
@@ -93,7 +98,8 @@
                     android:text="@string/to_do_my_empty"
                     android:textAlignment="center"
                     android:textAppearance="@style/B2"
-                    android:textColor="@color/hous_g_5" />
+                    android:textColor="@color/hous_g_5"
+                    android:visibility="@{todo_main.myTodos.isEmpty() ? View.VISIBLE : View.GONE}" />
             </FrameLayout>
 
             <com.google.android.material.divider.MaterialDivider
@@ -149,7 +155,8 @@
                     android:text="@string/to_do_our_empty"
                     android:textAlignment="center"
                     android:textAppearance="@style/B2"
-                    android:textColor="@color/hous_g_5" />
+                    android:textColor="@color/hous_g_5"
+                    android:visibility="@{todo_main.ourTodos.isEmpty() ? View.VISIBLE : View.GONE}" />
             </FrameLayout>
 
             <com.google.android.material.divider.MaterialDivider

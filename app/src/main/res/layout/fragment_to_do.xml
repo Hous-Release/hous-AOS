@@ -8,6 +8,8 @@
         <variable
             name="vm"
             type="hous.release.android.presentation.todo.main.TodoViewModel" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -176,7 +178,8 @@
                         android:text="@string/to_do_my_empty"
                         android:textAlignment="center"
                         android:textAppearance="@style/B2"
-                        android:textColor="@color/hous_g_5" />
+                        android:textColor="@color/hous_g_5"
+                        android:visibility="@{vm.uiState.myTodosCount == 0 ? View.VISIBLE : View.GONE}" />
                 </FrameLayout>
 
                 <com.google.android.material.divider.MaterialDivider
@@ -270,7 +273,8 @@
                         android:text="@string/to_do_our_empty"
                         android:textAlignment="center"
                         android:textAppearance="@style/B2"
-                        android:textColor="@color/hous_g_5" />
+                        android:textColor="@color/hous_g_5"
+                        android:visibility="@{vm.uiState.ourTodosCount == 0 ? View.VISIBLE : View.GONE}" />
                 </FrameLayout>
 
                 <com.google.android.material.divider.MaterialDivider
