@@ -14,6 +14,7 @@ import hous.release.android.databinding.FragmentOurRuleEditBinding
 import hous.release.android.presentation.our_rules.adapter.OurRulesEditAdapter
 import hous.release.android.presentation.our_rules.type.SaveButtonState
 import hous.release.android.util.ItemTouchHelperCallback
+import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.WarningDialogFragment
@@ -30,10 +31,17 @@ class OurRuleEditFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
+        initEditTextClearFocus()
         initBackBtnClickListener()
         initAdapter()
         collectUiState()
         initSaveButtonListener()
+    }
+
+    private fun initEditTextClearFocus() {
+        binding.clEditRule.setOnClickListener {
+            KeyBoardUtil.hide(requireActivity())
+        }
     }
 
     private fun initBackBtnClickListener() {
@@ -105,7 +113,7 @@ class OurRuleEditFragment :
     }
 
     private fun initSaveButtonListener() {
-        binding.ivAddRuleSaveButton.setOnClickListener {
+        binding.ivEditRuleSaveButton.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
                 viewModel.putOurEditRules().join()
                 findNavController().popBackStack()

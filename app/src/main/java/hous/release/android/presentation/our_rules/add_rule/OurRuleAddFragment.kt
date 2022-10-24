@@ -11,6 +11,7 @@ import hous.release.android.R
 import hous.release.android.databinding.FragmentOurRuleAddBinding
 import hous.release.android.presentation.our_rules.adapter.OurRulesAddAdapter
 import hous.release.android.presentation.our_rules.type.SaveButtonState
+import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.extension.safeLet
@@ -27,11 +28,18 @@ class OurRuleAddFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
+        initEditTextClearFocus()
         initBackButtonListener()
         initSaveButtonListener()
         initAddRuleButtonListener()
         initAdapter()
         observeUiState()
+    }
+
+    private fun initEditTextClearFocus() {
+        binding.clAddRule.setOnClickListener {
+            KeyBoardUtil.hide(requireActivity())
+        }
     }
 
     private fun observeUiState() {

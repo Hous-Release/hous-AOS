@@ -13,6 +13,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_edit_rule"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/hous_white"
@@ -42,7 +43,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/iv_add_rule_save_button"
+            android:id="@+id/iv_edit_rule_save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
