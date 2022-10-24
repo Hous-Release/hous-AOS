@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.presentation.our_rules.type.SaveButtonState
 import hous.release.domain.entity.ApiResult
+import hous.release.domain.entity.RuleType
 import hous.release.domain.entity.response.OurRule
 import hous.release.domain.usecase.GetOurRulesUseCase
 import hous.release.domain.usecase.PutEditOurRulesUseCase
@@ -30,11 +31,10 @@ class OurRuleEditViewModel @Inject constructor(
                 when (apiResult) {
                     is ApiResult.Success ->
                         _uiState.update { uiState ->
-                            val ourRuleList = initRuleList(apiResult.data)
-                            uiState.copy(isLoading = false, ourOriginalRuleList = ourRuleList, ourEditRuleList = ourRuleList)
+                            val ourRuleList = initEditRuleList(apiResult.data)
+                            uiState.copy(isLoading = false, originalEditRuleList = ourRuleList, editRuleList = ourRuleList)
                         }
                     is ApiResult.Empty -> {
-                        // TODO EMPTY 뷰 나오면 ERROR 로직 처리해주기
                         _uiState.update { uiState ->
                             uiState.copy(isEmpty = true, isLoading = false)
                         }
@@ -49,25 +49,25 @@ class OurRuleEditViewModel @Inject constructor(
         }
     }
 
-    fun initRuleList(ruleList: List<OurRule>) = ruleList
+    private fun initEditRuleList(ruleList: List<OurRule>) = ruleList
         .mapIndexed { idx, ourRule ->
             when (idx) {
-                in 0..1 -> ourRule.copy(ruleType = OurRule.RuleType.RepresentativeRule())
-                2 -> ourRule.copy(ruleType = OurRule.RuleType.RepresentativeRule(false))
-                else -> ourRule.copy(ruleType = OurRule.RuleType.GeneralRule())
+                0 -> ourRule.copy(ruleType = RuleType.REPRESENTATVIE_TOP)
+                1 -> ourRule.copy(ruleType = RuleType.REPRESENTATVIE_MIDDLE)
+                2 -> ourRule.copy(ruleType = RuleType.REPRESENTATVIE_BOTTOM)
+                else -> ourRule.copy(ruleType = RuleType.GENERAL)
             }
         }
 
     fun updateEditRuleList(editList: List<OurRule>) {
         _uiState.update { uiState ->
-            uiState.copy(ourEditRuleList = initRuleList(editList))
+            uiState.copy(editRuleList = initEditRuleList(editList))
         }
-        Timber.e(uiState.value.ourEditRuleList.toString())
     }
 
     fun isChangeRuleList(): Boolean {
-        val ourEditRuleList = uiState.value.ourEditRuleList
-        uiState.value.ourOriginalRuleList.forEachIndexed { index, ourRule ->
+        val ourEditRuleList = uiState.value.editRuleList
+        uiState.value.originalEditRuleList.forEachIndexed { index, ourRule ->
             if (ourEditRuleList[index].id != ourRule.id) return true
         }
         return false
@@ -81,7 +81,7 @@ class OurRuleEditViewModel @Inject constructor(
 
     fun putOurEditRules() =
         viewModelScope.launch {
-            putEditOurRulesUseCase(editedRules = uiState.value.ourEditRuleList).collect { apiResult ->
+            putEditOurRulesUseCase(editedRules = uiState.value.editRuleList).collect { apiResult ->
                 when (apiResult) {
                     is ApiResult.Success -> Timber.i(apiResult.data)
                     is ApiResult.Error -> Timber.e(apiResult.msg)
@@ -91,8 +91,8 @@ class OurRuleEditViewModel @Inject constructor(
         }
 
     data class OurRuleEditUIState(
-        val ourOriginalRuleList: List<OurRule> = emptyList(),
-        val ourEditRuleList: List<OurRule> = emptyList(),
+        val originalEditRuleList: List<OurRule> = emptyList(),
+        val editRuleList: List<OurRule> = emptyList(),
         val isError: Boolean = false,
         val isEmpty: Boolean = false,
         val isLoading: Boolean = true,

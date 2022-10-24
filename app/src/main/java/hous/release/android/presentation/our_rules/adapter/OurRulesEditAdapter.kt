@@ -16,8 +16,7 @@ import timber.log.Timber
 import java.util.*
 
 class OurRulesEditAdapter(
-    private val updateEditRuleList: (List<OurRule>) -> Unit,
-    private val initRuleList: (List<OurRule>) -> Unit
+    private val updateEditRuleList: (List<OurRule>) -> Unit
 ) :
     ListAdapter<OurRule, OurRulesEditAdapter.EditRuleViewHolder>(
         itemDiffCallback
@@ -25,7 +24,6 @@ class OurRulesEditAdapter(
     ItemTouchHelperCallback.OnItemMoveListener {
     private lateinit var inflater: LayoutInflater
     private lateinit var dragListener: OnStartDragListener
-    private lateinit var mCurrentList: MutableList<OurRule>
 
     fun startDrag(listener: OnStartDragListener) {
         this.dragListener = listener
@@ -52,36 +50,19 @@ class OurRulesEditAdapter(
     }
 
     override fun onItemSelected(viewHolder: RecyclerView.ViewHolder) {
-        Timber.e(" ")
-        if (viewHolder is EditRuleViewHolder) {
-            viewHolder.setBackGroundWhenDrag()
-            Timber.e(currentList.toList().toString())
-            mCurrentList = currentList.toMutableList().also { curList ->
-                val selectedItemIdx = viewHolder.absoluteAdapterPosition
-                val ruleType = curList[selectedItemIdx].ruleType
-                curList[selectedItemIdx] = curList[selectedItemIdx].toNoDividerRule(ruleType)
-            }
-        }
+        (viewHolder as EditRuleViewHolder).changeBackGroundWhenDrag()
     }
 
     override fun onItemMoved(fromPos: Int, toPos: Int) {
-        Timber.e(" ")
-        mCurrentList = currentList.toMutableList().also { editList ->
+        val editList = currentList.toMutableList().also { editList ->
             Collections.swap(editList, fromPos, toPos)
-        }.also { curList ->
-            initRuleList(curList)
         }
-        submitList(mCurrentList)
+        submitList(editList)
     }
 
     override fun onItemCleared(viewHolder: RecyclerView.ViewHolder) {
-        Timber.e(" ")
-        mCurrentList = mCurrentList.also { curList ->
-            val selectedItemIdx = viewHolder.absoluteAdapterPosition
-            val ruleType = curList[selectedItemIdx].ruleType
-            curList[selectedItemIdx] = curList[selectedItemIdx].toDividerRule(ruleType)
-        }
-        updateEditRuleList(mCurrentList)
+        (viewHolder as EditRuleViewHolder).initItemBackGround()
+        updateEditRuleList(currentList)
         return
     }
 
@@ -89,15 +70,34 @@ class OurRulesEditAdapter(
         private val dragListener: OnStartDragListener,
         private val binding: ItemOurRulesEditItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        private lateinit var data: OurRule
-        fun setBackGroundWhenDrag() {
+
+        fun changeBackGroundWhenDrag() {
             binding.clRuleItem.setBackgroundResource(R.color.hous_white)
             binding.divider.visibility = View.INVISIBLE
         }
 
+        fun initItemBackGround() {
+            when (absoluteAdapterPosition) {
+                in 0..1 -> {
+                    binding.divider.visibility = View.VISIBLE
+                    binding.clRuleItem.setBackgroundResource(R.color.hous_blue_l2)
+                    binding.divider.setBackgroundResource(R.color.hous_blue_l1)
+                }
+                2 -> {
+                    binding.divider.visibility = View.INVISIBLE
+                    binding.clRuleItem.setBackgroundResource(R.color.hous_blue_l2)
+                }
+                else -> {
+                    binding.clRuleItem.setBackgroundResource(R.color.hous_white)
+                    binding.divider.visibility = View.VISIBLE
+                    binding.divider.setBackgroundResource(R.color.hous_g_2)
+                }
+            }
+        }
+
         @SuppressLint("ClickableViewAccessibility")
         fun onBind(data: OurRule) {
-            this.data = data
+            Timber.e(" ")
             binding.data = data
             with(binding.clDragHandler) {
                 visibility = View.VISIBLE
@@ -108,23 +108,7 @@ class OurRulesEditAdapter(
                     return@setOnTouchListener false
                 }
             }
-            when (data.ruleType) {
-                is OurRule.RuleType.RepresentativeRule -> {
-                    val ruleType = data.ruleType as OurRule.RuleType.RepresentativeRule
-                    if (!ruleType.hasDivider) {
-                        binding.divider.visibility = View.INVISIBLE
-                    } else {
-                        binding.divider.visibility = View.VISIBLE
-                    }
-                    binding.clRuleItem.setBackgroundResource(R.color.hous_blue_l2)
-                    binding.divider.setBackgroundResource(R.color.hous_blue_l1)
-                }
-                is OurRule.RuleType.GeneralRule -> {
-                    binding.clRuleItem.setBackgroundResource(R.color.hous_white)
-                    binding.divider.visibility = View.VISIBLE
-                    binding.divider.setBackgroundResource(R.color.hous_g_2)
-                }
-            }
+            initItemBackGround()
         }
     }
 
@@ -135,7 +119,9 @@ class OurRulesEditAdapter(
     companion object {
         private val itemDiffCallback = ItemDiffCallback<OurRule>(
             onItemsTheSame = { old, new -> old.id == new.id },
-            onContentsTheSame = { old, new -> old == new }
+            onContentsTheSame = { old, new ->
+                old == new
+            }
         )
     }
 }
