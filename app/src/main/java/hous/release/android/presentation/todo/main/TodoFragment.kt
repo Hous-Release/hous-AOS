@@ -56,6 +56,8 @@ class TodoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
                         RoundedLinearIndicatorWithHomie(currentProgress = toDoUiState.progress)
                     }
                 }
+                if (toDoUiState.myTodosCount != 0) binding.tvToDoMyEmpty.visibility = View.GONE
+                if (toDoUiState.ourTodosCount != 0) binding.tvToDoOurEmpty.visibility = View.GONE
                 myToDoAdapter?.submitList(toDoUiState.myTodos)
                 ourToDoAdapter?.submitList(toDoUiState.ourTodos)
             }

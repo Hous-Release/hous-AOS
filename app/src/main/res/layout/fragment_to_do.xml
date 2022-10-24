@@ -148,19 +148,36 @@
                     app:layout_constraintTop_toTopOf="@+id/iv_to_do_my_dot"
                     tools:text="2" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_to_do_my_rules"
+                <FrameLayout
+                    android:id="@+id/fl_to_do_my"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="16dp"
-                    android:nestedScrollingEnabled="false"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_to_do_my_title"
-                    tools:itemCount="4"
-                    tools:listitem="@layout/item_to_do_my_rule" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_to_do_my_title">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_to_do_my_rules"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="0"
+                        tools:listitem="@layout/item_to_do_my_rule" />
+
+                    <TextView
+                        android:id="@+id/tv_to_do_my_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="28dp"
+                        android:paddingBottom="28dp"
+                        android:text="@string/to_do_my_empty"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/B2"
+                        android:textColor="@color/hous_g_5" />
+                </FrameLayout>
 
                 <com.google.android.material.divider.MaterialDivider
                     android:id="@+id/divider_to_do_my"
@@ -168,9 +185,9 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="8dp"
                     app:dividerColor="@color/hous_g_2"
-                    app:layout_constraintEnd_toEndOf="@+id/rv_to_do_my_rules"
-                    app:layout_constraintStart_toStartOf="@+id/rv_to_do_my_rules"
-                    app:layout_constraintTop_toBottomOf="@+id/rv_to_do_my_rules" />
+                    app:layout_constraintEnd_toEndOf="@+id/fl_to_do_my"
+                    app:layout_constraintStart_toStartOf="@+id/fl_to_do_my"
+                    app:layout_constraintTop_toBottomOf="@+id/fl_to_do_my" />
 
                 <TextView
                     android:id="@+id/tv_to_do_our_title"
@@ -225,19 +242,36 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_to_do_our_title" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_to_do_our_rules"
+                <FrameLayout
+                    android:id="@+id/fl_to_do_our"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="16dp"
-                    android:nestedScrollingEnabled="false"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_to_do_our_title"
-                    tools:itemCount="4"
-                    tools:listitem="@layout/item_to_do_our_rule" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_to_do_our_title">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_to_do_our_rules"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="4"
+                        tools:listitem="@layout/item_to_do_our_rule" />
+
+                    <TextView
+                        android:id="@+id/tv_to_do_our_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="28dp"
+                        android:paddingBottom="28dp"
+                        android:text="@string/to_do_our_empty"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/B2"
+                        android:textColor="@color/hous_g_5" />
+                </FrameLayout>
 
                 <com.google.android.material.divider.MaterialDivider
                     android:id="@+id/divider_to_do_our"
@@ -245,12 +279,11 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="12dp"
                     app:dividerColor="@color/hous_g_2"
-                    app:layout_constraintEnd_toEndOf="@+id/rv_to_do_our_rules"
-                    app:layout_constraintStart_toStartOf="@+id/rv_to_do_our_rules"
-                    app:layout_constraintTop_toBottomOf="@+id/rv_to_do_our_rules" />
+                    app:layout_constraintEnd_toEndOf="@+id/fl_to_do_our"
+                    app:layout_constraintStart_toStartOf="@+id/fl_to_do_our"
+                    app:layout_constraintTop_toBottomOf="@+id/fl_to_do_our" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
