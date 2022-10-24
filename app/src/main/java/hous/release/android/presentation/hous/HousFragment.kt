@@ -23,14 +23,18 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
         initClickListener()
         initHomiesAdapter()
         initHomiesObserver()
-        binding.btnHousOurRules.setOnClickListener {
-            startActivity(Intent(activity, OurRulesActivity::class.java))
-        }
+        initNavigateToOurRulesBtnClickListener()
     }
 
     override fun onResume() {
         super.onResume()
         viewModel.getHome()
+    }
+
+    private fun initNavigateToOurRulesBtnClickListener() {
+        binding.btnHousOurRules.setOnClickListener {
+            startActivity(Intent(requireContext(), OurRulesActivity::class.java))
+        }
     }
 
     private fun initClickListener() {
