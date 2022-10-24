@@ -98,7 +98,9 @@ class OurRulesEditAdapter(
         @SuppressLint("ClickableViewAccessibility")
         fun onBind(data: OurRule) {
             Timber.e(" ")
-            binding.data = data
+            binding.edtRuleDescription.setText(data.name)
+            binding.edtRuleDescription.hint = data.name
+
             with(binding.clDragHandler) {
                 visibility = View.VISIBLE
                 setOnTouchListener { _: View, event: MotionEvent ->
