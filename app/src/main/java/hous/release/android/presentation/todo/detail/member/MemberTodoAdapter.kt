@@ -38,18 +38,16 @@ class MemberTodoAdapter(
             }
         }
 
-        fun initTodoDetailOnClick(memberTodo: MemberTodo) {
-            if (memberTodo.todoCnt != 0) {
-                with(binding) {
-                    clMemberDayOfWeekDetail.setOnClickListener { view ->
-                        view.isSelected = !view.isSelected
-                        if (view.isSelected) {
-                            rvMemberToDo.visibility = View.GONE
-                            ivToDoDetail.setImageResource(R.drawable.ic_to_do_up)
-                        } else {
-                            rvMemberToDo.visibility = View.VISIBLE
-                            ivToDoDetail.setImageResource(R.drawable.ic_to_do_down)
-                        }
+        fun initTodoDetailOnClick() {
+            with(binding) {
+                clMemberDayOfWeekDetail.setOnClickListener { view ->
+                    view.isSelected = !view.isSelected
+                    if (view.isSelected) {
+                        rvMemberToDo.visibility = View.GONE
+                        ivToDoDetail.setImageResource(R.drawable.ic_to_do_up)
+                    } else {
+                        rvMemberToDo.visibility = View.VISIBLE
+                        ivToDoDetail.setImageResource(R.drawable.ic_to_do_down)
                     }
                 }
             }
@@ -67,7 +65,7 @@ class MemberTodoAdapter(
         holder.initAdapter()
         holder.onBind(current)
         holder.fetchTodos(current.dayOfWeekTodos)
-        holder.initTodoDetailOnClick(current)
+        holder.initTodoDetailOnClick()
     }
 
     companion object {
