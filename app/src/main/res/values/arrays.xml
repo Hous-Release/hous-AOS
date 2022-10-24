@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pentagon_text">
+        <item>빛</item>
+        <item>정리\n정돈</item>
+        <item>내향</item>
+        <item>냄새</item>
+        <item>소음</item>
+    </string-array>
+</resources>

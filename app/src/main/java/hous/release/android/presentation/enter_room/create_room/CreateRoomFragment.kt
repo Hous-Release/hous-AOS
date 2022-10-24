@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentCreateRoomBinding
+import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
 import kotlinx.coroutines.flow.filter
@@ -19,8 +20,20 @@ class CreateRoomFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
+        initEditTextClearFocus()
         initBackBtnClickListener()
         initIsSuccessCreateRoomCollector()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.resetRoomName()
+    }
+
+    private fun initEditTextClearFocus() {
+        binding.layoutCreateRoom.setOnClickListener {
+            KeyBoardUtil.hide(requireActivity())
+        }
     }
 
     private fun initBackBtnClickListener() {
@@ -30,7 +43,7 @@ class CreateRoomFragment :
     private fun initIsSuccessCreateRoomCollector() {
         repeatOnStarted {
             viewModel.isSuccessCreateRoom.filter { isSuccess -> isSuccess }.collect {
-                CreateRoomDialogFragment().show(parentFragmentManager, this.javaClass.name)
+                CreateRoomDialogFragment().show(childFragmentManager, this.javaClass.name)
             }
         }
     }

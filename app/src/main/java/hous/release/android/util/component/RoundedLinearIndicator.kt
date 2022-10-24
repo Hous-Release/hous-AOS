@@ -1,4 +1,4 @@
-package hous.release.android.util
+package hous.release.android.util.component
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxWidth

@@ -21,9 +21,8 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
         super.onCreate(savedInstanceState)
         binding.vm = userInputViewModel
         initNextBtnOnClickListener()
-        initBackBtnOnClickListener()
-        initCheckBirthdayBtnOnClickListener()
         initBackPressedCallback()
+        initSignUpObserve()
     }
 
     private fun initBackPressedCallback() {
@@ -44,20 +43,20 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
         )
     }
 
-    private fun initBackBtnOnClickListener() {
-        binding.btnUserInputBack.setOnClickListener {
-            finish()
-        }
-    }
-
-    private fun initCheckBirthdayBtnOnClickListener() {
-        binding.cbCheckBirthday.setOnClickListener {
-            userInputViewModel.isBtnCheckBirthday.value = binding.cbCheckBirthday.isChecked
+    private fun initSignUpObserve() {
+        userInputViewModel.isSignUp.observe(this) {
+            if (userInputViewModel.isSignUp.value == true) {
+                val toEnterRoom = Intent(this, EnterRoomActivity::class.java)
+                startActivity(toEnterRoom)
+                finishAffinity()
+            } else {
+                // 에러 시에 띄울 뷰
+            }
         }
     }
 
     private fun initNextBtnOnClickListener() {
-        binding.tvUserInputNext.setOnClickListener {
+        binding.btnUserInputNext.setOnClickListener {
             val toEnterRoom = Intent(this, EnterRoomActivity::class.java)
             startActivity(toEnterRoom)
             finishAffinity()

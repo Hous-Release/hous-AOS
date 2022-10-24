@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -11,16 +12,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.DialogToDoBottomSheetBinding
 import hous.release.android.presentation.todo.detail.daily.DailyFragment.Companion.TODO_ID
+import hous.release.android.util.dialog.ConfirmClickListener
+import hous.release.android.util.dialog.WarningDialogFragment
+import hous.release.android.util.dialog.WarningType
 import hous.release.domain.entity.TodoDetail
 import hous.release.domain.usecase.GetTodoDetailUseCase
-import javax.inject.Inject
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TodoBottomSheet : BottomSheetDialogFragment() {
@@ -38,6 +38,7 @@ class TodoBottomSheet : BottomSheetDialogFragment() {
         )
     )
     private val todoDetailContent: StateFlow<TodoDetail> = _todoDetailContent.asStateFlow()
+    private val todoDetailViewModel: TodoDetailViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -93,16 +94,24 @@ class TodoBottomSheet : BottomSheetDialogFragment() {
 
     private fun initDeleteButtonOnClickListener() {
         binding.tvToDoDelete.setOnClickListener {
-            TodoDeleteDialog()
-                .apply {
-                    val bundle = Bundle()
-                    bundle.putInt(TODO_ID, todoId)
-                    arguments = bundle
+            WarningDialogFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable(
+                        WarningDialogFragment.WARNING_TYPE,
+                        WarningType.WARNING_DELETE_TO_DO
+                    )
+                    putParcelable(
+                        WarningDialogFragment.CONFIRM_ACTION,
+                        ConfirmClickListener(
+                            id = todoId,
+                            confirmActionWithId = { todoId ->
+                                todoDetailViewModel.deleteTodo(todoId)
+                                this@TodoBottomSheet.dismiss()
+                            }
+                        )
+                    )
                 }
-                .also { todoDeleteDialog ->
-                    todoDeleteDialog.show(parentFragmentManager, this.javaClass.name)
-                    dialog?.dismiss() ?: Timber.e(getString(R.string.null_point_exception))
-                }
+            }.show(childFragmentManager, WarningDialogFragment.DIALOG_WARNING)
         }
     }
 

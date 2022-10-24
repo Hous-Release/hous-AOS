@@ -12,6 +12,6 @@ class LocalPrefSkipTutorialDataSource @Inject constructor(
         get() = prefs.getBoolean(SKIP_TUTORIAL, false)
 
     companion object {
-        const val SKIP_TUTORIAL = "SkipTutorial"
+        private const val SKIP_TUTORIAL = "SkipTutorial"
     }
 }

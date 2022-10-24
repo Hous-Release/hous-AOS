@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="hous.release.android.presentation.hous.EditHousNameViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_edit_hous_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.hous.EditHousNameActivity">
+
+        <ImageButton
+            android:id="@+id/btn_edit_hous_name_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:background="@null"
+            android:contentDescription="@string/edit_hous_name_back_img_desc"
+            android:padding="8dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_edit_hous_name_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="@{()->vm.putHousName()}"
+            android:padding="8dp"
+            android:text="@string/edit_hous_name_done"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_edit_hous_name_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:padding="8dp"
+            android:text="@string/edit_hous_name_title"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            app:layout_constraintEnd_toStartOf="@id/tv_edit_hous_name_done"
+            app:layout_constraintStart_toEndOf="@id/btn_edit_hous_name_back"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_edit_hous_name_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="100dp"
+            android:gravity="center_horizontal"
+            android:padding="8dp"
+            android:text="함께 사는 우리 집을 위한 별명을 지어주세요!"
+            android:textAppearance="@style/B2"
+            android:textColor="@color/hous_g_5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_edit_hous_name_title" />
+
+        <EditText
+            android:id="@+id/et_room_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@null"
+            android:gravity="center_horizontal"
+            android:hint="@{vm.originalRoomName}"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLength="8"
+            android:text="@={vm.roomName}"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            android:textColorHint="@color/hous_g_5"
+            app:layout_constraintEnd_toEndOf="@id/view_room_name"
+            app:layout_constraintStart_toStartOf="@id/view_room_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_edit_hous_name_desc" />
+
+        <View
+            android:id="@+id/view_room_name"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="88dp"
+            android:layout_marginTop="8dp"
+            android:background="@{vm.roomName.length() == 0 ? @color/hous_g_3 : @color/hous_blue }"
+            app:layout_constraintTop_toBottomOf="@id/et_room_name" />
+
+        <TextView
+            android:id="@+id/tv_room_name_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{@string/edit_hous_name_count(vm.roomName.length)}"
+            android:textAppearance="@style/Description"
+            android:textColor="@color/hous_g_5"
+            app:layout_constraintEnd_toEndOf="@id/view_room_name"
+            app:layout_constraintTop_toBottomOf="@id/view_room_name" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
