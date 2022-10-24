@@ -36,7 +36,6 @@ class OurRuleAddViewModel @Inject constructor(
                             uiState.copy(isLoading = false, ourRuleList = apiResult.data)
                         }
                     is ApiResult.Empty -> {
-                        // TODO EMPTY 뷰 나오면 ERROR 로직 처리해주기
                         _uiState.update { uiState ->
                             uiState.copy(isEmpty = true, isLoading = false)
                         }

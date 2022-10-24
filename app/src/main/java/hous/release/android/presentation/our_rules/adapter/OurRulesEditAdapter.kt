@@ -50,7 +50,7 @@ class OurRulesEditAdapter(
     }
 
     override fun onItemSelected(viewHolder: RecyclerView.ViewHolder) {
-        (viewHolder as EditRuleViewHolder).changeBackGroundWhenDrag()
+        (viewHolder as EditRuleViewHolder).changeItemBackGroundWhenSelected()
     }
 
     override fun onItemMoved(fromPos: Int, toPos: Int) {
@@ -71,7 +71,7 @@ class OurRulesEditAdapter(
         private val binding: ItemOurRulesEditItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun changeBackGroundWhenDrag() {
+        fun changeItemBackGroundWhenSelected() {
             binding.clRuleItem.setBackgroundResource(R.color.hous_white)
             binding.divider.visibility = View.INVISIBLE
         }

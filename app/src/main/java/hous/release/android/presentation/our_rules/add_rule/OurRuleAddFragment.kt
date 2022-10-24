@@ -33,7 +33,7 @@ class OurRuleAddFragment :
         initSaveButtonListener()
         initAddRuleButtonListener()
         initAdapter()
-        observeUiState()
+        collectUiState()
     }
 
     private fun initEditTextClearFocus() {
@@ -42,7 +42,7 @@ class OurRuleAddFragment :
         }
     }
 
-    private fun observeUiState() {
+    private fun collectUiState() {
         repeatOnStarted {
             viewModel.uiState.collect { uiState ->
                 ourRulesAddAdapter.submitList(uiState.ourRuleList)
