@@ -1,5 +1,6 @@
 package hous.release.data.entity.response
 
+import hous.release.domain.entity.RuleType
 import hous.release.domain.entity.response.OurRule
 
 data class OurRulesResponse(
@@ -8,6 +9,7 @@ data class OurRulesResponse(
 ) {
     fun toOurRule() = OurRule().copy(
         id = id,
-        name = name
+        name = name,
+        ruleType = RuleType.GENERAL
     )
 }
