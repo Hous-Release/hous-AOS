@@ -26,13 +26,13 @@ class OurRuleEditFragment :
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
         initAdapter()
-        observeUiState()
+        collectUiState()
         initSaveButtonListener()
     }
 
     private fun initAdapter() {
         val itemTouchHelper: ItemTouchHelper
-        OurRulesEditAdapter(viewModel::updateEditRuleList, viewModel::initRuleList)
+        OurRulesEditAdapter(viewModel::updateEditRuleList)
             .also { adapter ->
                 binding.rvEditOurRules.adapter = adapter
             }.also { adapter ->
@@ -48,10 +48,10 @@ class OurRuleEditFragment :
             }
     }
 
-    private fun observeUiState() {
+    private fun collectUiState() {
         repeatOnStarted {
             viewModel.uiState.collect { uiState ->
-                (binding.rvEditOurRules.adapter as OurRulesEditAdapter).submitList(uiState.ourEditRuleList)
+                (binding.rvEditOurRules.adapter as OurRulesEditAdapter).submitList(uiState.editRuleList)
                 if (viewModel.isChangeRuleList()) {
                     viewModel.setSaveButtonState(SaveButtonState.ACTIVE)
                 } else {
