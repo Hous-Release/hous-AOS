@@ -101,7 +101,7 @@ class OurRulesEditAdapter(
             binding.data = data
             with(binding.clDragHandler) {
                 visibility = View.VISIBLE
-                binding.clDragHandler.setOnTouchListener { _: View, event: MotionEvent ->
+                setOnTouchListener { _: View, event: MotionEvent ->
                     if (event.action == MotionEvent.ACTION_DOWN) {
                         dragListener.onStartDrag(this@EditRuleViewHolder)
                     }
