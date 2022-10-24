@@ -27,11 +27,11 @@
             android:text="@string/our_rule_edit_rule_title"
             android:textAppearance="@style/B1"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/iv_add_rule_back_button"
-            app:layout_constraintTop_toTopOf="@id/iv_add_rule_back_button" />
+            app:layout_constraintStart_toEndOf="@id/iv_edit_rule_back_button"
+            app:layout_constraintTop_toTopOf="@id/iv_edit_rule_back_button" />
 
         <ImageView
-            android:id="@+id/iv_add_rule_back_button"
+            android:id="@+id/iv_edit_rule_back_button"
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:layout_marginStart="6dp"
