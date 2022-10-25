@@ -14,15 +14,14 @@
         android:paddingHorizontal="24dp"
         android:paddingTop="36dp"
         android:paddingBottom="26dp"
-        tools:background="@color/hous_blue_l2"
         tools:context=".presentation.enter_room.create_room.CreateRoomDialogFragment">
 
         <ImageView
             android:id="@+id/iv_create_room_dialog"
             android:layout_width="148dp"
             android:layout_height="148dp"
-            android:background="@color/hous_blue"
             android:contentDescription="@string/create_room_dialog_img_desc"
+            android:src="@drawable/ic_create_room_graphic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
