@@ -108,7 +108,7 @@
     <string name="create_room_dialog_img_desc">img of dialog enter room</string>
     <string name="create_room_dialog_copy_code">참여 코드 복사하기</string>
     <string name="crate_room_dialog_desc">방 생성이 완료 되었습니다.\n참여 코드를 복사해서\n룸메이트에게 공유해보세요!</string>
-    <string name="create_room_dialog_kakao_share">카카오톡으로 공유하기</string>
+    <string name="create_room_dialog_kakao_share">참여 코드 공유하기</string>
 
     <!-- EnterRoomCode -->
     <string name="enter_room_code_title">방 초대코드 입력하기</string>

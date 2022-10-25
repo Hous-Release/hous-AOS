@@ -40,6 +40,7 @@ class CreateRoomDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
         initCopyCodeBtnClickListener()
+        initShareBtnClickListener()
     }
 
     override fun onDestroy() {
@@ -68,6 +69,19 @@ class CreateRoomDialogFragment : DialogFragment() {
                 ClipData.newPlainText("참여코드", viewModel.newRoomInfo.roomCode)
             clipboard.setPrimaryClip(clipCode)
             requireContext().showToast("참여코드가 복사되었습니다.")
+        }
+    }
+
+    private fun initShareBtnClickListener() {
+        binding.btnCreateRoomDialogShare.setOnClickListener {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, viewModel.newRoomInfo.roomCode)
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
         }
     }
 }
