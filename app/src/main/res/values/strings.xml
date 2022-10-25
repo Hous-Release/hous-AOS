@@ -206,4 +206,5 @@
     <string name="to_do_limit_content">우리 집 to-do가 너무 많아요!\n필요하지 않은 to-do를 삭제하고\n다시 시도해주세요~</string>
     <string name="todo_limit_confirm">알겠어요!</string>
     <string name="badge_checked">배지로 설정</string>
+    <string name="represent_badge">"눌러서\n대표 배지를\n설정해보세요"</string>
 </resources>

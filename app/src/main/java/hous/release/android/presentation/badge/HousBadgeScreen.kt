@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -26,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -139,10 +141,10 @@ private fun RepresentBadge(representBadge: Badge?) {
     ) {
         if (representBadge == null) {
             Text(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 23.dp),
-                text = "눌러서\n" +
-                    "대표 배지를\n" +
-                    "설정해보세요",
+                modifier = Modifier
+                    .wrapContentSize()
+                    .padding(horizontal = 16.dp, vertical = 23.dp),
+                text = stringResource(id = R.string.represent_badge),
                 textAlign = TextAlign.Center,
                 color = colorResource(id = R.color.hous_g_4),
                 style = TextStyle(
