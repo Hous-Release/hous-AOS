@@ -14,6 +14,7 @@ import hous.release.android.R
 import hous.release.android.databinding.FragmentToDoBinding
 import hous.release.android.presentation.todo.detail.TodoDetailActivity
 import hous.release.android.util.binding.BindingFragment
+import hous.release.android.util.component.TodoMainEmpty
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -49,7 +50,11 @@ class TodoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
             .flowWithLifecycle(lifecycle)
             .onEach { toDoUiState ->
                 binding.cvToDoProgress.setContent {
-                    RoundedLinearIndicatorWithHomie(currentProgress = toDoUiState.progress)
+                    if (toDoUiState.myTodosCount == 0 && toDoUiState.ourTodosCount == 0) {
+                        TodoMainEmpty()
+                    } else {
+                        RoundedLinearIndicatorWithHomie(currentProgress = toDoUiState.progress)
+                    }
                 }
                 myToDoAdapter?.submitList(toDoUiState.myTodos)
                 ourToDoAdapter?.submitList(toDoUiState.ourTodos)

@@ -86,23 +86,19 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
         private val tutorialList = listOf(
             TutorialEntity(
                 R.string.tutorial_1_head,
-                R.string.tutorial_1_body,
-                R.drawable.shape_blue_fill_16_rect
+                R.string.tutorial_1_body
             ),
             TutorialEntity(
                 R.string.tutorial_2_head,
-                R.string.tutorial_2_body,
-                R.drawable.shape_red_fill_10_rect
+                R.string.tutorial_2_body
             ),
             TutorialEntity(
                 R.string.tutorial_3_head,
-                R.string.tutorial_3_body,
-                R.drawable.shape_blue_fill_16_rect
+                R.string.tutorial_3_body
             ),
             TutorialEntity(
                 R.string.tutorial_4_head,
-                R.string.tutorial_4_body,
-                R.drawable.shape_red_fill_10_rect
+                R.string.tutorial_4_body
             )
         )
         private const val WAITING_DEADLINE = 2000L
