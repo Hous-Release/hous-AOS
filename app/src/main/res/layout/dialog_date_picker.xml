@@ -44,83 +44,81 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_date_picker_birthday" />
 
-    <!--    <View-->
-    <!--        android:id="@+id/view_date_picker_year_top"-->
-    <!--        android:layout_width="60dp"-->
-    <!--        android:layout_height="1dp"-->
-    <!--        android:layout_marginStart="3dp"-->
-    <!--        android:layout_marginBottom="19dp"-->
-    <!--        android:background="@color/hous_g_5"-->
-    <!--        app:layout_constraintBottom_toTopOf="@id/guideline_date_picker_horizental"-->
-    <!--        app:layout_constraintStart_toStartOf="@id/date_picker_dialog_date_picker" />-->
+    <View
+        android:id="@+id/view_date_picker_year_top"
+        android:layout_width="60dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="19dp"
+        android:background="@color/hous_g_5"
+        app:layout_constraintBottom_toTopOf="@id/guideline_date_picker_horizental"
+        app:layout_constraintStart_toStartOf="@id/date_picker_dialog_date_picker" />
 
-    <!--    <View-->
-    <!--        android:id="@+id/view_date_picker_year_bottom"-->
-    <!--        android:layout_width="60dp"-->
-    <!--        android:layout_height="1dp"-->
-    <!--        android:layout_marginStart="3dp"-->
-    <!--        android:layout_marginTop="19dp"-->
-    <!--        android:background="@color/hous_g_5"-->
-    <!--        app:layout_constraintStart_toStartOf="@id/date_picker_dialog_date_picker"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/guideline_date_picker_horizental" />-->
+    <View
+        android:id="@+id/view_date_picker_year_bottom"
+        android:layout_width="60dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="19dp"
+        android:background="@color/hous_g_5"
+        app:layout_constraintStart_toStartOf="@id/date_picker_dialog_date_picker"
+        app:layout_constraintTop_toBottomOf="@id/guideline_date_picker_horizental" />
 
-    <!--    <View-->
-    <!--        android:id="@+id/view_date_picker_month_top_1"-->
-    <!--        android:layout_width="18dp"-->
-    <!--        android:layout_height="1dp"-->
-    <!--        android:layout_marginBottom="19dp"-->
-    <!--        android:background="@color/hous_g_5"-->
-    <!--        app:layout_constraintBottom_toTopOf="@id/guideline_date_picker_horizental"-->
-    <!--        app:layout_constraintEnd_toEndOf="@id/guideline_date_picker_vertical" />-->
+    <View
+        android:id="@+id/view_date_picker_month_top_1"
+        android:layout_width="30dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="19dp"
+        android:background="@color/hous_g_5"
+        app:layout_constraintBottom_toTopOf="@id/guideline_date_picker_horizental"
+        app:layout_constraintEnd_toEndOf="@id/guideline_date_picker_vertical" />
 
-    <!--    <View-->
-    <!--        android:id="@+id/view_date_picker_month_top_2"-->
-    <!--        android:layout_width="18dp"-->
-    <!--        android:layout_height="1dp"-->
-    <!--        android:layout_marginBottom="19dp"-->
-    <!--        android:background="@color/hous_g_5"-->
-    <!--        app:layout_constraintBottom_toTopOf="@id/guideline_date_picker_horizental"-->
-    <!--        app:layout_constraintStart_toStartOf="@id/guideline_date_picker_vertical" />-->
+    <View
+        android:id="@+id/view_date_picker_month_top_2"
+        android:layout_width="30dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="19dp"
+        android:background="@color/hous_g_5"
+        app:layout_constraintBottom_toTopOf="@id/guideline_date_picker_horizental"
+        app:layout_constraintStart_toStartOf="@id/guideline_date_picker_vertical" />
 
-    <!--    <View-->
-    <!--        android:id="@+id/view_date_picker_month_bottom_1"-->
-    <!--        android:layout_width="18dp"-->
-    <!--        android:layout_height="1dp"-->
-    <!--        android:layout_marginTop="19dp"-->
-    <!--        android:background="@color/hous_g_5"-->
-    <!--        app:layout_constraintEnd_toEndOf="@id/guideline_date_picker_vertical"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/guideline_date_picker_horizental" />-->
+    <View
+        android:id="@+id/view_date_picker_month_bottom_1"
+        android:layout_width="30dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="19dp"
+        android:background="@color/hous_g_5"
+        app:layout_constraintEnd_toEndOf="@id/guideline_date_picker_vertical"
+        app:layout_constraintTop_toBottomOf="@id/guideline_date_picker_horizental" />
 
-    <!--    <View-->
-    <!--        android:id="@+id/view_date_picker_month_bottom_2"-->
-    <!--        android:layout_width="18dp"-->
-    <!--        android:layout_height="1dp"-->
-    <!--        android:layout_marginTop="19dp"-->
-    <!--        android:background="@color/hous_g_5"-->
-    <!--        app:layout_constraintStart_toStartOf="@id/guideline_date_picker_vertical"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/guideline_date_picker_horizental" />-->
+    <View
+        android:id="@+id/view_date_picker_month_bottom_2"
+        android:layout_width="30dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="19dp"
+        android:background="@color/hous_g_5"
+        app:layout_constraintStart_toStartOf="@id/guideline_date_picker_vertical"
+        app:layout_constraintTop_toBottomOf="@id/guideline_date_picker_horizental" />
 
-    <!--    <View-->
-    <!--        android:id="@+id/view_date_picker_day_top"-->
-    <!--        android:layout_width="36dp"-->
-    <!--        android:layout_height="1dp"-->
-    <!--        android:layout_marginStart="12dp"-->
-    <!--        android:layout_marginEnd="15dp"-->
-    <!--        android:layout_marginBottom="19dp"-->
-    <!--        android:background="@color/hous_g_5"-->
-    <!--        app:layout_constraintBottom_toTopOf="@id/guideline_date_picker_horizental"-->
-    <!--        app:layout_constraintEnd_toEndOf="@id/date_picker_dialog_date_picker" />-->
+    <View
+        android:id="@+id/view_date_picker_day_top"
+        android:layout_width="60dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="19dp"
+        android:background="@color/hous_g_5"
+        app:layout_constraintBottom_toTopOf="@id/guideline_date_picker_horizental"
+        app:layout_constraintEnd_toEndOf="@id/date_picker_dialog_date_picker" />
 
-    <!--    <View-->
-    <!--        android:id="@+id/view_date_picker_day_bottom"-->
-    <!--        android:layout_width="36dp"-->
-    <!--        android:layout_height="1dp"-->
-    <!--        android:layout_marginStart="12dp"-->
-    <!--        android:layout_marginTop="19dp"-->
-    <!--        android:layout_marginEnd="15dp"-->
-    <!--        android:background="@color/hous_g_5"-->
-    <!--        app:layout_constraintEnd_toEndOf="@id/date_picker_dialog_date_picker"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/guideline_date_picker_horizental" />-->
+    <View
+        android:id="@+id/view_date_picker_day_bottom"
+        android:layout_width="60dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="3dp"
+        android:background="@color/hous_g_5"
+        app:layout_constraintEnd_toEndOf="@id/date_picker_dialog_date_picker"
+        app:layout_constraintTop_toBottomOf="@id/guideline_date_picker_horizental" />
 
     <TextView
         android:id="@+id/tv_date_picker_confirm"
