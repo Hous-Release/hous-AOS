@@ -205,4 +205,5 @@
     <string name="to_do_limit_title">to-do 개수 초과</string>
     <string name="to_do_limit_content">우리 집 to-do가 너무 많아요!\n필요하지 않은 to-do를 삭제하고\n다시 시도해주세요~</string>
     <string name="todo_limit_confirm">알겠어요!</string>
+    <string name="badge_checked">배지로 설정</string>
 </resources>
