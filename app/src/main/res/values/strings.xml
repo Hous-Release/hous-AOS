@@ -207,4 +207,5 @@
     <string name="todo_limit_confirm">알겠어요!</string>
     <string name="badge_checked">배지로 설정</string>
     <string name="represent_badge">"눌러서\n대표 배지를\n설정해보세요"</string>
+    <string name="badge_title">내 배지</string>
 </resources>

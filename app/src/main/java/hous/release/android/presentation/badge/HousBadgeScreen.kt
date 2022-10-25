@@ -76,7 +76,7 @@ private fun BadgeToolBar(
         )
         Spacer(modifier = Modifier.width(14.dp))
         Text(
-            text = "내 배지",
+            text = stringResource(R.string.badge_title),
             color = colorResource(id = R.color.hous_white),
             style = TextStyle(
                 fontFamily = FontFamily(Font(R.font.spoqa_han_sans_neo_medium)),
@@ -181,7 +181,7 @@ fun BadgeScreenPreview() {
             isAcquired = false,
             isRead = false,
             name = "두근두근 하우스",
-            badgeState = BadgeState.LOCK
+            badgeState = BadgeState.UNLOCK
         ),
         Badge(
             badgeId = 1,
@@ -190,7 +190,7 @@ fun BadgeScreenPreview() {
             isAcquired = false,
             isRead = false,
             name = "두근두근 하우스",
-            badgeState = BadgeState.LOCK
+            badgeState = BadgeState.UNLOCK
         ),
         Badge(
             badgeId = 1,
@@ -199,7 +199,7 @@ fun BadgeScreenPreview() {
             isAcquired = false,
             isRead = false,
             name = "두근두근 하우스",
-            badgeState = BadgeState.LOCK
+            badgeState = BadgeState.UNLOCK
         ),
         Badge(
             badgeId = 1,
@@ -208,7 +208,7 @@ fun BadgeScreenPreview() {
             isAcquired = false,
             isRead = false,
             name = "두근두근 하우스",
-            badgeState = BadgeState.LOCK
+            badgeState = BadgeState.UNLOCK
         ),
         Badge(
             badgeId = 1,
@@ -217,7 +217,7 @@ fun BadgeScreenPreview() {
             isAcquired = false,
             isRead = false,
             name = "두근두근 하우스",
-            badgeState = BadgeState.LOCK
+            badgeState = BadgeState.UNLOCK
         ),
         Badge(
             badgeId = 1,
@@ -226,7 +226,7 @@ fun BadgeScreenPreview() {
             isAcquired = false,
             isRead = false,
             name = "두근두근 하우스",
-            badgeState = BadgeState.LOCK
+            badgeState = BadgeState.UNLOCK
         ),
         Badge(
             badgeId = 1,
@@ -235,7 +235,7 @@ fun BadgeScreenPreview() {
             isAcquired = false,
             isRead = false,
             name = "두근두근 하우스",
-            badgeState = BadgeState.LOCK
+            badgeState = BadgeState.UNLOCK
         )
     )
     HousBadgeScreen(badges) {}
