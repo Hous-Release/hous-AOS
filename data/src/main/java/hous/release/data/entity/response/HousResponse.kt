@@ -10,6 +10,7 @@ data class HousResponse(
     val ourRules: List<String>,
     val progress: Int,
     val roomName: String,
+    val roomCode: String,
     val userNickname: String
 ) {
     fun toHous(): Hous = Hous(
@@ -25,6 +26,7 @@ data class HousResponse(
         ourRules = this.ourRules,
         progress = this.progress,
         roomName = this.roomName,
+        roomCode = this.roomCode,
         userNickname = this.userNickname
     )
 }

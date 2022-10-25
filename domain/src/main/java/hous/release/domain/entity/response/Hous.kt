@@ -7,6 +7,7 @@ data class Hous(
     val ourRules: List<String> = emptyList(),
     val progress: Int = -1,
     val roomName: String = "",
+    val roomCode: String = "",
     val userNickname: String = ""
 )
 
