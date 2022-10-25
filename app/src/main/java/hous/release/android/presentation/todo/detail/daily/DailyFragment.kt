@@ -40,6 +40,7 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
     private fun changeTodoDetail() {
         binding.llDailyChangeView.setOnClickListener {
             findNavController().navigate(R.id.action_dailyFragment_to_memberFragment)
+            todoDetailViewModel.setDailyTabIndex(0)
         }
     }
 

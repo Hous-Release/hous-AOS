@@ -20,7 +20,7 @@ class DailyAdapter(
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(todo: TodoMain) {
-            binding.tvToDoDailyTotal.text = "${todo.ourTodosCnt}"
+            binding.todoMain = todo
         }
 
         fun fetchDailyMyToDos(myToDos: List<Todo>) {

@@ -25,7 +25,9 @@ data class MemberTodoResponse(
 
     fun toMemberTodoContent() = MemberTodoContent(
         color = HomyType.valueOf(color),
-        dayOfWeekTodos = dayOfWeekTodos.map { memberTodo -> memberTodo.toMemberTodo() },
+        dayOfWeekTodos = dayOfWeekTodos
+            .map { memberTodo -> memberTodo.toMemberTodo() }
+            .filter { memberTodo -> memberTodo.todoCnt != 0 },
         totalTodoCnt = totalTodoCnt,
         userName = userName
     )
