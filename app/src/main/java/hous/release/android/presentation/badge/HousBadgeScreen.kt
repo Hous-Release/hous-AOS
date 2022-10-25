@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -32,6 +33,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -45,7 +47,7 @@ fun HousBadgeScreen(
     badges: List<Badge>,
     backButtonOnClick: () -> Unit
 ) {
-    Column {
+    Column(modifier = Modifier.fillMaxSize()) {
         BadgeToolBar(backButtonOnClick)
         RepresentBackground(null)
         HousBadges(badges)
@@ -87,6 +89,11 @@ private fun BadgeToolBar(
 
 @Composable
 private fun RepresentBackground(representBadge: Badge?) {
+    val starSite = listOf(
+        DpOffset((-96).dp, 0.dp),
+        DpOffset(64.dp, (-48).dp),
+        DpOffset(86.dp, 64.dp)
+    )
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -95,6 +102,14 @@ private fun RepresentBackground(representBadge: Badge?) {
         contentAlignment = Alignment.Center
     ) {
         RepresentBadge(representBadge)
+        starSite.forEach { site ->
+            Image(
+                modifier = Modifier
+                    .offset(site.x, site.y),
+                painter = painterResource(id = R.drawable.ic_badge_star),
+                contentDescription = ""
+            )
+        }
     }
 }
 
