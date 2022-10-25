@@ -15,7 +15,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,7 +27,46 @@ import hous.release.domain.entity.Badge
 import hous.release.domain.entity.BadgeState
 
 @Composable
-fun HousBadge() {
+fun HousBadge(
+    badge: Badge
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        HousBadgeImage(badge = badge)
+        Spacer(modifier = Modifier.height(12.dp))
+        Text(
+            text = badge.name,
+            color = colorResource(id = R.color.hous_g_7),
+            style = TextStyle(
+                fontFamily = FontFamily(Font(R.font.spoqa_han_sans_neo_medium)),
+                fontWeight = FontWeight.Normal,
+                fontSize = 13.sp,
+                letterSpacing = (-0.02).sp,
+                lineHeight = 6.5.sp
+            ),
+            textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier.height(2.dp))
+        Text(
+            text = badge.description,
+            color = colorResource(id = R.color.hous_g_3),
+            style = TextStyle(
+                fontFamily = FontFamily(
+                    Font(
+                        R.font.spoqa_han_sans_neo_medium,
+                        FontWeight.W500,
+                        FontStyle.Normal
+                    )
+                ),
+                fontWeight = FontWeight.Normal,
+                fontSize = 12.sp,
+                letterSpacing = (-0.02).sp,
+                lineHeight = 16.sp
+            ),
+            textAlign = TextAlign.Center
+        )
+    }
 }
 
 @Composable
@@ -74,11 +115,17 @@ private fun CheckedRepresentationBadge() {
             text = stringResource(R.string.badge_checked),
             color = colorResource(id = R.color.hous_white),
             style = TextStyle(
-                fontFamily = FontFamily(Font(R.font.spoqa_han_sans_neo_medium)),
+                fontFamily = FontFamily(
+                    Font(
+                        R.font.spoqa_han_sans_neo_medium,
+                        FontWeight.W500,
+                        FontStyle.Normal
+                    )
+                ),
                 fontWeight = FontWeight.Normal,
                 fontSize = 12.sp,
                 letterSpacing = (-0.02).sp,
-                lineHeight = 3.6.sp
+                lineHeight = 16.sp
             )
         )
     }
@@ -89,25 +136,14 @@ private fun CheckedRepresentationBadge() {
 fun BadgePreview() {
     val badge = Badge(
         badgeId = 1,
-        description = "",
+        description = "어서와요\n우리 Hous-에!",
         imageUrl = "",
         isAcquired = false,
         isRead = false,
-        name = ""
+        name = "두근두근 하우스",
+        badgeState = BadgeState.LOCK
     )
     Column(Modifier.fillMaxSize()) {
-        HousBadgeImage(
-            badge
-        )
+        HousBadge(badge)
     }
-//    LazyVerticalGrid(
-//        modifier = Modifier.fillMaxSize(),
-//        columns = GridCells.Fixed(3),
-//        contentPadding = PaddingValues(8.dp),
-//        horizontalArrangement = Arrangement.spacedBy(8.dp)
-//    ) {
-//        items(3) {
-//
-//        }
-//    }
 }
