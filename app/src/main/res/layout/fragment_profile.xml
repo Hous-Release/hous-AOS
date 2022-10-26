@@ -103,7 +103,7 @@
                     android:id="@+id/tv_profile_homie"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="4dp"
                     android:text="@string/profile_homie"
                     android:textAppearance="@style/B1"
                     android:textColor="@color/hous_g_4"
