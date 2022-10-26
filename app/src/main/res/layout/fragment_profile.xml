@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="hous.release.android.presentation.profile.ProfileViewModel" />
 
     </data>
 
@@ -12,12 +19,293 @@
         android:background="@color/hous_white"
         tools:context=".presentation.profile.ProfileFragment">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_profile_header"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/title_profile"
-            android:textColor="@color/hous_blue"
-            android:textSize="100dp" />
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:id="@+id/iv_profile_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:padding="16dp"
+                android:src="@{vm.isTest ? @drawable/ic_profile_setting_white : @drawable/ic_setting_gray}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_profile_setting_white" />
+
+            <ImageView
+                android:id="@+id/iv_profile_alarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:src="@{vm.isTest ? @drawable/ic_profile_alarm_white : @drawable/ic_profile_alarm_gray}"
+                app:layout_constraintBottom_toBottomOf="@id/iv_profile_setting"
+                app:layout_constraintEnd_toStartOf="@id/iv_profile_setting"
+                app:layout_constraintTop_toTopOf="@id/iv_profile_setting"
+                tools:src="@drawable/ic_profile_alarm_white" />
+
+            <ImageView
+                android:id="@+id/iv_profile_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="43dp"
+                android:elevation="10dp"
+                android:src="@drawable/shape_white_fill_100_circle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_profile_alarm" />
+
+            <TextView
+                android:id="@+id/tv_profile_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="29dp"
+                android:text="@string/profile_my_badge"
+                android:textAppearance="@style/B3"
+                android:textColor="@color/hous_g_7"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/iv_profile_badge"
+                app:layout_constraintStart_toStartOf="@id/iv_profile_badge"
+                app:layout_constraintTop_toBottomOf="@id/iv_profile_badge" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_profile_header">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="23dp"
+                    android:text="@{vm.nickname}"
+                    android:textAppearance="@style/H4"
+                    android:textColor="@color/hous_black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="이빵주" />
+
+                <TextView
+                    android:id="@+id/tv_profile_homie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/profile_homie"
+                    android:textAppearance="@style/B1"
+                    android:textColor="@color/hous_g_4"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_profile_name"
+                    app:layout_constraintStart_toEndOf="@id/tv_profile_name" />
+
+                <ImageView
+                    android:id="@+id/iv_profile_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="8dp"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_profile_edit"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_profile_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_profile_name" />
+
+                <TextView
+                    android:id="@+id/tv_profile_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/shape_g6_line_20_rect"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:text="@{vm.age}"
+                    android:textAppearance="@style/Description"
+                    android:textColor="@color/hous_g_6"
+                    app:layout_constraintStart_toStartOf="@id/tv_profile_name"
+                    app:layout_constraintTop_toBottomOf="@id/tv_profile_name"
+                    tools:text="23세" />
+
+                <TextView
+                    android:id="@+id/tv_profile_birthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/shape_g6_line_20_rect"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:text="@{vm.birthday}"
+                    android:textAppearance="@style/En2"
+                    android:textColor="@color/hous_g_6"
+                    android:visibility="@{vm.birthday==null ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_profile_age"
+                    app:layout_constraintStart_toEndOf="@id/tv_profile_age"
+                    app:layout_constraintTop_toTopOf="@id/tv_profile_age"
+                    tools:text="10.31" />
+
+                <TextView
+                    android:id="@+id/tv_profile_mbti"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/shape_g6_line_20_rect"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:text="@{vm.mbti}"
+                    android:textAppearance="@style/En2"
+                    android:textColor="@color/hous_g_6"
+                    android:visibility="@{vm.mbti==null ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_profile_age"
+                    app:layout_constraintStart_toEndOf="@id/tv_profile_birthday"
+                    app:layout_constraintTop_toTopOf="@id/tv_profile_age"
+                    tools:text="ISFP" />
+
+                <TextView
+                    android:id="@+id/tv_profile_job"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/shape_g6_line_20_rect"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:text="@{vm.job}"
+                    android:textAppearance="@style/Description"
+                    android:textColor="@color/hous_g_6"
+                    android:visibility="@{vm.job==null ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_profile_age"
+                    app:layout_constraintStart_toEndOf="@id/tv_profile_mbti"
+                    app:layout_constraintTop_toTopOf="@id/tv_profile_age"
+                    tools:text="개백수" />
+
+                <TextView
+                    android:id="@+id/tv_profile_introduction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:maxLength="40"
+                    android:text="@{vm.introduction==null ? @string/profile_empty_introduction : vm.introduction}"
+                    android:textAppearance="@style/B2"
+                    android:textColor="@{vm.introduction==null ? @color/hous_g_4 : @color/hous_g_6}"
+                    app:layout_constraintStart_toStartOf="@id/tv_profile_age"
+                    app:layout_constraintTop_toBottomOf="@id/tv_profile_age"
+                    tools:text="저는어쩌구저꺼주가우저는어쩌구저꺼주가우\n저는어쩌구저꺼주가우저는어쩌구저꺼주가우!" />
+
+                <View
+                    android:id="@+id/view_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="47dp"
+                    android:background="@color/hous_g_0"
+                    app:layout_constraintTop_toBottomOf="@id/tv_profile_introduction" />
+
+                <ImageView
+                    android:id="@+id/iv_profile_empty_tendency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginBottom="16dp"
+                    android:src="@drawable/ic_profile_empty_tendency"
+                    android:visibility="@{vm.isTest ? View.INVISIBLE : View.VISIBLE}"
+                    app:layout_constraintBottom_toTopOf="@id/tv_profile_tendency"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_profile" />
+
+                <TextView
+                    android:id="@+id/tv_profile_personality"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="19dp"
+                    android:textAppearance="@style/H2"
+                    android:visibility="@{vm.isTest ? View.VISIBLE : View.INVISIBLE}"
+                    app:layout_constraintStart_toStartOf="@id/view_profile"
+                    app:layout_constraintTop_toBottomOf="@id/view_profile"
+                    tools:text="@string/personality_red"
+                    tools:textColor="@color/hous_red" />
+
+                <TextView
+                    android:id="@+id/tv_profile_personality_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="16dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="3dp"
+                    android:text="@string/profile_personality_detail"
+                    android:visibility="@{vm.isTest ? View.VISIBLE : View.INVISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_profile_personality_detail"
+                    app:layout_constraintEnd_toStartOf="@id/iv_profile_personality_detail"
+                    app:layout_constraintTop_toTopOf="@id/iv_profile_personality_detail" />
+
+                <ImageView
+                    android:id="@+id/iv_profile_personality_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/ic_profile_next"
+                    android:visibility="@{vm.isTest ? View.VISIBLE : View.INVISIBLE}"
+                    app:layout_constraintEnd_toEndOf="@id/view_profile"
+                    app:layout_constraintTop_toBottomOf="@id/view_profile" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_personality_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="32dp"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="always"
+                    android:scrollbarAlwaysDrawVerticalTrack="true"
+                    android:scrollbarFadeDuration="0"
+                    android:scrollbarSize="2dp"
+                    android:scrollbarStyle="outsideInset"
+                    android:scrollbarThumbHorizontal="@drawable/shape_g3_fill_2_rect"
+                    android:scrollbars="horizontal"
+                    android:visibility="@{vm.isTest ? View.VISIBLE : View.INVISIBLE}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toTopOf="@id/tv_profile_tendency"
+                    tools:listitem="@layout/item_profile_personality" />
+
+                <TextView
+                    android:id="@+id/tv_profile_tendency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="@{vm.isTest ? @string/profile_not_my_personality : @string/profile_empty_personality}"
+                    android:textAppearance="@style/B2"
+                    android:textColor="@color/hous_g_6"
+                    app:layout_constraintBottom_toTopOf="@id/btn_profile_test_again"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="@string/profile_empty_personality" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_profile_test_again"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginBottom="42dp"
+                    android:background="@drawable/shape_black_fill_8_rect"
+                    android:text="@{vm.isTest ? @string/profile_test_again : @string/profile_empty_go_test}"
+                    android:textAppearance="@style/B1"
+                    android:textColor="@color/hous_white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="@string/profile_empty_go_test" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
+
