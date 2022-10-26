@@ -19,7 +19,7 @@ class MemberAdapter(
         private val showTodoBottomSheet: (Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(memberTodo: MemberTodoContent) {
-            binding.tvToDoDailyTotal.text = memberTodo.totalTodoCnt.toString()
+            binding.memberTodo = memberTodo
         }
 
         fun fetchMemberTodos(memberTodos: List<MemberTodo>) {
