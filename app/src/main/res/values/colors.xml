@@ -34,4 +34,5 @@
     <color name="hous_purple_b_1">#f3deff</color>
     <color name="hous_green_b_1">#dff8de</color>
     <color name="hous_black_layer">#b3000000</color>
+    <color name="hous_red_profile">#ffd8d8</color>
 </resources>
