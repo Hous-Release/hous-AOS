@@ -71,12 +71,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "1.8"
     }
 
     buildFeatures {
@@ -169,7 +169,7 @@ ktlint {
     coloredOutput.set(true)
     verbose.set(true)
     outputToConsole.set(true)
-    disabledRules.set(setOf("max-line-length", "no-wildcard-imports", "import-ordering", "filename"))
+    disabledRules.set(setOf("max-line-length", "no-wildcard-imports", "import-ordering"))
     reporters {
         reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
         reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
