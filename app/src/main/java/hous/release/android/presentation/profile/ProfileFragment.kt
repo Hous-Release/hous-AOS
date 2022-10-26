@@ -69,14 +69,13 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
             if (color == "GRAY") binding.clProfileHeader.setBackgroundResource(R.color.hous_g_1)
             else {
                 val profileSet = getProfileSet(profileViewModel.personalityColor.value!!)
-                binding.clProfileHeader.setBackgroundResource(profileSet.colorBg)
-                binding.tvProfilePersonality.setText(profileSet.personality)
-                binding.tvProfilePersonality.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        profileSet.colorText
+                with(binding) {
+                    clProfileHeader.setBackgroundResource(profileSet.colorBg)
+                    tvProfilePersonality.setText(profileSet.personality)
+                    tvProfilePersonality.setTextColor(
+                        ContextCompat.getColor(requireContext(), profileSet.colorText)
                     )
-                )
+                }
             }
         }
     }
