@@ -3,6 +3,7 @@ package hous.release.android.presentation.login
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.DialogFragment
 import hous.release.android.R
 import hous.release.android.databinding.DialogDatePickerBinding
@@ -43,21 +44,9 @@ class DatePickerDialog(private val doAfterConfirm: (date: String) -> Unit) :
 
     private fun getYearFormat(year: Int): String = year.toString()
 
-    private fun getMonthFormat(month: Int): String {
-        return if (month < 9) {
-            "0" + (month + 1).toString()
-        } else {
-            (month + 1).toString()
-        }
-    }
+    private fun getMonthFormat(month: Int): String = "%02d".format(month + 1)
 
-    private fun getDayFormat(day: Int): String {
-        return if (day < 10) {
-            "0$day"
-        } else {
-            day.toString()
-        }
-    }
+    private fun getDayFormat(day: Int): String = "%02d".format(day)
 
     private fun initConfirmTextClickListener() {
         binding.tvDatePickerConfirm.setOnClickListener {
