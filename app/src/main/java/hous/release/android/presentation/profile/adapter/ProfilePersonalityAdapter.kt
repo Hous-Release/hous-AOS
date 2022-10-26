@@ -12,7 +12,6 @@ class ProfilePersonalityAdapter :
     ListAdapter<PersonalityInfo, ProfilePersonalityAdapter.PersonalityViewHolder>(
         personalityDiffCallBack
     ) {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonalityViewHolder {
         val binding =
             ItemProfilePersonalityBinding.inflate(
