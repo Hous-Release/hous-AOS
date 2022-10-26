@@ -12,7 +12,7 @@ import hous.release.android.databinding.ItemOurRulesEditItemBinding
 import hous.release.android.util.ItemDiffCallback
 import hous.release.android.util.ItemTouchHelperCallback
 import hous.release.domain.entity.response.OurRule
-import java.util.*
+import java.util.Collections
 
 class OurRulesEditAdapter(
     private val updateEditRuleList: (List<OurRule>) -> Unit
