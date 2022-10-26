@@ -25,8 +25,8 @@ class DatePickerDialog(private val doAfterConfirm: (date: String) -> Unit) :
         } ?: throw IllegalStateException()
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initLayout()
     }
 
