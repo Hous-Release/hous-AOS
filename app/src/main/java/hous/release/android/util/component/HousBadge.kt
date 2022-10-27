@@ -2,13 +2,7 @@ package hous.release.android.util.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -101,6 +95,38 @@ private fun HousBadgeImage(
                 )
             }
             BadgeState.CHECKED -> CheckedRepresentationBadge()
+            BadgeState.REPRESENT -> {
+                AsyncImage(
+                    model = badge.imageUrl,
+                    contentDescription = null
+                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(colorResource(id = R.color.hous_g_7).copy(alpha = 0.8f)),
+                    contentAlignment = Alignment.CenterEnd
+                ) {
+                    Text(
+                        modifier = Modifier.fillMaxSize().padding(vertical = 24.dp),
+                        text = "대표배지로\n설정됨",
+                        color = colorResource(id = R.color.hous_white),
+                        textAlign = TextAlign.Center,
+                        style = TextStyle(
+                            fontFamily = FontFamily(
+                                Font(
+                                    R.font.spoqa_han_sans_neo_medium,
+                                    FontWeight.W500,
+                                    FontStyle.Normal
+                                )
+                            ),
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 12.sp,
+                            letterSpacing = (-0.02).sp,
+                            lineHeight = 16.sp
+                        )
+                    )
+                }
+            }
         }
     }
 }
@@ -147,7 +173,7 @@ fun BadgePreview() {
         isAcquired = false,
         isRead = false,
         name = "두근두근 하우스",
-        badgeState = BadgeState.LOCK
+        badgeState = BadgeState.UNLOCK
     )
     Column(Modifier.fillMaxSize()) {
         HousBadge(badge)

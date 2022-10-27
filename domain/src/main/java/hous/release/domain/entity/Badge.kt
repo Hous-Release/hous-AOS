@@ -11,5 +11,5 @@ data class Badge(
 )
 
 enum class BadgeState {
-    UNLOCK, LOCK, CHECKED
+    UNLOCK, LOCK, CHECKED, REPRESENT
 }
