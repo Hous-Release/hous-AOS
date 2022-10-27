@@ -77,17 +77,23 @@
             app:layout_constraintStart_toStartOf="@id/tv_user_input_nickname"
             app:layout_constraintTop_toBottomOf="@id/view_user_input_nickname" />
 
-        <TextView
-            android:id="@+id/tv_user_input_birthday_info"
+        <EditText
+            android:id="@+id/et_user_input_birthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="18dp"
             android:layout_marginTop="20dp"
             android:background="@null"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:hint="@string/user_input_birthday_hint"
+            android:importantForAutofill="no"
+            android:includeFontPadding="false"
+            android:inputType="date"
             android:maxLength="10"
             android:paddingVertical="2dp"
-            android:text="@={vm.birthday}"
+            android:singleLine="true"
+            android:text="@{vm.birthday}"
             android:textAppearance="@style/En2"
             android:textColor="@color/hous_black"
             android:textColorHint="@color/hous_g_4"
@@ -101,7 +107,7 @@
             android:layout_marginTop="7dp"
             android:background="@color/hous_blue"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_user_input_birthday_info" />
+            app:layout_constraintTop_toBottomOf="@id/et_user_input_birthday" />
 
         <CheckBox
             android:id="@+id/cb_user_input_check_birthday"
@@ -111,7 +117,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/selector_userinput_check"
             android:button="@android:color/transparent"
-            android:checked="@={vm.isCheckBirthday}"
+            android:checked="@={vm.isPrivateBirthday}"
             android:clickable="true"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"

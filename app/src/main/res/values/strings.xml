@@ -82,6 +82,8 @@
     <string name="user_input_birthday_hint">YYYY / MM / DD</string>
     <string name="user_input_open_birthday">생일 정보 비공개</string>
     <string name="user_input_next">다음으로</string>
+    <string name="date_picker_confirm">확인</string>
+    <string name="date_picker_cancel">취소</string>
 
     <!-- OurRules -->
     <string name="our_house_rules">우리 집 Rules</string>

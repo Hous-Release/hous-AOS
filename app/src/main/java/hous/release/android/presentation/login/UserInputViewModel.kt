@@ -15,9 +15,9 @@ class UserInputViewModel @Inject constructor(
 ) : ViewModel() {
     val nickname = MutableLiveData<String>()
 
-    val birthday = MutableLiveData<String>("1999-08-02")
+    val birthday = MutableLiveData("")
 
-    val isCheckBirthday = MutableLiveData<Boolean>()
+    val isPrivateBirthday = MutableLiveData<Boolean>()
 
     private val _isSignUp = MutableLiveData<Boolean>()
     val isSignUp: LiveData<Boolean> = _isSignUp
@@ -25,14 +25,18 @@ class UserInputViewModel @Inject constructor(
     fun nextOnClick() {
         viewModelScope.launch {
             postSignUpUseCase.invoke(
-                birthday = birthday.value!!,
-                isPublic = isCheckBirthday.value!!,
-                nickname = nickname.value!!
+                birthday = requireNotNull(birthday.value),
+                isPublic = requireNotNull(isPrivateBirthday.value),
+                nickname = requireNotNull(nickname.value)
             ).onSuccess {
                 _isSignUp.value = true
             }.onFailure {
                 _isSignUp.value = false
             }
         }
+    }
+
+    fun initSelectedBirthDate(birth: String) {
+        birthday.value = birth
     }
 }
