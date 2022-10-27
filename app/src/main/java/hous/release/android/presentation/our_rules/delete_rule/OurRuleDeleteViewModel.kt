@@ -68,15 +68,13 @@ class OurRuleDeleteViewModel @Inject constructor(
         }
     }
 
-    fun getDeleteIdList() = mRulesIdHashMap.filterValues { checked ->
+    private fun getDeleteIdList() = mRulesIdHashMap.filterValues { checked ->
         checked
     }.map { entry -> entry.key }
 
     fun deleteRules() =
         viewModelScope.launch {
-            val deleteRulesId: List<Int> = mRulesIdHashMap.filterValues { checked ->
-                checked
-            }.map { entry -> entry.key }
+            val deleteRulesId: List<Int> = getDeleteIdList()
             deleteOurRulesUseCase(deleteRulesId).collect { apiResult ->
                 when (apiResult) {
                     is ApiResult.Success -> Timber.i(apiResult.data)

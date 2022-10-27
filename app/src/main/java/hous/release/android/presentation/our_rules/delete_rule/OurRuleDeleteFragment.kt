@@ -17,7 +17,6 @@ import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.extension.withArgs
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class OurRuleDeleteFragment :
@@ -49,7 +48,6 @@ class OurRuleDeleteFragment :
     }
 
     private fun showDeleteDialog() {
-        Timber.e("${viewModel.getDeleteIdList()}")
         WarningDialogFragment().withArgs {
             putSerializable(
                 WarningDialogFragment.WARNING_TYPE,
