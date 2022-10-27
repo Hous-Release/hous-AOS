@@ -10,7 +10,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentOurRuleAddBinding
 import hous.release.android.presentation.our_rules.adapter.OurRulesAddAdapter
-import hous.release.android.presentation.our_rules.type.SaveButtonState
+import hous.release.android.presentation.our_rules.type.ButtonState
+import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.extension.safeLet
@@ -27,21 +28,28 @@ class OurRuleAddFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
+        initEditTextClearFocus()
         initBackButtonListener()
         initSaveButtonListener()
         initAddRuleButtonListener()
         initAdapter()
-        observeUiState()
+        collectUiState()
     }
 
-    private fun observeUiState() {
+    private fun initEditTextClearFocus() {
+        binding.clAddRule.setOnClickListener {
+            KeyBoardUtil.hide(requireActivity())
+        }
+    }
+
+    private fun collectUiState() {
         repeatOnStarted {
             viewModel.uiState.collect { uiState ->
                 ourRulesAddAdapter.submitList(uiState.ourRuleList)
                 if (viewModel.uiState.value.addedRuleList.isNotEmpty()) {
-                    viewModel.setSaveButtonState(SaveButtonState.ACTIVE)
+                    viewModel.setSaveButtonState(ButtonState.ACTIVE)
                 } else {
-                    viewModel.setSaveButtonState(SaveButtonState.INACTIVE)
+                    viewModel.setSaveButtonState(ButtonState.INACTIVE)
                 }
             }
         }
@@ -83,7 +91,7 @@ class OurRuleAddFragment :
                     dispatcher.onBackPressed()
                     return@addCallback
                 }
-                if (viewModel.uiState.value.saveButtonState == SaveButtonState.ACTIVE || viewModel.inputRuleNameField.value.isNotBlank()) {
+                if (viewModel.isActiveSaveButton() || viewModel.inputRuleNameField.value.isNotBlank()) {
                     val outDialogFragment = OurRuleAddOutDialogFragment()
                     outDialogFragment.show(childFragmentManager, OUR_RULE_ADD_OUT_DIALOG)
                     return@addCallback
@@ -100,7 +108,7 @@ class OurRuleAddFragment :
         )
 
         binding.ivAddRuleBackButton.setOnClickListener {
-            if (viewModel.uiState.value.saveButtonState == SaveButtonState.ACTIVE || viewModel.inputRuleNameField.value.isNotBlank()) {
+            if (viewModel.isActiveSaveButton() || viewModel.inputRuleNameField.value.isNotBlank()) {
                 val outDialogFragment = OurRuleAddOutDialogFragment()
                 outDialogFragment.show(childFragmentManager, OUR_RULE_ADD_OUT_DIALOG)
                 return@setOnClickListener

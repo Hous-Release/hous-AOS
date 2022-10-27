@@ -18,6 +18,7 @@
         <item name="android:maxLength">20</item>
         <item name="android:maxLines">1</item>
         <item name="android:textSize">14dp</item>
+        <item name="android:importantForAutofill">no</item>
         <item name="android:textCursorDrawable">@drawable/shape_black_line</item>
         <item name="colorControlNormal">@color/hous_g_3</item>
         <item name="colorControlActivated">@color/hous_blue</item>

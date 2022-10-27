@@ -26,7 +26,7 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
         binding.vm = viewModel
         initClickListener()
         initOurRulesAdapter()
-        observeOurRules()
+        collectUiState()
     }
 
     override fun onResume() {
@@ -59,14 +59,13 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
         } ?: Timber.e("NullPointException - ourRulesAdapter, context : $ourRulesAdapter, $context")
     }
 
-    private fun observeOurRules() {
+    private fun collectUiState() {
         repeatOnStarted {
             viewModel.uiState.collect { uiState ->
                 ourRulesAdapter.submitList(uiState.ourRuleList) {
                     binding.rvMainRuleOurRules.invalidateItemDecorations()
                 }
             }
-            // TODO 추후에 Loading뷰, Error뷰 처리
         }
     }
 
