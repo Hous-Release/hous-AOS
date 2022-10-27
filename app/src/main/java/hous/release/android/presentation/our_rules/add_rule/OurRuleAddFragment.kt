@@ -14,7 +14,11 @@ import hous.release.android.presentation.our_rules.adapter.OurRulesAddAdapter
 import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.binding.BindingFragment
+import hous.release.android.util.dialog.ConfirmClickListener
+import hous.release.android.util.dialog.WarningDialogFragment
+import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.repeatOnStarted
+import hous.release.android.util.extension.withArgs
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -88,8 +92,7 @@ class OurRuleAddFragment :
     private fun initBackButtonListener() {
         requireActivity().onBackPressedDispatcher.addCallback {
             if (viewModel.isActiveSaveButton() || viewModel.inputRuleNameField.value.isNotBlank()) {
-                val outDialogFragment = OurRuleAddOutDialogFragment()
-                outDialogFragment.show(childFragmentManager, OUR_RULE_ADD_OUT_DIALOG)
+                showOutDialog()
                 return@addCallback
             }
             findNavController().popBackStack()
@@ -97,16 +100,27 @@ class OurRuleAddFragment :
 
         binding.ivAddRuleBackButton.setOnClickListener {
             if (viewModel.isActiveSaveButton() || viewModel.inputRuleNameField.value.isNotBlank()) {
-                val outDialogFragment = OurRuleAddOutDialogFragment()
-                outDialogFragment.show(childFragmentManager, OUR_RULE_ADD_OUT_DIALOG)
+                showOutDialog()
                 return@setOnClickListener
             }
             findNavController().popBackStack()
         }
     }
 
+    private fun showOutDialog() {
+        WarningDialogFragment().withArgs {
+            putSerializable(
+                WarningDialogFragment.WARNING_TYPE,
+                WarningType.WARNING_ADD_RULE
+            )
+            putParcelable(
+                WarningDialogFragment.CONFIRM_ACTION,
+                ConfirmClickListener(confirmAction = { findNavController().popBackStack() })
+            )
+        }.show(childFragmentManager, WarningDialogFragment.DIALOG_WARNING)
+    }
+
     companion object {
         const val OUR_RULE_ADD_ERROR_DIALOG = "our_rule_add_error_dialog"
-        const val OUR_RULE_ADD_OUT_DIALOG = "our_rule_add_out_dialog"
     }
 }
