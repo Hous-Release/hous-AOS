@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface NotificationService {
     @GET("/v1/user/notifications")
     suspend fun getNotification(
-        @Query("lastNotificationId") lastNotificationId: Long,
-        @Query("size") size: Int = 10
+        @Query("lastNotificationId") lastNotificationId: Int,
+        @Query("size") size: Int
     ): BaseResponse<NotificationResponse>
 }

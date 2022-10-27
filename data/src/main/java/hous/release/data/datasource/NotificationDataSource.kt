@@ -8,6 +8,9 @@ import javax.inject.Inject
 class NotificationDataSource @Inject constructor(
     private val notificationService: NotificationService
 ) {
-    suspend fun getNotification(lastNotificationId: Long): BaseResponse<NotificationResponse> =
-        notificationService.getNotification(lastNotificationId = lastNotificationId)
+    suspend fun getNotification(
+        lastNotificationId: Int,
+        size: Int
+    ): BaseResponse<NotificationResponse> =
+        notificationService.getNotification(lastNotificationId, size)
 }

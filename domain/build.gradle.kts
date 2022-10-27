@@ -13,6 +13,7 @@ java {
 dependencies {
     Deps.AndroidX.run {
         implementation(inject)
+        implementation(pagingWithoutAndroid)
     }
 
     Deps.Coroutines.run {
