@@ -66,9 +66,9 @@ class CreateRoomDialogFragment : DialogFragment() {
             val clipboard =
                 requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clipCode =
-                ClipData.newPlainText("참여코드", viewModel.newRoomInfo.roomCode)
+                ClipData.newPlainText(ROOM_CODE, viewModel.newRoomInfo.roomCode)
             clipboard.setPrimaryClip(clipCode)
-            requireContext().showToast("참여코드가 복사되었습니다.")
+            requireContext().showToast(getString(R.string.create_room_dialog_toast_copy))
         }
     }
 
@@ -83,5 +83,9 @@ class CreateRoomDialogFragment : DialogFragment() {
             val shareIntent = Intent.createChooser(sendIntent, null)
             startActivity(shareIntent)
         }
+    }
+
+    companion object {
+        const val ROOM_CODE = "roomCode"
     }
 }

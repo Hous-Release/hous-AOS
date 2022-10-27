@@ -46,9 +46,9 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
             val clipboard =
                 requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clipCode =
-                ClipData.newPlainText("참여코드", viewModel.hous.value.roomCode)
+                ClipData.newPlainText(ROOM_CODE, viewModel.hous.value.roomCode)
             clipboard.setPrimaryClip(clipCode)
-            requireContext().showToast("참여코드가 복사되었습니다.")
+            requireContext().showToast(getString(R.string.hous_toast_copy))
         }
     }
 
@@ -66,5 +66,6 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
 
     companion object {
         const val ROOM_NAME = "roomName"
+        const val ROOM_CODE = "roomCode"
     }
 }
