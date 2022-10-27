@@ -2,6 +2,7 @@ package hous.release.android.presentation.our_rules.add_rule
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -14,9 +15,7 @@ import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
-import hous.release.android.util.extension.safeLet
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class OurRuleAddFragment :
@@ -24,7 +23,7 @@ class OurRuleAddFragment :
 
     private val viewModel by viewModels<OurRuleAddViewModel>()
     private lateinit var ourRulesAddAdapter: OurRulesAddAdapter
-
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
@@ -34,6 +33,11 @@ class OurRuleAddFragment :
         initAddRuleButtonListener()
         initAdapter()
         collectUiState()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        onBackPressedCallback.remove()
     }
 
     private fun initEditTextClearFocus() {
@@ -84,28 +88,14 @@ class OurRuleAddFragment :
     }
 
     private fun initBackButtonListener() {
-        safeLet(activity, activity?.onBackPressedDispatcher) { _, dispatcher ->
-            dispatcher.addCallback {
-                if (!this@OurRuleAddFragment.isAdded) {
-                    this.remove()
-                    dispatcher.onBackPressed()
-                    return@addCallback
-                }
-                if (viewModel.isActiveSaveButton() || viewModel.inputRuleNameField.value.isNotBlank()) {
-                    val outDialogFragment = OurRuleAddOutDialogFragment()
-                    outDialogFragment.show(childFragmentManager, OUR_RULE_ADD_OUT_DIALOG)
-                    return@addCallback
-                }
-                findNavController().popBackStack()
+        requireActivity().onBackPressedDispatcher.addCallback {
+            if (viewModel.isActiveSaveButton() || viewModel.inputRuleNameField.value.isNotBlank()) {
+                val outDialogFragment = OurRuleAddOutDialogFragment()
+                outDialogFragment.show(childFragmentManager, OUR_RULE_ADD_OUT_DIALOG)
+                return@addCallback
             }
-        } ?: Timber.e(
-            getString(R.string.null_point_exception_detail_two_item).format(
-                "activity",
-                activity == null,
-                "window",
-                activity?.onBackPressedDispatcher == null
-            )
-        )
+            findNavController().popBackStack()
+        }.also { callback -> onBackPressedCallback = callback }
 
         binding.ivAddRuleBackButton.setOnClickListener {
             if (viewModel.isActiveSaveButton() || viewModel.inputRuleNameField.value.isNotBlank()) {

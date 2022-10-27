@@ -2,6 +2,7 @@ package hous.release.android.presentation.our_rules.edit_rule
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -27,7 +28,7 @@ import kotlinx.coroutines.launch
 class OurRuleEditFragment :
     BindingFragment<FragmentOurRuleEditBinding>(R.layout.fragment_our_rule_edit) {
     private val viewModel by viewModels<OurRuleEditViewModel>()
-
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
@@ -36,6 +37,11 @@ class OurRuleEditFragment :
         initAdapter()
         collectUiState()
         initSaveButtonListener()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        onBackPressedCallback.remove()
     }
 
     private fun initEditTextClearFocus() {
@@ -54,16 +60,13 @@ class OurRuleEditFragment :
         }
         requireActivity().onBackPressedDispatcher.apply {
             addCallback {
-                if (!this@OurRuleEditFragment.isAdded) {
-                    this.remove()
-                    this@apply.onBackPressed()
-                    return@addCallback
-                }
                 if (viewModel.isActiveSaveButton()) {
                     showOutDialog()
                     return@addCallback
                 }
                 findNavController().popBackStack()
+            }.also { callback ->
+                onBackPressedCallback = callback
             }
         }
     }
