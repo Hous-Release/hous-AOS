@@ -15,8 +15,7 @@ import javax.inject.Inject
 class OurRulesRepositoryImpl @Inject constructor(
     private val ourRulesDataSource: OurRulesDataSource,
     private val ioDispatcher: CoroutineDispatcher
-) :
-    OurRulesRepository {
+) : OurRulesRepository {
     override fun fetchOurRulesContent(): Flow<ApiResult<List<OurRule>>> = flow {
         val response = ourRulesDataSource.getOurRulesContent()
         if (!response.success) {
@@ -48,6 +47,19 @@ class OurRulesRepositoryImpl @Inject constructor(
 
     override fun putEditedRuleContent(editedRuleList: List<Int>): Flow<ApiResult<String>> = flow {
         val response = ourRulesDataSource.putEditedRuleContent(editedRuleList)
+        if (response.success) {
+            emit(ApiResult.Success(response.message))
+        } else {
+            emit(ApiResult.Error(response.message))
+        }
+    }.catch { e ->
+        if (e is HttpException) {
+            emit(ApiResult.Error(e.message))
+        }
+    }.flowOn(ioDispatcher)
+
+    override fun deleteRuleContent(deleteRules: List<Int>): Flow<ApiResult<String>> = flow {
+        val response = ourRulesDataSource.deleteRuleContent(deleteRules)
         if (response.success) {
             emit(ApiResult.Success(response.message))
         } else {

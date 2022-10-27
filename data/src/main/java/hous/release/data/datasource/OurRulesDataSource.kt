@@ -1,6 +1,7 @@
 package hous.release.data.datasource
 
 import hous.release.data.entity.request.AddRulesRequest
+import hous.release.data.entity.request.DeleteRulesRequest
 import hous.release.data.entity.request.EditRulesRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.NoDataResponse
@@ -18,4 +19,7 @@ class OurRulesDataSource @Inject constructor(private val ourRulesService: OurRul
 
     suspend fun putEditedRuleContent(editedRules: List<Int>): NoDataResponse =
         ourRulesService.putEditedRuleContent(EditRulesRequest(rulesIdList = editedRules))
+
+    suspend fun deleteRuleContent(deleteRules: List<Int>): NoDataResponse =
+        ourRulesService.deleteRuleContent(DeleteRulesRequest(rulesIdList = deleteRules))
 }
