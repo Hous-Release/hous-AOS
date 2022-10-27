@@ -5,7 +5,9 @@
 
     <data>
 
-        <import type="hous.release.android.presentation.our_rules.type.SaveButtonState" />
+        <import type="android.view.View" />
+
+        <import type="hous.release.android.presentation.our_rules.type.ButtonState" />
 
         <variable
             name="vm"
@@ -13,6 +15,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_edit_rule"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/hous_white"
@@ -27,11 +30,11 @@
             android:text="@string/our_rule_edit_rule_title"
             android:textAppearance="@style/B1"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/iv_add_rule_back_button"
-            app:layout_constraintTop_toTopOf="@id/iv_add_rule_back_button" />
+            app:layout_constraintStart_toEndOf="@id/iv_edit_rule_back_button"
+            app:layout_constraintTop_toTopOf="@id/iv_edit_rule_back_button" />
 
         <ImageView
-            android:id="@+id/iv_add_rule_back_button"
+            android:id="@+id/iv_edit_rule_back_button"
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:layout_marginStart="6dp"
@@ -42,25 +45,41 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/iv_add_rule_save_button"
+            android:id="@+id/iv_edit_rule_save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:clickable="@{vm.uiState.saveButtonState == ButtonState.ACTIVE}"
             android:paddingStart="20dp"
             android:paddingEnd="10dp"
             android:paddingBottom="10dp"
             android:text="@string/our_rule_save_new_rule"
             android:textAppearance="@style/B1"
+            android:textColor="@{vm.uiState.saveButtonState == ButtonState.ACTIVE ? @color/hous_blue : @color/hous_g_5}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_edit_rule_title" />
 
+        <TextView
+            android:id="@+id/tv_our_rule_edit_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="68dp"
+            android:text="@string/our_rule_empty_description"
+            android:textAppearance="@style/B2"
+            android:textColor="@color/hous_g_5"
+            android:visibility="@{vm.uiState.isEmpty == true ? View.VISIBLE : View.GONE }"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_edit_rule_title" />
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_add_our_rules"
+            android:id="@+id/rv_edit_our_rules"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
             android:clipToPadding="false"
             android:overScrollMode="never"
+            android:visibility="@{vm.uiState.isEmpty == false ? View.VISIBLE : View.GONE }"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

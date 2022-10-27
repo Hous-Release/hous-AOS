@@ -149,6 +149,7 @@ dependencies {
         implementation(timber)
         implementation(lottie)
         implementation(ballon)
+        implementation(coilCompose)
     }
 
     Deps.ThirdParty.Glide.run {
