@@ -10,7 +10,7 @@ data class Profile(
     val nickname: String = "",
     val personalityColor: String = "",
     val representBadge: String? = "",
-    val representBadgeImage: String = "",
+    val representBadgeImage: String? = "",
     val testScore: TestScore = TestScore()
 
 )
