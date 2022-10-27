@@ -7,9 +7,8 @@ import dagger.hilt.components.SingletonComponent
 import hous.release.data.datasource.AuthDataSource
 import hous.release.data.datasource.EnterRoomDataSource
 import hous.release.data.datasource.HousDataSource
-import hous.release.data.datasource.LocalPrefTokenDataSource
 import hous.release.data.datasource.LocalPrefSkipTutorialDataSource
-import hous.release.data.datasource.OurRulesDataSource
+import hous.release.data.datasource.LocalPrefTokenDataSource
 import hous.release.data.repository.AuthRepositoryImpl
 import hous.release.data.repository.EnterRoomRepositoryImpl
 import hous.release.data.repository.HousRepositoryImpl
@@ -20,7 +19,6 @@ import hous.release.domain.repository.EnterRoomRepository
 import hous.release.domain.repository.HousRepository
 import hous.release.domain.repository.OurRulesRepository
 import hous.release.domain.repository.TodoRepository
-import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 @Module
@@ -52,10 +50,9 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun providesOurRulesRepository(
-        ourRulesDataSource: OurRulesDataSource,
-        @IoDispatcher coroutineDispatcher: CoroutineDispatcher
+        ourRulesRepositoryImpl: OurRulesRepositoryImpl
     ): OurRulesRepository =
-        OurRulesRepositoryImpl(ourRulesDataSource, coroutineDispatcher)
+        ourRulesRepositoryImpl
 
     @Provides
     @Singleton
