@@ -22,7 +22,6 @@ class OurRuleAddFragment :
     BindingFragment<FragmentOurRuleAddBinding>(R.layout.fragment_our_rule_add) {
 
     private val viewModel by viewModels<OurRuleAddViewModel>()
-    private lateinit var ourRulesAddAdapter: OurRulesAddAdapter
     private lateinit var onBackPressedCallback: OnBackPressedCallback
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,7 +48,7 @@ class OurRuleAddFragment :
     private fun collectUiState() {
         repeatOnStarted {
             viewModel.uiState.collect { uiState ->
-                ourRulesAddAdapter.submitList(uiState.ourRuleList)
+                (binding.rvAddOurRules.adapter as OurRulesAddAdapter).submitList(uiState.ourRuleList)
                 if (viewModel.uiState.value.addedRuleList.isNotEmpty()) {
                     viewModel.setSaveButtonState(ButtonState.ACTIVE)
                 } else {
@@ -60,9 +59,8 @@ class OurRuleAddFragment :
     }
 
     private fun initAdapter() {
-        ourRulesAddAdapter = OurRulesAddAdapter()
         binding.rvAddOurRules.run {
-            adapter = ourRulesAddAdapter
+            adapter = OurRulesAddAdapter()
             itemAnimator = null
         }
     }
