@@ -211,4 +211,5 @@
 
     <!-- NotificationActivity -->
     <string name="notification_title">알림</string>
+    <string name="notification_icon_img_desc">알림 카테고리 아이콘</string>
 </resources>
