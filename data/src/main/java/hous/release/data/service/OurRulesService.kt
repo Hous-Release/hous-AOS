@@ -7,8 +7,8 @@ import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.NoDataResponse
 import hous.release.data.entity.response.OurRulesResponse
 import retrofit2.http.Body
-import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.POST
 import retrofit2.http.PUT
 
@@ -22,6 +22,6 @@ interface OurRulesService {
     @PUT("/v1/rules")
     suspend fun putEditedRuleContent(@Body body: EditRulesRequest): NoDataResponse
 
-    @DELETE("/v1/rules")
+    @HTTP(method = "DELETE", path = "/v1/rules", hasBody = true)
     suspend fun deleteRuleContent(@Body body: DeleteRulesRequest): NoDataResponse
 }
