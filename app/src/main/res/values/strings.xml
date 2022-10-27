@@ -208,4 +208,7 @@
     <string name="todo_main_empty_progress">아직 완료할 to-do가 없어요!</string>
     <string name="to_do_my_empty">아직 담당하는 to-do가 없어요!</string>
     <string name="to_do_our_empty">우리 집 to-do를 추가해 봐요!</string>
+    <string name="badge_checked">배지로 설정</string>
+    <string name="represent_badge">"눌러서\n대표 배지를\n설정해보세요"</string>
+    <string name="badge_title">내 배지</string>
 </resources>
