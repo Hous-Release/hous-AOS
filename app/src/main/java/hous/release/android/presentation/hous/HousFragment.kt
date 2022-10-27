@@ -1,5 +1,8 @@
 package hous.release.android.presentation.hous
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -10,6 +13,7 @@ import hous.release.android.databinding.FragmentHousBinding
 import hous.release.android.presentation.hous.adapter.HomiesAdapter
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
+import hous.release.android.util.showToast
 
 @AndroidEntryPoint
 class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous) {
@@ -37,6 +41,15 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
                 }
             )
         }
+
+        binding.btnHousCopyCode.setOnClickListener {
+            val clipboard =
+                requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipCode =
+                ClipData.newPlainText(ROOM_CODE, viewModel.hous.value.roomCode)
+            clipboard.setPrimaryClip(clipCode)
+            requireContext().showToast(getString(R.string.hous_toast_copy))
+        }
     }
 
     private fun initHomiesAdapter() {
@@ -53,5 +66,6 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
 
     companion object {
         const val ROOM_NAME = "roomName"
+        const val ROOM_CODE = "roomCode"
     }
 }

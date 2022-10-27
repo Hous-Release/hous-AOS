@@ -17,15 +17,14 @@
         android:paddingHorizontal="24dp"
         android:paddingTop="36dp"
         android:paddingBottom="24dp"
-        tools:background="@color/hous_blue_l2"
         tools:context=".presentation.enter_room.enter_room_code.EnterRoomCodeDialogFragment">
 
         <ImageView
             android:id="@+id/iv_enter_room_code_dialog"
             android:layout_width="148dp"
             android:layout_height="148dp"
-            android:background="@color/hous_blue"
             android:contentDescription="@string/create_room_dialog_img_desc"
+            android:src="@drawable/ic_enter_room_graphic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
