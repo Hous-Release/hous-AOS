@@ -1,4 +1,4 @@
-package hous.release.android.presentation.login
+package hous.release.android.util.dialog
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -7,11 +7,11 @@ import android.view.View
 import androidx.fragment.app.DialogFragment
 import hous.release.android.R
 import hous.release.android.databinding.DialogDatePickerBinding
+import hous.release.android.util.dialog.WarningDialogFragment.Companion.CONFIRM_ACTION
 import hous.release.android.util.extension.initLayout
-import java.lang.IllegalStateException
+import timber.log.Timber
 
-class DatePickerDialog(private val doAfterConfirm: (date: String) -> Unit) :
-    DialogFragment() {
+class DatePickerDialog : DialogFragment() {
     private var _binding: DialogDatePickerBinding? = null
     val binding get() = _binding ?: error(getString(R.string.binding_error))
 
@@ -31,17 +31,6 @@ class DatePickerDialog(private val doAfterConfirm: (date: String) -> Unit) :
         initLayout()
     }
 
-    private fun sendSelectedDate() {
-        with(binding.datePickerDialogDatePicker) {
-            val yearFormat = getYearFormat(year)
-            val monthFormat = getMonthFormat(month)
-            val dayFormat = getDayFormat(dayOfMonth)
-            val date = "$yearFormat-$monthFormat-$dayFormat"
-            doAfterConfirm(date)
-        }
-        dismiss()
-    }
-
     private fun getYearFormat(year: Int): String = year.toString()
 
     private fun getMonthFormat(month: Int): String = "%02d".format(month + 1)
@@ -50,7 +39,16 @@ class DatePickerDialog(private val doAfterConfirm: (date: String) -> Unit) :
 
     private fun initConfirmTextClickListener() {
         binding.tvDatePickerConfirm.setOnClickListener {
-            sendSelectedDate()
+            with(binding.datePickerDialogDatePicker) {
+                val yearFormat = getYearFormat(year)
+                val monthFormat = getMonthFormat(month)
+                val dayFormat = getDayFormat(dayOfMonth)
+                val date = "$yearFormat-$monthFormat-$dayFormat"
+                arguments?.getParcelable<DatePickerClickListener>(CONFIRM_ACTION)
+                    ?.onConfirmClick(date)
+                    ?: Timber.e(getString(R.string.null_point_exception_warning_dialog_argument))
+            }
+            dismiss()
         }
     }
 
