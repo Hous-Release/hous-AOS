@@ -10,7 +10,6 @@ import hous.release.data.datasource.HousDataSource
 import hous.release.data.datasource.LocalPrefSkipTutorialDataSource
 import hous.release.data.datasource.LocalPrefTokenDataSource
 import hous.release.data.datasource.OurRulesDataSource
-import hous.release.data.datasource.ProfileDataSource
 import hous.release.data.repository.AuthRepositoryImpl
 import hous.release.data.repository.EnterRoomRepositoryImpl
 import hous.release.data.repository.HousRepositoryImpl
@@ -66,6 +65,6 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesProfileRepository(profileDataSource: ProfileDataSource): ProfileRepository =
-        ProfileRepositoryImpl(profileDataSource)
+    fun providesProfileRepository(profileRepositoryImpl: ProfileRepositoryImpl): ProfileRepository =
+        profileRepositoryImpl
 }
