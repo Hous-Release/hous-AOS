@@ -5,6 +5,7 @@ import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.response.OurRule
 import hous.release.domain.repository.OurRulesRepository
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -14,7 +15,7 @@ import javax.inject.Inject
 
 class OurRulesRepositoryImpl @Inject constructor(
     private val ourRulesDataSource: OurRulesDataSource,
-    private val ioDispatcher: CoroutineDispatcher
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : OurRulesRepository {
     override fun fetchOurRulesContent(): Flow<ApiResult<List<OurRule>>> = flow {
         val response = ourRulesDataSource.getOurRulesContent()

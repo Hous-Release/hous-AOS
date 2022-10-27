@@ -9,6 +9,7 @@ import hous.release.data.datasource.EnterRoomDataSource
 import hous.release.data.datasource.HousDataSource
 import hous.release.data.datasource.LocalPrefSkipTutorialDataSource
 import hous.release.data.datasource.LocalPrefTokenDataSource
+import hous.release.data.datasource.OurRulesDataSource
 import hous.release.data.repository.AuthRepositoryImpl
 import hous.release.data.repository.EnterRoomRepositoryImpl
 import hous.release.data.repository.HousRepositoryImpl
@@ -19,6 +20,7 @@ import hous.release.domain.repository.EnterRoomRepository
 import hous.release.domain.repository.HousRepository
 import hous.release.domain.repository.OurRulesRepository
 import hous.release.domain.repository.TodoRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 @Module
@@ -50,9 +52,10 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun providesOurRulesRepository(
-        ourRulesRepositoryImpl: OurRulesRepositoryImpl
+        ourRulesDataSource: OurRulesDataSource,
+        @IoDispatcher coroutineDispatcher: CoroutineDispatcher
     ): OurRulesRepository =
-        ourRulesRepositoryImpl
+        OurRulesRepositoryImpl(ourRulesDataSource, coroutineDispatcher)
 
     @Provides
     @Singleton
