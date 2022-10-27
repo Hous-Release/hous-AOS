@@ -1,64 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/iv_notification_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="@string/notification_icon_img_desc"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_notification_to_do" />
+    <data>
 
-    <TextView
-        android:id="@+id/tv_notification_type"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:textAppearance="@style/B1"
-        android:textColor="@color/hous_g_5"
-        app:layout_constraintBottom_toBottomOf="@id/iv_notification_category"
-        app:layout_constraintEnd_toStartOf="@id/tv_notification_time"
-        app:layout_constraintStart_toEndOf="@id/iv_notification_category"
-        app:layout_constraintTop_toTopOf="@id/iv_notification_category"
-        tools:text="Notification Type" />
+        <variable
+            name="notification"
+            type="hous.release.domain.entity.response.NotificationContent" />
+    </data>
 
-    <TextView
-        android:id="@+id/tv_notification_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:textAppearance="@style/B3"
-        android:textColor="@color/hous_g_3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_notification_type"
-        tools:text="n시간" />
-
-    <TextView
-        android:id="@+id/tv_notification_content"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textAppearance="@style/B2"
-        android:textColor="@color/hous_g_7"
-        app:layout_constraintEnd_toEndOf="@id/tv_notification_time"
-        app:layout_constraintStart_toStartOf="@id/iv_notification_category"
-        app:layout_constraintTop_toBottomOf="@id/iv_notification_category"
-        tools:text="Notification Content" />
-
-    <View
-        android:id="@+id/view_notification_bottom"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/hous_g_line"
-        app:layout_constraintTop_toBottomOf="@id/tv_notification_content" />
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/iv_notification_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/notification_icon_img_desc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_notification_to_do" />
+
+        <TextView
+            android:id="@+id/tv_notification_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:text="@{notification.title}"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_g_5"
+            app:layout_constraintBottom_toBottomOf="@id/iv_notification_category"
+            app:layout_constraintEnd_toStartOf="@id/tv_notification_time"
+            app:layout_constraintStart_toEndOf="@id/iv_notification_category"
+            app:layout_constraintTop_toTopOf="@id/iv_notification_category"
+            tools:text="Notification Type" />
+
+        <TextView
+            android:id="@+id/tv_notification_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@{notification.createdAt}"
+            android:textAppearance="@style/B3"
+            android:textColor="@color/hous_g_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_notification_type"
+            tools:text="n시간" />
+
+        <TextView
+            android:id="@+id/tv_notification_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{notification.content}"
+            android:textAppearance="@style/B2"
+            android:textColor="@color/hous_g_7"
+            app:layout_constraintEnd_toEndOf="@id/tv_notification_time"
+            app:layout_constraintStart_toStartOf="@id/iv_notification_category"
+            app:layout_constraintTop_toBottomOf="@id/iv_notification_category"
+            tools:text="Notification Content" />
+
+        <View
+            android:id="@+id/view_notification_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/hous_g_line"
+            app:layout_constraintTop_toBottomOf="@id/tv_notification_content" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
