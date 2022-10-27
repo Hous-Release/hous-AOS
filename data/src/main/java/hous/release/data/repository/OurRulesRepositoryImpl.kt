@@ -6,8 +6,10 @@ import hous.release.domain.entity.response.OurRule
 import hous.release.domain.repository.OurRulesRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import retrofit2.HttpException
 import javax.inject.Inject
 
 class OurRulesRepositoryImpl @Inject constructor(
@@ -25,6 +27,10 @@ class OurRulesRepositoryImpl @Inject constructor(
             val data = response.data.map { it.toOurRule() }
             emit(ApiResult.Success(data))
         }
+    }.catch { e ->
+        if (e is HttpException) {
+            emit(ApiResult.Error(e.message))
+        }
     }.flowOn(ioDispatcher)
 
     override fun postAddedRule(addedRuleList: List<String>): Flow<ApiResult<String>> = flow {
@@ -34,5 +40,22 @@ class OurRulesRepositoryImpl @Inject constructor(
         } else {
             emit(ApiResult.Error(response.message))
         }
-    }
+    }.catch { e ->
+        if (e is HttpException) {
+            emit(ApiResult.Error(e.message))
+        }
+    }.flowOn(ioDispatcher)
+
+    override fun putEditedRuleContent(editedRuleList: List<Int>): Flow<ApiResult<String>> = flow {
+        val response = ourRulesDataSource.putEditedRuleContent(editedRuleList)
+        if (response.success) {
+            emit(ApiResult.Success(response.message))
+        } else {
+            emit(ApiResult.Error(response.message))
+        }
+    }.catch { e ->
+        if (e is HttpException) {
+            emit(ApiResult.Error(e.message))
+        }
+    }.flowOn(ioDispatcher)
 }

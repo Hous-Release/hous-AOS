@@ -67,8 +67,8 @@
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 android:layout_marginTop="50dp"
-                android:background="@color/hous_white"
                 android:contentDescription="@string/enter_room_create_img_desc"
+                android:src="@drawable/ic_create_room_start_graphic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -115,8 +115,8 @@
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 android:layout_marginTop="50dp"
-                android:background="@color/hous_white"
                 android:contentDescription="@string/enter_room_enter_code_img_desc"
+                android:src="@drawable/ic_enter_room_start_graphic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

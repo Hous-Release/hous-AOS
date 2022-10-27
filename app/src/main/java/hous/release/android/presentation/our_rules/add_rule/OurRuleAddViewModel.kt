@@ -3,7 +3,7 @@ package hous.release.android.presentation.our_rules.add_rule
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hous.release.android.presentation.our_rules.type.SaveButtonState
+import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.response.OurRule
 import hous.release.domain.usecase.GetOurRulesUseCase
@@ -11,6 +11,7 @@ import hous.release.domain.usecase.PostAddRulesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -31,26 +32,31 @@ class OurRuleAddViewModel @Inject constructor(
             ourRulesUseCase().collect { apiResult ->
                 when (apiResult) {
                     is ApiResult.Success ->
-                        _uiState.value =
-                            _uiState.value.copy(isLoading = false, ourRuleList = apiResult.data)
+                        _uiState.update { uiState ->
+                            uiState.copy(isLoading = false, ourRuleList = apiResult.data)
+                        }
                     is ApiResult.Empty -> {
-                        // TODO EMPTY 뷰 나오면 ERROR 로직 처리해주기
-                        _uiState.value = _uiState.value.copy(isEmpty = true, isLoading = false)
+                        _uiState.update { uiState ->
+                            uiState.copy(isEmpty = true, isLoading = false)
+                        }
                     }
                     is ApiResult.Error -> {
                         // TODO ERROR 뷰 나오면 ERROR 로직 처리해주기
-                        _uiState.value = _uiState.value.copy(isError = true, isLoading = false)
+                        _uiState.update { uiState ->
+                            uiState.copy(isError = true, isLoading = false)
+                        }
                     }
                 }
             }
         }
     }
 
-    fun initInputRuleNameField() {
+    private fun initInputRuleNameField() {
         inputRuleNameField.value = ""
     }
+    fun isActiveSaveButton() = (uiState.value.saveButtonState == ButtonState.ACTIVE)
 
-    fun setSaveButtonState(saveButtonState: SaveButtonState) {
+    fun setSaveButtonState(saveButtonState: ButtonState) {
         _uiState.value = uiState.value.copy(
             saveButtonState = saveButtonState
         )
@@ -80,7 +86,7 @@ class OurRuleAddViewModel @Inject constructor(
                 .collect { apiResult ->
                     when (apiResult) {
                         is ApiResult.Success -> Timber.i(apiResult.data)
-                        is ApiResult.Error -> Timber.e(apiResult.throwable)
+                        is ApiResult.Error -> Timber.e(apiResult.msg)
                         is ApiResult.Empty -> Timber.e("IllegalArgument Exception")
                     }
                 }
@@ -92,6 +98,6 @@ class OurRuleAddViewModel @Inject constructor(
         val isError: Boolean = false,
         val isEmpty: Boolean = false,
         val isLoading: Boolean = true,
-        val saveButtonState: SaveButtonState = SaveButtonState.INACTIVE
+        val saveButtonState: ButtonState = ButtonState.INACTIVE
     )
 }

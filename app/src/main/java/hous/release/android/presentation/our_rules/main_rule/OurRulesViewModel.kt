@@ -47,7 +47,7 @@ class OurRulesViewModel @Inject constructor(
                         }
                         is ApiResult.Error -> {
                             // TODO 추후에 error 뷰 로직 수정
-                            Timber.e("ourRulesUseCase error msg - ${apiResult.throwable}")
+                            Timber.e("ourRulesUseCase error msg - ${apiResult.msg}")
                             _uiState.value = OurRulesUiState().copy()
                         }
                     }

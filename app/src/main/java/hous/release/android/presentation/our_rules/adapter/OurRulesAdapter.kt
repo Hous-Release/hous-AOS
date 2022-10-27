@@ -8,8 +8,8 @@ import hous.release.android.databinding.ItemOurRulesGeneralRuleBinding
 import hous.release.android.databinding.ItemOurRulesRepresentativeRuleBottomBinding
 import hous.release.android.databinding.ItemOurRulesRepresentativeRuleMiddleBinding
 import hous.release.android.databinding.ItemOurRulesRepresentativeRuleTopBinding
-import hous.release.android.presentation.our_rules.type.RuleItemViewType
 import hous.release.android.util.ItemDiffCallback
+import hous.release.domain.entity.RuleType
 import hous.release.domain.entity.response.OurRule
 import timber.log.Timber
 
@@ -20,17 +20,17 @@ class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
-            0 -> RuleItemViewType.REPRESENTATVIE_TOP.id
-            1 -> RuleItemViewType.REPRESENTATVIE_MIDDLE.id
-            2 -> RuleItemViewType.REPRESENTATVIE_BOTTOM.id
-            else -> RuleItemViewType.GENERAL.id
+            0 -> RuleType.REPRESENTATVIE_TOP.id
+            1 -> RuleType.REPRESENTATVIE_MIDDLE.id
+            2 -> RuleType.REPRESENTATVIE_BOTTOM.id
+            else -> RuleType.GENERAL.id
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (!::inflater.isInitialized) inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            RuleItemViewType.REPRESENTATVIE_TOP.id -> {
+            RuleType.REPRESENTATVIE_TOP.id -> {
                 RepresentationTopViewHolder(
                     ItemOurRulesRepresentativeRuleTopBinding.inflate(
                         inflater,
@@ -39,21 +39,21 @@ class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(
                     )
                 )
             }
-            RuleItemViewType.REPRESENTATVIE_MIDDLE.id -> RepresentationMiddleViewHolder(
+            RuleType.REPRESENTATVIE_MIDDLE.id -> RepresentationMiddleViewHolder(
                 ItemOurRulesRepresentativeRuleMiddleBinding.inflate(
                     inflater,
                     parent,
                     false
                 )
             )
-            RuleItemViewType.REPRESENTATVIE_BOTTOM.id -> RepresentationBottomViewHolder(
+            RuleType.REPRESENTATVIE_BOTTOM.id -> RepresentationBottomViewHolder(
                 ItemOurRulesRepresentativeRuleBottomBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
             )
-            RuleItemViewType.GENERAL.id -> GeneralViewHolder(
+            RuleType.GENERAL.id -> GeneralViewHolder(
                 ItemOurRulesGeneralRuleBinding.inflate(
                     inflater,
                     parent,
