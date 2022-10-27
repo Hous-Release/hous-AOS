@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.notification.NotificationActivity">
+
+        <ImageButton
+            android:id="@+id/btn_notification_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:background="@null"
+            android:contentDescription="@string/back_btn_image_desc"
+            android:padding="8dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_notification_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/notification_title"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            app:layout_constraintBottom_toBottomOf="@id/btn_notification_back"
+            app:layout_constraintStart_toEndOf="@id/btn_notification_back"
+            app:layout_constraintTop_toTopOf="@id/btn_notification_back" />
+
+        <View
+            android:id="@+id/view_notification"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/hous_g_line"
+            app:layout_constraintTop_toBottomOf="@id/tv_notification_title" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_notification"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_notification" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

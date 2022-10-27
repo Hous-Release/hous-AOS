@@ -208,4 +208,7 @@
     <string name="todo_main_empty_progress">아직 완료할 to-do가 없어요!</string>
     <string name="to_do_my_empty">아직 담당하는 to-do가 없어요!</string>
     <string name="to_do_our_empty">우리 집 to-do를 추가해 봐요!</string>
+
+    <!-- NotificationActivity -->
+    <string name="notification_title">알림</string>
 </resources>
