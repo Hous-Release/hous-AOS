@@ -212,4 +212,8 @@
     <!-- NotificationActivity -->
     <string name="notification_title">알림</string>
     <string name="notification_icon_img_desc">알림 카테고리 아이콘</string>
+
+    <string name="badge_checked">배지로 설정</string>
+    <string name="represent_badge">"눌러서\n대표 배지를\n설정해보세요"</string>
+    <string name="badge_title">내 배지</string>
 </resources>

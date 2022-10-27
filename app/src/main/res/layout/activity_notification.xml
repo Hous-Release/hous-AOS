@@ -51,7 +51,8 @@
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_notification" />
+            app:layout_constraintTop_toBottomOf="@id/view_notification"
+            tools:listitem="@layout/item_notification" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
