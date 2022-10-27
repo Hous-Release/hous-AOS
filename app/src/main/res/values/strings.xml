@@ -106,10 +106,8 @@
     <string name="create_room_edit_text_hint">방 이름</string>\
     <string name="create_room_name_count">%d/8</string>
     <string name="create_room_dialog_img_desc">img of dialog enter room</string>
-    <string name="create_room_dialog_copy_code">참여 코드 복사하기</string>
+    <string name="create_room_dialog_invite">호미들 바로 초대하기</string>
     <string name="crate_room_dialog_desc">방 생성이 완료 되었습니다.\n참여 코드를 복사해서\n룸메이트에게 공유해보세요!</string>
-    <string name="create_room_dialog_kakao_share">참여 코드 공유하기</string>
-    <string name="create_room_dialog_toast_copy">참여코드가 복사되었습니다.</string>
 
     <!-- EnterRoomCode -->
     <string name="enter_room_code_title">방 초대코드 입력하기</string>

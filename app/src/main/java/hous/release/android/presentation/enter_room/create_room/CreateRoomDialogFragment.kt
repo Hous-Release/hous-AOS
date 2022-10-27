@@ -1,8 +1,5 @@
 package hous.release.android.presentation.enter_room.create_room
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +11,6 @@ import androidx.fragment.app.activityViewModels
 import hous.release.android.R
 import hous.release.android.databinding.DialogCreateRoomBinding
 import hous.release.android.presentation.main.MainActivity
-import hous.release.android.util.showToast
 
 class CreateRoomDialogFragment : DialogFragment() {
     private var _binding: DialogCreateRoomBinding? = null
@@ -39,8 +35,7 @@ class CreateRoomDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
-        initCopyCodeBtnClickListener()
-        initShareBtnClickListener()
+        initInviteBtnClickListener()
     }
 
     override fun onDestroy() {
@@ -61,19 +56,8 @@ class CreateRoomDialogFragment : DialogFragment() {
         }
     }
 
-    private fun initCopyCodeBtnClickListener() {
-        binding.btnCreateRoomDialogCopyCode.setOnClickListener {
-            val clipboard =
-                requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clipCode =
-                ClipData.newPlainText(ROOM_CODE, viewModel.newRoomInfo.roomCode)
-            clipboard.setPrimaryClip(clipCode)
-            requireContext().showToast(getString(R.string.create_room_dialog_toast_copy))
-        }
-    }
-
-    private fun initShareBtnClickListener() {
-        binding.btnCreateRoomDialogShare.setOnClickListener {
+    private fun initInviteBtnClickListener() {
+        binding.btnCreateRoomDialogInvite.setOnClickListener {
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, viewModel.newRoomInfo.roomCode)
@@ -83,9 +67,5 @@ class CreateRoomDialogFragment : DialogFragment() {
             val shareIntent = Intent.createChooser(sendIntent, null)
             startActivity(shareIntent)
         }
-    }
-
-    companion object {
-        const val ROOM_CODE = "roomCode"
     }
 }
