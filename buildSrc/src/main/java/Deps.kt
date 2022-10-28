@@ -28,6 +28,8 @@ object Deps {
         const val lifecycleKTX = "androidx.lifecycle:lifecycle-runtime-ktx:2.6.0-alpha01"
         const val fragmentKTX = "androidx.fragment:fragment-ktx:1.5.0"
         const val security = "androidx.security:security-crypto-ktx:1.1.0-alpha03"
+        const val paging = "androidx.paging:paging-runtime-ktx:3.1.1"
+        const val pagingWithoutAndroid ="androidx.paging:paging-common-ktx:3.1.1"
 
         object Compose {
             const val activity = "androidx.activity:activity-compose:1.5.1"

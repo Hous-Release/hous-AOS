@@ -58,6 +58,7 @@ dependencies {
 
     Deps.AndroidX.run {
         implementation(kakao_login)
+        implementation(pagingWithoutAndroid)
     }
 }
 
