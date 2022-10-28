@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.Profile
 import hous.release.domain.repository.ProfileRepository
 import kotlinx.coroutines.launch
@@ -35,11 +36,7 @@ class ProfileViewModel @Inject constructor(
 
     private fun checkTest() {
         viewModelScope.launch {
-            _isTest.value = _profileData.value!!.personalityColor != GRAY
+            _isTest.value = _profileData.value!!.personalityColor != HomyType.GRAY
         }
-    }
-
-    companion object {
-        private const val GRAY = "gray"
     }
 }

@@ -67,9 +67,9 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
 
     private fun initProfileInfo() {
         profileViewModel.profileData.observe(viewLifecycleOwner) {
-            if (it.personalityColor == "GRAY") binding.clProfileHeader.setBackgroundResource(R.color.hous_g_1)
+            if (it.personalityColor == HomyType.GRAY) binding.clProfileHeader.setBackgroundResource(R.color.hous_g_1)
             else {
-                val profileSet = getProfileSet(it.personalityColor)
+                val profileSet = getProfileSet(it.personalityColor.toString())
                 with(binding) {
                     clProfileHeader.setBackgroundResource(profileSet.colorBg)
                     tvProfilePersonality.setText(profileSet.personality)

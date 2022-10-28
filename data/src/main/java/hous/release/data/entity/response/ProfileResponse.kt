@@ -1,6 +1,7 @@
 package hous.release.data.entity.response
 
 import hous.release.data.entity.TestScoreEntity
+import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.Profile
 
 data class ProfileResponse(
@@ -25,7 +26,7 @@ data class ProfileResponse(
         job = this.job,
         mbti = this.mbti,
         nickname = this.nickname,
-        personalityColor = this.personalityColor,
+        personalityColor = HomyType.valueOf(personalityColor),
         representBadge = this.representBadge,
         representBadgeImage = this.representBadgeImage,
         testScore = this.testScore.toTestScore()

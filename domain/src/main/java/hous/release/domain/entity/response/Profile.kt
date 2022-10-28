@@ -1,5 +1,6 @@
 package hous.release.domain.entity.response
 
+import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.TestScore
 
 data class Profile(
@@ -10,7 +11,7 @@ data class Profile(
     val job: String? = "",
     val mbti: String? = "",
     val nickname: String = "",
-    val personalityColor: String = "",
+    val personalityColor: HomyType,
     val representBadge: String? = "",
     val representBadgeImage: String? = "",
     val testScore: TestScore = TestScore()
