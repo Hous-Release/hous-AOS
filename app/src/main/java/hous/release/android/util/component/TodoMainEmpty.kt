@@ -28,9 +28,11 @@ fun TodoMainEmpty() {
             .clip(RoundedCornerShape(8.dp))
             .background(colorResource(id = R.color.hous_blue_l2_80))
     ) {
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 4.dp)) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 4.dp)
+        ) {
             Spacer(modifier = Modifier.height(28.dp))
             Text(
                 modifier = Modifier.fillMaxWidth(),
