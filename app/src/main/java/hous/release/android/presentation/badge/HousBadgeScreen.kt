@@ -65,7 +65,11 @@ fun HousBadgeScreen(
             modifier = Modifier.padding(horizontal = 28.dp),
             horizontalArrangement = Arrangement.spacedBy(32.dp)
         ) { data ->
-            HousBadge(badge = data)
+            HousBadge(
+                badge = data,
+                selectBadge = badgeViewModel::selectBadge,
+                changeRepresentBadge = badgeViewModel::changeRepresentBadge
+            )
         }
         item {
             Spacer(modifier = Modifier.height(20.dp))
