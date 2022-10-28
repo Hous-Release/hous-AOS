@@ -10,6 +10,7 @@ import hous.release.data.service.HousService
 import hous.release.data.service.NotificationService
 import hous.release.data.service.OurRulesService
 import hous.release.data.service.PersonalityService
+import hous.release.data.service.ProfileService
 import hous.release.data.service.TodoService
 import retrofit2.Retrofit
 import javax.inject.Singleton
@@ -51,4 +52,9 @@ class RetrofitServiceModule {
     @Singleton
     fun providesPersonalityService(retrofit: Retrofit): PersonalityService =
         retrofit.create(PersonalityService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesProfileService(retrofit: Retrofit): ProfileService =
+        retrofit.create(ProfileService::class.java)
 }
