@@ -21,6 +21,9 @@ class PersonalityResultViewModel @Inject constructor(
     private val _description = MutableLiveData("")
     val description: LiveData<String> = _description
 
+    private val _fromTestResult = MutableLiveData<Boolean>()
+    val fromTestResult: LiveData<Boolean> = _fromTestResult
+
     init {
         viewModelScope.launch {
             personalityRepository.getPersonalityResult("BLUE")
@@ -40,6 +43,10 @@ class PersonalityResultViewModel @Inject constructor(
                 _description.value += ENTER
             }
         }
+    }
+
+    fun initFromTestResult(fromTestResult: Boolean) {
+        _fromTestResult.value = fromTestResult
     }
 
     companion object {
