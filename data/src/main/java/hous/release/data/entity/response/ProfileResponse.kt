@@ -1,5 +1,6 @@
 package hous.release.data.entity.response
 
+import hous.release.data.entity.TestScoreEntity
 import hous.release.domain.entity.response.Profile
 
 data class ProfileResponse(
@@ -13,21 +14,20 @@ data class ProfileResponse(
     val personalityColor: String,
     val representBadge: String?,
     val representBadgeImage: String?,
-    val testScore: Profile.TestScore
+    val testScore: TestScoreEntity
 
 ) {
-    fun toProfile(): Profile =
-        Profile(
-            age = this.age,
-            birthday = this.birthday,
-            birthdayPublic = this.birthdayPublic,
-            introduction = this.introduction,
-            job = this.job,
-            mbti = this.mbti,
-            nickname = this.nickname,
-            personalityColor = this.personalityColor,
-            representBadge = this.representBadge,
-            representBadgeImage = this.representBadgeImage,
-            testScore = this.testScore
-        )
+    fun toProfile(): Profile = Profile(
+        age = this.age,
+        birthday = this.birthday,
+        birthdayPublic = this.birthdayPublic,
+        introduction = this.introduction,
+        job = this.job,
+        mbti = this.mbti,
+        nickname = this.nickname,
+        personalityColor = this.personalityColor,
+        representBadge = this.representBadge,
+        representBadgeImage = this.representBadgeImage,
+        testScore = this.testScore.toTestScore()
+    )
 }

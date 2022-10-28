@@ -1,5 +1,7 @@
 package hous.release.domain.entity.response
 
+import hous.release.domain.entity.TestScore
+
 data class Profile(
     val age: String = "",
     val birthday: String? = "",
@@ -12,12 +14,4 @@ data class Profile(
     val representBadge: String? = "",
     val representBadgeImage: String? = "",
     val testScore: TestScore = TestScore()
-) {
-    data class TestScore(
-        val clean: Int = 0,
-        val introversion: Int = 0,
-        val light: Int = 0,
-        val noise: Int = 0,
-        val smell: Int = 0
-    )
-}
+)
