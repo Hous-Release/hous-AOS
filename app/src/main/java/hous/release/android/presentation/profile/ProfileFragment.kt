@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentProfileBinding
@@ -44,7 +45,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
 
     private fun initBadgeOnClickListener() {
         binding.ivProfileBadge.setOnClickListener {
-            // 배지로 go
+            findNavController().navigate(R.id.action_profileFragment_to_badgeFragment)
         }
     }
 

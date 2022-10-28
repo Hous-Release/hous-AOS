@@ -43,7 +43,7 @@ fun HousBadge(
                 fontWeight = FontWeight.Normal,
                 fontSize = 13.sp,
                 letterSpacing = (-0.02).sp,
-                lineHeight = 6.5.sp
+                lineHeight = 19.5.sp
             ),
             textAlign = TextAlign.Center
         )

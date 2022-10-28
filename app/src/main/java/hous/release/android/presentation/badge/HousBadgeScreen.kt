@@ -23,6 +23,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -34,7 +36,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -42,17 +43,17 @@ import coil.compose.AsyncImage
 import hous.release.android.R
 import hous.release.android.util.component.HousBadge
 import hous.release.domain.entity.Badge
-import hous.release.domain.entity.BadgeState
 
 @Composable
 fun HousBadgeScreen(
-    badges: List<Badge>,
+    badgeViewModel: BadgeViewModel,
     backButtonOnClick: () -> Unit
 ) {
+    val uiState by badgeViewModel.uiState.collectAsState()
     Column(modifier = Modifier.fillMaxSize()) {
         BadgeToolBar(backButtonOnClick)
-        RepresentBackground(null)
-        HousBadges(badges)
+        RepresentBackground(uiState.representBadge)
+        HousBadges(uiState.badges)
     }
 }
 
@@ -168,75 +169,4 @@ private fun RepresentBadge(representBadge: Badge?) {
             )
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun BadgeScreenPreview() {
-    val badges = listOf(
-        Badge(
-            badgeId = 1,
-            description = "어서와요\n우리 Hous-에!",
-            imageUrl = "",
-            isAcquired = false,
-            isRead = false,
-            name = "두근두근 하우스",
-            badgeState = BadgeState.UNLOCK
-        ),
-        Badge(
-            badgeId = 1,
-            description = "어서와요\n우리 Hous-에!",
-            imageUrl = "",
-            isAcquired = false,
-            isRead = false,
-            name = "두근두근 하우스",
-            badgeState = BadgeState.UNLOCK
-        ),
-        Badge(
-            badgeId = 1,
-            description = "어서와요\n우리 Hous-에!",
-            imageUrl = "",
-            isAcquired = false,
-            isRead = false,
-            name = "두근두근 하우스",
-            badgeState = BadgeState.UNLOCK
-        ),
-        Badge(
-            badgeId = 1,
-            description = "어서와요\n우리 Hous-에!",
-            imageUrl = "",
-            isAcquired = false,
-            isRead = false,
-            name = "두근두근 하우스",
-            badgeState = BadgeState.UNLOCK
-        ),
-        Badge(
-            badgeId = 1,
-            description = "어서와요\n우리 Hous-에!",
-            imageUrl = "",
-            isAcquired = false,
-            isRead = false,
-            name = "두근두근 하우스",
-            badgeState = BadgeState.UNLOCK
-        ),
-        Badge(
-            badgeId = 1,
-            description = "어서와요\n우리 Hous-에!",
-            imageUrl = "",
-            isAcquired = false,
-            isRead = false,
-            name = "두근두근 하우스",
-            badgeState = BadgeState.UNLOCK
-        ),
-        Badge(
-            badgeId = 1,
-            description = "어서와요\n우리 Hous-에!",
-            imageUrl = "",
-            isAcquired = false,
-            isRead = false,
-            name = "두근두근 하우스",
-            badgeState = BadgeState.UNLOCK
-        )
-    )
-    HousBadgeScreen(badges) {}
 }

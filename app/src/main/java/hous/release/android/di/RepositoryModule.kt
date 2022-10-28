@@ -7,15 +7,17 @@ import dagger.hilt.components.SingletonComponent
 import hous.release.data.datasource.AuthDataSource
 import hous.release.data.datasource.EnterRoomDataSource
 import hous.release.data.datasource.HousDataSource
-import hous.release.data.datasource.LocalPrefTokenDataSource
 import hous.release.data.datasource.LocalPrefSkipTutorialDataSource
+import hous.release.data.datasource.LocalPrefTokenDataSource
 import hous.release.data.datasource.OurRulesDataSource
 import hous.release.data.repository.AuthRepositoryImpl
+import hous.release.data.repository.BadgeRepositoryImpl
 import hous.release.data.repository.EnterRoomRepositoryImpl
 import hous.release.data.repository.HousRepositoryImpl
 import hous.release.data.repository.OurRulesRepositoryImpl
 import hous.release.data.repository.TodoRepositoryImpl
 import hous.release.domain.repository.AuthRepository
+import hous.release.domain.repository.BadgeRepository
 import hous.release.domain.repository.EnterRoomRepository
 import hous.release.domain.repository.HousRepository
 import hous.release.domain.repository.OurRulesRepository
@@ -60,4 +62,9 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun providesTodoRepository(impl: TodoRepositoryImpl): TodoRepository = impl
+
+    @Provides
+    @Singleton
+    fun providesBadgeRepository(badgeRepositoryImpl: BadgeRepositoryImpl): BadgeRepository =
+        badgeRepositoryImpl
 }

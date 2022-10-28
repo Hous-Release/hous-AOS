@@ -19,5 +19,13 @@
         android:id="@+id/profileFragment"
         android:name="hous.release.android.presentation.profile.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_badgeFragment"
+            app:destination="@id/badgeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/badgeFragment"
+        android:name="hous.release.android.presentation.badge.BadgeFragment"
+        android:label="BadgeFragment" />
 </navigation>
