@@ -9,6 +9,7 @@
     <string name="binding_error">Binding not initialized to reference the view.</string>
     <string name="back_btn_image_desc">img of back btn</string>
     <string name="finish_app_toast_msg">뒤로가기를 한 번 더 누르시면 앱이 종료돼요!</string>
+    <string name="not_supported_type">지원하지 않는 타입입니다.</string>
 
     <!-- WarningDialogUtil -->
     <string name="warning_splash_title">다른 기기에서 로그인 중이에요!</string>
@@ -239,11 +240,21 @@
     <string name="personality_blue">룸메 맞춤형 네각이</string>
     <string name="personality_purple">하이레벨 오돌이</string>
     <string name="gray">GRAY</string>
+
     <!-- NotificationActivity -->
     <string name="notification_title">알림</string>
     <string name="notification_icon_img_desc">알림 카테고리 아이콘</string>
 
+    <!-- Badge -->
     <string name="badge_checked">배지로 설정</string>
     <string name="represent_badge">"눌러서\n대표 배지를\n설정해보세요"</string>
     <string name="badge_title">내 배지</string>
+
+    <!-- Personality Test Result -->
+    <string name="personality_result_detail">성향 자세히 보기</string>
+    <string name="personality_result_info">성향 설명</string>
+    <string name="personality_result_complete">완료</string>
+    <string name="personality_result_good">찰떡궁합</string>
+    <string name="personality_result_bad">맞춰가요</string>
+
 </resources>
