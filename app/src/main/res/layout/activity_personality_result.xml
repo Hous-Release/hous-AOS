@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="hous.release.android.presentation.personality.result.PersonalityResultViewModel" />
@@ -16,6 +18,31 @@
         android:layout_height="match_parent"
         tools:context=".presentation.personality.result.PersonalityResultActivity">
 
+        <ImageView
+            android:id="@+id/iv_personality_result_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="14dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_back_g5"
+            android:visibility="@{vm.fromTestResult ? View.INVISIBLE : View.VISIBLE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_personality_result__info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/personality_result_info"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            android:visibility="@{vm.fromTestResult ? View.INVISIBLE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_personality_result_back"
+            app:layout_constraintStart_toEndOf="@id/iv_personality_result_back"
+            app:layout_constraintTop_toTopOf="@id/iv_personality_result_back" />
+
         <TextView
             android:id="@+id/tv_personality_result_detail"
             android:layout_width="wrap_content"
@@ -25,6 +52,7 @@
             android:text="@string/personality_result_detail"
             android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
+            android:visibility="@{vm.fromTestResult ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,6 +66,7 @@
             android:text="@string/personality_result_complete"
             android:textAppearance="@style/B1"
             android:textColor="@color/hous_blue"
+            android:visibility="@{vm.fromTestResult ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
