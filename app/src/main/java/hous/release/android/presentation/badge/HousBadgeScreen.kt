@@ -5,20 +5,19 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -50,10 +49,26 @@ fun HousBadgeScreen(
     backButtonOnClick: () -> Unit
 ) {
     val uiState by badgeViewModel.uiState.collectAsState()
-    Column(modifier = Modifier.fillMaxSize()) {
-        BadgeToolBar(backButtonOnClick)
-        RepresentBackground(uiState.representBadge)
-        HousBadges(uiState.badges)
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(28.dp)
+    ) {
+        item {
+            BadgeToolBar(backButtonOnClick)
+            RepresentBackground(uiState.representBadge)
+            Spacer(modifier = Modifier.height(20.dp))
+        }
+        gridItems(
+            data = uiState.badges,
+            columnCount = 3,
+            modifier = Modifier.padding(horizontal = 28.dp),
+            horizontalArrangement = Arrangement.spacedBy(32.dp)
+        ) { data ->
+            HousBadge(badge = data)
+        }
+        item {
+            Spacer(modifier = Modifier.height(20.dp))
+        }
     }
 }
 
@@ -116,19 +131,33 @@ private fun RepresentBackground(representBadge: Badge?) {
     }
 }
 
-@Composable
-private fun HousBadges(
-    badges: List<Badge>
+private fun <T> LazyListScope.gridItems(
+    data: List<T>,
+    columnCount: Int,
+    modifier: Modifier,
+    horizontalArrangement: Arrangement.Horizontal = Arrangement.Start,
+    itemContent: @Composable BoxScope.(T) -> Unit
 ) {
-    LazyVerticalGrid(
-        modifier = Modifier.fillMaxSize(),
-        columns = GridCells.Fixed(3),
-        contentPadding = PaddingValues(horizontal = 28.dp, vertical = 40.dp),
-        horizontalArrangement = Arrangement.spacedBy(32.dp),
-        verticalArrangement = Arrangement.spacedBy(28.dp)
-    ) {
-        items(badges) { badge ->
-            HousBadge(badge)
+    val size = data.count()
+    val rows = if (size == 0) 0 else 1 + (size - 1) / columnCount
+    items(rows, key = { it.hashCode() }) { rowIndex ->
+        Row(
+            horizontalArrangement = horizontalArrangement,
+            modifier = modifier
+        ) {
+            for (columnIndex in 0 until columnCount) {
+                val itemIndex = rowIndex * columnCount + columnIndex
+                if (itemIndex < size) {
+                    Box(
+                        modifier = Modifier.weight(1F, fill = true),
+                        propagateMinConstraints = true
+                    ) {
+                        itemContent(data[itemIndex])
+                    }
+                } else {
+                    Spacer(Modifier.weight(1F, fill = true))
+                }
+            }
         }
     }
 }
