@@ -25,11 +25,11 @@ class ProfileViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             profileRepository.getUser()
-                .onSuccess {
-                    _profileData.value = it
+                .onSuccess { response ->
+                    _profileData.value = response
                     checkTest()
-                }.onFailure {
-                    Timber.e("${it.message}")
+                }.onFailure { response ->
+                    Timber.e(response.message)
                 }
         }
     }
