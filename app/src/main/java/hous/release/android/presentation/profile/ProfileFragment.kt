@@ -21,13 +21,13 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = profileViewModel
+        initProfileInfo()
         initAlarmOnClickListener()
         initSettingOnClickListener()
         initBadgeOnClickListener()
         initEditOnClickListener()
         initTestBtnOnClickListener()
         initPersonalityAdapter()
-        initPersonalityColorObserve()
     }
 
     private fun initAlarmOnClickListener() {
@@ -65,11 +65,11 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
         profilePersonalityAdapter.submitList(personalityInfo)
     }
 
-    private fun initPersonalityColorObserve() {
-        profileViewModel.personalityColor.observe(viewLifecycleOwner) { color ->
-            if (color == "GRAY") binding.clProfileHeader.setBackgroundResource(R.color.hous_g_1)
+    private fun initProfileInfo() {
+        profileViewModel.profileData.observe(viewLifecycleOwner) {
+            if (it.personalityColor == HomyType.GRAY) binding.clProfileHeader.setBackgroundResource(R.color.hous_g_1)
             else {
-                val profileSet = getProfileSet(profileViewModel.personalityColor.value!!)
+                val profileSet = getProfileSet(it.personalityColor.toString())
                 with(binding) {
                     clProfileHeader.setBackgroundResource(profileSet.colorBg)
                     tvProfilePersonality.setText(profileSet.personality)
@@ -81,7 +81,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
         }
     }
 
-    fun getProfileSet(colorType: String): ProfileSet {
+    private fun getProfileSet(colorType: String): ProfileSet {
         return when (HomyType.valueOf(colorType)) {
             HomyType.RED -> ProfileSet(
                 colorBg = R.color.hous_red_profile,

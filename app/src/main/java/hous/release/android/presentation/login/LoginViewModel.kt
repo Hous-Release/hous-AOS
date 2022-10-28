@@ -116,10 +116,10 @@ class LoginViewModel @Inject constructor(
                                 token = _kakaoToken.value!!
                             )
                             _isUser.value = false
-                            Timber.e("404 Error")
+                            Timber.e(throwable.message)
                         }
                         else -> {
-                            Timber.e("500 Error")
+                            Timber.e(throwable.message)
                         }
                     }
                 }
