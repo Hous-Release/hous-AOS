@@ -108,7 +108,9 @@ class OurRuleEditFragment :
     private fun collectUiState() {
         repeatOnStarted {
             viewModel.uiState.collect { uiState ->
-                (binding.rvEditOurRules.adapter as OurRulesEditAdapter).submitList(uiState.editRuleList)
+                requireNotNull(binding.rvEditOurRules.adapter as OurRulesEditAdapter) { getString(R.string.null_point_exception) }.submitList(
+                    uiState.editRuleList
+                )
                 if (viewModel.isChangeRuleList()) {
                     viewModel.setSaveButtonState(ButtonState.ACTIVE)
                 } else {

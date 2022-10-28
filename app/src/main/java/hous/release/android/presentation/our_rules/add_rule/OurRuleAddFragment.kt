@@ -52,7 +52,9 @@ class OurRuleAddFragment :
     private fun collectUiState() {
         repeatOnStarted {
             viewModel.uiState.collect { uiState ->
-                (binding.rvAddOurRules.adapter as OurRulesAddAdapter).submitList(uiState.ourRuleList)
+                requireNotNull(binding.rvAddOurRules.adapter as? OurRulesAddAdapter) {
+                    getString(R.string.null_point_exception)
+                }.submitList(uiState.ourRuleList)
                 if (viewModel.uiState.value.addedRuleList.isNotEmpty()) {
                     viewModel.setSaveButtonState(ButtonState.ACTIVE)
                 } else {

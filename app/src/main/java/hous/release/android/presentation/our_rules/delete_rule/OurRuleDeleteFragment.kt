@@ -75,7 +75,11 @@ class OurRuleDeleteFragment :
     private fun collectUiState() {
         repeatOnStarted {
             viewModel.uiState.collect { uiState ->
-                (binding.rvDeleteOurRules.adapter as OurRulesDeleteAdapter).submitList(uiState.ruleList)
+                requireNotNull(binding.rvDeleteOurRules.adapter as? OurRulesDeleteAdapter) {
+                    getString(R.string.null_point_exception)
+                }.submitList(
+                    uiState.ruleList
+                )
                 if (viewModel.isDeleteRulesNotEmpty()) {
                     viewModel.setDeleteButtonState(ButtonState.ACTIVE)
                 } else {
