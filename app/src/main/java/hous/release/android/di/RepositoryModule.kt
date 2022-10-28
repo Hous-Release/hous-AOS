@@ -13,12 +13,14 @@ import hous.release.data.datasource.OurRulesDataSource
 import hous.release.data.repository.AuthRepositoryImpl
 import hous.release.data.repository.EnterRoomRepositoryImpl
 import hous.release.data.repository.HousRepositoryImpl
+import hous.release.data.repository.NotificationRepositoryImpl
 import hous.release.data.repository.OurRulesRepositoryImpl
 import hous.release.data.repository.ProfileRepositoryImpl
 import hous.release.data.repository.TodoRepositoryImpl
 import hous.release.domain.repository.AuthRepository
 import hous.release.domain.repository.EnterRoomRepository
 import hous.release.domain.repository.HousRepository
+import hous.release.domain.repository.NotificationRepository
 import hous.release.domain.repository.OurRulesRepository
 import hous.release.domain.repository.ProfileRepository
 import hous.release.domain.repository.TodoRepository
@@ -30,26 +32,18 @@ import javax.inject.Singleton
 class RepositoryModule {
     @Provides
     @Singleton
-    fun providesAuthRepository(
-        authDataSource: AuthDataSource,
-        localPrefSkipTutorialDataSource: LocalPrefSkipTutorialDataSource,
-        localPrefSaveTokenDataSource: LocalPrefTokenDataSource
-    ): AuthRepository =
-        AuthRepositoryImpl(
-            authDataSource,
-            localPrefSkipTutorialDataSource,
-            localPrefSaveTokenDataSource
-        )
+    fun providesAuthRepository(authRepositoryImpl: AuthRepositoryImpl): AuthRepository =
+        authRepositoryImpl
 
     @Provides
     @Singleton
-    fun providesEnterRoomRepository(enterRoomDataSource: EnterRoomDataSource): EnterRoomRepository =
-        EnterRoomRepositoryImpl(enterRoomDataSource)
+    fun providesEnterRoomRepository(enterRoomRepositoryImpl: EnterRoomRepositoryImpl): EnterRoomRepository =
+        enterRoomRepositoryImpl
 
     @Provides
     @Singleton
-    fun provideHousRepository(housDataSource: HousDataSource): HousRepository =
-        HousRepositoryImpl(housDataSource)
+    fun provideHousRepository(housRepositoryImpl: HousRepositoryImpl): HousRepository =
+        housRepositoryImpl
 
     @Provides
     @Singleton
@@ -61,7 +55,13 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesTodoRepository(impl: TodoRepositoryImpl): TodoRepository = impl
+    fun providesTodoRepository(todoRepositoryImpl: TodoRepositoryImpl): TodoRepository =
+        todoRepositoryImpl
+
+    @Provides
+    @Singleton
+    fun providesNotificationRepository(notificationRepositoryImpl: NotificationRepositoryImpl): NotificationRepository =
+        notificationRepositoryImpl
 
     @Provides
     @Singleton
