@@ -3,6 +3,7 @@ package hous.release.android.presentation.badge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -25,6 +26,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -50,8 +52,13 @@ fun HousBadgeScreen(
     backButtonOnClick: () -> Unit
 ) {
     val uiState by badgeViewModel.uiState.collectAsState()
+    val interactionSource = remember { MutableInteractionSource() }
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) { badgeViewModel.unLockBadges() },
         verticalArrangement = Arrangement.spacedBy(28.dp)
     ) {
         item {
@@ -64,9 +71,10 @@ fun HousBadgeScreen(
             columnCount = 3,
             modifier = Modifier.padding(horizontal = 28.dp),
             horizontalArrangement = Arrangement.spacedBy(32.dp)
-        ) { data ->
+        ) { index, data ->
             HousBadge(
                 badge = data,
+                badgeIndex = index,
                 selectBadge = badgeViewModel::selectBadge,
                 changeRepresentBadge = badgeViewModel::changeRepresentBadge
             )
@@ -141,7 +149,7 @@ private fun <T> LazyListScope.gridItems(
     columnCount: Int,
     modifier: Modifier,
     horizontalArrangement: Arrangement.Horizontal = Arrangement.Start,
-    itemContent: @Composable BoxScope.(T) -> Unit
+    itemContent: @Composable BoxScope.(index: Int, T) -> Unit
 ) {
     val size = data.count()
     val rows = if (size == 0) 0 else 1 + (size - 1) / columnCount
@@ -157,7 +165,7 @@ private fun <T> LazyListScope.gridItems(
                         modifier = Modifier.weight(1F, fill = true),
                         propagateMinConstraints = true
                     ) {
-                        itemContent(data[itemIndex])
+                        itemContent(itemIndex, data[itemIndex])
                     }
                 } else {
                     Spacer(Modifier.weight(1F, fill = true))

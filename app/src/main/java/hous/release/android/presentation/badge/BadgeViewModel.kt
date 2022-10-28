@@ -25,6 +25,7 @@ class BadgeViewModel @Inject constructor(
             )
         )
     val uiState: StateFlow<BadgeContent> = _uiState.asStateFlow()
+    private val selectedBadgeIndex = MutableStateFlow(-1)
 
     init {
         viewModelScope.launch {
@@ -45,21 +46,32 @@ class BadgeViewModel @Inject constructor(
             }
     }
 
-    fun selectBadge(badgeId: Int) {
-        val newBadges = uiState.value.badges.map { badge ->
-            var temp = badge
-            if (badge.badgeState == BadgeState.CHECKED) temp =
-                temp.copy(badgeState = BadgeState.UNLOCK)
-            if (badge.badgeId == badgeId) temp = temp.copy(badgeState = BadgeState.CHECKED)
-            temp
+    fun selectBadge(badgeIndex: Int) {
+        val badges = uiState.value.badges.toMutableList()
+        if (selectedBadgeIndex.value != -1) {
+            badges[selectedBadgeIndex.value] =
+                badges[selectedBadgeIndex.value].copy(badgeState = BadgeState.UNLOCK)
         }
-        _uiState.value = _uiState.value.copy(badges = newBadges)
+        badges[badgeIndex] = badges[badgeIndex].copy(badgeState = BadgeState.CHECKED)
+        selectedBadgeIndex.value = badgeIndex
+        _uiState.value = _uiState.value.copy(badges = badges)
     }
 
     fun changeRepresentBadge(badgeId: Int) {
         viewModelScope.launch {
             badgeRepository.changeRepresentBadge(badgeId)
             getBadges()
+            selectedBadgeIndex.value = -1
+        }
+    }
+
+    fun unLockBadges() {
+        if (selectedBadgeIndex.value != -1) {
+            val badges = uiState.value.badges.toMutableList()
+            badges[selectedBadgeIndex.value] =
+                badges[selectedBadgeIndex.value].copy(badgeState = BadgeState.UNLOCK)
+            selectedBadgeIndex.value = -1
+            _uiState.value = _uiState.value.copy(badges = badges)
         }
     }
 }
