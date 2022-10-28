@@ -2,6 +2,7 @@ package hous.release.android.util.binding
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
 import hous.release.android.R
 import hous.release.domain.entity.NotificationType
 
@@ -16,5 +17,15 @@ object BindingAdapters {
                 NotificationType.BADGE -> R.drawable.ic_notification_badge
             }
         )
+    }
+
+    @JvmStatic
+    @BindingAdapter("setImage")
+    fun ImageView.setImage(imgUrl: String?) {
+        this.let {
+            Glide.with(context)
+                .load(imgUrl)
+                .into(this)
+        }
     }
 }
