@@ -16,7 +16,7 @@ class ProfileViewModel @Inject constructor(
     private val profileRepository: ProfileRepository
 ) : ViewModel() {
     private val _profileData = MutableLiveData<Profile>()
-    val profileData get() = _profileData
+    val profileData: LiveData<Profile> = _profileData
 
     private val _isTest = MutableLiveData<Boolean>()
     val isTest: LiveData<Boolean> = _isTest
@@ -26,15 +26,20 @@ class ProfileViewModel @Inject constructor(
             profileRepository.getUser()
                 .onSuccess {
                     _profileData.value = it
+                    checkTest()
                 }.onFailure {
                     Timber.e("${it.message}")
                 }
         }
     }
 
-    fun checkTest() {
+    private fun checkTest() {
         viewModelScope.launch {
-            _isTest.value = _profileData.value!!.testScore != Profile.TestScore(0, 0, 0, 0, 0)
+            _isTest.value = _profileData.value!!.personalityColor != GRAY
         }
+    }
+
+    companion object {
+        private const val GRAY = "gray"
     }
 }
