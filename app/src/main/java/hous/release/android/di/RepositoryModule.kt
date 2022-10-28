@@ -20,7 +20,6 @@ import hous.release.domain.repository.EnterRoomRepository
 import hous.release.domain.repository.HousRepository
 import hous.release.domain.repository.OurRulesRepository
 import hous.release.domain.repository.TodoRepository
-import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 @Module
@@ -52,10 +51,9 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun providesOurRulesRepository(
-        ourRulesDataSource: OurRulesDataSource,
-        @IoDispatcher coroutineDispatcher: CoroutineDispatcher
+        ourRulesDataSource: OurRulesDataSource
     ): OurRulesRepository =
-        OurRulesRepositoryImpl(ourRulesDataSource, coroutineDispatcher)
+        OurRulesRepositoryImpl(ourRulesDataSource)
 
     @Provides
     @Singleton
