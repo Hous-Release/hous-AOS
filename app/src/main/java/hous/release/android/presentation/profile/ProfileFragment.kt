@@ -1,5 +1,6 @@
 package hous.release.android.presentation.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -12,6 +13,7 @@ import hous.release.android.util.binding.BindingFragment
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.PersonalityInfo
 import hous.release.domain.entity.ProfileSet
+import hous.release.domain.entity.response.PersonalityResult
 
 @AndroidEntryPoint
 class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
@@ -28,6 +30,13 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
         initTestBtnOnClickListener()
         initPersonalityAdapter()
         initPersonalityColorObserve()
+        initPersonalityOnClickListener()
+    }
+
+    private fun initPersonalityOnClickListener() {
+        val intent = Intent(requireActivity(), PersonalityResult::class.java)
+        intent.putExtra("location", "profile")
+        startActivity(intent)
     }
 
     private fun initAlarmOnClickListener() {
