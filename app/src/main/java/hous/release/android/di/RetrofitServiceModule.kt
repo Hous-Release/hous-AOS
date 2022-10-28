@@ -4,7 +4,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import hous.release.data.service.*
+import hous.release.data.service.AuthService
+import hous.release.data.service.EnterRoomService
+import hous.release.data.service.HousService
+import hous.release.data.service.NotificationService
+import hous.release.data.service.OurRulesService
+import hous.release.data.service.TodoService
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
