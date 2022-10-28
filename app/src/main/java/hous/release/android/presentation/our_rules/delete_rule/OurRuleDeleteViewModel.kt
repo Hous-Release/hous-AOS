@@ -24,7 +24,7 @@ class OurRuleDeleteViewModel @Inject constructor(
     ViewModel() {
     private var _uiState = MutableStateFlow(OurRuleDeleteUIState())
     val uiState: StateFlow<OurRuleDeleteUIState> = _uiState.asStateFlow()
-    private val mRulesIdHashMap by lazy { mutableMapOf<Int, Boolean>() }
+    private val mRulesIdHashMap = mutableMapOf<Int, Boolean>()
 
     init {
         viewModelScope.launch {
