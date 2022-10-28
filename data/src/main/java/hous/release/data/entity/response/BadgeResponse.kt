@@ -8,7 +8,7 @@ data class BadgeResponse(
     val badges: List<BadgeEntity>
 ) {
     fun toBadgeContent() = BadgeContent(
-        representBadge = representBadge.let { it?.toBadge(it) },
+        representBadge = representBadge?.toRepresentBadge(),
         badges = badges
             .map { badgeEntity -> badgeEntity.toBadge(representBadge) }
     )

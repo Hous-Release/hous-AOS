@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -109,14 +110,14 @@ private fun BadgeToolBar(
 private fun RepresentBackground(representBadge: Badge?) {
     val starSite = listOf(
         DpOffset((-96).dp, 0.dp),
-        DpOffset(64.dp, (-48).dp),
-        DpOffset(86.dp, 64.dp)
+        DpOffset(68.dp, (-56).dp),
+        DpOffset(104.dp, 24.dp)
     )
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .background(colorResource(id = R.color.hous_g_7))
-            .padding(top = 30.dp, bottom = 56.dp),
+            .padding(top = 30.dp, bottom = if (representBadge == null) 56.dp else 21.dp),
         contentAlignment = Alignment.Center
     ) {
         RepresentBadge(representBadge)
@@ -164,37 +165,59 @@ private fun <T> LazyListScope.gridItems(
 
 @Composable
 private fun RepresentBadge(representBadge: Badge?) {
-    Surface(
-        modifier = Modifier.size(100.dp),
-        elevation = 10.dp,
-        shape = CircleShape
-    ) {
-        if (representBadge == null) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Surface(
+            modifier = Modifier.size(100.dp),
+            elevation = 10.dp,
+            shape = CircleShape
+        ) {
+            if (representBadge == null) {
+                Text(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .padding(horizontal = 16.dp, vertical = 23.dp),
+                    text = stringResource(id = R.string.represent_badge),
+                    textAlign = TextAlign.Center,
+                    color = colorResource(id = R.color.hous_g_4),
+                    style = TextStyle(
+                        fontFamily = FontFamily(
+                            Font(
+                                R.font.spoqa_han_sans_neo_medium,
+                                FontWeight.W500,
+                                FontStyle.Normal
+                            )
+                        ),
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 12.sp,
+                        letterSpacing = (-0.02).sp,
+                        lineHeight = 16.sp
+                    )
+                )
+            } else {
+                AsyncImage(
+                    model = representBadge.imageUrl,
+                    contentDescription = null
+                )
+            }
+        }
+        if (representBadge != null) {
+            Spacer(modifier = Modifier.height(12.dp))
             Text(
-                modifier = Modifier
-                    .wrapContentSize()
-                    .padding(horizontal = 16.dp, vertical = 23.dp),
-                text = stringResource(id = R.string.represent_badge),
-                textAlign = TextAlign.Center,
-                color = colorResource(id = R.color.hous_g_4),
+                text = representBadge.name,
+                color = colorResource(id = R.color.hous_white),
                 style = TextStyle(
                     fontFamily = FontFamily(
                         Font(
-                            R.font.spoqa_han_sans_neo_medium,
-                            FontWeight.W500,
+                            R.font.spoqa_han_sans_neo,
+                            FontWeight.W700,
                             FontStyle.Normal
                         )
                     ),
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
                     letterSpacing = (-0.02).sp,
-                    lineHeight = 16.sp
+                    lineHeight = 5.4.sp
                 )
-            )
-        } else {
-            AsyncImage(
-                model = representBadge.imageUrl,
-                contentDescription = null
             )
         }
     }

@@ -19,8 +19,17 @@ data class BadgeEntity(
         isRead = isRead,
         name = name,
         badgeState =
-        if (isAcquired) BadgeState.UNLOCK
-        else if (representBadge != null && representBadge.badgeId == badgeId) BadgeState.REPRESENT
+        if (representBadge != null && representBadge.badgeId == badgeId) BadgeState.REPRESENT
+        else if (isAcquired) BadgeState.UNLOCK
         else BadgeState.LOCK
+    )
+
+    fun toRepresentBadge() = Badge(
+        badgeId = badgeId,
+        description = "",
+        imageUrl = imageUrl,
+        isAcquired = false,
+        isRead = false,
+        name = name
     )
 }
