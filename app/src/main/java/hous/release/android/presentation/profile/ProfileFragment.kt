@@ -1,13 +1,14 @@
 package hous.release.android.presentation.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentProfileBinding
+import hous.release.android.presentation.badge.BadgeActivity
 import hous.release.android.presentation.profile.adapter.ProfilePersonalityAdapter
 import hous.release.android.util.binding.BindingFragment
 import hous.release.domain.entity.HomyType
@@ -45,7 +46,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
 
     private fun initBadgeOnClickListener() {
         binding.ivProfileBadge.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_badgeFragment)
+            startActivity(Intent(requireContext(), BadgeActivity::class.java))
         }
     }
 
