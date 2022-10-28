@@ -82,6 +82,8 @@
     <string name="user_input_birthday_hint">YYYY / MM / DD</string>
     <string name="user_input_open_birthday">생일 정보 비공개</string>
     <string name="user_input_next">다음으로</string>
+    <string name="date_picker_confirm">확인</string>
+    <string name="date_picker_cancel">취소</string>
 
     <!-- OurRules -->
     <string name="our_house_rules">우리 집 Rules</string>
@@ -207,6 +209,38 @@
     <string name="todo_main_empty_progress">아직 완료할 to-do가 없어요!</string>
     <string name="to_do_my_empty">아직 담당하는 to-do가 없어요!</string>
     <string name="to_do_our_empty">우리 집 to-do를 추가해 봐요!</string>
+
+    <!-- Profile -->
+    <string name="profile_my_badge">내 대표 배지</string>
+    <string name="profile_empty_badge">아직 배지가\n 없어요</string>
+    <string name="profile_homie">호미</string>
+    <string name="profile_empty_introduction">자기소개를 수정해서 룸메이트들에게 나를 소개해보세요!</string>
+    <string name="profile_empty_personality">아직 나의 성향을 확인해보지 않았어요!</string>
+    <string name="profile_empty_go_test">검사해보러 가기</string>
+    <string name="profile_not_my_personality">내가 아닌 거 같은데?</string>
+    <string name="profile_test_again">다시 검사해보기</string>
+    <string name="profile_personality_detail">성향 설명 보기</string>
+
+    <string name="personality_light">빛</string>
+    <string name="personality_noise">소음</string>
+    <string name="personality_smell">냄새</string>
+    <string name="personality_introversion">내향</string>
+    <string name="personality_clean">정리정돈</string>
+    <string name="personality_light_description">빛 수치가 높은 호미는 소등\n시간이 중요해요! 이 호미를\n위해 스탠드는 꼭 끄도록 해요!</string>
+    <string name="personality_noise_description">소음 수치가 높은 호미를\n위해 영상/전화를 보거나\n할 땐 이어폰이 필수!</string>
+    <string name="personality_smell_description">냄새 수치가 높은 호미를\n위해 음식은 꼭 부엌에서\n먹어요! 아, 환기도 틈틈히!\n잊지 말아요~</string>
+    <string name="personality_introversion_description">내향 수치가 높은 호미는 혼자\n만의 시간이 필요해요. 충전\n중이니 조금만 기다려주세요!</string>
+    <string name="personality_clean_description">청소 전 정리정돈 수치가\n높은 호미들의 이야기를\n들어주면 더 나은 공동생활이\n가능할 거예요~</string>
+    <string name="personality_red">슈퍼 팔로워 셋돌이</string>
+    <string name="personality_yellow">늘 행복한 동글이</string>
+    <string name="personality_green">룰 세터 육각이</string>
+    <string name="personality_blue">룸메 맞춤형 네각이</string>
+    <string name="personality_purple">하이레벨 오돌이</string>
+    <string name="gray">GRAY</string>
+    <!-- NotificationActivity -->
+    <string name="notification_title">알림</string>
+    <string name="notification_icon_img_desc">알림 카테고리 아이콘</string>
+
     <string name="badge_checked">배지로 설정</string>
     <string name="represent_badge">"눌러서\n대표 배지를\n설정해보세요"</string>
     <string name="badge_title">내 배지</string>

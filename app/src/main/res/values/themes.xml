@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.HousReleaseAos" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/hous_blue</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -14,6 +14,6 @@
         <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
-        <item name="android:datePickerStyle">@style/DatePickerTheme</item>
+        <item name="android:datePickerStyle">@style/PickerTheme</item>
     </style>
 </resources>

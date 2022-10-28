@@ -9,6 +9,9 @@ import hous.release.android.R
 import hous.release.android.databinding.ActivityUserInputBinding
 import hous.release.android.presentation.enter_room.EnterRoomActivity
 import hous.release.android.util.binding.BindingActivity
+import hous.release.android.util.dialog.DatePickerClickListener
+import hous.release.android.util.dialog.DatePickerDialog
+import hous.release.android.util.dialog.WarningDialogFragment.Companion.CONFIRM_ACTION
 import hous.release.android.util.showToast
 import kotlin.system.exitProcess
 
@@ -23,6 +26,7 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
         initNextBtnOnClickListener()
         initBackPressedCallback()
         initSignUpObserve()
+        initBirthdayOnClickListener()
     }
 
     private fun initBackPressedCallback() {
@@ -63,7 +67,27 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
         }
     }
 
+    private fun initBirthdayOnClickListener() {
+        binding.etUserInputBirthday.setOnClickListener {
+            DatePickerDialog().apply {
+                arguments = Bundle().apply {
+                    putParcelable(
+                        CONFIRM_ACTION,
+                        DatePickerClickListener(
+                            confirmActionWithDate = { date -> initDate(date) }
+                        )
+                    )
+                }
+            }.show(supportFragmentManager, SELECT_BIRTHDAY)
+        }
+    }
+
+    private fun initDate(date: String) {
+        userInputViewModel.initSelectedBirthDate(date)
+    }
+
     companion object {
         private const val WAITING_DEADLINE = 2000L
+        private const val SELECT_BIRTHDAY = "select birthday"
     }
 }

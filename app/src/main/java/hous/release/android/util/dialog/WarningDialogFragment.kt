@@ -75,9 +75,9 @@ class WarningDialogFragment : DialogFragment() {
 
     private fun initConfirmClickListener() {
         binding.tvWarningConfirm.setOnClickListener {
-            dismiss()
             arguments?.getParcelable<ConfirmClickListener>(CONFIRM_ACTION)?.onConfirmClick()
                 ?: Timber.e(getString(R.string.null_point_exception_warning_dialog_argument))
+            dismiss()
         }
     }
 

@@ -111,6 +111,7 @@ dependencies {
         implementation(lifecycleKTX)
         implementation(fragmentKTX)
         implementation(security)
+        implementation(paging)
     }
 
     Deps.AndroidX.Compose.run {
