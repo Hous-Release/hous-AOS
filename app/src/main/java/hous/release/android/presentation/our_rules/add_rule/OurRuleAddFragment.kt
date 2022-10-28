@@ -27,6 +27,7 @@ class OurRuleAddFragment :
 
     private val viewModel by viewModels<OurRuleAddViewModel>()
     private lateinit var onBackPressedCallback: OnBackPressedCallback
+    private var ourRulesAddAdapter: OurRulesAddAdapter? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
@@ -41,6 +42,7 @@ class OurRuleAddFragment :
     override fun onDestroyView() {
         super.onDestroyView()
         onBackPressedCallback.remove()
+        ourRulesAddAdapter = null
     }
 
     private fun initEditTextClearFocus() {
@@ -52,7 +54,7 @@ class OurRuleAddFragment :
     private fun collectUiState() {
         repeatOnStarted {
             viewModel.uiState.collect { uiState ->
-                requireNotNull(binding.rvAddOurRules.adapter as? OurRulesAddAdapter) {
+                requireNotNull(ourRulesAddAdapter) {
                     getString(R.string.null_point_exception)
                 }.submitList(uiState.ourRuleList)
                 if (viewModel.uiState.value.addedRuleList.isNotEmpty()) {
@@ -65,9 +67,11 @@ class OurRuleAddFragment :
     }
 
     private fun initAdapter() {
-        binding.rvAddOurRules.run {
-            adapter = OurRulesAddAdapter()
-            itemAnimator = null
+        ourRulesAddAdapter = OurRulesAddAdapter().also { adapter ->
+            binding.rvAddOurRules.run {
+                this.adapter = adapter
+                itemAnimator = null
+            }
         }
     }
 

@@ -29,6 +29,7 @@ class OurRuleEditFragment :
     BindingFragment<FragmentOurRuleEditBinding>(R.layout.fragment_our_rule_edit) {
     private val viewModel by viewModels<OurRuleEditViewModel>()
     private lateinit var onBackPressedCallback: OnBackPressedCallback
+    private var ourRulesEditAdapter: OurRulesEditAdapter? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
@@ -41,6 +42,7 @@ class OurRuleEditFragment :
 
     override fun onDestroyView() {
         super.onDestroyView()
+        ourRulesEditAdapter = null
         onBackPressedCallback.remove()
     }
 
@@ -86,7 +88,7 @@ class OurRuleEditFragment :
 
     private fun initAdapter() {
         val itemTouchHelper: ItemTouchHelper
-        OurRulesEditAdapter(viewModel::updateEditRuleList)
+        ourRulesEditAdapter = OurRulesEditAdapter(viewModel::updateEditRuleList)
             .also { adapter ->
                 binding.rvEditOurRules.run {
                     this.adapter = adapter
@@ -108,7 +110,7 @@ class OurRuleEditFragment :
     private fun collectUiState() {
         repeatOnStarted {
             viewModel.uiState.collect { uiState ->
-                requireNotNull(binding.rvEditOurRules.adapter as OurRulesEditAdapter) { getString(R.string.null_point_exception) }.submitList(
+                requireNotNull(ourRulesEditAdapter) { getString(R.string.null_point_exception) }.submitList(
                     uiState.editRuleList
                 )
                 if (viewModel.isChangeRuleList()) {

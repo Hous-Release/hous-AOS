@@ -38,9 +38,9 @@ class OurRulesDeleteAdapter(private val updateDeleteRules: (id: Int) -> Unit) :
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: OurRule) {
-            binding.pos = absoluteAdapterPosition
-            binding.data = data
             with(binding) {
+                pos = absoluteAdapterPosition
+                this.data = data
                 clDeleteRule.setOnClickListener {
                     updateDeleteRules(data.id)
                     checkboxDeleteRule.isSelected = !checkboxDeleteRule.isSelected

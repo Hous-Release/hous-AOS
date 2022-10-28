@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 class OurRuleDeleteFragment :
     BindingFragment<FragmentOurRuleDeleteBinding>(R.layout.fragment_our_rule_delete) {
     private val viewModel by viewModels<OurRuleDeleteViewModel>()
-
+    private var ourRulesDeleteAdapter: OurRulesDeleteAdapter? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
@@ -63,19 +63,18 @@ class OurRuleDeleteFragment :
     }
 
     private fun initAdapter() {
-        OurRulesDeleteAdapter(viewModel::updateDeleteRules)
-            .also { adapter ->
-                binding.rvDeleteOurRules.run {
-                    this.adapter = adapter
-                    itemAnimator = null
-                }
+        ourRulesDeleteAdapter = OurRulesDeleteAdapter(viewModel::updateDeleteRules).also { adapter ->
+            binding.rvDeleteOurRules.run {
+                this.adapter = adapter
+                itemAnimator = null
             }
+        }
     }
 
     private fun collectUiState() {
         repeatOnStarted {
             viewModel.uiState.collect { uiState ->
-                requireNotNull(binding.rvDeleteOurRules.adapter as? OurRulesDeleteAdapter) {
+                requireNotNull(ourRulesDeleteAdapter) {
                     getString(R.string.null_point_exception)
                 }.submitList(
                     uiState.ruleList
