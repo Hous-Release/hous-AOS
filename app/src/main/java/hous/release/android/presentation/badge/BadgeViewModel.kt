@@ -25,7 +25,7 @@ class BadgeViewModel @Inject constructor(
             )
         )
     val uiState: StateFlow<BadgeContent> = _uiState.asStateFlow()
-    private val _selectedBadgeIndex = MutableStateFlow(-1)
+    private val _selectedBadgeIndex = MutableStateFlow(NON_SELECTED)
     val selectedBadgeIndex = _selectedBadgeIndex.asStateFlow()
 
     init {
@@ -49,7 +49,7 @@ class BadgeViewModel @Inject constructor(
 
     fun selectBadge(badgeIndex: Int) {
         val badges = uiState.value.badges.toMutableList()
-        if (selectedBadgeIndex.value != -1) {
+        if (selectedBadgeIndex.value != NON_SELECTED) {
             badges[selectedBadgeIndex.value] =
                 badges[selectedBadgeIndex.value].copy(badgeState = BadgeState.UNLOCK)
         }
@@ -62,17 +62,21 @@ class BadgeViewModel @Inject constructor(
         viewModelScope.launch {
             badgeRepository.changeRepresentBadge(badgeId)
             getBadges()
-            _selectedBadgeIndex.value = -1
+            _selectedBadgeIndex.value = NON_SELECTED
         }
     }
 
     fun unLockBadges() {
-        if (_selectedBadgeIndex.value != -1) {
+        if (_selectedBadgeIndex.value != NON_SELECTED) {
             val badges = uiState.value.badges.toMutableList()
             badges[selectedBadgeIndex.value] =
                 badges[selectedBadgeIndex.value].copy(badgeState = BadgeState.UNLOCK)
-            _selectedBadgeIndex.value = -1
+            _selectedBadgeIndex.value = NON_SELECTED
             _uiState.value = _uiState.value.copy(badges = badges)
         }
+    }
+
+    companion object {
+        const val NON_SELECTED = -1
     }
 }

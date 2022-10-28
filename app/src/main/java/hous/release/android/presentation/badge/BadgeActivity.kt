@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material.MaterialTheme
 import dagger.hilt.android.AndroidEntryPoint
+import hous.release.android.presentation.badge.BadgeViewModel.Companion.NON_SELECTED
 
 @AndroidEntryPoint
 class BadgeActivity : ComponentActivity() {
@@ -25,7 +26,7 @@ class BadgeActivity : ComponentActivity() {
 
     private fun initBackPressedCallback() {
         onBackPressedDispatcher.addCallback {
-            if (badgeViewModel.selectedBadgeIndex.value != -1) badgeViewModel.unLockBadges()
+            if (badgeViewModel.selectedBadgeIndex.value != NON_SELECTED) badgeViewModel.unLockBadges()
             else finish()
         }
     }
