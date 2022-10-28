@@ -37,10 +37,15 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import hous.release.android.R
 import hous.release.domain.entity.HomyType
 import kotlinx.coroutines.delay
@@ -203,7 +208,19 @@ private fun HousPentagonText() {
                                 (center.x + (radiusPxList[i] * cos(currentAngle + angle * i)).toFloat() + xSite[i]).toDp(),
                                 (center.y + (radiusPxList[i] * sin(currentAngle + angle * i)).toFloat() + ySite[i]).toDp()
                             ),
-                        fontStyle = FontStyle(R.style.Description),
+                        style = TextStyle(
+                            fontFamily = FontFamily(
+                                Font(
+                                    R.font.spoqa_han_sans_neo_medium,
+                                    FontWeight.W500,
+                                    FontStyle.Normal
+                                )
+                            ),
+                            fontWeight = FontWeight.Normal,
+                            fontSize = dpToSp(12.dp),
+                            letterSpacing = (-0.02).sp,
+                            lineHeight = 16.sp
+                        ),
                         color = colorResource(id = R.color.hous_g_5),
                         textAlign = TextAlign.Center
                     )

@@ -28,7 +28,9 @@ fun TodoMainEmpty() {
             .clip(RoundedCornerShape(8.dp))
             .background(colorResource(id = R.color.hous_blue_l2_80))
     ) {
-        Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp)) {
+        Column(modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 4.dp)) {
             Spacer(modifier = Modifier.height(28.dp))
             Text(
                 modifier = Modifier.fillMaxWidth(),
@@ -38,14 +40,16 @@ fun TodoMainEmpty() {
                 style = TextStyle(
                     fontFamily = FontFamily(Font(R.font.spoqa_han_sans_neo_medium)),
                     fontWeight = FontWeight.Normal,
-                    fontSize = 12.sp,
+                    fontSize = dpToSp(dp = 12.dp),
                     letterSpacing = (-0.02).sp,
                     lineHeight = 3.6.sp
                 )
             )
             Spacer(modifier = Modifier.height(13.dp))
             RoundedLinearIndicator(
-                modifier = Modifier.fillMaxWidth().padding(4.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(4.dp),
                 progress = 0.0f,
                 trackColor = colorResource(id = R.color.hous_blue_l2),
                 backgroundColor = colorResource(id = R.color.hous_blue_l2)

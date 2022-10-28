@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import hous.release.android.R
 import hous.release.android.util.component.HousBadge
+import hous.release.android.util.component.dpToSp
 import hous.release.domain.entity.Badge
 
 @Composable
@@ -110,7 +111,7 @@ private fun BadgeToolBar(
             style = TextStyle(
                 fontFamily = FontFamily(Font(R.font.spoqa_han_sans_neo_medium)),
                 fontWeight = FontWeight.Normal,
-                fontSize = 16.sp,
+                fontSize = dpToSp(16.dp),
                 letterSpacing = (-0.02).sp,
                 lineHeight = 8.sp
             )
@@ -200,7 +201,7 @@ private fun RepresentBadge(representBadge: Badge?) {
                             )
                         ),
                         fontWeight = FontWeight.Normal,
-                        fontSize = 12.sp,
+                        fontSize = dpToSp(12.dp),
                         letterSpacing = (-0.02).sp,
                         lineHeight = 16.sp
                     )
@@ -226,7 +227,7 @@ private fun RepresentBadge(representBadge: Badge?) {
                         )
                     ),
                     fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp,
+                    fontSize = dpToSp(18.dp),
                     letterSpacing = (-0.02).sp,
                     lineHeight = 5.4.sp
                 )

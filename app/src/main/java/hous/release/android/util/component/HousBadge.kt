@@ -57,7 +57,7 @@ fun HousBadge(
             style = TextStyle(
                 fontFamily = FontFamily(Font(R.font.spoqa_han_sans_neo_medium)),
                 fontWeight = FontWeight.Normal,
-                fontSize = 13.sp,
+                fontSize = dpToSp(13.dp),
                 letterSpacing = (-0.02).sp,
                 lineHeight = 19.5.sp
             ),
@@ -76,7 +76,7 @@ fun HousBadge(
                     )
                 ),
                 fontWeight = FontWeight.Normal,
-                fontSize = 12.sp,
+                fontSize = dpToSp(12.dp),
                 letterSpacing = (-0.02).sp,
                 lineHeight = 16.sp
             ),
@@ -143,7 +143,7 @@ private fun HousBadgeImage(
                                 )
                             ),
                             fontWeight = FontWeight.Normal,
-                            fontSize = 12.sp,
+                            fontSize = dpToSp(12.dp),
                             letterSpacing = (-0.02).sp,
                             lineHeight = 16.sp
                         )
@@ -183,7 +183,7 @@ private fun CheckedRepresentationBadge(
                     )
                 ),
                 fontWeight = FontWeight.Normal,
-                fontSize = 12.sp,
+                fontSize = dpToSp(12.dp),
                 letterSpacing = (-0.02).sp,
                 lineHeight = 16.sp
             )
