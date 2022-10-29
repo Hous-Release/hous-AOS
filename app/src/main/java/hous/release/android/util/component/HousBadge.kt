@@ -2,7 +2,15 @@ package hous.release.android.util.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -28,12 +36,20 @@ import hous.release.domain.entity.BadgeState
 
 @Composable
 fun HousBadge(
-    badge: Badge
+    badge: Badge,
+    badgeIndex: Int,
+    selectBadge: (Int) -> Unit,
+    changeRepresentBadge: (Int) -> Unit
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        HousBadgeImage(badge = badge)
+        HousBadgeImage(
+            badge = badge,
+            badgeIndex = badgeIndex,
+            selectBadge = selectBadge,
+            changeRepresentBadge = changeRepresentBadge
+        )
         Spacer(modifier = Modifier.height(12.dp))
         Text(
             text = badge.name,
@@ -41,9 +57,9 @@ fun HousBadge(
             style = TextStyle(
                 fontFamily = FontFamily(Font(R.font.spoqa_han_sans_neo_medium)),
                 fontWeight = FontWeight.Normal,
-                fontSize = 13.sp,
+                fontSize = dpToSp(13.dp),
                 letterSpacing = (-0.02).sp,
-                lineHeight = 6.5.sp
+                lineHeight = 19.5.sp
             ),
             textAlign = TextAlign.Center
         )
@@ -60,7 +76,7 @@ fun HousBadge(
                     )
                 ),
                 fontWeight = FontWeight.Normal,
-                fontSize = 12.sp,
+                fontSize = dpToSp(12.dp),
                 letterSpacing = (-0.02).sp,
                 lineHeight = 16.sp
             ),
@@ -71,7 +87,10 @@ fun HousBadge(
 
 @Composable
 private fun HousBadgeImage(
-    badge: Badge
+    badge: Badge,
+    badgeIndex: Int,
+    selectBadge: (Int) -> Unit,
+    changeRepresentBadge: (Int) -> Unit
 ) {
     Surface(
         modifier = Modifier.size(80.dp),
@@ -81,6 +100,7 @@ private fun HousBadgeImage(
         when (badge.badgeState) {
             BadgeState.UNLOCK -> {
                 AsyncImage(
+                    modifier = Modifier.clickable { selectBadge(badgeIndex) },
                     model = badge.imageUrl,
                     contentDescription = null
                 )
@@ -94,7 +114,10 @@ private fun HousBadgeImage(
                     contentDescription = ""
                 )
             }
-            BadgeState.CHECKED -> CheckedRepresentationBadge()
+            BadgeState.CHECKED -> CheckedRepresentationBadge(
+                badgeId = badge.badgeId,
+                changeRepresentBadge = changeRepresentBadge
+            )
             BadgeState.REPRESENT -> {
                 AsyncImage(
                     model = badge.imageUrl,
@@ -120,7 +143,7 @@ private fun HousBadgeImage(
                                 )
                             ),
                             fontWeight = FontWeight.Normal,
-                            fontSize = 12.sp,
+                            fontSize = dpToSp(12.dp),
                             letterSpacing = (-0.02).sp,
                             lineHeight = 16.sp
                         )
@@ -132,9 +155,14 @@ private fun HousBadgeImage(
 }
 
 @Composable
-private fun CheckedRepresentationBadge() {
+private fun CheckedRepresentationBadge(
+    badgeId: Int,
+    changeRepresentBadge: (Int) -> Unit
+) {
     Column(
-        modifier = Modifier.background(colorResource(id = R.color.hous_yellow)),
+        modifier = Modifier
+            .clickable { changeRepresentBadge(badgeId) }
+            .background(colorResource(id = R.color.hous_yellow)),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -155,7 +183,7 @@ private fun CheckedRepresentationBadge() {
                     )
                 ),
                 fontWeight = FontWeight.Normal,
-                fontSize = 12.sp,
+                fontSize = dpToSp(12.dp),
                 letterSpacing = (-0.02).sp,
                 lineHeight = 16.sp
             )
@@ -176,6 +204,6 @@ fun BadgePreview() {
         badgeState = BadgeState.UNLOCK
     )
     Column(Modifier.fillMaxSize()) {
-        HousBadge(badge)
+        HousBadge(badge, 0, {}) {}
     }
 }

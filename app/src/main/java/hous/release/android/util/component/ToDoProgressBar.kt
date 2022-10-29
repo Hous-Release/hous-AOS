@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hous.release.android.R
 import hous.release.android.util.component.RoundedLinearIndicator
+import hous.release.android.util.component.dpToSp
 import hous.release.android.util.component.drawMessageShape
 
 enum class HomiesPosition {
@@ -136,7 +137,7 @@ private fun MoveHomieWithMessage(
             style = TextStyle(
                 fontFamily = FontFamily(Font(R.font.spoqa_han_sans_neo_medium)),
                 fontWeight = FontWeight.Normal,
-                fontSize = 13.sp,
+                fontSize = dpToSp(dp = 13.dp),
                 letterSpacing = (-0.02).sp,
                 lineHeight = 6.5.sp
             )
