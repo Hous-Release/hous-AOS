@@ -8,7 +8,7 @@ import javax.inject.Inject
 class ProfileRepositoryImpl @Inject constructor(
     private val profileDataSource: ProfileDataSource
 ) : ProfileRepository {
-    override suspend fun getUser(): Result<Profile> =
+    override suspend fun getProfile(): Result<Profile> =
         kotlin.runCatching {
             profileDataSource.getProfile()
         }.map { response -> response.data.toProfile() }

@@ -24,7 +24,7 @@ class ProfileViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            profileRepository.getUser()
+            profileRepository.getProfile()
                 .onSuccess { response ->
                     _profileData.value = response
                     checkTest()
