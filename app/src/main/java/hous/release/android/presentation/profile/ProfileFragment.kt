@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentProfileBinding
+import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.LOCATION
 import hous.release.android.presentation.profile.adapter.ProfilePersonalityAdapter
 import hous.release.android.util.binding.BindingFragment
 import hous.release.domain.entity.HomyType
@@ -35,7 +36,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
 
     private fun initPersonalityOnClickListener() {
         val intent = Intent(requireActivity(), PersonalityResult::class.java)
-        intent.putExtra("location", "profile")
+        intent.putExtra(LOCATION, PROFILE)
         startActivity(intent)
     }
 
@@ -138,5 +139,6 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
             ),
             PersonalityInfo(R.string.personality_clean, R.string.personality_clean_description)
         )
+        private const val PROFILE = "profile"
     }
 }

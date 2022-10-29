@@ -21,8 +21,8 @@ class PersonalityResultActivity :
 
     private fun initTitlePosition() {
         personalityResultViewModel.fromTestResult.observe(this) {
-            when (intent.getStringExtra("location")) {
-                "result" -> personalityResultViewModel.initFromTestResult(true)
+            when (intent.getStringExtra(LOCATION)) {
+                RESULT -> personalityResultViewModel.initFromTestResult(true)
                 else -> personalityResultViewModel.initFromTestResult(false)
             }
         }
@@ -36,5 +36,10 @@ class PersonalityResultActivity :
         binding.ivPersonalityResultBack.setOnClickListener {
             finish()
         }
+    }
+
+    companion object {
+        const val LOCATION = "location"
+        const val RESULT = "result"
     }
 }
