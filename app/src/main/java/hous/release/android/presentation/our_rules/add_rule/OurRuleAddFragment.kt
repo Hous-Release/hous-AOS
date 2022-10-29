@@ -2,6 +2,7 @@ package hous.release.android.presentation.our_rules.add_rule
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,18 +14,20 @@ import hous.release.android.presentation.our_rules.adapter.OurRulesAddAdapter
 import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.binding.BindingFragment
+import hous.release.android.util.dialog.ConfirmClickListener
+import hous.release.android.util.dialog.WarningDialogFragment
+import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.repeatOnStarted
-import hous.release.android.util.extension.safeLet
+import hous.release.android.util.extension.withArgs
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class OurRuleAddFragment :
     BindingFragment<FragmentOurRuleAddBinding>(R.layout.fragment_our_rule_add) {
 
     private val viewModel by viewModels<OurRuleAddViewModel>()
-    private lateinit var ourRulesAddAdapter: OurRulesAddAdapter
-
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
+    private var ourRulesAddAdapter: OurRulesAddAdapter? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
@@ -36,6 +39,12 @@ class OurRuleAddFragment :
         collectUiState()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        onBackPressedCallback.remove()
+        ourRulesAddAdapter = null
+    }
+
     private fun initEditTextClearFocus() {
         binding.clAddRule.setOnClickListener {
             KeyBoardUtil.hide(requireActivity())
@@ -45,7 +54,9 @@ class OurRuleAddFragment :
     private fun collectUiState() {
         repeatOnStarted {
             viewModel.uiState.collect { uiState ->
-                ourRulesAddAdapter.submitList(uiState.ourRuleList)
+                requireNotNull(ourRulesAddAdapter) {
+                    getString(R.string.null_point_exception)
+                }.submitList(uiState.ourRuleList)
                 if (viewModel.uiState.value.addedRuleList.isNotEmpty()) {
                     viewModel.setSaveButtonState(ButtonState.ACTIVE)
                 } else {
@@ -56,10 +67,11 @@ class OurRuleAddFragment :
     }
 
     private fun initAdapter() {
-        ourRulesAddAdapter = OurRulesAddAdapter()
-        binding.rvAddOurRules.run {
-            adapter = ourRulesAddAdapter
-            itemAnimator = null
+        ourRulesAddAdapter = OurRulesAddAdapter().also { adapter ->
+            binding.rvAddOurRules.run {
+                this.adapter = adapter
+                itemAnimator = null
+            }
         }
     }
 
@@ -84,41 +96,37 @@ class OurRuleAddFragment :
     }
 
     private fun initBackButtonListener() {
-        safeLet(activity, activity?.onBackPressedDispatcher) { _, dispatcher ->
-            dispatcher.addCallback {
-                if (!this@OurRuleAddFragment.isAdded) {
-                    this.remove()
-                    dispatcher.onBackPressed()
-                    return@addCallback
-                }
-                if (viewModel.isActiveSaveButton() || viewModel.inputRuleNameField.value.isNotBlank()) {
-                    val outDialogFragment = OurRuleAddOutDialogFragment()
-                    outDialogFragment.show(childFragmentManager, OUR_RULE_ADD_OUT_DIALOG)
-                    return@addCallback
-                }
-                findNavController().popBackStack()
+        requireActivity().onBackPressedDispatcher.addCallback {
+            if (viewModel.isActiveSaveButton() || viewModel.inputRuleNameField.value.isNotBlank()) {
+                showOutDialog()
+                return@addCallback
             }
-        } ?: Timber.e(
-            getString(R.string.null_point_exception_detail_two_item).format(
-                "activity",
-                activity == null,
-                "window",
-                activity?.onBackPressedDispatcher == null
-            )
-        )
+            findNavController().popBackStack()
+        }.also { callback -> onBackPressedCallback = callback }
 
         binding.ivAddRuleBackButton.setOnClickListener {
             if (viewModel.isActiveSaveButton() || viewModel.inputRuleNameField.value.isNotBlank()) {
-                val outDialogFragment = OurRuleAddOutDialogFragment()
-                outDialogFragment.show(childFragmentManager, OUR_RULE_ADD_OUT_DIALOG)
+                showOutDialog()
                 return@setOnClickListener
             }
             findNavController().popBackStack()
         }
     }
 
+    private fun showOutDialog() {
+        WarningDialogFragment().withArgs {
+            putSerializable(
+                WarningDialogFragment.WARNING_TYPE,
+                WarningType.WARNING_ADD_RULE
+            )
+            putParcelable(
+                WarningDialogFragment.CONFIRM_ACTION,
+                ConfirmClickListener(confirmAction = { findNavController().popBackStack() })
+            )
+        }.show(childFragmentManager, WarningDialogFragment.DIALOG_WARNING)
+    }
+
     companion object {
         const val OUR_RULE_ADD_ERROR_DIALOG = "our_rule_add_error_dialog"
-        const val OUR_RULE_ADD_OUT_DIALOG = "our_rule_add_out_dialog"
     }
 }

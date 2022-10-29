@@ -181,11 +181,9 @@
     <string name="our_rule_add_new_rule_title">새로운 Rules 추가</string>
     <string name="our_rule_edit_rule_title">우리 집 Rules</string>
     <string name="our_rule_save_new_rule">저장</string>
+    <string name="our_rule_delete_our_rule_button">삭제</string>
+    <string name="our_rule_delete_our_rule_title">Rules 삭제</string>
     <string name="our_rule_input">Rules 입력</string>
-    <string name="our_rule_add_out_title">앗, 잠깐! 이대로 나가면\nRules가 추가되지 않아요!</string>
-    <string name="our_rule_add_out_description">정말 취소하려면 나가기 버튼을 눌러주세요.</string>
-    <string name="our_rule_add_out_button_msg">나가기</string>
-    <string name="our_rule_add_continue_button_msg">계속 작성하기</string>
     <string name="our_rule_add_error_title">Rules 개수 초과</string>
     <string name="our_rule_add_error_description">우리 집 Rules가 너무 많아요!\n필요하지 않은 Rule은 삭제하고\n다시 시도해주세요~</string>
     <string name="our_rule_add_error_ok">알겠어요!</string>
