@@ -1,5 +1,6 @@
 package hous.release.data.entity.response
 
+import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.PersonalityResult
 
 data class PersonalityResultResponse(
@@ -18,7 +19,7 @@ data class PersonalityResultResponse(
     fun toPersonalityResult(): PersonalityResult = PersonalityResult(
         badPersonalityImageUrl = this.badPersonalityImageUrl,
         badPersonalityName = this.badPersonalityName,
-        color = this.color,
+        color = HomyType.valueOf(color),
         description = this.description,
         goodPersonalityImageUrl = this.goodPersonalityImageUrl,
         goodPersonalityName = this.goodPersonalityName,
