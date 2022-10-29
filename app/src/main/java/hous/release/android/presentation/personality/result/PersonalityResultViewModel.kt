@@ -37,12 +37,7 @@ class PersonalityResultViewModel @Inject constructor(
     }
 
     private fun initDescription(list: List<String>) {
-        for (i: Int in list.indices) {
-            _description.value += list[i]
-            if (i != list.size - 1) {
-                _description.value += ENTER
-            }
-        }
+        _description.value = list.joinToString(ENTER)
     }
 
     fun initFromTestResult(fromTestResult: Boolean) {
