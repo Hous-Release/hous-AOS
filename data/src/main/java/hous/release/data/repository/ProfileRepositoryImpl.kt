@@ -15,10 +15,10 @@ class ProfileRepositoryImpl @Inject constructor(
 
     override suspend fun putProfile(
         birthday: String,
-        introduction: String,
+        introduction: String?,
         isPublic: Boolean,
-        job: String,
-        mbti: String,
+        job: String?,
+        mbti: String?,
         nickname: String
     ): Result<Boolean> =
         kotlin.runCatching {

@@ -15,10 +15,10 @@ class ProfileDataSource @Inject constructor(
 
     suspend fun putProfile(
         birthday: String,
-        introduction: String,
+        introduction: String?,
         isPublic: Boolean,
-        job: String,
-        mbti: String,
+        job: String?,
+        mbti: String?,
         nickname: String
     ): NoDataResponse =
         profileService.putProfile(
