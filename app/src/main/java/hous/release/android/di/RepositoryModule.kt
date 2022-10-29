@@ -4,11 +4,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import hous.release.data.datasource.AuthDataSource
-import hous.release.data.datasource.EnterRoomDataSource
-import hous.release.data.datasource.HousDataSource
-import hous.release.data.datasource.LocalPrefSkipTutorialDataSource
-import hous.release.data.datasource.LocalPrefTokenDataSource
 import hous.release.data.datasource.OurRulesDataSource
 import hous.release.data.repository.AuthRepositoryImpl
 import hous.release.data.repository.BadgeRepositoryImpl
@@ -69,7 +64,6 @@ class RepositoryModule {
     @Singleton
     fun providesProfileRepository(profileRepositoryImpl: ProfileRepositoryImpl): ProfileRepository =
         profileRepositoryImpl
-    fun providesTodoRepository(impl: TodoRepositoryImpl): TodoRepository = impl
 
     @Provides
     @Singleton
