@@ -52,6 +52,9 @@ class RetrofitServiceModule {
     @Singleton
     fun providesProfileService(retrofit: Retrofit): ProfileService =
         retrofit.create(ProfileService::class.java)
+
+    @Provides
+    @Singleton
     fun providesBadgeService(retrofit: Retrofit): BadgeService =
         retrofit.create(BadgeService::class.java)
 }
