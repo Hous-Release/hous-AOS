@@ -84,6 +84,7 @@
 
                 <TextView
                     android:id="@+id/tv_personality_result_name"
+                    personalityResultColor="@{vm.resultData.color}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{vm.resultData.name}"
@@ -114,6 +115,7 @@
 
                 <TextView
                     android:id="@+id/tv_personality_result_title"
+                    personalityResultColor="@{vm.resultData.color}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="36dp"
@@ -141,6 +143,7 @@
 
                 <TextView
                     android:id="@+id/tv_personality_result_recommend_title"
+                    personalityResultColor="@{vm.resultData.color}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
@@ -154,6 +157,7 @@
 
                 <ImageView
                     android:id="@+id/iv_personality_result_check1"
+                    personalityResultIcon="@{vm.resultData.color}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -179,6 +183,7 @@
 
                 <ImageView
                     android:id="@+id/iv_personality_result_check2"
+                    personalityResultIcon="@{vm.resultData.color}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"

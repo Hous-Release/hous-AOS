@@ -30,7 +30,6 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
         initEditOnClickListener()
         initTestBtnOnClickListener()
         initPersonalityAdapter()
-        initPersonalityColorObserve()
         initPersonalityOnClickListener()
     }
 
@@ -77,7 +76,9 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
 
     private fun initProfileInfo() {
         profileViewModel.profileData.observe(viewLifecycleOwner) {
-            if (it.personalityColor == HomyType.GRAY) binding.clProfileHeader.setBackgroundResource(R.color.hous_g_1)
+            if (it.personalityColor == HomyType.GRAY) binding.clProfileHeader.setBackgroundResource(
+                R.color.hous_g_1
+            )
             else {
                 val profileSet = getProfileSet(it.personalityColor.toString())
                 with(binding) {
