@@ -8,12 +8,14 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentProfileBinding
+import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.LOCATION
 import hous.release.android.presentation.badge.BadgeActivity
 import hous.release.android.presentation.profile.adapter.ProfilePersonalityAdapter
 import hous.release.android.util.binding.BindingFragment
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.PersonalityInfo
 import hous.release.domain.entity.ProfileSet
+import hous.release.domain.entity.response.PersonalityResult
 
 @AndroidEntryPoint
 class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
@@ -30,6 +32,13 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
         initEditOnClickListener()
         initTestBtnOnClickListener()
         initPersonalityAdapter()
+        initPersonalityOnClickListener()
+    }
+
+    private fun initPersonalityOnClickListener() {
+        val intent = Intent(requireActivity(), PersonalityResult::class.java)
+        intent.putExtra(LOCATION, PROFILE)
+        startActivity(intent)
     }
 
     private fun initAlarmOnClickListener() {
@@ -68,10 +77,12 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
     }
 
     private fun initProfileInfo() {
-        profileViewModel.profileData.observe(viewLifecycleOwner) {
-            if (it.personalityColor == HomyType.GRAY) binding.clProfileHeader.setBackgroundResource(R.color.hous_g_1)
+        profileViewModel.profileData.observe(viewLifecycleOwner) { profile ->
+            if (profile.personalityColor == HomyType.GRAY) binding.clProfileHeader.setBackgroundResource(
+                R.color.hous_g_1
+            )
             else {
-                val profileSet = getProfileSet(it.personalityColor.toString())
+                val profileSet = getProfileSet(profile.personalityColor.toString())
                 with(binding) {
                     clProfileHeader.setBackgroundResource(profileSet.colorBg)
                     tvProfilePersonality.setText(profileSet.personality)
@@ -129,5 +140,6 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
             ),
             PersonalityInfo(R.string.personality_clean, R.string.personality_clean_description)
         )
+        private const val PROFILE = "profile"
     }
 }

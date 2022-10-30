@@ -100,7 +100,7 @@ private fun BadgeToolBar(
             modifier = Modifier
                 .clickable { onClick() },
             painter = painterResource(
-                id = R.drawable.ic_back
+                id = R.drawable.ic_back_g4
             ),
             contentDescription = null
         )

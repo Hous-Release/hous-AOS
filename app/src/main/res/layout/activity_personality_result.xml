@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="hous.release.android.presentation.personality.result.PersonalityResultViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.personality.result.PersonalityResultActivity">
+
+        <ImageView
+            android:id="@+id/iv_personality_result_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="14dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_back_g5"
+            android:visibility="@{vm.fromTestResult ? View.INVISIBLE : View.VISIBLE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_personality_result__info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/personality_result_info"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            android:visibility="@{vm.fromTestResult ? View.INVISIBLE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_personality_result_back"
+            app:layout_constraintStart_toEndOf="@id/iv_personality_result_back"
+            app:layout_constraintTop_toTopOf="@id/iv_personality_result_back" />
+
+        <TextView
+            android:id="@+id/tv_personality_result_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/personality_result_detail"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            android:visibility="@{vm.fromTestResult ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_personality_result_complete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:padding="12dp"
+            android:text="@string/personality_result_complete"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_blue"
+            android:visibility="@{vm.fromTestResult ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_personality_result_detail">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <TextView
+                    android:id="@+id/tv_personality_result_name"
+                    personalityResultColor="@{vm.resultData.color.name()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{vm.resultData.name}"
+                    android:textAppearance="@style/H2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="슈퍼 팔로워 셋돌이"
+                    tools:textColor="@color/hous_red" />
+
+                <ImageView
+                    android:id="@+id/iv_personality_result_image"
+                    setImage="@{vm.resultData.imageUrl}"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="39dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/shape_white_fill_20_rect"
+                    android:elevation="10dp"
+                    android:outlineSpotShadowColor="@color/hous_red"
+                    android:padding="14dp"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_personality_result_name"
+                    tools:src="@drawable/ic_tutorial_1" />
+
+                <TextView
+                    android:id="@+id/tv_personality_result_title"
+                    personalityResultColor="@{vm.resultData.color.name()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="36dp"
+                    android:text="@{vm.resultData.title}"
+                    android:textAppearance="@style/H4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_personality_result_image"
+                    tools:text="오히려 좋아~ 가보자고!"
+                    tools:textColor="@color/hous_red" />
+
+                <TextView
+                    android:id="@+id/tv_personality_result_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:text="@{vm.description}"
+                    android:textAppearance="@style/B2"
+                    android:textColor="@color/hous_g_7"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_personality_result_title"
+                    tools:text="@string/tutorial_2_body" />
+
+                <TextView
+                    android:id="@+id/tv_personality_result_recommend_title"
+                    personalityResultColor="@{vm.resultData.color.name()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@{vm.resultData.recommendTitle}"
+                    android:textAppearance="@style/H4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_personality_result_description"
+                    tools:text="셋돌이가 만들면 좋은 Rules"
+                    tools:textColor="@color/hous_red" />
+
+                <ImageView
+                    android:id="@+id/iv_personality_result_check1"
+                    personalityResultIcon="@{vm.resultData.color.name()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_personality_result_recommend_todo_1"
+                    app:layout_constraintEnd_toStartOf="@id/tv_personality_result_recommend_todo_1"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_personality_result_recommend_todo_1"
+                    tools:src="@drawable/ic_personality_result_check_red" />
+
+                <TextView
+                    android:id="@+id/tv_personality_result_recommend_todo_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@{vm.resultData.recommendTodo[0]}"
+                    android:textAppearance="@style/B2"
+                    android:textColor="@color/hous_g_7"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_personality_result_check1"
+                    app:layout_constraintTop_toBottomOf="@id/tv_personality_result_recommend_title"
+                    tools:text="외출 시 문 잠금 확인하기" />
+
+                <ImageView
+                    android:id="@+id/iv_personality_result_check2"
+                    personalityResultIcon="@{vm.resultData.color.name()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_personality_result_recommend_todo_2"
+                    app:layout_constraintEnd_toStartOf="@id/tv_personality_result_recommend_todo_2"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_personality_result_recommend_todo_2"
+                    tools:src="@drawable/ic_personality_result_check_red" />
+
+                <TextView
+                    android:id="@+id/tv_personality_result_recommend_todo_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@{vm.resultData.recommendTodo[1]}"
+                    android:textAppearance="@style/B2"
+                    android:textColor="@color/hous_g_7"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_personality_result_check2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_personality_result_recommend_todo_1"
+                    tools:text="외출 시 문 잠금 확인하기" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_personality_result_bad"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="9dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/shape_white_fill_20_rect"
+                    android:elevation="5dp"
+                    android:outlineSpotShadowColor="@color/hous_g_1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/cl_personality_result_good"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_personality_result_recommend_todo_2">
+
+                    <TextView
+                        android:id="@+id/tv_personality_result_bad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="54dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/personality_result_bad"
+                        android:textAppearance="@style/Description"
+                        android:textColor="@color/hous_g_5"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_personality_result_bad_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.resultData.badPersonalityName}"
+                        android:textAppearance="@style/B2"
+                        android:textColor="@color/hous_black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_personality_result_bad"
+                        tools:text="룰 세터 육각이" />
+
+                    <ImageView
+                        android:id="@+id/iv_personality_result_bad"
+                        setImage="@{vm.resultData.badPersonalityImageUrl}"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginHorizontal="18dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="12dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_personality_result_bad_name"
+                        tools:src="@drawable/ic_tutorial_1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_personality_result_good"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/shape_white_fill_20_rect"
+                    android:elevation="5dp"
+                    android:outlineSpotShadowColor="@color/hous_g_1"
+                    app:layout_constraintBottom_toBottomOf="@id/cl_personality_result_bad"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/cl_personality_result_bad"
+                    app:layout_constraintTop_toTopOf="@id/cl_personality_result_bad">
+
+                    <TextView
+                        android:id="@+id/tv_personality_result_good"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="54dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/personality_result_good"
+                        android:textAppearance="@style/Description"
+                        android:textColor="@color/hous_g_5"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_personality_result_good_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.resultData.goodPersonalityName}"
+                        android:textAppearance="@style/B2"
+                        android:textColor="@color/hous_black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_personality_result_good"
+                        tools:text="룰 세터 육각이" />
+
+                    <ImageView
+                        android:id="@+id/iv_personality_result_good"
+                        setImage="@{vm.resultData.goodPersonalityImageUrl}"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginHorizontal="18dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="12dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_personality_result_good_name"
+                        tools:src="@drawable/ic_tutorial_1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
