@@ -95,7 +95,7 @@ private fun MemberTapItem(
             style = TextStyle(
                 fontFamily = FontFamily(Font(R.font.spoqa_han_sans_neo)),
                 fontWeight = FontWeight.Normal,
-                fontSize = 12.sp,
+                fontSize = dpToSp(dp = 12.dp),
                 letterSpacing = (-0.3).sp,
                 lineHeight = 19.sp
             ),
