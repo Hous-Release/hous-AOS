@@ -192,6 +192,8 @@
     <string name="dialog_to_do_content">to-do는 한 번 삭제하면 복구되지 않아요.</string>
     <string name="dialog_cancel">취소하기</string>
 
+    <!--    To Do-add,edit-->
+    <string name="to_do_manager">담당자</string>
     <!-- Tutorial -->
     <string name="tutorial_skip">건너뛰기</string>
     <string name="tutorial_1_head">Welcome to\nYour Hous-</string>

@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
 import hous.release.android.presentation.todo.add.AddToDoVIewModel
@@ -32,19 +33,21 @@ fun AddTodoUserScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
         ) {
-            Text(
-                text = "담당자",
-                style = b2,
-                color = colorResource(id = R.color.hous_black)
-            )
-            Spacer(modifier = Modifier.size(3.dp))
-            ToDoUserProfiles(
-                isEmptySelectedUser = uiState.selectedUsers.isEmpty(),
-                selectedUsers = uiState.selectedUsers
-            )
-            Spacer(modifier = Modifier.size(20.dp))
-            Divider(thickness = 1.dp, color = colorResource(id = R.color.hous_g_2))
             LazyColumn(modifier = Modifier.fillMaxSize()) {
+                item {
+                    Text(
+                        text = stringResource(id = R.string.to_do_manager),
+                        style = b2,
+                        color = colorResource(id = R.color.hous_black)
+                    )
+                    Spacer(modifier = Modifier.size(3.dp))
+                    ToDoUserProfiles(
+                        isEmptySelectedUser = uiState.selectedUsers.isEmpty(),
+                        selectedUsers = uiState.selectedUsers
+                    )
+                    Spacer(modifier = Modifier.size(20.dp))
+                    Divider(thickness = 1.dp, color = colorResource(id = R.color.hous_g_2))
+                }
                 itemsIndexed(
                     items = uiState.todoUsers,
                     key = { _, user -> user.onBoardingId }
