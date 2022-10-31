@@ -29,6 +29,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -179,41 +180,61 @@ private fun <T> LazyListScope.gridItems(
 @Composable
 private fun RepresentBadge(representBadge: Badge?) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Surface(
-            modifier = Modifier.size(100.dp),
-            elevation = 10.dp,
-            shape = CircleShape
-        ) {
-            if (representBadge == null) {
-                Text(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .padding(horizontal = 16.dp, vertical = 23.dp),
-                    text = stringResource(id = R.string.represent_badge),
-                    textAlign = TextAlign.Center,
-                    color = colorResource(id = R.color.hous_g_4),
-                    style = TextStyle(
-                        fontFamily = FontFamily(
-                            Font(
-                                R.font.spoqa_han_sans_neo_medium,
-                                FontWeight.W500,
-                                FontStyle.Normal
+        if (representBadge == null) {
+            Box(
+                modifier = Modifier
+                    .background(
+                        brush = Brush.radialGradient(
+                            colors = listOf(
+                                colorResource(id = R.color.hous_red),
+                                colorResource(id = R.color.hous_g_7)
                             )
-                        ),
-                        fontWeight = FontWeight.Normal,
-                        fontSize = dpToSp(12.dp),
-                        letterSpacing = (-0.02).sp,
-                        lineHeight = 16.sp
+                        )
                     )
-                )
-            } else {
+                    .size(118.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Surface(
+                    modifier = Modifier
+                        .size(100.dp),
+                    elevation = 10.dp,
+                    shape = CircleShape
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .wrapContentSize()
+                            .padding(horizontal = 16.dp, vertical = 23.dp),
+                        text = stringResource(id = R.string.represent_badge),
+                        textAlign = TextAlign.Center,
+                        color = colorResource(id = R.color.hous_g_4),
+                        style = TextStyle(
+                            fontFamily = FontFamily(
+                                Font(
+                                    R.font.spoqa_han_sans_neo_medium,
+                                    FontWeight.W500,
+                                    FontStyle.Normal
+                                )
+                            ),
+                            fontWeight = FontWeight.Normal,
+                            fontSize = dpToSp(12.dp),
+                            letterSpacing = (-0.02).sp,
+                            lineHeight = 16.sp
+                        )
+                    )
+                }
+            }
+        } else {
+            Surface(
+                modifier = Modifier
+                    .size(100.dp),
+                elevation = 10.dp,
+                shape = CircleShape
+            ) {
                 AsyncImage(
                     model = representBadge.imageUrl,
                     contentDescription = null
                 )
             }
-        }
-        if (representBadge != null) {
             Spacer(modifier = Modifier.height(12.dp))
             Text(
                 text = representBadge.name,
