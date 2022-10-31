@@ -96,9 +96,14 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
     }
 
     private fun observePersonalityPentagon() {
-        binding.cvProfilePersonalityPentagon.setContent {
-            HousTheme {
-                HousPersonalityPentagon(radiusList = listOf(5, 5, 5, 5, 5), homyType = HomyType.RED)
+        profileViewModel.profileData.observe(viewLifecycleOwner) { profile ->
+            binding.cvProfilePersonalityPentagon.setContent {
+                HousTheme {
+                    HousPersonalityPentagon(
+                        testScore = profile.testScore,
+                        homyType = profile.personalityColor
+                    )
+                }
             }
         }
     }

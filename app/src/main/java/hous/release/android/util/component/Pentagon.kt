@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import hous.release.android.R
 import hous.release.android.util.style.HousTheme
 import hous.release.domain.entity.HomyType
+import hous.release.domain.entity.TestScore
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlinx.coroutines.delay
@@ -51,14 +52,14 @@ import kotlinx.coroutines.delay
 @Composable
 private fun HousPersonalityPentagonPreview() {
     HousPersonalityPentagon(
-        radiusList = listOf(5, 5, 5, 5, 5),
+        testScore = TestScore(5, 5, 5, 5, 5),
         homyType = HomyType.BLUE
     )
 }
 
 @Composable
 fun HousPersonalityPentagon(
-    radiusList: List<Int>,
+    testScore: TestScore,
     homyType: HomyType
 ) {
     val backgroundColor = when (homyType) {
@@ -86,12 +87,12 @@ fun HousPersonalityPentagon(
         Box {
             HousPentagonText()
             HousPentagon(
-                radiusList = listOf(10, 10, 10, 10, 10),
+                testScore = TestScore(10, 10, 10, 10, 10),
                 duration = 2000,
                 backgroundColor = backgroundColor
             )
             HousPentagon(
-                radiusList = radiusList,
+                testScore = testScore,
                 duration = 4000,
                 backgroundColor = pentagonColor
             )
@@ -105,7 +106,7 @@ enum class AniState {
 
 @Composable
 private fun HousPentagon(
-    radiusList: List<Int>,
+    testScore: TestScore,
     duration: Int,
     @ColorRes backgroundColor: Int
 ) {
@@ -119,7 +120,7 @@ private fun HousPentagon(
         label = ""
     ) { state -> if (state == AniState.START) 0f else 1f }
     val pentagonColor = colorResource(id = backgroundColor)
-    val radiusFloatList = radiusList.toFloatList()
+    val radiusFloatList = testScore.toFloatList()
 
     Canvas(modifier = Modifier.fillMaxSize()) {
         drawIntoCanvas { canvas ->
@@ -174,7 +175,7 @@ private fun HousPentagonText() {
     var textVisible by remember { mutableStateOf(false) }
     val currentAngle = -0.5 * Math.PI
     val angle = 2.0 * Math.PI / 5.0f
-    val radiusList = listOf(12, 13, 13, 13, 13).toFloatList()
+    val radiusList = TestScore(12, 13, 13, 13, 13).toFloatList()
     LaunchedEffect(true) {
         delay(10)
         textVisible = true
@@ -212,12 +213,3 @@ private fun HousPentagonText() {
         }
     }
 }
-
-private fun List<Int>.toFloatList(): List<Float> = listOf(
-    (this[0] * 22 + 36).toFloat(),
-    (this[4] * 22 + 36).toFloat(),
-    (this[3] * 22 + 36).toFloat(),
-    (this[2] * 22 + 36).toFloat(),
-    (this[1] * 22 + 36).toFloat(),
-    (this[0] * 22 + 36).toFloat()
-)
