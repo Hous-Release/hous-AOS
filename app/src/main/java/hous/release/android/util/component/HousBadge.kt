@@ -20,17 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import hous.release.android.R
+import hous.release.android.util.style.HousTheme
 import hous.release.domain.entity.Badge
 import hous.release.domain.entity.BadgeState
 
@@ -54,32 +49,14 @@ fun HousBadge(
         Text(
             text = badge.name,
             color = colorResource(id = R.color.hous_g_7),
-            style = TextStyle(
-                fontFamily = FontFamily(Font(R.font.spoqa_han_sans_neo_medium)),
-                fontWeight = FontWeight.Normal,
-                fontSize = dpToSp(13.dp),
-                letterSpacing = (-0.02).sp,
-                lineHeight = 19.5.sp
-            ),
+            style = HousTheme.typography.b3,
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(2.dp))
         Text(
             text = badge.description,
             color = colorResource(id = R.color.hous_g_3),
-            style = TextStyle(
-                fontFamily = FontFamily(
-                    Font(
-                        R.font.spoqa_han_sans_neo_medium,
-                        FontWeight.W500,
-                        FontStyle.Normal
-                    )
-                ),
-                fontWeight = FontWeight.Normal,
-                fontSize = dpToSp(12.dp),
-                letterSpacing = (-0.02).sp,
-                lineHeight = 16.sp
-            ),
+            style = HousTheme.typography.description,
             textAlign = TextAlign.Center
         )
     }
@@ -134,19 +111,7 @@ private fun HousBadgeImage(
                         text = "대표배지로\n설정됨",
                         color = colorResource(id = R.color.hous_white),
                         textAlign = TextAlign.Center,
-                        style = TextStyle(
-                            fontFamily = FontFamily(
-                                Font(
-                                    R.font.spoqa_han_sans_neo_medium,
-                                    FontWeight.W500,
-                                    FontStyle.Normal
-                                )
-                            ),
-                            fontWeight = FontWeight.Normal,
-                            fontSize = dpToSp(12.dp),
-                            letterSpacing = (-0.02).sp,
-                            lineHeight = 16.sp
-                        )
+                        style = HousTheme.typography.description
                     )
                 }
             }
@@ -174,19 +139,7 @@ private fun CheckedRepresentationBadge(
         Text(
             text = stringResource(R.string.badge_checked),
             color = colorResource(id = R.color.hous_white),
-            style = TextStyle(
-                fontFamily = FontFamily(
-                    Font(
-                        R.font.spoqa_han_sans_neo_medium,
-                        FontWeight.W500,
-                        FontStyle.Normal
-                    )
-                ),
-                fontWeight = FontWeight.Normal,
-                fontSize = dpToSp(12.dp),
-                letterSpacing = (-0.02).sp,
-                lineHeight = 16.sp
-            )
+            style = HousTheme.typography.description
         )
     }
 }

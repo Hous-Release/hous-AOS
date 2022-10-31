@@ -10,7 +10,6 @@ import androidx.compose.ui.graphics.drawOutline
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.unit.Dp
-import hous.release.android.presentation.todo.main.HomiesPosition
 
 fun DrawScope.drawMessageShape(
     side: Dp,

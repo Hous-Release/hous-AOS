@@ -139,7 +139,7 @@ fun HousTypography(): HousTypography {
             fontWeight = FontWeight.Normal,
             fontSize = dpToSp(12.dp),
             letterSpacing = (-0.02).sp,
-            lineHeight = 3.6.sp
+            lineHeight = 15.6.sp
         )
     )
 }

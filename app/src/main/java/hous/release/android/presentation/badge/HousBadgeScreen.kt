@@ -33,19 +33,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import hous.release.android.R
 import hous.release.android.util.component.HousBadge
-import hous.release.android.util.component.dpToSp
+import hous.release.android.util.style.HousTheme
 import hous.release.domain.entity.Badge
 
 @Composable
@@ -109,13 +103,7 @@ private fun BadgeToolBar(
         Text(
             text = stringResource(R.string.badge_title),
             color = colorResource(id = R.color.hous_white),
-            style = TextStyle(
-                fontFamily = FontFamily(Font(R.font.spoqa_han_sans_neo_medium)),
-                fontWeight = FontWeight.Normal,
-                fontSize = dpToSp(16.dp),
-                letterSpacing = (-0.02).sp,
-                lineHeight = 8.sp
-            )
+            style = HousTheme.typography.b1
         )
     }
 }
@@ -207,19 +195,7 @@ private fun RepresentBadge(representBadge: Badge?) {
                         text = stringResource(id = R.string.represent_badge),
                         textAlign = TextAlign.Center,
                         color = colorResource(id = R.color.hous_g_4),
-                        style = TextStyle(
-                            fontFamily = FontFamily(
-                                Font(
-                                    R.font.spoqa_han_sans_neo_medium,
-                                    FontWeight.W500,
-                                    FontStyle.Normal
-                                )
-                            ),
-                            fontWeight = FontWeight.Normal,
-                            fontSize = dpToSp(12.dp),
-                            letterSpacing = (-0.02).sp,
-                            lineHeight = 16.sp
-                        )
+                        style = HousTheme.typography.description
                     )
                 }
             }
@@ -239,19 +215,7 @@ private fun RepresentBadge(representBadge: Badge?) {
             Text(
                 text = representBadge.name,
                 color = colorResource(id = R.color.hous_white),
-                style = TextStyle(
-                    fontFamily = FontFamily(
-                        Font(
-                            R.font.spoqa_han_sans_neo,
-                            FontWeight.W700,
-                            FontStyle.Normal
-                        )
-                    ),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = dpToSp(18.dp),
-                    letterSpacing = (-0.02).sp,
-                    lineHeight = 5.4.sp
-                )
+                style = HousTheme.typography.h4
             )
         }
     }

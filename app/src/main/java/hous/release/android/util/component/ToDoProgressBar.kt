@@ -1,4 +1,4 @@
-package hous.release.android.presentation.todo.main
+package hous.release.android.util.component
 
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
@@ -22,17 +22,10 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import hous.release.android.R
-import hous.release.android.util.component.RoundedLinearIndicator
-import hous.release.android.util.component.dpToSp
-import hous.release.android.util.component.drawMessageShape
+import hous.release.android.util.style.HousTheme
 
 enum class HomiesPosition {
     START, LEFT, RIGHT, END
@@ -134,13 +127,7 @@ private fun MoveHomieWithMessage(
                 .padding(messagePaddingValue),
             text = homiesMessage,
             color = colorResource(id = R.color.hous_g_5),
-            style = TextStyle(
-                fontFamily = FontFamily(Font(R.font.spoqa_han_sans_neo_medium)),
-                fontWeight = FontWeight.Normal,
-                fontSize = dpToSp(dp = 13.dp),
-                letterSpacing = (-0.02).sp,
-                lineHeight = 6.5.sp
-            )
+            style = HousTheme.typography.description
         )
         Image(
             modifier = Modifier.absoluteOffset(x = maxWidth.times(progress).minus(homiesSite)),

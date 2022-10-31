@@ -26,6 +26,7 @@ import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
+import hous.release.android.util.style.HousTheme
 
 @Composable
 fun DailyTab(
@@ -66,6 +67,7 @@ private fun DailyTapItem(
             ) else Modifier.clickable { setCurrIndex(index) }
                 .padding(vertical = 10.dp, horizontal = 13.dp),
             text = weekOfDay,
+            style = HousTheme.typography.b2,
             color = colorResource(id = if (index == currIndex) R.color.hous_white else R.color.hous_g_5)
         )
         Spacer(modifier = Modifier.height(12.dp))
