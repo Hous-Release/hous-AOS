@@ -10,6 +10,7 @@ import hous.release.android.R
 import hous.release.android.databinding.FragmentProfileBinding
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.LOCATION
 import hous.release.android.presentation.badge.BadgeActivity
+import hous.release.android.presentation.personality.result.PersonalityResultActivity
 import hous.release.android.presentation.profile.adapter.ProfilePersonalityAdapter
 import hous.release.android.util.binding.BindingFragment
 import hous.release.domain.entity.HomyType
@@ -36,9 +37,9 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
     }
 
     private fun initPersonalityOnClickListener() {
-        val intent = Intent(requireActivity(), PersonalityResult::class.java)
-        intent.putExtra(LOCATION, PROFILE)
-        startActivity(intent)
+//        val intent = Intent(requireActivity(), PersonalityResultActivity::class.java)
+//        intent.putExtra(LOCATION, PROFILE)
+//        startActivity(intent)
     }
 
     private fun initAlarmOnClickListener() {
