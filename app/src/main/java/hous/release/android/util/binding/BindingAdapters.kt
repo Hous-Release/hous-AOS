@@ -17,4 +17,11 @@ object BindingAdapters {
             }
         )
     }
+
+    @JvmStatic
+    @BindingAdapter("app:pushNotificationState")
+    fun ImageView.setPushAlarmState(isSelected: Boolean?) {
+        if (isSelected == null) return
+        this.isSelected = isSelected
+    }
 }
