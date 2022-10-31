@@ -11,6 +11,8 @@ import hous.release.android.databinding.FragmentProfileBinding
 import hous.release.android.presentation.badge.BadgeActivity
 import hous.release.android.presentation.profile.adapter.ProfilePersonalityAdapter
 import hous.release.android.util.binding.BindingFragment
+import hous.release.android.util.component.HousPersonalityPentagon
+import hous.release.android.util.style.HousTheme
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.PersonalityInfo
 import hous.release.domain.entity.ProfileSet
@@ -31,6 +33,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
         initTestBtnOnClickListener()
         initPersonalityAdapter()
         initPersonalityOnClickListener()
+        observePersonalityPentagon()
     }
 
     private fun initPersonalityOnClickListener() {
@@ -88,6 +91,14 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
                         ContextCompat.getColor(requireContext(), profileSet.colorText)
                     )
                 }
+            }
+        }
+    }
+
+    private fun observePersonalityPentagon() {
+        binding.cvProfilePersonalityPentagon.setContent {
+            HousTheme {
+                HousPersonalityPentagon(radiusList = listOf(5, 5, 5, 5, 5), homyType = HomyType.RED)
             }
         }
     }
