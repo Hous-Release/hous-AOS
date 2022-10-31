@@ -66,7 +66,7 @@
             android:maxLength="15"
             android:text="@={vm.todoName}"
             android:textAlignment="textStart"
-            android:textAppearance="@style/B1"
+            android:textAppearance="@style/B2"
             android:textColor="@color/hous_black"
             android:textColorHint="@color/hous_g_5"
             app:layout_constraintEnd_toEndOf="parent"
