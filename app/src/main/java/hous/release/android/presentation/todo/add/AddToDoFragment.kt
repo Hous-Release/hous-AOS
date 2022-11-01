@@ -2,6 +2,8 @@ package hous.release.android.presentation.todo.add
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -10,28 +12,35 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentAddToDoBinding
 import hous.release.android.util.binding.BindingFragment
+import hous.release.android.util.dialog.ConfirmClickListener
+import hous.release.android.util.dialog.WarningDialogFragment
+import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.repeatOnStarted
+import hous.release.android.util.extension.withArgs
 
 @AndroidEntryPoint
 class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragment_add_to_do) {
     private val viewModel by viewModels<AddToDoVIewModel>()
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
         setStatusBarColor(colorRes = R.color.hous_white)
         initToDoUserScreen()
+        initBackButtonListener()
         collectTodoName()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        onBackPressedCallback.remove()
         setStatusBarColor(colorRes = R.color.hous_g_1)
     }
 
     private fun initToDoUserScreen() {
         binding.composeViewAddToDo.setContent {
-            TodoUserScreen(
+            AddTodoUserScreen(
                 viewModel = viewModel,
                 finish = { findNavController().popBackStack() },
                 name = getString(R.string.to_do_add_button),
@@ -51,5 +60,36 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
                 viewModel.setToDoNameState(isBlank = viewModel.isBlankToDoName())
             }
         }
+    }
+
+    private fun initBackButtonListener() {
+        requireActivity().onBackPressedDispatcher.addCallback {
+            if (viewModel.isActiveAddButton() || !viewModel.isBlankToDoName()) {
+                showOutDialog()
+                return@addCallback
+            }
+            findNavController().popBackStack()
+        }.also { callback -> onBackPressedCallback = callback }
+
+        binding.btnAddToDoBack.setOnClickListener {
+            if (viewModel.isActiveAddButton() || !viewModel.isBlankToDoName()) {
+                showOutDialog()
+                return@setOnClickListener
+            }
+            findNavController().popBackStack()
+        }
+    }
+
+    private fun showOutDialog() {
+        WarningDialogFragment().withArgs {
+            putSerializable(
+                WarningDialogFragment.WARNING_TYPE,
+                WarningType.WARNING_ADD_TO_DO
+            )
+            putParcelable(
+                WarningDialogFragment.CONFIRM_ACTION,
+                ConfirmClickListener(confirmAction = { findNavController().popBackStack() })
+            )
+        }.show(childFragmentManager, WarningDialogFragment.DIALOG_WARNING)
     }
 }
