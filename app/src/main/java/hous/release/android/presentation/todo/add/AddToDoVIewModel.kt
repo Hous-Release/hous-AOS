@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -48,7 +47,6 @@ class AddToDoVIewModel @Inject constructor() : ViewModel() {
     }
 
     fun selectTodoDay(userIdx: Int, dayIdx: Int) {
-        Timber.e("${userIdx}")
         val dayOfWeeks: List<Boolean> =
             uiState.value.todoUsers[userIdx].dayOfWeeks.mapIndexed { idx, checkState ->
                 if (idx == dayIdx) {
@@ -80,6 +78,7 @@ class AddToDoVIewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    fun isActiveAddButton() = (uiState.value.buttonState == ButtonState.ACTIVE)
     fun isBlankToDoName(): Boolean = todoName.value.isBlank()
     fun setToDoNameState(isBlank: Boolean) {
         _uiState.update { uiState ->
@@ -88,12 +87,12 @@ class AddToDoVIewModel @Inject constructor() : ViewModel() {
     }
 
     data class AddToDoUiState(
-        val selectedUsers: List<ToDoUser> = emptyList(),
-        val todoUsers: List<ToDoUser> = emptyList(),
-        val isPushNotification: Boolean = false,
-        val buttonState: ButtonState = ButtonState.INACTIVE,
-        val isBlankTodoName: Boolean = true
-    )
+        override val selectedUsers: List<ToDoUser> = emptyList(),
+        override val todoUsers: List<ToDoUser> = emptyList(),
+        override val isPushNotification: Boolean = false,
+        override val buttonState: ButtonState = ButtonState.INACTIVE,
+        override val isBlankTodoName: Boolean = true
+    ) : ToDoUiState()
 
     companion object {
         private val dummyUiState = AddToDoUiState(
