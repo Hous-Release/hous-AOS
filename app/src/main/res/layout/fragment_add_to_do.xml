@@ -22,7 +22,7 @@
             android:layout_marginTop="6dp"
             android:padding="14dp"
             android:background="@null"
-            android:src="@drawable/ic_back"
+            android:src="@drawable/ic_back_g5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,7 +37,7 @@
             android:src="@drawable/selector_push_notification"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:pushNotificationState="@{vm.uiState.isPushNotification}" />
+            app:notificationState="@{vm.uiState.isPushNotification}" />
 
         <TextView
             android:id="@+id/tv_add_to_do_title"
