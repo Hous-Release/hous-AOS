@@ -1,12 +1,16 @@
 package hous.release.android.presentation.todo.add
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.ToDoUser
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -16,30 +20,35 @@ class AddToDoVIewModel @Inject constructor() : ViewModel() {
     private var _uiState = MutableStateFlow(dummyUiState)
     val uiState = _uiState.asStateFlow()
 
+    fun putTodo() = viewModelScope.launch {
+        delay(500L)
+        // TODO 서버 통신
+    }
+
     fun checkUser(userIdx: Int) {
         _uiState.update { uiState ->
-            val newTodoUser = uiState.todoUsers.mapIndexed { idx, toDoUser ->
+            val newToDoUsers = uiState.todoUsers.mapIndexed { idx, toDoUser ->
                 if (idx == userIdx) {
                     if (toDoUser.isChecked) {
                         return@mapIndexed toDoUser.copy(
-                            isChecked = !toDoUser.isChecked,
+                            isChecked = false,
                             dayOfWeeks = List(7) { false }
                         )
                     } else {
-                        return@mapIndexed toDoUser.copy(isChecked = !toDoUser.isChecked)
+                        return@mapIndexed toDoUser.copy(isChecked = true)
                     }
                 }
                 toDoUser
             }
             uiState.copy(
-                todoUsers = newTodoUser,
-                selectedUsers = newTodoUser.filter { it.isChecked }
+                todoUsers = newToDoUsers,
+                selectedUsers = newToDoUsers.filter { it.isChecked }
             )
         }
-        Timber.i(uiState.value.selectedUsers.map { it.nickname }.toString())
     }
 
     fun selectTodoDay(userIdx: Int, dayIdx: Int) {
+        Timber.e("${userIdx}")
         val dayOfWeeks: List<Boolean> =
             uiState.value.todoUsers[userIdx].dayOfWeeks.mapIndexed { idx, checkState ->
                 if (idx == dayIdx) {
@@ -48,24 +57,42 @@ class AddToDoVIewModel @Inject constructor() : ViewModel() {
                 checkState
             }
         _uiState.update { uiState ->
-            uiState.copy(
-                todoUsers =
-                uiState.todoUsers.mapIndexed { idx, toDoUser ->
-                    if (idx == userIdx) {
-                        return@mapIndexed uiState.todoUsers[idx].copy(
-                            dayOfWeeks = dayOfWeeks
-                        )
-                    }
-                    toDoUser
+            val newToDoUsers = uiState.todoUsers.mapIndexed { idx, toDoUser ->
+                if (idx == userIdx) {
+                    return@mapIndexed uiState.todoUsers[idx].copy(
+                        dayOfWeeks = dayOfWeeks
+                    )
                 }
+                toDoUser
+            }
+            uiState.copy(
+                todoUsers = newToDoUsers,
+                selectedUsers = newToDoUsers.filter { it.isChecked }
             )
+        }
+    }
+
+    fun changeNotificationState() {
+        _uiState.update { uiState ->
+            uiState.copy(
+                isPushNotification = !uiState.isPushNotification
+            )
+        }
+    }
+
+    fun isBlankToDoName(): Boolean = todoName.value.isBlank()
+    fun setToDoNameState(isBlank: Boolean) {
+        _uiState.update { uiState ->
+            uiState.copy(isBlankTodoName = isBlank)
         }
     }
 
     data class AddToDoUiState(
         val selectedUsers: List<ToDoUser> = emptyList(),
         val todoUsers: List<ToDoUser> = emptyList(),
-        val isPushNotification: Boolean = false
+        val isPushNotification: Boolean = false,
+        val buttonState: ButtonState = ButtonState.INACTIVE,
+        val isBlankTodoName: Boolean = true
     )
 
     companion object {
