@@ -1,5 +1,7 @@
 package hous.release.android.util.component
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +14,7 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,26 +23,35 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
 import hous.release.android.presentation.our_rules.type.ButtonState
-import hous.release.android.presentation.todo.add.ToDoUiState
+import hous.release.android.presentation.todo.viewmodel.UpdateToDoUiState
 import hous.release.android.util.theme.b2
 import kotlinx.coroutines.Job
 
 @Composable
 fun TodoUserScreen(
-    uiState: ToDoUiState,
+    uiState: UpdateToDoUiState,
     checkUser: (Int) -> Unit,
     selectTodoDay: (Int, Int) -> Unit,
     finish: () -> Boolean,
     name: String,
-    putToDo: () -> Job
+    putToDo: () -> Job,
+    hideKeyBoard: () -> Unit
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
     Surface(
         color = colorResource(id = R.color.white),
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp)
     ) {
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null
+                ) { hideKeyBoard() }
+        ) {
             Text(
                 text = stringResource(id = R.string.to_do_manager),
                 style = b2,
@@ -60,14 +72,15 @@ fun TodoUserScreen(
                     ToDoUserItem(
                         userIdx = userIdx,
                         todoUser = user,
-                        checkUser = checkUser
+                        checkUser = checkUser,
+                        hideKeyBoard = hideKeyBoard
                     )
                     if (user.isChecked) {
                         DayItems(
                             userIdx = userIdx,
                             dayList = uiState.todoUsers[userIdx].dayOfWeeks,
-                            selectTodoDay =
-                            selectTodoDay
+                            selectTodoDay = selectTodoDay,
+                            hideKeyBoard = hideKeyBoard
                         )
                     }
                     Divider(thickness = 1.dp, color = colorResource(id = R.color.hous_g_2))
@@ -79,7 +92,8 @@ fun TodoUserScreen(
         }
         Row(
             modifier = Modifier
-                .fillMaxSize().padding(bottom = 20.dp),
+                .fillMaxSize()
+                .padding(bottom = 20.dp),
             verticalAlignment = Alignment.Bottom
         ) {
             ToDoButton(
@@ -93,7 +107,7 @@ fun TodoUserScreen(
     }
 }
 
-fun getToDoButtonState(uiState: ToDoUiState): ButtonState {
+fun getToDoButtonState(uiState: UpdateToDoUiState): ButtonState {
     if (uiState.isBlankTodoName) return ButtonState.INACTIVE
     if (uiState.selectedUsers.isEmpty()) return ButtonState.INACTIVE
     uiState.selectedUsers.forEach { toDoUser ->

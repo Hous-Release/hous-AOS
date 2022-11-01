@@ -31,13 +31,17 @@ import hous.release.domain.entity.response.ToDoUser
 fun ToDoUserItem(
     userIdx: Int,
     todoUser: ToDoUser,
-    checkUser: (userIdx: Int) -> Unit = {}
+    checkUser: (userIdx: Int) -> Unit = {},
+    hideKeyBoard: () -> Unit = {}
 ) {
     Column(modifier = Modifier.wrapContentSize()) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { checkUser(userIdx) }
+                .clickable {
+                    hideKeyBoard()
+                    checkUser(userIdx)
+                }
                 .padding(start = 3.dp)
                 .padding(top = 15.dp)
                 .padding(bottom = 12.dp),

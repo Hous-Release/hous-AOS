@@ -1,5 +1,6 @@
 package hous.release.android.presentation.todo.add
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentAddToDoBinding
+import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.WarningDialogFragment
@@ -30,6 +32,7 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
         initToDoUserScreen()
         initBackButtonListener()
         collectTodoName()
+        initEditTextClearFocus()
     }
 
     override fun onDestroyView() {
@@ -38,13 +41,30 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
         setStatusBarColor(colorRes = R.color.hous_g_1)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private fun initEditTextClearFocus() {
+        binding.clAddToDo.setOnTouchListener { _, _ ->
+            KeyBoardUtil.hide(requireActivity())
+            return@setOnTouchListener false
+        }
+        binding.composeViewAddToDo.setOnTouchListener { _, _ ->
+            KeyBoardUtil.hide(requireActivity())
+            return@setOnTouchListener false
+        }
+    }
+
+    private fun hideKeyBoard() {
+        KeyBoardUtil.hide(requireActivity())
+    }
+
     private fun initToDoUserScreen() {
         binding.composeViewAddToDo.setContent {
             AddTodoUserScreen(
                 viewModel = viewModel,
                 finish = { findNavController().popBackStack() },
                 name = getString(R.string.to_do_add_button),
-                putToDo = viewModel::putTodo
+                putToDo = viewModel::putTodo,
+                hideKeyBoard = ::hideKeyBoard
             )
         }
     }

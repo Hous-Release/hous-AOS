@@ -32,6 +32,7 @@ fun DayItems(
     dayList: List<Boolean>,
     selectTodoDay: (userIdx: Int, dayIdx: Int) -> Unit = { _, _ ->
     },
+    hideKeyBoard: () -> Unit = {},
     dayNameList: List<String> = listOf("월", "화", "수", "목", "금", "토", "일")
 ) {
     Row(
@@ -42,6 +43,7 @@ fun DayItems(
     ) {
         repeat(7) { idx ->
             DayItem(
+                hideKeyBoard,
                 userIdx = userIdx,
                 dayIdx = idx,
                 text = dayNameList[idx],
@@ -54,6 +56,7 @@ fun DayItems(
 
 @Composable
 fun DayItem(
+    hideKeyBoard: () -> Unit = {},
     userIdx: Int,
     dayIdx: Int,
     text: String,
@@ -65,7 +68,10 @@ fun DayItem(
             modifier = Modifier
                 .clip(CircleShape)
                 .background(color = colorResource(id = R.color.hous_blue_l1))
-                .clickable { selectTodoDay(userIdx, dayIdx) }
+                .clickable {
+                    selectTodoDay(userIdx, dayIdx)
+                    hideKeyBoard()
+                }
                 .size(40.dp),
             contentAlignment = Alignment.Center
         ) {
@@ -83,7 +89,10 @@ fun DayItem(
         modifier = Modifier
             .clip(CircleShape)
             .background(color = colorResource(id = R.color.hous_g_1))
-            .clickable { selectTodoDay(userIdx, dayIdx) }
+            .clickable {
+                selectTodoDay(userIdx, dayIdx)
+                hideKeyBoard()
+            }
             .size(40.dp),
         contentAlignment = Alignment.Center
     ) {
