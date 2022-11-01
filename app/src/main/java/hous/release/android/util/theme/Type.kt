@@ -7,6 +7,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import hous.release.android.R
 
+val b1 = TextStyle(
+    fontFamily = FontFamily(Font(R.font.spoqa_han_sans_neo_medium)),
+    fontWeight = FontWeight.Normal,
+    fontSize = 16.sp,
+    letterSpacing = (-0.3).sp,
+    lineHeight = 24.sp
+)
+
 val b2 = TextStyle(
     fontFamily = FontFamily(Font(R.font.spoqa_han_sans_neo_medium)),
     fontWeight = FontWeight.Normal,
