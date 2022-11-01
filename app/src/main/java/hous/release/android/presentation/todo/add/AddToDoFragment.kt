@@ -2,6 +2,7 @@ package hous.release.android.presentation.todo.add
 
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,12 +19,17 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
-        initStatusBarColor()
-        initComposeView()
+        setStatusBarColor(colorRes = R.color.hous_white)
+        initToDoUserScreen()
         collectTodoName()
     }
 
-    private fun initComposeView() {
+    override fun onDestroyView() {
+        super.onDestroyView()
+        setStatusBarColor(colorRes = R.color.hous_g_1)
+    }
+
+    private fun initToDoUserScreen() {
         binding.composeViewAddToDo.setContent {
             TodoUserScreen(
                 viewModel = viewModel,
@@ -34,9 +40,9 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
         }
     }
 
-    private fun initStatusBarColor() {
+    private fun setStatusBarColor(@ColorRes colorRes: Int) {
         requireActivity().window.statusBarColor =
-            ContextCompat.getColor(requireActivity(), R.color.hous_white)
+            ContextCompat.getColor(requireActivity(), colorRes)
     }
 
     private fun collectTodoName() {
