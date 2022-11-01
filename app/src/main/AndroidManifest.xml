@@ -28,7 +28,8 @@
         <activity
             android:name=".presentation.todo.detail.TodoDetailActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.tutorial.TutorialActivity"
             android:exported="false"
