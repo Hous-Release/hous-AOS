@@ -249,7 +249,7 @@
     <!-- Settings -->
     <string name="settings_back_btn_desc">뒤로가기 버튼</string>
     <string name="settings_title">설정</string>
-    <string name="settings_alarm">알림</string>
+    <string name="settings_notification">알림</string>
     <string name="settings_info">개인정보 및 약관</string>
     <string name="settings_feedback">호미나라 피드백 보내기</string>
     <string name="settings_logout">로그아웃</string>

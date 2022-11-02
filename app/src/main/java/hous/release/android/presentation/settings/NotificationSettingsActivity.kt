@@ -9,5 +9,10 @@ class NotificationSettingsActivity :
     BindingActivity<ActivityNotificationSettingsBinding>(R.layout.activity_notification_settings) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initBackBtnClickListener()
+    }
+
+    private fun initBackBtnClickListener() {
+        binding.btnNotiSettingsBack.setOnClickListener { finish() }
     }
 }

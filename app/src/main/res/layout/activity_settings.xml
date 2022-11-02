@@ -45,41 +45,41 @@
             app:layout_constraintTop_toBottomOf="@id/btn_settings_back" />
 
         <ImageView
-            android:id="@+id/iv_settings_alarm"
+            android:id="@+id/iv_settings_notification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:contentDescription="@string/settings_alarm"
+            android:contentDescription="@string/settings_notification"
             android:src="@drawable/ic_alarm"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_settings_top" />
 
         <TextView
-            android:id="@+id/tv_settings_alarm"
+            android:id="@+id/tv_settings_notification"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="12dp"
-            android:text="@string/settings_alarm"
+            android:text="@string/settings_notification"
             android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
-            app:layout_constraintBottom_toBottomOf="@id/iv_settings_alarm"
-            app:layout_constraintEnd_toStartOf="@id/btn_settings_alarm"
-            app:layout_constraintStart_toEndOf="@id/iv_settings_alarm"
-            app:layout_constraintTop_toTopOf="@id/iv_settings_alarm" />
+            app:layout_constraintBottom_toBottomOf="@id/iv_settings_notification"
+            app:layout_constraintEnd_toStartOf="@id/btn_settings_notification"
+            app:layout_constraintStart_toEndOf="@id/iv_settings_notification"
+            app:layout_constraintTop_toTopOf="@id/iv_settings_notification" />
 
         <ImageButton
-            android:id="@+id/btn_settings_alarm"
+            android:id="@+id/btn_settings_notification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:background="@null"
-            android:contentDescription="@string/settings_alarm"
+            android:contentDescription="@string/settings_notification"
             android:padding="8dp"
             android:src="@drawable/ic_settings_next"
-            app:layout_constraintBottom_toBottomOf="@id/iv_settings_alarm"
+            app:layout_constraintBottom_toBottomOf="@id/iv_settings_notification"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_settings_alarm" />
+            app:layout_constraintTop_toTopOf="@id/iv_settings_notification" />
 
         <ImageView
             android:id="@+id/iv_settings_info"
@@ -88,8 +88,8 @@
             android:layout_marginTop="24dp"
             android:contentDescription="@string/settings_info"
             android:src="@drawable/ic_info"
-            app:layout_constraintStart_toStartOf="@id/iv_settings_alarm"
-            app:layout_constraintTop_toBottomOf="@id/iv_settings_alarm" />
+            app:layout_constraintStart_toStartOf="@id/iv_settings_notification"
+            app:layout_constraintTop_toBottomOf="@id/iv_settings_notification" />
 
         <TextView
             android:id="@+id/tv_settings_info"
@@ -124,7 +124,7 @@
             android:layout_marginTop="24dp"
             android:contentDescription="@string/settings_feedback"
             android:src="@drawable/ic_feedback"
-            app:layout_constraintStart_toStartOf="@id/iv_settings_alarm"
+            app:layout_constraintStart_toStartOf="@id/iv_settings_notification"
             app:layout_constraintTop_toBottomOf="@id/iv_settings_info" />
 
         <TextView
