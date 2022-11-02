@@ -9,9 +9,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentProfileBinding
 import hous.release.android.presentation.badge.BadgeActivity
+import hous.release.android.presentation.notification.NotificationActivity
 import hous.release.android.presentation.personality.result.PersonalityResultActivity
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.LOCATION
 import hous.release.android.presentation.profile.adapter.ProfilePersonalityAdapter
+import hous.release.android.presentation.settings.SettingsActivity
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.component.HousPersonalityPentagon
 import hous.release.android.util.style.HousTheme
@@ -28,7 +30,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
         super.onViewCreated(view, savedInstanceState)
         binding.vm = profileViewModel
         initProfileInfo()
-        initAlarmOnClickListener()
+        initNotificationOnClickListener()
         initSettingOnClickListener()
         initBadgeOnClickListener()
         initEditOnClickListener()
@@ -46,15 +48,21 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
         }
     }
 
-    private fun initAlarmOnClickListener() {
-        binding.ivProfileAlarm.setOnClickListener {
-            // 알람으로 go
+    private fun initNotificationOnClickListener() {
+        binding.btnProfileNotification.setOnClickListener {
+            startActivity(Intent(requireContext(), NotificationActivity::class.java))
         }
     }
 
     private fun initSettingOnClickListener() {
-        binding.ivProfileSetting.setOnClickListener {
-            // 세팅으로 go
+        binding.btnProfileSetting.setOnClickListener {
+            binding.btnProfileSetting.setOnClickListener {
+                startActivity(
+                    Intent(requireContext(), SettingsActivity::class.java).apply {
+                        putExtra(SettingsActivity.HAS_ROOM, true)
+                    }
+                )
+            }
         }
     }
 
