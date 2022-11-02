@@ -18,6 +18,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.personality.result.PersonalityResultActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".presentation.profile.ProfileEditActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -53,6 +57,10 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.our_rules.OurRulesActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.badge.BadgeActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

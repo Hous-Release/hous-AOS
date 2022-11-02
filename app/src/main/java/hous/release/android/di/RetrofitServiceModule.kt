@@ -5,10 +5,12 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import hous.release.data.service.AuthService
+import hous.release.data.service.BadgeService
 import hous.release.data.service.EnterRoomService
 import hous.release.data.service.HousService
 import hous.release.data.service.NotificationService
 import hous.release.data.service.OurRulesService
+import hous.release.data.service.PersonalityService
 import hous.release.data.service.ProfileService
 import hous.release.data.service.TodoService
 import retrofit2.Retrofit
@@ -49,6 +51,16 @@ class RetrofitServiceModule {
 
     @Provides
     @Singleton
+    fun providesPersonalityService(retrofit: Retrofit): PersonalityService =
+        retrofit.create(PersonalityService::class.java)
+
+    @Provides
+    @Singleton
     fun providesProfileService(retrofit: Retrofit): ProfileService =
         retrofit.create(ProfileService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesBadgeService(retrofit: Retrofit): BadgeService =
+        retrofit.create(BadgeService::class.java)
 }
