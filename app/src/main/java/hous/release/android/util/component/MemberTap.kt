@@ -22,13 +22,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import hous.release.android.R
+import hous.release.android.util.style.HousTheme
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.MemberTodoContent
 
@@ -38,19 +34,21 @@ fun MemberTodoTap(
     members: List<MemberTodoContent>,
     setCurrIndex: (Int) -> Unit
 ) {
-    LazyRow(
-        modifier = Modifier
-            .fillMaxWidth(),
-        contentPadding = PaddingValues(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(28.dp)
-    ) {
-        itemsIndexed(members) { index, item ->
-            MemberTapItem(
-                member = item,
-                index = index,
-                currIndex = currIndex,
-                setCurrIndex = setCurrIndex
-            )
+    HousTheme {
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth(),
+            contentPadding = PaddingValues(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(28.dp)
+        ) {
+            itemsIndexed(members) { index, item ->
+                MemberTapItem(
+                    member = item,
+                    index = index,
+                    currIndex = currIndex,
+                    setCurrIndex = setCurrIndex
+                )
+            }
         }
     }
 }
@@ -92,13 +90,7 @@ private fun MemberTapItem(
         Spacer(modifier = Modifier.height(5.dp))
         Text(
             text = member.userName,
-            style = TextStyle(
-                fontFamily = FontFamily(Font(R.font.spoqa_han_sans_neo)),
-                fontWeight = FontWeight.Normal,
-                fontSize = dpToSp(dp = 12.dp),
-                letterSpacing = (-0.3).sp,
-                lineHeight = 19.sp
-            ),
+            style = HousTheme.typography.description,
             color = colorResource(id = if (index == currIndex) R.color.hous_black else R.color.hous_g_5)
         )
         Spacer(modifier = Modifier.height(8.dp))

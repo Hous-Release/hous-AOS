@@ -38,7 +38,7 @@
             android:layout_marginStart="6dp"
             android:layout_marginTop="11dp"
             android:padding="10dp"
-            android:src="@drawable/ic_back"
+            android:src="@drawable/ic_back_g4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

@@ -5,9 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.addCallback
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.material.MaterialTheme
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.presentation.badge.BadgeViewModel.Companion.NON_SELECTED
+import hous.release.android.util.style.HousTheme
 
 @AndroidEntryPoint
 class BadgeActivity : ComponentActivity() {
@@ -15,7 +15,7 @@ class BadgeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MaterialTheme {
+            HousTheme {
                 HousBadgeScreen(badgeViewModel = badgeViewModel) {
                     finish()
                 }

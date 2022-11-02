@@ -9,8 +9,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentProfileBinding
 import hous.release.android.presentation.badge.BadgeActivity
+import hous.release.android.presentation.personality.result.PersonalityResultActivity
+import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.LOCATION
 import hous.release.android.presentation.profile.adapter.ProfilePersonalityAdapter
 import hous.release.android.util.binding.BindingFragment
+import hous.release.android.util.component.HousPersonalityPentagon
+import hous.release.android.util.style.HousTheme
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.PersonalityInfo
 import hous.release.domain.entity.ProfileSet
@@ -30,6 +34,16 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
         initEditOnClickListener()
         initTestBtnOnClickListener()
         initPersonalityAdapter()
+        initPersonalityOnClickListener()
+        observePersonalityPentagon()
+    }
+
+    private fun initPersonalityOnClickListener() {
+        binding.llProfilePersonalityDetail.setOnClickListener {
+            val intent = Intent(requireActivity(), PersonalityResultActivity::class.java)
+            intent.putExtra(LOCATION, PROFILE)
+            startActivity(intent)
+        }
     }
 
     private fun initAlarmOnClickListener() {
@@ -68,15 +82,30 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
     }
 
     private fun initProfileInfo() {
-        profileViewModel.profileData.observe(viewLifecycleOwner) {
-            if (it.personalityColor == HomyType.GRAY) binding.clProfileHeader.setBackgroundResource(R.color.hous_g_1)
+        profileViewModel.profileData.observe(viewLifecycleOwner) { profile ->
+            if (profile.personalityColor == HomyType.GRAY) binding.clProfileHeader.setBackgroundResource(
+                R.color.hous_g_1
+            )
             else {
-                val profileSet = getProfileSet(it.personalityColor.toString())
+                val profileSet = getProfileSet(profile.personalityColor.toString())
                 with(binding) {
                     clProfileHeader.setBackgroundResource(profileSet.colorBg)
                     tvProfilePersonality.setText(profileSet.personality)
                     tvProfilePersonality.setTextColor(
                         ContextCompat.getColor(requireContext(), profileSet.colorText)
+                    )
+                }
+            }
+        }
+    }
+
+    private fun observePersonalityPentagon() {
+        profileViewModel.profileData.observe(viewLifecycleOwner) { profile ->
+            binding.cvProfilePersonalityPentagon.setContent {
+                HousTheme {
+                    HousPersonalityPentagon(
+                        testScore = profile.testScore,
+                        homyType = profile.personalityColor
                     )
                 }
             }
@@ -129,5 +158,6 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
             ),
             PersonalityInfo(R.string.personality_clean, R.string.personality_clean_description)
         )
+        private const val PROFILE = "profile"
     }
 }

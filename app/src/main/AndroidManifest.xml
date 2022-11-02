@@ -26,6 +26,10 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".presentation.personality.result.PersonalityResultActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".presentation.notification.NotificationActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
