@@ -6,7 +6,7 @@ import retrofit2.http.Body
 import retrofit2.http.PATCH
 
 interface SettingsService {
-    @PATCH
+    @PATCH("/v1/user/push")
     suspend fun patchNotificationSettings(
         @Body body: NotificationSettingsRequest
     ): NoDataResponse

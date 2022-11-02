@@ -14,7 +14,7 @@ class SettingsRepositoryImpl @Inject constructor(
         startTodoStatus: String?,
         remindTodoStatus: String?,
         badgeStatus: String?
-    ) = kotlin.runCatching {
+    ): Result<Boolean> = kotlin.runCatching {
         settingsDataSource.patchNotificationSettingsService(
             notificationStatus = notificationStatus,
             newRulesStatus = newRulesStatus,

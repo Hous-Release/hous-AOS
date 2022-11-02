@@ -5,6 +5,11 @@
 
     <data>
 
+        <import type="hous.release.domain.entity.NotificationStatusType" />
+
+        <variable
+            name="vm"
+            type="hous.release.android.presentation.settings.NotificationSettingsViewModel" />
     </data>
 
     <ScrollView
@@ -67,7 +72,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
                 android:background="@null"
-                android:checked="false"
                 android:gravity="center_vertical"
                 android:thumb="@drawable/selector_switch_thumb"
                 app:layout_constraintBottom_toBottomOf="@id/tv_noti_settings_accept_alarm"
@@ -128,6 +132,7 @@
                     android:button="@drawable/selector_radio_button"
                     android:layoutDirection="rtl"
                     android:minHeight="0dp"
+                    android:onClick="@{()->vm.patchNewRulesSettings(NotificationStatusType.ON)}"
                     android:paddingVertical="8dp"
                     android:text="@string/noti_settings_on"
                     android:textAlignment="textStart"
@@ -143,6 +148,7 @@
                     android:button="@drawable/selector_radio_button"
                     android:layoutDirection="rtl"
                     android:minHeight="0dp"
+                    android:onClick="@{()->vm.patchNewRulesSettings(NotificationStatusType.OFF)}"
                     android:paddingVertical="8dp"
                     android:text="@string/noti_settings_off"
                     android:textAlignment="textStart"
@@ -202,6 +208,7 @@
                     android:button="@drawable/selector_radio_button"
                     android:layoutDirection="rtl"
                     android:minHeight="0dp"
+                    android:onClick="@{()->vm.patchNewTodosSettings(NotificationStatusType.ON_ALL)}"
                     android:paddingVertical="8dp"
                     android:text="@string/noti_settings_new_todos_on_all"
                     android:textAlignment="textStart"
@@ -217,6 +224,7 @@
                     android:button="@drawable/selector_radio_button"
                     android:layoutDirection="rtl"
                     android:minHeight="0dp"
+                    android:onClick="@{()->vm.patchNewTodosSettings(NotificationStatusType.ON_MY)}"
                     android:paddingVertical="8dp"
                     android:text="@string/noti_settings_on_me"
                     android:textAlignment="textStart"
@@ -232,6 +240,7 @@
                     android:button="@drawable/selector_radio_button"
                     android:layoutDirection="rtl"
                     android:minHeight="0dp"
+                    android:onClick="@{()->vm.patchNewTodosSettings(NotificationStatusType.OFF)}"
                     android:paddingVertical="8dp"
                     android:text="@string/noti_settings_off"
                     android:textAlignment="textStart"
@@ -291,6 +300,7 @@
                     android:button="@drawable/selector_radio_button"
                     android:layoutDirection="rtl"
                     android:minHeight="0dp"
+                    android:onClick="@{()->vm.patchStartTodosSettings(NotificationStatusType.ON_ALL)}"
                     android:paddingVertical="8dp"
                     android:text="@string/noti_settings_start_todos_on_all"
                     android:textAlignment="textStart"
@@ -306,6 +316,7 @@
                     android:button="@drawable/selector_radio_button"
                     android:layoutDirection="rtl"
                     android:minHeight="0dp"
+                    android:onClick="@{()->vm.patchStartTodosSettings(NotificationStatusType.ON_MY)}"
                     android:paddingVertical="8dp"
                     android:text="@string/noti_settings_on_me"
                     android:textAlignment="textStart"
@@ -321,6 +332,7 @@
                     android:button="@drawable/selector_radio_button"
                     android:layoutDirection="rtl"
                     android:minHeight="0dp"
+                    android:onClick="@{()->vm.patchStartTodosSettings(NotificationStatusType.OFF)}"
                     android:paddingVertical="8dp"
                     android:text="@string/noti_settings_off"
                     android:textAlignment="textStart"
@@ -380,6 +392,7 @@
                     android:button="@drawable/selector_radio_button"
                     android:layoutDirection="rtl"
                     android:minHeight="0dp"
+                    android:onClick="@{()->vm.patchRemindTodosSettings(NotificationStatusType.ON_ALL)}"
                     android:paddingVertical="8dp"
                     android:text="@string/noti_settings_remind_todos_on_all"
                     android:textAlignment="textStart"
@@ -395,6 +408,7 @@
                     android:button="@drawable/selector_radio_button"
                     android:layoutDirection="rtl"
                     android:minHeight="0dp"
+                    android:onClick="@{()->vm.patchRemindTodosSettings(NotificationStatusType.ON_MY)}"
                     android:paddingVertical="8dp"
                     android:text="@string/noti_settings_on_me"
                     android:textAlignment="textStart"
@@ -410,6 +424,7 @@
                     android:button="@drawable/selector_radio_button"
                     android:layoutDirection="rtl"
                     android:minHeight="0dp"
+                    android:onClick="@{()->vm.patchRemindTodosSettings(NotificationStatusType.OFF)}"
                     android:paddingVertical="8dp"
                     android:text="@string/noti_settings_off"
                     android:textAlignment="textStart"
@@ -469,6 +484,7 @@
                     android:button="@drawable/selector_radio_button"
                     android:layoutDirection="rtl"
                     android:minHeight="0dp"
+                    android:onClick="@{()->vm.patchBadgeSettings(NotificationStatusType.ON)}"
                     android:paddingVertical="8dp"
                     android:text="@string/noti_settings_on"
                     android:textAlignment="textStart"
@@ -484,6 +500,7 @@
                     android:button="@drawable/selector_radio_button"
                     android:layoutDirection="rtl"
                     android:minHeight="0dp"
+                    android:onClick="@{()->vm.patchBadgeSettings(NotificationStatusType.OFF)}"
                     android:paddingVertical="8dp"
                     android:text="@string/noti_settings_off"
                     android:textAlignment="textStart"
