@@ -95,35 +95,26 @@
                     tools:text="슈퍼 팔로워 셋돌이"
                     tools:textColor="@color/hous_red" />
 
-                <ImageView
-                    android:id="@+id/iv_personality_result_image"
-                    setImage="@{vm.resultData.imageUrl}"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="39dp"
-                    android:layout_marginTop="24dp"
-                    android:background="@drawable/shape_white_fill_20_rect"
-                    android:elevation="10dp"
-                    android:outlineSpotShadowColor="@color/hous_red"
-                    android:padding="14dp"
-                    app:layout_constraintDimensionRatio="1"
+                <androidx.compose.ui.platform.ComposeView
+                    android:id="@+id/cv_personality_result_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_personality_result_name"
-                    tools:src="@drawable/ic_tutorial_1" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_personality_result_name" />
 
                 <TextView
                     android:id="@+id/tv_personality_result_title"
                     personalityResultColor="@{vm.resultData.color.name()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="36dp"
+                    android:layout_marginTop="26dp"
                     android:text="@{vm.resultData.title}"
                     android:textAppearance="@style/H4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_personality_result_image"
+                    app:layout_constraintTop_toBottomOf="@id/cv_personality_result_image"
                     tools:text="오히려 좋아~ 가보자고!"
                     tools:textColor="@color/hous_red" />
 
