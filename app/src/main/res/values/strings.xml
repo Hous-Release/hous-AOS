@@ -95,6 +95,7 @@
     <string name="our_house_representative_rules_number_three">3.</string>
 
     <!-- EnterRoom -->
+    <string name="enter_room_settings_img_desc">설정 버튼</string>
     <string name="enter_room_title">이제 하우스에 입장해볼까요?</string>
     <string name="enter_room_create_title">방 만들기</string>
     <string name="enter_room_create_desc">가장 먼저 방을 만들어\n호미들을 초대해보세요!</string>
