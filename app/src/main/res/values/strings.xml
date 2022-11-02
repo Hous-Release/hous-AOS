@@ -7,7 +7,7 @@
     <string name="null_point_exception_detail_two_item">NullPointException occurs - %s : %s, %s : %s</string>
     <string name="null_point_exception_warning_dialog_argument">"WarningDialogFragment에 필요한 arguments에 안들어옴"</string>
     <string name="binding_error">Binding not initialized to reference the view.</string>
-    <string name="back_btn_image_desc">img of back btn</string>
+    <string name="back_btn_image_desc">뒤로가기 버튼</string>
     <string name="finish_app_toast_msg">뒤로가기를 한 번 더 누르시면 앱이 종료돼요!</string>
 
     <!-- WarningDialogUtil -->
@@ -256,4 +256,24 @@
     <string name="settings_room_out">방 퇴사하기</string>
     <string name="settings_withdraw_desc">* 회원 탈퇴는 방 퇴사 이후 \'방만들기 화면\'에서 할 수 있어요!</string>
     <string name="settings_withdraw"><u>회원탈퇴</u></string>
+
+    <!-- Notification Settings -->
+    <string name="noti_settings_title">알림</string>
+    <string name="noti_settings_accept_alarm">알림 받기</string>
+    <string name="noti_settings_on">알림 받기</string>
+    <string name="noti_settings_off">해제</string>
+    <string name="noti_settings_on_me">내가 담당자일 때만 알림 받기</string>
+    <string name="noti_settings_new_rules">새로운 Rules 추가</string>
+    <string name="noti_settings_new_rules_desc">추가된 Our Rules를 알려줘요!</string>
+    <string name="noti_settings_new_todos">새로운 to-do 추가</string>
+    <string name="noti_settings_new_todos_desc">추가된 My 혹은 Our to-do 를 알려줘요!</string>
+    <string name="noti_settings_new_todos_on_all">모든 to-do 알림 받기</string>
+    <string name="noti_settings_start_todos">오늘의 to-do 시작</string>
+    <string name="noti_settings_start_todos_desc">오늘 해야 할 to-do를 9:00에 알려줘요!</string>
+    <string name="noti_settings_start_todos_on_all">모든 오늘의 to-do 알림 받기</string>
+    <string name="noti_settings_remind_todos">미완료 to-do</string>
+    <string name="noti_settings_remind_todos_desc">미완료된 to-do를 22:00에 알려줘요!</string>
+    <string name="noti_settings_remind_todos_on_all">모든 미완료 to-do 알림 받기</string>
+    <string name="noti_settings_badge">배지 알림</string>
+    <string name="noti_settings_badge_desc">우리 집에서 새로 받은 배지를 알려줘요!</string>
 </resources>
