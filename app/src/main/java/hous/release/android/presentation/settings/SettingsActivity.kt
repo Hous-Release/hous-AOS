@@ -76,13 +76,10 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
     }
 
     private fun capitalize(str: String?): String {
-        if (str == null || str.isEmpty()) {
-            return getString(R.string.settings_feedback_empty_string)
-        }
-        val first = str[0]
-        return if (Character.isUpperCase(first)) {
-            str
+        return if (str.isNullOrEmpty()) {
+            getString(R.string.settings_feedback_empty_string)
         } else {
+            val first = str[0]
             Character.toUpperCase(first).toString() + str.substring(1)
         }
     }
