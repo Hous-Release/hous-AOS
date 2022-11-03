@@ -25,9 +25,9 @@ class RetrofitModule {
                 proceed(
                     request()
                         .newBuilder()
-                        .addHeader("Authorization", BuildConfig.DUMMY_ACCESS_TOKEN)
-                        .addHeader("HousOsType", "AOS")
-                        .addHeader("HousVersion", "1.0.0")
+                        .addHeader(HEADER_AUTHORIZATION, BuildConfig.DUMMY_ACCESS_TOKEN)
+                        .addHeader(HEADER_OS_TYPE, OS_TYPE)
+                        .addHeader(HEADER_VERSION, BuildConfig.VERSION_NAME)
                         .build()
                 )
             }
@@ -58,4 +58,10 @@ class RetrofitModule {
                 )
             )
             .build()
+    companion object {
+        const val HEADER_AUTHORIZATION = "Authorization"
+        const val HEADER_OS_TYPE = "HousOsType"
+        const val HEADER_VERSION = "HousVersion"
+        const val OS_TYPE = "AOS"
+    }
 }
