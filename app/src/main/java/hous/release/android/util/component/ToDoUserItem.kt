@@ -23,7 +23,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
-import hous.release.android.util.theme.b2
+import hous.release.android.util.style.HousTheme
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.ToDoUser
 
@@ -90,7 +90,7 @@ fun ToDoUserItem(
             Text(
                 text = todoUser.nickname,
                 color = colorResource(id = R.color.hous_black),
-                style = b2.copy(fontSize = dpToSp(dp = 14.dp))
+                style = HousTheme.typography.b2
             )
         }
     }

@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import hous.release.android.R
 import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.android.presentation.todo.viewmodel.UpdateToDoUiState
-import hous.release.android.util.theme.b2
+import hous.release.android.util.style.HousTheme
 import kotlinx.coroutines.Job
 
 @Composable
@@ -54,7 +54,7 @@ fun TodoUserScreen(
         ) {
             Text(
                 text = stringResource(id = R.string.to_do_manager),
-                style = b2,
+                style = HousTheme.typography.b2,
                 color = colorResource(id = R.color.hous_black)
             )
             Spacer(modifier = Modifier.size(3.dp))

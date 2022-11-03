@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hous.release.android.R
 import hous.release.android.presentation.our_rules.type.ButtonState
-import hous.release.android.util.theme.b1
+import hous.release.android.util.style.HousTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -56,7 +56,7 @@ fun ToDoButton(
     ) {
         Text(
             text = name,
-            style = b1.copy(fontSize = dpToSp(dp = 16.dp)),
+            style = HousTheme.typography.b1,
             color = colorResource(id = R.color.hous_white),
             modifier = Modifier
                 .padding(top = 10.dp)
@@ -112,7 +112,7 @@ fun ToDoButtonPreview() {
         ) {
             Text(
                 text = "저장하기",
-                style = b1.copy(fontSize = dpToSp(dp = 16.dp)),
+                style = HousTheme.typography.b1,
                 color = colorResource(id = R.color.hous_white),
                 modifier = Modifier
                     .padding(top = 10.dp)

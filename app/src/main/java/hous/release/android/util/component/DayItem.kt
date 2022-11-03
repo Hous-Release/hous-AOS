@@ -24,7 +24,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
-import hous.release.android.util.theme.b3
+import hous.release.android.util.style.HousTheme
 
 @Composable
 fun DayItems(
@@ -78,9 +78,7 @@ fun DayItem(
             Text(
                 text = text,
                 color = colorResource(id = R.color.hous_blue),
-                style = b3.copy(
-                    fontSize = dpToSp(dp = 13.dp)
-                )
+                style = HousTheme.typography.b3
             )
         }
         return
@@ -99,9 +97,7 @@ fun DayItem(
         Text(
             text = text,
             color = colorResource(id = R.color.hous_g_4),
-            style = b3.copy(
-                fontSize = dpToSp(dp = 13.dp)
-            )
+            style = HousTheme.typography.b3
         )
     }
 }
