@@ -3,7 +3,6 @@ package hous.release.android.util.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,7 +13,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,25 +29,17 @@ import androidx.compose.ui.unit.sp
 import hous.release.android.R
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.ToDoUser
-import timber.log.Timber
 
 @Composable
 fun ToDoUserProfiles(
-    isEmptySelectedUser: Boolean,
     selectedUsers: List<ToDoUser>
 ) {
-    if (!isEmptySelectedUser) {
-        Timber.i(selectedUsers.map { it.nickname }.toString())
-        Column(modifier = Modifier.wrapContentSize()) {
-            Spacer(modifier = Modifier.size(11.dp))
-            LazyRow(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                items(items = selectedUsers, key = { user -> user.onBoardingId }) { user ->
-                    ToDoUserProfile(name = user.nickname, homyType = user.homyType)
-                }
-            }
+    LazyRow(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        items(items = selectedUsers, key = { user -> user.onBoardingId }) { user ->
+            ToDoUserProfile(name = user.nickname, homyType = user.homyType)
         }
     }
 }
@@ -59,42 +49,39 @@ fun ToDoUserProfile(
     name: String,
     homyType: HomyType
 ) {
-    Surface(
-        color = colorResource(
-            id = R.color.hous_g_1
-        ),
-        shape = RoundedCornerShape(6.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .wrapContentSize()
-                .padding(start = 6.dp)
-                .padding(end = 7.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .background(color = colorResource(id = homyType.getHomyColorRes()))
-                    .size(12.dp)
-            ) {
-            }
-            Spacer(modifier = Modifier.size(3.dp))
-            Text(
-                text = name,
-                color = colorResource(id = R.color.hous_g_6),
-                style = TextStyle(
-                    fontFamily = FontFamily(Font(R.font.spoqa_han_sans_neo_medium)),
-                    fontWeight = FontWeight.Normal,
-                    fontSize = dpToSp(dp = 13.dp),
-                    letterSpacing = (-0.02).sp,
-                    lineHeight = 18.sp
-                ),
-                modifier = Modifier
-                    .padding(top = 5.dp)
-                    .padding(bottom = 3.dp)
+    Row(
+        modifier = Modifier
+            .wrapContentSize()
+            .clip(RoundedCornerShape(6.dp))
+            .background(
+                colorResource(
+                    id = R.color.hous_g_1
+                )
             )
+            .padding(start = 6.dp, end = 7.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier
+                .clip(CircleShape)
+                .background(color = colorResource(id = homyType.getHomyColorRes()))
+                .size(12.dp)
+        ) {
         }
+        Spacer(modifier = Modifier.size(3.dp))
+        Text(
+            text = name,
+            color = colorResource(id = R.color.hous_g_6),
+            style = TextStyle(
+                fontFamily = FontFamily(Font(R.font.spoqa_han_sans_neo_medium)),
+                fontWeight = FontWeight.Normal,
+                fontSize = dpToSp(dp = 13.dp),
+                letterSpacing = (-0.02).sp,
+                lineHeight = 18.sp
+            ),
+            modifier = Modifier
+                .padding(top = 5.dp, bottom = 3.dp)
+        )
     }
 }
 
@@ -102,7 +89,6 @@ fun ToDoUserProfile(
 @Composable
 fun ToDoUserProfilesPreView() {
     ToDoUserProfiles(
-        isEmptySelectedUser = false,
         selectedUsers =
         listOf(
             ToDoUser(HomyType.GREEN, nickname = "이준원", onBoardingId = 1),

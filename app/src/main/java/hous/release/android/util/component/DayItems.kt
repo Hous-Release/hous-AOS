@@ -64,30 +64,14 @@ private fun DayItem(
     selectTodoDay: (userIdx: Int, dayIdx: Int) -> Unit = { _, _ -> {} },
     isSelected: Boolean
 ) {
-    if (isSelected) {
-        Box(
-            modifier = Modifier
-                .clip(CircleShape)
-                .background(color = colorResource(id = R.color.hous_blue_l1))
-                .clickable {
-                    selectTodoDay(userIdx, dayIdx)
-                    hideKeyBoard()
-                }
-                .size(40.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = text,
-                color = colorResource(id = R.color.hous_blue),
-                style = HousTheme.typography.b3
-            )
-        }
-        return
-    }
     Box(
         modifier = Modifier
             .clip(CircleShape)
-            .background(color = colorResource(id = R.color.hous_g_1))
+            .background(
+                color = if (isSelected) colorResource(id = R.color.hous_blue_l1) else colorResource(
+                    id = R.color.hous_g_1
+                )
+            )
             .clickable {
                 selectTodoDay(userIdx, dayIdx)
                 hideKeyBoard()
@@ -97,7 +81,7 @@ private fun DayItem(
     ) {
         Text(
             text = text,
-            color = colorResource(id = R.color.hous_g_4),
+            color = if (isSelected) colorResource(id = R.color.hous_blue) else colorResource(id = R.color.hous_g_4),
             style = HousTheme.typography.b3
         )
     }

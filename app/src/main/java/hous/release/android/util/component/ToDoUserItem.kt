@@ -42,48 +42,30 @@ fun ToDoUserItem(
                     hideKeyBoard()
                     checkUser(userIdx)
                 }
-                .padding(start = 3.dp)
-                .padding(top = 15.dp)
-                .padding(bottom = 12.dp),
+                .padding(start = 3.dp, top = 15.dp, bottom = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (todoUser.isChecked) {
-                Box(
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .background(color = colorResource(id = R.color.hous_white))
-                        .size(14.dp)
-                        .border(
-                            BorderStroke(
-                                1.dp,
-                                colorResource(id = todoUser.homyType.getHomyColorRes())
-                            ),
-                            CircleShape
+            Box(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .background(color = colorResource(id = R.color.hous_white))
+                    .size(14.dp)
+                    .border(
+                        BorderStroke(
+                            1.dp,
+                            colorResource(id = todoUser.homyType.getHomyColorRes())
                         ),
-                    contentAlignment = Alignment.Center
-                ) {
+                        CircleShape
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                if (todoUser.isChecked) {
                     Box(
                         modifier = Modifier
                             .clip(CircleShape)
                             .background(color = colorResource(id = todoUser.homyType.getHomyColorRes()))
                             .size(10.dp)
                     )
-                }
-            } else {
-                Box(
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .background(color = colorResource(id = R.color.hous_white))
-                        .size(14.dp)
-                        .border(
-                            BorderStroke(
-                                1.dp,
-                                colorResource(id = todoUser.homyType.getHomyColorRes())
-                            ),
-                            CircleShape
-                        )
-
-                ) {
                 }
             }
             Spacer(modifier = Modifier.size(11.dp))
@@ -102,7 +84,7 @@ fun HomyType.getHomyColorRes() = when (this) {
     HomyType.BLUE -> R.color.hous_blue
     HomyType.PURPLE -> R.color.hous_purple
     HomyType.GREEN -> R.color.hous_green
-    HomyType.GRAY -> R.color.hous_g_5 // TODO 나중에 g몇인지 찾고 바꾸자
+    HomyType.GRAY -> R.color.hous_g_1
 }
 
 @Preview

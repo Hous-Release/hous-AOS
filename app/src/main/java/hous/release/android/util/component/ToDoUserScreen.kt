@@ -57,10 +57,12 @@ fun TodoUserScreen(
                 color = colorResource(id = R.color.hous_black)
             )
             Spacer(modifier = Modifier.size(3.dp))
-            ToDoUserProfiles(
-                isEmptySelectedUser = uiState.selectedUsers.isEmpty(),
-                selectedUsers = uiState.selectedUsers
-            )
+            if (uiState.selectedUsers.isNotEmpty()) {
+                Spacer(modifier = Modifier.size(11.dp))
+                ToDoUserProfiles(
+                    selectedUsers = uiState.selectedUsers
+                )
+            }
             Spacer(modifier = Modifier.size(20.dp))
             Divider(thickness = 1.dp, color = colorResource(id = R.color.hous_g_2))
             LazyColumn {
