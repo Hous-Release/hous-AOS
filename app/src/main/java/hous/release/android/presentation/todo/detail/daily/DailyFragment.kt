@@ -15,6 +15,7 @@ import hous.release.android.presentation.todo.detail.TodoLimitDialog
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.component.DailyTab
 import hous.release.android.util.component.HousFloatingButton
+import hous.release.android.util.style.HousTheme
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -63,10 +64,12 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
             .flowWithLifecycle(lifecycle)
             .onEach { uiState ->
                 binding.cvDailyWeekOfDayTab.setContent {
-                    DailyTab(
-                        currIndex = uiState.dailyTabIndex,
-                        setCurrIndex = todoDetailViewModel::setDailyTabIndex
-                    )
+                    HousTheme {
+                        DailyTab(
+                            currIndex = uiState.dailyTabIndex,
+                            setCurrIndex = todoDetailViewModel::setDailyTabIndex
+                        )
+                    }
                 }
                 binding.vpDailyTodos.currentItem = uiState.dailyTabIndex
             }

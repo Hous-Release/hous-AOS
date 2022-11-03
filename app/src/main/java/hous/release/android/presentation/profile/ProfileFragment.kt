@@ -13,6 +13,8 @@ import hous.release.android.presentation.personality.result.PersonalityResultAct
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.LOCATION
 import hous.release.android.presentation.profile.adapter.ProfilePersonalityAdapter
 import hous.release.android.util.binding.BindingFragment
+import hous.release.android.util.component.HousPersonalityPentagon
+import hous.release.android.util.style.HousTheme
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.PersonalityInfo
 import hous.release.domain.entity.ProfileSet
@@ -33,11 +35,15 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
         initTestBtnOnClickListener()
         initPersonalityAdapter()
         initPersonalityOnClickListener()
+        observePersonalityPentagon()
     }
 
     private fun initPersonalityOnClickListener() {
-        val intent = Intent(requireActivity(), PersonalityResultActivity::class.java)
-        intent.putExtra(LOCATION, PROFILE)
+        binding.llProfilePersonalityDetail.setOnClickListener {
+            val intent = Intent(requireActivity(), PersonalityResultActivity::class.java)
+            intent.putExtra(LOCATION, PROFILE)
+            startActivity(intent)
+        }
     }
 
     private fun initAlarmOnClickListener() {
@@ -87,6 +93,19 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
                     tvProfilePersonality.setText(profileSet.personality)
                     tvProfilePersonality.setTextColor(
                         ContextCompat.getColor(requireContext(), profileSet.colorText)
+                    )
+                }
+            }
+        }
+    }
+
+    private fun observePersonalityPentagon() {
+        profileViewModel.profileData.observe(viewLifecycleOwner) { profile ->
+            binding.cvProfilePersonalityPentagon.setContent {
+                HousTheme {
+                    HousPersonalityPentagon(
+                        testScore = profile.testScore,
+                        homyType = profile.personalityColor
                     )
                 }
             }

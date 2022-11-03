@@ -6,6 +6,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityPersonalityResultBinding
 import hous.release.android.util.binding.BindingActivity
+import hous.release.android.util.component.PersonalityResultImage
+import hous.release.android.util.style.HousTheme
 
 @AndroidEntryPoint
 class PersonalityResultActivity :
@@ -17,6 +19,7 @@ class PersonalityResultActivity :
         binding.vm = personalityResultViewModel
         initTitlePosition()
         initBackOnClickListener()
+        initPersonalityImage()
     }
 
     private fun initTitlePosition() {
@@ -24,6 +27,19 @@ class PersonalityResultActivity :
             when (intent.getStringExtra(LOCATION)) {
                 RESULT -> personalityResultViewModel.initFromTestResult(true)
                 else -> personalityResultViewModel.initFromTestResult(false)
+            }
+        }
+    }
+
+    private fun initPersonalityImage() {
+        personalityResultViewModel.resultData.observe(this) { personalityResult ->
+            binding.cvPersonalityResultImage.setContent {
+                HousTheme {
+                    PersonalityResultImage(
+                        homyType = personalityResult.color,
+                        imageUrl = personalityResult.imageUrl
+                    )
+                }
             }
         }
     }
