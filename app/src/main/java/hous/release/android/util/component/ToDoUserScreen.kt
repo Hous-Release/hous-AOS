@@ -22,7 +22,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
-import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.android.presentation.todo.viewmodel.UpdateToDoUiState
 import hous.release.android.util.style.HousTheme
 import kotlinx.coroutines.Job
@@ -46,10 +45,9 @@ fun TodoUserScreen(
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize().clickable(
-                    interactionSource = interactionSource,
-                    indication = null
-                ) { hideKeyBoard() }
+                .fillMaxSize().clickable(interactionSource = interactionSource, indication = null) {
+                    hideKeyBoard()
+                }
         ) {
             Text(
                 text = stringResource(id = R.string.to_do_manager),
@@ -86,10 +84,8 @@ fun TodoUserScreen(
                     }
                     Divider(thickness = 1.dp, color = colorResource(id = R.color.hous_g_2))
                 }
-                item {
-                    Spacer(modifier = Modifier.size(65.dp))
-                }
             }
+            Spacer(modifier = Modifier.size(65.dp))
         }
         Row(
             modifier = Modifier
@@ -98,7 +94,7 @@ fun TodoUserScreen(
             verticalAlignment = Alignment.Bottom
         ) {
             ToDoButton(
-                buttonState = getToDoButtonState(uiState),
+                buttonState = uiState.buttonState,
                 name = name,
                 finish = finish,
                 putToDo = putToDo,
@@ -106,20 +102,4 @@ fun TodoUserScreen(
             )
         }
     }
-}
-
-fun getToDoButtonState(uiState: UpdateToDoUiState): ButtonState {
-    if (uiState.isBlankTodoName) return ButtonState.INACTIVE
-    if (uiState.selectedUsers.isEmpty()) return ButtonState.INACTIVE
-    uiState.selectedUsers.forEach { toDoUser ->
-        var hasCheckedDay = false
-        toDoUser.dayOfWeeks.forEach { isChecked ->
-            if (isChecked) {
-                hasCheckedDay = true
-                return@forEach
-            }
-        }
-        if (!hasCheckedDay) return ButtonState.INACTIVE
-    }
-    return ButtonState.ACTIVE
 }

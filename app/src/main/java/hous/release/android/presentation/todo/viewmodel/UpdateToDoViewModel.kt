@@ -30,7 +30,9 @@ abstract class UpdateToDoViewModel : ViewModel() {
             uiState.copy(
                 todoUsers = newToDoUsers,
                 selectedUsers = newToDoUsers.filter { it.isChecked }
-            )
+            ).let { tmpUiState ->
+                tmpUiState.copy(buttonState = getUpdateButtonState(tmpUiState))
+            }
         }
     }
 
@@ -54,7 +56,9 @@ abstract class UpdateToDoViewModel : ViewModel() {
             uiState.copy(
                 todoUsers = newToDoUsers,
                 selectedUsers = newToDoUsers.filter { it.isChecked }
-            )
+            ).let { tmpUiState ->
+                tmpUiState.copy(buttonState = getUpdateButtonState(tmpUiState))
+            }
         }
     }
 
@@ -70,8 +74,26 @@ abstract class UpdateToDoViewModel : ViewModel() {
     fun isBlankToDoName(): Boolean = todoName.value.isBlank()
     fun setToDoNameState(isBlank: Boolean) {
         _uiState.update { uiState ->
-            uiState.copy(isBlankTodoName = isBlank)
+            uiState.copy(isBlankTodoName = isBlank).let { tmpUiState ->
+                tmpUiState.copy(buttonState = getUpdateButtonState(tmpUiState))
+            }
         }
+    }
+
+    private fun getUpdateButtonState(uiState: UpdateToDoUiState): ButtonState {
+        if (uiState.isBlankTodoName) return ButtonState.INACTIVE
+        if (uiState.selectedUsers.isEmpty()) return ButtonState.INACTIVE
+        uiState.selectedUsers.forEach { toDoUser ->
+            var hasCheckedDay = false
+            toDoUser.dayOfWeeks.forEach dayOfWeeks@{ isChecked ->
+                if (isChecked) {
+                    hasCheckedDay = true
+                    return@dayOfWeeks
+                }
+            }
+            if (!hasCheckedDay) return ButtonState.INACTIVE
+        }
+        return ButtonState.ACTIVE
     }
 }
 
