@@ -19,6 +19,7 @@ import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.extension.withArgs
+import hous.release.android.util.style.HousTheme
 
 @AndroidEntryPoint
 class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragment_add_to_do) {
@@ -59,13 +60,14 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
 
     private fun initToDoUserScreen() {
         binding.composeViewAddToDo.setContent {
-            AddTodoUserScreen(
-                viewModel = viewModel,
-                finish = { findNavController().popBackStack() },
-                name = getString(R.string.to_do_add_button),
-                putToDo = viewModel::putTodo,
-                hideKeyBoard = ::hideKeyBoard
-            )
+            HousTheme {
+                AddTodoUserScreen(
+                    viewModel = viewModel,
+                    finish = { findNavController().popBackStack() },
+                    name = getString(R.string.to_do_add_button),
+                    hideKeyBoard = ::hideKeyBoard
+                )
+            }
         }
     }
 

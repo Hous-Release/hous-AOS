@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
@@ -33,7 +34,7 @@ fun DayItems(
     selectTodoDay: (userIdx: Int, dayIdx: Int) -> Unit = { _, _ ->
     },
     hideKeyBoard: () -> Unit = {},
-    dayNameList: List<String> = listOf("월", "화", "수", "목", "금", "토", "일")
+    dayNameList: Array<String> = stringArrayResource(id = R.array.to_do_week_of_day)
 ) {
     Row(
         modifier = Modifier
@@ -55,7 +56,7 @@ fun DayItems(
 }
 
 @Composable
-fun DayItem(
+private fun DayItem(
     hideKeyBoard: () -> Unit = {},
     userIdx: Int,
     dayIdx: Int,

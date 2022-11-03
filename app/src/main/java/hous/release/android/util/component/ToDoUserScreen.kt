@@ -46,8 +46,7 @@ fun TodoUserScreen(
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .clickable(
+                .fillMaxSize().clickable(
                     interactionSource = interactionSource,
                     indication = null
                 ) { hideKeyBoard() }
@@ -64,7 +63,7 @@ fun TodoUserScreen(
             )
             Spacer(modifier = Modifier.size(20.dp))
             Divider(thickness = 1.dp, color = colorResource(id = R.color.hous_g_2))
-            LazyColumn() {
+            LazyColumn {
                 itemsIndexed(
                     items = uiState.todoUsers,
                     key = { _, user -> user.onBoardingId }
