@@ -15,6 +15,7 @@ class NotificationSettingsActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.vm = viewModel
+        viewModel.getNotificationSettings()
         initBackBtnClickListener()
         initNotificationSwitchClickListener()
     }

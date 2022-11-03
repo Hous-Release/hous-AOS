@@ -26,6 +26,8 @@ class RetrofitModule {
                     request()
                         .newBuilder()
                         .addHeader("Authorization", BuildConfig.DUMMY_ACCESS_TOKEN)
+                        .addHeader("HousOsType", "AOS")
+                        .addHeader("HousVersion", "1.0.0")
                         .build()
                 )
             }

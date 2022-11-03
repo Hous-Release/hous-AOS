@@ -1,5 +1,6 @@
 package hous.release.data.entity.response
 
+import hous.release.domain.entity.NotificationStatusType
 import hous.release.domain.entity.response.NotificationSettings
 
 data class NotificationSettingsResponse(
@@ -13,10 +14,10 @@ data class NotificationSettingsResponse(
     fun toNotificationSettings(): NotificationSettings =
         NotificationSettings(
             isPushNotification = this.isPushNotification,
-            rulesPushStatus = this.rulesPushStatus,
-            newTodoPushStatus = this.newTodoPushStatus,
-            todayTodoPushStatus = this.todayTodoPushStatus,
-            remindTodoPushStatus = this.remindTodoPushStatus,
-            badgePushStatus = this.badgePushStatus
+            rulesPushStatus = NotificationStatusType.valueOf(this.rulesPushStatus),
+            newTodoPushStatus = NotificationStatusType.valueOf(this.newTodoPushStatus),
+            todayTodoPushStatus = NotificationStatusType.valueOf(this.todayTodoPushStatus),
+            remindTodoPushStatus = NotificationStatusType.valueOf(this.remindTodoPushStatus),
+            badgePushStatus = NotificationStatusType.valueOf(this.badgePushStatus)
         )
 }
