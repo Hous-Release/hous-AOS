@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.settings.SettingsActivity">
+
+        <ImageButton
+            android:id="@+id/btn_settings_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:background="@null"
+            android:contentDescription="@string/back_btn_image_desc"
+            android:padding="8dp"
+            android:src="@drawable/ic_back_g4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_settings_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_title"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            app:layout_constraintBottom_toBottomOf="@id/btn_settings_back"
+            app:layout_constraintStart_toEndOf="@id/btn_settings_back"
+            app:layout_constraintTop_toTopOf="@id/btn_settings_back" />
+
+        <View
+            android:id="@+id/view_settings_top"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/hous_g_line"
+            app:layout_constraintTop_toBottomOf="@id/btn_settings_back" />
+
+        <ImageView
+            android:id="@+id/iv_settings_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/settings_notification"
+            android:src="@drawable/ic_alarm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_settings_top" />
+
+        <TextView
+            android:id="@+id/tv_settings_notification"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:text="@string/settings_notification"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            app:layout_constraintBottom_toBottomOf="@id/iv_settings_notification"
+            app:layout_constraintEnd_toStartOf="@id/btn_settings_notification"
+            app:layout_constraintStart_toEndOf="@id/iv_settings_notification"
+            app:layout_constraintTop_toTopOf="@id/iv_settings_notification" />
+
+        <ImageButton
+            android:id="@+id/btn_settings_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:background="@null"
+            android:contentDescription="@string/settings_notification"
+            android:padding="8dp"
+            android:src="@drawable/ic_settings_next"
+            app:layout_constraintBottom_toBottomOf="@id/iv_settings_notification"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_settings_notification" />
+
+        <ImageView
+            android:id="@+id/iv_settings_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:contentDescription="@string/settings_info"
+            android:src="@drawable/ic_info"
+            app:layout_constraintStart_toStartOf="@id/iv_settings_notification"
+            app:layout_constraintTop_toBottomOf="@id/iv_settings_notification" />
+
+        <TextView
+            android:id="@+id/tv_settings_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:text="@string/settings_info"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            app:layout_constraintBottom_toBottomOf="@id/iv_settings_info"
+            app:layout_constraintEnd_toStartOf="@id/btn_settings_info"
+            app:layout_constraintStart_toEndOf="@id/iv_settings_info"
+            app:layout_constraintTop_toTopOf="@id/iv_settings_info" />
+
+        <ImageButton
+            android:id="@+id/btn_settings_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:background="@null"
+            android:contentDescription="@string/settings_info"
+            android:padding="8dp"
+            android:src="@drawable/ic_settings_next"
+            app:layout_constraintBottom_toBottomOf="@id/iv_settings_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_settings_info" />
+
+        <ImageView
+            android:id="@+id/iv_settings_feedback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:contentDescription="@string/settings_feedback"
+            android:src="@drawable/ic_feedback"
+            app:layout_constraintStart_toStartOf="@id/iv_settings_notification"
+            app:layout_constraintTop_toBottomOf="@id/iv_settings_info" />
+
+        <TextView
+            android:id="@+id/tv_settings_feedback"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:text="@string/settings_feedback"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            app:layout_constraintBottom_toBottomOf="@id/iv_settings_feedback"
+            app:layout_constraintEnd_toStartOf="@id/btn_settings_feedback"
+            app:layout_constraintStart_toEndOf="@id/iv_settings_feedback"
+            app:layout_constraintTop_toTopOf="@id/iv_settings_feedback" />
+
+        <ImageButton
+            android:id="@+id/btn_settings_feedback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:background="@null"
+            android:contentDescription="@string/settings_feedback"
+            android:padding="8dp"
+            android:src="@drawable/ic_settings_next"
+            app:layout_constraintBottom_toBottomOf="@id/iv_settings_feedback"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_settings_feedback" />
+
+        <View
+            android:id="@+id/view_settings_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/hous_g_line"
+            app:layout_constraintTop_toBottomOf="@id/iv_settings_feedback" />
+
+        <TextView
+            android:id="@+id/tv_settings_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/settings_logout"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_settings_bottom" />
+
+        <TextView
+            android:id="@+id/tv_settings_room_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/settings_room_out"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_red"
+            app:layout_constraintStart_toStartOf="@id/tv_settings_logout"
+            app:layout_constraintTop_toBottomOf="@id/tv_settings_logout" />
+
+        <TextView
+            android:id="@+id/tv_settings_withdraw_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/settings_withdraw_desc"
+            android:textAppearance="@style/B3"
+            android:textColor="@color/hous_g_4"
+            app:layout_constraintStart_toStartOf="@id/tv_settings_logout"
+            app:layout_constraintTop_toBottomOf="@id/tv_settings_room_out" />
+
+        <TextView
+            android:id="@+id/tv_settings_withdraw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/settings_withdraw"
+            android:textAppearance="@style/B3"
+            android:textColor="@color/hous_g_4"
+            app:layout_constraintStart_toStartOf="@id/tv_settings_logout"
+            app:layout_constraintTop_toBottomOf="@id/tv_settings_room_out" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
