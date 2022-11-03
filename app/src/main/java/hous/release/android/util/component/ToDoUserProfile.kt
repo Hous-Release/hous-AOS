@@ -27,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hous.release.android.R
+import hous.release.android.util.extension.getHomyColorRes
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.ToDoUser
 

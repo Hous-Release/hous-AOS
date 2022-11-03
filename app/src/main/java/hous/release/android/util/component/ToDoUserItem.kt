@@ -23,6 +23,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
+import hous.release.android.util.extension.getHomyColorRes
 import hous.release.android.util.style.HousTheme
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.ToDoUser
@@ -76,15 +77,6 @@ fun ToDoUserItem(
             )
         }
     }
-}
-
-fun HomyType.getHomyColorRes() = when (this) {
-    HomyType.RED -> R.color.hous_red
-    HomyType.YELLOW -> R.color.hous_yellow
-    HomyType.BLUE -> R.color.hous_blue
-    HomyType.PURPLE -> R.color.hous_purple
-    HomyType.GREEN -> R.color.hous_green
-    HomyType.GRAY -> R.color.hous_g_1
 }
 
 @Preview
