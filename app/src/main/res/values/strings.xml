@@ -193,6 +193,14 @@
     <string name="dialog_to_do_content">to-do는 한 번 삭제하면 복구되지 않아요.</string>
     <string name="dialog_cancel">취소하기</string>
 
+    <!--    To Do-add,edit-->
+    <string name="to_do_manager">담당자</string>
+    <string name="to_do_add_title">새로운 to-do 추가</string>
+    <string name="to_do_edit_title">to-do 수정</string>
+    <string name="to_do_text_field_hint">To-Do 입력</string>
+    <string name="to_do_save_button">저장하기</string>
+    <string name="to_do_add_button">추가하기</string>
+    <string name="to_do_name_count">%d/15</string>
     <!-- Tutorial -->
     <string name="tutorial_skip">건너뛰기</string>
     <string name="tutorial_1_head">Welcome to\nYour Hous-</string>

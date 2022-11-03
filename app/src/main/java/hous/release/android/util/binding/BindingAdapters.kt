@@ -68,4 +68,11 @@ object BindingAdapters {
             )
         }
     }
+
+    @JvmStatic
+    @BindingAdapter("app:notificationState")
+    fun ImageView.setNotificationState(isSelected: Boolean?) {
+        if (isSelected == null) return
+        this.isSelected = isSelected
+    }
 }

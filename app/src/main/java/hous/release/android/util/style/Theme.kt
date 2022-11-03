@@ -7,7 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 
 private val LocalHousTypography = staticCompositionLocalOf<HousTypography> {
-    error("No SoptTypography provided")
+    error("No HousTypography provided")
 }
 
 object HousTheme {
