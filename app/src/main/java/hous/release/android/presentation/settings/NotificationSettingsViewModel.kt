@@ -33,7 +33,10 @@ class NotificationSettingsViewModel @Inject constructor(
     fun patchNotificationSettings(status: Boolean) {
         viewModelScope.launch {
             settingsRepository.patchNotificationSettings(notificationStatus = status)
-                .onSuccess { Timber.d("notification $status $it") }
+                .onSuccess {
+                    _notificationSettingsInfo.value =
+                        notificationSettingsInfo.value.copy(isPushNotification = status)
+                }
                 .onFailure { Timber.d(it.message.toString()) }
         }
     }
@@ -41,23 +44,34 @@ class NotificationSettingsViewModel @Inject constructor(
     fun patchNewRulesSettings(status: NotificationStatusType) {
         viewModelScope.launch {
             settingsRepository.patchNotificationSettings(newRulesStatus = status.name)
-                .onSuccess { Timber.d("newRules $status $it") }
+                .onSuccess {
+                    _notificationSettingsInfo.value =
+                        notificationSettingsInfo.value.copy(rulesPushStatus = status)
+                }
                 .onFailure { Timber.d(it.message.toString()) }
         }
     }
 
     fun patchNewTodosSettings(status: NotificationStatusType) {
+
         viewModelScope.launch {
             settingsRepository.patchNotificationSettings(newTodoStatus = status.name)
-                .onSuccess { Timber.d("newTodos $status $it") }
+                .onSuccess {
+                    _notificationSettingsInfo.value =
+                        notificationSettingsInfo.value.copy(newTodoPushStatus = status)
+                }
                 .onFailure { Timber.d(it.message.toString()) }
         }
     }
 
     fun patchStartTodosSettings(status: NotificationStatusType) {
+
         viewModelScope.launch {
             settingsRepository.patchNotificationSettings(startTodoStatus = status.name)
-                .onSuccess { Timber.d("startTodos $status $it") }
+                .onSuccess {
+                    _notificationSettingsInfo.value =
+                        notificationSettingsInfo.value.copy(todayTodoPushStatus = status)
+                }
                 .onFailure { Timber.d(it.message.toString()) }
         }
     }
@@ -65,7 +79,10 @@ class NotificationSettingsViewModel @Inject constructor(
     fun patchRemindTodosSettings(status: NotificationStatusType) {
         viewModelScope.launch {
             settingsRepository.patchNotificationSettings(remindTodoStatus = status.name)
-                .onSuccess { Timber.d("remindTodos $status $it") }
+                .onSuccess {
+                    _notificationSettingsInfo.value =
+                        notificationSettingsInfo.value.copy(remindTodoPushStatus = status)
+                }
                 .onFailure { Timber.d(it.message.toString()) }
         }
     }
@@ -73,7 +90,10 @@ class NotificationSettingsViewModel @Inject constructor(
     fun patchBadgeSettings(status: NotificationStatusType) {
         viewModelScope.launch {
             settingsRepository.patchNotificationSettings(badgeStatus = status.name)
-                .onSuccess { Timber.d("badge $status $it") }
+                .onSuccess {
+                    _notificationSettingsInfo.value =
+                        notificationSettingsInfo.value.copy(badgePushStatus = status)
+                }
                 .onFailure { Timber.d(it.message.toString()) }
         }
     }

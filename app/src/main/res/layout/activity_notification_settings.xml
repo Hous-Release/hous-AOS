@@ -15,7 +15,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="24dp"
         tools:context=".presentation.settings.NotificationSettingsActivity">
 
         <ImageButton
@@ -105,7 +104,7 @@
                     android:layout_marginTop="20dp"
                     android:text="@string/noti_settings_new_rules"
                     android:textAppearance="@style/B1"
-                    android:textColor="@color/hous_black"
+                    android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_black : @color/hous_g_5}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_noti_settings_1" />
 
@@ -139,6 +138,7 @@
                         android:layout_margin="4dp"
                         android:button="@drawable/selector_radio_button"
                         android:checked="@{vm.notificationSettingsInfo.rulesPushStatus == NotificationStatusType.ON ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
                         android:layoutDirection="rtl"
                         android:minHeight="0dp"
                         android:onClick="@{()->vm.patchNewRulesSettings(NotificationStatusType.ON)}"
@@ -146,7 +146,7 @@
                         android:text="@string/noti_settings_on"
                         android:textAlignment="textStart"
                         android:textAppearance="@style/B2"
-                        android:textColor="@color/hous_g_7" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
 
                     <RadioButton
                         android:id="@+id/rb_noti_settings_new_rules_off"
@@ -156,6 +156,7 @@
                         android:layout_margin="4dp"
                         android:button="@drawable/selector_radio_button"
                         android:checked="@{vm.notificationSettingsInfo.rulesPushStatus == NotificationStatusType.OFF ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
                         android:layoutDirection="rtl"
                         android:minHeight="0dp"
                         android:onClick="@{()->vm.patchNewRulesSettings(NotificationStatusType.OFF)}"
@@ -163,7 +164,7 @@
                         android:text="@string/noti_settings_off"
                         android:textAlignment="textStart"
                         android:textAppearance="@style/B2"
-                        android:textColor="@color/hous_g_7" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
                 </RadioGroup>
 
                 <View
@@ -183,7 +184,7 @@
                     android:layout_marginTop="20dp"
                     android:text="@string/noti_settings_new_todos"
                     android:textAppearance="@style/B1"
-                    android:textColor="@color/hous_black"
+                    android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_black : @color/hous_g_5}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_noti_settings_2" />
 
@@ -217,6 +218,7 @@
                         android:layout_margin="4dp"
                         android:button="@drawable/selector_radio_button"
                         android:checked="@{vm.notificationSettingsInfo.newTodoPushStatus == NotificationStatusType.ON_ALL ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
                         android:layoutDirection="rtl"
                         android:minHeight="0dp"
                         android:onClick="@{()->vm.patchNewTodosSettings(NotificationStatusType.ON_ALL)}"
@@ -224,7 +226,7 @@
                         android:text="@string/noti_settings_new_todos_on_all"
                         android:textAlignment="textStart"
                         android:textAppearance="@style/B2"
-                        android:textColor="@color/hous_g_7" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
 
                     <RadioButton
                         android:id="@+id/rb_noti_settings_new_todos_on_me"
@@ -234,6 +236,7 @@
                         android:layout_margin="4dp"
                         android:button="@drawable/selector_radio_button"
                         android:checked="@{vm.notificationSettingsInfo.newTodoPushStatus == NotificationStatusType.ON_MY ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
                         android:layoutDirection="rtl"
                         android:minHeight="0dp"
                         android:onClick="@{()->vm.patchNewTodosSettings(NotificationStatusType.ON_MY)}"
@@ -241,7 +244,7 @@
                         android:text="@string/noti_settings_on_me"
                         android:textAlignment="textStart"
                         android:textAppearance="@style/B2"
-                        android:textColor="@color/hous_g_7" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
 
                     <RadioButton
                         android:id="@+id/rb_noti_settings_new_todos_off"
@@ -251,6 +254,7 @@
                         android:layout_margin="4dp"
                         android:button="@drawable/selector_radio_button"
                         android:checked="@{vm.notificationSettingsInfo.newTodoPushStatus == NotificationStatusType.OFF ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
                         android:layoutDirection="rtl"
                         android:minHeight="0dp"
                         android:onClick="@{()->vm.patchNewTodosSettings(NotificationStatusType.OFF)}"
@@ -258,7 +262,7 @@
                         android:text="@string/noti_settings_off"
                         android:textAlignment="textStart"
                         android:textAppearance="@style/B2"
-                        android:textColor="@color/hous_g_7" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
                 </RadioGroup>
 
                 <View
@@ -278,7 +282,7 @@
                     android:layout_marginTop="20dp"
                     android:text="@string/noti_settings_start_todos"
                     android:textAppearance="@style/B1"
-                    android:textColor="@color/hous_black"
+                    android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_black : @color/hous_g_5}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_noti_settings_3" />
 
@@ -312,6 +316,7 @@
                         android:layout_margin="4dp"
                         android:button="@drawable/selector_radio_button"
                         android:checked="@{vm.notificationSettingsInfo.todayTodoPushStatus == NotificationStatusType.ON_ALL ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
                         android:layoutDirection="rtl"
                         android:minHeight="0dp"
                         android:onClick="@{()->vm.patchStartTodosSettings(NotificationStatusType.ON_ALL)}"
@@ -319,7 +324,7 @@
                         android:text="@string/noti_settings_start_todos_on_all"
                         android:textAlignment="textStart"
                         android:textAppearance="@style/B2"
-                        android:textColor="@color/hous_g_7" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
 
                     <RadioButton
                         android:id="@+id/rb_noti_settings_start_todos_on_me"
@@ -329,6 +334,7 @@
                         android:layout_margin="4dp"
                         android:button="@drawable/selector_radio_button"
                         android:checked="@{vm.notificationSettingsInfo.todayTodoPushStatus == NotificationStatusType.ON_MY ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
                         android:layoutDirection="rtl"
                         android:minHeight="0dp"
                         android:onClick="@{()->vm.patchStartTodosSettings(NotificationStatusType.ON_MY)}"
@@ -336,7 +342,7 @@
                         android:text="@string/noti_settings_on_me"
                         android:textAlignment="textStart"
                         android:textAppearance="@style/B2"
-                        android:textColor="@color/hous_g_7" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
 
                     <RadioButton
                         android:id="@+id/rb_noti_settings_start_todos_off"
@@ -346,6 +352,7 @@
                         android:layout_margin="4dp"
                         android:button="@drawable/selector_radio_button"
                         android:checked="@{vm.notificationSettingsInfo.todayTodoPushStatus == NotificationStatusType.OFF ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
                         android:layoutDirection="rtl"
                         android:minHeight="0dp"
                         android:onClick="@{()->vm.patchStartTodosSettings(NotificationStatusType.OFF)}"
@@ -353,7 +360,7 @@
                         android:text="@string/noti_settings_off"
                         android:textAlignment="textStart"
                         android:textAppearance="@style/B2"
-                        android:textColor="@color/hous_g_7" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
                 </RadioGroup>
 
                 <View
@@ -373,7 +380,7 @@
                     android:layout_marginTop="20dp"
                     android:text="@string/noti_settings_remind_todos"
                     android:textAppearance="@style/B1"
-                    android:textColor="@color/hous_black"
+                    android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_black : @color/hous_g_5}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_noti_settings_4" />
 
@@ -407,6 +414,7 @@
                         android:layout_margin="4dp"
                         android:button="@drawable/selector_radio_button"
                         android:checked="@{vm.notificationSettingsInfo.remindTodoPushStatus == NotificationStatusType.ON_ALL ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
                         android:layoutDirection="rtl"
                         android:minHeight="0dp"
                         android:onClick="@{()->vm.patchRemindTodosSettings(NotificationStatusType.ON_ALL)}"
@@ -414,7 +422,7 @@
                         android:text="@string/noti_settings_remind_todos_on_all"
                         android:textAlignment="textStart"
                         android:textAppearance="@style/B2"
-                        android:textColor="@color/hous_g_7" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
 
                     <RadioButton
                         android:id="@+id/rb_noti_settings_remind_todos_on_me"
@@ -424,6 +432,7 @@
                         android:layout_margin="4dp"
                         android:button="@drawable/selector_radio_button"
                         android:checked="@{vm.notificationSettingsInfo.remindTodoPushStatus == NotificationStatusType.ON_MY ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
                         android:layoutDirection="rtl"
                         android:minHeight="0dp"
                         android:onClick="@{()->vm.patchRemindTodosSettings(NotificationStatusType.ON_MY)}"
@@ -431,7 +440,7 @@
                         android:text="@string/noti_settings_on_me"
                         android:textAlignment="textStart"
                         android:textAppearance="@style/B2"
-                        android:textColor="@color/hous_g_7" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
 
                     <RadioButton
                         android:id="@+id/rb_noti_settings_remind_todos_off"
@@ -441,6 +450,7 @@
                         android:layout_margin="4dp"
                         android:button="@drawable/selector_radio_button"
                         android:checked="@{vm.notificationSettingsInfo.remindTodoPushStatus == NotificationStatusType.OFF ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
                         android:layoutDirection="rtl"
                         android:minHeight="0dp"
                         android:onClick="@{()->vm.patchRemindTodosSettings(NotificationStatusType.OFF)}"
@@ -448,7 +458,7 @@
                         android:text="@string/noti_settings_off"
                         android:textAlignment="textStart"
                         android:textAppearance="@style/B2"
-                        android:textColor="@color/hous_g_7" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
                 </RadioGroup>
 
                 <View
@@ -468,7 +478,7 @@
                     android:layout_marginTop="20dp"
                     android:text="@string/noti_settings_badge"
                     android:textAppearance="@style/B1"
-                    android:textColor="@color/hous_black"
+                    android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_black : @color/hous_g_5}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_noti_settings_5" />
 
@@ -502,6 +512,7 @@
                         android:layout_margin="4dp"
                         android:button="@drawable/selector_radio_button"
                         android:checked="@{vm.notificationSettingsInfo.badgePushStatus == NotificationStatusType.ON ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
                         android:layoutDirection="rtl"
                         android:minHeight="0dp"
                         android:onClick="@{()->vm.patchBadgeSettings(NotificationStatusType.ON)}"
@@ -509,7 +520,7 @@
                         android:text="@string/noti_settings_on"
                         android:textAlignment="textStart"
                         android:textAppearance="@style/B2"
-                        android:textColor="@color/hous_g_7" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
 
                     <RadioButton
                         android:id="@+id/rb_noti_settings_badge_off"
@@ -519,6 +530,7 @@
                         android:layout_margin="4dp"
                         android:button="@drawable/selector_radio_button"
                         android:checked="@{vm.notificationSettingsInfo.badgePushStatus == NotificationStatusType.OFF ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
                         android:layoutDirection="rtl"
                         android:minHeight="0dp"
                         android:onClick="@{()->vm.patchBadgeSettings(NotificationStatusType.OFF)}"
@@ -526,7 +538,7 @@
                         android:text="@string/noti_settings_off"
                         android:textAlignment="textStart"
                         android:textAppearance="@style/B2"
-                        android:textColor="@color/hous_g_7" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
                 </RadioGroup>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
