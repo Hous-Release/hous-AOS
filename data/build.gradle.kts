@@ -60,6 +60,11 @@ dependencies {
         implementation(kakao_login)
         implementation(pagingWithoutAndroid)
     }
+
+    Deps.Google.run {
+        implementation(platform(firebaseBom))
+        implementation(firebaseMessaging)
+    }
 }
 
 ktlint {
