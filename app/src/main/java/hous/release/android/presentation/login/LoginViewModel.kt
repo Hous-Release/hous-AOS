@@ -10,10 +10,10 @@ import com.kakao.sdk.common.model.AuthErrorCause
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.util.extension.Event
 import hous.release.domain.repository.AuthRepository
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
@@ -81,16 +81,19 @@ class LoginViewModel @Inject constructor(
             }
         } else if (token != null) {
             Timber.d("카카오 로그인 성공 ${token.accessToken}")
-            _fcmToken.value = ""
             _kakaoToken.value = token.accessToken
             _isSuccessKakaoLogin.value = Event(true)
         }
     }
 
+    init {
+        getFCMToken()
+    }
+
     fun postLogin() {
         viewModelScope.launch {
             authRepository.postLogin(
-                fcmToken = "hello world",
+                fcmToken = requireNotNull(fcmToken.value),
                 socialType = "KAKAO",
                 token = requireNotNull(_kakaoToken.value)
             ).onSuccess { response ->
@@ -124,6 +127,12 @@ class LoginViewModel @Inject constructor(
                     }
                 }
             }
+        }
+    }
+
+    private fun getFCMToken() {
+        viewModelScope.launch {
+            authRepository.getFCMToken { fcmToken -> _fcmToken.value = fcmToken }
         }
     }
 

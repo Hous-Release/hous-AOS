@@ -19,4 +19,5 @@ interface AuthRepository {
     suspend fun initToken(fcmToken: String, socialType: String, token: String)
 
     suspend fun initSkipTutorial(skipTutorial: Boolean)
+    suspend fun getFCMToken(setFCMToken: (String) -> Unit)
 }
