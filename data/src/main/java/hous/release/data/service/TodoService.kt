@@ -15,32 +15,32 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface TodoService {
-    @GET("v1/todos")
+    @GET("/v1/todos")
     suspend fun getTodoMainContent(): BaseResponse<ToDoMainResponse>
 
-    @POST("v1/todo/{todoId}/check")
+    @POST("/v1/todo/{todoId}/check")
     suspend fun checkTodo(
         @Path("todoId") todoId: Int,
         @Body body: ToDoCheckRequest
     )
 
-    @GET("v1/todos/day")
+    @GET("/v1/todos/day")
     suspend fun getDailyTodos(): BaseResponse<List<ToDoMainResponse>>
 
-    @GET("v1/todos/member")
+    @GET("/v1/todos/member")
     suspend fun getMembersTodos(): BaseResponse<List<MemberTodoResponse>>
 
-    @GET("v1/todo/{todoId}/summary")
+    @GET("/v1/todo/{todoId}/summary")
     suspend fun getTodoDetail(
         @Path("todoId") todoId: Int
     ): BaseResponse<TodoDetailResponse>
 
-    @DELETE("v1/todo/{todoId}")
+    @DELETE("/v1/todo/{todoId}")
     suspend fun deleteTodo(@Path("todoId") todoId: Int)
 
-    @GET("v1/todo")
+    @GET("/v1/todo")
     suspend fun getTodoUsers(): BaseResponse<ToDoUsersResponse>
 
-    @POST("v1/todo")
+    @POST("/v1/todo")
     suspend fun postAddTodo(@Body updateToDoUser: UpdateToDoUsersRequest): NoDataResponse
 }
