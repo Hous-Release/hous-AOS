@@ -10,15 +10,6 @@ data class ToDoUser(
     val dayOfWeeks: List<Boolean> = List(7) { false },
     val isChecked: Boolean = false
 ) {
-    private val dayTable = listOf(
-        "MONDAY",
-        "TUESDAY",
-        "WEDNESDAY",
-        "THURSDAY",
-        "FRIDAY",
-        "SATURDAY",
-        "SUNDAY"
-    )
 
     fun toAddedToDoUser() =
         UpdateToDoUser(dayOfWeeks = transformDayOfWeeks(dayOfWeeks), onboardingId = onBoardingId)
@@ -30,6 +21,18 @@ data class ToDoUser(
                 dayTable[idx]
             )
         }
-        return newDayOfWeeks.toList()
+        return newDayOfWeeks
+    }
+
+    companion object {
+        private val dayTable = listOf(
+            "MONDAY",
+            "TUESDAY",
+            "WEDNESDAY",
+            "THURSDAY",
+            "FRIDAY",
+            "SATURDAY",
+            "SUNDAY"
+        )
     }
 }
