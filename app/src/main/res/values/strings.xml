@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hous-Release-Aos</string>
+    <string name="app_name">Hous-</string>
 
     <!-- Util -->
     <string name="null_point_exception">NullPointException occurs..</string>
@@ -95,6 +95,7 @@
     <string name="our_house_representative_rules_number_three">3.</string>
 
     <!-- EnterRoom -->
+    <string name="enter_room_settings_img_desc">설정 버튼</string>
     <string name="enter_room_title">이제 하우스에 입장해볼까요?</string>
     <string name="enter_room_create_title">방 만들기</string>
     <string name="enter_room_create_desc">가장 먼저 방을 만들어\n호미들을 초대해보세요!</string>
@@ -266,6 +267,11 @@
     <string name="settings_room_out">방 퇴사하기</string>
     <string name="settings_withdraw_desc">* 회원 탈퇴는 방 퇴사 이후 \'방만들기 화면\'에서 할 수 있어요!</string>
     <string name="settings_withdraw"><u>회원탈퇴</u></string>
+    <string name="settings_feedback_email">hanzip001@gmail.com</string>
+    <string name="settings_feedback_subject">Hous- 문의사항</string>
+    <string name="settings_feedback_content">\n\n\nDevice : %s\nOS Version : Android %s\nApp Version : %s\n-------------------------\n\n\n\n호미나라에 자유로운 피드백을 보내주세요!\n-------------------------</string>
+    <string name="settings_feedback_empty_string"> </string>
+    <string name="settings_info_link">https://sugared-lemming-812.notion.site/6d9d478df40b4a20811e0020c15af3bc</string>
 
     <!-- Notification Settings -->
     <string name="noti_settings_title">알림</string>
