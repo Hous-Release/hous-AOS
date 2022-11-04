@@ -13,6 +13,19 @@
         android:background="@color/hous_white"
         tools:context=".presentation.enter_room.EnterRoomFragment">
 
+        <ImageButton
+            android:id="@+id/btn_enter_room_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
+            android:background="@null"
+            android:padding="12dp"
+            android:src="@drawable/ic_settings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/enter_room_settings_img_desc" />
+
         <TextView
             android:id="@+id/tv_enter_room_title"
             android:layout_width="wrap_content"

@@ -54,6 +54,10 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         }
     }
 
+    fun moveToToDoFragment() {
+        binding.botNavMain.selectedItemId = R.id.toDoFragment
+    }
+
     companion object {
         private const val WAITING_DEADLINE = 2000L
     }

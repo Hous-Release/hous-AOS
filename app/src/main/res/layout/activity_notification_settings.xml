@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="hous.release.domain.entity.NotificationStatusType" />
+
+        <variable
+            name="vm"
+            type="hous.release.android.presentation.settings.NotificationSettingsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.settings.NotificationSettingsActivity">
+
+        <ImageButton
+            android:id="@+id/btn_noti_settings_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:background="@null"
+            android:contentDescription="@string/back_btn_image_desc"
+            android:padding="8dp"
+            android:src="@drawable/ic_back_g4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_noti_settings_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/noti_settings_title"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            app:layout_constraintBottom_toBottomOf="@id/btn_noti_settings_back"
+            app:layout_constraintStart_toEndOf="@id/btn_noti_settings_back"
+            app:layout_constraintTop_toTopOf="@id/btn_noti_settings_back" />
+
+        <View
+            android:id="@+id/view_noti_settings_top"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/hous_g_line"
+            app:layout_constraintTop_toBottomOf="@id/btn_noti_settings_back" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_noti_settings_top">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="24dp">
+
+                <TextView
+                    android:id="@+id/tv_noti_settings_accept_alarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/noti_settings_accept_alarm"
+                    android:textAppearance="@style/B1"
+                    android:textColor="@color/hous_black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_noti_settings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:background="@null"
+                    android:checked="@{vm.notificationSettingsInfo.pushNotification}"
+                    android:gravity="center_vertical"
+                    android:thumb="@drawable/selector_switch_thumb"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_noti_settings_accept_alarm"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_noti_settings_accept_alarm"
+                    app:switchMinWidth="52dp"
+                    app:track="@drawable/selector_switch_track" />
+
+                <View
+                    android:id="@+id/view_noti_settings_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@color/hous_g_line"
+                    app:layout_constraintTop_toBottomOf="@id/tv_noti_settings_accept_alarm" />
+
+                <TextView
+                    android:id="@+id/tv_noti_settings_new_rules"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/noti_settings_new_rules"
+                    android:textAppearance="@style/B1"
+                    android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_black : @color/hous_g_5}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_noti_settings_1" />
+
+                <TextView
+                    android:id="@+id/tv_noti_settings_new_rules_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/noti_settings_new_rules_desc"
+                    android:textAppearance="@style/Description"
+                    android:textColor="@color/hous_g_5"
+                    app:layout_constraintStart_toStartOf="@id/tv_noti_settings_new_rules"
+                    app:layout_constraintTop_toBottomOf="@id/tv_noti_settings_new_rules" />
+
+                <RadioGroup
+                    android:id="@+id/rg_noti_settings_new_rules"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="22dp"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_noti_settings_new_rules_desc">
+
+                    <RadioButton
+                        android:id="@+id/rb_noti_settings_new_rules_on"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_margin="4dp"
+                        android:button="@drawable/selector_radio_button"
+                        android:checked="@{vm.notificationSettingsInfo.rulesPushStatus == NotificationStatusType.ON ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
+                        android:layoutDirection="rtl"
+                        android:minHeight="0dp"
+                        android:onClick="@{()->vm.patchNewRulesSettings(NotificationStatusType.ON)}"
+                        android:paddingVertical="8dp"
+                        android:text="@string/noti_settings_on"
+                        android:textAlignment="textStart"
+                        android:textAppearance="@style/B2"
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+
+                    <RadioButton
+                        android:id="@+id/rb_noti_settings_new_rules_off"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_margin="4dp"
+                        android:button="@drawable/selector_radio_button"
+                        android:checked="@{vm.notificationSettingsInfo.rulesPushStatus == NotificationStatusType.OFF ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
+                        android:layoutDirection="rtl"
+                        android:minHeight="0dp"
+                        android:onClick="@{()->vm.patchNewRulesSettings(NotificationStatusType.OFF)}"
+                        android:paddingVertical="8dp"
+                        android:text="@string/noti_settings_off"
+                        android:textAlignment="textStart"
+                        android:textAppearance="@style/B2"
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+                </RadioGroup>
+
+                <View
+                    android:id="@+id/view_noti_settings_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/hous_g_line"
+                    app:layout_constraintTop_toBottomOf="@id/rg_noti_settings_new_rules" />
+
+                <TextView
+                    android:id="@+id/tv_noti_settings_new_todos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/noti_settings_new_todos"
+                    android:textAppearance="@style/B1"
+                    android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_black : @color/hous_g_5}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_noti_settings_2" />
+
+                <TextView
+                    android:id="@+id/tv_noti_settings_new_todos_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/noti_settings_new_todos_desc"
+                    android:textAppearance="@style/Description"
+                    android:textColor="@color/hous_g_5"
+                    app:layout_constraintStart_toStartOf="@id/tv_noti_settings_new_todos"
+                    app:layout_constraintTop_toBottomOf="@id/tv_noti_settings_new_todos" />
+
+                <RadioGroup
+                    android:id="@+id/rg_noti_settings_new_todos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="22dp"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_noti_settings_new_todos_desc">
+
+                    <RadioButton
+                        android:id="@+id/rb_noti_settings_new_todos_on_all"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_margin="4dp"
+                        android:button="@drawable/selector_radio_button"
+                        android:checked="@{vm.notificationSettingsInfo.newTodoPushStatus == NotificationStatusType.ON_ALL ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
+                        android:layoutDirection="rtl"
+                        android:minHeight="0dp"
+                        android:onClick="@{()->vm.patchNewTodosSettings(NotificationStatusType.ON_ALL)}"
+                        android:paddingVertical="8dp"
+                        android:text="@string/noti_settings_new_todos_on_all"
+                        android:textAlignment="textStart"
+                        android:textAppearance="@style/B2"
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+
+                    <RadioButton
+                        android:id="@+id/rb_noti_settings_new_todos_on_me"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_margin="4dp"
+                        android:button="@drawable/selector_radio_button"
+                        android:checked="@{vm.notificationSettingsInfo.newTodoPushStatus == NotificationStatusType.ON_MY ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
+                        android:layoutDirection="rtl"
+                        android:minHeight="0dp"
+                        android:onClick="@{()->vm.patchNewTodosSettings(NotificationStatusType.ON_MY)}"
+                        android:paddingVertical="8dp"
+                        android:text="@string/noti_settings_on_me"
+                        android:textAlignment="textStart"
+                        android:textAppearance="@style/B2"
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+
+                    <RadioButton
+                        android:id="@+id/rb_noti_settings_new_todos_off"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_margin="4dp"
+                        android:button="@drawable/selector_radio_button"
+                        android:checked="@{vm.notificationSettingsInfo.newTodoPushStatus == NotificationStatusType.OFF ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
+                        android:layoutDirection="rtl"
+                        android:minHeight="0dp"
+                        android:onClick="@{()->vm.patchNewTodosSettings(NotificationStatusType.OFF)}"
+                        android:paddingVertical="8dp"
+                        android:text="@string/noti_settings_off"
+                        android:textAlignment="textStart"
+                        android:textAppearance="@style/B2"
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+                </RadioGroup>
+
+                <View
+                    android:id="@+id/view_noti_settings_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/hous_g_line"
+                    app:layout_constraintTop_toBottomOf="@id/rg_noti_settings_new_todos" />
+
+                <TextView
+                    android:id="@+id/tv_noti_settings_start_todos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/noti_settings_start_todos"
+                    android:textAppearance="@style/B1"
+                    android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_black : @color/hous_g_5}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_noti_settings_3" />
+
+                <TextView
+                    android:id="@+id/tv_noti_settings_start_todos_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/noti_settings_start_todos_desc"
+                    android:textAppearance="@style/Description"
+                    android:textColor="@color/hous_g_5"
+                    app:layout_constraintStart_toStartOf="@id/tv_noti_settings_start_todos"
+                    app:layout_constraintTop_toBottomOf="@id/tv_noti_settings_start_todos" />
+
+                <RadioGroup
+                    android:id="@+id/rg_noti_settings_start_todos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="22dp"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_noti_settings_start_todos_desc">
+
+                    <RadioButton
+                        android:id="@+id/rb_noti_settings_start_todos_on_all"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_margin="4dp"
+                        android:button="@drawable/selector_radio_button"
+                        android:checked="@{vm.notificationSettingsInfo.todayTodoPushStatus == NotificationStatusType.ON_ALL ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
+                        android:layoutDirection="rtl"
+                        android:minHeight="0dp"
+                        android:onClick="@{()->vm.patchStartTodosSettings(NotificationStatusType.ON_ALL)}"
+                        android:paddingVertical="8dp"
+                        android:text="@string/noti_settings_start_todos_on_all"
+                        android:textAlignment="textStart"
+                        android:textAppearance="@style/B2"
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+
+                    <RadioButton
+                        android:id="@+id/rb_noti_settings_start_todos_on_me"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_margin="4dp"
+                        android:button="@drawable/selector_radio_button"
+                        android:checked="@{vm.notificationSettingsInfo.todayTodoPushStatus == NotificationStatusType.ON_MY ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
+                        android:layoutDirection="rtl"
+                        android:minHeight="0dp"
+                        android:onClick="@{()->vm.patchStartTodosSettings(NotificationStatusType.ON_MY)}"
+                        android:paddingVertical="8dp"
+                        android:text="@string/noti_settings_on_me"
+                        android:textAlignment="textStart"
+                        android:textAppearance="@style/B2"
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+
+                    <RadioButton
+                        android:id="@+id/rb_noti_settings_start_todos_off"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_margin="4dp"
+                        android:button="@drawable/selector_radio_button"
+                        android:checked="@{vm.notificationSettingsInfo.todayTodoPushStatus == NotificationStatusType.OFF ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
+                        android:layoutDirection="rtl"
+                        android:minHeight="0dp"
+                        android:onClick="@{()->vm.patchStartTodosSettings(NotificationStatusType.OFF)}"
+                        android:paddingVertical="8dp"
+                        android:text="@string/noti_settings_off"
+                        android:textAlignment="textStart"
+                        android:textAppearance="@style/B2"
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+                </RadioGroup>
+
+                <View
+                    android:id="@+id/view_noti_settings_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/hous_g_line"
+                    app:layout_constraintTop_toBottomOf="@id/rg_noti_settings_start_todos" />
+
+                <TextView
+                    android:id="@+id/tv_noti_settings_remind_todos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/noti_settings_remind_todos"
+                    android:textAppearance="@style/B1"
+                    android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_black : @color/hous_g_5}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_noti_settings_4" />
+
+                <TextView
+                    android:id="@+id/tv_noti_settings_remind_todos_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/noti_settings_remind_todos_desc"
+                    android:textAppearance="@style/Description"
+                    android:textColor="@color/hous_g_5"
+                    app:layout_constraintStart_toStartOf="@id/tv_noti_settings_remind_todos"
+                    app:layout_constraintTop_toBottomOf="@id/tv_noti_settings_remind_todos" />
+
+                <RadioGroup
+                    android:id="@+id/rg_noti_settings_remind_todos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="22dp"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_noti_settings_remind_todos_desc">
+
+                    <RadioButton
+                        android:id="@+id/rb_noti_settings_remind_todos_on_all"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_margin="4dp"
+                        android:button="@drawable/selector_radio_button"
+                        android:checked="@{vm.notificationSettingsInfo.remindTodoPushStatus == NotificationStatusType.ON_ALL ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
+                        android:layoutDirection="rtl"
+                        android:minHeight="0dp"
+                        android:onClick="@{()->vm.patchRemindTodosSettings(NotificationStatusType.ON_ALL)}"
+                        android:paddingVertical="8dp"
+                        android:text="@string/noti_settings_remind_todos_on_all"
+                        android:textAlignment="textStart"
+                        android:textAppearance="@style/B2"
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+
+                    <RadioButton
+                        android:id="@+id/rb_noti_settings_remind_todos_on_me"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_margin="4dp"
+                        android:button="@drawable/selector_radio_button"
+                        android:checked="@{vm.notificationSettingsInfo.remindTodoPushStatus == NotificationStatusType.ON_MY ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
+                        android:layoutDirection="rtl"
+                        android:minHeight="0dp"
+                        android:onClick="@{()->vm.patchRemindTodosSettings(NotificationStatusType.ON_MY)}"
+                        android:paddingVertical="8dp"
+                        android:text="@string/noti_settings_on_me"
+                        android:textAlignment="textStart"
+                        android:textAppearance="@style/B2"
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+
+                    <RadioButton
+                        android:id="@+id/rb_noti_settings_remind_todos_off"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_margin="4dp"
+                        android:button="@drawable/selector_radio_button"
+                        android:checked="@{vm.notificationSettingsInfo.remindTodoPushStatus == NotificationStatusType.OFF ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
+                        android:layoutDirection="rtl"
+                        android:minHeight="0dp"
+                        android:onClick="@{()->vm.patchRemindTodosSettings(NotificationStatusType.OFF)}"
+                        android:paddingVertical="8dp"
+                        android:text="@string/noti_settings_off"
+                        android:textAlignment="textStart"
+                        android:textAppearance="@style/B2"
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+                </RadioGroup>
+
+                <View
+                    android:id="@+id/view_noti_settings_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/hous_g_line"
+                    app:layout_constraintTop_toBottomOf="@id/rg_noti_settings_remind_todos" />
+
+                <TextView
+                    android:id="@+id/tv_noti_settings_badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/noti_settings_badge"
+                    android:textAppearance="@style/B1"
+                    android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_black : @color/hous_g_5}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_noti_settings_5" />
+
+                <TextView
+                    android:id="@+id/tv_noti_settings_badge_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/noti_settings_badge_desc"
+                    android:textAppearance="@style/Description"
+                    android:textColor="@color/hous_g_5"
+                    app:layout_constraintStart_toStartOf="@id/tv_noti_settings_badge"
+                    app:layout_constraintTop_toBottomOf="@id/tv_noti_settings_badge" />
+
+                <RadioGroup
+                    android:id="@+id/rg_noti_settings_badge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="22dp"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_noti_settings_badge_desc">
+
+                    <RadioButton
+                        android:id="@+id/rb_noti_settings_badge_on"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_margin="4dp"
+                        android:button="@drawable/selector_radio_button"
+                        android:checked="@{vm.notificationSettingsInfo.badgePushStatus == NotificationStatusType.ON ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
+                        android:layoutDirection="rtl"
+                        android:minHeight="0dp"
+                        android:onClick="@{()->vm.patchBadgeSettings(NotificationStatusType.ON)}"
+                        android:paddingVertical="8dp"
+                        android:text="@string/noti_settings_on"
+                        android:textAlignment="textStart"
+                        android:textAppearance="@style/B2"
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+
+                    <RadioButton
+                        android:id="@+id/rb_noti_settings_badge_off"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_margin="4dp"
+                        android:button="@drawable/selector_radio_button"
+                        android:checked="@{vm.notificationSettingsInfo.badgePushStatus == NotificationStatusType.OFF ? true : false}"
+                        android:enabled="@{vm.notificationSettingsInfo.pushNotification}"
+                        android:layoutDirection="rtl"
+                        android:minHeight="0dp"
+                        android:onClick="@{()->vm.patchBadgeSettings(NotificationStatusType.OFF)}"
+                        android:paddingVertical="8dp"
+                        android:text="@string/noti_settings_off"
+                        android:textAlignment="textStart"
+                        android:textAppearance="@style/B2"
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+                </RadioGroup>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

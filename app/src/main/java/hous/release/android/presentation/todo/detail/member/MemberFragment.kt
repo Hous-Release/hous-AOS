@@ -96,7 +96,7 @@ class MemberFragment : BindingFragment<FragmentMemberBinding>(R.layout.fragment_
                     TodoLimitDialog().show(childFragmentManager, this.javaClass.name)
                     return@HousFloatingButton
                 }
-                /* TO DO 추가하기 뷰로 이동하는 함수 */
+                findNavController().navigate(R.id.action_memberFragment_to_addToDoFragment)
             }
         }
     }

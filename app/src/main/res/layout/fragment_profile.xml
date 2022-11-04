@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/hous_white"
+        android:paddingBottom="12dp"
         tools:context=".presentation.profile.ProfileFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,27 +26,29 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/iv_profile_setting"
+            <ImageButton
+                android:id="@+id/btn_profile_setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="14dp"
+                android:background="@null"
                 android:padding="10dp"
                 android:src="@{vm.isTest ? @drawable/ic_profile_setting_white : @drawable/ic_setting_gray}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/ic_profile_setting_white" />
 
-            <ImageView
-                android:id="@+id/iv_profile_alarm"
+            <ImageButton
+                android:id="@+id/btn_profile_notification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:padding="10dp"
                 android:src="@{vm.isTest ? @drawable/ic_profile_alarm_white : @drawable/ic_profile_alarm_gray}"
-                app:layout_constraintBottom_toBottomOf="@id/iv_profile_setting"
-                app:layout_constraintEnd_toStartOf="@id/iv_profile_setting"
-                app:layout_constraintTop_toTopOf="@id/iv_profile_setting"
+                app:layout_constraintBottom_toBottomOf="@id/btn_profile_setting"
+                app:layout_constraintEnd_toStartOf="@id/btn_profile_setting"
+                app:layout_constraintTop_toTopOf="@id/btn_profile_setting"
                 tools:src="@drawable/ic_profile_alarm_white" />
 
             <ImageView
@@ -57,7 +60,7 @@
                 android:elevation="10dp"
                 android:src="@drawable/shape_white_fill_100_circle"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_profile_alarm" />
+                app:layout_constraintTop_toBottomOf="@id/btn_profile_notification" />
 
             <TextView
                 android:id="@+id/tv_profile_badge"
@@ -213,84 +216,101 @@
                     android:background="@color/hous_g_0"
                     app:layout_constraintTop_toBottomOf="@id/tv_profile_introduction" />
 
-                <ImageView
-                    android:id="@+id/iv_profile_empty_tendency"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginBottom="16dp"
-                    android:src="@drawable/ic_profile_empty_tendency"
-                    android:visibility="@{vm.isTest ? View.INVISIBLE : View.VISIBLE}"
-                    app:layout_constraintBottom_toTopOf="@id/tv_profile_tendency"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_profile" />
-
-                <TextView
-                    android:id="@+id/tv_profile_personality"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="19dp"
-                    android:textAppearance="@style/H2"
-                    android:visibility="@{vm.isTest ? View.VISIBLE : View.INVISIBLE}"
-                    app:layout_constraintStart_toStartOf="@id/view_profile"
-                    app:layout_constraintTop_toBottomOf="@id/view_profile"
-                    tools:text="@string/personality_red"
-                    tools:textColor="@color/hous_red" />
-
-                <TextView
-                    android:id="@+id/tv_profile_personality_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="16dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="3dp"
-                    android:text="@string/profile_personality_detail"
-                    android:visibility="@{vm.isTest ? View.VISIBLE : View.INVISIBLE}"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_profile_personality_detail"
-                    app:layout_constraintEnd_toStartOf="@id/iv_profile_personality_detail"
-                    app:layout_constraintTop_toTopOf="@id/iv_profile_personality_detail" />
-
-                <ImageView
-                    android:id="@+id/iv_profile_personality_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:src="@drawable/ic_profile_next"
-                    android:visibility="@{vm.isTest ? View.VISIBLE : View.INVISIBLE}"
-                    app:layout_constraintEnd_toEndOf="@id/view_profile"
-                    app:layout_constraintTop_toBottomOf="@id/view_profile" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_personality_info"
+                <FrameLayout
+                    android:id="@+id/fl_profile_personality"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="32dp"
-                    android:clipToPadding="false"
-                    android:orientation="horizontal"
-                    android:overScrollMode="always"
-                    android:scrollbarAlwaysDrawVerticalTrack="true"
-                    android:scrollbarFadeDuration="0"
-                    android:scrollbarSize="2dp"
-                    android:scrollbarStyle="outsideInset"
-                    android:scrollbarThumbHorizontal="@drawable/shape_g3_fill_2_rect"
-                    android:scrollbars="horizontal"
-                    android:visibility="@{vm.isTest ? View.VISIBLE : View.INVISIBLE}"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toTopOf="@id/tv_profile_tendency"
-                    tools:listitem="@layout/item_profile_personality" />
+                    app:layout_constraintTop_toBottomOf="@id/view_profile">
+
+                    <ImageView
+                        android:id="@+id/iv_profile_empty_tendency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|center"
+                        android:layout_marginTop="28dp"
+                        android:src="@drawable/ic_profile_empty_tendency"
+                        android:visibility="@{vm.isTest ? View.GONE : View.VISIBLE}" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_profile_has_personality"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:visibility="@{vm.isTest ? View.VISIBLE : View.GONE}">
+
+                        <TextView
+                            android:id="@+id/tv_profile_personality"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:textAppearance="@style/H2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="@string/personality_red"
+                            tools:textColor="@color/hous_red" />
+
+                        <androidx.compose.ui.platform.ComposeView
+                            android:id="@+id/cv_profile_personality_pentagon"
+                            android:layout_width="match_parent"
+                            android:layout_height="280dp"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_profile_personality" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_profile_personality_detail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/tv_profile_personality_detail"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="4dp"
+                                android:paddingVertical="8dp"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="3dp"
+                                android:text="@string/profile_personality_detail" />
+
+                            <ImageView
+                                android:id="@+id/iv_profile_personality_detail"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                android:src="@drawable/ic_profile_next" />
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_personality_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal"
+                            android:overScrollMode="always"
+                            android:scrollbarAlwaysDrawVerticalTrack="true"
+                            android:scrollbarFadeDuration="0"
+                            android:scrollbarSize="2dp"
+                            android:scrollbarStyle="outsideInset"
+                            android:scrollbarThumbHorizontal="@drawable/shape_g3_fill_2_rect"
+                            android:scrollbars="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintTop_toBottomOf="@+id/cv_profile_personality_pentagon"
+                            tools:listitem="@layout/item_profile_personality" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </FrameLayout>
 
                 <TextView
                     android:id="@+id/tv_profile_tendency"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginTop="16dp"
                     android:text="@{vm.isTest ? @string/profile_not_my_personality : @string/profile_empty_personality}"
                     android:textAppearance="@style/B2"
                     android:textColor="@color/hous_g_6"
-                    app:layout_constraintBottom_toTopOf="@id/btn_profile_test_again"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fl_profile_personality"
                     tools:text="@string/profile_empty_personality" />
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -298,12 +318,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
-                    android:layout_marginBottom="42dp"
+                    android:layout_marginTop="12dp"
                     android:background="@drawable/shape_black_fill_8_rect"
                     android:text="@{vm.isTest ? @string/profile_test_again : @string/profile_empty_go_test}"
                     android:textAppearance="@style/B1"
                     android:textColor="@color/hous_white"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_profile_tendency"
+                    tools:layout_editor_absoluteX="16dp"
                     tools:text="@string/profile_empty_go_test" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

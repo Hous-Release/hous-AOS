@@ -8,14 +8,18 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentProfileBinding
-import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.LOCATION
 import hous.release.android.presentation.badge.BadgeActivity
+import hous.release.android.presentation.notification.NotificationActivity
+import hous.release.android.presentation.personality.result.PersonalityResultActivity
+import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.LOCATION
 import hous.release.android.presentation.profile.adapter.ProfilePersonalityAdapter
+import hous.release.android.presentation.settings.SettingsActivity
 import hous.release.android.util.binding.BindingFragment
+import hous.release.android.util.component.HousPersonalityPentagon
+import hous.release.android.util.style.HousTheme
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.PersonalityInfo
 import hous.release.domain.entity.ProfileSet
-import hous.release.domain.entity.response.PersonalityResult
 
 @AndroidEntryPoint
 class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
@@ -26,30 +30,39 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
         super.onViewCreated(view, savedInstanceState)
         binding.vm = profileViewModel
         initProfileInfo()
-        initAlarmOnClickListener()
+        initNotificationOnClickListener()
         initSettingOnClickListener()
         initBadgeOnClickListener()
         initEditOnClickListener()
         initTestBtnOnClickListener()
         initPersonalityAdapter()
         initPersonalityOnClickListener()
+        observePersonalityPentagon()
     }
 
     private fun initPersonalityOnClickListener() {
-        val intent = Intent(requireActivity(), PersonalityResult::class.java)
-        intent.putExtra(LOCATION, PROFILE)
-        startActivity(intent)
+        binding.llProfilePersonalityDetail.setOnClickListener {
+            val intent = Intent(requireActivity(), PersonalityResultActivity::class.java)
+            intent.putExtra(LOCATION, PROFILE)
+            startActivity(intent)
+        }
     }
 
-    private fun initAlarmOnClickListener() {
-        binding.ivProfileAlarm.setOnClickListener {
-            // 알람으로 go
+    private fun initNotificationOnClickListener() {
+        binding.btnProfileNotification.setOnClickListener {
+            startActivity(Intent(requireContext(), NotificationActivity::class.java))
         }
     }
 
     private fun initSettingOnClickListener() {
-        binding.ivProfileSetting.setOnClickListener {
-            // 세팅으로 go
+        binding.btnProfileSetting.setOnClickListener {
+            binding.btnProfileSetting.setOnClickListener {
+                startActivity(
+                    Intent(requireContext(), SettingsActivity::class.java).apply {
+                        putExtra(SettingsActivity.HAS_ROOM, true)
+                    }
+                )
+            }
         }
     }
 
@@ -88,6 +101,19 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
                     tvProfilePersonality.setText(profileSet.personality)
                     tvProfilePersonality.setTextColor(
                         ContextCompat.getColor(requireContext(), profileSet.colorText)
+                    )
+                }
+            }
+        }
+    }
+
+    private fun observePersonalityPentagon() {
+        profileViewModel.profileData.observe(viewLifecycleOwner) { profile ->
+            binding.cvProfilePersonalityPentagon.setContent {
+                HousTheme {
+                    HousPersonalityPentagon(
+                        testScore = profile.testScore,
+                        homyType = profile.personalityColor
                     )
                 }
             }

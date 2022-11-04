@@ -18,6 +18,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.settings.NotificationSettingsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.settings.SettingsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".presentation.personality.result.PersonalityResultActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -36,7 +44,8 @@
         <activity
             android:name=".presentation.todo.detail.TodoDetailActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.tutorial.TutorialActivity"
             android:exported="false"

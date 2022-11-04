@@ -1,26 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_todo_detail"
     app:startDestination="@id/dailyFragment">
     <fragment
         android:id="@+id/dailyFragment"
         android:name="hous.release.android.presentation.todo.detail.daily.DailyFragment"
-        android:label="DailyFragment">
+        android:label="DailyFragment"
+        tools:layout="@layout/fragment_daily">
         <action
             android:id="@+id/action_dailyFragment_to_memberFragment"
             app:destination="@id/memberFragment"
             app:popUpTo="@id/dailyFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_dailyFragment_to_addToDoFragment"
+            app:destination="@id/addToDoFragment" />
     </fragment>
     <fragment
         android:id="@+id/memberFragment"
         android:name="hous.release.android.presentation.todo.detail.member.MemberFragment"
-        android:label="MemberFragment">
+        android:label="MemberFragment"
+        tools:layout="@layout/fragment_member">
         <action
             android:id="@+id/action_memberFragment_to_dailyFragment"
             app:destination="@id/dailyFragment"
             app:popUpTo="@id/memberFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_memberFragment_to_addToDoFragment"
+            app:destination="@id/addToDoFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addToDoFragment"
+        android:name="hous.release.android.presentation.todo.add.AddToDoFragment"
+        android:label="AddToDoFragment"
+        tools:layout="@layout/fragment_add_to_do" />
 </navigation>
