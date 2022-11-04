@@ -12,6 +12,7 @@ import hous.release.data.service.NotificationService
 import hous.release.data.service.OurRulesService
 import hous.release.data.service.PersonalityService
 import hous.release.data.service.ProfileService
+import hous.release.data.service.SettingsService
 import hous.release.data.service.TodoService
 import retrofit2.Retrofit
 import javax.inject.Singleton
@@ -63,4 +64,9 @@ class RetrofitServiceModule {
     @Singleton
     fun providesBadgeService(retrofit: Retrofit): BadgeService =
         retrofit.create(BadgeService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideSettingsService(retrofit: Retrofit): SettingsService =
+        retrofit.create(SettingsService::class.java)
 }

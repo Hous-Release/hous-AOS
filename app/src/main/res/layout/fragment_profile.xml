@@ -26,27 +26,29 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/iv_profile_setting"
+            <ImageButton
+                android:id="@+id/btn_profile_setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="14dp"
+                android:background="@null"
                 android:padding="10dp"
                 android:src="@{vm.isTest ? @drawable/ic_profile_setting_white : @drawable/ic_setting_gray}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/ic_profile_setting_white" />
 
-            <ImageView
-                android:id="@+id/iv_profile_alarm"
+            <ImageButton
+                android:id="@+id/btn_profile_notification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:padding="10dp"
                 android:src="@{vm.isTest ? @drawable/ic_profile_alarm_white : @drawable/ic_profile_alarm_gray}"
-                app:layout_constraintBottom_toBottomOf="@id/iv_profile_setting"
-                app:layout_constraintEnd_toStartOf="@id/iv_profile_setting"
-                app:layout_constraintTop_toTopOf="@id/iv_profile_setting"
+                app:layout_constraintBottom_toBottomOf="@id/btn_profile_setting"
+                app:layout_constraintEnd_toStartOf="@id/btn_profile_setting"
+                app:layout_constraintTop_toTopOf="@id/btn_profile_setting"
                 tools:src="@drawable/ic_profile_alarm_white" />
 
             <ImageView
@@ -58,7 +60,7 @@
                 android:elevation="10dp"
                 android:src="@drawable/shape_white_fill_100_circle"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_profile_alarm" />
+                app:layout_constraintTop_toBottomOf="@id/btn_profile_notification" />
 
             <TextView
                 android:id="@+id/tv_profile_badge"
