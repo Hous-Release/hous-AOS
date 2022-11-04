@@ -45,11 +45,11 @@ class PersonalityResultActivity :
     }
 
     private fun initBackOnClickListener() {
-        binding.tvPersonalityResultComplete.setOnClickListener {
+        binding.btnPersonalityResultComplete.setOnClickListener {
             finish()
         }
 
-        binding.ivPersonalityResultBack.setOnClickListener {
+        binding.btnPersonalityResultBack.setOnClickListener {
             finish()
         }
     }
