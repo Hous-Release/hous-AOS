@@ -18,8 +18,15 @@ class NotificationActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initBackBtnClickListener()
         initNotificationAdapter()
         collectNotificationList()
+    }
+
+    private fun initBackBtnClickListener() {
+        binding.btnNotificationBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun initNotificationAdapter() {

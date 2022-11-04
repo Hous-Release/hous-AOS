@@ -1,6 +1,7 @@
 package hous.release.android.presentation.hous
 
 import android.os.Bundle
+import androidx.activity.addCallback
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
@@ -37,17 +38,23 @@ class EditHousNameActivity :
     }
 
     private fun initBackBtnClickListener() {
-        binding.btnEditHousNameBack.setOnClickListener {
-            WarningDialogFragment().apply {
-                arguments = Bundle().apply {
-                    putSerializable(WARNING_TYPE, WarningType.WARNING_EDIT_HOUS_NAME)
-                    putParcelable(
-                        CONFIRM_ACTION,
-                        ConfirmClickListener(confirmAction = { finish() })
-                    )
-                }
-            }.show(supportFragmentManager, DIALOG_WARNING)
+        binding.btnEditHousNameBack.setOnClickListener { showWarningDialog() }
+
+        onBackPressedDispatcher.addCallback {
+            showWarningDialog()
         }
+    }
+
+    private fun showWarningDialog() {
+        WarningDialogFragment().apply {
+            arguments = Bundle().apply {
+                putSerializable(WARNING_TYPE, WarningType.WARNING_EDIT_HOUS_NAME)
+                putParcelable(
+                    CONFIRM_ACTION,
+                    ConfirmClickListener(confirmAction = { finish() })
+                )
+            }
+        }.show(supportFragmentManager, DIALOG_WARNING)
     }
 
     private fun initOriginalRoomName() {

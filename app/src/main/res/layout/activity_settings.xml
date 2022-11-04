@@ -5,6 +5,11 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="hasRoom"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -182,6 +187,7 @@
             android:text="@string/settings_room_out"
             android:textAppearance="@style/B1"
             android:textColor="@color/hous_red"
+            android:visibility="@{hasRoom ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="@id/tv_settings_logout"
             app:layout_constraintTop_toBottomOf="@id/tv_settings_logout" />
 
@@ -193,6 +199,7 @@
             android:text="@string/settings_withdraw_desc"
             android:textAppearance="@style/B3"
             android:textColor="@color/hous_g_4"
+            android:visibility="@{hasRoom ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="@id/tv_settings_logout"
             app:layout_constraintTop_toBottomOf="@id/tv_settings_room_out" />
 
@@ -204,6 +211,7 @@
             android:text="@string/settings_withdraw"
             android:textAppearance="@style/B3"
             android:textColor="@color/hous_g_4"
+            android:visibility="@{hasRoom ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="@id/tv_settings_logout"
             app:layout_constraintTop_toBottomOf="@id/tv_settings_room_out" />
 

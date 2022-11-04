@@ -11,6 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentHousBinding
 import hous.release.android.presentation.hous.adapter.HomiesAdapter
+import hous.release.android.presentation.main.MainActivity
 import hous.release.android.presentation.our_rules.OurRulesActivity
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
@@ -28,17 +29,12 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
         initHomiesAdapter()
         initHomiesObserver()
         initNavigateToOurRulesBtnClickListener()
+        initMoveToToDoClickListener()
     }
 
     override fun onResume() {
         super.onResume()
         viewModel.getHome()
-    }
-
-    private fun initNavigateToOurRulesBtnClickListener() {
-        binding.btnHousOurRules.setOnClickListener {
-            startActivity(Intent(requireContext(), OurRulesActivity::class.java))
-        }
     }
 
     private fun initClickListener() {
@@ -57,6 +53,18 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
                 ClipData.newPlainText(ROOM_CODE, viewModel.hous.value.roomCode)
             clipboard.setPrimaryClip(clipCode)
             requireContext().showToast(getString(R.string.hous_toast_copy))
+        }
+    }
+
+    private fun initNavigateToOurRulesBtnClickListener() {
+        binding.btnHousOurRules.setOnClickListener {
+            startActivity(Intent(requireContext(), OurRulesActivity::class.java))
+        }
+    }
+
+    private fun initMoveToToDoClickListener() {
+        binding.layoutHousMyTodo.setOnClickListener {
+            (requireActivity() as MainActivity).moveToToDoFragment()
         }
     }
 
