@@ -3,6 +3,7 @@ package hous.release.android.presentation.todo.viewmodel
 import androidx.lifecycle.ViewModel
 import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.domain.entity.response.ToDoUser
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -12,6 +13,7 @@ abstract class UpdateToDoViewModel : ViewModel() {
     protected var _uiState = MutableStateFlow(UpdateToDoUiState())
     val uiState = _uiState.asStateFlow()
 
+    abstract fun putTodo(): Job
     fun checkUser(userIdx: Int) {
         _uiState.update { uiState ->
             val newToDoUsers = uiState.todoUsers.mapIndexed { idx, toDoUser ->
