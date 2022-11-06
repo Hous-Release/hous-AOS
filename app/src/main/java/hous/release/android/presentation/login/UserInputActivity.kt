@@ -74,7 +74,10 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
                     putParcelable(
                         CONFIRM_ACTION,
                         DatePickerClickListener(
-                            confirmActionWithDate = { date -> initDate(date) }
+                            confirmActionWithDate = { date -> initDate(date) },
+                            birtyYear = -1,
+                            birthMonth = -1,
+                            birthDay = -1
                         )
                     )
                 }
