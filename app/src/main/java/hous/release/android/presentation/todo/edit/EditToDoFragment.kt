@@ -1,6 +1,5 @@
 package hous.release.android.presentation.todo.edit
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
@@ -47,15 +46,11 @@ class EditToDoFragment : BindingFragment<FragmentEditToDoBinding>(R.layout.fragm
         viewModel.fetchEditTodoContent(toDoId)
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     private fun initEditTextClearFocus() {
-        binding.clEditToDo.setOnTouchListener { _, _ ->
+        binding.clEditToDo.setOnClickListener {
             KeyBoardUtil.hide(requireActivity())
-            return@setOnTouchListener false
         }
-        binding.composeViewEditToDo.setOnTouchListener { _, _ ->
-            KeyBoardUtil.hide(requireActivity())
-            return@setOnTouchListener false
+        binding.composeViewEditToDo.setOnClickListener {
         }
     }
 
