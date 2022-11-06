@@ -51,6 +51,7 @@ class EditToDoFragment : BindingFragment<FragmentEditToDoBinding>(R.layout.fragm
             KeyBoardUtil.hide(requireActivity())
         }
         binding.composeViewEditToDo.setOnClickListener {
+            KeyBoardUtil.hide(requireActivity())
         }
     }
 
@@ -64,7 +65,7 @@ class EditToDoFragment : BindingFragment<FragmentEditToDoBinding>(R.layout.fragm
                 EditTodoUserScreen(
                     viewModel = viewModel,
                     finish = { findNavController().popBackStack() },
-                    name = getString(R.string.to_do_add_button),
+                    name = getString(R.string.to_do_save_button),
                     hideKeyBoard = ::hideKeyBoard
                 )
             }
