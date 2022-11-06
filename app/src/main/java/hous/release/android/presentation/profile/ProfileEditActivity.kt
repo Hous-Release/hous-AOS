@@ -43,7 +43,7 @@ class ProfileEditActivity :
 
         with(binding) {
             tvProfileEditBirthdayPublic.isSelected = isBirthday
-            etProfileEditBirthday.isSelected = isBirthday
+            ivProfileEditBirthdayCheck.isSelected = isBirthday
         }
         Timber.e("${profileEditViewModel.nickname.value}, ${profileEditViewModel.birthday.value}, ${profileEditViewModel.isBirthdayPublic.value}, ${profileEditViewModel.mbti.value}, ${profileEditViewModel.job.value}, ${profileEditViewModel.introduction.value}")
     }
