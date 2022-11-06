@@ -292,12 +292,21 @@
     <string name="noti_settings_remind_todos_on_all">모든 미완료 to-do 알림 받기</string>
     <string name="noti_settings_badge">배지 알림</string>
     <string name="noti_settings_badge_desc">우리 집에서 새로 받은 배지를 알려줘요!</string>
-
     <!-- Personality Test Result -->
     <string name="personality_result_detail">성향 자세히 보기</string>
     <string name="personality_result_info">성향 설명</string>
     <string name="personality_result_complete">완료</string>
     <string name="personality_result_good">찰떡궁합</string>
     <string name="personality_result_bad">맞춰가요</string>
+
+    <!-- Profile Edit -->
+    <string name="profile_edit_title">프로필 수정</string>
+    <string name="profile_edit_save">저장</string>
+    <string name="profile_edit_birthday_public">생일 공개</string>
+    <string name="profile_edit_hint_nickname">닉네임</string>
+    <string name="profile_edit_hint_mbti">MBTI</string>
+    <string name="profile_edit_hint_job">직업</string>
+    <string name="profile_edit_hint_introduction">자기소개</string>
+    <string name="profile_edit_hint_birthday">생년월일</string>
 
 </resources>
