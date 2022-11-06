@@ -11,7 +11,7 @@ data class OurRuleResponse(
     val id: Int = -1,
     val name: String = ""
 ) {
-    fun toOurRule() = OurRule().copy(
+    fun toOurRule() = OurRule(
         id = id,
         name = name,
         ruleType = RuleType.GENERAL
