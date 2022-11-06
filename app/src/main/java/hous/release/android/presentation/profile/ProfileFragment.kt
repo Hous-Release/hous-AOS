@@ -116,6 +116,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
                     )
                 }
             }
+            binding.tvProfileBirthday.text = profile.birthday?.substring(5..9)
         }
     }
 
