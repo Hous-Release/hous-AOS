@@ -1,7 +1,7 @@
 package hous.release.android.util.dialog
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class DatePickerClickListener(
