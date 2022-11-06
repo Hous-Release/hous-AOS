@@ -23,6 +23,10 @@ class ProfileViewModel @Inject constructor(
     val isTest: LiveData<Boolean> = _isTest
 
     init {
+        getProfile()
+    }
+
+    fun getProfile() {
         viewModelScope.launch {
             profileRepository.getProfile()
                 .onSuccess { response ->

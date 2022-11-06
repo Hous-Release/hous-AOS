@@ -73,8 +73,15 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
     }
 
     private fun initEditOnClickListener() {
-        binding.ivProfileEdit.setOnClickListener {
-            // 수정으로 go
+        binding.btnProfileEdit.setOnClickListener {
+            val toProfileEdit = Intent(requireContext(), ProfileEditActivity::class.java)
+            toProfileEdit.putExtra(NICKNAME, profileViewModel.profileData.value!!.nickname)
+            toProfileEdit.putExtra(BIRTHDAY, profileViewModel.profileData.value!!.birthday)
+            toProfileEdit.putExtra(ISBIRTHDAY, profileViewModel.profileData.value!!.birthdayPublic)
+            toProfileEdit.putExtra(MBTI, profileViewModel.profileData.value!!.mbti)
+            toProfileEdit.putExtra(JOB, profileViewModel.profileData.value!!.job)
+            toProfileEdit.putExtra(INTRODUCTION, profileViewModel.profileData.value!!.introduction)
+            startActivity(toProfileEdit)
         }
     }
 
@@ -167,5 +174,11 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
             PersonalityInfo(R.string.personality_clean, R.string.personality_clean_description)
         )
         private const val PROFILE = "profile"
+        const val NICKNAME = "nickname"
+        const val BIRTHDAY = "birthday"
+        const val ISBIRTHDAY = "isBirthday"
+        const val MBTI = "mbti"
+        const val JOB = "job"
+        const val INTRODUCTION = "introduction"
     }
 }
