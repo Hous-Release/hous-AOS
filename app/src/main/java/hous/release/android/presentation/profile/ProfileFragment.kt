@@ -117,6 +117,27 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
                 }
             }
             binding.tvProfileBirthday.text = profile.birthday?.substring(5..9)
+            if (profile.introduction == null || profile.introduction == "") {
+                with(binding) {
+                    tvProfileIntroduction.setText(R.string.profile_empty_introduction)
+                    tvProfileIntroduction.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.hous_g_4
+                        )
+                    )
+                }
+            } else {
+                with(binding) {
+                    tvProfileIntroduction.text = profile.introduction
+                    tvProfileIntroduction.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.hous_g_6
+                        )
+                    )
+                }
+            }
         }
     }
 
