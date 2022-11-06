@@ -10,6 +10,7 @@ import hous.release.android.databinding.DialogDatePickerBinding
 import hous.release.android.util.dialog.WarningDialogFragment.Companion.CONFIRM_ACTION
 import hous.release.android.util.extension.initLayout
 import timber.log.Timber
+import java.util.*
 
 class DatePickerDialog : DialogFragment() {
     private var _binding: DialogDatePickerBinding? = null
@@ -17,6 +18,7 @@ class DatePickerDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = DialogDatePickerBinding.inflate(requireActivity().layoutInflater)
+        initDatePicker()
         initConfirmTextClickListener()
         initCancelTextClickListener()
         return activity?.let {
@@ -29,6 +31,23 @@ class DatePickerDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
+    }
+
+    private fun initDatePicker() {
+        val year = arguments?.getParcelable<DatePickerClickListener>(CONFIRM_ACTION)!!.birtyYear
+        val month = arguments?.getParcelable<DatePickerClickListener>(CONFIRM_ACTION)!!.birthMonth
+        val day = arguments?.getParcelable<DatePickerClickListener>(CONFIRM_ACTION)!!.birthDay
+        Timber.e("$year, $month $day")
+        with(binding.datePickerDialogDatePicker) {
+            maxDate = Calendar.getInstance().timeInMillis
+            /* 구현 안 되는 부분
+            if (year == -1) {
+                Calendar.getInstance().timeInMillis
+            } else {
+                Calendar.getInstance().set(year, month, day)
+            }
+            */
+        }
     }
 
     private fun getYearFormat(year: Int): String = year.toString()
