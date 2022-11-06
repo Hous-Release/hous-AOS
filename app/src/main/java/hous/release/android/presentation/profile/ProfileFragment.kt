@@ -26,6 +26,11 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
     private val profileViewModel by viewModels<ProfileViewModel>()
     private val profilePersonalityAdapter = ProfilePersonalityAdapter()
 
+    override fun onResume() {
+        super.onResume()
+        profileViewModel.getProfile()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = profileViewModel
