@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        
+
         <variable
             name="vm"
             type="hous.release.android.presentation.profile.ProfileEditViewModel" />
@@ -13,14 +13,196 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
         tools:context=".presentation.profile.ProfileEditActivity">
-        
+
         <ImageView
-            android:id="@+id/iv_profile_edit_back"
+            android:id="@+id/btn_profile_edit_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_back"
-            />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_back_g4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_profile_edit_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_edit_title"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            app:layout_constraintBottom_toBottomOf="@id/btn_profile_edit_back"
+            app:layout_constraintStart_toEndOf="@id/btn_profile_edit_back"
+            app:layout_constraintTop_toTopOf="@id/btn_profile_edit_back" />
+
+        <TextView
+            android:id="@+id/btn_profile_edit_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:onClick="@{()->vm.onClickSave()}"
+            android:padding="8dp"
+            android:text="@string/profile_edit_save"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_blue"
+            app:layout_constraintBottom_toBottomOf="@id/tv_profile_edit_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_profile_edit_title" />
+
+        <EditText
+            android:id="@+id/et_profile_edit_nickname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="33dp"
+            android:background="@drawable/selector_profile_edit"
+            android:hint="@string/profile_edit_hint_nickname"
+            android:inputType="text"
+            android:maxLength="3"
+            android:padding="7dp"
+            android:singleLine="true"
+            android:text="@={vm.nickname}"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            android:textColorHint="@color/hous_g_5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_profile_edit_back"
+            tools:text="이빵주" />
+
+        <EditText
+            android:id="@+id/et_profile_edit_birthday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="@string/profile_edit_hint_birthday"
+            android:padding="7dp"
+            android:text="@={vm.birthday}"
+            android:textColor="@color/hous_black"
+            android:textColorHint="@color/hous_g_5"
+            app:layout_constraintEnd_toStartOf="@id/ll_profile_edit_birthday_public"
+            app:layout_constraintStart_toStartOf="@id/et_profile_edit_nickname"
+            app:layout_constraintTop_toBottomOf="@id/et_profile_edit_nickname"
+            tools:textAppearance="@style/B1" />
+
+        <LinearLayout
+            android:id="@+id/ll_profile_edit_birthday_public"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="17dp"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/et_profile_edit_birthday"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/et_profile_edit_birthday"
+            app:layout_constraintTop_toTopOf="@id/et_profile_edit_birthday">
+
+            <TextView
+                android:id="@+id/tv_profile_edit_birthday_public"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/profile_edit_birthday_public"
+                android:textAppearance="@style/Description"
+                android:textColor="@color/selector_profile_edit_text"
+                tools:textColor="@color/hous_g_5" />
+
+            <ImageView
+                android:id="@+id/iv_profile_edit_birthday_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/selector_profile_edit_check"
+                tools:src="@drawable/ic_profile_edit_unchecked" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_profile_edit_birthay"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@color/hous_g_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_profile_edit_birthday" />
+
+        <EditText
+            android:id="@+id/et_profile_edit_mbti"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/selector_profile_edit"
+            android:hint="@string/profile_edit_hint_mbti"
+            android:inputType="textCapCharacters"
+            android:maxLength="4"
+            android:maxLines="1"
+            android:padding="7dp"
+            android:text="@={vm.mbti}"
+            android:textAppearance="@style/En3"
+            android:textColor="@color/hous_black"
+            android:textColorHint="@color/hous_g_5"
+            app:layout_constraintEnd_toEndOf="@id/et_profile_edit_nickname"
+            app:layout_constraintStart_toStartOf="@id/et_profile_edit_nickname"
+            app:layout_constraintTop_toBottomOf="@id/view_profile_edit_birthay" />
+
+        <EditText
+            android:id="@+id/et_profile_edit_job"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/selector_profile_edit"
+            android:hint="@string/profile_edit_hint_job"
+            android:inputType="text"
+            android:maxLength="3"
+            android:maxLines="1"
+            android:padding="7dp"
+            android:text="@={vm.job}"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            android:textColorHint="@color/hous_g_5"
+            app:layout_constraintEnd_toEndOf="@id/et_profile_edit_mbti"
+            app:layout_constraintStart_toStartOf="@id/et_profile_edit_mbti"
+            app:layout_constraintTop_toBottomOf="@id/et_profile_edit_mbti" />
+
+        <EditText
+            android:id="@+id/et_profile_edit_introduction"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/selector_profile_edit"
+            android:hint="@string/profile_edit_hint_introduction"
+            android:inputType="textMultiLine"
+            android:maxLength="40"
+            android:maxLines="2"
+            android:padding="7dp"
+            android:text="@={vm.introduction}"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            android:textColorHint="@color/hous_g_5"
+            app:layout_constraintEnd_toEndOf="@id/et_profile_edit_job"
+            app:layout_constraintStart_toStartOf="@id/et_profile_edit_job"
+            app:layout_constraintTop_toBottomOf="@id/et_profile_edit_job" />
+
+        <TextView
+            android:id="@+id/tv_profile_edit_introduction_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="10dp"
+            android:importantForAutofill="no"
+            android:text="@{vm.introductionLength + `/40`}"
+            android:textAppearance="@style/En2"
+            android:textColor="@color/hous_g_5"
+            app:layout_constraintEnd_toEndOf="@id/et_profile_edit_introduction"
+            app:layout_constraintTop_toBottomOf="@id/et_profile_edit_introduction"
+            tools:text="0/40" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
