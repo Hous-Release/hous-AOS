@@ -5,6 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import hous.release.data.datasource.OurRulesDataSource
+import hous.release.data.datasource.TodoDataSource
 import hous.release.data.repository.AuthRepositoryImpl
 import hous.release.data.repository.BadgeRepositoryImpl
 import hous.release.data.repository.EnterRoomRepositoryImpl
@@ -54,8 +55,8 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesTodoRepository(todoRepositoryImpl: TodoRepositoryImpl): TodoRepository =
-        todoRepositoryImpl
+    fun providesTodoRepository(todoDataSource: TodoDataSource): TodoRepository =
+        TodoRepositoryImpl(todoDataSource)
 
     @Provides
     @Singleton

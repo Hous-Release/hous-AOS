@@ -34,6 +34,11 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
         initFloatingButton()
     }
 
+    override fun onResume() {
+        super.onResume()
+        todoDetailViewModel.fetchDailyToDos()
+    }
+
     private fun initFinishOnClick() {
         binding.ivDailyBackButton.setOnClickListener { todoDetailViewModel.setIsFinish() }
     }

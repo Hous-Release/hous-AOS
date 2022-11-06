@@ -8,7 +8,7 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface BadgeService {
-    @GET("v1/user/badges")
+    @GET("/v1/user/badges")
     suspend fun getBadges(): BaseResponse<BadgeResponse>
 
     @PUT("/v1/user/badge/{badgeId}/represent")
