@@ -18,26 +18,27 @@ class ProfileEditViewModel @Inject constructor(
 
     val birthday = MutableLiveData("")
 
-    val isBirthdayPublic = MutableLiveData<Boolean>()
+    private val _isBirthdayPublic = MutableLiveData(false)
+    val isBirthdayPublic: LiveData<Boolean> = _isBirthdayPublic
 
-    val mbti = MutableLiveData<String>()
+    val mbti = MutableLiveData("")
 
-    val job = MutableLiveData<String>()
+    val job = MutableLiveData("")
 
-    val introduction = MutableLiveData<String>()
+    val introduction = MutableLiveData("")
 
-    private val _saveBtn = MutableLiveData<Boolean>()
-    val saveBtn: LiveData<Boolean> = _saveBtn
+    private val _introductionLength = MutableLiveData(0)
+    val introductionLength: LiveData<Int> = _introductionLength
 
     private val _isSuccessEditProfile = MutableLiveData<Boolean>()
     val isSuccessEditProfile: LiveData<Boolean> = _isSuccessEditProfile
 
-    fun putProfile() {
+    fun onClickSave() {
         viewModelScope.launch {
             profileRepository.putProfile(
                 birthday = requireNotNull(birthday.value),
                 introduction = introduction.value,
-                isPublic = requireNotNull(isBirthdayPublic.value),
+                isPublic = requireNotNull(_isBirthdayPublic.value),
                 job = job.value,
                 mbti = mbti.value,
                 nickname = requireNotNull(nickname.value)
@@ -45,5 +46,33 @@ class ProfileEditViewModel @Inject constructor(
                 _isSuccessEditProfile.value = isSuccess
             }.onFailure { Timber.e(it.message) }
         }
+    }
+
+    fun initSelectedBirthDate(birth: String) {
+        birthday.value = birth
+    }
+
+    fun initBirthdayPublic(checked: Boolean) {
+        _isBirthdayPublic.value = checked
+    }
+
+    fun initIntroductionLength(length: Int) {
+        _introductionLength.value = length
+    }
+
+    fun initData(
+        nicknameFromProfile: String,
+        birthdayFromProfile: String?,
+        birthdayPublicFromProfile: Boolean,
+        mbtiFromProfile: String?,
+        jobFromProfile: String?,
+        introductionFromProfile: String?
+    ) {
+        nickname.value = nicknameFromProfile
+        birthday.value = birthdayFromProfile
+        _isBirthdayPublic.value = birthdayPublicFromProfile
+        mbti.value = mbtiFromProfile
+        job.value = jobFromProfile
+        introduction.value = introductionFromProfile
     }
 }
