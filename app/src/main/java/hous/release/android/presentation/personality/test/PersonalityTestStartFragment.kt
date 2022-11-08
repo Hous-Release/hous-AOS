@@ -11,8 +11,17 @@ class PersonalityTestStartFragment :
     BindingFragment<FragmentPersonalityTestStartBinding>(R.layout.fragment_personality_test_start) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnTestStart.setOnClickListener {
-            findNavController().navigate(R.id.action_personalityTestStartFragment_to_personalityTestFragment)
+        initOnClickListener()
+    }
+
+    private fun initOnClickListener() {
+        with(binding) {
+            btnTestStart.setOnClickListener {
+                findNavController().navigate(R.id.action_personalityTestStartFragment_to_personalityTestFragment)
+            }
+            btnTestBack.setOnClickListener {
+                requireActivity().finish()
+            }
         }
     }
 }
