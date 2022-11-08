@@ -10,6 +10,7 @@ import hous.release.android.R
 import hous.release.android.databinding.FragmentProfileBinding
 import hous.release.android.presentation.badge.BadgeActivity
 import hous.release.android.presentation.notification.NotificationActivity
+import hous.release.android.presentation.personality.PersonalityActivity
 import hous.release.android.presentation.personality.result.PersonalityResultActivity
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.LOCATION
 import hous.release.android.presentation.profile.adapter.ProfilePersonalityAdapter
@@ -80,7 +81,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
 
     private fun initTestBtnOnClickListener() {
         binding.btnProfileTestAgain.setOnClickListener {
-            // 테스트로 go
+            startActivity(Intent(requireContext(), PersonalityActivity::class.java))
         }
     }
 
