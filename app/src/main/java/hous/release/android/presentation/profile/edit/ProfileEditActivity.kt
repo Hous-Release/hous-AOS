@@ -27,6 +27,7 @@ class ProfileEditActivity :
         initBackBtnOnClickListener()
         initBirthdayOnClickListener()
         initBirthdayPublicOnClickListener()
+        initSaveBtnColor()
     }
 
     private fun initProfileData() {
@@ -55,6 +56,16 @@ class ProfileEditActivity :
                 finish()
             } else {
                 // 에러 시에 띄울 뷰
+            }
+        }
+    }
+
+    private fun initSaveBtnColor() {
+        profileEditViewModel.nickname.observe(this) { nickname ->
+            if (nickname.isNullOrEmpty()) {
+                binding.btnProfileEditSave.setTextColor(getColor(R.color.hous_g_4))
+            } else {
+                binding.btnProfileEditSave.setTextColor(getColor(R.color.hous_blue))
             }
         }
     }
