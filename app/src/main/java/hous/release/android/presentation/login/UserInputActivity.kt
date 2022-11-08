@@ -75,9 +75,9 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
                         CONFIRM_ACTION,
                         DatePickerClickListener(
                             confirmActionWithDate = { date -> initDate(date) },
-                            birtyYear = -1,
-                            birthMonth = -1,
-                            birthDay = -1
+                            birtyYear = NO_DATA,
+                            birthMonth = NO_DATA,
+                            birthDay = NO_DATA
                         )
                     )
                 }
@@ -92,5 +92,6 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
     companion object {
         private const val WAITING_DEADLINE = 2000L
         private const val SELECT_BIRTHDAY = "select birthday"
+        const val NO_DATA = -1
     }
 }

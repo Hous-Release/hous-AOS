@@ -124,7 +124,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
                 }
             }
             binding.tvProfileBirthday.text = profile.birthday?.substring(5..9)
-            if (profile.introduction == null || profile.introduction == "") {
+            if (profile.introduction.isNullOrEmpty()) {
                 with(binding) {
                     tvProfileIntroduction.setText(R.string.profile_empty_introduction)
                     tvProfileIntroduction.setTextColor(

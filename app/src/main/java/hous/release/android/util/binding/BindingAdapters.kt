@@ -80,7 +80,7 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("visibility")
     fun TextView.visibility(text: String?) {
-        visibility = if (text == null || text == "") {
+        visibility = if (text.isNullOrEmpty()) {
             View.GONE
         } else {
             View.VISIBLE

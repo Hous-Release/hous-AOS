@@ -17,7 +17,7 @@ class UserInputViewModel @Inject constructor(
 
     val birthday = MutableLiveData("")
 
-    var isPrivateBirthday = MutableLiveData(false)
+    val isPrivateBirthday = MutableLiveData(false)
 
     private val _isSignUp = MutableLiveData<Boolean>()
     val isSignUp: LiveData<Boolean> = _isSignUp

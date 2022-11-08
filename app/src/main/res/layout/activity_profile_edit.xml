@@ -7,14 +7,14 @@
 
         <variable
             name="vm"
-            type="hous.release.android.presentation.profile.ProfileEditViewModel" />
+            type="hous.release.android.presentation.profile.edit.ProfileEditViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusableInTouchMode="true"
-        tools:context=".presentation.profile.ProfileEditActivity">
+        tools:context=".presentation.profile.edit.ProfileEditActivity">
 
         <ImageView
             android:id="@+id/btn_profile_edit_back"
@@ -197,7 +197,7 @@
             android:layout_marginTop="7dp"
             android:layout_marginEnd="10dp"
             android:importantForAutofill="no"
-            android:text="@{vm.introductionLength + `/40`}"
+            android:text="@{vm.introduction.length() + `/40`}"
             android:textAppearance="@style/En2"
             android:textColor="@color/hous_g_5"
             app:layout_constraintEnd_toEndOf="@id/et_profile_edit_introduction"
