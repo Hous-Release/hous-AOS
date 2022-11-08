@@ -32,7 +32,7 @@ class ProfileEditViewModel @Inject constructor(
     fun onClickSave() {
         viewModelScope.launch {
             profileRepository.putProfile(
-                birthday = requireNotNull(birthday.value),
+                birthday = requireNotNull(birthday.value!!.replace(SLASH, DASH)),
                 introduction = introduction.value,
                 isPublic = requireNotNull(_isBirthdayPublic.value),
                 job = job.value,
@@ -45,7 +45,7 @@ class ProfileEditViewModel @Inject constructor(
     }
 
     fun initSelectedBirthDate(birth: String) {
-        birthday.value = birth
+        birthday.value = birth.replace(DASH, SLASH)
     }
 
     fun initBirthdayPublic(checked: Boolean) {
@@ -56,7 +56,7 @@ class ProfileEditViewModel @Inject constructor(
         profileData: ProfileEntity
     ) {
         nickname.value = profileData.nickname
-        birthday.value = profileData.birthday.replace(DOT, DASH)
+        birthday.value = profileData.birthday.replace(DOT, SLASH)
         _isBirthdayPublic.value = profileData.birthdayPublic
         mbti.value = profileData.mbti
         job.value = profileData.job
@@ -66,5 +66,6 @@ class ProfileEditViewModel @Inject constructor(
     companion object {
         private const val DOT = "."
         private const val DASH = "-"
+        const val SLASH = "/"
     }
 }

@@ -6,6 +6,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityProfileEditBinding
 import hous.release.android.presentation.profile.ProfileFragment.Companion.PROFILE
+import hous.release.android.presentation.profile.edit.ProfileEditViewModel.Companion.SLASH
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.DatePickerClickListener
@@ -124,7 +125,7 @@ class ProfileEditActivity :
     }
 
     private fun initDateFormatToInt(birthday: String): List<Int> {
-        val birthdayList: List<String> = birthday.split("-")
+        val birthdayList: List<String> = birthday.split(SLASH)
         val year = birthdayList[0].toInt()
         val month = birthdayList[1].toInt()
         val day = birthdayList[2].toInt()
