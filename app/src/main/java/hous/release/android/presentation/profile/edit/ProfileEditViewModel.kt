@@ -1,4 +1,4 @@
-package hous.release.android.presentation.profile
+package hous.release.android.presentation.profile.edit
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,11 +27,8 @@ class ProfileEditViewModel @Inject constructor(
 
     val introduction = MutableLiveData<String>()
 
-    private val _introductionLength = MutableLiveData(0)
-    val introductionLength: LiveData<Int> = _introductionLength
-
-    private val _isSuccessEditProfile = MutableLiveData<Boolean>()
-    val isSuccessEditProfile: LiveData<Boolean> = _isSuccessEditProfile
+    private val _isEditProfile = MutableLiveData<Boolean>()
+    val isEditProfile: LiveData<Boolean> = _isEditProfile
 
     fun onClickSave() {
         viewModelScope.launch {
@@ -43,7 +40,7 @@ class ProfileEditViewModel @Inject constructor(
                 mbti = mbti.value,
                 nickname = requireNotNull(nickname.value)
             ).onSuccess { isSuccess ->
-                _isSuccessEditProfile.value = isSuccess
+                _isEditProfile.value = isSuccess
             }.onFailure { Timber.e(it.message) }
         }
     }
@@ -56,23 +53,19 @@ class ProfileEditViewModel @Inject constructor(
         _isBirthdayPublic.value = checked
     }
 
-    fun initIntroductionLength(length: Int) {
-        _introductionLength.value = length
+    fun initData(
+        profileData: ProfileEntity
+    ) {
+        nickname.value = profileData.nickname
+        birthday.value = profileData.birthday.replace(DOT, DASH)
+        _isBirthdayPublic.value = profileData.birthdayPublic
+        mbti.value = profileData.mbti
+        job.value = profileData.job
+        introduction.value = profileData.introduction
     }
 
-    fun initData(
-        nicknameFromProfile: String,
-        birthdayFromProfile: String?,
-        birthdayPublicFromProfile: Boolean,
-        mbtiFromProfile: String?,
-        jobFromProfile: String?,
-        introductionFromProfile: String?
-    ) {
-        nickname.value = nicknameFromProfile
-        birthday.value = birthdayFromProfile
-        _isBirthdayPublic.value = birthdayPublicFromProfile
-        mbti.value = mbtiFromProfile
-        job.value = jobFromProfile
-        introduction.value = introductionFromProfile
+    companion object {
+        private const val DOT = "."
+        private const val DASH = "-"
     }
 }

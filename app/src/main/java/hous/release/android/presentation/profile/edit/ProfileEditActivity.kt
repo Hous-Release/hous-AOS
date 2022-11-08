@@ -1,12 +1,17 @@
-package hous.release.android.presentation.profile
+package hous.release.android.presentation.profile.edit
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityProfileEditBinding
+import hous.release.android.presentation.profile.ProfileFragment.Companion.PROFILE
 import hous.release.android.util.binding.BindingActivity
-import hous.release.android.util.dialog.*
+import hous.release.android.util.dialog.ConfirmClickListener
+import hous.release.android.util.dialog.DatePickerClickListener
+import hous.release.android.util.dialog.DatePickerDialog
+import hous.release.android.util.dialog.WarningDialogFragment
+import hous.release.android.util.dialog.WarningType
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -22,30 +27,16 @@ class ProfileEditActivity :
         initBackBtnOnClickListener()
         initBirthdayOnClickListener()
         initBirthdayPublicOnClickListener()
-        initIntroductionLength()
     }
 
     private fun initProfileData() {
-        val nickname = intent.getStringExtra(ProfileFragment.NICKNAME)
-        val birthday = intent.getStringExtra(ProfileFragment.BIRTHDAY)
-        val isBirthday = intent.getBooleanExtra(ProfileFragment.ISBIRTHDAY, false)
-        val mbti = intent.getStringExtra(ProfileFragment.MBTI)
-        val job = intent.getStringExtra(ProfileFragment.JOB)
-        val introduction = intent.getStringExtra(ProfileFragment.INTRODUCTION)
-        profileEditViewModel.initData(
-            nickname!!,
-            birthday!!.replace(DOT, DASH),
-            isBirthday,
-            mbti,
-            job,
-            introduction
-        )
+        val profileData = intent.getParcelableExtra<ProfileEntity>(PROFILE)
+        profileEditViewModel.initData(profileData!!)
 
         with(binding) {
-            tvProfileEditBirthdayPublic.isSelected = isBirthday
-            ivProfileEditBirthdayCheck.isSelected = isBirthday
+            tvProfileEditBirthdayPublic.isSelected = profileData.birthdayPublic
+            ivProfileEditBirthdayCheck.isSelected = profileData.birthdayPublic
         }
-        Timber.e("${profileEditViewModel.nickname.value}, ${profileEditViewModel.birthday.value}, ${profileEditViewModel.isBirthdayPublic.value}, ${profileEditViewModel.mbti.value}, ${profileEditViewModel.job.value}, ${profileEditViewModel.introduction.value}")
     }
 
     private fun initBirthdayTextAppearance() {
@@ -59,7 +50,7 @@ class ProfileEditActivity :
     }
 
     private fun initSaveBtnOnClickListener() {
-        profileEditViewModel.isSuccessEditProfile.observe(this) { isSuccess ->
+        profileEditViewModel.isEditProfile.observe(this) { isSuccess ->
             if (isSuccess) {
                 finish()
             } else {
@@ -107,17 +98,13 @@ class ProfileEditActivity :
 
     private fun initBirthdayPublicOnClickListener() {
         binding.llProfileEditBirthdayPublic.setOnClickListener {
-            binding.tvProfileEditBirthdayPublic.isSelected =
-                !binding.tvProfileEditBirthdayPublic.isSelected
-            binding.ivProfileEditBirthdayCheck.isSelected =
-                !binding.ivProfileEditBirthdayCheck.isSelected
+            with(binding) {
+                tvProfileEditBirthdayPublic.isSelected =
+                    !tvProfileEditBirthdayPublic.isSelected
+                ivProfileEditBirthdayCheck.isSelected =
+                    !ivProfileEditBirthdayCheck.isSelected
+            }
             profileEditViewModel.initBirthdayPublic(binding.tvProfileEditBirthdayPublic.isSelected)
-        }
-    }
-
-    private fun initIntroductionLength() {
-        profileEditViewModel.introduction.observe(this) { introduction ->
-            profileEditViewModel.initIntroductionLength(introduction!!.length)
         }
     }
 
@@ -136,7 +123,5 @@ class ProfileEditActivity :
 
     companion object {
         private const val SELECT_BIRTHDAY = "select birthday"
-        private const val DOT = "."
-        private const val DASH = "-"
     }
 }
