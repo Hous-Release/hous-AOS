@@ -299,5 +299,8 @@
     <string name="personality_result_complete">완료</string>
     <string name="personality_result_good">찰떡궁합</string>
     <string name="personality_result_bad">맞춰가요</string>
+    <string name="test_start_title">생활패턴 체크 시작!</string>
+    <string name="test_start_content">지금부터 15개의 질문에 답변해주세요:)\n솔직한 답변은 서로를 배려할 수 있는\n좋은 기회가 될거에요!</string>
+    <string name="test_start">시작하기</string>
 
 </resources>
