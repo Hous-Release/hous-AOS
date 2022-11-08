@@ -1,7 +1,7 @@
 package hous.release.android.presentation.personality
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import hous.release.android.R
 
 class PersonalityActivity : AppCompatActivity() {
