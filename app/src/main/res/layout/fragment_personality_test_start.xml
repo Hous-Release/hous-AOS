@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="20dp"
-            android:background="@color/hous_blue"
+            android:background="@drawable/shape_blue_fill_8_rect"
             android:paddingVertical="10dp"
             android:text="@string/test_start"
             android:textAppearance="@style/B1"
