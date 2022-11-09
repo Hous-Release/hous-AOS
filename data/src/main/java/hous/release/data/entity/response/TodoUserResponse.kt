@@ -4,13 +4,13 @@ import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.ToDoUser
 
 data class TodoUserResponse(
-    val color: String = "GRAY",
+    val color: String = NO_COLOR,
     val dayOfWeeks: List<String> = emptyList(),
     val isSelected: Boolean = false,
     val nickname: String = "",
-    val onboardingId: Int = -1
+    val onboardingId: Int = NO_ID
 ) {
-    fun toTodoUser() = ToDoUser().copy(
+    fun toTodoUser() = ToDoUser(
         homyType = HomyType.valueOf(color),
         nickname = nickname,
         isChecked = isSelected,
@@ -25,6 +25,8 @@ data class TodoUserResponse(
     }
 
     companion object {
+        private const val NO_COLOR = "GRAY"
+        private const val NO_ID = -1
         private val dayIndexMap = hashMapOf(
             "MONDAY" to 0,
             "TUESDAY" to 1,
