@@ -194,7 +194,7 @@
     <string name="dialog_to_do_content">to-do는 한 번 삭제하면 복구되지 않아요.</string>
     <string name="dialog_cancel">취소하기</string>
 
-    <!--    To Do-add,edit-->
+    <!-- To Do-add,edit-->
     <string name="to_do_manager">담당자</string>
     <string name="to_do_add_title">새로운 to-do 추가</string>
     <string name="to_do_edit_title">to-do 수정</string>
@@ -299,5 +299,15 @@
     <string name="personality_result_complete">완료</string>
     <string name="personality_result_good">찰떡궁합</string>
     <string name="personality_result_bad">맞춰가요</string>
+
+    <!-- OutRoom -->
+    <string name="out_room_title">방 퇴사하기</string>
+    <string name="out_room_img_desc">방 퇴사하기 그래픽</string>
+    <string name="out_room_bye_title">안녕... 정든 우리 Hous-...</string>
+    <string name="out_room_bye_caution">*방을 탈퇴하면 내게만 배정된 to-do가 삭제돼요!</string>
+    <string name="room_out_bye_desc">탈퇴 전에 이 페이지를 캡쳐해서 호미들에게 공유하고,\n담당자 교체를 제안하면 어떨까요?</string>
+    <string name="out_room_to_do_prefix">총</string>
+    <string name="out_room_to_do_suffix">개</string>
+    <string name="out_room_blur_bottom_img_desc">방 퇴사하기 하단 블러</string>
 
 </resources>
