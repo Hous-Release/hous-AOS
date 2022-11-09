@@ -4,6 +4,7 @@ import hous.release.data.entity.request.NotificationSettingsRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.NoDataResponse
 import hous.release.data.entity.response.NotificationSettingsResponse
+import hous.release.data.entity.response.SettingsMyToDoResponse
 import hous.release.data.service.SettingsService
 import javax.inject.Inject
 
@@ -31,4 +32,7 @@ class SettingsDataSource @Inject constructor(
                 badgePushStatus = badgeStatus
             )
         )
+
+    suspend fun getSettingsMyToDo(): BaseResponse<SettingsMyToDoResponse> =
+        settingsService.getSettingsMyToDo()
 }
