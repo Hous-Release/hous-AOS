@@ -18,7 +18,7 @@ class ProfileEditViewModel @Inject constructor(
 
     val birthday = MutableLiveData("")
 
-    private val _isBirthdayPublic = MutableLiveData(false)
+    private val isBirthdayPublic = MutableLiveData(false)
 
     val mbti = MutableLiveData<String>()
 
@@ -34,7 +34,7 @@ class ProfileEditViewModel @Inject constructor(
             profileRepository.putProfile(
                 birthday = requireNotNull(birthday.value!!.replace(SLASH, DASH)),
                 introduction = introduction.value,
-                isPublic = requireNotNull(_isBirthdayPublic.value),
+                isPublic = requireNotNull(isBirthdayPublic.value),
                 job = job.value,
                 mbti = mbti.value,
                 nickname = requireNotNull(nickname.value)
@@ -49,7 +49,7 @@ class ProfileEditViewModel @Inject constructor(
     }
 
     fun initBirthdayPublic(checked: Boolean) {
-        _isBirthdayPublic.value = checked
+        isBirthdayPublic.value = checked
     }
 
     fun initData(
@@ -57,7 +57,7 @@ class ProfileEditViewModel @Inject constructor(
     ) {
         nickname.value = profileData.nickname
         birthday.value = profileData.birthday.replace(DOT, SLASH)
-        _isBirthdayPublic.value = profileData.birthdayPublic
+        isBirthdayPublic.value = profileData.birthdayPublic
         mbti.value = profileData.mbti
         job.value = profileData.job
         introduction.value = profileData.introduction
