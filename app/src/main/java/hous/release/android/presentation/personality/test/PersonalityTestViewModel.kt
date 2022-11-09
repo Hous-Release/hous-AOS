@@ -25,6 +25,7 @@ class PersonalityTestViewModel @Inject constructor(
         viewModelScope.launch {
             getPersonalityTestsUseCase()
                 .onSuccess { personalityTests ->
+                    Timber.d(personalityTests.toString())
                     _uiState.update { uiState ->
                         uiState.copy(personalityTests = personalityTests)
                     }

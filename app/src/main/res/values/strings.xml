@@ -307,5 +307,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="test_stop">그만두기</string>
+    <string name="test_index">%d/15</string>
 
 </resources>

@@ -5,6 +5,13 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <import type="hous.release.domain.entity.TestState" />
+
+        <variable
+            name="data"
+            type="hous.release.domain.entity.PersonalityTest" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,6 +38,7 @@
             android:layout_marginTop="28dp"
             android:letterSpacing="-0.02"
             android:lineSpacingExtra="8sp"
+            android:text="@{@string/test_index(data.index)}"
             android:textColor="@color/hous_g_4"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -70,6 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:text="@{data.question}"
             android:textAlignment="center"
             android:textAppearance="@style/H3"
             android:textColor="@color/hous_black"
@@ -80,7 +89,8 @@
 
         <ImageView
             android:id="@+id/iv_test_img"
-            android:layout_width="220dp"
+            setImage="@{data.imageUrl}"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginHorizontal="18dp"
             android:layout_marginTop="28dp"
@@ -101,6 +111,7 @@
             android:gravity="center"
             android:paddingHorizontal="12dp"
             android:paddingVertical="6dp"
+            android:text="@{data.answers[0]}"
             android:textAppearance="@style/B2"
             android:textColor="@color/selector_personality_test_text"
             app:layout_constraintBottom_toTopOf="@id/tv_answer_2"
@@ -120,6 +131,7 @@
             android:gravity="center"
             android:paddingHorizontal="12dp"
             android:paddingVertical="6dp"
+            android:text="@{data.answers[1]}"
             android:textAppearance="@style/B2"
             android:textColor="@color/selector_personality_test_text"
             app:layout_constraintBottom_toTopOf="@id/tv_answer_3"
@@ -139,6 +151,7 @@
             android:gravity="center"
             android:paddingHorizontal="12dp"
             android:paddingVertical="6dp"
+            android:text="@{data.answers[2]}"
             android:textAppearance="@style/B2"
             android:textColor="@color/selector_personality_test_text"
             app:layout_constraintBottom_toBottomOf="parent"
