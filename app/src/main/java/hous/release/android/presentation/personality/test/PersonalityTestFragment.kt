@@ -20,26 +20,38 @@ import kotlinx.coroutines.flow.onEach
 class PersonalityTestFragment :
     BindingFragment<FragmentPersonalityTestBinding>(R.layout.fragment_personality_test) {
     private val personalityTestViewModel: PersonalityTestViewModel by viewModels()
+    private lateinit var personalityTestAdapter: PersonalityTestAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
         collectPersonalityTests()
+        collectMoveEvent()
     }
 
     private fun initAdapter() {
-        binding.vpPersonalityTest.adapter = PersonalityTestAdapter()
-        binding.vpPersonalityTest.isUserInputEnabled = false
+        personalityTestAdapter = PersonalityTestAdapter(
+            setTestState = personalityTestViewModel::setTestState,
+            movePage = personalityTestViewModel::movePage
+        )
+        binding.vpPersonalityTest.apply {
+            adapter = personalityTestAdapter
+            isUserInputEnabled = false
+        }
     }
 
     private fun collectPersonalityTests() {
         personalityTestViewModel.uiState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { personalityTestUiState ->
-                requireNotNull(binding.vpPersonalityTest.adapter as PersonalityTestAdapter) {
-                    getString(
-                        R.string.null_point_exception
-                    )
-                }
-                    .submitList(personalityTestUiState.personalityTests)
+                personalityTestAdapter.submitList(personalityTestUiState.personalityTests)
+            }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private fun collectMoveEvent() {
+        personalityTestViewModel.moveEvent.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { move ->
+                binding.vpPersonalityTest.currentItem += move
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
