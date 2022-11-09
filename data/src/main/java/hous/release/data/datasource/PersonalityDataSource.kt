@@ -1,7 +1,9 @@
 package hous.release.data.datasource
 
 import hous.release.data.entity.PersonalityTestEntity
+import hous.release.data.entity.TestScoreEntity
 import hous.release.data.entity.response.BaseResponse
+import hous.release.data.entity.response.ColorEntity
 import hous.release.data.entity.response.PersonalityResultResponse
 import hous.release.data.service.PersonalityService
 import javax.inject.Inject
@@ -14,4 +16,7 @@ class PersonalityDataSource @Inject constructor(
 
     suspend fun getPersonalityTests(): BaseResponse<List<PersonalityTestEntity>> =
         personalityService.getPersonalityTests()
+
+    suspend fun putPersonalityTestResult(testScoreEntity: TestScoreEntity): BaseResponse<ColorEntity> =
+        personalityService.putPersonalityTestResult(testScoreEntity)
 }

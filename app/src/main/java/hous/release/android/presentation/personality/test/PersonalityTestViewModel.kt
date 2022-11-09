@@ -7,5 +7,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PersonalityTestViewModel @Inject constructor(
-    private val getPersonalityTestsUseCase: GetPersonalityTestsUseCase
+    private val getPersonalityTestsUseCase: GetPersonalityTestsUseCase,
+    private val putPersonalityTestsUseCase: GetPersonalityTestsUseCase
 ) : ViewModel()
