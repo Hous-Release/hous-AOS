@@ -10,7 +10,7 @@ import hous.release.domain.entity.PersonalityTest
 import hous.release.domain.entity.TestState
 
 class PersonalityTestAdapter(
-    private val setTestState: (Int, TestState) -> Unit,
+    private val setTestState: (PersonalityTest) -> Unit,
     private val movePage: (Int) -> Unit
 ) :
     ListAdapter<PersonalityTest, PersonalityTestAdapter.PersonalityTestViewHolder>(
@@ -20,7 +20,7 @@ class PersonalityTestAdapter(
 
     class PersonalityTestViewHolder(
         private val binding: ItemPersonalityTestBinding,
-        private val setTestState: (Int, TestState) -> Unit,
+        private val setTestState: (PersonalityTest) -> Unit,
         private val movePage: (Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(personalityTest: PersonalityTest) {
@@ -35,13 +35,13 @@ class PersonalityTestAdapter(
         fun initOnClickListener(personalityTest: PersonalityTest) {
             with(binding) {
                 tvAnswer1.setOnClickListener {
-                    setTestState(personalityTest.index, TestState.ONE)
+                    setTestState(personalityTest.copy(testState = TestState.ONE))
                 }
                 tvAnswer2.setOnClickListener {
-                    setTestState(personalityTest.index, TestState.TWO)
+                    setTestState(personalityTest.copy(testState = TestState.TWO))
                 }
                 tvAnswer3.setOnClickListener {
-                    setTestState(personalityTest.index, TestState.THREE)
+                    setTestState(personalityTest.copy(testState = TestState.THREE))
                 }
                 btnTestLeft.setOnClickListener {
                     movePage(PREV)

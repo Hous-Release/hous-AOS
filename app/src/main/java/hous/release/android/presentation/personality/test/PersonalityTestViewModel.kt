@@ -6,9 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.presentation.personality.test.PersonalityTestAdapter.Companion.NEXT
 import hous.release.domain.entity.PersonalityTest
 import hous.release.domain.entity.QuestionType
-import hous.release.domain.entity.TestState
 import hous.release.domain.usecase.GetPersonalityTestsUseCase
-import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,6 +15,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
 @HiltViewModel
 class PersonalityTestViewModel @Inject constructor(
@@ -43,20 +42,29 @@ class PersonalityTestViewModel @Inject constructor(
         }
     }
 
-    fun setTestState(index: Int, testState: TestState) {
+    fun setTestState(selectPersonalityTest: PersonalityTest) {
+        calculateTestScore(selectPersonalityTest)
         viewModelScope.launch {
             _uiState.update { uiState ->
                 val newPersonalityTest = uiState.personalityTests.map { personalityTest ->
-                    if (index == personalityTest.index) {
-                        return@map personalityTest.copy(testState = testState)
+                    if (selectPersonalityTest.index == personalityTest.index) {
+                        return@map selectPersonalityTest
                     }
                     personalityTest
                 }
                 uiState.copy(personalityTests = newPersonalityTest)
             }
+
             delay(300L)
             _moveEvent.emit(NEXT)
         }
+    }
+
+    private fun calculateTestScore(selectPersonalityTest: PersonalityTest) {
+        val currentScore: Int =
+            requireNotNull(uiState.value.testScore[selectPersonalityTest.questionType])
+        uiState.value.testScore[selectPersonalityTest.questionType] =
+            currentScore + selectPersonalityTest.testState.ordinal
     }
 
     fun movePage(move: Int) {
