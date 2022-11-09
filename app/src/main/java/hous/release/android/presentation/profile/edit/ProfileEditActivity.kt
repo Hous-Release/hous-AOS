@@ -6,7 +6,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityProfileEditBinding
 import hous.release.android.presentation.profile.ProfileFragment.Companion.PROFILE
-import hous.release.android.presentation.profile.edit.ProfileEditViewModel.Companion.SLASH
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.DatePickerClickListener
@@ -125,7 +124,7 @@ class ProfileEditActivity :
     }
 
     private fun initDateFormatToInt(birthday: String) =
-        birthday.split(SLASH).map { birthday.toInt() }
+        birthday.split("/").map { birthday.toInt() }
 
     companion object {
         private const val SELECT_BIRTHDAY = "select birthday"

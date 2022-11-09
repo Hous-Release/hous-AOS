@@ -1,11 +1,11 @@
 package hous.release.android.presentation.profile.edit
 
-import hous.release.domain.usecase.PutProfileEditUseCase
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hous.release.domain.usecase.PutProfileEditUseCase
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -32,7 +32,7 @@ class ProfileEditViewModel @Inject constructor(
     fun onClickSave() {
         viewModelScope.launch {
             putProfileEditUseCase.invoke(
-                birthday = requireNotNull(birthday.value!!.replace(SLASH, DASH)),
+                birthday = requireNotNull(birthday.value!!.replace("/", "-")),
                 introduction = introduction.value,
                 isPublic = requireNotNull(isBirthdayPublic.value),
                 job = job.value,
@@ -45,7 +45,7 @@ class ProfileEditViewModel @Inject constructor(
     }
 
     fun initSelectedBirthDate(birth: String) {
-        birthday.value = birth.replace(DASH, SLASH)
+        birthday.value = birth.replace("-", "/")
     }
 
     fun initBirthdayPublic(checked: Boolean) {
@@ -56,16 +56,10 @@ class ProfileEditViewModel @Inject constructor(
         profileData: ProfileEntity
     ) {
         nickname.value = profileData.nickname
-        birthday.value = profileData.birthday.replace(DOT, SLASH)
+        birthday.value = profileData.birthday.replace(".", "/")
         isBirthdayPublic.value = profileData.birthdayPublic
         mbti.value = profileData.mbti
         job.value = profileData.job
         introduction.value = profileData.introduction
-    }
-
-    companion object {
-        private const val DOT = "."
-        private const val DASH = "-"
-        const val SLASH = "/"
     }
 }
