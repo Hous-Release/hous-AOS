@@ -309,5 +309,6 @@
     <string name="out_room_to_do_prefix">총</string>
     <string name="out_room_to_do_suffix">개</string>
     <string name="out_room_blur_bottom_img_desc">방 퇴사하기 하단 블러</string>
+    <string name="out_room_my_to_do_circle_img_desc">방 퇴사하기 리스트 구분점</string>
 
 </resources>

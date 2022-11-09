@@ -175,7 +175,8 @@
             android:paddingBottom="32dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/btn_out_room_done"
-            app:layout_constraintTop_toBottomOf="@id/tv_out_room_my_to_do" />
+            app:layout_constraintTop_toBottomOf="@id/tv_out_room_my_to_do"
+            tools:listitem="@layout/item_out_room_my_to_do" />
 
         <ImageView
             android:id="@+id/iv_out_room_blur_bottom"
