@@ -13,14 +13,16 @@ import hous.release.android.databinding.FragmentHousBinding
 import hous.release.android.presentation.hous.adapter.HomiesAdapter
 import hous.release.android.presentation.main.MainActivity
 import hous.release.android.presentation.our_rules.OurRulesActivity
+import hous.release.android.presentation.profile.homie.HomieProfileActivity
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.showToast
+import hous.release.domain.entity.HomyType
 
 @AndroidEntryPoint
 class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous) {
     private val viewModel by viewModels<HousViewModel>()
-    private val homiesAdapter = HomiesAdapter()
+    private val homiesAdapter = HomiesAdapter(onClickHomie = ::onClickHomie)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,6 +37,18 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
     override fun onResume() {
         super.onResume()
         viewModel.getHome()
+    }
+
+    private fun onClickHomie(position: Int) {
+        val currentId = viewModel.hous.value.homies[position].homieId
+        when (HomyType.valueOf(viewModel.hous.value.homies[position].color)) {
+            HomyType.GRAY -> return
+            else -> {
+                val toHomieProfile = Intent(requireActivity(), HomieProfileActivity::class.java)
+                toHomieProfile.putExtra(HOMIE_ID, currentId)
+                startActivity(toHomieProfile)
+            }
+        }
     }
 
     private fun initClickListener() {
@@ -83,5 +97,6 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
     companion object {
         const val ROOM_NAME = "roomName"
         const val ROOM_CODE = "roomCode"
+        const val HOMIE_ID = "homie id"
     }
 }
