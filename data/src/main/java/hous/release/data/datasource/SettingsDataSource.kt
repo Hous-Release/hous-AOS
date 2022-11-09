@@ -35,4 +35,7 @@ class SettingsDataSource @Inject constructor(
 
     suspend fun getSettingsMyToDo(): BaseResponse<SettingsMyToDoResponse> =
         settingsService.getSettingsMyToDo()
+
+    suspend fun deleteRoom(): NoDataResponse =
+        settingsService.deleteRoom()
 }

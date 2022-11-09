@@ -36,4 +36,8 @@ class SettingsRepositoryImpl @Inject constructor(
     override suspend fun getSettingsMyToDo(): Result<SettingsMyToDo> =
         kotlin.runCatching { settingsDataSource.getSettingsMyToDo() }
             .map { response -> response.data.toSettingsMyToDo() }
+
+    override suspend fun deleteRoom(): Result<Boolean> =
+        kotlin.runCatching { settingsDataSource.deleteRoom() }
+            .map { response -> response.success }
 }

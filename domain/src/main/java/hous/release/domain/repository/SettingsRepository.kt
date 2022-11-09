@@ -16,4 +16,6 @@ interface SettingsRepository {
     ): Result<Boolean>
 
     suspend fun getSettingsMyToDo(): Result<SettingsMyToDo>
+
+    suspend fun deleteRoom(): Result<Boolean>
 }
