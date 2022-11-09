@@ -12,4 +12,9 @@ class ProfileRepositoryImpl @Inject constructor(
         kotlin.runCatching {
             profileDataSource.getProfile()
         }.map { response -> response.data.toProfile() }
+
+    override suspend fun getHomieProfile(): Result<Profile> =
+        kotlin.runCatching {
+            profileDataSource.getHomieProfile()
+        }.map { response -> response.data.toProfile() }
 }
