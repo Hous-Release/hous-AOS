@@ -4,6 +4,7 @@ import hous.release.data.datasource.TodoDataSource
 import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.TodoDetail
 import hous.release.domain.entity.response.MemberTodoContent
+import hous.release.domain.entity.response.ToDoContent
 import hous.release.domain.entity.response.ToDoUser
 import hous.release.domain.entity.response.TodoMain
 import hous.release.domain.repository.TodoRepository
@@ -52,7 +53,7 @@ class TodoRepositoryImpl @Inject constructor(
             return@flow
         }
         val data = response.data.users.map {
-            it.toToDoUser()
+            it.toTodoUser()
         }
         if (data.isEmpty()) {
             emit(ApiResult.Empty)
@@ -71,6 +72,55 @@ class TodoRepositoryImpl @Inject constructor(
         toDoName: String
     ): Flow<ApiResult<String>> = flow {
         val response = todoDataSource.postAddTodo(
+            isPushNotification = isPushNotification,
+            toDoName = toDoName,
+            updateTodoUsers = todoUsers.map { toDoUser -> toDoUser.toAddedToDoUser() }
+        )
+        if (!response.success) {
+            emit(ApiResult.Error(response.message))
+            return@flow
+        }
+        emit(ApiResult.Success(response.message))
+    }.catch { e ->
+        if (e is HttpException) {
+            emit(ApiResult.Error(e.message))
+        }
+    }.flowOn(ioDispatcher)
+
+    override fun getEditTodoContent(todoId: Int): Flow<ApiResult<ToDoContent>> = flow {
+        val response = todoDataSource.getEditTodoContent(todoId = todoId)
+        if (!response.success) {
+            emit(ApiResult.Error(response.message))
+            return@flow
+        }
+        val data = response.data
+        if (data.todoUsers.isEmpty()) {
+            emit(ApiResult.Empty)
+            return@flow
+        }
+        emit(
+            ApiResult.Success(
+                ToDoContent(
+                    isPushNotification = data.isPushNotification,
+                    name = data.name,
+                    todoUsers = data.todoUsers.map { it.toTodoUser() }
+                )
+            )
+        )
+    }.catch { e ->
+        if (e is HttpException) {
+            emit(ApiResult.Error(e.message))
+        }
+    }.flowOn(ioDispatcher)
+
+    override fun putEditToDo(
+        todoId: Int,
+        isPushNotification: Boolean,
+        todoUsers: List<ToDoUser>,
+        toDoName: String
+    ): Flow<ApiResult<String>> = flow {
+        val response = todoDataSource.putEditToDo(
+            todoId = todoId,
             isPushNotification = isPushNotification,
             toDoName = toDoName,
             updateTodoUsers = todoUsers.map { toDoUser -> toDoUser.toAddedToDoUser() }

@@ -39,4 +39,19 @@ class TodoDataSource @Inject constructor(
             name = toDoName
         )
     )
+
+    suspend fun getEditTodoContent(todoId: Int) = toDoService.getEditTodoContent(todoId = todoId)
+    suspend fun putEditToDo(
+        todoId: Int,
+        isPushNotification: Boolean,
+        updateTodoUsers: List<UpdateToDoUser>,
+        toDoName: String
+    ) = toDoService.putEditToDo(
+        todoId = todoId,
+        UpdateToDoUsersRequest(
+            isPushNotification = isPushNotification,
+            todoUsers = updateTodoUsers,
+            name = toDoName
+        )
+    )
 }
