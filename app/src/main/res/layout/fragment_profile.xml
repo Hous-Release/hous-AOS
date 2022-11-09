@@ -53,12 +53,26 @@
 
             <ImageView
                 android:id="@+id/iv_profile_badge"
+                setImage="@{vm.profileData.representBadgeImage}"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="43dp"
+                android:elevation="10dp"
+                android:visibility="@{vm.profileData.representBadgeImage==null ? View.INVISIBLE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_profile_notification"
+                tools:src="@drawable/shape_white_fill_100_circle" />
+
+            <ImageView
+                android:id="@+id/iv_profile_badge_empty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="43dp"
                 android:elevation="10dp"
                 android:src="@drawable/shape_white_fill_100_circle"
+                android:visibility="@{vm.profileData.representBadgeImage==null ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_profile_notification" />
 
