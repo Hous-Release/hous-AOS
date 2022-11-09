@@ -1,5 +1,6 @@
 package hous.release.data.service
 
+import hous.release.data.entity.PersonalityTestEntity
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.PersonalityResultResponse
 import retrofit2.http.GET
@@ -10,4 +11,7 @@ interface PersonalityService {
     suspend fun getPersonalityResult(
         @Query("color") color: String
     ): BaseResponse<PersonalityResultResponse>
+
+    @GET("/v1/user/personality/test")
+    suspend fun getPersonalityTests(): BaseResponse<List<PersonalityTestEntity>>
 }
