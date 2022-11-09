@@ -114,12 +114,13 @@
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_name"
                     app:layout_constraintStart_toEndOf="@id/tv_profile_name" />
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/btn_profile_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="8dp"
+                    android:background="@null"
                     android:padding="16dp"
                     android:src="@drawable/ic_profile_edit"
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_name"
@@ -159,6 +160,7 @@
 
                 <TextView
                     android:id="@+id/tv_profile_mbti"
+                    visibility="@{vm.profileData.mbti}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -168,7 +170,6 @@
                     android:text="@{vm.profileData.mbti}"
                     android:textAppearance="@style/En2"
                     android:textColor="@color/hous_g_6"
-                    visibility="@{vm.profileData.mbti}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_age"
                     app:layout_constraintStart_toEndOf="@id/tv_profile_birthday"
                     app:layout_constraintTop_toTopOf="@id/tv_profile_age"
@@ -176,6 +177,7 @@
 
                 <TextView
                     android:id="@+id/tv_profile_job"
+                    visibility="@{vm.profileData.job}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -185,7 +187,6 @@
                     android:text="@{vm.profileData.job}"
                     android:textAppearance="@style/Description"
                     android:textColor="@color/hous_g_6"
-                    visibility="@{vm.profileData.job}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_age"
                     app:layout_constraintStart_toEndOf="@id/tv_profile_mbti"
                     app:layout_constraintTop_toTopOf="@id/tv_profile_age"

@@ -18,12 +18,13 @@
         android:layout_height="match_parent"
         tools:context=".presentation.personality.result.PersonalityResultActivity">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/btn_personality_result_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:layout_marginTop="14dp"
+            android:background="@null"
             android:padding="10dp"
             android:src="@drawable/ic_back_g5"
             android:visibility="@{vm.fromTestResult ? View.INVISIBLE : View.VISIBLE}"

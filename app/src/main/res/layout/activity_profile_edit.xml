@@ -16,12 +16,13 @@
         android:focusableInTouchMode="true"
         tools:context=".presentation.profile.edit.ProfileEditActivity">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/btn_profile_edit_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
+            android:background="@null"
             android:padding="8dp"
             android:src="@drawable/ic_back_g4"
             app:layout_constraintStart_toStartOf="parent"
