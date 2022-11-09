@@ -1,7 +1,9 @@
 package hous.release.android.util.binding
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -74,5 +76,49 @@ object BindingAdapters {
     fun ImageView.setNotificationState(isSelected: Boolean?) {
         if (isSelected == null) return
         this.isSelected = isSelected
+    }
+
+    @JvmStatic
+    @BindingAdapter("visibility")
+    fun TextView.visibility(text: String?) {
+        visibility = if (text.isNullOrEmpty()) {
+            View.GONE
+        } else {
+            View.VISIBLE
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("homieProfileBackground")
+    fun ConstraintLayout.background(color: String?) {
+        color?.let {
+            setBackgroundResource(
+                when (HomyType.valueOf(color)) {
+                    HomyType.RED -> R.drawable.ic_homie_profile_red
+                    HomyType.YELLOW -> R.drawable.ic_homie_profile_yellow
+                    HomyType.GREEN -> R.drawable.ic_homie_profile_green
+                    HomyType.BLUE -> R.drawable.ic_homie_profile_blue
+                    HomyType.PURPLE -> R.drawable.ic_homie_profile_purple
+                    HomyType.GRAY -> -1
+                }
+            )
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("personalityTitle")
+    fun TextView.text(color: String?) {
+        color?.let {
+            setText(
+                when (HomyType.valueOf(color)) {
+                    HomyType.RED -> R.string.personality_red
+                    HomyType.YELLOW -> R.string.personality_yellow
+                    HomyType.GREEN -> R.string.personality_green
+                    HomyType.BLUE -> R.string.personality_blue
+                    HomyType.PURPLE -> R.string.personality_purple
+                    HomyType.GRAY -> -1
+                }
+            )
+        }
     }
 }
