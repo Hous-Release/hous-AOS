@@ -5,10 +5,14 @@ data class PersonalityTest(
     val imageUrl: String,
     val index: Int,
     val question: List<String>,
-    val questionType: String,
+    val questionType: QuestionType,
     val testState: TestState = TestState.UNCHECKED
 )
 
 enum class TestState {
     UNCHECKED, ONE, TWO, THREE
+}
+
+enum class QuestionType {
+    LIGHT, NOISE, CLEAN, SMELL, INTROVERSION
 }
