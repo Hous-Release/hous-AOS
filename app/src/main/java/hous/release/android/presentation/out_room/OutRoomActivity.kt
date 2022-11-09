@@ -13,5 +13,6 @@ class OutRoomActivity : BindingActivity<ActivityOutRoomBinding>(R.layout.activit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.getSettingsMyToDo()
     }
 }

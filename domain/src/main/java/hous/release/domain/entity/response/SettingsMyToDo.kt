@@ -1,11 +1,11 @@
 package hous.release.domain.entity.response
 
 data class SettingsMyToDo(
-    val myTodos: List<MyTodo>,
+    val myTodos: List<MyToDo>,
     val myTodosCnt: Int
 )
 
-data class MyTodo(
+data class MyToDo(
     val dayOfWeeks: String,
     val todoName: String
 )
