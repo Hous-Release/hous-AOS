@@ -45,6 +45,7 @@
             android:layout_marginTop="15dp"
             android:text="@{data.name}"
             android:textAppearance="@style/B2"
+            android:textColor="@{data.id == -1 ? @color/hous_g_4 :@color/hous_black}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="우리 집 대장은 최코코" />
