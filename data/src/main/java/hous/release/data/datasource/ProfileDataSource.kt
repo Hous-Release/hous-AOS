@@ -11,6 +11,6 @@ class ProfileDataSource @Inject constructor(
     suspend fun getProfile(): BaseResponse<ProfileResponse> =
         profileService.getProfile()
 
-    suspend fun getHomieProfile(): BaseResponse<ProfileResponse> =
-        profileService.getHomieProfile()
+    suspend fun getHomieProfile(homieId: Int): BaseResponse<ProfileResponse> =
+        profileService.getHomieProfile(homieId)
 }
