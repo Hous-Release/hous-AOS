@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="hous.release.android.presentation.out_room.OutRoomViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -135,7 +138,7 @@
             android:id="@+id/tv_out_room_to_room_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="12"
+            android:text="@{String.valueOf(vm.myToDoCnt)}"
             android:textAppearance="@style/H3"
             android:textColor="@color/hous_blue"
             app:layout_constraintBottom_toBottomOf="@id/tv_out_room_to_room_prefix"
@@ -169,6 +172,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="25dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="26dp"
             android:clipToPadding="false"
             android:orientation="vertical"

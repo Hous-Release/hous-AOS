@@ -9,7 +9,9 @@ data class SettingsMyToDoResponse(
 ) {
     fun toSettingsMyToDo(): SettingsMyToDo =
         SettingsMyToDo(
-            myTodos = this.myTodos.map { todos -> MyToDo(todos.dayOfWeeks, todos.todoName) },
+            myTodos = this.myTodos.mapIndexed { id, todos ->
+                MyToDo(id, todos.dayOfWeeks, todos.todoName)
+            },
             myTodosCnt = this.myTodosCnt
         )
 }

@@ -1,47 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/iv_out_room_my_to_do"
-        android:layout_width="wrap_content"
+    <data>
+
+        <variable
+            name="myToDo"
+            type="hous.release.domain.entity.response.MyToDo" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@null"
-        android:contentDescription="@string/out_room_my_to_do_circle_img_desc"
-        android:src="@drawable/shape_g_3_fill_8_circle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="12dp">
 
-    <TextView
-        android:id="@+id/tv_out_room_my_to_do"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:maxLines="1"
-        android:textAppearance="@style/B2"
-        android:textColor="@color/hous_black"
-        app:layout_constraintStart_toEndOf="@id/iv_out_room_my_to_do"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="가나다라마바사아자차카타파하짠" />
+        <ImageView
+            android:id="@+id/iv_out_room_my_to_do"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:contentDescription="@string/out_room_my_to_do_circle_img_desc"
+            android:src="@drawable/shape_g_3_fill_8_circle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_out_room_my_to_do_day"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:ellipsize="end"
-        android:gravity="end"
-        android:maxLines="1"
-        android:textAppearance="@style/Description"
-        android:textColor="@color/hous_g_3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_out_room_my_to_do"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="월, 화, 수, 목, 금, 토, 일" />
+        <TextView
+            android:id="@+id/tv_out_room_my_to_do"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:maxLines="1"
+            android:text="@{myToDo.todoName}"
+            android:textAppearance="@style/B2"
+            android:textColor="@color/hous_black"
+            app:layout_constraintStart_toEndOf="@id/iv_out_room_my_to_do"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="가나다라마바사아자차카타파하짠" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_out_room_my_to_do_day"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:ellipsize="end"
+            android:gravity="end"
+            android:maxLines="1"
+            android:text="@{myToDo.dayOfWeeks}"
+            android:textAppearance="@style/Description"
+            android:textColor="@color/hous_g_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_out_room_my_to_do"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="월, 화, 수, 목, 금, 토, 일" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

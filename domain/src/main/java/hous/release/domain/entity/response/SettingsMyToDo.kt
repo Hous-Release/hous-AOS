@@ -6,6 +6,7 @@ data class SettingsMyToDo(
 )
 
 data class MyToDo(
+    val id: Int,
     val dayOfWeeks: String,
     val todoName: String
 )
