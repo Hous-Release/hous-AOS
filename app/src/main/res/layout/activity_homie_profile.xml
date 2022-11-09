@@ -168,7 +168,7 @@
                 <ImageView
                     android:id="@+id/iv_homie_profile_representation_image"
                     setImage="@{vm.homieProfileData.representBadgeImage}"
-                    visibility="@{vm.homieProfileData.representBadgeImage==null ? View.INVISIBLE : View.VISIBLE}"
+                    android:visibility="@{vm.homieProfileData.representBadgeImage==null ? View.INVISIBLE : View.VISIBLE}"
                     android:layout_width="52dp"
                     android:layout_height="52dp"
                     android:layout_marginEnd="25dp"
@@ -180,7 +180,7 @@
 
                 <ImageView
                     android:id="@+id/iv_homie_profile_representation_image_empty"
-                    visibility="@{vm.homieProfileData.representBadgeImage==null ? View.VISIBLE : View.INVISIBLE}"
+                    android:visibility="@{vm.homieProfileData.representBadgeImage==null ? View.VISIBLE : View.INVISIBLE}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="25dp"
