@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PersonalityResultViewModel @Inject constructor(
-    private val personalityRepository: PersonalityRepository
+    private val getPersonalityResultUseCase: GetPersonalityResultUseCase
 ) : ViewModel() {
     private val _resultData = MutableLiveData<PersonalityResult>()
     val resultData: LiveData<PersonalityResult> = _resultData
