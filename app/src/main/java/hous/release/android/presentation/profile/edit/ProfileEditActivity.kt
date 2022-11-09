@@ -124,14 +124,8 @@ class ProfileEditActivity :
         profileEditViewModel.initSelectedBirthDate(date)
     }
 
-    private fun initDateFormatToInt(birthday: String): List<Int> {
-        val birthdayList: List<String> = birthday.split(SLASH)
-        val year = birthdayList[0].toInt()
-        val month = birthdayList[1].toInt()
-        val day = birthdayList[2].toInt()
-        Timber.e("$year, $month, $day")
-        return listOf(year, month, day)
-    }
+    private fun initDateFormatToInt(birthday: String) =
+        birthday.split(SLASH).map { birthday.toInt() }
 
     companion object {
         private const val SELECT_BIRTHDAY = "select birthday"
