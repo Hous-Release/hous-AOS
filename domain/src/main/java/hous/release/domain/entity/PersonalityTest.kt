@@ -4,7 +4,7 @@ data class PersonalityTest(
     val answers: List<String>,
     val imageUrl: String,
     val index: Int,
-    val question: List<String>,
+    val question: String,
     val questionType: QuestionType,
     val testState: TestState = TestState.UNCHECKED
 )
