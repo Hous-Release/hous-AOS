@@ -7,6 +7,7 @@ import hous.release.android.presentation.personality.test.PersonalityTestAdapter
 import hous.release.domain.entity.PersonalityTest
 import hous.release.domain.entity.QuestionType
 import hous.release.domain.usecase.GetPersonalityTestsUseCase
+import hous.release.domain.usecase.PutPersonalityTestResult
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,11 +21,11 @@ import javax.inject.Inject
 @HiltViewModel
 class PersonalityTestViewModel @Inject constructor(
     private val getPersonalityTestsUseCase: GetPersonalityTestsUseCase,
-    private val putPersonalityTestsUseCase: GetPersonalityTestsUseCase
+    private val putPersonalityTestResultUseCase: PutPersonalityTestResult
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(PersonalityTestUiState())
     val uiState = _uiState.asStateFlow()
-    private val _moveEvent = MutableSharedFlow<Int>()
+    private val _moveEvent = MutableSharedFlow<PersonalityTestEvent>()
     val moveEvent = _moveEvent.asSharedFlow()
 
     init {
@@ -56,7 +57,7 @@ class PersonalityTestViewModel @Inject constructor(
             }
 
             delay(300L)
-            _moveEvent.emit(NEXT)
+            onEvent(PersonalityTestEvent.MovePage(NEXT))
         }
     }
 
@@ -67,8 +68,26 @@ class PersonalityTestViewModel @Inject constructor(
             currentScore + selectPersonalityTest.testState.ordinal
     }
 
-    fun movePage(move: Int) {
-        viewModelScope.launch { _moveEvent.emit(move) }
+    fun onEvent(personalityTestEvent: PersonalityTestEvent) {
+        viewModelScope.launch { _moveEvent.emit(personalityTestEvent) }
+    }
+
+    fun putPersonalityTestResult() {
+        viewModelScope.launch {
+            putPersonalityTestResultUseCase(
+                cleanScore = requireNotNull(uiState.value.testScore[QuestionType.CLEAN]),
+                introversionScore = requireNotNull(uiState.value.testScore[QuestionType.INTROVERSION]),
+                lightScore = requireNotNull(uiState.value.testScore[QuestionType.LIGHT]),
+                noiseScore = requireNotNull(uiState.value.testScore[QuestionType.NOISE]),
+                smellScore = requireNotNull(uiState.value.testScore[QuestionType.SMELL])
+            )
+                .onSuccess { resultColor ->
+                    onEvent(PersonalityTestEvent.GoToResultView(resultColor))
+                }
+                .onFailure {
+                    Timber.e(it.message)
+                }
+        }
     }
 }
 
@@ -82,3 +101,8 @@ data class PersonalityTestUiState(
         QuestionType.INTROVERSION to 0
     )
 )
+
+sealed class PersonalityTestEvent {
+    data class MovePage(val direction: Int) : PersonalityTestEvent()
+    data class GoToResultView(val testResultColor: String) : PersonalityTestEvent()
+}

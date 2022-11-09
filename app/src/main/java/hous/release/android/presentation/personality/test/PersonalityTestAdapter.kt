@@ -11,7 +11,7 @@ import hous.release.domain.entity.TestState
 
 class PersonalityTestAdapter(
     private val setTestState: (PersonalityTest) -> Unit,
-    private val movePage: (Int) -> Unit
+    private val onEvent: (PersonalityTestEvent) -> Unit
 ) :
     ListAdapter<PersonalityTest, PersonalityTestAdapter.PersonalityTestViewHolder>(
         personalityTestComparator
@@ -21,7 +21,7 @@ class PersonalityTestAdapter(
     class PersonalityTestViewHolder(
         private val binding: ItemPersonalityTestBinding,
         private val setTestState: (PersonalityTest) -> Unit,
-        private val movePage: (Int) -> Unit
+        private val onEvent: (PersonalityTestEvent) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(personalityTest: PersonalityTest) {
             with(binding) {
@@ -44,10 +44,10 @@ class PersonalityTestAdapter(
                     setTestState(personalityTest.copy(testState = TestState.THREE))
                 }
                 btnTestLeft.setOnClickListener {
-                    movePage(PREV)
+                    onEvent(PersonalityTestEvent.MovePage(PREV))
                 }
                 btnTestRight.setOnClickListener {
-                    movePage(NEXT)
+                    onEvent(PersonalityTestEvent.MovePage(NEXT))
                 }
             }
         }
@@ -56,7 +56,7 @@ class PersonalityTestAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonalityTestViewHolder {
         if (!::inflater.isInitialized) inflater = LayoutInflater.from(parent.context)
         val binding = ItemPersonalityTestBinding.inflate(inflater, parent, false)
-        return PersonalityTestViewHolder(binding, setTestState, movePage)
+        return PersonalityTestViewHolder(binding, setTestState, onEvent)
     }
 
     override fun onBindViewHolder(holder: PersonalityTestViewHolder, position: Int) {

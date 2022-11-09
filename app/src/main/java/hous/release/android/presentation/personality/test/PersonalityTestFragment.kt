@@ -12,6 +12,7 @@ import hous.release.android.databinding.FragmentPersonalityTestBinding
 import hous.release.android.presentation.personality.result.PersonalityResultActivity
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.LOCATION
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.RESULT
+import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.RESULT_COLOR
 import hous.release.android.util.binding.BindingFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -32,7 +33,7 @@ class PersonalityTestFragment :
     private fun initAdapter() {
         personalityTestAdapter = PersonalityTestAdapter(
             setTestState = personalityTestViewModel::setTestState,
-            movePage = personalityTestViewModel::movePage
+            onEvent = personalityTestViewModel::onEvent
         )
         binding.vpPersonalityTest.apply {
             adapter = personalityTestAdapter
@@ -50,15 +51,30 @@ class PersonalityTestFragment :
 
     private fun collectMoveEvent() {
         personalityTestViewModel.moveEvent.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .onEach { move ->
-                binding.vpPersonalityTest.currentItem += move
-            }
+            .onEach(this::handleEvent)
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    private fun goPersonalityTestResult() {
-        Intent(requireActivity(), PersonalityResultActivity::class.java).apply {
+    private fun handleEvent(personalityTestEvent: PersonalityTestEvent) {
+        when (personalityTestEvent) {
+            is PersonalityTestEvent.MovePage -> {
+                with(binding) {
+                    if (vpPersonalityTest.currentItem == 14) {
+                        vpPersonalityTest.visibility = View.GONE
+                        includePersonalityLoading.clTestLoading.visibility = View.VISIBLE
+                        personalityTestViewModel.putPersonalityTestResult()
+                    }
+                }
+                binding.vpPersonalityTest.currentItem += personalityTestEvent.direction
+            }
+            is PersonalityTestEvent.GoToResultView -> goPersonalityTestResult(personalityTestEvent.testResultColor)
+        }
+    }
+
+    private fun goPersonalityTestResult(resultColor: String) {
+        Intent(requireContext(), PersonalityResultActivity::class.java).apply {
             putExtra(LOCATION, RESULT)
+            putExtra(RESULT_COLOR, resultColor)
         }.also { intent ->
             requireActivity().finish()
             startActivity(intent)
