@@ -45,7 +45,7 @@ class PersonalityResultActivity :
     }
 
     private fun initBackOnClickListener() {
-        binding.btnPersonalityResultComplete.setOnClickListener {
+        binding.tvPersonalityResultComplete.setOnClickListener {
             finish()
         }
 

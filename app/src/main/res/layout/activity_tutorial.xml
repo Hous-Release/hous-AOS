@@ -18,7 +18,7 @@
         tools:context=".presentation.tutorial.TutorialActivity">
 
         <TextView
-            android:id="@+id/btn_tutorial_skip"
+            android:id="@+id/tv_tutorial_skip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
@@ -37,7 +37,7 @@
             android:clipToPadding="false"
             android:overScrollMode="never"
             app:layout_constraintBottom_toTopOf="@id/tv_tutorial_next"
-            app:layout_constraintTop_toBottomOf="@id/btn_tutorial_skip" />
+            app:layout_constraintTop_toBottomOf="@id/tv_tutorial_skip" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_tutorial_dot"

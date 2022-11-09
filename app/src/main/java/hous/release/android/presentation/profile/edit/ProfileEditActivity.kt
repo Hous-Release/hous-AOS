@@ -64,9 +64,9 @@ class ProfileEditActivity :
     private fun initSaveBtnColor() {
         profileEditViewModel.nickname.observe(this) { nickname ->
             if (nickname.isNullOrEmpty()) {
-                binding.btnProfileEditSave.setTextColor(getColor(R.color.hous_g_4))
+                binding.tvProfileEditSave.setTextColor(getColor(R.color.hous_g_4))
             } else {
-                binding.btnProfileEditSave.setTextColor(getColor(R.color.hous_blue))
+                binding.tvProfileEditSave.setTextColor(getColor(R.color.hous_blue))
             }
         }
     }

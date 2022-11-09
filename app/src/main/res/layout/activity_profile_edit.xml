@@ -40,7 +40,7 @@
             app:layout_constraintTop_toTopOf="@id/btn_profile_edit_back" />
 
         <TextView
-            android:id="@+id/btn_profile_edit_save"
+            android:id="@+id/tv_profile_edit_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"

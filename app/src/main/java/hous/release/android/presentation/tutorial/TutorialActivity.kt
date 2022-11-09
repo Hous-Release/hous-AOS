@@ -77,7 +77,7 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
     }
 
     private fun initSkipBtnOnClickListener() {
-        binding.btnTutorialSkip.setOnClickListener {
+        binding.tvTutorialSkip.setOnClickListener {
             binding.vpTutorial.currentItem = 3
         }
     }
