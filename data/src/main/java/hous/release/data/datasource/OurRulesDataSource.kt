@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class OurRulesDataSource @Inject constructor(private val ourRulesService: OurRulesService) {
 
-    suspend fun getOurRulesContent(): BaseResponse<List<OurRulesResponse>> =
+    suspend fun getOurRulesContent(): BaseResponse<OurRulesResponse> =
         ourRulesService.getOurRuleContent()
 
     suspend fun postAddedRuleContent(addedRules: List<String>): NoDataResponse =

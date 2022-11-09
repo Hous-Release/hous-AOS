@@ -21,10 +21,10 @@ class OurRulesRepositoryImpl @Inject constructor(
         val response = ourRulesDataSource.getOurRulesContent()
         if (!response.success) {
             emit(ApiResult.Error(response.message))
-        } else if (response.data.isEmpty()) {
+        } else if (response.data.rules.isEmpty()) {
             emit(ApiResult.Empty)
         } else {
-            val data = response.data.map { it.toOurRule() }
+            val data = response.data.rules.map { it.toOurRule() }
             emit(ApiResult.Success(data))
         }
     }.catch { e ->
