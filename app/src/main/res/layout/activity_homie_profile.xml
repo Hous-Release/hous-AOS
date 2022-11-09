@@ -9,6 +9,8 @@
             name="vm"
             type="hous.release.android.presentation.profile.homie.HomieProfileViewModel" />
 
+        <import type="android.view.View" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,5 +18,278 @@
         android:layout_height="match_parent"
         tools:context=".presentation.profile.homie.HomieProfileActivity">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_homie_profile"
+            homieProfileBackground="@{vm.homieProfileData.personalityColor.name()}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@drawable/ic_homie_profile_red">
+
+            <ImageButton
+                android:id="@+id/btn_homie_profile_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:padding="14dp"
+                android:src="@drawable/ic_back_g5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/ll_homie_profile_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="200dp"
+                android:background="@drawable/shape_white_fill_top10_rect"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_homie_profile_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{vm.homieProfileData.nickname}"
+                    android:textAppearance="@style/H4"
+                    android:textColor="@color/hous_black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="이빵주" />
+
+                <TextView
+                    android:id="@+id/tv_homie_profile_homie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/profile_homie"
+                    android:textAppearance="@style/B1"
+                    android:textColor="@color/hous_g_4"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_homie_profile_nickname"
+                    app:layout_constraintStart_toEndOf="@id/tv_homie_profile_nickname" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_homie_profile">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <TextView
+                    android:id="@+id/tv_homie_profile_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/shape_g6_line_20_rect"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:text="@{vm.homieProfileData.age}"
+                    android:textAppearance="@style/Description"
+                    android:textColor="@color/hous_g_6"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_goneMarginTop="24dp"
+                    tools:text="23세" />
+
+                <TextView
+                    android:id="@+id/tv_homie_profile_birthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/shape_g6_line_20_rect"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:textAppearance="@style/En2"
+                    android:textColor="@color/hous_g_6"
+                    android:visibility="@{vm.homieProfileData.birthdayPublic ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_homie_profile_age"
+                    app:layout_constraintStart_toEndOf="@id/tv_homie_profile_age"
+                    app:layout_constraintTop_toTopOf="@id/tv_homie_profile_age"
+                    tools:text="10.31" />
+
+                <TextView
+                    android:id="@+id/tv_homie_profile_mbti"
+                    visibility="@{vm.homieProfileData.mbti}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/shape_g6_line_20_rect"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:text="@{vm.homieProfileData.mbti}"
+                    android:textAppearance="@style/En2"
+                    android:textColor="@color/hous_g_6"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_homie_profile_age"
+                    app:layout_constraintStart_toEndOf="@id/tv_homie_profile_birthday"
+                    app:layout_constraintTop_toTopOf="@id/tv_homie_profile_age"
+                    tools:text="ISFP" />
+
+                <TextView
+                    android:id="@+id/tv_homie_profile_job"
+                    visibility="@{vm.homieProfileData.job}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/shape_g6_line_20_rect"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:text="@{vm.homieProfileData.job}"
+                    android:textAppearance="@style/Description"
+                    android:textColor="@color/hous_g_6"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_homie_profile_age"
+                    app:layout_constraintStart_toEndOf="@id/tv_homie_profile_mbti"
+                    app:layout_constraintTop_toTopOf="@id/tv_homie_profile_age"
+                    tools:text="개백수" />
+
+                <TextView
+                    android:id="@+id/tv_homie_profile_introduction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:maxEms="20"
+                    android:maxLength="40"
+                    android:maxLines="2"
+                    android:textAppearance="@style/B2"
+                    app:layout_constraintStart_toStartOf="@id/tv_homie_profile_age"
+                    app:layout_constraintTop_toBottomOf="@id/tv_homie_profile_age"
+                    tools:text="저는어쩌구저꺼주가우저는어쩌구저꺼주가우\n저는어쩌구저꺼주가우저는어쩌구저꺼주가우!" />
+
+                <ImageView
+                    android:id="@+id/iv_homie_profile_representation_image"
+                    setImage="@{vm.homieProfileData.representBadgeImage}"
+                    visibility="@{vm.homieProfileData.representBadgeImage==null ? View.INVISIBLE : View.VISIBLE}"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_marginEnd="25dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_homie_profile_job"
+                    tools:layout_height="52dp"
+                    tools:layout_width="52dp"
+                    tools:src="@drawable/shape_red_fill_12_circle" />
+
+                <ImageView
+                    android:id="@+id/iv_homie_profile_representation_image_empty"
+                    visibility="@{vm.homieProfileData.representBadgeImage==null ? View.VISIBLE : View.INVISIBLE}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
+                    android:src="@drawable/shape_g3_fill_52_circle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_homie_profile_job" />
+
+                <TextView
+                    android:id="@+id/tv_homie_profile_representation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@{vm.homieProfileData.representBadge==null ? @string/homie_profile_representation_empty : vm.homieProfileData.representBadge}"
+                    android:textAppearance="@style/Description"
+                    android:textColor="@color/hous_g_6"
+                    app:layout_constraintEnd_toEndOf="@id/iv_homie_profile_representation_image"
+                    app:layout_constraintStart_toStartOf="@id/iv_homie_profile_representation_image"
+                    app:layout_constraintTop_toBottomOf="@id/iv_homie_profile_representation_image"
+                    tools:text="투 두 한 걸음" />
+
+                <View
+                    android:id="@+id/view_homie_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@color/hous_g_0"
+                    app:layout_constraintTop_toBottomOf="@id/tv_homie_profile_introduction" />
+
+                <FrameLayout
+                    android:id="@+id/fl_homie_profile_personality"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintTop_toBottomOf="@id/view_homie_profile">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_homie_profile_has_personality"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp">
+
+                        <TextView
+                            android:id="@+id/tv_homie_profile_personality"
+                            personalityResultColor="@{vm.homieProfileData.personalityColor.name()}"
+                            personalityTitle="@{vm.homieProfileData.personalityColor.name()}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:textAppearance="@style/H2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="@string/personality_red"
+                            tools:textColor="@color/hous_red" />
+
+                        <androidx.compose.ui.platform.ComposeView
+                            android:id="@+id/cv_homie_profile_personality_pentagon"
+                            android:layout_width="match_parent"
+                            android:layout_height="280dp"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_homie_profile_personality" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_homie_profile_personality_detail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/tv_homie_profile_personality_detail"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="4dp"
+                                android:paddingVertical="8dp"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="3dp"
+                                android:text="@string/profile_personality_detail" />
+
+                            <ImageView
+                                android:id="@+id/iv_homie_profile_personality_detail"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                android:src="@drawable/ic_profile_next" />
+
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_homie_personality_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="40dp"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal"
+                            android:overScrollMode="always"
+                            android:scrollbarAlwaysDrawVerticalTrack="true"
+                            android:scrollbarFadeDuration="0"
+                            android:scrollbarSize="2dp"
+                            android:scrollbarStyle="outsideInset"
+                            android:scrollbarThumbHorizontal="@drawable/shape_g3_fill_2_rect"
+                            android:scrollbars="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/cv_homie_profile_personality_pentagon"
+                            tools:listitem="@layout/item_profile_personality" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </FrameLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
