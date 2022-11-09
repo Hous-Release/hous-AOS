@@ -135,32 +135,16 @@
 
                 <Spinner
                     android:id="@+id/spinner_withdraw_feedback_select"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="18dp"
-                    android:background="@drawable/shape_g_1_fill_8_rect"
-                    android:paddingVertical="8dp"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="8dp"
-                    android:text="@string/withdraw_feedback_select"
-                    android:textAppearance="@style/B2"
-                    android:textColor="@color/hous_g_4"
+                    android:spinnerMode="dropdown"
+                    android:background="@drawable/selector_withdraw_spinner"
+                    android:entries="@array/withdraw_feedback_items"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_withdraw_feedback_title" />
-
-                <ImageView
-                    android:id="@+id/iv_withdraw_feedback_spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:background="@null"
-                    android:contentDescription="@string/withdraw_spinner_img_desc"
-                    android:src="@drawable/ic_withdraw_feedback_down"
-                    app:layout_constraintBottom_toBottomOf="@id/spinner_withdraw_feedback_select"
-                    app:layout_constraintEnd_toEndOf="@id/spinner_withdraw_feedback_select"
-                    app:layout_constraintTop_toTopOf="@id/spinner_withdraw_feedback_select" />
 
                 <EditText
                     android:id="@+id/et_withdraw_feedback"
