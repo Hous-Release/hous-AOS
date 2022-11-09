@@ -1,18 +1,18 @@
 package hous.release.android.presentation.profile.edit
 
+import hous.release.domain.usecase.PutProfileEditUseCase
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hous.release.domain.repository.ProfileRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileEditViewModel @Inject constructor(
-    private val profileRepository: ProfileRepository
+    private val putProfileEditUseCase: PutProfileEditUseCase
 ) : ViewModel() {
     val nickname = MutableLiveData<String>()
 
@@ -31,7 +31,7 @@ class ProfileEditViewModel @Inject constructor(
 
     fun onClickSave() {
         viewModelScope.launch {
-            profileRepository.putProfile(
+            putProfileEditUseCase.invoke(
                 birthday = requireNotNull(birthday.value!!.replace(SLASH, DASH)),
                 introduction = introduction.value,
                 isPublic = requireNotNull(isBirthdayPublic.value),
