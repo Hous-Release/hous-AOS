@@ -32,6 +32,10 @@ class MemberFragment : BindingFragment<FragmentMemberBinding>(R.layout.fragment_
         initFinishOnClick()
         initFloatingButton()
     }
+    override fun onResume() {
+        super.onResume()
+        todoDetailViewModel.fetchMemberToDos()
+    }
 
     private fun initFinishOnClick() {
         binding.ivMemberBackButton.setOnClickListener { todoDetailViewModel.setIsFinish() }

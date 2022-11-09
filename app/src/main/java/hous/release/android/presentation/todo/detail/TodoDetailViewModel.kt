@@ -33,7 +33,7 @@ class TodoDetailViewModel @Inject constructor(
         fetchDailyToDos()
     }
 
-    private fun fetchMemberToDos() {
+    fun fetchMemberToDos() {
         viewModelScope.launch {
             getMemberTodosUseCase()
                 .onSuccess { result ->
@@ -47,7 +47,7 @@ class TodoDetailViewModel @Inject constructor(
         }
     }
 
-    private fun fetchDailyToDos() {
+    fun fetchDailyToDos() {
         viewModelScope.launch {
             dailyTodosUseCase()
                 .onSuccess { result ->
