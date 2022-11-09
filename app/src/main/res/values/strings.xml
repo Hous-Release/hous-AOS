@@ -249,6 +249,9 @@
     <string name="personality_purple">하이레벨 오돌이</string>
     <string name="gray">GRAY</string>
 
+    <string name="homie_profile_introduction_empty">아직 소개가 작성되지 않았어요.</string>
+    <string name="homie_profile_representation_empty">아직 대표 뱃지가 없어요.</string>
+
     <!-- Notification -->
     <string name="notification_title">알림</string>
     <string name="notification_icon_img_desc">알림 카테고리 아이콘</string>
@@ -300,7 +303,5 @@
     <string name="personality_result_complete">완료</string>
     <string name="personality_result_good">찰떡궁합</string>
     <string name="personality_result_bad">맞춰가요</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
