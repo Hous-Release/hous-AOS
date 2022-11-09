@@ -100,7 +100,7 @@
             android:id="@+id/tv_out_room_bye_desc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="42dp"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="12dp"
             android:gravity="center_horizontal"
             android:text="@string/room_out_bye_desc"

@@ -311,4 +311,17 @@
     <string name="out_room_blur_bottom_img_desc">방 퇴사하기 하단 블러</string>
     <string name="out_room_my_to_do_circle_img_desc">방 퇴사하기 리스트 구분점</string>
 
+    <!-- Withdraw -->
+    <string name="withdraw_title">회원 탈퇴</string>
+    <string name="withdraw_question">정말 탈퇴하시겠어요?</string>
+    <string name="withdraw_img_desc">회원탈퇴 이미지</string>
+    <string name="withdraw_thanks_title">지금까지 Hous- 를 이용해주셔서 감사합니다.</string>
+    <string name="withdraw_thanks_desc">회원을 탈퇴하면 탈퇴 신청 즉시\n회원의 개인정보는 삭제되며 복구할 수 없습니다.\n\n회원님께서 불편하셨던 점이나 불만사항을\n알려주시면 적극 반영해서 고객님의 불편함을\n해결해 드리도록 노력하는 Hous-가 되겠습니다.</string>
+    <string name="withdraw_feedback_title">피드백 남기기</string>
+    <string name="withdraw_feedback_select">사유 선택하기</string>
+    <string name="withdraw_feedback_hint">의견 남기기</string>
+    <string name="withdraw_check_desc">탈퇴하겠습니다.</string>
+    <string name="withdraw_done">방 탈퇴하기</string>
+    <string name="withdraw_spinner_img_desc">피드백 스피너 이미지</string>
+
 </resources>
