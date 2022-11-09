@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityPersonalityResultBinding
+import hous.release.android.presentation.profile.ProfileFragment.Companion.COLOR
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.component.PersonalityResultImage
 import hous.release.android.util.style.HousTheme
@@ -17,9 +18,15 @@ class PersonalityResultActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.vm = personalityResultViewModel
+        initPersonalityResult()
         initTitlePosition()
         initBackOnClickListener()
         initPersonalityImage()
+    }
+
+    private fun initPersonalityResult() {
+        personalityResultViewModel.initPersonalityColor(intent.getStringExtra(COLOR)!!)
+        personalityResultViewModel.getPersonalityResult()
     }
 
     private fun initTitlePosition() {

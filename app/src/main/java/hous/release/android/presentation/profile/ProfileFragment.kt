@@ -42,9 +42,14 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
 
     private fun initPersonalityOnClickListener() {
         binding.llProfilePersonalityDetail.setOnClickListener {
-            val intent = Intent(requireActivity(), PersonalityResultActivity::class.java)
-            intent.putExtra(LOCATION, PROFILE)
-            startActivity(intent)
+            val toPersonalityResult =
+                Intent(requireActivity(), PersonalityResultActivity::class.java)
+            toPersonalityResult.putExtra(
+                COLOR,
+                profileViewModel.profileData.value!!.personalityColor.name
+            )
+            toPersonalityResult.putExtra(LOCATION, PROFILE)
+            startActivity(toPersonalityResult)
         }
     }
 
@@ -167,5 +172,6 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
             PersonalityInfo(R.string.personality_clean, R.string.personality_clean_description)
         )
         private const val PROFILE = "profile"
+        const val COLOR = "color"
     }
 }
