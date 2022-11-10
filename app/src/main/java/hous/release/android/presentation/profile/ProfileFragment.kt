@@ -13,6 +13,8 @@ import hous.release.android.presentation.notification.NotificationActivity
 import hous.release.android.presentation.personality.result.PersonalityResultActivity
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.LOCATION
 import hous.release.android.presentation.profile.adapter.ProfilePersonalityAdapter
+import hous.release.android.presentation.profile.edit.ProfileEditActivity
+import hous.release.android.presentation.profile.edit.ProfileEntity
 import hous.release.android.presentation.settings.SettingsActivity
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.component.HousPersonalityPentagon
@@ -25,6 +27,11 @@ import hous.release.domain.entity.ProfileSet
 class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
     private val profileViewModel by viewModels<ProfileViewModel>()
     private val profilePersonalityAdapter = ProfilePersonalityAdapter()
+
+    override fun onResume() {
+        super.onResume()
+        profileViewModel.getProfile()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -73,8 +80,20 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
     }
 
     private fun initEditOnClickListener() {
-        binding.ivProfileEdit.setOnClickListener {
-            // 수정으로 go
+        binding.btnProfileEdit.setOnClickListener {
+            val toProfileEdit = Intent(requireContext(), ProfileEditActivity::class.java)
+            toProfileEdit.putExtra(
+                PROFILE,
+                ProfileEntity(
+                    profileViewModel.profileData.value!!.nickname,
+                    profileViewModel.profileData.value!!.birthday,
+                    profileViewModel.profileData.value!!.birthdayPublic,
+                    profileViewModel.profileData.value!!.mbti,
+                    profileViewModel.profileData.value!!.job,
+                    profileViewModel.profileData.value!!.introduction
+                )
+            )
+            startActivity(toProfileEdit)
         }
     }
 
@@ -101,6 +120,28 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
                     tvProfilePersonality.setText(profileSet.personality)
                     tvProfilePersonality.setTextColor(
                         ContextCompat.getColor(requireContext(), profileSet.colorText)
+                    )
+                }
+            }
+            binding.tvProfileBirthday.text = profile.birthday?.substring(5..9)
+            if (profile.introduction.isNullOrEmpty()) {
+                with(binding) {
+                    tvProfileIntroduction.setText(R.string.profile_empty_introduction)
+                    tvProfileIntroduction.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.hous_g_4
+                        )
+                    )
+                }
+            } else {
+                with(binding) {
+                    tvProfileIntroduction.text = profile.introduction
+                    tvProfileIntroduction.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.hous_g_6
+                        )
                     )
                 }
             }
@@ -166,6 +207,6 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
             ),
             PersonalityInfo(R.string.personality_clean, R.string.personality_clean_description)
         )
-        private const val PROFILE = "profile"
+        const val PROFILE = "profile"
     }
 }
