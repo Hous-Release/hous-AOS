@@ -4,37 +4,72 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.activity.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityWithdrawBinding
 import hous.release.android.util.binding.BindingActivity
+import hous.release.domain.entity.FeedbackType
 
+@AndroidEntryPoint
 class WithdrawActivity :
-    BindingActivity<ActivityWithdrawBinding>(R.layout.activity_withdraw),
-    AdapterView.OnItemSelectedListener {
+    BindingActivity<ActivityWithdrawBinding>(R.layout.activity_withdraw) {
+    private val viewModel by viewModels<WithdrawViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_withdraw)
+        initWithdrawBtnClickListener()
         initWithdrawFeedbackSpinner()
     }
 
-    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("Not yet implemented")
+    private fun initWithdrawBtnClickListener() {
+        binding.btnWithdrawDone.setOnClickListener {
+            viewModel.deleteUser()
+        }
     }
 
     private fun initWithdrawFeedbackSpinner() {
         with(binding.spinnerWithdrawFeedbackSelect) {
-            adapter = ArrayAdapter.createFromResource(
+            adapter = ArrayAdapter<String>(
                 this@WithdrawActivity,
-                R.array.withdraw_feedback_items,
-                android.R.layout.simple_spinner_item
+                android.R.layout.simple_spinner_item,
+                feedbackTypeItems,
             ).apply {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             }
-            onItemSelectedListener = this@WithdrawActivity
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    adapterView: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    viewModel.initFeedbackType(
+                        when (feedbackTypeItems[position]) {
+                            FeedbackType.NO.type -> FeedbackType.NO
+                            FeedbackType.DONE_LIVING_TOGETHER.type -> FeedbackType.DONE_LIVING_TOGETHER
+                            FeedbackType.INCONVENIENT_TO_USE.type -> FeedbackType.INCONVENIENT_TO_USE
+                            FeedbackType.LOW_USAGE.type -> FeedbackType.LOW_USAGE
+                            FeedbackType.CONTENTS_UNSATISFACTORY.type -> FeedbackType.CONTENTS_UNSATISFACTORY
+                            FeedbackType.ETC.type -> FeedbackType.ETC
+                            else -> FeedbackType.NO
+                        }
+                    )
+                }
+
+                override fun onNothingSelected(adapterView: AdapterView<*>?) {}
+            }
         }
+    }
+
+    companion object {
+        private val feedbackTypeItems = listOf<String>(
+            FeedbackType.NO.type,
+            FeedbackType.DONE_LIVING_TOGETHER.type,
+            FeedbackType.INCONVENIENT_TO_USE.type,
+            FeedbackType.LOW_USAGE.type,
+            FeedbackType.CONTENTS_UNSATISFACTORY.type,
+            FeedbackType.ETC.type
+        )
     }
 }

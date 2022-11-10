@@ -141,7 +141,6 @@
                     android:layout_marginTop="18dp"
                     android:spinnerMode="dropdown"
                     android:background="@drawable/selector_withdraw_spinner"
-                    android:entries="@array/withdraw_feedback_items"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_withdraw_feedback_title" />
