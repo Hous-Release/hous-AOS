@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="hous.release.android.presentation.withdraw.WithdrawViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -194,7 +197,7 @@
                     android:layout_marginTop="68dp"
                     android:background="@drawable/selector_withdraw_check"
                     android:button="@null"
-                    android:checked="false"
+                    android:checked="@={vm.isCheckedWithdraw}"
                     app:layout_constraintEnd_toStartOf="@id/tv_withdraw_check"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="parent"
@@ -219,7 +222,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="18dp"
-                    android:backgroundTint="@color/hous_red"
+                    android:backgroundTint="@{vm.isCheckedWithdraw ? @color/hous_red : @color/hous_g_4}"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:minHeight="0dp"
