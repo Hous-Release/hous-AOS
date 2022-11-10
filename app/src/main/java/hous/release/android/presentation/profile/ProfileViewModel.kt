@@ -8,9 +8,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.Profile
 import hous.release.domain.repository.ProfileRepository
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
@@ -22,7 +22,7 @@ class ProfileViewModel @Inject constructor(
     private val _isTest = MutableLiveData<Boolean>()
     val isTest: LiveData<Boolean> = _isTest
 
-    init {
+    fun getUser() {
         viewModelScope.launch {
             profileRepository.getUser()
                 .onSuccess { response ->

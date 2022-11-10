@@ -37,6 +37,11 @@ class PersonalityTestFragment :
         initBackBtnOnClick()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        onBackPressedCallback.remove()
+    }
+
     private fun initAdapter() {
         personalityTestAdapter = PersonalityTestAdapter(
             setTestState = personalityTestViewModel::setTestState,
