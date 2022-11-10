@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_test_loading_profile"
+        android:layout_width="220dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="150dp"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_test_loading_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="@string/test_loading_title"
+        android:textAppearance="@style/H3"
+        android:textColor="@color/hous_black"
+        app:layout_constraintEnd_toEndOf="@+id/iv_test_loading_profile"
+        app:layout_constraintStart_toStartOf="@+id/iv_test_loading_profile"
+        app:layout_constraintTop_toBottomOf="@+id/iv_test_loading_profile" />
+
+    <TextView
+        android:id="@+id/tv_test_loading_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/test_loading_subtitle"
+        android:textAppearance="@style/B2"
+        android:textColor="@color/hous_g_6"
+        app:layout_constraintEnd_toEndOf="@+id/tv_test_loading_title"
+        app:layout_constraintStart_toStartOf="@+id/tv_test_loading_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_test_loading_title" />
+</androidx.constraintlayout.widget.ConstraintLayout>
