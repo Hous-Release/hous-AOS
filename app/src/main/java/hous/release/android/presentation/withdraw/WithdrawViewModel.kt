@@ -14,6 +14,8 @@ class WithdrawViewModel @Inject constructor(
 ) : ViewModel() {
     private var feedbackType = FeedbackType.NO
 
+    val comment = MutableStateFlow("")
+
     val isCheckedWithdraw = MutableStateFlow(false)
 
     fun initFeedbackType(type: FeedbackType) {
