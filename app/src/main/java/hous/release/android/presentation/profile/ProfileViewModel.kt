@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.Profile
 import hous.release.domain.usecase.GetProfileUseCase
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -21,13 +22,9 @@ class ProfileViewModel @Inject constructor(
     private val _isTest = MutableLiveData<Boolean>()
     val isTest: LiveData<Boolean> = _isTest
 
-    init {
-        getProfile()
-    }
-
     fun getProfile() {
         viewModelScope.launch {
-            getProfileUseCase.invoke()
+            getProfileUseCase()
                 .onSuccess { response ->
                     _profileData.value = response
                     checkTest()
