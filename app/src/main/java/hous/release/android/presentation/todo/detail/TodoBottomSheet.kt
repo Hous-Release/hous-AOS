@@ -11,6 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.DialogToDoBottomSheetBinding
+import hous.release.android.presentation.todo.detail.daily.DailyFragment
 import hous.release.android.presentation.todo.detail.daily.DailyFragment.Companion.TODO_ID
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.WarningDialogFragment
@@ -92,7 +93,10 @@ class TodoBottomSheet : BottomSheetDialogFragment() {
 
     private fun initEditButtonOnClickListener() {
         binding.tvToDoEdit.setOnClickListener {
-            /* todo 수정하기 뷰로 이동 */
+            dismiss()
+            requireArguments().getParcelable<ConfirmClickListener>(DailyFragment.TAG)
+                ?.onConfirmClick()
+                ?: Timber.e(getString(R.string.null_point_exception_to_do_bottom_sheet_dialog_argument))
         }
     }
 

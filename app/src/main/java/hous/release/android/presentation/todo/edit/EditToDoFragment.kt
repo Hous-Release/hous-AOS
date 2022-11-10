@@ -1,15 +1,15 @@
-package hous.release.android.presentation.todo.add
+package hous.release.android.presentation.todo.edit
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
-import hous.release.android.databinding.FragmentAddToDoBinding
+import hous.release.android.databinding.FragmentEditToDoBinding
 import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.dialog.ConfirmClickListener
@@ -20,13 +20,16 @@ import hous.release.android.util.extension.withArgs
 import hous.release.android.util.style.HousTheme
 
 @AndroidEntryPoint
-class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragment_add_to_do) {
-    private val viewModel by viewModels<AddToDoVIewModel>()
+class EditToDoFragment : BindingFragment<FragmentEditToDoBinding>(R.layout.fragment_edit_to_do) {
+
+    private val viewModel by viewModels<EditToDoViewModel>()
+    private val safeArgs: EditToDoFragmentArgs by navArgs()
     private lateinit var onBackPressedCallback: OnBackPressedCallback
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
+        passIdToViewModel()
         initToDoUserScreen()
         initBackButtonListener()
         collectTodoName()
@@ -38,15 +41,17 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
         onBackPressedCallback.remove()
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    private fun passIdToViewModel() {
+        val toDoId = safeArgs.todoId
+        viewModel.fetchEditTodoContent(toDoId)
+    }
+
     private fun initEditTextClearFocus() {
-        binding.clAddToDo.setOnTouchListener { _, _ ->
+        binding.clEditToDo.setOnClickListener {
             KeyBoardUtil.hide(requireActivity())
-            return@setOnTouchListener false
         }
-        binding.composeViewAddToDo.setOnTouchListener { _, _ ->
+        binding.composeViewEditToDo.setOnClickListener {
             KeyBoardUtil.hide(requireActivity())
-            return@setOnTouchListener false
         }
     }
 
@@ -55,12 +60,12 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
     }
 
     private fun initToDoUserScreen() {
-        binding.composeViewAddToDo.setContent {
+        binding.composeViewEditToDo.setContent {
             HousTheme {
-                AddTodoUserScreen(
+                EditTodoUserScreen(
                     viewModel = viewModel,
                     finish = { findNavController().popBackStack() },
-                    name = getString(R.string.to_do_add_button),
+                    name = getString(R.string.to_do_save_button),
                     hideKeyBoard = ::hideKeyBoard
                 )
             }
@@ -77,19 +82,11 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
 
     private fun initBackButtonListener() {
         requireActivity().onBackPressedDispatcher.addCallback {
-            if (viewModel.isActiveAddButton() || !viewModel.isBlankToDoName()) {
-                showOutDialog()
-                return@addCallback
-            }
-            findNavController().popBackStack()
+            showOutDialog()
         }.also { callback -> onBackPressedCallback = callback }
 
-        binding.btnAddToDoBack.setOnClickListener {
-            if (viewModel.isActiveAddButton() || !viewModel.isBlankToDoName()) {
-                showOutDialog()
-                return@setOnClickListener
-            }
-            findNavController().popBackStack()
+        binding.btnEditToDoBack.setOnClickListener {
+            showOutDialog()
         }
     }
 
@@ -97,7 +94,7 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
         WarningDialogFragment().withArgs {
             putSerializable(
                 WarningDialogFragment.WARNING_TYPE,
-                WarningType.WARNING_ADD_TO_DO
+                WarningType.WARNING_EDIT_TO_DO
             )
             putParcelable(
                 WarningDialogFragment.CONFIRM_ACTION,

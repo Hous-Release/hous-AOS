@@ -3,6 +3,7 @@ package hous.release.data.service
 import hous.release.data.entity.request.ToDoCheckRequest
 import hous.release.data.entity.request.UpdateToDoUsersRequest
 import hous.release.data.entity.response.BaseResponse
+import hous.release.data.entity.response.EditToDoContentResponse
 import hous.release.data.entity.response.MemberTodoResponse
 import hous.release.data.entity.response.NoDataResponse
 import hous.release.data.entity.response.ToDoMainResponse
@@ -12,6 +13,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface TodoService {
@@ -43,4 +45,13 @@ interface TodoService {
 
     @POST("/v1/todo")
     suspend fun postAddTodo(@Body updateToDoUser: UpdateToDoUsersRequest): NoDataResponse
+
+    @GET("/v1/todo/{todoId}")
+    suspend fun getEditTodoContent(@Path("todoId") todoId: Int): BaseResponse<EditToDoContentResponse>
+
+    @PUT("/v1/todo/{todoId}")
+    suspend fun putEditToDo(
+        @Path("todoId") todoId: Int,
+        @Body updateToDoUsersRequest: UpdateToDoUsersRequest
+    ): NoDataResponse
 }
