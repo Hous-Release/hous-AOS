@@ -29,11 +29,9 @@ class PersonalityResultActivity :
     }
 
     private fun initTitlePosition() {
-        personalityResultViewModel.fromTestResult.observe(this) {
-            when (intent.getStringExtra(LOCATION)) {
-                RESULT -> personalityResultViewModel.initFromTestResult(true)
-                else -> personalityResultViewModel.initFromTestResult(false)
-            }
+        when (intent.getStringExtra(LOCATION)) {
+            RESULT -> personalityResultViewModel.initFromTestResult(true)
+            else -> personalityResultViewModel.initFromTestResult(false)
         }
     }
 
