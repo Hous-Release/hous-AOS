@@ -6,6 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import hous.release.android.BuildConfig
+import hous.release.data.datasource.LocalPrefTokenDataSource
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,13 +20,13 @@ import javax.inject.Singleton
 class RetrofitModule {
     @Provides
     @Singleton
-    fun providesInterceptor(): Interceptor =
+    fun providesInterceptor(localPrefTokenDataSource: LocalPrefTokenDataSource): Interceptor =
         Interceptor { chain ->
             with(chain) {
                 proceed(
                     request()
                         .newBuilder()
-                        .addHeader(HEADER_AUTHORIZATION, BuildConfig.DUMMY_ACCESS_TOKEN)
+                        .addHeader(HEADER_AUTHORIZATION, localPrefTokenDataSource.accessToken)
                         .addHeader(HEADER_OS_TYPE, OS_TYPE)
                         .addHeader(HEADER_VERSION, BuildConfig.VERSION_NAME)
                         .build()
@@ -58,6 +59,7 @@ class RetrofitModule {
                 )
             )
             .build()
+
     companion object {
         const val HEADER_AUTHORIZATION = "Authorization"
         const val HEADER_OS_TYPE = "HousOsType"

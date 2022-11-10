@@ -7,9 +7,10 @@
 
     <application
         android:name=".HousApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
+        android:fullBackupContent="false"
+        android:fullBackupOnly="false"
         android:icon="@drawable/ic_hous"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_hous"

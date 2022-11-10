@@ -7,5 +7,5 @@
     android:paddingVertical="10dp"
     android:singleLine="true"
     android:textAppearance="@style/B2"
-    android:textColor="@color/hous_g_4" />
+    android:textColor="@color/hous_black" />
 

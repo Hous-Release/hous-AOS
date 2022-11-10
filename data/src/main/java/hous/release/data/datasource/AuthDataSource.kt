@@ -1,15 +1,20 @@
 package hous.release.data.datasource
 
+import android.content.SharedPreferences
+import hous.release.data.entity.request.DeleteUserRequest
 import hous.release.data.entity.request.LoginRequest
 import hous.release.data.entity.request.SignUpRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.LoginResponse
+import hous.release.data.entity.response.NoDataResponse
 import hous.release.data.entity.response.SignUpResponse
 import hous.release.data.service.AuthService
+import hous.release.domain.entity.FeedbackType
 import javax.inject.Inject
 
 class AuthDataSource @Inject constructor(
-    private val authService: AuthService
+    private val authService: AuthService,
+    private val prefs: SharedPreferences
 ) {
     suspend fun postLogin(
         fcmToken: String,
@@ -36,4 +41,19 @@ class AuthDataSource @Inject constructor(
                 token
             )
         )
+
+    suspend fun deleteUser(feedbackType: FeedbackType, comment: String): NoDataResponse =
+        authService.deleteUser(
+            DeleteUserRequest(
+                feedbackType = feedbackType.name,
+                comment = comment
+            )
+        )
+
+    fun clearLocalPref() {
+        with(prefs.edit()) {
+            clear()
+            commit()
+        }
+    }
 }
