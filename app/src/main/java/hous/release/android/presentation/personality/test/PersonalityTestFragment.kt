@@ -45,7 +45,8 @@ class PersonalityTestFragment :
     private fun initAdapter() {
         personalityTestAdapter = PersonalityTestAdapter(
             setTestState = personalityTestViewModel::setTestState,
-            onEvent = personalityTestViewModel::onEvent
+            onEvent = personalityTestViewModel::onEvent,
+            backBtnOnClick = this::showExitDialog
         )
         binding.vpPersonalityTest.apply {
             adapter = personalityTestAdapter
