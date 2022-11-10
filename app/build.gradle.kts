@@ -8,6 +8,7 @@ plugins {
     id("com.google.gms.google-services")
     id("org.jlleitschuh.gradle.ktlint") version ktlintVersion
     id("kotlin-parcelize")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 val properties = Properties()

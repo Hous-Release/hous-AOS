@@ -1,5 +1,6 @@
 package hous.release.android.util.binding
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -74,5 +75,15 @@ object BindingAdapters {
     fun ImageView.setNotificationState(isSelected: Boolean?) {
         if (isSelected == null) return
         this.isSelected = isSelected
+    }
+
+    @JvmStatic
+    @BindingAdapter("visibility")
+    fun TextView.visibility(text: String?) {
+        visibility = if (text.isNullOrEmpty()) {
+            View.GONE
+        } else {
+            View.VISIBLE
+        }
     }
 }

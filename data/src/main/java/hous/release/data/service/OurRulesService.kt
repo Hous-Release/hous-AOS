@@ -14,7 +14,7 @@ import retrofit2.http.PUT
 
 interface OurRulesService {
     @GET("/v1/rules")
-    suspend fun getOurRuleContent(): BaseResponse<List<OurRulesResponse>>
+    suspend fun getOurRuleContent(): BaseResponse<OurRulesResponse>
 
     @POST("/v1/rules")
     suspend fun postAddedRuleContent(@Body body: AddRulesRequest): NoDataResponse

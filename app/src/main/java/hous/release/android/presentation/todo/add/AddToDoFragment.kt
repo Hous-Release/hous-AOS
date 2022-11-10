@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
-import androidx.annotation.ColorRes
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +27,6 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
-        setStatusBarColor(colorRes = R.color.hous_white)
         initToDoUserScreen()
         initBackButtonListener()
         collectTodoName()
@@ -39,7 +36,6 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
     override fun onDestroyView() {
         super.onDestroyView()
         onBackPressedCallback.remove()
-        setStatusBarColor(colorRes = R.color.hous_g_1)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -69,11 +65,6 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
                 )
             }
         }
-    }
-
-    private fun setStatusBarColor(@ColorRes colorRes: Int) {
-        requireActivity().window.statusBarColor =
-            ContextCompat.getColor(requireActivity(), colorRes)
     }
 
     private fun collectTodoName() {

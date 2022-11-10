@@ -6,6 +6,7 @@
     <string name="null_point_exception_detail">NullPointException occurs - %s : %s</string>
     <string name="null_point_exception_detail_two_item">NullPointException occurs - %s : %s, %s : %s</string>
     <string name="null_point_exception_warning_dialog_argument">"WarningDialogFragment에 필요한 arguments에 안들어옴"</string>
+    <string name="null_point_exception_to_do_bottom_sheet_dialog_argument">"ToDoBottomSheetDialogFragment에 필요한 arguments에 안들어옴"</string>
     <string name="binding_error">Binding not initialized to reference the view.</string>
     <string name="back_btn_image_desc">뒤로가기 버튼</string>
     <string name="finish_app_toast_msg">뒤로가기를 한 번 더 누르시면 앱이 종료돼요!</string>
@@ -292,7 +293,6 @@
     <string name="noti_settings_remind_todos_on_all">모든 미완료 to-do 알림 받기</string>
     <string name="noti_settings_badge">배지 알림</string>
     <string name="noti_settings_badge_desc">우리 집에서 새로 받은 배지를 알려줘요!</string>
-
     <!-- Personality Test Result -->
     <string name="personality_result_detail">성향 자세히 보기</string>
     <string name="personality_result_info">성향 설명</string>
@@ -304,9 +304,17 @@
     <string name="test_start">시작하기</string>
     <string name="test_loading_title">결과 나오는 중</string>
     <string name="test_loading_subtitle">조금만 기다려주세요!</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="test_stop">그만두기</string>
     <string name="test_index">%d/15</string>
+
+    <!-- Profile Edit -->
+    <string name="profile_edit_title">프로필 수정</string>
+    <string name="profile_edit_save">저장</string>
+    <string name="profile_edit_birthday_public">생일 공개</string>
+    <string name="profile_edit_hint_nickname">닉네임</string>
+    <string name="profile_edit_hint_mbti">MBTI</string>
+    <string name="profile_edit_hint_job">직업</string>
+    <string name="profile_edit_hint_introduction">자기소개</string>
+    <string name="profile_edit_hint_birthday">생년월일</string>
 
 </resources>
