@@ -33,10 +33,10 @@ class WithdrawActivity :
         with(binding.spinnerWithdrawFeedbackSelect) {
             adapter = ArrayAdapter<String>(
                 this@WithdrawActivity,
-                android.R.layout.simple_spinner_item,
+                R.layout.item_withdraw_feedback_title,
                 feedbackTypeItems,
             ).apply {
-                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                setDropDownViewResource(R.layout.item_withdraw_feedback)
             }
             onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
