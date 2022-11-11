@@ -9,7 +9,6 @@ import hous.release.domain.entity.response.PersonalityResult
 import hous.release.domain.usecase.GetPersonalityResultUseCase
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 class PersonalityResultViewModel @Inject constructor(
