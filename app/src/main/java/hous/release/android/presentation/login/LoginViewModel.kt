@@ -44,10 +44,10 @@ class LoginViewModel @Inject constructor(
 
     private val _isInitUserInfo = MediatorLiveData<Event<Boolean>>().apply {
         addSource(_kakaoToken) { token ->
-            value = Event(token.isNotBlank() && fcmToken.value != null)
+            value = Event(token.isNotBlank() && _fcmToken.value != null)
         }
         addSource(_fcmToken) { token ->
-            value = Event(token.isNotBlank() && kakaoToken.value != null)
+            value = Event(token.isNotBlank() && _kakaoToken.value != null)
         }
     }
     val isInitUserInfo get() = _isInitUserInfo
@@ -97,12 +97,12 @@ class LoginViewModel @Inject constructor(
     fun postLogin() {
         viewModelScope.launch {
             postLoginUseCase(
-                fcmToken = requireNotNull(fcmToken.value),
+                fcmToken = requireNotNull(_fcmToken.value),
                 socialType = "KAKAO",
                 token = requireNotNull(_kakaoToken.value)
             ).onSuccess { response ->
                 initTokenUseCase(
-                    fcmToken = "hello world",
+                    fcmToken = requireNotNull(_fcmToken.value),
                     socialType = SOCIAL_TYPE,
                     token = _kakaoToken.value!!
                 )
@@ -118,7 +118,7 @@ class LoginViewModel @Inject constructor(
                     when (throwable.code()) {
                         USER_NOT_EXIST -> {
                             initTokenUseCase(
-                                fcmToken = "hello world",
+                                fcmToken = requireNotNull(_fcmToken.value),
                                 socialType = SOCIAL_TYPE,
                                 token = _kakaoToken.value!!
                             )

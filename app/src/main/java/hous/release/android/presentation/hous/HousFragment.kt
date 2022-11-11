@@ -18,6 +18,8 @@ import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.showToast
 import hous.release.domain.entity.HomyType
+import hous.release.domain.entity.response.Homy
+import timber.log.Timber
 
 @AndroidEntryPoint
 class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous) {
@@ -39,9 +41,10 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
         viewModel.getHome()
     }
 
-    private fun onClickHomie(position: Int) {
-        val currentId = viewModel.hous.value.homies[position].homieId
-        when (HomyType.valueOf(viewModel.hous.value.homies[position].color)) {
+    private fun onClickHomie(homy: Homy) {
+        val currentId = homy.homieId
+        Timber.e("${homy.homieId}")
+        when (HomyType.valueOf(homy.color)) {
             HomyType.GRAY -> return
             else -> {
                 val toHomieProfile = Intent(requireActivity(), HomieProfileActivity::class.java)
