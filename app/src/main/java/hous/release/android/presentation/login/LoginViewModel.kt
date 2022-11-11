@@ -96,12 +96,12 @@ class LoginViewModel @Inject constructor(
 
     fun postLogin() {
         viewModelScope.launch {
-            postLoginUseCase.invoke(
+            postLoginUseCase(
                 fcmToken = requireNotNull(fcmToken.value),
                 socialType = "KAKAO",
                 token = requireNotNull(_kakaoToken.value)
             ).onSuccess { response ->
-                initTokenUseCase.invoke(
+                initTokenUseCase(
                     fcmToken = "hello world",
                     socialType = SOCIAL_TYPE,
                     token = _kakaoToken.value!!
@@ -117,7 +117,7 @@ class LoginViewModel @Inject constructor(
                 if (throwable is HttpException) {
                     when (throwable.code()) {
                         USER_NOT_EXIST -> {
-                            initTokenUseCase.invoke(
+                            initTokenUseCase(
                                 fcmToken = "hello world",
                                 socialType = SOCIAL_TYPE,
                                 token = _kakaoToken.value!!
@@ -136,7 +136,7 @@ class LoginViewModel @Inject constructor(
 
     private fun getFCMToken() {
         viewModelScope.launch {
-            getFcmTokenUseCase.invoke { fcmToken -> _fcmToken.value = fcmToken }
+            getFcmTokenUseCase { fcmToken -> _fcmToken.value = fcmToken }
         }
     }
 
