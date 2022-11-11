@@ -5,7 +5,6 @@ import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityPersonalityResultBinding
-import hous.release.android.presentation.profile.ProfileFragment.Companion.COLOR
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.component.PersonalityResultImage
 import hous.release.android.util.style.HousTheme
@@ -25,8 +24,9 @@ class PersonalityResultActivity :
     }
 
     private fun initPersonalityResult() {
-        val resultColor = intent.getStringExtra(RESULT_COLOR) ?: "BLUE"
-        personalityResultViewModel.getPersonalityResult(resultColor)
+        personalityResultViewModel.getPersonalityResult(
+            intent.getStringExtra(RESULT_COLOR) ?: "BLUE"
+        )
     }
 
     private fun initTitlePosition() {
