@@ -74,10 +74,7 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
                     putParcelable(
                         CONFIRM_ACTION,
                         DatePickerClickListener(
-                            confirmActionWithDate = { date -> initDate(date) },
-                            birtyYear = NO_DATA,
-                            birthMonth = NO_DATA,
-                            birthDay = NO_DATA
+                            confirmActionWithDate = { date -> initDate(date) }
                         )
                     )
                 }
@@ -92,6 +89,5 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
     companion object {
         private const val WAITING_DEADLINE = 2000L
         private const val SELECT_BIRTHDAY = "select birthday"
-        const val NO_DATA = -1
     }
 }

@@ -12,7 +12,6 @@ import hous.release.android.util.dialog.DatePickerClickListener
 import hous.release.android.util.dialog.DatePickerDialog
 import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningType
-import timber.log.Timber
 
 @AndroidEntryPoint
 class ProfileEditActivity :
@@ -89,20 +88,15 @@ class ProfileEditActivity :
 
     private fun initBirthdayOnClickListener() {
         binding.etProfileEditBirthday.setOnClickListener {
-            val birthdayInt = initDateFormatToInt(profileEditViewModel.birthday.value!!)
             DatePickerDialog().apply {
                 arguments = Bundle().apply {
                     putParcelable(
                         WarningDialogFragment.CONFIRM_ACTION,
                         DatePickerClickListener(
-                            confirmActionWithDate = { date -> initDate(date) },
-                            birtyYear = birthdayInt[0],
-                            birthMonth = birthdayInt[1],
-                            birthDay = birthdayInt[2]
+                            confirmActionWithDate = { date -> initDate(date) }
                         )
                     )
                 }
-                Timber.e("$birthdayInt")
             }.show(supportFragmentManager, SELECT_BIRTHDAY)
         }
     }
@@ -122,9 +116,6 @@ class ProfileEditActivity :
     private fun initDate(date: String) {
         profileEditViewModel.initSelectedBirthDate(date)
     }
-
-    private fun initDateFormatToInt(birthday: String) =
-        birthday.split("/").map { it.toInt() }
 
     companion object {
         private const val SELECT_BIRTHDAY = "select birthday"
