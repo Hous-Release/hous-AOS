@@ -5,7 +5,7 @@ import hous.release.domain.entity.TestScore
 
 data class Profile(
     val age: String = "",
-    val birthday: String? = "",
+    val birthday: String = "",
     val birthdayPublic: Boolean = false,
     val introduction: String? = "",
     val job: String? = "",

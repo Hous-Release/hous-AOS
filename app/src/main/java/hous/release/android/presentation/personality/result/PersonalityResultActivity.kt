@@ -56,7 +56,7 @@ class PersonalityResultActivity :
             finish()
         }
 
-        binding.ivPersonalityResultBack.setOnClickListener {
+        binding.btnPersonalityResultBack.setOnClickListener {
             finish()
         }
     }

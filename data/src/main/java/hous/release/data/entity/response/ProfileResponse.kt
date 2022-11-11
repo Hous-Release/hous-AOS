@@ -6,7 +6,7 @@ import hous.release.domain.entity.response.Profile
 
 data class ProfileResponse(
     val age: String,
-    val birthday: String?,
+    val birthday: String,
     val birthdayPublic: Boolean,
     val introduction: String?,
     val job: String?,

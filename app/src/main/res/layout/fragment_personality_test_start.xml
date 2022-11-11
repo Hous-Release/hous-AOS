@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.personality.test.PersonalityTestStartFragment">
+
+        <ImageButton
+            android:id="@+id/btn_test_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            android:src="@drawable/ic_back_g5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_test_start_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="190dp"
+            android:src="@drawable/ic_test_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_test_back" />
+
+        <TextView
+            android:id="@+id/tv_test_start_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/test_start_title"
+            android:textAppearance="@style/H3"
+            android:textColor="@color/hous_black"
+            app:layout_constraintEnd_toEndOf="@+id/iv_test_start_profile"
+            app:layout_constraintStart_toStartOf="@+id/iv_test_start_profile"
+            app:layout_constraintTop_toBottomOf="@+id/iv_test_start_profile" />
+
+        <TextView
+            android:id="@+id/tv_test_start_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/test_start_content"
+            android:textAlignment="center"
+            android:textAppearance="@style/B2"
+            android:textColor="@color/hous_g_6"
+            app:layout_constraintEnd_toEndOf="@+id/tv_test_start_title"
+            app:layout_constraintStart_toStartOf="@+id/tv_test_start_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_test_start_title" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_test_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/shape_blue_fill_8_rect"
+            android:paddingVertical="10dp"
+            android:text="@string/test_start"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_white"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
