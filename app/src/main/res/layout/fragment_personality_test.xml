@@ -20,8 +20,7 @@
             android:id="@+id/include_personality_loading"
             layout="@layout/item_personality_test_loading"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
+            android:layout_height="match_parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
