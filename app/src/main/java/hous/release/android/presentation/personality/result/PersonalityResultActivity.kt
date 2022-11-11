@@ -25,8 +25,7 @@ class PersonalityResultActivity :
     }
 
     private fun initPersonalityResult() {
-        personalityResultViewModel.initPersonalityColor(intent.getStringExtra(COLOR)!!)
-        personalityResultViewModel.getPersonalityResult()
+        personalityResultViewModel.getPersonalityResult(intent.getStringExtra(COLOR)!!)
     }
 
     private fun initTitlePosition() {

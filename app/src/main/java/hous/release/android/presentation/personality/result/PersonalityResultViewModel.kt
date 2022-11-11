@@ -18,17 +18,15 @@ class PersonalityResultViewModel @Inject constructor(
     private val _resultData = MutableLiveData<PersonalityResult>()
     val resultData: LiveData<PersonalityResult> = _resultData
 
-    private val personalityColor = MutableLiveData<String>()
-
     private val _description = MutableLiveData("")
     val description: LiveData<String> = _description
 
     private val _fromTestResult = MutableLiveData<Boolean>()
     val fromTestResult: LiveData<Boolean> = _fromTestResult
 
-    fun getPersonalityResult() {
+    fun getPersonalityResult(personalityColor: String) {
         viewModelScope.launch {
-            getPersonalityResultUseCase.invoke(personalityColor.value!!)
+            getPersonalityResultUseCase(personalityColor)
                 .onSuccess { result ->
                     _resultData.value = result
                     initDescription(result.description)
@@ -44,10 +42,6 @@ class PersonalityResultViewModel @Inject constructor(
 
     fun initFromTestResult(fromTestResult: Boolean) {
         _fromTestResult.value = fromTestResult
-    }
-
-    fun initPersonalityColor(fromProfile: String) {
-        personalityColor.value = fromProfile
     }
 
     companion object {
