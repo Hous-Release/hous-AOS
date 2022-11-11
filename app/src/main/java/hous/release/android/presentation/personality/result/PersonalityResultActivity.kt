@@ -17,17 +17,22 @@ class PersonalityResultActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.vm = personalityResultViewModel
+        initPersonalityResult()
         initTitlePosition()
         initBackOnClickListener()
         initPersonalityImage()
     }
 
+    private fun initPersonalityResult() {
+        personalityResultViewModel.getPersonalityResult(
+            intent.getStringExtra(RESULT_COLOR) ?: "BLUE"
+        )
+    }
+
     private fun initTitlePosition() {
-        personalityResultViewModel.fromTestResult.observe(this) {
-            when (intent.getStringExtra(LOCATION)) {
-                RESULT -> personalityResultViewModel.initFromTestResult(true)
-                else -> personalityResultViewModel.initFromTestResult(false)
-            }
+        when (intent.getStringExtra(LOCATION)) {
+            RESULT -> personalityResultViewModel.initFromTestResult(true)
+            else -> personalityResultViewModel.initFromTestResult(false)
         }
     }
 
@@ -49,7 +54,7 @@ class PersonalityResultActivity :
             finish()
         }
 
-        binding.ivPersonalityResultBack.setOnClickListener {
+        binding.btnPersonalityResultBack.setOnClickListener {
             finish()
         }
     }
@@ -57,5 +62,6 @@ class PersonalityResultActivity :
     companion object {
         const val LOCATION = "location"
         const val RESULT = "result"
+        const val RESULT_COLOR = "resultColor"
     }
 }

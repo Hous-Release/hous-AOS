@@ -13,6 +13,25 @@ class ProfileRepositoryImpl @Inject constructor(
             profileDataSource.getProfile()
         }.map { response -> response.data.toProfile() }
 
+    override suspend fun putProfile(
+        birthday: String,
+        introduction: String?,
+        isPublic: Boolean,
+        job: String?,
+        mbti: String?,
+        nickname: String
+    ): Result<Boolean> =
+        kotlin.runCatching {
+            profileDataSource.putProfile(
+                birthday,
+                introduction,
+                isPublic,
+                job,
+                mbti,
+                nickname
+            )
+        }.map { response -> response.success }
+
     override suspend fun getHomieProfile(homieId: Int): Result<Profile> =
         kotlin.runCatching {
             profileDataSource.getHomieProfile(homieId)

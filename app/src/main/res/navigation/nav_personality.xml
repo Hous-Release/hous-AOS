@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_personality"
+    app:startDestination="@id/personalityTestStartFragment">
+
+    <fragment
+        android:id="@+id/personalityTestStartFragment"
+        android:name="hous.release.android.presentation.personality.test.PersonalityTestStartFragment"
+        android:label="PersonalityTestStartFragment" >
+        <action
+            android:id="@+id/action_personalityTestStartFragment_to_personalityTestFragment"
+            app:destination="@id/personalityTestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/personalityTestFragment"
+        android:name="hous.release.android.presentation.personality.test.PersonalityTestFragment"
+        android:label="PersonalityTestFragment" />
+</navigation>

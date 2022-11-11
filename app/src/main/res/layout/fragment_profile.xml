@@ -17,7 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/hous_white"
-        android:paddingBottom="12dp"
         tools:context=".presentation.profile.ProfileFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,12 +52,26 @@
 
             <ImageView
                 android:id="@+id/iv_profile_badge"
+                setImage="@{vm.profileData.representBadgeImage}"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="43dp"
+                android:elevation="10dp"
+                android:visibility="@{vm.profileData.representBadgeImage==null ? View.INVISIBLE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_profile_notification"
+                tools:src="@drawable/shape_white_fill_100_circle" />
+
+            <ImageView
+                android:id="@+id/iv_profile_badge_empty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="43dp"
                 android:elevation="10dp"
                 android:src="@drawable/shape_white_fill_100_circle"
+                android:visibility="@{vm.profileData.representBadgeImage==null ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_profile_notification" />
 
@@ -114,12 +127,13 @@
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_name"
                     app:layout_constraintStart_toEndOf="@id/tv_profile_name" />
 
-                <ImageView
-                    android:id="@+id/iv_profile_edit"
+                <ImageButton
+                    android:id="@+id/btn_profile_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="8dp"
+                    android:background="@null"
                     android:padding="16dp"
                     android:src="@drawable/ic_profile_edit"
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_name"
@@ -149,10 +163,9 @@
                     android:background="@drawable/shape_g6_line_20_rect"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="4dp"
-                    android:text="@{vm.profileData.birthday}"
                     android:textAppearance="@style/En2"
                     android:textColor="@color/hous_g_6"
-                    android:visibility="@{vm.profileData.birthday==null ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{vm.profileData.birthdayPublic ? View.VISIBLE : View.GONE}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_age"
                     app:layout_constraintStart_toEndOf="@id/tv_profile_age"
                     app:layout_constraintTop_toTopOf="@id/tv_profile_age"
@@ -160,6 +173,7 @@
 
                 <TextView
                     android:id="@+id/tv_profile_mbti"
+                    visibility="@{vm.profileData.mbti}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -169,7 +183,6 @@
                     android:text="@{vm.profileData.mbti}"
                     android:textAppearance="@style/En2"
                     android:textColor="@color/hous_g_6"
-                    android:visibility="@{vm.profileData.mbti==null ? View.GONE : View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_age"
                     app:layout_constraintStart_toEndOf="@id/tv_profile_birthday"
                     app:layout_constraintTop_toTopOf="@id/tv_profile_age"
@@ -177,6 +190,7 @@
 
                 <TextView
                     android:id="@+id/tv_profile_job"
+                    visibility="@{vm.profileData.job}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -186,7 +200,6 @@
                     android:text="@{vm.profileData.job}"
                     android:textAppearance="@style/Description"
                     android:textColor="@color/hous_g_6"
-                    android:visibility="@{vm.profileData.job==null ? View.GONE : View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_age"
                     app:layout_constraintStart_toEndOf="@id/tv_profile_mbti"
                     app:layout_constraintTop_toTopOf="@id/tv_profile_age"
@@ -197,10 +210,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="13dp"
+                    android:maxEms="20"
                     android:maxLength="40"
-                    android:text="@{vm.profileData.introduction==null ? @string/profile_empty_introduction : vm.profileData.introduction}"
+                    android:maxLines="2"
                     android:textAppearance="@style/B2"
-                    android:textColor="@{vm.profileData.introduction==null ? @color/hous_g_4 : @color/hous_g_6}"
                     app:layout_constraintStart_toStartOf="@id/tv_profile_age"
                     app:layout_constraintTop_toBottomOf="@id/tv_profile_age"
                     tools:text="저는어쩌구저꺼주가우저는어쩌구저꺼주가우\n저는어쩌구저꺼주가우저는어쩌구저꺼주가우!" />
@@ -317,12 +330,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
                     android:background="@drawable/shape_black_fill_8_rect"
                     android:text="@{vm.isTest ? @string/profile_test_again : @string/profile_empty_go_test}"
                     android:textAppearance="@style/B1"
                     android:textColor="@color/hous_white"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_profile_tendency"
-                    tools:layout_editor_absoluteX="16dp"
                     tools:text="@string/profile_empty_go_test" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

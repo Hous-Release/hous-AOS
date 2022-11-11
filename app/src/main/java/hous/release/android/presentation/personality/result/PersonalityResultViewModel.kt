@@ -6,14 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.response.PersonalityResult
-import hous.release.domain.repository.PersonalityRepository
+import hous.release.domain.usecase.GetPersonalityResultUseCase
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class PersonalityResultViewModel @Inject constructor(
-    private val personalityRepository: PersonalityRepository
+    private val getPersonalityResultUseCase: GetPersonalityResultUseCase
 ) : ViewModel() {
     private val _resultData = MutableLiveData<PersonalityResult>()
     val resultData: LiveData<PersonalityResult> = _resultData
@@ -24,9 +24,9 @@ class PersonalityResultViewModel @Inject constructor(
     private val _fromTestResult = MutableLiveData<Boolean>()
     val fromTestResult: LiveData<Boolean> = _fromTestResult
 
-    init {
+    fun getPersonalityResult(personalityColor: String) {
         viewModelScope.launch {
-            personalityRepository.getPersonalityResult("BLUE")
+            getPersonalityResultUseCase(personalityColor)
                 .onSuccess { result ->
                     _resultData.value = result
                     initDescription(result.description)
