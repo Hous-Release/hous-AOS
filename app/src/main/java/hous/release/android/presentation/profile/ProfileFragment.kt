@@ -213,7 +213,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
             ),
             PersonalityInfo(R.string.personality_clean, R.string.personality_clean_description)
         )
-        private const val PROFILE = "profile"
+        const val PROFILE = "profile"
         const val COLOR = "color"
     }
 }
