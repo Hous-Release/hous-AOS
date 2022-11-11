@@ -24,8 +24,9 @@ class PersonalityResultActivity :
     }
 
     private fun initPersonalityResult() {
-        val resultColor = intent.getStringExtra(RESULT_COLOR) ?: "BLUE"
-        personalityResultViewModel.getPersonalityResult(resultColor)
+        personalityResultViewModel.getPersonalityResult(
+            intent.getStringExtra(RESULT_COLOR) ?: "BLUE"
+        )
     }
 
     private fun initTitlePosition() {

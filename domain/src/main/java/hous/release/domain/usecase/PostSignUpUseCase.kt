@@ -6,9 +6,6 @@ import javax.inject.Inject
 class PostSignUpUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
-    suspend operator fun invoke(
-        birthday: String,
-        isPublic: Boolean,
-        nickname: String,
-    ) = authRepository.postSignUp(birthday, isPublic, nickname)
+    suspend operator fun invoke(birthday: String, isPublic: Boolean, nickname: String) =
+        authRepository.postSignUp(birthday, isPublic, nickname)
 }

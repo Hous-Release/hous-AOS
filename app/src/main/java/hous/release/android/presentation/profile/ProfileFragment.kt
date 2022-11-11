@@ -13,6 +13,7 @@ import hous.release.android.presentation.notification.NotificationActivity
 import hous.release.android.presentation.personality.PersonalityActivity
 import hous.release.android.presentation.personality.result.PersonalityResultActivity
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.LOCATION
+import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.RESULT_COLOR
 import hous.release.android.presentation.profile.adapter.ProfilePersonalityAdapter
 import hous.release.android.presentation.profile.edit.ProfileEditActivity
 import hous.release.android.presentation.profile.edit.ProfileEntity
@@ -50,9 +51,14 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
 
     private fun initPersonalityOnClickListener() {
         binding.llProfilePersonalityDetail.setOnClickListener {
-            val intent = Intent(requireActivity(), PersonalityResultActivity::class.java)
-            intent.putExtra(LOCATION, PROFILE)
-            startActivity(intent)
+            val toPersonalityResult =
+                Intent(requireActivity(), PersonalityResultActivity::class.java)
+            toPersonalityResult.putExtra(
+                RESULT_COLOR,
+                profileViewModel.profileData.value!!.personalityColor.name
+            )
+            toPersonalityResult.putExtra(LOCATION, PROFILE)
+            startActivity(toPersonalityResult)
         }
     }
 

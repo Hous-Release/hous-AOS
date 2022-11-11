@@ -5,10 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class DatePickerClickListener(
-    val confirmActionWithDate: (String) -> Unit,
-    val birtyYear: Int,
-    val birthMonth: Int,
-    val birthDay: Int
+    val confirmActionWithDate: (String) -> Unit
 ) : Parcelable {
     fun onConfirmClick(date: String) {
         confirmActionWithDate(date)
