@@ -16,6 +16,8 @@ import hous.release.android.presentation.todo.detail.daily.DailyFragment
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.component.HousFloatingButton
 import hous.release.android.util.component.MemberTodoTap
+import hous.release.android.util.dialog.ConfirmClickListener
+import hous.release.android.util.extension.withArgs
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -32,6 +34,7 @@ class MemberFragment : BindingFragment<FragmentMemberBinding>(R.layout.fragment_
         initFinishOnClick()
         initFloatingButton()
     }
+
     override fun onResume() {
         super.onResume()
         todoDetailViewModel.fetchMemberToDos()
@@ -82,15 +85,17 @@ class MemberFragment : BindingFragment<FragmentMemberBinding>(R.layout.fragment_
     }
 
     private fun showTodoBottomSheet(todoId: Int) {
-        TodoBottomSheet()
-            .apply {
-                val bundle = Bundle()
-                bundle.putInt(DailyFragment.TODO_ID, todoId)
-                arguments = bundle
-            }
-            .also { todoBottomSheet ->
-                todoBottomSheet.show(childFragmentManager, this.javaClass.name)
-            }
+        TodoBottomSheet().withArgs {
+            putInt(DailyFragment.TODO_ID, todoId)
+            putParcelable(
+                DailyFragment.TAG,
+                ConfirmClickListener(confirmAction = {
+                    val action =
+                        MemberFragmentDirections.actionMemberFragmentToEditToDoFragment(todoId)
+                    findNavController().navigate(action)
+                })
+            )
+        }.show(childFragmentManager, this.javaClass.simpleName)
     }
 
     private fun initFloatingButton() {

@@ -15,6 +15,8 @@ import hous.release.android.presentation.todo.detail.TodoLimitDialog
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.component.DailyTab
 import hous.release.android.util.component.HousFloatingButton
+import hous.release.android.util.dialog.ConfirmClickListener
+import hous.release.android.util.extension.withArgs
 import hous.release.android.util.style.HousTheme
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -82,15 +84,17 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
     }
 
     private fun showTodoBottomSheet(todoId: Int) {
-        TodoBottomSheet()
-            .apply {
-                val bundle = Bundle()
-                bundle.putInt(TODO_ID, todoId)
-                arguments = bundle
-            }
-            .also { todoBottomSheet ->
-                todoBottomSheet.show(childFragmentManager, this.javaClass.name)
-            }
+        TodoBottomSheet().withArgs {
+            putInt(TODO_ID, todoId)
+            putParcelable(
+                TAG,
+                ConfirmClickListener(confirmAction = {
+                    val action =
+                        DailyFragmentDirections.actionDailyFragmentToEditToDoFragment(todoId)
+                    findNavController().navigate(action)
+                })
+            )
+        }.show(childFragmentManager, this.javaClass.simpleName)
     }
 
     private fun initFloatingButton() {
@@ -106,6 +110,7 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
     }
 
     companion object {
+        const val TAG = "navigate_To_EditTodoFragment"
         const val TODO_ID = "todo_id"
     }
 }
