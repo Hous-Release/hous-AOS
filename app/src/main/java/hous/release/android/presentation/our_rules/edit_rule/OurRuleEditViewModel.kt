@@ -64,6 +64,16 @@ class OurRuleEditViewModel @Inject constructor(
             }
         }
 
+    fun editRuleName(place: Int, newRuleName: String) {
+        _uiState.update { uiState ->
+            val newRules = uiState.editRuleList.mapIndexed { idx, ourRule ->
+                if (idx == place) return@mapIndexed ourRule.copy(name = newRuleName)
+                ourRule
+            }
+            uiState.copy(editRuleList = initEditRuleList(newRules))
+        }
+    }
+
     fun updateEditRuleList(editList: List<OurRule>) {
         _uiState.update { uiState ->
             uiState.copy(editRuleList = initEditRuleList(editList))
@@ -73,7 +83,7 @@ class OurRuleEditViewModel @Inject constructor(
     fun isChangeRuleList(): Boolean {
         val ourEditRuleList = uiState.value.editRuleList
         uiState.value.originalEditRuleList.forEachIndexed { index, ourRule ->
-            if (ourEditRuleList[index].id != ourRule.id) return true
+            if (ourEditRuleList[index] != ourRule) return true
         }
         return false
     }
@@ -94,6 +104,7 @@ class OurRuleEditViewModel @Inject constructor(
                 }
             }
         }
+
     fun isActiveSaveButton() = (uiState.value.saveButtonState == ButtonState.ACTIVE)
 
     data class OurRuleEditUIState(
