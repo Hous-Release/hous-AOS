@@ -3,21 +3,24 @@ package hous.release.android.presentation.our_rules.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.databinding.ItemOurRulesGeneralRuleBinding
 import hous.release.android.util.ItemDiffCallback
 import hous.release.domain.entity.response.OurRule
 
-class OurRulesAddAdapter : ListAdapter<OurRule, OurRulesAdapter.GeneralViewHolder>(
-    itemDiffCallback
-) {
+class OurRulesAddAdapter(private val hideKeyBoard: () -> Unit) :
+    ListAdapter<OurRule, OurRulesAddAdapter.AddRuleViewHolder>(
+        itemDiffCallback
+    ) {
     private lateinit var inflater: LayoutInflater
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): OurRulesAdapter.GeneralViewHolder {
+    ): AddRuleViewHolder {
         if (!::inflater.isInitialized) inflater = LayoutInflater.from(parent.context)
-        return OurRulesAdapter.GeneralViewHolder(
+        return AddRuleViewHolder(
+            hideKeyBoard,
             ItemOurRulesGeneralRuleBinding.inflate(
                 inflater,
                 parent,
@@ -26,9 +29,21 @@ class OurRulesAddAdapter : ListAdapter<OurRule, OurRulesAdapter.GeneralViewHolde
         )
     }
 
-    override fun onBindViewHolder(holder: OurRulesAdapter.GeneralViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AddRuleViewHolder, position: Int) {
         val data = currentList[position]
         holder.onBind(data)
+    }
+
+    class AddRuleViewHolder(
+        private val hideKeyBoard: () -> Unit,
+        private val binding: ItemOurRulesGeneralRuleBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun onBind(data: OurRule) {
+            binding.data = data
+            binding.clRuleItem.setOnClickListener {
+                hideKeyBoard()
+            }
+        }
     }
 
     companion object {

@@ -47,9 +47,10 @@ class OurRuleAddFragment :
 
     private fun initEditTextClearFocus() {
         binding.clAddRule.setOnClickListener {
-            KeyBoardUtil.hide(requireActivity())
+            hideKeyBoard()
         }
     }
+    private fun hideKeyBoard() = KeyBoardUtil.hide(requireActivity())
 
     private fun collectUiState() {
         repeatOnStarted {
@@ -67,7 +68,7 @@ class OurRuleAddFragment :
     }
 
     private fun initAdapter() {
-        ourRulesAddAdapter = OurRulesAddAdapter().also { adapter ->
+        ourRulesAddAdapter = OurRulesAddAdapter(::hideKeyBoard).also { adapter ->
             binding.rvAddOurRules.run {
                 this.adapter = adapter
                 itemAnimator = null
