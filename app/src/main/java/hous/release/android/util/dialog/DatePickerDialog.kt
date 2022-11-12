@@ -10,7 +10,7 @@ import hous.release.android.databinding.DialogDatePickerBinding
 import hous.release.android.util.dialog.WarningDialogFragment.Companion.CONFIRM_ACTION
 import hous.release.android.util.extension.initLayout
 import timber.log.Timber
-import java.util.Calendar
+import java.util.*
 
 class DatePickerDialog : DialogFragment() {
     private var _binding: DialogDatePickerBinding? = null
@@ -34,19 +34,8 @@ class DatePickerDialog : DialogFragment() {
     }
 
     private fun initDatePicker() {
-        val year = arguments?.getParcelable<DatePickerClickListener>(CONFIRM_ACTION)!!.birtyYear
-        val month = arguments?.getParcelable<DatePickerClickListener>(CONFIRM_ACTION)!!.birthMonth
-        val day = arguments?.getParcelable<DatePickerClickListener>(CONFIRM_ACTION)!!.birthDay
-        Timber.e("$year, $month $day")
         with(binding.datePickerDialogDatePicker) {
             maxDate = Calendar.getInstance().timeInMillis
-            /* 구현 안 되는 부분
-            if (year == -1) {
-                Calendar.getInstance().timeInMillis
-            } else {
-                Calendar.getInstance().set(year, month, day)
-            }
-            */
         }
     }
 

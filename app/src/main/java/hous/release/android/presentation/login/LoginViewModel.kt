@@ -9,15 +9,19 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.util.extension.Event
-import hous.release.domain.repository.AuthRepository
-import javax.inject.Inject
+import hous.release.domain.usecase.GetFcmTokenUseCase
+import hous.release.domain.usecase.InitTokenUseCase
+import hous.release.domain.usecase.PostLoginUseCase
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import timber.log.Timber
+import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+    private val postLoginUseCase: PostLoginUseCase,
+    private val initTokenUseCase: InitTokenUseCase,
+    private val getFcmTokenUseCase: GetFcmTokenUseCase
 ) : ViewModel() {
     private val _kakaoToken = MutableLiveData<String>()
     val kakaoToken: LiveData<String> = _kakaoToken
@@ -92,12 +96,12 @@ class LoginViewModel @Inject constructor(
 
     fun postLogin() {
         viewModelScope.launch {
-            authRepository.postLogin(
+            postLoginUseCase(
                 fcmToken = requireNotNull(fcmToken.value),
                 socialType = "KAKAO",
                 token = requireNotNull(_kakaoToken.value)
             ).onSuccess { response ->
-                authRepository.initToken(
+                initTokenUseCase(
                     fcmToken = "hello world",
                     socialType = SOCIAL_TYPE,
                     token = _kakaoToken.value!!
@@ -113,7 +117,7 @@ class LoginViewModel @Inject constructor(
                 if (throwable is HttpException) {
                     when (throwable.code()) {
                         USER_NOT_EXIST -> {
-                            authRepository.initToken(
+                            initTokenUseCase(
                                 fcmToken = "hello world",
                                 socialType = SOCIAL_TYPE,
                                 token = _kakaoToken.value!!
@@ -132,7 +136,7 @@ class LoginViewModel @Inject constructor(
 
     private fun getFCMToken() {
         viewModelScope.launch {
-            authRepository.getFCMToken { fcmToken -> _fcmToken.value = fcmToken }
+            getFcmTokenUseCase { fcmToken -> _fcmToken.value = fcmToken }
         }
     }
 

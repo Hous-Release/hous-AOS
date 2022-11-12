@@ -43,6 +43,7 @@
             android:layout_marginTop="15dp"
             android:text="@{data.name}"
             android:textAppearance="@style/B2"
+            android:textColor="@{data.id == -1 ? @color/hous_g_4 :@color/hous_black}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="우리 집 대장은 최코코" />
@@ -50,10 +51,10 @@
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:visibility="@{data.name.empty ? View.GONE : View.VISIBLE }"
             android:layout_marginHorizontal="22dp"
             android:layout_marginTop="12dp"
             android:background="@color/hous_blue_l1"
+            android:visibility="@{data.name.empty ? View.GONE : View.VISIBLE }"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_rule_description" />

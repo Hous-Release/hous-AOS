@@ -195,7 +195,7 @@
     <string name="dialog_to_do_content">to-do는 한 번 삭제하면 복구되지 않아요.</string>
     <string name="dialog_cancel">취소하기</string>
 
-    <!--    To Do-add,edit-->
+    <!-- To Do-add,edit-->
     <string name="to_do_manager">담당자</string>
     <string name="to_do_add_title">새로운 to-do 추가</string>
     <string name="to_do_edit_title">to-do 수정</string>
@@ -305,6 +305,7 @@
     <string name="test_loading_title">결과 나오는 중</string>
     <string name="test_loading_subtitle">조금만 기다려주세요!</string>
     <string name="test_stop">그만두기</string>
+    <string name="test_index">%d/15</string>
 
     <!-- Profile Edit -->
     <string name="profile_edit_title">프로필 수정</string>
@@ -315,5 +316,29 @@
     <string name="profile_edit_hint_job">직업</string>
     <string name="profile_edit_hint_introduction">자기소개</string>
     <string name="profile_edit_hint_birthday">생년월일</string>
+
+    <!-- OutRoom -->
+    <string name="out_room_title">방 퇴사하기</string>
+    <string name="out_room_img_desc">방 퇴사하기 그래픽</string>
+    <string name="out_room_bye_title">안녕... 정든 우리 Hous-...</string>
+    <string name="out_room_bye_caution">*방을 탈퇴하면 내게만 배정된 to-do가 삭제돼요!</string>
+    <string name="room_out_bye_desc">탈퇴 전에 이 페이지를 캡쳐해서 호미들에게 공유하고,\n담당자 교체를 제안하면 어떨까요?</string>
+    <string name="out_room_to_do_prefix">총</string>
+    <string name="out_room_to_do_suffix">개</string>
+    <string name="out_room_blur_bottom_img_desc">방 퇴사하기 하단 블러</string>
+    <string name="out_room_my_to_do_circle_img_desc">방 퇴사하기 리스트 구분점</string>
+
+    <!-- Withdraw -->
+    <string name="withdraw_title">회원 탈퇴</string>
+    <string name="withdraw_question">정말 탈퇴하시겠어요?</string>
+    <string name="withdraw_img_desc">회원탈퇴 이미지</string>
+    <string name="withdraw_thanks_title">지금까지 Hous- 를 이용해주셔서 감사합니다.</string>
+    <string name="withdraw_thanks_desc">회원을 탈퇴하면 탈퇴 신청 즉시\n회원의 개인정보는 삭제되며 복구할 수 없습니다.\n\n회원님께서 불편하셨던 점이나 불만사항을\n알려주시면 적극 반영해서 고객님의 불편함을\n해결해 드리도록 노력하는 Hous-가 되겠습니다.</string>
+    <string name="withdraw_feedback_title">피드백 남기기</string>
+    <string name="withdraw_feedback_select">사유 선택하기</string>
+    <string name="withdraw_feedback_hint">의견 남기기</string>
+    <string name="withdraw_check_desc">탈퇴하겠습니다.</string>
+    <string name="withdraw_done">방 탈퇴하기</string>
+    <string name="withdraw_spinner_img_desc">피드백 스피너 이미지</string>
 
 </resources>
