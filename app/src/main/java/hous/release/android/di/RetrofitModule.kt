@@ -17,7 +17,12 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class RetrofitModule {
+object RetrofitModule {
+    private const val HEADER_AUTHORIZATION = "Authorization"
+    private const val HEADER_OS_TYPE = "HousOsType"
+    private const val HEADER_VERSION = "HousVersion"
+    private const val OS_TYPE = "AOS"
+
     @Provides
     @Singleton
     fun providesInterceptor(localPrefTokenDataSource: LocalPrefTokenDataSource): Interceptor =
@@ -26,7 +31,10 @@ class RetrofitModule {
                 proceed(
                     request()
                         .newBuilder()
-                        .addHeader(HEADER_AUTHORIZATION, localPrefTokenDataSource.accessToken)
+                        .addHeader(
+                            HEADER_AUTHORIZATION,
+                            localPrefTokenDataSource.accessToken
+                        )
                         .addHeader(HEADER_OS_TYPE, OS_TYPE)
                         .addHeader(HEADER_VERSION, BuildConfig.VERSION_NAME)
                         .build()
@@ -59,11 +67,4 @@ class RetrofitModule {
                 )
             )
             .build()
-
-    companion object {
-        const val HEADER_AUTHORIZATION = "Authorization"
-        const val HEADER_OS_TYPE = "HousOsType"
-        const val HEADER_VERSION = "HousVersion"
-        const val OS_TYPE = "AOS"
-    }
 }
