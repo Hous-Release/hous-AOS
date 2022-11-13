@@ -106,6 +106,9 @@ class LoginViewModel @Inject constructor(
                     socialType = SOCIAL_TYPE,
                     token = _kakaoToken.value!!
                 )
+                initTokenUseCase(
+                    token = response.token
+                )
                 if (response.isJoiningRoom) {
                     _isJoiningRoom.value = true
                     Timber.e("로그인 성공 / 방 있음")

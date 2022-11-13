@@ -20,7 +20,7 @@ interface AuthRepository {
 
     fun initHousToken(token: Token)
 
-    suspend fun initToken(fcmToken: String, socialType: String, token: String)
+    fun initToken(fcmToken: String, socialType: String, token: String)
 
     suspend fun initSkipTutorial(skipTutorial: Boolean)
 

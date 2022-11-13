@@ -48,11 +48,11 @@ class AuthRepositoryImpl @Inject constructor(
         }.map { response -> response.data.toSignUp() }
 
     override fun initHousToken(token: Token) {
-        localPrefTokenDataSource.accessToken = token.accessToken
-        localPrefTokenDataSource.refreshToken = token.refreshToken
+        localPrefTokenDataSource.accessToken = "Bearer ${token.accessToken}"
+        localPrefTokenDataSource.refreshToken = "Bearer ${token.refreshToken}"
     }
 
-    override suspend fun initToken(
+    override fun initToken(
         fcmToken: String,
         socialType: String,
         token: String
