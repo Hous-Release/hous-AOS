@@ -9,7 +9,6 @@ import hous.release.domain.usecase.GetOurMainRulesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -25,13 +24,6 @@ class OurRulesViewModel @Inject constructor(
     fun getOurRulesInfo() {
         viewModelScope.launch {
             ourMainRulesUseCase()
-                .catch {
-                    if (it is IndexOutOfBoundsException) {
-                        Timber.e(it.message)
-                        _uiState.value = OurRulesUiState().copy()
-                    }
-                    return@catch
-                }
                 .collect { apiResult ->
                     when (apiResult) {
                         is ApiResult.Success -> {
