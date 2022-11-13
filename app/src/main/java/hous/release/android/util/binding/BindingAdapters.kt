@@ -79,7 +79,7 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter("visibility")
+    @BindingAdapter("android:visibility")
     fun TextView.visibility(text: String?) {
         visibility = if (text.isNullOrEmpty()) {
             View.GONE

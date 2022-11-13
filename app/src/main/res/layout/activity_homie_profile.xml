@@ -120,7 +120,6 @@
 
                 <TextView
                     android:id="@+id/tv_homie_profile_mbti"
-                    visibility="@{vm.homieProfileData.mbti}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -130,6 +129,7 @@
                     android:text="@{vm.homieProfileData.mbti}"
                     android:textAppearance="@style/En2"
                     android:textColor="@color/hous_g_6"
+                    android:visibility="@{vm.homieProfileData.mbti}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_homie_profile_age"
                     app:layout_constraintStart_toEndOf="@id/tv_homie_profile_birthday"
                     app:layout_constraintTop_toTopOf="@id/tv_homie_profile_age"
@@ -137,7 +137,6 @@
 
                 <TextView
                     android:id="@+id/tv_homie_profile_job"
-                    visibility="@{vm.homieProfileData.job}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -147,6 +146,7 @@
                     android:text="@{vm.homieProfileData.job}"
                     android:textAppearance="@style/Description"
                     android:textColor="@color/hous_g_6"
+                    android:visibility="@{vm.homieProfileData.job}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_homie_profile_age"
                     app:layout_constraintStart_toEndOf="@id/tv_homie_profile_mbti"
                     app:layout_constraintTop_toTopOf="@id/tv_homie_profile_age"
@@ -168,10 +168,10 @@
                 <ImageView
                     android:id="@+id/iv_homie_profile_representation_image"
                     setImage="@{vm.homieProfileData.representBadgeImage}"
-                    android:visibility="@{vm.homieProfileData.representBadgeImage==null ? View.INVISIBLE : View.VISIBLE}"
                     android:layout_width="52dp"
                     android:layout_height="52dp"
                     android:layout_marginEnd="25dp"
+                    android:visibility="@{vm.homieProfileData.representBadgeImage==null ? View.INVISIBLE : View.VISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_homie_profile_job"
                     tools:layout_height="52dp"
@@ -180,11 +180,11 @@
 
                 <ImageView
                     android:id="@+id/iv_homie_profile_representation_image_empty"
-                    android:visibility="@{vm.homieProfileData.representBadgeImage==null ? View.VISIBLE : View.INVISIBLE}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="25dp"
                     android:src="@drawable/shape_g3_fill_52_circle"
+                    android:visibility="@{vm.homieProfileData.representBadgeImage==null ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_homie_profile_job" />
 
@@ -206,9 +206,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="48dp"
                     android:background="@color/hous_g_0"
-                    app:layout_constraintTop_toBottomOf="@id/tv_homie_profile_introduction" />
+                    app:layout_constraintTop_toBottomOf="@id/iv_homie_profile_representation_image_empty" />
 
                 <FrameLayout
                     android:id="@+id/fl_homie_profile_personality"
