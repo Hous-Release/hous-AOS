@@ -22,8 +22,13 @@ class WithdrawActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.vm = viewModel
+        initBackBtnClickListener()
         initIsSuccessWithdrawCollector()
         initWithdrawFeedbackSpinner()
+    }
+
+    private fun initBackBtnClickListener() {
+        binding.btnWithdrawBack.setOnClickListener { finish() }
     }
 
     private fun initIsSuccessWithdrawCollector() {

@@ -20,9 +20,14 @@ class OutRoomActivity : BindingActivity<ActivityOutRoomBinding>(R.layout.activit
         super.onCreate(savedInstanceState)
         binding.vm = viewModel
         viewModel.getSettingsMyToDo()
+        initBackBtnClickListener()
         initMyToDoAdapter()
         initMyToDoCollector()
         initIsSuccessDeleteRoomCollector()
+    }
+
+    private fun initBackBtnClickListener() {
+        binding.btnOutRoomBack.setOnClickListener { finish() }
     }
 
     private fun initMyToDoAdapter() {
