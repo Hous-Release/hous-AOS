@@ -25,6 +25,15 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent">
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_profile"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="profile_red_no.json"
+                app:lottie_loop="true" />
+
             <ImageButton
                 android:id="@+id/btn_profile_setting"
                 android:layout_width="wrap_content"
@@ -255,6 +264,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:textAppearance="@style/H2"
+                            personalityResultColor="@{vm.profileData.personalityColor.name()}"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:text="@string/personality_red"
