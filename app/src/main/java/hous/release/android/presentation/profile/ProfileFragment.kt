@@ -21,9 +21,7 @@ import hous.release.android.presentation.settings.SettingsActivity
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.component.HousPersonalityPentagon
 import hous.release.android.util.style.HousTheme
-import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.PersonalityInfo
-import hous.release.domain.entity.ProfileSet
 
 @AndroidEntryPoint
 class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
@@ -82,6 +80,10 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
 
     private fun initBadgeOnClickListener() {
         binding.ivProfileBadge.setOnClickListener {
+            startActivity(Intent(requireContext(), BadgeActivity::class.java))
+        }
+
+        binding.tvProfileBadgeEmpty.setOnClickListener {
             startActivity(Intent(requireContext(), BadgeActivity::class.java))
         }
     }
