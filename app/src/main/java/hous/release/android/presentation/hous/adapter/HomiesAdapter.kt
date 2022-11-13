@@ -9,16 +9,23 @@ import hous.release.android.databinding.ItemHousHomiesBinding
 import hous.release.android.util.ItemDiffCallback
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.Homy
+import timber.log.Timber
 
-class HomiesAdapter : ListAdapter<Homy, HomiesAdapter.HomiesViewHolder>(homyDiffUtil) {
+class HomiesAdapter(
+    private val onClickHomie: (Homy) -> Unit
+) : ListAdapter<Homy, HomiesAdapter.HomiesViewHolder>(homyDiffUtil) {
     class HomiesViewHolder(
-        private val binding: ItemHousHomiesBinding
+        private val binding: ItemHousHomiesBinding,
+        private val onClickHomie: (Homy) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(homy: Homy) {
             binding.homy = homy
             binding.executePendingBindings()
             initHomyProfileImg(HomyType.valueOf(homy.color))
-            // TODO 추후 Homie 상세보기 화면 이동 호출 필요
+            binding.clHousProfile.setOnClickListener {
+                onClickHomie(homy)
+                Timber.e("${homy.homieId}")
+            }
         }
 
         private fun initHomyProfileImg(color: HomyType) {
@@ -41,7 +48,8 @@ class HomiesAdapter : ListAdapter<Homy, HomiesAdapter.HomiesViewHolder>(homyDiff
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            onClickHomie
         )
 
     override fun onBindViewHolder(holder: HomiesViewHolder, position: Int) {

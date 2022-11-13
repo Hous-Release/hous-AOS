@@ -31,4 +31,9 @@ class ProfileRepositoryImpl @Inject constructor(
                 nickname
             )
         }.map { response -> response.success }
+
+    override suspend fun getHomieProfile(homieId: Int): Result<Profile> =
+        kotlin.runCatching {
+            profileDataSource.getHomieProfile(homieId)
+        }.map { response -> response.data.toProfile() }
 }

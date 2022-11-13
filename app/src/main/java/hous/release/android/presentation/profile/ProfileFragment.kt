@@ -204,7 +204,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
     }
 
     companion object {
-        private val personalityInfo = listOf(
+        val personalityInfo = listOf(
             PersonalityInfo(R.string.personality_light, R.string.personality_light_description),
             PersonalityInfo(R.string.personality_noise, R.string.personality_noise_description),
             PersonalityInfo(R.string.personality_smell, R.string.personality_smell_description),

@@ -13,4 +13,6 @@ interface ProfileRepository {
         mbti: String?,
         nickname: String
     ): Result<Boolean>
+
+    suspend fun getHomieProfile(homieId: Int): Result<Profile>
 }

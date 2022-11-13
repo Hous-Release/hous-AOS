@@ -70,7 +70,7 @@
             android:id="@+id/tv_user_input_birthday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="99dp"
+            android:layout_marginTop="40dp"
             android:text="@string/user_input_birthday"
             android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
