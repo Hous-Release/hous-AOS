@@ -182,7 +182,6 @@
 
                 <TextView
                     android:id="@+id/tv_profile_mbti"
-                    visibility="@{vm.profileData.mbti}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -192,6 +191,7 @@
                     android:text="@{vm.profileData.mbti}"
                     android:textAppearance="@style/En2"
                     android:textColor="@color/hous_g_6"
+                    android:visibility="@{vm.profileData.mbti}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_age"
                     app:layout_constraintStart_toEndOf="@id/tv_profile_birthday"
                     app:layout_constraintTop_toTopOf="@id/tv_profile_age"
@@ -199,7 +199,6 @@
 
                 <TextView
                     android:id="@+id/tv_profile_job"
-                    visibility="@{vm.profileData.job}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -209,6 +208,7 @@
                     android:text="@{vm.profileData.job}"
                     android:textAppearance="@style/Description"
                     android:textColor="@color/hous_g_6"
+                    android:visibility="@{vm.profileData.job}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_age"
                     app:layout_constraintStart_toEndOf="@id/tv_profile_mbti"
                     app:layout_constraintTop_toTopOf="@id/tv_profile_age"

@@ -7,6 +7,7 @@ import hous.release.data.entity.response.ProfileResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface ProfileService {
     @GET("/v1/user")
@@ -14,4 +15,7 @@ interface ProfileService {
 
     @PUT("/v1/user")
     suspend fun putProfile(@Body body: ProfileEditRequest): NoDataResponse
+
+    @GET("/v1/user/{homieId}")
+    suspend fun getHomieProfile(@Path("homieId") homieId: Int): BaseResponse<ProfileResponse>
 }
