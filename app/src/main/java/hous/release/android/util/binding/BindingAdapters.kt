@@ -167,6 +167,7 @@ object BindingAdapters {
                     setAnimation("profile_gray.json")
                 }
             }
+            playAnimation()
         }
     }
 
