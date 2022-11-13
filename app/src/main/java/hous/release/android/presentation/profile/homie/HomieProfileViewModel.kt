@@ -20,18 +20,14 @@ class HomieProfileViewModel @Inject constructor(
 
     private val homieId = MutableLiveData<Int>()
 
-    fun getHomieProfile() {
+    fun getHomieProfile(homieId: Int) {
         viewModelScope.launch {
-            getHomieProfileUseCase(homieId.value!!)
+            getHomieProfileUseCase(homieId)
                 .onSuccess { response ->
                     _homieProfileData.value = response
                 }.onFailure { response ->
                     Timber.e(response.message)
                 }
         }
-    }
-
-    fun initHomieId(homieIdFromHous: Int) {
-        homieId.value = homieIdFromHous
     }
 }

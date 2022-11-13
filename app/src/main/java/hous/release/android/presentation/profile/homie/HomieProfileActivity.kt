@@ -33,8 +33,7 @@ class HomieProfileActivity :
     }
 
     private fun initHomieProfile() {
-        homieProfileViewModel.initHomieId(intent.getIntExtra(HOMIE_ID, DEFAULT))
-        homieProfileViewModel.getHomieProfile()
+        homieProfileViewModel.getHomieProfile(intent.getIntExtra(HOMIE_ID, DEFAULT))
     }
 
     private fun initBackBtnOnClickListener() {
