@@ -27,11 +27,15 @@
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottie_profile"
-                android:layout_width="match_parent"
+                badge="@{vm.profileData.representBadgeImage}"
+                lottie_background="@{vm.profileData.personalityColor.name()}"
+                lottie_color="@{vm.profileData.personalityColor.name()}"
+                android:layout_width="0dp"
                 android:layout_height="230dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
-                app:lottie_fileName="profile_red_no.json"
                 app:lottie_loop="true" />
 
             <ImageButton
@@ -72,14 +76,18 @@
                 app:layout_constraintTop_toBottomOf="@id/btn_profile_notification"
                 tools:src="@drawable/shape_white_fill_100_circle" />
 
-            <ImageView
-                android:id="@+id/iv_profile_badge_empty"
+            <TextView
+                android:id="@+id/tv_profile_badge_empty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="43dp"
+                android:background="@drawable/shape_white_fill_100_circle"
                 android:elevation="10dp"
-                android:src="@drawable/shape_white_fill_100_circle"
+                android:gravity="center"
+                android:text="@string/profile_empty_badge"
+                android:textAppearance="@style/Description"
+                android:textColor="@color/hous_g_9"
                 android:visibility="@{vm.profileData.representBadgeImage==null ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_profile_notification" />
@@ -260,11 +268,12 @@
 
                         <TextView
                             android:id="@+id/tv_profile_personality"
+                            personalityResultColor="@{vm.profileData.personalityColor.name()}"
+                            personalityTitle="@{vm.profileData.personalityColor.name()}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:textAppearance="@style/H2"
-                            personalityResultColor="@{vm.profileData.personalityColor.name()}"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:text="@string/personality_red"
