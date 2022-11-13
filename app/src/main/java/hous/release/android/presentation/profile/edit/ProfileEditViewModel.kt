@@ -31,7 +31,7 @@ class ProfileEditViewModel @Inject constructor(
 
     fun onClickSave() {
         viewModelScope.launch {
-            putProfileEditUseCase.invoke(
+            putProfileEditUseCase(
                 birthday = requireNotNull(birthday.value!!.replace("/", "-")),
                 introduction = introduction.value,
                 isPublic = requireNotNull(isBirthdayPublic.value),

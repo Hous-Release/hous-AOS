@@ -22,7 +22,7 @@ class HomieProfileViewModel @Inject constructor(
 
     fun getHomieProfile() {
         viewModelScope.launch {
-            getHomieProfileUseCase.invoke(homieId.value!!)
+            getHomieProfileUseCase(homieId.value!!)
                 .onSuccess { response ->
                     _homieProfileData.value = response
                 }.onFailure { response ->
