@@ -84,7 +84,7 @@ class LoginViewModel @Inject constructor(
                 }
             }
         } else if (token != null) {
-            Timber.d("카카오 로그인 성공 ${token.accessToken}")
+            Timber.e("카카오 로그인 성공 ${token.accessToken}")
             _kakaoToken.value = token.accessToken
             _isSuccessKakaoLogin.value = Event(true)
         }
@@ -143,6 +143,7 @@ class LoginViewModel @Inject constructor(
     companion object {
         private const val SOCIAL_TYPE = "KAKAO"
 
+        // private const val ALREADY_LOGIN = 409
         // private const val INVALID_TOKEN = 401
         private const val USER_NOT_EXIST = 404
     }
