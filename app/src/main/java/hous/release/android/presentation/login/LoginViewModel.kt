@@ -10,6 +10,7 @@ import com.kakao.sdk.common.model.AuthErrorCause
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.util.extension.Event
 import hous.release.domain.usecase.GetFcmTokenUseCase
+import hous.release.domain.usecase.InitHousTokenUseCase
 import hous.release.domain.usecase.InitTokenUseCase
 import hous.release.domain.usecase.PostLoginUseCase
 import kotlinx.coroutines.launch
@@ -21,6 +22,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val postLoginUseCase: PostLoginUseCase,
     private val initTokenUseCase: InitTokenUseCase,
+    private val initHousTokenUseCase: InitHousTokenUseCase,
     private val getFcmTokenUseCase: GetFcmTokenUseCase
 ) : ViewModel() {
     private val _kakaoToken = MutableLiveData<String>()
@@ -106,7 +108,7 @@ class LoginViewModel @Inject constructor(
                     socialType = SOCIAL_TYPE,
                     token = _kakaoToken.value!!
                 )
-                initTokenUseCase(
+                initHousTokenUseCase(
                     token = response.token
                 )
                 if (response.isJoiningRoom) {
