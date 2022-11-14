@@ -26,4 +26,7 @@ interface AuthService {
     suspend fun deleteUser(
         @Body body: DeleteUserRequest
     ): NoDataResponse
+
+    @POST("/v1/auth/logout")
+    suspend fun postLogout(): NoDataResponse
 }
