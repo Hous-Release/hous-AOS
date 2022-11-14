@@ -330,6 +330,7 @@
     <string name="out_room_to_do_suffix">개</string>
     <string name="out_room_blur_bottom_img_desc">방 퇴사하기 하단 블러</string>
     <string name="out_room_my_to_do_circle_img_desc">방 퇴사하기 리스트 구분점</string>
+    <string name="out_room_toast">퇴사되었습니다.</string>
 
     <!-- Withdraw -->
     <string name="withdraw_title">회원 탈퇴</string>
@@ -344,5 +345,6 @@
     <string name="withdraw_check_desc">탈퇴하겠습니다.</string>
     <string name="withdraw_done">방 탈퇴하기</string>
     <string name="withdraw_spinner_img_desc">피드백 스피너 이미지</string>
+    <string name="withdraw_toast">탈퇴되었습니다.</string>
 
 </resources>

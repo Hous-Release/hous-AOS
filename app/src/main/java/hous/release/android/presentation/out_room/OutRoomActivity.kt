@@ -10,6 +10,7 @@ import hous.release.android.presentation.enter_room.EnterRoomActivity
 import hous.release.android.presentation.out_room.adapter.MyToDoAdapter
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.extension.repeatOnStarted
+import hous.release.android.util.showToast
 
 @AndroidEntryPoint
 class OutRoomActivity : BindingActivity<ActivityOutRoomBinding>(R.layout.activity_out_room) {
@@ -46,6 +47,7 @@ class OutRoomActivity : BindingActivity<ActivityOutRoomBinding>(R.layout.activit
         repeatOnStarted {
             viewModel.isSuccessDeleteRoom.collect { isSuccess ->
                 if (isSuccess) {
+                    showToast(getString(R.string.out_room_toast))
                     startActivity(
                         Intent(this, EnterRoomActivity::class.java).apply {
                             addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
