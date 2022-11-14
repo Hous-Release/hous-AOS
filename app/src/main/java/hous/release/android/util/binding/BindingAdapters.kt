@@ -6,10 +6,12 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import hous.release.android.R
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.NotificationType
+import java.util.*
 
 object BindingAdapters {
     @JvmStatic
@@ -117,6 +119,30 @@ object BindingAdapters {
                     HomyType.BLUE -> R.string.personality_blue
                     HomyType.PURPLE -> R.string.personality_purple
                     HomyType.GRAY -> -1
+                }
+            )
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("isLottieForDayOfWeek")
+    fun LottieAnimationView.setLottieForDayOfWeek(isLottieForDayOfWeek: Boolean) {
+        this.clipToOutline = true
+        if (isLottieForDayOfWeek) {
+            val calendar: Calendar = Calendar.getInstance()
+            calendar.time = Date()
+            val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+            this.setAnimation(
+                // TODO : 토요일, 일요일 로티 나오면 수정해야함
+                when (dayOfWeek) {
+                    Calendar.MONDAY -> "welcome_yellow_monday.json"
+                    Calendar.TUESDAY -> "welcome_red_tuesday.json"
+                    Calendar.WEDNESDAY -> "welcome_blue_wednesday.json"
+                    Calendar.THURSDAY -> "welcome_purple_thursday.json"
+                    Calendar.FRIDAY -> "welcome_green_friday.json"
+                    Calendar.SATURDAY -> "welcome_yellow_monday.json"
+                    Calendar.SUNDAY -> "welcome_yellow_monday.json"
+                    else -> "welcome_yellow_monday.json"
                 }
             )
         }
