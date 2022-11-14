@@ -87,6 +87,9 @@
     <string name="date_picker_confirm">확인</string>
     <string name="date_picker_cancel">취소</string>
 
+    <!-- Login -->
+    <string name="login_toast">로그인 되었습니다.</string>
+
     <!-- OurRules -->
     <string name="our_house_rules">우리 집 Rules</string>
     <string name="our_house_representative_rules_empty">아직 우리 집 Rules가 없어요!</string>
@@ -276,6 +279,7 @@
     <string name="settings_feedback_content">\n\n\nDevice : %s\nOS Version : Android %s\nApp Version : %s\n-------------------------\n\n\n\n호미나라에 자유로운 피드백을 보내주세요!\n-------------------------</string>
     <string name="settings_feedback_empty_string"> </string>
     <string name="settings_info_link">https://sugared-lemming-812.notion.site/6d9d478df40b4a20811e0020c15af3bc</string>
+    <string name="settings_logout_toast">로그아웃 되었습니다.</string>
 
     <!-- Notification Settings -->
     <string name="noti_settings_title">알림</string>
@@ -296,6 +300,7 @@
     <string name="noti_settings_remind_todos_on_all">모든 미완료 to-do 알림 받기</string>
     <string name="noti_settings_badge">배지 알림</string>
     <string name="noti_settings_badge_desc">우리 집에서 새로 받은 배지를 알려줘요!</string>
+
     <!-- Personality Test Result -->
     <string name="personality_result_detail">성향 자세히 보기</string>
     <string name="personality_result_info">성향 설명</string>
