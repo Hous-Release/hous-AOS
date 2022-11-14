@@ -8,5 +8,5 @@ class PutEditOurRulesUseCase @Inject constructor(
     private val repository: OurRulesRepository
 ) {
     operator fun invoke(editedRules: List<OurRule>) =
-        repository.putEditedRuleContent(editedRules.map { ourRule -> ourRule.id })
+        repository.putEditedRuleContent(editedRules)
 }

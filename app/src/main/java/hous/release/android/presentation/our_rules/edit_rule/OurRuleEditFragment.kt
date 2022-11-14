@@ -48,9 +48,11 @@ class OurRuleEditFragment :
 
     private fun initEditTextClearFocus() {
         binding.clEditRule.setOnClickListener {
-            KeyBoardUtil.hide(requireActivity())
+            hideKeyBoard()
         }
     }
+
+    private fun hideKeyBoard() = KeyBoardUtil.hide(requireActivity())
 
     private fun initBackBtnClickListener() {
         binding.ivEditRuleBackButton.setOnClickListener {
@@ -88,23 +90,28 @@ class OurRuleEditFragment :
 
     private fun initAdapter() {
         val itemTouchHelper: ItemTouchHelper
-        ourRulesEditAdapter = OurRulesEditAdapter(viewModel::updateEditRuleList)
-            .also { adapter ->
-                binding.rvEditOurRules.run {
-                    this.adapter = adapter
-                    itemAnimator = null
-                }
-            }.also { adapter ->
-                itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter)).apply {
-                    attachToRecyclerView(binding.rvEditOurRules)
-                }
-            }.also { adapter ->
-                adapter.startDrag(object : OurRulesEditAdapter.OnStartDragListener {
-                    override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
-                        itemTouchHelper.startDrag(viewHolder)
+        ourRulesEditAdapter =
+            OurRulesEditAdapter(
+                viewModel::updateEditRuleList,
+                viewModel::editRuleName,
+                ::hideKeyBoard
+            )
+                .also { adapter ->
+                    binding.rvEditOurRules.run {
+                        this.adapter = adapter
+                        itemAnimator = null
                     }
-                })
-            }
+                }.also { adapter ->
+                    itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter)).apply {
+                        attachToRecyclerView(binding.rvEditOurRules)
+                    }
+                }.also { adapter ->
+                    adapter.startDrag(object : OurRulesEditAdapter.OnStartDragListener {
+                        override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
+                            itemTouchHelper.startDrag(viewHolder)
+                        }
+                    })
+                }
     }
 
     private fun collectUiState() {

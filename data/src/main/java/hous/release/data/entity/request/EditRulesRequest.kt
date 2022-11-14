@@ -1,8 +1,7 @@
 package hous.release.data.entity.request
 
-import com.google.gson.annotations.SerializedName
+import hous.release.data.entity.response.OurRuleResponse
 
 data class EditRulesRequest(
-    @SerializedName("rulesIdList")
-    val rulesIdList: List<Int> = emptyList()
+    val rules: List<OurRuleResponse> = emptyList()
 )
