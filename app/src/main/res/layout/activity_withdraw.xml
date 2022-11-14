@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="hous.release.android.presentation.withdraw.WithdrawViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,48 +15,51 @@
         android:layout_height="match_parent"
         tools:context=".presentation.withdraw.WithdrawActivity">
 
+
+        <ImageButton
+            android:id="@+id/btn_withdraw_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:background="@null"
+            android:contentDescription="@string/back_btn_image_desc"
+            android:padding="8dp"
+            android:src="@drawable/ic_back_g4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_withdraw_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/withdraw_title"
+            android:textAppearance="@style/B1"
+            android:textColor="@color/hous_black"
+            app:layout_constraintBottom_toBottomOf="@id/btn_withdraw_back"
+            app:layout_constraintStart_toEndOf="@id/btn_withdraw_back"
+            app:layout_constraintTop_toTopOf="@id/btn_withdraw_back" />
+
+        <View
+            android:id="@+id/view_withdraw_top"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/hous_g_line"
+            app:layout_constraintTop_toBottomOf="@id/btn_withdraw_back" />
+
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_withdraw_top">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_withdraw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="164dp"
+                android:paddingBottom="20dp"
                 app:layout_constraintTop_toTopOf="parent">
-
-                <ImageButton
-                    android:id="@+id/btn_withdraw_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@null"
-                    android:contentDescription="@string/back_btn_image_desc"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_back_g4"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_withdraw_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/withdraw_title"
-                    android:textAppearance="@style/B1"
-                    android:textColor="@color/hous_black"
-                    app:layout_constraintBottom_toBottomOf="@id/btn_withdraw_back"
-                    app:layout_constraintStart_toEndOf="@id/btn_withdraw_back"
-                    app:layout_constraintTop_toTopOf="@id/btn_withdraw_back" />
-
-                <View
-                    android:id="@+id/view_withdraw_top"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@color/hous_g_line"
-                    app:layout_constraintTop_toBottomOf="@id/btn_withdraw_back" />
 
                 <TextView
                     android:id="@+id/tv_withdraw_question"
@@ -67,7 +73,7 @@
                     android:textColor="@color/hous_black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_withdraw_top" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/iv_withdraw"
@@ -132,46 +138,32 @@
 
                 <Spinner
                     android:id="@+id/spinner_withdraw_feedback_select"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="18dp"
-                    android:background="@drawable/shape_g_1_fill_8_rect"
-                    android:paddingVertical="8dp"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="8dp"
-                    android:text="@string/withdraw_feedback_select"
-                    android:textAppearance="@style/B2"
-                    android:textColor="@color/hous_g_4"
+                    android:background="@drawable/selector_withdraw_spinner"
+                    android:spinnerMode="dropdown"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_withdraw_feedback_title" />
 
-                <ImageView
-                    android:id="@+id/iv_withdraw_feedback_spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:background="@null"
-                    android:contentDescription="@string/withdraw_spinner_img_desc"
-                    android:src="@drawable/ic_withdraw_feedback_down"
-                    app:layout_constraintBottom_toBottomOf="@id/spinner_withdraw_feedback_select"
-                    app:layout_constraintEnd_toEndOf="@id/spinner_withdraw_feedback_select"
-                    app:layout_constraintTop_toTopOf="@id/spinner_withdraw_feedback_select" />
-
                 <EditText
-                    android:id="@+id/et_withdraw_feedback"
+                    android:id="@+id/et_withdraw_comment"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="18dp"
                     android:layout_marginTop="16dp"
                     android:background="@null"
                     android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                    android:hint="@string/withdraw_feedback_hint"
+                    android:hint="@string/withdraw_comment_hint"
                     android:importantForAutofill="no"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:letterSpacing="-0.02"
                     android:lineSpacingExtra="7dp"
+                    android:maxLength="200"
+                    android:paddingBottom="6dp"
+                    android:text="@={vm.comment}"
                     android:textColor="@color/hous_black"
                     android:textColorHint="@color/hous_g_5"
                     android:textSize="14dp"
@@ -184,68 +176,71 @@
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="-2dp"
                     android:background="@color/hous_blue"
-                    app:layout_constraintTop_toBottomOf="@id/et_withdraw_feedback" />
+                    app:layout_constraintTop_toBottomOf="@id/et_withdraw_comment" />
 
                 <TextView
                     android:id="@+id/tv_withdraw_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="0/200"
+                    android:text="@{@string/withdraw_comment_count(vm.comment.length)}"
                     android:textAppearance="@style/En2"
                     android:textColor="@color/hous_g_5"
                     app:layout_constraintEnd_toEndOf="@id/view_withdraw_feedback"
                     app:layout_constraintTop_toBottomOf="@id/view_withdraw_feedback" />
 
+
+                <CheckBox
+                    android:id="@+id/cb_withdraw"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="68dp"
+                    android:background="@drawable/selector_withdraw_check"
+                    android:button="@null"
+                    android:checked="@={vm.isCheckedWithdraw}"
+                    app:layout_constraintEnd_toStartOf="@id/tv_withdraw_check"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_withdraw_feedback" />
+
+                <TextView
+                    android:id="@+id/tv_withdraw_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/withdraw_check_desc"
+                    android:textAppearance="@style/Description"
+                    android:textColor="@color/hous_g_5"
+                    app:layout_constraintBottom_toBottomOf="@id/cb_withdraw"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/cb_withdraw"
+                    app:layout_constraintTop_toTopOf="@id/cb_withdraw" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_withdraw_done"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="18dp"
+                    android:backgroundTint="@{vm.isCheckedWithdraw ? @color/hous_red : @color/hous_g_4}"
+                    android:clickable="@{vm.isCheckedWithdraw ? true : false}"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minHeight="0dp"
+                    android:onClick="@{()->vm.deleteUser()}"
+                    android:paddingVertical="10dp"
+                    android:stateListAnimator="@null"
+                    android:text="@string/withdraw_done"
+                    android:textAppearance="@style/B1"
+                    android:textColor="@color/hous_white"
+                    app:cornerRadius="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/cb_withdraw" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
-
-        <CheckBox
-            android:id="@+id/cb_withdraw"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginBottom="18dp"
-            android:background="@drawable/selector_withdraw_check"
-            android:button="@null"
-            android:checked="true"
-            app:layout_constraintBottom_toTopOf="@id/btn_withdraw_done"
-            app:layout_constraintEnd_toStartOf="@id/tv_withdraw_check"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_withdraw_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/withdraw_check_desc"
-            android:textAppearance="@style/Description"
-            android:textColor="@color/hous_g_5"
-            app:layout_constraintBottom_toBottomOf="@id/cb_withdraw"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cb_withdraw"
-            app:layout_constraintTop_toTopOf="@id/cb_withdraw" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_withdraw_done"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/hous_red"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:minHeight="0dp"
-            android:paddingVertical="10dp"
-            android:stateListAnimator="@null"
-            android:text="@string/withdraw_done"
-            android:textAppearance="@style/B1"
-            android:textColor="@color/hous_white"
-            app:cornerRadius="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

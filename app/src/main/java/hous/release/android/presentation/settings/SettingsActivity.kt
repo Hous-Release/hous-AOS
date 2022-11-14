@@ -7,6 +7,8 @@ import android.os.Bundle
 import hous.release.android.BuildConfig
 import hous.release.android.R
 import hous.release.android.databinding.ActivitySettingsBinding
+import hous.release.android.presentation.out_room.OutRoomActivity
+import hous.release.android.presentation.withdraw.WithdrawActivity
 import hous.release.android.util.binding.BindingActivity
 
 class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activity_settings) {
@@ -17,6 +19,8 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
         initNotiSettingClickListener()
         initInfoClickListener()
         initFeedbackClickListener()
+        initOutRoomClickListener()
+        initWithdrawClickListener()
     }
 
     private fun initSettingsMode() {
@@ -62,6 +66,18 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
                     )
                 }
             )
+        }
+    }
+
+    private fun initOutRoomClickListener() {
+        binding.tvSettingsRoomOut.setOnClickListener {
+            startActivity(Intent(this, OutRoomActivity::class.java))
+        }
+    }
+
+    private fun initWithdrawClickListener() {
+        binding.tvSettingsWithdraw.setOnClickListener {
+            startActivity(Intent(this, WithdrawActivity::class.java))
         }
     }
 

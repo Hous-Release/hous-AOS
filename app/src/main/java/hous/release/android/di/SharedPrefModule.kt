@@ -13,7 +13,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class SharedPrefModule {
+object SharedPrefModule {
     @Provides
     @Singleton
     fun providesLocalPreferences(@ApplicationContext context: Context): SharedPreferences =
