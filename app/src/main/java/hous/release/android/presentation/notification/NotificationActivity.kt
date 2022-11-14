@@ -21,6 +21,7 @@ class NotificationActivity :
         initBackBtnClickListener()
         initNotificationAdapter()
         collectNotificationList()
+        initEmptyView()
     }
 
     private fun initBackBtnClickListener() {
@@ -37,6 +38,16 @@ class NotificationActivity :
         repeatOnStarted {
             viewModel.getNotification().collectLatest { notification ->
                 notificationAdapter.submitData(notification)
+            }
+        }
+    }
+
+    private fun initEmptyView() {
+        repeatOnStarted {
+            notificationAdapter.loadStateFlow.collectLatest {
+                viewModel.initEmptyNotification(
+                    notificationAdapter.itemCount == 0
+                )
             }
         }
     }

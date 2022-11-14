@@ -10,7 +10,7 @@ import hous.release.android.databinding.FragmentEnterRoomCodeBinding
 import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
-import kotlinx.coroutines.flow.filter
+import hous.release.android.util.showToast
 
 @AndroidEntryPoint
 class EnterRoomCodeFragment :
@@ -23,6 +23,7 @@ class EnterRoomCodeFragment :
         initEditTextClearFocus()
         initBackBtnClickListener()
         initIsSuccessGetRoomCollector()
+        initIsFullCapacityCollector()
     }
 
     override fun onDestroyView() {
@@ -42,9 +43,19 @@ class EnterRoomCodeFragment :
 
     private fun initIsSuccessGetRoomCollector() {
         repeatOnStarted {
-            viewModel.isSuccessGetRoom.filter { isSuccess -> isSuccess }.collect {
-                if (viewModel.roomInfo.value.roomId != null && viewModel.roomInfo.value.roomId != -1) {
+            viewModel.isSuccessGetRoom.collect { isSuccess ->
+                if (isSuccess && viewModel.roomInfo.value.roomId != null && viewModel.roomInfo.value.roomId != -1) {
                     EnterRoomCodeDialogFragment().show(childFragmentManager, this.javaClass.name)
+                }
+            }
+        }
+    }
+
+    private fun initIsFullCapacityCollector() {
+        repeatOnStarted {
+            viewModel.isFullCapacity.collect { isFull ->
+                if (isFull) {
+                    requireContext().showToast(getString(R.string.enter_room_code_full_capacity))
                 }
             }
         }
