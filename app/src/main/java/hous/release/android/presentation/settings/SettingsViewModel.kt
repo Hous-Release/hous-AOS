@@ -18,6 +18,9 @@ class SettingsViewModel @Inject constructor(
     private val _isSuccessLogout = MutableSharedFlow<Boolean>()
     val isSuccessLogout: SharedFlow<Boolean> = _isSuccessLogout.asSharedFlow()
 
+    private val _isAllowedLogout = MutableSharedFlow<Boolean>()
+    val isAllowedLogout: SharedFlow<Boolean> = _isAllowedLogout.asSharedFlow()
+
     fun postLogout() {
         viewModelScope.launch {
             authRepository.postLogout()
@@ -27,5 +30,9 @@ class SettingsViewModel @Inject constructor(
                 }
                 .onFailure { Timber.d(it.message.toString()) }
         }
+    }
+
+    fun initIsAllowedLogout(isAllowed: Boolean) {
+        viewModelScope.launch { _isAllowedLogout.emit(true) }
     }
 }

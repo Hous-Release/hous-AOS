@@ -13,6 +13,9 @@ import hous.release.android.presentation.login.LoginActivity
 import hous.release.android.presentation.out_room.OutRoomActivity
 import hous.release.android.presentation.withdraw.WithdrawActivity
 import hous.release.android.util.binding.BindingActivity
+import hous.release.android.util.dialog.ConfirmClickListener
+import hous.release.android.util.dialog.WarningDialogFragment
+import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.showToast
 
@@ -22,7 +25,6 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.vm = viewModel
         initSettingsMode()
         initBackClickListener()
         initNotiSettingClickListener()
@@ -30,7 +32,9 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
         initFeedbackClickListener()
         initOutRoomClickListener()
         initWithdrawClickListener()
+        initLogoutClickListener()
         initIsSuccessLogoutCollector()
+        initIsAllowedLogoutCollector()
     }
 
     private fun initSettingsMode() {
@@ -91,6 +95,10 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
         }
     }
 
+    private fun initLogoutClickListener() {
+        binding.tvSettingsLogout.setOnClickListener { showWarningDialog() }
+    }
+
     private fun initIsSuccessLogoutCollector() {
         repeatOnStarted {
             viewModel.isSuccessLogout.collect { isSuccess ->
@@ -105,6 +113,31 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
                 }
             }
         }
+    }
+
+    private fun initIsAllowedLogoutCollector() {
+        repeatOnStarted {
+            viewModel.isAllowedLogout.collect { isAllowed ->
+                if (isAllowed) {
+                    viewModel.postLogout()
+                }
+            }
+        }
+    }
+
+    private fun showWarningDialog() {
+        WarningDialogFragment().apply {
+            arguments = Bundle().apply {
+                putSerializable(
+                    WarningDialogFragment.WARNING_TYPE,
+                    WarningType.WARNING_LOGOUT
+                )
+                putParcelable(
+                    WarningDialogFragment.CONFIRM_ACTION,
+                    ConfirmClickListener(confirmAction = { viewModel.initIsAllowedLogout(true) })
+                )
+            }
+        }.show(supportFragmentManager, WarningDialogFragment.DIALOG_WARNING)
     }
 
     private fun getDeviceName(): String {

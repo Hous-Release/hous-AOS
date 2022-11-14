@@ -10,10 +10,6 @@
         <variable
             name="hasRoom"
             type="Boolean" />
-
-        <variable
-            name="vm"
-            type="hous.release.android.presentation.settings.SettingsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -177,7 +173,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="20dp"
-            android:onClick="@{()->vm.postLogout()}"
             android:text="@string/settings_logout"
             android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
