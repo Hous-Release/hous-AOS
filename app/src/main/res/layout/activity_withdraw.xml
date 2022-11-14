@@ -78,11 +78,12 @@
                 <ImageView
                     android:id="@+id/iv_withdraw"
                     android:layout_width="0dp"
-                    android:layout_height="150dp"
+                    android:layout_height="match_parent"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="20dp"
-                    android:background="@color/hous_g_5"
+                    android:adjustViewBounds="true"
                     android:contentDescription="@string/withdraw_img_desc"
+                    android:src="@drawable/ic_withdraw_graphic"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_withdraw_question" />
