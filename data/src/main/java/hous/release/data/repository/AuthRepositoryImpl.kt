@@ -10,8 +10,8 @@ import hous.release.domain.entity.Token
 import hous.release.domain.entity.response.Login
 import hous.release.domain.entity.response.SignUp
 import hous.release.domain.repository.AuthRepository
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 class AuthRepositoryImpl @Inject constructor(
     private val authDataSource: AuthDataSource,
@@ -91,4 +91,8 @@ class AuthRepositoryImpl @Inject constructor(
     override fun clearLocalPref() {
         authDataSource.clearLocalPref()
     }
+
+    override fun getIsSkipTutorial(): Boolean = localPrefSkipTutorialDataSource.showTutorial
+
+    override fun getIsAccessToken(): Boolean = localPrefTokenDataSource.accessToken.isNotEmpty()
 }
