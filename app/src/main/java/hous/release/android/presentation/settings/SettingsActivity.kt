@@ -4,14 +4,25 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.BuildConfig
 import hous.release.android.R
 import hous.release.android.databinding.ActivitySettingsBinding
+import hous.release.android.presentation.login.LoginActivity
 import hous.release.android.presentation.out_room.OutRoomActivity
 import hous.release.android.presentation.withdraw.WithdrawActivity
 import hous.release.android.util.binding.BindingActivity
+import hous.release.android.util.dialog.ConfirmClickListener
+import hous.release.android.util.dialog.WarningDialogFragment
+import hous.release.android.util.dialog.WarningType
+import hous.release.android.util.extension.repeatOnStarted
+import hous.release.android.util.showToast
 
+@AndroidEntryPoint
 class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activity_settings) {
+    private val viewModel by viewModels<SettingsViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initSettingsMode()
@@ -21,6 +32,9 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
         initFeedbackClickListener()
         initOutRoomClickListener()
         initWithdrawClickListener()
+        initLogoutClickListener()
+        initIsSuccessLogoutCollector()
+        initIsAllowedLogoutCollector()
     }
 
     private fun initSettingsMode() {
@@ -79,6 +93,51 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
         binding.tvSettingsWithdraw.setOnClickListener {
             startActivity(Intent(this, WithdrawActivity::class.java))
         }
+    }
+
+    private fun initLogoutClickListener() {
+        binding.tvSettingsLogout.setOnClickListener { showWarningDialog() }
+    }
+
+    private fun initIsSuccessLogoutCollector() {
+        repeatOnStarted {
+            viewModel.isSuccessLogout.collect { isSuccess ->
+                if (isSuccess) {
+                    showToast(getString(R.string.settings_logout_toast))
+                    startActivity(
+                        Intent(this, LoginActivity::class.java).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        }
+                    )
+                }
+            }
+        }
+    }
+
+    private fun initIsAllowedLogoutCollector() {
+        repeatOnStarted {
+            viewModel.isAllowedLogout.collect { isAllowed ->
+                if (isAllowed) {
+                    viewModel.postLogout()
+                }
+            }
+        }
+    }
+
+    private fun showWarningDialog() {
+        WarningDialogFragment().apply {
+            arguments = Bundle().apply {
+                putSerializable(
+                    WarningDialogFragment.WARNING_TYPE,
+                    WarningType.WARNING_LOGOUT
+                )
+                putParcelable(
+                    WarningDialogFragment.CONFIRM_ACTION,
+                    ConfirmClickListener(confirmAction = { viewModel.initIsAllowedLogout(true) })
+                )
+            }
+        }.show(supportFragmentManager, WarningDialogFragment.DIALOG_WARNING)
     }
 
     private fun getDeviceName(): String {

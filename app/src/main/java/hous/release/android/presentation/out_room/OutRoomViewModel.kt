@@ -34,7 +34,6 @@ class OutRoomViewModel @Inject constructor(
                 .onSuccess { response ->
                     _myToDoCnt.value = response.myTodosCnt
                     _myToDos.value = response.myTodos
-                    Timber.d(response.toString())
                 }
                 .onFailure { Timber.d(it.message.toString()) }
         }
