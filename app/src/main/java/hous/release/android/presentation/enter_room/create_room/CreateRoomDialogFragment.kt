@@ -36,6 +36,7 @@ class CreateRoomDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
         initInviteBtnClickListener()
+        initCloseClickListener()
     }
 
     override fun onDestroy() {
@@ -67,5 +68,9 @@ class CreateRoomDialogFragment : DialogFragment() {
             val shareIntent = Intent.createChooser(sendIntent, null)
             startActivity(shareIntent)
         }
+    }
+
+    private fun initCloseClickListener() {
+        binding.btnCreateRoomClose.setOnClickListener { dismiss() }
     }
 }

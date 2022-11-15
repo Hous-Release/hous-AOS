@@ -116,6 +116,7 @@
     <string name="create_room_dialog_img_desc">img of dialog enter room</string>
     <string name="create_room_dialog_invite">호미들 바로 초대하기</string>
     <string name="crate_room_dialog_desc">방 생성이 완료 되었습니다.\n참여 코드를 복사해서\n룸메이트에게 공유해보세요!</string>
+    <string name="create_room_close_img_desc">닫기 버튼</string>
 
     <!-- EnterRoomCode -->
     <string name="enter_room_code_title">방 초대코드 입력하기</string>
@@ -126,6 +127,8 @@
     <string name="enter_room_code_dialog_owner_desc">님이</string>
     <string name="enter_room_code_dialog_desc">초대한 방에 참여할까요?</string>
     <string name="enter_room_code_dialog_enter">참여하기</string>
+    <string name="enter_room_code_close_img_desc">닫기 버튼</string>
+    <string name="enter_room_code_full_capacity">해당 방의 정원인 16명을 초과했습니다.</string>
 
     <!-- Hous -->
     <string name="hous_title">%s님의,\n%s 하우스</string>
@@ -258,6 +261,7 @@
     <!-- Notification -->
     <string name="notification_title">알림</string>
     <string name="notification_icon_img_desc">알림 카테고리 아이콘</string>
+    <string name="notification_empty">아직 도착한 알람이 없어요!</string>
 
     <!-- Badge -->
     <string name="badge_checked">배지로 설정</string>
