@@ -1,8 +1,9 @@
 package hous.release.data.repository
 
 import hous.release.data.datasource.EnterRoomDataSource
-import hous.release.domain.entity.response.Room
 import hous.release.domain.entity.response.NewRoom
+import hous.release.domain.entity.response.Room
+import hous.release.domain.entity.response.RoomInfo
 import hous.release.domain.repository.EnterRoomRepository
 import javax.inject.Inject
 
@@ -35,4 +36,7 @@ class EnterRoomRepositoryImpl @Inject constructor(
                     roomId = response.data.roomId
                 )
             }
+
+    override suspend fun getEnterRoomInfo(): Result<RoomInfo> =
+        runCatching { enterRoomDataSource.getEnterRoomInfo().data.toRoomInfo() }
 }

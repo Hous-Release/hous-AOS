@@ -94,5 +94,5 @@ class AuthRepositoryImpl @Inject constructor(
 
     override fun getIsSkipTutorial(): Boolean = localPrefSkipTutorialDataSource.showTutorial
 
-    override fun getIsAccessToken(): Boolean = localPrefTokenDataSource.accessToken.isNotEmpty()
+    override fun getIsAccessToken(): Boolean = localPrefTokenDataSource.accessToken.isNotBlank()
 }

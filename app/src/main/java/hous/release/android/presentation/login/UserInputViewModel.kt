@@ -26,7 +26,7 @@ class UserInputViewModel @Inject constructor(
 
     fun nextOnClick() {
         viewModelScope.launch {
-            postSignUpUseCase.invoke(
+            postSignUpUseCase(
                 birthday = requireNotNull(birthday.value),
                 isPublic = requireNotNull(isPrivateBirthday.value),
                 nickname = requireNotNull(nickname.value)
