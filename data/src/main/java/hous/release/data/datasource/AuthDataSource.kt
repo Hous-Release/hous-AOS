@@ -50,6 +50,9 @@ class AuthDataSource @Inject constructor(
             )
         )
 
+    suspend fun postLogout(): NoDataResponse =
+        authService.postLogout()
+
     fun clearLocalPref() {
         with(prefs.edit()) {
             clear()

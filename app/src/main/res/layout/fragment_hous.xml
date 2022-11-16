@@ -95,7 +95,7 @@
                 android:paddingHorizontal="20dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="16dp"
-                app:layout_constraintEnd_toStartOf="@id/iv_hous_my_todo"
+                app:layout_constraintEnd_toStartOf="@id/lottie_hous"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/pb_hous_to_do">
 
@@ -231,33 +231,18 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
-                android:id="@+id/iv_hous_my_todo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_hous"
+                isLottieForDayOfWeek="@{true}"
+                android:layout_width="96dp"
+                android:layout_height="125dp"
                 android:layout_marginEnd="16dp"
-                android:contentDescription="@string/hous_my_todo_img_desc"
-                android:src="@drawable/ic_hous_my_todo"
+                android:background="@drawable/shape_g_1_fill_8_rect"
                 app:layout_constraintBottom_toBottomOf="@id/layout_hous_my_todo"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/layout_hous_my_todo" />
-
-            <TextView
-                android:id="@+id/tv_hous_my_todo_cheer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/spoqa_han_sans_neo_bold"
-                android:gravity="center_horizontal"
-                android:letterSpacing="-0.02"
-                android:lineSpacingExtra="4.8dp"
-                android:text="@string/hous_my_todo_cheer"
-                android:textColor="@color/hous_black"
-                android:textSize="12dp"
-                app:layout_constraintEnd_toEndOf="@id/iv_hous_my_todo"
-                app:layout_constraintStart_toStartOf="@id/iv_hous_my_todo"
-                app:layout_constraintTop_toTopOf="@id/iv_hous_my_todo" />
+                app:layout_constraintTop_toTopOf="@id/layout_hous_my_todo"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true" />
 
             <View
                 android:id="@+id/view_hous_division_1"

@@ -27,6 +27,8 @@ interface AuthRepository {
 
     suspend fun deleteUser(feedbackType: FeedbackType, comment: String): Result<Boolean>
 
+    suspend fun postLogout(): Result<Boolean>
+
     fun clearLocalPref()
 
     fun getIsAccessToken(): Boolean

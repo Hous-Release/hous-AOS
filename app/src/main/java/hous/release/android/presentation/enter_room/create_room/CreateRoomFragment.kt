@@ -10,7 +10,6 @@ import hous.release.android.databinding.FragmentCreateRoomBinding
 import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
-import kotlinx.coroutines.flow.filter
 
 @AndroidEntryPoint
 class CreateRoomFragment :
@@ -42,8 +41,10 @@ class CreateRoomFragment :
 
     private fun initIsSuccessCreateRoomCollector() {
         repeatOnStarted {
-            viewModel.isSuccessCreateRoom.filter { isSuccess -> isSuccess }.collect {
-                CreateRoomDialogFragment().show(childFragmentManager, this.javaClass.name)
+            viewModel.isSuccessCreateRoom.collect { isSuccess ->
+                if (isSuccess) {
+                    CreateRoomDialogFragment().show(childFragmentManager, this.javaClass.name)
+                }
             }
         }
     }
