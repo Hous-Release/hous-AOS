@@ -28,8 +28,8 @@
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottie_profile"
                 badge="@{vm.profileData.representBadgeImage}"
-                lottie_background="@{vm.profileData.personalityColor.name()}"
-                lottie_color="@{vm.profileData.personalityColor.name()}"
+                lottieBackground="@{vm.profileData.personalityColor.name()}"
+                lottieColor="@{vm.profileData.personalityColor.name()}"
                 android:layout_width="0dp"
                 android:layout_height="230dp"
                 app:layout_constraintEnd_toEndOf="parent"

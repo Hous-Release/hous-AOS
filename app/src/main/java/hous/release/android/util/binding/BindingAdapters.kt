@@ -124,8 +124,8 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter("lottie_color", "badge")
-    fun LottieAnimationView.lottie_fileName(color: String?, badge: String?) {
+    @BindingAdapter("lottieColor", "badge")
+    fun LottieAnimationView.lottieFileName(color: String?, badge: String?) {
         color?.let {
             when (HomyType.valueOf(color)) {
                 HomyType.RED -> {
@@ -172,8 +172,8 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter("lottie_background")
-    fun LottieAnimationView.backgrund(color: String?) {
+    @BindingAdapter("lottieBackground")
+    fun LottieAnimationView.background(color: String?) {
         color?.let {
             setBackgroundColor(
                 ContextCompat.getColor(
