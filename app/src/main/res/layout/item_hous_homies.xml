@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="hous.release.domain.entity.HomyType" />
+
         <variable
             name="homy"
             type="hous.release.domain.entity.response.Homy" />
@@ -19,6 +21,7 @@
 
         <ImageView
             android:id="@+id/iv_hous_profile"
+            homyType="@{HomyType.valueOf(homy.color)}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"

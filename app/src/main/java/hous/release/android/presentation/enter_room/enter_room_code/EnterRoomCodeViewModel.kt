@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -29,6 +30,9 @@ class EnterRoomCodeViewModel @Inject constructor(
 
     private val _isSuccessEnterRoom = MutableSharedFlow<Boolean>()
     val isSuccessEnterRoom: SharedFlow<Boolean> = _isSuccessEnterRoom.asSharedFlow()
+
+    private val _isFullCapacity = MutableSharedFlow<Boolean>()
+    val isFullCapacity: SharedFlow<Boolean> = _isFullCapacity.asSharedFlow()
 
     fun resetRoomCode() {
         roomCode.value = ""
@@ -53,9 +57,18 @@ class EnterRoomCodeViewModel @Inject constructor(
                 .onSuccess {
                     _isSuccessEnterRoom.emit(true)
                 }
-                .onFailure {
-                    Timber.d(it.message.toString())
+                .onFailure { throwable ->
+                    Timber.d(throwable.message)
+                    if (throwable is HttpException) {
+                        when (throwable.code()) {
+                            FULL_CAPACITY -> _isFullCapacity.emit(true)
+                        }
+                    }
                 }
         }
+    }
+
+    companion object {
+        private const val FULL_CAPACITY = 403
     }
 }

@@ -37,6 +37,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     private fun initIsUserObserve() {
         loginViewModel.isJoiningRoom.observe(this) {
             if (loginViewModel.isJoiningRoom.value == true) {
+                showToast(getString(R.string.login_toast))
                 val toMain = Intent(this, MainActivity::class.java)
                 startActivity(toMain)
                 finishAffinity()

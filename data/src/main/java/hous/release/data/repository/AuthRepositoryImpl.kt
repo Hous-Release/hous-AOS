@@ -88,6 +88,13 @@ class AuthRepositoryImpl @Inject constructor(
             response.success
         }
 
+    override suspend fun postLogout(): Result<Boolean> =
+        kotlin.runCatching {
+            authDataSource.postLogout()
+        }.map { response ->
+            response.success
+        }
+
     override fun clearLocalPref() {
         authDataSource.clearLocalPref()
     }

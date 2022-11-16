@@ -6,10 +6,12 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import hous.release.android.R
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.NotificationType
+import java.util.*
 
 object BindingAdapters {
     @JvmStatic
@@ -120,5 +122,44 @@ object BindingAdapters {
                 }
             )
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("isLottieForDayOfWeek")
+    fun LottieAnimationView.setLottieForDayOfWeek(isLottieForDayOfWeek: Boolean) {
+        clipToOutline = true
+        if (isLottieForDayOfWeek) {
+            val calendar: Calendar = Calendar.getInstance()
+            calendar.time = Date()
+            val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+            setAnimation(
+                // TODO : 토요일, 일요일 로티 나오면 수정해야함
+                when (dayOfWeek) {
+                    Calendar.MONDAY -> "welcome_yellow_monday.json"
+                    Calendar.TUESDAY -> "welcome_red_tuesday.json"
+                    Calendar.WEDNESDAY -> "welcome_blue_wednesday.json"
+                    Calendar.THURSDAY -> "welcome_purple_thursday.json"
+                    Calendar.FRIDAY -> "welcome_green_friday.json"
+                    Calendar.SATURDAY -> "welcome_yellow_monday.json"
+                    Calendar.SUNDAY -> "welcome_yellow_monday.json"
+                    else -> "welcome_yellow_monday.json"
+                }
+            )
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("homyType")
+    fun ImageView.setHomyType(homyType: HomyType) {
+        setImageResource(
+            when (homyType) {
+                HomyType.RED -> R.drawable.ic_profile_red
+                HomyType.YELLOW -> R.drawable.ic_profile_yellow
+                HomyType.BLUE -> R.drawable.ic_profile_gray
+                HomyType.PURPLE -> R.drawable.ic_profile_purple
+                HomyType.GREEN -> R.drawable.ic_profile_green
+                HomyType.GRAY -> R.drawable.ic_profile_gray
+            }
+        )
     }
 }

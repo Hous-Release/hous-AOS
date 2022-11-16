@@ -11,15 +11,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_white_fill_8_rect"
-        android:paddingHorizontal="24dp"
-        android:paddingTop="36dp"
         android:paddingBottom="26dp"
         tools:context=".presentation.enter_room.create_room.CreateRoomDialogFragment">
+
+        <ImageButton
+            android:id="@+id/btn_create_room_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="@null"
+            android:contentDescription="@string/create_room_close_img_desc"
+            android:src="@drawable/ic_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/iv_create_room_dialog"
             android:layout_width="148dp"
             android:layout_height="148dp"
+            android:layout_marginTop="36dp"
             android:contentDescription="@string/create_room_dialog_img_desc"
             android:src="@drawable/ic_create_room_graphic"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,6 +40,7 @@
             android:id="@+id/tv_create_room_dialog_desc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="@string/crate_room_dialog_desc"
@@ -43,6 +54,7 @@
             android:id="@+id/btn_create_room_dialog_invite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/hous_g_2"
             android:insetTop="0dp"
