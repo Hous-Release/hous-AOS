@@ -3,9 +3,10 @@ package hous.release.data.repository
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import hous.release.data.datasource.AuthDataSource
-import hous.release.data.datasource.LocalPrefSkipTutorialDataSource
 import hous.release.data.datasource.LocalPrefTokenDataSource
+import hous.release.data.datasource.LocalSplashDataSource
 import hous.release.domain.entity.FeedbackType
+import hous.release.domain.entity.SplashState
 import hous.release.domain.entity.Token
 import hous.release.domain.entity.response.Login
 import hous.release.domain.entity.response.SignUp
@@ -15,8 +16,8 @@ import timber.log.Timber
 
 class AuthRepositoryImpl @Inject constructor(
     private val authDataSource: AuthDataSource,
-    private val localPrefSkipTutorialDataSource: LocalPrefSkipTutorialDataSource,
-    private val localPrefTokenDataSource: LocalPrefTokenDataSource
+    private val localPrefTokenDataSource: LocalPrefTokenDataSource,
+    private val localSplashDataSource: LocalSplashDataSource
 ) : AuthRepository {
     override suspend fun postLogin(
         fcmToken: String,
@@ -62,10 +63,6 @@ class AuthRepositoryImpl @Inject constructor(
         localPrefTokenDataSource.token = token
     }
 
-    override suspend fun initSkipTutorial(skipTutorial: Boolean) {
-        localPrefSkipTutorialDataSource.showTutorial = skipTutorial
-    }
-
     override suspend fun getFCMToken(setFCMToken: (String) -> Unit) {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(
             OnCompleteListener { task ->
@@ -92,7 +89,13 @@ class AuthRepositoryImpl @Inject constructor(
         authDataSource.clearLocalPref()
     }
 
-    override fun getIsSkipTutorial(): Boolean = localPrefSkipTutorialDataSource.showTutorial
-
     override fun getIsAccessToken(): Boolean = localPrefTokenDataSource.accessToken.isNotBlank()
+
+    override fun setSplashState(splashState: SplashState) {
+        localSplashDataSource.splashState = splashState.toString()
+    }
+
+    override fun getSplashState(): SplashState {
+        return SplashState.valueOf(localSplashDataSource.splashState)
+    }
 }
