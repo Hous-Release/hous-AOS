@@ -3,8 +3,10 @@ package hous.release.android.presentation.out_room
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hous.release.domain.entity.SplashState
 import hous.release.domain.entity.response.MyToDo
 import hous.release.domain.repository.SettingsRepository
+import hous.release.domain.usecase.SetSplashStateUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -17,7 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OutRoomViewModel @Inject constructor(
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val setSplashStateUseCase: SetSplashStateUseCase
 ) : ViewModel() {
     private val _myToDoCnt = MutableStateFlow(-1)
     val myToDoCnt: StateFlow<Int> = _myToDoCnt.asStateFlow()
@@ -45,6 +48,7 @@ class OutRoomViewModel @Inject constructor(
             settingsRepository.deleteRoom()
                 .onSuccess { response ->
                     _isSuccessDeleteRoom.emit(response)
+                    setSplashStateUseCase(SplashState.ENTER_ROOM)
                 }
                 .onFailure { Timber.d(it.message.toString()) }
         }

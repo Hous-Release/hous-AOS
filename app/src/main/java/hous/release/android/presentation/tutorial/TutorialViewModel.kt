@@ -5,13 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hous.release.domain.usecase.InitSkipTutorialUseCase
-import kotlinx.coroutines.launch
+import hous.release.domain.entity.SplashState
+import hous.release.domain.usecase.SetSplashStateUseCase
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class TutorialViewModel @Inject constructor(
-    private val initSkipTutorialUseCase: InitSkipTutorialUseCase
+    private val setSplashStateUseCase: SetSplashStateUseCase
 ) : ViewModel() {
     val showNextBtn = MutableLiveData<Boolean>()
 
@@ -20,7 +21,7 @@ class TutorialViewModel @Inject constructor(
 
     fun nextOnClick() {
         viewModelScope.launch {
-            initSkipTutorialUseCase(skipTutorial = true)
+            setSplashStateUseCase(splashState = SplashState.LOGIN)
             _isTutorialState.value = true
         }
     }
