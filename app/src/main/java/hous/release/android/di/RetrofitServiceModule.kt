@@ -19,7 +19,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class RetrofitServiceModule {
+object RetrofitServiceModule {
     @Provides
     @Singleton
     fun providesAuthService(retrofit: Retrofit): AuthService =

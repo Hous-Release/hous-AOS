@@ -87,6 +87,9 @@
     <string name="date_picker_confirm">확인</string>
     <string name="date_picker_cancel">취소</string>
 
+    <!-- Login -->
+    <string name="login_toast">로그인되었습니다.</string>
+
     <!-- OurRules -->
     <string name="our_house_rules">우리 집 Rules</string>
     <string name="our_house_representative_rules_empty">아직 우리 집 Rules가 없어요!</string>
@@ -113,6 +116,7 @@
     <string name="create_room_dialog_img_desc">img of dialog enter room</string>
     <string name="create_room_dialog_invite">호미들 바로 초대하기</string>
     <string name="crate_room_dialog_desc">방 생성이 완료 되었습니다.\n참여 코드를 복사해서\n룸메이트에게 공유해보세요!</string>
+    <string name="create_room_close_img_desc">닫기 버튼</string>
 
     <!-- EnterRoomCode -->
     <string name="enter_room_code_title">방 초대코드 입력하기</string>
@@ -123,6 +127,8 @@
     <string name="enter_room_code_dialog_owner_desc">님이</string>
     <string name="enter_room_code_dialog_desc">초대한 방에 참여할까요?</string>
     <string name="enter_room_code_dialog_enter">참여하기</string>
+    <string name="enter_room_code_close_img_desc">닫기 버튼</string>
+    <string name="enter_room_code_full_capacity">해당 방의 정원인 16명을 초과했습니다.</string>
 
     <!-- Hous -->
     <string name="hous_title">%s님의,\n%s 하우스</string>
@@ -255,6 +261,7 @@
     <!-- Notification -->
     <string name="notification_title">알림</string>
     <string name="notification_icon_img_desc">알림 카테고리 아이콘</string>
+    <string name="notification_empty">아직 도착한 알람이 없어요!</string>
 
     <!-- Badge -->
     <string name="badge_checked">배지로 설정</string>
@@ -276,6 +283,7 @@
     <string name="settings_feedback_content">\n\n\nDevice : %s\nOS Version : Android %s\nApp Version : %s\n-------------------------\n\n\n\n호미나라에 자유로운 피드백을 보내주세요!\n-------------------------</string>
     <string name="settings_feedback_empty_string"> </string>
     <string name="settings_info_link">https://sugared-lemming-812.notion.site/6d9d478df40b4a20811e0020c15af3bc</string>
+    <string name="settings_logout_toast">로그아웃되었습니다.</string>
 
     <!-- Notification Settings -->
     <string name="noti_settings_title">알림</string>
@@ -296,6 +304,7 @@
     <string name="noti_settings_remind_todos_on_all">모든 미완료 to-do 알림 받기</string>
     <string name="noti_settings_badge">배지 알림</string>
     <string name="noti_settings_badge_desc">우리 집에서 새로 받은 배지를 알려줘요!</string>
+
     <!-- Personality Test Result -->
     <string name="personality_result_detail">성향 자세히 보기</string>
     <string name="personality_result_info">성향 설명</string>
@@ -330,6 +339,7 @@
     <string name="out_room_to_do_suffix">개</string>
     <string name="out_room_blur_bottom_img_desc">방 퇴사하기 하단 블러</string>
     <string name="out_room_my_to_do_circle_img_desc">방 퇴사하기 리스트 구분점</string>
+    <string name="out_room_toast">퇴사되었습니다.</string>
 
     <!-- Withdraw -->
     <string name="withdraw_title">회원 탈퇴</string>
@@ -339,9 +349,11 @@
     <string name="withdraw_thanks_desc">회원을 탈퇴하면 탈퇴 신청 즉시\n회원의 개인정보는 삭제되며 복구할 수 없습니다.\n\n회원님께서 불편하셨던 점이나 불만사항을\n알려주시면 적극 반영해서 고객님의 불편함을\n해결해 드리도록 노력하는 Hous-가 되겠습니다.</string>
     <string name="withdraw_feedback_title">피드백 남기기</string>
     <string name="withdraw_feedback_select">사유 선택하기</string>
-    <string name="withdraw_feedback_hint">의견 남기기</string>
+    <string name="withdraw_comment_hint">의견 남기기</string>
+    <string name="withdraw_comment_count">%d/200</string>
     <string name="withdraw_check_desc">탈퇴하겠습니다.</string>
     <string name="withdraw_done">방 탈퇴하기</string>
     <string name="withdraw_spinner_img_desc">피드백 스피너 이미지</string>
+    <string name="withdraw_toast">탈퇴되었습니다.</string>
 
 </resources>

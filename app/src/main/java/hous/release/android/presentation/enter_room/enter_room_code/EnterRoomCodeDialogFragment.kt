@@ -39,6 +39,7 @@ class EnterRoomCodeDialogFragment : DialogFragment() {
         binding.viewModel = viewModel
         initLayout()
         initIsSuccessEnterRoomCollector()
+        initCloseClickListener()
     }
 
     private fun initLayout() {
@@ -61,5 +62,9 @@ class EnterRoomCodeDialogFragment : DialogFragment() {
                 startActivity(Intent(requireContext(), MainActivity::class.java))
             }
         }
+    }
+
+    private fun initCloseClickListener() {
+        binding.btnEnterRoomCodeClose.setOnClickListener { dismiss() }
     }
 }

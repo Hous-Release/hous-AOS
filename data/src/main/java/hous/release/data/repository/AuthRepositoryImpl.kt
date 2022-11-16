@@ -5,11 +5,13 @@ import com.google.firebase.messaging.FirebaseMessaging
 import hous.release.data.datasource.AuthDataSource
 import hous.release.data.datasource.LocalPrefSkipTutorialDataSource
 import hous.release.data.datasource.LocalPrefTokenDataSource
+import hous.release.domain.entity.FeedbackType
+import hous.release.domain.entity.Token
 import hous.release.domain.entity.response.Login
 import hous.release.domain.entity.response.SignUp
 import hous.release.domain.repository.AuthRepository
-import javax.inject.Inject
 import timber.log.Timber
+import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val authDataSource: AuthDataSource,
@@ -45,7 +47,12 @@ class AuthRepositoryImpl @Inject constructor(
             )
         }.map { response -> response.data.toSignUp() }
 
-    override suspend fun initToken(
+    override fun initHousToken(token: Token) {
+        localPrefTokenDataSource.accessToken = token.accessToken
+        localPrefTokenDataSource.refreshToken = token.refreshToken
+    }
+
+    override fun initToken(
         fcmToken: String,
         socialType: String,
         token: String
@@ -69,5 +76,26 @@ class AuthRepositoryImpl @Inject constructor(
                 setFCMToken(task.result)
             }
         )
+    }
+
+    override suspend fun deleteUser(feedbackType: FeedbackType, comment: String): Result<Boolean> =
+        kotlin.runCatching {
+            authDataSource.deleteUser(
+                feedbackType = feedbackType,
+                comment = comment
+            )
+        }.map { response ->
+            response.success
+        }
+
+    override suspend fun postLogout(): Result<Boolean> =
+        kotlin.runCatching {
+            authDataSource.postLogout()
+        }.map { response ->
+            response.success
+        }
+
+    override fun clearLocalPref() {
+        authDataSource.clearLocalPref()
     }
 }

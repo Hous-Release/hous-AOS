@@ -14,15 +14,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_white_fill_8_rect"
-        android:paddingHorizontal="24dp"
-        android:paddingTop="36dp"
         android:paddingBottom="24dp"
         tools:context=".presentation.enter_room.enter_room_code.EnterRoomCodeDialogFragment">
+
+        <ImageButton
+            android:id="@+id/btn_enter_room_code_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:contentDescription="@string/enter_room_code_close_img_desc"
+            android:padding="16dp"
+            android:src="@drawable/ic_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/iv_enter_room_code_dialog"
             android:layout_width="148dp"
             android:layout_height="148dp"
+            android:layout_marginTop="36dp"
             android:contentDescription="@string/create_room_dialog_img_desc"
             android:src="@drawable/ic_enter_room_graphic"
             app:layout_constraintEnd_toEndOf="parent"
@@ -60,6 +70,7 @@
             android:id="@+id/tv_enter_room_code_dialog_desc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
             android:gravity="center"
             android:text="@string/enter_room_code_dialog_desc"
             android:textAppearance="@style/B1"
@@ -72,6 +83,7 @@
             android:id="@+id/btn_enter_room_code_dialog_enter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/hous_blue"
             android:insetTop="0dp"

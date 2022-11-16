@@ -5,17 +5,21 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.R
 import hous.release.android.databinding.ItemOurRulesEditItemBinding
 import hous.release.android.util.ItemDiffCallback
 import hous.release.android.util.ItemTouchHelperCallback
+import hous.release.domain.entity.RuleType
 import hous.release.domain.entity.response.OurRule
-import java.util.Collections
+import java.util.*
 
 class OurRulesEditAdapter(
-    private val updateEditRuleList: (List<OurRule>) -> Unit
+    private val updateEditRuleList: (List<OurRule>) -> Unit,
+    private val editRuleName: (place: Int, newRuleName: String) -> Unit,
+    private val hideKeyBoard: () -> Unit
 ) :
     ListAdapter<OurRule, OurRulesEditAdapter.EditRuleViewHolder>(
         itemDiffCallback
@@ -34,6 +38,8 @@ class OurRulesEditAdapter(
     ): EditRuleViewHolder {
         if (!::inflater.isInitialized) inflater = LayoutInflater.from(parent.context)
         return EditRuleViewHolder(
+            hideKeyBoard,
+            editRuleName,
             dragListener,
             ItemOurRulesEditItemBinding.inflate(
                 inflater,
@@ -66,11 +72,14 @@ class OurRulesEditAdapter(
     }
 
     class EditRuleViewHolder(
+        private val hideKeyBoard: () -> Unit,
+        private val editRuleName: (place: Int, newRuleName: String) -> Unit,
         private val dragListener: OnStartDragListener,
         private val binding: ItemOurRulesEditItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun changeItemBackGroundWhenSelected() {
+            hideKeyBoard()
             binding.clRuleItem.setBackgroundResource(R.color.hous_white)
             binding.divider.visibility = View.INVISIBLE
         }
@@ -96,9 +105,7 @@ class OurRulesEditAdapter(
 
         @SuppressLint("ClickableViewAccessibility")
         fun onBind(data: OurRule) {
-            binding.edtRuleDescription.setText(data.name)
-            binding.edtRuleDescription.hint = data.name
-
+            initRuleTextField(data)
             with(binding.clDragHandler) {
                 visibility = View.VISIBLE
                 setOnTouchListener { _: View, event: MotionEvent ->
@@ -110,6 +117,34 @@ class OurRulesEditAdapter(
             }
             initItemBackGround()
         }
+
+        private fun initRuleTextField(data: OurRule) {
+            binding.edtRuleDescription.setText(data.name)
+            binding.edtRuleDescription.hint = data.name
+            binding.edtRuleDescription.addTextChangedListener { newRuleName ->
+                editRuleName(absoluteAdapterPosition, newRuleName.toString())
+            }
+            binding.edtRuleDescription.setOnFocusChangeListener { _, isFocus ->
+                if (isFocus) {
+                    if (data.ruleType == RuleType.GENERAL) {
+                        return@setOnFocusChangeListener binding.clRuleItem.setBackgroundResource(
+                            R.color.hous_g_1
+                        )
+                    }
+                    binding.clRuleItem.setBackgroundResource(R.color.hous_blue_edit)
+                } else {
+                    if (data.ruleType == RuleType.GENERAL) {
+                        return@setOnFocusChangeListener binding.clRuleItem.setBackgroundResource(
+                            R.color.hous_white
+                        )
+                    }
+                    binding.clRuleItem.setBackgroundResource(R.color.hous_blue_l2)
+                }
+            }
+            binding.clRuleItem.setOnClickListener {
+                hideKeyBoard()
+            }
+        }
     }
 
     interface OnStartDragListener {
@@ -118,9 +153,11 @@ class OurRulesEditAdapter(
 
     companion object {
         private val itemDiffCallback = ItemDiffCallback<OurRule>(
-            onItemsTheSame = { old, new -> old.id == new.id },
+            onItemsTheSame = { old, new ->
+                old.id == new.id
+            },
             onContentsTheSame = { old, new ->
-                old == new
+                old.ruleType == new.ruleType
             }
         )
     }
