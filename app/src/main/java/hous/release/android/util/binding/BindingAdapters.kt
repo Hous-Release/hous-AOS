@@ -184,7 +184,7 @@ object BindingAdapters {
                         HomyType.GREEN -> R.color.hous_green_b_1
                         HomyType.BLUE -> R.color.hous_blue_l1
                         HomyType.PURPLE -> R.color.hous_purple_b_1
-                        HomyType.GRAY -> R.color.hous_black
+                        HomyType.GRAY -> R.color.hous_blue_l2
                     }
                 )
             )
