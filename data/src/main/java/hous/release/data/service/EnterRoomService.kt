@@ -4,7 +4,7 @@ import hous.release.data.entity.request.CreateRoomRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.CreateRoomResponse
 import hous.release.data.entity.response.EnterRoomResponse
-import hous.release.data.entity.response.GetRoomInfoResponse
+import hous.release.data.entity.response.GetRoomDetailResponse
 import hous.release.data.entity.response.GetRoomResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -19,7 +19,7 @@ interface EnterRoomService {
     ): BaseResponse<CreateRoomResponse>
 
     @GET("/v1/room")
-    suspend fun getIsEnterRoom(): BaseResponse<GetRoomInfoResponse>
+    suspend fun getIsEnterRoom(): BaseResponse<GetRoomDetailResponse>
 
     @GET("/v1/room/info")
     suspend fun getEnterRoomCode(
