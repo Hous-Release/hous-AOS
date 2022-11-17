@@ -25,11 +25,9 @@ class LoginViewModel @Inject constructor(
     private val initHousTokenUseCase: InitHousTokenUseCase,
     private val getFcmTokenUseCase: GetFcmTokenUseCase
 ) : ViewModel() {
-    private val _kakaoToken = MutableLiveData<String>()
-    val kakaoToken: LiveData<String> = _kakaoToken
+    private val kakaoToken = MutableLiveData<String>()
 
-    private val _fcmToken = MutableLiveData<String>()
-    val fcmToken: LiveData<String> = _fcmToken
+    private val fcmToken = MutableLiveData<String>()
 
     private val _isSuccessKakaoLogin = MutableLiveData<Event<Boolean>>()
     val isSuccessKakaoLogin: LiveData<Event<Boolean>> = _isSuccessKakaoLogin
@@ -40,16 +38,18 @@ class LoginViewModel @Inject constructor(
     private val _isUser = MutableLiveData<Boolean>()
     val isUser: LiveData<Boolean> = _isUser
 
-    // 카카오중복로그인 처리할 때 사용할 변수
-    private val _isSameToken = MutableLiveData<Boolean>()
-    val isSameToken: LiveData<Boolean> = _isSameToken
+    private val _isMultipleAccess = MutableLiveData<Boolean>()
+    val isMultipleAccess: LiveData<Boolean> = _isMultipleAccess
+
+    private val _isPermitAccess = MutableLiveData<Boolean>()
+    val isPermitAccess: LiveData<Boolean> = _isPermitAccess
 
     private val _isInitUserInfo = MediatorLiveData<Event<Boolean>>().apply {
-        addSource(_kakaoToken) { token ->
-            value = Event(token.isNotBlank() && _fcmToken.value != null)
+        addSource(kakaoToken) { token ->
+            value = Event(token.isNotBlank() && fcmToken.value != null)
         }
-        addSource(_fcmToken) { token ->
-            value = Event(token.isNotBlank() && _kakaoToken.value != null)
+        addSource(fcmToken) { token ->
+            value = Event(token.isNotBlank() && kakaoToken.value != null)
         }
     }
     val isInitUserInfo get() = _isInitUserInfo
@@ -87,7 +87,7 @@ class LoginViewModel @Inject constructor(
             }
         } else if (token != null) {
             Timber.e("카카오 로그인 성공 ${token.accessToken}")
-            _kakaoToken.value = token.accessToken
+            kakaoToken.value = token.accessToken
             _isSuccessKakaoLogin.value = Event(true)
         }
     }
@@ -99,14 +99,14 @@ class LoginViewModel @Inject constructor(
     fun postLogin() {
         viewModelScope.launch {
             postLoginUseCase(
-                fcmToken = requireNotNull(_fcmToken.value),
+                fcmToken = requireNotNull(fcmToken.value),
                 socialType = "KAKAO",
-                token = requireNotNull(_kakaoToken.value)
+                token = requireNotNull(kakaoToken.value)
             ).onSuccess { response ->
                 initTokenUseCase(
-                    fcmToken = requireNotNull(_fcmToken.value),
+                    fcmToken = requireNotNull(fcmToken.value),
                     socialType = SOCIAL_TYPE,
-                    token = _kakaoToken.value!!
+                    token = kakaoToken.value!!
                 )
                 initHousTokenUseCase(
                     token = response.token
@@ -121,14 +121,17 @@ class LoginViewModel @Inject constructor(
             }.onFailure { throwable ->
                 if (throwable is HttpException) {
                     when (throwable.code()) {
-                        USER_NOT_EXIST -> {
+                        NOT_SIGN_UP -> {
                             initTokenUseCase(
-                                fcmToken = requireNotNull(_fcmToken.value),
+                                fcmToken = requireNotNull(fcmToken.value),
                                 socialType = SOCIAL_TYPE,
-                                token = _kakaoToken.value!!
+                                token = kakaoToken.value!!
                             )
                             _isUser.value = false
                             Timber.e(throwable.message)
+                        }
+                        ALREADY_LOGIN -> {
+                            _isMultipleAccess.value = true
                         }
                         else -> {
                             Timber.e(throwable.message)
@@ -141,15 +144,15 @@ class LoginViewModel @Inject constructor(
 
     private fun getFCMToken() {
         viewModelScope.launch {
-            getFcmTokenUseCase { fcmToken -> _fcmToken.value = fcmToken }
+            getFcmTokenUseCase { getFcmToken -> fcmToken.value = getFcmToken }
         }
     }
 
     companion object {
         private const val SOCIAL_TYPE = "KAKAO"
+        private const val NOT_SIGN_UP = 404
+        private const val ALREADY_LOGIN = 409
 
-        // private const val ALREADY_LOGIN = 409
         // private const val INVALID_TOKEN = 401
-        private const val USER_NOT_EXIST = 404
     }
 }
