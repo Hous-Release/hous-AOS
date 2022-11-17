@@ -59,4 +59,11 @@ class AuthDataSource @Inject constructor(
             commit()
         }
     }
+
+    suspend fun postForceLogin(
+        fcmToken: String,
+        socialType: String,
+        token: String
+    ): BaseResponse<LoginResponse> =
+        authService.postForceLogin(LoginRequest(fcmToken, socialType, token))
 }

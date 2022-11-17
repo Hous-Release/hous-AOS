@@ -98,4 +98,17 @@ class AuthRepositoryImpl @Inject constructor(
     override fun clearLocalPref() {
         authDataSource.clearLocalPref()
     }
+
+    override suspend fun postForceLogin(
+        fcmToken: String,
+        socialType: String,
+        token: String
+    ): Result<Login> =
+        kotlin.runCatching {
+            authDataSource.postForceLogin(
+                fcmToken,
+                socialType,
+                token
+            )
+        }.map { response -> response.data.toLogin() }
 }

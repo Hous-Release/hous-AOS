@@ -31,4 +31,10 @@ interface AuthRepository {
     suspend fun postLogout(): Result<Boolean>
 
     fun clearLocalPref()
+
+    suspend fun postForceLogin(
+        fcmToken: String,
+        socialType: String,
+        token: String
+    ): Result<Login>
 }
