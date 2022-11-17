@@ -3,8 +3,10 @@ package hous.release.android.presentation.enter_room.enter_room_code
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hous.release.domain.entity.SplashState
 import hous.release.domain.entity.response.Room
 import hous.release.domain.repository.EnterRoomRepository
+import hous.release.domain.usecase.SetSplashStateUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -18,7 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EnterRoomCodeViewModel @Inject constructor(
-    private val enterRoomRepository: EnterRoomRepository
+    private val enterRoomRepository: EnterRoomRepository,
+    private val setSplashStateUseCase: SetSplashStateUseCase
 ) : ViewModel() {
     val roomCode = MutableStateFlow<String>("")
 
@@ -43,6 +46,7 @@ class EnterRoomCodeViewModel @Inject constructor(
             enterRoomRepository.getEnterRoomCode(roomCode.value)
                 .onSuccess { response ->
                     _roomInfo.value = response
+                    setSplashStateUseCase(SplashState.MAIN)
                     _isSuccessGetRoom.emit(true)
                 }
                 .onFailure {
