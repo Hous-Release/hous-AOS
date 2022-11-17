@@ -40,9 +40,6 @@ class LoginViewModel @Inject constructor(
     private val _isUser = MutableLiveData<Boolean>()
     val isUser: LiveData<Boolean> = _isUser
 
-    private val _isMultipleAccess = MutableLiveData<Boolean>()
-    val isMultipleAccess: LiveData<Boolean> = _isMultipleAccess
-
     private val _isPermitAccess = MutableLiveData<Boolean>()
     val isPermitAccess: LiveData<Boolean> = _isPermitAccess
 
@@ -133,7 +130,7 @@ class LoginViewModel @Inject constructor(
                             Timber.e(throwable.message)
                         }
                         ALREADY_LOGIN -> {
-                            _isMultipleAccess.value = true
+                            _isPermitAccess.value = true
                         }
                         else -> {
                             Timber.e(throwable.message)
