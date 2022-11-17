@@ -67,8 +67,14 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.tutorial.TutorialActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="true"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".presentation.enter_room.EnterRoomActivity"
             android:exported="false"
@@ -93,14 +99,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.main.MainActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true"
