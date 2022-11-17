@@ -19,4 +19,6 @@ class EnterRoomDataSource @Inject constructor(
 
     suspend fun postEnterRoomId(roomId: String): BaseResponse<EnterRoomResponse> =
         enterRoomService.postEnterRoomId(roomId)
+
+    suspend fun getEnterRoomInfo() = enterRoomService.getIsEnterRoom()
 }
