@@ -40,8 +40,8 @@ class LoginViewModel @Inject constructor(
     private val _isUser = MutableLiveData<Boolean>()
     val isUser: LiveData<Boolean> = _isUser
 
-    private val _isPermitAccess = MutableLiveData<Boolean>()
-    val isPermitAccess: LiveData<Boolean> = _isPermitAccess
+    private val _isMultipleAccess = MutableLiveData<Boolean>()
+    val isMultipleAccess: LiveData<Boolean> = _isMultipleAccess
 
     private val _isInitUserInfo = MediatorLiveData<Event<Boolean>>().apply {
         addSource(kakaoToken) { token ->
@@ -130,7 +130,7 @@ class LoginViewModel @Inject constructor(
                             Timber.e(throwable.message)
                         }
                         ALREADY_LOGIN -> {
-                            _isPermitAccess.value = true
+                            _isMultipleAccess.value = true
                         }
                         else -> {
                             Timber.e(throwable.message)
