@@ -32,6 +32,11 @@ class WarningDialogFragment : DialogFragment() {
         initConfirmClickListener()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun initWarningDialogContent() {
         val warningType = arguments?.get(WARNING_TYPE)
             ?: Timber.e(getString(R.string.null_point_exception_warning_dialog_argument))
