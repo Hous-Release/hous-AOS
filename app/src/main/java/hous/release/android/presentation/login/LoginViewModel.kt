@@ -12,6 +12,7 @@ import hous.release.android.util.extension.Event
 import hous.release.domain.usecase.GetFcmTokenUseCase
 import hous.release.domain.usecase.InitHousTokenUseCase
 import hous.release.domain.usecase.InitTokenUseCase
+import hous.release.domain.usecase.PostForceLoginUseCase
 import hous.release.domain.usecase.PostLoginUseCase
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -23,7 +24,8 @@ class LoginViewModel @Inject constructor(
     private val postLoginUseCase: PostLoginUseCase,
     private val initTokenUseCase: InitTokenUseCase,
     private val initHousTokenUseCase: InitHousTokenUseCase,
-    private val getFcmTokenUseCase: GetFcmTokenUseCase
+    private val getFcmTokenUseCase: GetFcmTokenUseCase,
+    private val postForceLoginUseCase: PostForceLoginUseCase
 ) : ViewModel() {
     private val kakaoToken = MutableLiveData<String>()
 
@@ -138,6 +140,26 @@ class LoginViewModel @Inject constructor(
                         }
                     }
                 }
+            }
+        }
+    }
+
+    fun initIsPermitAccess() {
+        viewModelScope.launch {
+            postForceLoginUseCase(
+                fcmToken = requireNotNull(fcmToken.value),
+                socialType = "KAKAO",
+                token = requireNotNull(kakaoToken.value)
+            ).onSuccess { response ->
+                if (response.isJoiningRoom) {
+                    _isJoiningRoom.value = true
+                    Timber.e("로그인 성공 / 방 있음")
+                } else {
+                    _isJoiningRoom.value = false
+                    Timber.e("로그인 성공 / 방 없음")
+                }
+            }.onFailure {
+                // 무슨 에러뷰 띄워요?
             }
         }
     }
