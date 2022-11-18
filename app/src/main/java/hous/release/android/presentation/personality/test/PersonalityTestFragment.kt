@@ -76,6 +76,7 @@ class PersonalityTestFragment :
                         vpPersonalityTest.visibility = View.GONE
                         includePersonalityLoading.clTestLoading.visibility = View.VISIBLE
                         personalityTestViewModel.putPersonalityTestResult()
+                        includePersonalityLoading.lottieTestLoadingProfile.playAnimation()
                     }
                 }
                 binding.vpPersonalityTest.currentItem += personalityTestEvent.direction
