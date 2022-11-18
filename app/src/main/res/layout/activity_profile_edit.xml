@@ -182,7 +182,6 @@
             android:hint="@string/profile_edit_hint_introduction"
             android:inputType="textMultiLine"
             android:maxLength="40"
-            android:maxLines="2"
             android:padding="7dp"
             android:text="@={vm.introduction}"
             android:textAppearance="@style/B1"

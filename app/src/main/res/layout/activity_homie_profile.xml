@@ -155,9 +155,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="13dp"
-                    android:maxEms="20"
                     android:maxLength="40"
-                    android:maxLines="2"
                     android:textAppearance="@style/B2"
                     app:layout_constraintStart_toStartOf="@id/tv_homie_profile_age"
                     app:layout_constraintTop_toBottomOf="@id/tv_homie_profile_age"
@@ -181,7 +179,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="25dp"
-                    android:src="@drawable/shape_g3_fill_52_circle"
+                    android:src="@drawable/ic_homie_profile_nobadge"
                     android:visibility="@{vm.homieProfileData.representBadgeImage==null ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_homie_profile_job" />

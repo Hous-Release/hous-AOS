@@ -25,6 +25,19 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent">
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_profile"
+                badge="@{vm.profileData.representBadgeImage}"
+                lottieBackground="@{vm.profileData.personalityColor.name()}"
+                lottieColor="@{vm.profileData.personalityColor.name()}"
+                android:layout_width="0dp"
+                android:layout_height="230dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true" />
+
             <ImageButton
                 android:id="@+id/btn_profile_setting"
                 android:layout_width="wrap_content"
@@ -63,14 +76,18 @@
                 app:layout_constraintTop_toBottomOf="@id/btn_profile_notification"
                 tools:src="@drawable/shape_white_fill_100_circle" />
 
-            <ImageView
-                android:id="@+id/iv_profile_badge_empty"
+            <TextView
+                android:id="@+id/tv_profile_badge_empty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="43dp"
+                android:background="@drawable/shape_white_fill_100_circle"
                 android:elevation="10dp"
-                android:src="@drawable/shape_white_fill_100_circle"
+                android:gravity="center"
+                android:text="@string/profile_empty_badge"
+                android:textAppearance="@style/Description"
+                android:textColor="@color/hous_g_9"
                 android:visibility="@{vm.profileData.representBadgeImage==null ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_profile_notification" />
@@ -210,9 +227,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="13dp"
-                    android:maxEms="20"
                     android:maxLength="40"
-                    android:maxLines="2"
                     android:textAppearance="@style/B2"
                     app:layout_constraintStart_toStartOf="@id/tv_profile_age"
                     app:layout_constraintTop_toBottomOf="@id/tv_profile_age"
@@ -251,6 +266,8 @@
 
                         <TextView
                             android:id="@+id/tv_profile_personality"
+                            personalityResultColor="@{vm.profileData.personalityColor.name()}"
+                            personalityTitle="@{vm.profileData.personalityColor.name()}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"

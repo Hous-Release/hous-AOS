@@ -11,7 +11,8 @@ import com.bumptech.glide.Glide
 import hous.release.android.R
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.NotificationType
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 object BindingAdapters {
     @JvmStatic
@@ -120,6 +121,74 @@ object BindingAdapters {
                     HomyType.PURPLE -> R.string.personality_purple
                     HomyType.GRAY -> -1
                 }
+            )
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("lottieColor", "badge")
+    fun LottieAnimationView.lottieFileName(color: String?, badge: String?) {
+        color?.let {
+            when (HomyType.valueOf(color)) {
+                HomyType.RED -> {
+                    if (badge.isNullOrEmpty()) {
+                        setAnimation("profile_red_no.json")
+                    } else {
+                        setAnimation("profile_red_yes.json")
+                    }
+                }
+                HomyType.YELLOW -> {
+                    if (badge.isNullOrEmpty()) {
+                        setAnimation("profile_yellow_no.json")
+                    } else {
+                        setAnimation("profile_yellow_yes.json")
+                    }
+                }
+                HomyType.GREEN -> {
+                    if (badge.isNullOrEmpty()) {
+                        setAnimation("profile_green_no.json")
+                    } else {
+                        setAnimation("profile_green_yes.json")
+                    }
+                }
+                HomyType.BLUE -> {
+                    if (badge.isNullOrEmpty()) {
+                        setAnimation("profile_blue_no.json")
+                    } else {
+                        setAnimation("profile_blue_yes.json")
+                    }
+                }
+                HomyType.PURPLE -> {
+                    if (badge.isNullOrEmpty()) {
+                        setAnimation("profile_purple_no.json")
+                    } else {
+                        setAnimation("profile_purple_yes.json")
+                    }
+                }
+                HomyType.GRAY -> {
+                    setAnimation("profile_gray.json")
+                }
+            }
+            playAnimation()
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("lottieBackground")
+    fun LottieAnimationView.background(color: String?) {
+        color?.let {
+            setBackgroundColor(
+                ContextCompat.getColor(
+                    context,
+                    when (HomyType.valueOf(color)) {
+                        HomyType.RED -> R.color.hous_red_b_1
+                        HomyType.YELLOW -> R.color.hous_yellow_b_1
+                        HomyType.GREEN -> R.color.hous_green_b_1
+                        HomyType.BLUE -> R.color.hous_blue_l1
+                        HomyType.PURPLE -> R.color.hous_purple_b_1
+                        HomyType.GRAY -> R.color.hous_blue_l2
+                    }
+                )
             )
         }
     }
