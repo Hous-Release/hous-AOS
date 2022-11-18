@@ -50,7 +50,7 @@ object BindingAdapters {
                         HomyType.GREEN -> R.color.hous_green
                         HomyType.BLUE -> R.color.hous_blue
                         HomyType.PURPLE -> R.color.hous_purple
-                        HomyType.GRAY -> -1
+                        HomyType.GRAY -> R.color.hous_black
                     }
                 )
             )
@@ -68,7 +68,7 @@ object BindingAdapters {
                     HomyType.GREEN -> R.drawable.ic_personality_result_check_green
                     HomyType.BLUE -> R.drawable.ic_personality_result_check_blue
                     HomyType.PURPLE -> R.drawable.ic_personality_result_check_purple
-                    HomyType.GRAY -> -1
+                    HomyType.GRAY -> R.drawable.ic_personality_result_check_purple
                 }
             )
         }
@@ -102,7 +102,7 @@ object BindingAdapters {
                     HomyType.GREEN -> R.drawable.ic_homie_profile_green
                     HomyType.BLUE -> R.drawable.ic_homie_profile_blue
                     HomyType.PURPLE -> R.drawable.ic_homie_profile_purple
-                    HomyType.GRAY -> -1
+                    HomyType.GRAY -> R.drawable.ic_profile_gray
                 }
             )
         }
@@ -119,7 +119,7 @@ object BindingAdapters {
                     HomyType.GREEN -> R.string.personality_green
                     HomyType.BLUE -> R.string.personality_blue
                     HomyType.PURPLE -> R.string.personality_purple
-                    HomyType.GRAY -> -1
+                    HomyType.GRAY -> R.string.gray
                 }
             )
         }
