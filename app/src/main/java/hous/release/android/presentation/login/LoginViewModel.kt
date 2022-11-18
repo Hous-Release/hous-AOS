@@ -110,13 +110,7 @@ class LoginViewModel @Inject constructor(
                 initHousTokenUseCase(
                     token = response.token
                 )
-                if (response.isJoiningRoom) {
-                    _isJoiningRoom.value = true
-                    Timber.e("로그인 성공 / 방 있음")
-                } else {
-                    _isJoiningRoom.value = false
-                    Timber.e("로그인 성공 / 방 없음")
-                }
+                _isJoiningRoom.value = response.isJoiningRoom
             }.onFailure { throwable ->
                 if (throwable is HttpException) {
                     when (throwable.code()) {
@@ -148,15 +142,9 @@ class LoginViewModel @Inject constructor(
                 socialType = "KAKAO",
                 token = requireNotNull(kakaoToken.value)
             ).onSuccess { response ->
-                if (response.isJoiningRoom) {
-                    _isJoiningRoom.value = true
-                    Timber.e("로그인 성공 / 방 있음")
-                } else {
-                    _isJoiningRoom.value = false
-                    Timber.e("로그인 성공 / 방 없음")
-                }
-            }.onFailure {
-                // 무슨 에러뷰 띄워요?
+                _isJoiningRoom.value = response.isJoiningRoom
+            }.onFailure { throwable ->
+                Timber.e(throwable.message)
             }
         }
     }
