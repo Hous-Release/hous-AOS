@@ -63,7 +63,7 @@ class AuthRepositoryImpl @Inject constructor(
         localPrefTokenDataSource.token = token
     }
 
-    override suspend fun getFCMToken(setFCMToken: (String) -> Unit) {
+    override fun getFCMToken(setFCMToken: (String) -> Unit) {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(
             OnCompleteListener { task ->
                 if (!task.isSuccessful) {

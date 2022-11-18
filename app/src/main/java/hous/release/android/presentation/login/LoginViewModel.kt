@@ -140,9 +140,7 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun getFCMToken() {
-        viewModelScope.launch {
-            getFcmTokenUseCase { fcmToken -> _fcmToken.value = fcmToken }
-        }
+        getFcmTokenUseCase { fcmToken -> _fcmToken.value = fcmToken }
     }
 
     companion object {
