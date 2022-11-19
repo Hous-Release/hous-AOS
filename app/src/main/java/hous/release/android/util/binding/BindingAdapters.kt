@@ -224,7 +224,7 @@ object BindingAdapters {
             when (homyType) {
                 HomyType.RED -> R.drawable.ic_profile_red
                 HomyType.YELLOW -> R.drawable.ic_profile_yellow
-                HomyType.BLUE -> R.drawable.ic_profile_gray
+                HomyType.BLUE -> R.drawable.ic_profile_blue
                 HomyType.PURPLE -> R.drawable.ic_profile_purple
                 HomyType.GREEN -> R.drawable.ic_profile_green
                 HomyType.GRAY -> R.drawable.ic_profile_gray
