@@ -1,11 +1,13 @@
 package hous.release.data.service
 
+import hous.release.data.entity.TokenEntity
 import hous.release.data.entity.request.DeleteUserRequest
 import hous.release.data.entity.request.LoginRequest
 import hous.release.data.entity.request.SignUpRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.LoginResponse
 import hous.release.data.entity.response.NoDataResponse
+import hous.release.data.entity.response.RefreshHousTokenResponse
 import hous.release.data.entity.response.SignUpResponse
 import retrofit2.http.Body
 import retrofit2.http.HTTP
@@ -34,4 +36,9 @@ interface AuthService {
     suspend fun postForceLogin(
         @Body body: LoginRequest
     ): BaseResponse<LoginResponse>
+
+    @POST("/v1/auth/refresh")
+    suspend fun refreshHousToken(
+        @Body body: TokenEntity
+    ): BaseResponse<RefreshHousTokenResponse>
 }
