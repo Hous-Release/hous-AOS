@@ -19,7 +19,13 @@ class RefreshRepositoryImpl @Inject constructor(
                     refreshToken = localPrefTokenDataSource.refreshToken
                 )
             )
-        }.map { response -> response.data.toRefreshHousToken() }
+        }.map { response ->
+            with(response.data.token) {
+                localPrefTokenDataSource.accessToken = this.accessToken
+                localPrefTokenDataSource.refreshToken = this.refreshToken
+            }
+            response.data.toRefreshHousToken()
+        }
 
     companion object {
         const val EXPIRED_TOKEN = 401
