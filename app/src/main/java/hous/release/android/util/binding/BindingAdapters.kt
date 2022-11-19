@@ -209,9 +209,9 @@ object BindingAdapters {
                     Calendar.WEDNESDAY -> "welcome_blue_wednesday.json"
                     Calendar.THURSDAY -> "welcome_purple_thursday.json"
                     Calendar.FRIDAY -> "welcome_green_friday.json"
-                    Calendar.SATURDAY -> "welcome_yellow_monday.json"
-                    Calendar.SUNDAY -> "welcome_yellow_monday.json"
-                    else -> "welcome_yellow_monday.json"
+                    Calendar.SATURDAY -> "welcome_weekend.json"
+                    Calendar.SUNDAY -> "welcome_weekend.json"
+                    else -> "welcome_green_friday.json"
                 }
             )
         }
