@@ -50,7 +50,7 @@ object BindingAdapters {
                         HomyType.GREEN -> R.color.hous_green
                         HomyType.BLUE -> R.color.hous_blue
                         HomyType.PURPLE -> R.color.hous_purple
-                        HomyType.GRAY -> -1
+                        HomyType.GRAY -> R.color.hous_blue_l1
                     }
                 )
             )
@@ -119,7 +119,7 @@ object BindingAdapters {
                     HomyType.GREEN -> R.string.personality_green
                     HomyType.BLUE -> R.string.personality_blue
                     HomyType.PURPLE -> R.string.personality_purple
-                    HomyType.GRAY -> -1
+                    HomyType.GRAY -> R.string.personality_purple
                 }
             )
         }

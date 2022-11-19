@@ -12,10 +12,15 @@ import timber.log.Timber
 class HousMessageService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
+        super.onNewToken(token)
         Timber.d("Refreshed token: $token")
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        super.onMessageReceived(remoteMessage)
+        Timber.d("remote Message $remoteMessage")
+        Timber.d("remote Message Data : ${remoteMessage.data}")
+        Timber.d("remote Message notification : ${remoteMessage.notification}")
         if (remoteMessage.data.isNotEmpty()) {
             val title = remoteMessage.data[TITLE] ?: ""
             val body = remoteMessage.data[BODY] ?: ""
@@ -31,7 +36,7 @@ class HousMessageService : FirebaseMessagingService() {
             .setContentText(body)
 
         with(NotificationManagerCompat.from(this)) {
-            notify(CHANNEL_ID_INT, notificationBuilder.build())
+            notify(NOTIFICATION_ID, notificationBuilder.build())
         }
     }
 
@@ -50,7 +55,7 @@ class HousMessageService : FirebaseMessagingService() {
 
     companion object {
         const val CHANNEL_ID = "hous_channel"
-        const val CHANNEL_ID_INT = 1
+        const val NOTIFICATION_ID = 1
         const val CHANNEL_NAME = "hous_channel_name"
         const val TITLE = "title"
         const val BODY = "body"

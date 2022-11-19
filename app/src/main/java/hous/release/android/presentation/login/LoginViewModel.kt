@@ -98,13 +98,14 @@ class LoginViewModel @Inject constructor(
 
     fun postLogin() {
         viewModelScope.launch {
+            Timber.d("fcm : ${fcmToken.value} token : ${kakaoToken.value}")
             postLoginUseCase(
-                fcmToken = requireNotNull(_fcmToken.value),
+                fcmToken = requireNotNull(fcmToken.value),
                 socialType = "KAKAO",
                 token = requireNotNull(_kakaoToken.value)
             ).onSuccess { response ->
                 initTokenUseCase(
-                    fcmToken = requireNotNull(_fcmToken.value),
+                    fcmToken = requireNotNull(fcmToken.value),
                     socialType = SOCIAL_TYPE,
                     token = _kakaoToken.value!!
                 )
@@ -123,7 +124,7 @@ class LoginViewModel @Inject constructor(
                     when (throwable.code()) {
                         USER_NOT_EXIST -> {
                             initTokenUseCase(
-                                fcmToken = requireNotNull(_fcmToken.value),
+                                fcmToken = requireNotNull(fcmToken.value),
                                 socialType = SOCIAL_TYPE,
                                 token = _kakaoToken.value!!
                             )
