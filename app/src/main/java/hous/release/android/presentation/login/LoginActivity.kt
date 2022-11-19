@@ -109,8 +109,8 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun initIsPermitAccessObserve() {
-        loginViewModel.isMultipleAccess.observe(this) {
-            if (loginViewModel.isMultipleAccess.value == true) {
+        loginViewModel.isMultipleAccess.observe(this) { isMultipleAccess ->
+            if (isMultipleAccess == true) {
                 WarningDialogFragment().apply {
                     arguments = Bundle().apply {
                         putSerializable(
