@@ -231,4 +231,14 @@ object BindingAdapters {
             }
         )
     }
+
+    @JvmStatic
+    @BindingAdapter("myTodoCnt")
+    fun TextView.setMyTodoCnt(myTodoCnt: Int) {
+        text = if (myTodoCnt < 10) {
+            " $myTodoCnt"
+        } else {
+            myTodoCnt.toString()
+        }
+    }
 }

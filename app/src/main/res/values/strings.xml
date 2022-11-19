@@ -340,6 +340,7 @@
     <string name="out_room_blur_bottom_img_desc">방 퇴사하기 하단 블러</string>
     <string name="out_room_my_to_do_circle_img_desc">방 퇴사하기 리스트 구분점</string>
     <string name="out_room_toast">퇴사되었습니다.</string>
+    <string name="out_room_to_do_empty">내게만 배정된 to-do가 없네요!</string>
 
     <!-- Withdraw -->
     <string name="withdraw_title">회원 탈퇴</string>
