@@ -7,11 +7,17 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import hous.release.android.BuildConfig
 import hous.release.data.datasource.LocalPrefTokenDataSource
+import hous.release.data.repository.RefreshRepositoryImpl.Companion.EXPIRED_TOKEN
+import hous.release.domain.repository.RefreshRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -25,21 +31,45 @@ object RetrofitModule {
 
     @Provides
     @Singleton
-    fun providesInterceptor(localPrefTokenDataSource: LocalPrefTokenDataSource): Interceptor =
+    fun providesInterceptor(
+        refreshRepository: RefreshRepository,
+        localPrefTokenDataSource: LocalPrefTokenDataSource
+    ): Interceptor =
         Interceptor { chain ->
-            with(chain) {
-                proceed(
-                    request()
-                        .newBuilder()
-                        .addHeader(
-                            HEADER_AUTHORIZATION,
-                            localPrefTokenDataSource.accessToken
-                        )
-                        .addHeader(HEADER_OS_TYPE, OS_TYPE)
-                        .addHeader(HEADER_VERSION, BuildConfig.VERSION_NAME)
-                        .build()
-                )
+            val request = chain.request()
+            var response = chain.proceed(
+                request
+                    .newBuilder()
+                    .addHeader(
+                        HEADER_AUTHORIZATION,
+                        localPrefTokenDataSource.accessToken
+                    )
+                    .addHeader(HEADER_OS_TYPE, OS_TYPE)
+                    .addHeader(HEADER_VERSION, BuildConfig.VERSION_NAME)
+                    .build()
+            )
+            when (response.code) {
+                EXPIRED_TOKEN -> {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        refreshRepository.refreshHousToken()
+                            .onSuccess {
+                                response = chain.proceed(
+                                    request
+                                        .newBuilder()
+                                        .addHeader(
+                                            HEADER_AUTHORIZATION,
+                                            localPrefTokenDataSource.accessToken
+                                        )
+                                        .addHeader(HEADER_OS_TYPE, OS_TYPE)
+                                        .addHeader(HEADER_VERSION, BuildConfig.VERSION_NAME)
+                                        .build()
+                                )
+                            }
+                            .onFailure { Timber.d("토큰 갱신 실패 ${it.message}") }
+                    }
+                }
             }
+            response
         }
 
     @Provides
