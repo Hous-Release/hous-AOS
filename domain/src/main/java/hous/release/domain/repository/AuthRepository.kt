@@ -36,4 +36,10 @@ interface AuthRepository {
     fun setSplashState(splashState: SplashState)
 
     fun getSplashState(): SplashState
+
+    suspend fun postForceLogin(
+        fcmToken: String,
+        socialType: String,
+        token: String
+    ): Result<Login>
 }

@@ -105,4 +105,17 @@ class AuthRepositoryImpl @Inject constructor(
     override fun getSplashState(): SplashState {
         return SplashState.valueOf(localSplashDataSource.splashState)
     }
+
+    override suspend fun postForceLogin(
+        fcmToken: String,
+        socialType: String,
+        token: String
+    ): Result<Login> =
+        kotlin.runCatching {
+            authDataSource.postForceLogin(
+                fcmToken,
+                socialType,
+                token
+            )
+        }.map { response -> response.data.toLogin() }
 }
