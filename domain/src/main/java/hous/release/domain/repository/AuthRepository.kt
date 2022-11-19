@@ -1,6 +1,7 @@
 package hous.release.domain.repository
 
 import hous.release.domain.entity.FeedbackType
+import hous.release.domain.entity.SplashState
 import hous.release.domain.entity.Token
 import hous.release.domain.entity.response.Login
 import hous.release.domain.entity.response.SignUp
@@ -22,8 +23,6 @@ interface AuthRepository {
 
     fun initToken(fcmToken: String, socialType: String, token: String)
 
-    suspend fun initSkipTutorial(skipTutorial: Boolean)
-
     suspend fun getFCMToken(setFCMToken: (String) -> Unit)
 
     suspend fun deleteUser(feedbackType: FeedbackType, comment: String): Result<Boolean>
@@ -31,4 +30,16 @@ interface AuthRepository {
     suspend fun postLogout(): Result<Boolean>
 
     fun clearLocalPref()
+
+    fun getIsAccessToken(): Boolean
+
+    fun setSplashState(splashState: SplashState)
+
+    fun getSplashState(): SplashState
+
+    suspend fun postForceLogin(
+        fcmToken: String,
+        socialType: String,
+        token: String
+    ): Result<Login>
 }

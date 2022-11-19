@@ -256,7 +256,7 @@
     <string name="gray">GRAY</string>
 
     <string name="homie_profile_introduction_empty">아직 소개가 작성되지 않았어요.</string>
-    <string name="homie_profile_representation_empty">아직 대표 뱃지가 없어요.</string>
+    <string name="homie_profile_representation_empty">배지가 없어요</string>
 
     <!-- Notification -->
     <string name="notification_title">알림</string>

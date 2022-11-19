@@ -57,7 +57,7 @@ class HomieProfileActivity :
 
     private fun initHomieProfileUi() {
         homieProfileViewModel.homieProfileData.observe(this) { homie ->
-            binding.tvHomieProfileBirthday.text = homie.birthday?.substring(5..9)
+            binding.tvHomieProfileBirthday.text = homie.birthday.substring(5..9)
             if (homie.introduction.isNullOrBlank()) {
                 with(binding) {
                     tvHomieProfileIntroduction.setText(R.string.homie_profile_introduction_empty)
