@@ -29,5 +29,6 @@ class RefreshRepositoryImpl @Inject constructor(
 
     companion object {
         const val EXPIRED_TOKEN = 401
+        const val EXPIRED_REFRESH_TOKEN = 401
     }
 }
