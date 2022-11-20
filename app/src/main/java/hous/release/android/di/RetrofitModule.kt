@@ -81,7 +81,7 @@ object RetrofitModule {
                                 )
                             }
                             .onFailure { throwable ->
-                                Timber.d("토큰 갱신 실패 ${throwable.message}")
+                                Timber.e("토큰 갱신 실패 ${throwable.message}")
                                 if (throwable is HttpException) {
                                     when (throwable.code()) {
                                         EXPIRED_REFRESH_TOKEN -> {
