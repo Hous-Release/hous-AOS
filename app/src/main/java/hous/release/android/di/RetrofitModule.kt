@@ -1,12 +1,18 @@
 package hous.release.android.di
 
+import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import hous.release.android.BuildConfig
+import hous.release.android.R
+import hous.release.android.presentation.login.LoginActivity
+import hous.release.android.util.showToast
 import hous.release.data.datasource.LocalPrefTokenDataSource
 import hous.release.data.repository.RefreshRepositoryImpl.Companion.EXPIRED_REFRESH_TOKEN
 import hous.release.data.repository.RefreshRepositoryImpl.Companion.EXPIRED_TOKEN
@@ -39,6 +45,7 @@ object RetrofitModule {
     @Singleton
     @NormalType
     fun providesInterceptor(
+        @ApplicationContext context: Context,
         localPref: SharedPreferences,
         refreshRepository: RefreshRepository,
         localPrefTokenDataSource: LocalPrefTokenDataSource
@@ -82,6 +89,12 @@ object RetrofitModule {
                                                 clear()
                                                 commit()
                                             }
+                                            context.showToast(context.getString(R.string.refresh_error))
+                                            context.startActivity(
+                                                Intent(context, LoginActivity::class.java).apply {
+                                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                                }
+                                            )
                                         }
                                     }
                                 }
