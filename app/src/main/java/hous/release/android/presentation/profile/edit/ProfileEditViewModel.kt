@@ -20,11 +20,11 @@ class ProfileEditViewModel @Inject constructor(
 
     private val isBirthdayPublic = MutableLiveData(false)
 
-    val mbti = MutableLiveData<String>()
+    val mbti = MutableLiveData<String?>()
 
-    val job = MutableLiveData<String>()
+    val job = MutableLiveData<String?>()
 
-    val introduction = MutableLiveData<String>()
+    val introduction = MutableLiveData<String?>()
 
     private val _isEditProfile = MutableLiveData<Boolean>()
     val isEditProfile: LiveData<Boolean> = _isEditProfile
