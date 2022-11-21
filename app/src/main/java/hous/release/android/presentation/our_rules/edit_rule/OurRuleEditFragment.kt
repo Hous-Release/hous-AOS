@@ -18,6 +18,7 @@ import hous.release.android.util.ItemTouchHelperCallback
 import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.dialog.ConfirmClickListener
+import hous.release.android.util.dialog.LoadingDialogFragment
 import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.repeatOnStarted
@@ -132,7 +133,10 @@ class OurRuleEditFragment :
     private fun initSaveButtonListener() {
         binding.ivEditRuleSaveButton.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
+                val loadingDialogFragment = LoadingDialogFragment()
+                loadingDialogFragment.show(childFragmentManager, LoadingDialogFragment.TAG)
                 viewModel.putOurEditRules().join()
+                loadingDialogFragment.dismiss()
                 findNavController().popBackStack()
             }
         }

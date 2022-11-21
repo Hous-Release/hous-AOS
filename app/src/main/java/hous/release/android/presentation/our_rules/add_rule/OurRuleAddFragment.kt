@@ -20,7 +20,6 @@ import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.extension.withArgs
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -95,7 +94,6 @@ class OurRuleAddFragment :
             viewLifecycleOwner.lifecycleScope.launch {
                 val loadingDialogFragment = LoadingDialogFragment()
                 loadingDialogFragment.show(childFragmentManager, LoadingDialogFragment.TAG)
-                delay(2000L)
                 viewModel.putAddRuleList().join()
                 loadingDialogFragment.dismiss()
                 findNavController().popBackStack()
