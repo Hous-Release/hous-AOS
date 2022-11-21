@@ -50,8 +50,7 @@ class OutRoomActivity : BindingActivity<ActivityOutRoomBinding>(R.layout.activit
                     showToast(getString(R.string.out_room_toast))
                     startActivity(
                         Intent(this, EnterRoomActivity::class.java).apply {
-                            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                         }
                     )
                 }

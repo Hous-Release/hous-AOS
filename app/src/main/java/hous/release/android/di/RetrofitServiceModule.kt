@@ -12,6 +12,7 @@ import hous.release.data.service.NotificationService
 import hous.release.data.service.OurRulesService
 import hous.release.data.service.PersonalityService
 import hous.release.data.service.ProfileService
+import hous.release.data.service.RefreshService
 import hous.release.data.service.SettingsService
 import hous.release.data.service.TodoService
 import retrofit2.Retrofit
@@ -22,51 +23,56 @@ import javax.inject.Singleton
 object RetrofitServiceModule {
     @Provides
     @Singleton
-    fun providesAuthService(retrofit: Retrofit): AuthService =
+    fun providesAuthService(@RetrofitModule.NormalType retrofit: Retrofit): AuthService =
         retrofit.create(AuthService::class.java)
 
     @Provides
     @Singleton
-    fun providesEnterRoomService(retrofit: Retrofit): EnterRoomService =
+    fun providesEnterRoomService(@RetrofitModule.NormalType retrofit: Retrofit): EnterRoomService =
         retrofit.create(EnterRoomService::class.java)
 
     @Provides
     @Singleton
-    fun provideHousService(retrofit: Retrofit): HousService =
+    fun provideHousService(@RetrofitModule.NormalType retrofit: Retrofit): HousService =
         retrofit.create(HousService::class.java)
 
     @Provides
     @Singleton
-    fun providesOurRulesService(retrofit: Retrofit): OurRulesService =
+    fun providesOurRulesService(@RetrofitModule.NormalType retrofit: Retrofit): OurRulesService =
         retrofit.create(OurRulesService::class.java)
 
     @Provides
     @Singleton
-    fun providesToDoService(retrofit: Retrofit): TodoService =
+    fun providesToDoService(@RetrofitModule.NormalType retrofit: Retrofit): TodoService =
         retrofit.create(TodoService::class.java)
 
     @Provides
     @Singleton
-    fun provideNotificationService(retrofit: Retrofit): NotificationService =
+    fun provideNotificationService(@RetrofitModule.NormalType retrofit: Retrofit): NotificationService =
         retrofit.create(NotificationService::class.java)
 
     @Provides
     @Singleton
-    fun providesPersonalityService(retrofit: Retrofit): PersonalityService =
+    fun providesPersonalityService(@RetrofitModule.NormalType retrofit: Retrofit): PersonalityService =
         retrofit.create(PersonalityService::class.java)
 
     @Provides
     @Singleton
-    fun providesProfileService(retrofit: Retrofit): ProfileService =
+    fun providesProfileService(@RetrofitModule.NormalType retrofit: Retrofit): ProfileService =
         retrofit.create(ProfileService::class.java)
 
     @Provides
     @Singleton
-    fun providesBadgeService(retrofit: Retrofit): BadgeService =
+    fun providesBadgeService(@RetrofitModule.NormalType retrofit: Retrofit): BadgeService =
         retrofit.create(BadgeService::class.java)
 
     @Provides
     @Singleton
-    fun provideSettingsService(retrofit: Retrofit): SettingsService =
+    fun provideSettingsService(@RetrofitModule.NormalType retrofit: Retrofit): SettingsService =
         retrofit.create(SettingsService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesRefreshService(@RefreshRetrofitModule.RefreshType retrofit: Retrofit): RefreshService =
+        retrofit.create(RefreshService::class.java)
 }

@@ -143,6 +143,14 @@ class LoginViewModel @Inject constructor(
                 token = requireNotNull(kakaoToken.value)
             ).onSuccess { response ->
                 _isJoiningRoom.value = response.isJoiningRoom
+                initTokenUseCase(
+                    fcmToken = requireNotNull(fcmToken.value),
+                    socialType = SOCIAL_TYPE,
+                    token = kakaoToken.value!!
+                )
+                initHousTokenUseCase(
+                    token = response.token
+                )
             }.onFailure { throwable ->
                 Timber.e(throwable.message)
             }
