@@ -10,6 +10,7 @@ import hous.release.android.util.extension.collectAsStateWithLifecycleRemember
 fun EditTodoUserScreen(
     viewModel: EditToDoViewModel,
     finish: () -> Boolean,
+    showLoadingDialog: () -> Unit,
     name: String,
     hideKeyBoard: () -> Unit
 ) {
@@ -18,6 +19,7 @@ fun EditTodoUserScreen(
         uiState = uiState,
         checkUser = viewModel::checkUser,
         selectTodoDay = viewModel::selectTodoDay,
+        showLoadingDialog = showLoadingDialog,
         finish = finish,
         name = name,
         putToDo = viewModel::putTodo,

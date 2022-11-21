@@ -33,6 +33,7 @@ import kotlinx.coroutines.launch
 fun ToDoButton(
     buttonState: ButtonState,
     name: String,
+    showLoadingDialog: () -> Unit,
     finish: () -> Boolean,
     putToDo: () -> Job,
     coroutineScope: CoroutineScope
@@ -48,6 +49,7 @@ fun ToDoButton(
             .background(buttonBackground)
             .clickable(buttonState == ButtonState.ACTIVE) {
                 coroutineScope.launch {
+                    showLoadingDialog()
                     putToDo().join()
                     finish()
                 }

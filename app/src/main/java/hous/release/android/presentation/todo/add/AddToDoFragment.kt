@@ -13,6 +13,7 @@ import hous.release.android.databinding.FragmentAddToDoBinding
 import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.dialog.ConfirmClickListener
+import hous.release.android.util.dialog.LoadingDialogFragment
 import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.repeatOnStarted
@@ -59,12 +60,20 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
             HousTheme {
                 AddTodoUserScreen(
                     viewModel = viewModel,
-                    finish = { findNavController().popBackStack() },
+                    showLoadingDialog = ::showLoadingDialog,
+                    finish = {
+                        (childFragmentManager.findFragmentByTag(LoadingDialogFragment.TAG) as? LoadingDialogFragment)?.dismiss()
+                        findNavController().popBackStack()
+                    },
                     name = getString(R.string.to_do_add_button),
                     hideKeyBoard = ::hideKeyBoard
                 )
             }
         }
+    }
+
+    private fun showLoadingDialog() {
+        LoadingDialogFragment().show(childFragmentManager, LoadingDialogFragment.TAG)
     }
 
     private fun collectTodoName() {
