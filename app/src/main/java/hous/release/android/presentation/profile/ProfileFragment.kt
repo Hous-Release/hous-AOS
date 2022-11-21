@@ -68,13 +68,11 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
 
     private fun initSettingOnClickListener() {
         binding.btnProfileSetting.setOnClickListener {
-            binding.btnProfileSetting.setOnClickListener {
-                startActivity(
-                    Intent(requireContext(), SettingsActivity::class.java).apply {
-                        putExtra(SettingsActivity.HAS_ROOM, true)
-                    }
-                )
-            }
+            startActivity(
+                Intent(requireContext(), SettingsActivity::class.java).apply {
+                    putExtra(SettingsActivity.HAS_ROOM, true)
+                }
+            )
         }
     }
 

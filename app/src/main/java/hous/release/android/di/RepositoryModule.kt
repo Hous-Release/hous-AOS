@@ -14,6 +14,7 @@ import hous.release.data.repository.NotificationRepositoryImpl
 import hous.release.data.repository.OurRulesRepositoryImpl
 import hous.release.data.repository.PersonalityRepositoryImpl
 import hous.release.data.repository.ProfileRepositoryImpl
+import hous.release.data.repository.RefreshRepositoryImpl
 import hous.release.data.repository.SettingsRepositoryImpl
 import hous.release.data.repository.TodoRepositoryImpl
 import hous.release.domain.repository.AuthRepository
@@ -24,6 +25,7 @@ import hous.release.domain.repository.NotificationRepository
 import hous.release.domain.repository.OurRulesRepository
 import hous.release.domain.repository.PersonalityRepository
 import hous.release.domain.repository.ProfileRepository
+import hous.release.domain.repository.RefreshRepository
 import hous.release.domain.repository.SettingsRepository
 import hous.release.domain.repository.TodoRepository
 import javax.inject.Singleton
@@ -80,6 +82,11 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideSettingsRepository(settingsRepositoryImpl: SettingsRepositoryImpl): SettingsRepository =
+    fun providesSettingsRepository(settingsRepositoryImpl: SettingsRepositoryImpl): SettingsRepository =
         settingsRepositoryImpl
+
+    @Provides
+    @Singleton
+    fun providesRefreshRepository(refreshRepositoryImpl: RefreshRepositoryImpl): RefreshRepository =
+        refreshRepositoryImpl
 }

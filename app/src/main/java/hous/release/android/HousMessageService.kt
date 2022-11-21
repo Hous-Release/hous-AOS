@@ -27,7 +27,7 @@ class HousMessageService : FirebaseMessagingService() {
         createNotificationChannel()
         val notificationBuilder = Notification.Builder(this, CHANNEL_ID)
             .setContentTitle(title)
-            .setSmallIcon(R.drawable.ic_hous)
+            .setSmallIcon(R.mipmap.ic_app_logo)
             .setContentText(body)
 
         with(NotificationManagerCompat.from(this)) {
