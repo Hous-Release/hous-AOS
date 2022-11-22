@@ -18,9 +18,6 @@ class HousMessageService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
-        Timber.d("remote Message $remoteMessage")
-        Timber.d("remote Message Data : ${remoteMessage.data}")
-        Timber.d("remote Message notification : ${remoteMessage.notification}")
         if (remoteMessage.data.isNotEmpty()) {
             val title = remoteMessage.data[TITLE] ?: ""
             val body = remoteMessage.data[BODY] ?: ""

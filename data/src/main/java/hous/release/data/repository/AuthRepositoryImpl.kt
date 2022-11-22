@@ -70,7 +70,6 @@ class AuthRepositoryImpl @Inject constructor(
                     Timber.e("Fetching FCM registration token failed", task.exception)
                     return@OnCompleteListener
                 }
-                Timber.d("token is  ${task.result}")
                 setFCMToken(task.result)
             }
         )
