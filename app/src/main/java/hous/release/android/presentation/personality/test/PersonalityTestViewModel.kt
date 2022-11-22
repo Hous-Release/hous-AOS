@@ -3,6 +3,7 @@ package hous.release.android.presentation.personality.test
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hous.release.android.presentation.personality.test.PersonalityTestAdapter.Companion.NEXT
 import hous.release.domain.entity.PersonalityTest
 import hous.release.domain.entity.QuestionType
 import hous.release.domain.usecase.GetPersonalityTestsUseCase
@@ -31,7 +32,6 @@ class PersonalityTestViewModel @Inject constructor(
         viewModelScope.launch {
             getPersonalityTestsUseCase()
                 .onSuccess { personalityTests ->
-                    Timber.d(personalityTests.toString())
                     _uiState.update { uiState ->
                         uiState.copy(personalityTests = personalityTests)
                     }
@@ -53,6 +53,9 @@ class PersonalityTestViewModel @Inject constructor(
             uiState.copy(personalityTests = newPersonalityTest)
         }
         calculateTestScore(selectPersonalityTest)
+
+        if (selectPersonalityTest.index == 15) onEvent(PersonalityTestEvent.Loading)
+        else onEvent(PersonalityTestEvent.MovePage(NEXT))
     }
 
     private fun calculateTestScore(selectPersonalityTest: PersonalityTest) {
@@ -121,6 +124,7 @@ data class TestHolder(
 )
 
 sealed class PersonalityTestEvent {
+    object Loading : PersonalityTestEvent()
     data class MovePage(val direction: Int) : PersonalityTestEvent()
     data class GoToResultView(val testResultColor: String) : PersonalityTestEvent()
 }

@@ -6,10 +6,8 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentPersonalityTestBinding
@@ -17,19 +15,13 @@ import hous.release.android.presentation.personality.result.PersonalityResultAct
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.LOCATION
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.RESULT
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.RESULT_COLOR
-import hous.release.android.presentation.personality.test.PersonalityTestAdapter.Companion.NEXT
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningType
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class PersonalityTestFragment :
@@ -64,44 +56,32 @@ class PersonalityTestFragment :
     }
 
     private fun collectPersonalityTests() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    personalityTestViewModel.uiState.collect { personalityTestUiState ->
-                        personalityTestAdapter.submitList(personalityTestUiState.personalityTests)
-                    }
-                }
-                launch {
-                    personalityTestViewModel.uiState
-                        .debounce(500)
-                        .collect {
-                            personalityTestViewModel.onEvent(PersonalityTestEvent.MovePage(NEXT))
-                        }
-                }
+        personalityTestViewModel.uiState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { personalityTestUiState ->
+                personalityTestAdapter.submitList(personalityTestUiState.personalityTests)
             }
-        }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun collectMoveEvent() {
         personalityTestViewModel.moveEvent.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .debounce(300)
             .onEach(this::handleEvent)
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun handleEvent(personalityTestEvent: PersonalityTestEvent) {
         when (personalityTestEvent) {
-            is PersonalityTestEvent.MovePage -> {
-                with(binding) {
-                    if (vpPersonalityTest.currentItem == 14) {
-                        vpPersonalityTest.visibility = View.GONE
-                        includePersonalityLoading.clTestLoading.visibility = View.VISIBLE
-                        personalityTestViewModel.putPersonalityTestResult()
-                        includePersonalityLoading.lottieTestLoadingProfile.playAnimation()
-                    }
-                }
-                binding.vpPersonalityTest.currentItem += personalityTestEvent.direction
-            }
+            is PersonalityTestEvent.MovePage -> binding.vpPersonalityTest.currentItem += personalityTestEvent.direction
             is PersonalityTestEvent.GoToResultView -> goPersonalityTestResult(personalityTestEvent.testResultColor)
+            is PersonalityTestEvent.Loading -> {
+                with(binding) {
+                    vpPersonalityTest.visibility = View.GONE
+                    includePersonalityLoading.clTestLoading.visibility = View.VISIBLE
+                    personalityTestViewModel.putPersonalityTestResult()
+                    includePersonalityLoading.lottieTestLoadingProfile.playAnimation()
+                }
+            }
         }
     }
 
