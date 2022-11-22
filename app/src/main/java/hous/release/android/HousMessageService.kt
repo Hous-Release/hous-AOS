@@ -3,10 +3,13 @@ package hous.release.android
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import hous.release.android.presentation.splash.IntroActivity
 import timber.log.Timber
 
 class HousMessageService : FirebaseMessagingService() {
@@ -27,10 +30,16 @@ class HousMessageService : FirebaseMessagingService() {
 
     private fun sendNotification(title: String, body: String) {
         createNotificationChannel()
+        val intent = Intent(this, IntroActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         val notificationBuilder = Notification.Builder(this, CHANNEL_ID)
             .setContentTitle(title)
             .setSmallIcon(R.mipmap.ic_app_logo)
+            .setContentIntent(pendingIntent)
             .setContentText(body)
+            .setAutoCancel(true)
 
         with(NotificationManagerCompat.from(this)) {
             notify(NOTIFICATION_ID, notificationBuilder.build())
