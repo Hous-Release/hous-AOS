@@ -8,13 +8,13 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_test_loading_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
         android:layout_marginTop="150dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:lottie_fileName="loading.json"
+        app:lottie_fileName="test_result.json"
         app:lottie_loop="true" />
 
     <TextView
