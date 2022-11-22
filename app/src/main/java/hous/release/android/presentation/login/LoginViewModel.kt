@@ -97,7 +97,6 @@ class LoginViewModel @Inject constructor(
 
     fun postLogin() {
         viewModelScope.launch {
-            Timber.d("fcm : ${fcmToken.value} token : ${kakaoToken.value}")
             postLoginUseCase(
                 fcmToken = requireNotNull(fcmToken.value),
                 socialType = "KAKAO",
