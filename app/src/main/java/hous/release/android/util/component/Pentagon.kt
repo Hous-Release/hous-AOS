@@ -3,9 +3,8 @@ package hous.release.android.util.component
 import androidx.annotation.ColorRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.Canvas
@@ -18,7 +17,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -100,45 +98,44 @@ fun HousPersonalityPentagon(
     }
 }
 
-enum class AniState {
-    START, END
-}
-
 @Composable
 private fun HousPentagon(
     testScore: TestScore,
     duration: Int,
     @ColorRes backgroundColor: Int
 ) {
-    val animationTargetState = remember { mutableStateOf(AniState.START) }
-    val transition = updateTransition(
-        targetState = animationTargetState.value,
-        label = ""
-    )
-    val radiusAnimationSpec = transition.animateFloat(
-        transitionSpec = { tween(durationMillis = duration) },
-        label = ""
-    ) { state -> if (state == AniState.START) 0f else 1f }
     val pentagonColor = colorResource(id = backgroundColor)
     val radiusFloatList = testScore.toFloatList()
+    val animatedProgress = remember(testScore) { Animatable(0f) }
+
+    LaunchedEffect(testScore) {
+        animatedProgress.animateTo(
+            1f,
+            animationSpec = tween(durationMillis = duration)
+        )
+    }
 
     Canvas(modifier = Modifier.fillMaxSize()) {
         drawIntoCanvas { canvas ->
             canvas.drawOutline(
-                outline = Outline.Generic(drawPentagonPath(radiusFloatList, radiusAnimationSpec)),
+                outline = Outline.Generic(
+                    drawPentagonPath(
+                        radiusFloatList,
+                        animatedProgress.value
+                    )
+                ),
                 paint = Paint().apply {
                     color = pentagonColor
                     pathEffect = PathEffect.cornerPathEffect(15.0.dp.toPx())
                 }
             )
         }
-        animationTargetState.value = AniState.END
     }
 }
 
 private fun DrawScope.drawPentagonPath(
     radiusList: List<Float>,
-    radiusAnimationSpec: State<Float>
+    radiusAnimationSpec: Float
 ): Path {
     val size = this.size.center
     val angle = 2.0 * Math.PI / 5.0f
@@ -148,18 +145,18 @@ private fun DrawScope.drawPentagonPath(
         reset()
         moveTo(
             size.x + (radiusPxList[0] * cos(currentAngle)).toFloat()
-                .times(radiusAnimationSpec.value),
+                .times(radiusAnimationSpec),
             size.y + (radiusPxList[0] * sin(currentAngle)).toFloat()
-                .times(radiusAnimationSpec.value)
+                .times(radiusAnimationSpec)
         )
         for (i in 1 until 5) {
             lineTo(
                 size.x + (radiusPxList[i] * cos(currentAngle + angle * i))
                     .toFloat()
-                    .times(radiusAnimationSpec.value),
+                    .times(radiusAnimationSpec),
                 size.y + (radiusPxList[i] * sin(currentAngle + angle * i))
                     .toFloat()
-                    .times(radiusAnimationSpec.value)
+                    .times(radiusAnimationSpec)
             )
         }
         close()
