@@ -79,7 +79,7 @@ class OurRuleAddFragment :
     }
 
     private fun initAddRuleButtonListener() {
-        binding.ivAddRuleBtn.setOnClickListener {
+        binding.btnAddRule.setOnClickListener {
             if (viewModel.uiState.value.ourRuleList.size >= 30) {
                 val errorDialogFragment = OurRuleAddErrorDialogFragment()
                 errorDialogFragment.show(childFragmentManager, OUR_RULE_ADD_ERROR_DIALOG)

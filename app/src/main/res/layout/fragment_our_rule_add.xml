@@ -63,40 +63,57 @@
             android:id="@+id/edt_input_new_rule"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="18dp"
             android:layout_marginTop="42dp"
             android:layout_marginEnd="8dp"
+            android:background="@null"
             android:hint="@string/our_rule_input"
             android:inputType="text"
             android:text="@={vm.inputRuleNameField}"
-            app:layout_constraintEnd_toStartOf="@id/iv_add_rule_btn"
+            app:layout_constraintEnd_toStartOf="@id/tv_add_rule_cnt"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_add_rule_title"
             app:theme="@style/OurRuleEditText" />
+
+        <View
+            android:id="@+id/view_add_rule"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="4dp"
+            android:background="@{vm.inputRuleNameField.length() == 0 ? @color/hous_g_3 : @color/hous_blue }"
+            app:layout_constraintEnd_toStartOf="@id/btn_add_rule"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edt_input_new_rule"
+            tools:background="@color/hous_blue" />
 
         <TextView
             android:id="@+id/tv_add_rule_cnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="11dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="18dp"
             android:text="@{@string/our_rule_add_cnt(vm.inputRuleNameField.length)}"
             android:textAppearance="@style/Description"
             android:textColor="@color/hous_g_5"
-            app:layout_constraintEnd_toEndOf="@id/edt_input_new_rule"
-            app:layout_constraintTop_toTopOf="@id/iv_add_rule_btn"
+            app:layout_constraintEnd_toStartOf="@id/btn_add_rule"
+            app:layout_constraintTop_toTopOf="@id/btn_add_rule"
             tools:text="7/15" />
 
-        <ImageView
-            android:id="@+id/iv_add_rule_btn"
+        <ImageButton
+            android:id="@+id/btn_add_rule"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
+            android:background="@null"
             android:padding="14dp"
             android:src="@drawable/ic_our_rule_plus_btn"
             app:layout_constraintBottom_toBottomOf="@id/edt_input_new_rule"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edt_input_new_rule" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_add_our_rules"
@@ -108,7 +125,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edt_input_new_rule"
+            app:layout_constraintTop_toBottomOf="@id/view_add_rule"
             tools:itemCount="19"
             tools:listitem="@layout/item_our_rules_general_rule" />
 
