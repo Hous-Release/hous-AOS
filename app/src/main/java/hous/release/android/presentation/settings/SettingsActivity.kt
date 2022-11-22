@@ -106,8 +106,7 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
                     showToast(getString(R.string.settings_logout_toast))
                     startActivity(
                         Intent(this, LoginActivity::class.java).apply {
-                            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                         }
                     )
                 }

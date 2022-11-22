@@ -11,6 +11,7 @@
     <string name="back_btn_image_desc">뒤로가기 버튼</string>
     <string name="finish_app_toast_msg">뒤로가기를 한 번 더 누르시면 앱이 종료돼요!</string>
     <string name="not_supported_type">지원하지 않는 타입입니다.</string>
+    <string name="refresh_error">자동로그인이 만료되었습니다. 다시 로그인해주시기 바랍니다.</string>
 
     <!-- WarningDialogUtil -->
     <string name="warning_splash_title">다른 기기에서 로그인 중이에요!</string>
@@ -340,6 +341,7 @@
     <string name="out_room_blur_bottom_img_desc">방 퇴사하기 하단 블러</string>
     <string name="out_room_my_to_do_circle_img_desc">방 퇴사하기 리스트 구분점</string>
     <string name="out_room_toast">퇴사되었습니다.</string>
+    <string name="out_room_to_do_empty">내게만 배정된 to-do가 없네요!</string>
 
     <!-- Withdraw -->
     <string name="withdraw_title">회원 탈퇴</string>

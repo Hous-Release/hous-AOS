@@ -10,6 +10,9 @@ import hous.release.android.databinding.ActivityLoginBinding
 import hous.release.android.presentation.enter_room.EnterRoomActivity
 import hous.release.android.presentation.main.MainActivity
 import hous.release.android.util.binding.BindingActivity
+import hous.release.android.util.dialog.ConfirmClickListener
+import hous.release.android.util.dialog.WarningDialogFragment
+import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.EventObserver
 import hous.release.android.util.showToast
 import hous.release.data.service.KakaoLoginService
@@ -32,6 +35,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         initBackPressedCallback()
         initIsJoiningRoomObserve()
         initIsUserObserve()
+        initIsPermitAccessObserve()
     }
 
     private fun initIsUserObserve() {
@@ -102,6 +106,25 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                 if (isSuccess) loginViewModel.postLogin()
             }
         )
+    }
+
+    private fun initIsPermitAccessObserve() {
+        loginViewModel.isMultipleAccess.observe(this) { isMultipleAccess ->
+            if (isMultipleAccess == true) {
+                WarningDialogFragment().apply {
+                    arguments = Bundle().apply {
+                        putSerializable(
+                            WarningDialogFragment.WARNING_TYPE,
+                            WarningType.WARNING_SPLASH
+                        )
+                        putParcelable(
+                            WarningDialogFragment.CONFIRM_ACTION,
+                            ConfirmClickListener(confirmAction = { loginViewModel.initIsPermitAccess() })
+                        )
+                    }
+                }.show(supportFragmentManager, WarningDialogFragment.DIALOG_WARNING)
+            }
+        }
     }
 
     companion object {

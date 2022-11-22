@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="hous.release.android.presentation.out_room.OutRoomViewModel" />
@@ -146,9 +148,9 @@
 
                 <TextView
                     android:id="@+id/tv_out_room_to_room_count"
+                    myTodoCnt="@{vm.myToDoCnt}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(vm.myToDoCnt)}"
                     android:textAppearance="@style/H3"
                     android:textColor="@color/hous_blue"
                     app:layout_constraintBottom_toBottomOf="@id/tv_out_room_to_room_prefix"
@@ -176,6 +178,21 @@
                     android:textColor="@color/hous_black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_out_room_to_room_prefix" />
+
+                <TextView
+                    android:id="@+id/tv_out_room_my_to_do_empty"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="40dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/out_room_to_do_empty"
+                    android:textAppearance="@style/B3"
+                    android:textColor="@color/hous_g_5"
+                    android:visibility="@{vm.myToDoCnt == 0 ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_out_room_my_to_do" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_out_room_my_to_do"

@@ -1,5 +1,6 @@
 package hous.release.data.entity.response
 
+import com.google.gson.annotations.SerializedName
 import hous.release.domain.entity.response.Homy
 import hous.release.domain.entity.response.Hous
 
@@ -33,6 +34,7 @@ data class HousResponse(
 
 data class HomyEntity(
     val color: String,
+    @SerializedName("onboardingId")
     val homieId: Int,
     val userNickname: String
 )

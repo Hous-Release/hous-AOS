@@ -50,7 +50,7 @@ object BindingAdapters {
                         HomyType.GREEN -> R.color.hous_green
                         HomyType.BLUE -> R.color.hous_blue
                         HomyType.PURPLE -> R.color.hous_purple
-                        HomyType.GRAY -> R.color.hous_blue_l1
+                        HomyType.GRAY -> R.color.hous_black
                     }
                 )
             )
@@ -68,7 +68,7 @@ object BindingAdapters {
                     HomyType.GREEN -> R.drawable.ic_personality_result_check_green
                     HomyType.BLUE -> R.drawable.ic_personality_result_check_blue
                     HomyType.PURPLE -> R.drawable.ic_personality_result_check_purple
-                    HomyType.GRAY -> -1
+                    HomyType.GRAY -> R.drawable.ic_personality_result_check_purple
                 }
             )
         }
@@ -102,7 +102,7 @@ object BindingAdapters {
                     HomyType.GREEN -> R.drawable.ic_homie_profile_green
                     HomyType.BLUE -> R.drawable.ic_homie_profile_blue
                     HomyType.PURPLE -> R.drawable.ic_homie_profile_purple
-                    HomyType.GRAY -> -1
+                    HomyType.GRAY -> R.drawable.ic_profile_gray
                 }
             )
         }
@@ -119,7 +119,7 @@ object BindingAdapters {
                     HomyType.GREEN -> R.string.personality_green
                     HomyType.BLUE -> R.string.personality_blue
                     HomyType.PURPLE -> R.string.personality_purple
-                    HomyType.GRAY -> R.string.personality_purple
+                    HomyType.GRAY -> R.string.gray
                 }
             )
         }
@@ -209,9 +209,9 @@ object BindingAdapters {
                     Calendar.WEDNESDAY -> "welcome_blue_wednesday.json"
                     Calendar.THURSDAY -> "welcome_purple_thursday.json"
                     Calendar.FRIDAY -> "welcome_green_friday.json"
-                    Calendar.SATURDAY -> "welcome_yellow_monday.json"
-                    Calendar.SUNDAY -> "welcome_yellow_monday.json"
-                    else -> "welcome_yellow_monday.json"
+                    Calendar.SATURDAY -> "welcome_weekend.json"
+                    Calendar.SUNDAY -> "welcome_weekend.json"
+                    else -> "welcome_green_friday.json"
                 }
             )
         }
@@ -224,11 +224,21 @@ object BindingAdapters {
             when (homyType) {
                 HomyType.RED -> R.drawable.ic_profile_red
                 HomyType.YELLOW -> R.drawable.ic_profile_yellow
-                HomyType.BLUE -> R.drawable.ic_profile_gray
+                HomyType.BLUE -> R.drawable.ic_profile_blue
                 HomyType.PURPLE -> R.drawable.ic_profile_purple
                 HomyType.GREEN -> R.drawable.ic_profile_green
                 HomyType.GRAY -> R.drawable.ic_profile_gray
             }
         )
+    }
+
+    @JvmStatic
+    @BindingAdapter("myTodoCnt")
+    fun TextView.setMyTodoCnt(myTodoCnt: Int) {
+        text = if (myTodoCnt < 10) {
+            " $myTodoCnt"
+        } else {
+            myTodoCnt.toString()
+        }
     }
 }
