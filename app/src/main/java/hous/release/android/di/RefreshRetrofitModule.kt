@@ -23,6 +23,7 @@ object RefreshRetrofitModule {
     private const val HEADER_OS_TYPE = "HousOsType"
     private const val HEADER_VERSION = "HousVersion"
     private const val OS_TYPE = "AOS"
+    private const val BEARER = "Bearer "
 
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
@@ -41,7 +42,7 @@ object RefreshRetrofitModule {
                     .newBuilder()
                     .addHeader(
                         HEADER_AUTHORIZATION,
-                        localPrefTokenDataSource.accessToken
+                        BEARER + localPrefTokenDataSource.accessToken
                     )
                     .addHeader(HEADER_OS_TYPE, OS_TYPE)
                     .addHeader(HEADER_VERSION, BuildConfig.VERSION_NAME)
