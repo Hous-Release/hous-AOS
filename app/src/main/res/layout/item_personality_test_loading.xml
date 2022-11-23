@@ -6,15 +6,16 @@
     android:layout_height="match_parent"
     android:visibility="gone">
 
-    <ImageView
-        android:id="@+id/iv_test_loading_profile"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_test_loading_profile"
         android:layout_width="220dp"
-        android:layout_height="0dp"
+        android:layout_height="220dp"
         android:layout_marginTop="150dp"
-        app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_fileName="test_result.json"
+        app:lottie_loop="true" />
 
     <TextView
         android:id="@+id/tv_test_loading_title"
@@ -24,9 +25,9 @@
         android:text="@string/test_loading_title"
         android:textAppearance="@style/H3"
         android:textColor="@color/hous_black"
-        app:layout_constraintEnd_toEndOf="@+id/iv_test_loading_profile"
-        app:layout_constraintStart_toStartOf="@+id/iv_test_loading_profile"
-        app:layout_constraintTop_toBottomOf="@+id/iv_test_loading_profile" />
+        app:layout_constraintEnd_toEndOf="@+id/lottie_test_loading_profile"
+        app:layout_constraintStart_toStartOf="@+id/lottie_test_loading_profile"
+        app:layout_constraintTop_toBottomOf="@+id/lottie_test_loading_profile" />
 
     <TextView
         android:id="@+id/tv_test_loading_subtitle"

@@ -19,6 +19,7 @@ import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningType
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -64,23 +65,23 @@ class PersonalityTestFragment :
 
     private fun collectMoveEvent() {
         personalityTestViewModel.moveEvent.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .debounce(300)
             .onEach(this::handleEvent)
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun handleEvent(personalityTestEvent: PersonalityTestEvent) {
         when (personalityTestEvent) {
-            is PersonalityTestEvent.MovePage -> {
-                with(binding) {
-                    if (vpPersonalityTest.currentItem == 14) {
-                        vpPersonalityTest.visibility = View.GONE
-                        includePersonalityLoading.clTestLoading.visibility = View.VISIBLE
-                        personalityTestViewModel.putPersonalityTestResult()
-                    }
-                }
-                binding.vpPersonalityTest.currentItem += personalityTestEvent.direction
-            }
+            is PersonalityTestEvent.MovePage -> binding.vpPersonalityTest.currentItem += personalityTestEvent.direction
             is PersonalityTestEvent.GoToResultView -> goPersonalityTestResult(personalityTestEvent.testResultColor)
+            is PersonalityTestEvent.Loading -> {
+                with(binding) {
+                    vpPersonalityTest.visibility = View.GONE
+                    includePersonalityLoading.clTestLoading.visibility = View.VISIBLE
+                    personalityTestViewModel.putPersonalityTestResult()
+                    includePersonalityLoading.lottieTestLoadingProfile.playAnimation()
+                }
+            }
         }
     }
 

@@ -145,6 +145,7 @@ dependencies {
     Deps.Google.run {
         implementation(platform(firebaseBom))
         implementation(firebaseMessaging)
+        implementation(analytics)
     }
 
     Deps.ThirdParty.run {

@@ -90,5 +90,6 @@ object Deps {
         const val googleServices = "com.google.gms:google-services:4.3.13"
         const val firebaseBom = "com.google.firebase:firebase-bom:30.4.1"
         const val firebaseMessaging = "com.google.firebase:firebase-messaging-ktx"
+        const val analytics = "com.google.firebase:firebase-analytics-ktx"
     }
 }
