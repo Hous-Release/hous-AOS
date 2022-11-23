@@ -59,7 +59,7 @@ class PersonalityTestViewModel @Inject constructor(
     }
 
     private fun calculateTestScore(selectPersonalityTest: PersonalityTest) {
-        uiState.value.testScore[selectPersonalityTest.index] =
+        uiState.value.testScore[selectPersonalityTest.index - 1] =
             TestHolder(selectPersonalityTest.questionType, selectPersonalityTest.testState.ordinal)
     }
 
@@ -75,7 +75,7 @@ class PersonalityTestViewModel @Inject constructor(
             QuestionType.NOISE to 0,
             QuestionType.INTROVERSION to 0
         )
-        uiState.value.testScore.values.forEach { testHolder ->
+        uiState.value.testScore.forEach { testHolder ->
             sumScore[testHolder.questionType] =
                 sumScore[testHolder.questionType]!! + testHolder.score
         }
@@ -100,22 +100,9 @@ class PersonalityTestViewModel @Inject constructor(
 
 data class PersonalityTestUiState(
     val personalityTests: List<PersonalityTest> = emptyList(),
-    val testScore: HashMap<Int, TestHolder> = hashMapOf(
-        1 to TestHolder(),
-        2 to TestHolder(),
-        3 to TestHolder(),
-        4 to TestHolder(),
-        5 to TestHolder(),
-        6 to TestHolder(),
-        7 to TestHolder(),
-        9 to TestHolder(),
-        10 to TestHolder(),
-        11 to TestHolder(),
-        12 to TestHolder(),
-        13 to TestHolder(),
-        14 to TestHolder(),
-        15 to TestHolder()
-    )
+    val testScore: MutableList<TestHolder> = mutableListOf<TestHolder>().apply {
+        for (i in 0 until 15) add(TestHolder())
+    }
 )
 
 data class TestHolder(
