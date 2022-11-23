@@ -1,6 +1,7 @@
 package hous.release.data.repository
 
 import hous.release.data.datasource.LocalPrefTokenDataSource
+import hous.release.data.datasource.LocalPrefTokenDataSource.Companion.BEARER
 import hous.release.data.datasource.RefreshDataSource
 import hous.release.data.entity.TokenEntity
 import hous.release.domain.entity.response.RefreshHousToken
@@ -15,8 +16,10 @@ class RefreshRepositoryImpl @Inject constructor(
         kotlin.runCatching {
             refreshDataSource.refreshHousToken(
                 TokenEntity(
-                    accessToken = localPrefTokenDataSource.accessToken,
-                    refreshToken = localPrefTokenDataSource.refreshToken
+                    accessToken =
+                    localPrefTokenDataSource.accessToken.removePrefix(BEARER),
+                    refreshToken =
+                    localPrefTokenDataSource.refreshToken.removePrefix(BEARER),
                 )
             )
         }.map { response ->
