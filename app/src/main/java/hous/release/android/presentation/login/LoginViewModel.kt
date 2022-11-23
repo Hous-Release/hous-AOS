@@ -9,11 +9,13 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.util.extension.Event
+import hous.release.domain.entity.SplashState
 import hous.release.domain.usecase.GetFcmTokenUseCase
 import hous.release.domain.usecase.InitHousTokenUseCase
 import hous.release.domain.usecase.InitTokenUseCase
 import hous.release.domain.usecase.PostForceLoginUseCase
 import hous.release.domain.usecase.PostLoginUseCase
+import hous.release.domain.usecase.SetSplashStateUseCase
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import timber.log.Timber
@@ -25,7 +27,8 @@ class LoginViewModel @Inject constructor(
     private val initTokenUseCase: InitTokenUseCase,
     private val initHousTokenUseCase: InitHousTokenUseCase,
     private val getFcmTokenUseCase: GetFcmTokenUseCase,
-    private val postForceLoginUseCase: PostForceLoginUseCase
+    private val postForceLoginUseCase: PostForceLoginUseCase,
+    private val setSplashStateUseCase: SetSplashStateUseCase
 ) : ViewModel() {
     private val kakaoToken = MutableLiveData<String>()
 
@@ -111,6 +114,10 @@ class LoginViewModel @Inject constructor(
                     token = response.token
                 )
                 _isJoiningRoom.value = response.isJoiningRoom
+                setSplashStateUseCase(
+                    if (response.isJoiningRoom) SplashState.MAIN
+                    else SplashState.ENTER_ROOM
+                )
             }.onFailure { throwable ->
                 if (throwable is HttpException) {
                     when (throwable.code()) {
@@ -150,6 +157,10 @@ class LoginViewModel @Inject constructor(
                 )
                 initHousTokenUseCase(
                     token = response.token
+                )
+                setSplashStateUseCase(
+                    if (response.isJoiningRoom) SplashState.MAIN
+                    else SplashState.ENTER_ROOM
                 )
             }.onFailure { throwable ->
                 Timber.e(throwable.message)
