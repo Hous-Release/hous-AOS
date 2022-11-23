@@ -15,6 +15,7 @@ import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.dialog.ConfirmClickListener
+import hous.release.android.util.dialog.LoadingDialogFragment
 import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.repeatOnStarted
@@ -50,6 +51,7 @@ class OurRuleAddFragment :
             hideKeyBoard()
         }
     }
+
     private fun hideKeyBoard() = KeyBoardUtil.hide(requireActivity())
 
     private fun collectUiState() {
@@ -77,7 +79,7 @@ class OurRuleAddFragment :
     }
 
     private fun initAddRuleButtonListener() {
-        binding.ivAddRuleBtn.setOnClickListener {
+        binding.btnAddRule.setOnClickListener {
             if (viewModel.uiState.value.ourRuleList.size >= 30) {
                 val errorDialogFragment = OurRuleAddErrorDialogFragment()
                 errorDialogFragment.show(childFragmentManager, OUR_RULE_ADD_ERROR_DIALOG)
@@ -90,7 +92,10 @@ class OurRuleAddFragment :
     private fun initSaveButtonListener() {
         binding.ivAddRuleSaveButton.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
+                val loadingDialogFragment = LoadingDialogFragment()
+                loadingDialogFragment.show(childFragmentManager, LoadingDialogFragment.TAG)
                 viewModel.putAddRuleList().join()
+                loadingDialogFragment.dismiss()
                 findNavController().popBackStack()
             }
         }

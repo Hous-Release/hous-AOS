@@ -12,6 +12,7 @@ import hous.release.android.presentation.our_rules.adapter.OurRulesDeleteAdapter
 import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.dialog.ConfirmClickListener
+import hous.release.android.util.dialog.LoadingDialogFragment
 import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.repeatOnStarted
@@ -42,7 +43,10 @@ class OurRuleDeleteFragment :
 
     private fun deleteRules() {
         viewLifecycleOwner.lifecycleScope.launch {
+            val loadingDialogFragment = LoadingDialogFragment()
+            loadingDialogFragment.show(childFragmentManager, LoadingDialogFragment.TAG)
             viewModel.deleteRules().join()
+            loadingDialogFragment.dismiss()
             findNavController().popBackStack()
         }
     }
@@ -63,12 +67,13 @@ class OurRuleDeleteFragment :
     }
 
     private fun initAdapter() {
-        ourRulesDeleteAdapter = OurRulesDeleteAdapter(viewModel::updateDeleteRules).also { adapter ->
-            binding.rvDeleteOurRules.run {
-                this.adapter = adapter
-                itemAnimator = null
+        ourRulesDeleteAdapter =
+            OurRulesDeleteAdapter(viewModel::updateDeleteRules).also { adapter ->
+                binding.rvDeleteOurRules.run {
+                    this.adapter = adapter
+                    itemAnimator = null
+                }
             }
-        }
     }
 
     private fun collectUiState() {

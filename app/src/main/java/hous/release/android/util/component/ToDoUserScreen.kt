@@ -31,6 +31,7 @@ fun TodoUserScreen(
     uiState: UpdateToDoUiState,
     checkUser: (Int) -> Unit,
     selectTodoDay: (Int, Int) -> Unit,
+    showLoadingDialog: () -> Unit,
     finish: () -> Boolean,
     name: String,
     putToDo: () -> Job,
@@ -45,7 +46,8 @@ fun TodoUserScreen(
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize().clickable(interactionSource = interactionSource, indication = null) {
+                .fillMaxSize()
+                .clickable(interactionSource = interactionSource, indication = null) {
                     hideKeyBoard()
                 }
         ) {
@@ -96,6 +98,7 @@ fun TodoUserScreen(
             ToDoButton(
                 buttonState = uiState.buttonState,
                 name = name,
+                showLoadingDialog = showLoadingDialog,
                 finish = finish,
                 putToDo = putToDo,
                 coroutineScope = rememberCoroutineScope()

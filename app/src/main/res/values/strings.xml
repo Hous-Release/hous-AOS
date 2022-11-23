@@ -186,6 +186,7 @@
         <item>일</item>
     </string-array>
     <string name="to_do_plus">+</string>
+    <!-- Our Rule add,edit-->
     <string name="our_rule_empty_description">아직 우리 집 Rules가 없어요!</string>
     <string name="our_rule_add_new_rule_title">새로운 Rules 추가</string>
     <string name="our_rule_edit_rule_title">우리 집 Rules</string>
@@ -196,6 +197,7 @@
     <string name="our_rule_add_error_title">Rules 개수 초과</string>
     <string name="our_rule_add_error_description">우리 집 Rules가 너무 많아요!\n필요하지 않은 Rule은 삭제하고\n다시 시도해주세요~</string>
     <string name="our_rule_add_error_ok">알겠어요!</string>
+    <string name="our_rule_add_cnt">%d/20</string>
     <string name="to_do_bottom_sheet_delete">삭제하기</string>
     <string name="to_do_bottom_sheet_edit">수정하기</string>
     <string name="dialog_to_do_title">안녕, to-do...</string>

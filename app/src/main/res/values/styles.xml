@@ -20,9 +20,6 @@
         <item name="android:textSize">14dp</item>
         <item name="android:importantForAutofill">no</item>
         <item name="android:textCursorDrawable">@drawable/shape_black_line</item>
-        <item name="colorControlNormal">@color/hous_g_3</item>
-        <item name="colorControlActivated">@color/hous_blue</item>
-        <item name="android:paddingBottom">15dp</item>
         <item name="android:textAppearance">@style/B2</item>
         <item name="android:textColorHint">@color/hous_g_5</item>
     </style>
