@@ -8,11 +8,11 @@ class LocalPrefTokenDataSource @Inject constructor(
     private val prefs: SharedPreferences
 ) {
     var accessToken: String
-        set(value) = prefs.edit { putString(ACCESS_TOKEN, BEARER + value) }
+        set(value) = prefs.edit { putString(ACCESS_TOKEN, value) }
         get() = prefs.getString(ACCESS_TOKEN, "") ?: ""
 
     var refreshToken: String
-        set(value) = prefs.edit { putString(REFRESH_TOKEN, BEARER + value) }
+        set(value) = prefs.edit { putString(REFRESH_TOKEN, value) }
         get() = prefs.getString(REFRESH_TOKEN, "") ?: ""
 
     var fcmToken: String
@@ -28,7 +28,6 @@ class LocalPrefTokenDataSource @Inject constructor(
         get() = prefs.getString(TOKEN, "") ?: ""
 
     companion object {
-        const val BEARER = "Bearer "
         const val ACCESS_TOKEN = "access_token"
         const val REFRESH_TOKEN = "refresh_token"
         private const val FCM_TOKEN = "fcm_token"
