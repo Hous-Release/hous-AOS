@@ -8,6 +8,7 @@ import hous.release.domain.entity.PersonalityTest
 import hous.release.domain.entity.QuestionType
 import hous.release.domain.usecase.GetPersonalityTestsUseCase
 import hous.release.domain.usecase.PutPersonalityTestResult
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +17,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 class PersonalityTestViewModel @Inject constructor(
@@ -32,7 +32,6 @@ class PersonalityTestViewModel @Inject constructor(
         viewModelScope.launch {
             getPersonalityTestsUseCase()
                 .onSuccess { personalityTests ->
-                    Timber.d(personalityTests.toString())
                     _uiState.update { uiState ->
                         uiState.copy(personalityTests = personalityTests)
                     }
@@ -44,28 +43,24 @@ class PersonalityTestViewModel @Inject constructor(
     }
 
     fun setTestState(selectPersonalityTest: PersonalityTest) {
-        calculateTestScore(selectPersonalityTest)
-        viewModelScope.launch {
-            _uiState.update { uiState ->
-                val newPersonalityTest = uiState.personalityTests.map { personalityTest ->
-                    if (selectPersonalityTest.index == personalityTest.index) {
-                        return@map selectPersonalityTest
-                    }
-                    personalityTest
+        _uiState.update { uiState ->
+            val newPersonalityTest = uiState.personalityTests.map { personalityTest ->
+                if (selectPersonalityTest.index == personalityTest.index) {
+                    return@map selectPersonalityTest
                 }
-                uiState.copy(personalityTests = newPersonalityTest)
+                personalityTest
             }
-
-            delay(300L)
-            onEvent(PersonalityTestEvent.MovePage(NEXT))
+            uiState.copy(personalityTests = newPersonalityTest)
         }
+        calculateTestScore(selectPersonalityTest)
+
+        if (selectPersonalityTest.index == 15) onEvent(PersonalityTestEvent.Loading)
+        else onEvent(PersonalityTestEvent.MovePage(NEXT))
     }
 
     private fun calculateTestScore(selectPersonalityTest: PersonalityTest) {
-        val currentScore: Int =
-            requireNotNull(uiState.value.testScore[selectPersonalityTest.questionType])
-        uiState.value.testScore[selectPersonalityTest.questionType] =
-            currentScore + selectPersonalityTest.testState.ordinal
+        uiState.value.testScore[selectPersonalityTest.index - 1] =
+            TestHolder(selectPersonalityTest.questionType, selectPersonalityTest.testState.ordinal)
     }
 
     fun onEvent(personalityTestEvent: PersonalityTestEvent) {
@@ -73,15 +68,27 @@ class PersonalityTestViewModel @Inject constructor(
     }
 
     fun putPersonalityTestResult() {
+        val sumScore: HashMap<QuestionType, Int> = hashMapOf(
+            QuestionType.LIGHT to 0,
+            QuestionType.CLEAN to 0,
+            QuestionType.SMELL to 0,
+            QuestionType.NOISE to 0,
+            QuestionType.INTROVERSION to 0
+        )
+        uiState.value.testScore.forEach { testHolder ->
+            sumScore[testHolder.questionType] =
+                sumScore[testHolder.questionType]!! + testHolder.score
+        }
         viewModelScope.launch {
             putPersonalityTestResultUseCase(
-                cleanScore = requireNotNull(uiState.value.testScore[QuestionType.CLEAN]),
-                introversionScore = requireNotNull(uiState.value.testScore[QuestionType.INTROVERSION]),
-                lightScore = requireNotNull(uiState.value.testScore[QuestionType.LIGHT]),
-                noiseScore = requireNotNull(uiState.value.testScore[QuestionType.NOISE]),
-                smellScore = requireNotNull(uiState.value.testScore[QuestionType.SMELL])
+                cleanScore = requireNotNull(sumScore[QuestionType.CLEAN]),
+                introversionScore = requireNotNull(sumScore[QuestionType.INTROVERSION]),
+                lightScore = requireNotNull(sumScore[QuestionType.LIGHT]),
+                noiseScore = requireNotNull(sumScore[QuestionType.NOISE]),
+                smellScore = requireNotNull(sumScore[QuestionType.SMELL])
             )
                 .onSuccess { resultColor ->
+                    delay(2000)
                     onEvent(PersonalityTestEvent.GoToResultView(resultColor))
                 }
                 .onFailure {
@@ -93,16 +100,18 @@ class PersonalityTestViewModel @Inject constructor(
 
 data class PersonalityTestUiState(
     val personalityTests: List<PersonalityTest> = emptyList(),
-    val testScore: HashMap<QuestionType, Int> = hashMapOf(
-        QuestionType.LIGHT to 0,
-        QuestionType.NOISE to 0,
-        QuestionType.CLEAN to 0,
-        QuestionType.SMELL to 0,
-        QuestionType.INTROVERSION to 0
-    )
+    val testScore: MutableList<TestHolder> = mutableListOf<TestHolder>().apply {
+        for (i in 0 until 15) add(TestHolder())
+    }
+)
+
+data class TestHolder(
+    val questionType: QuestionType = QuestionType.LIGHT,
+    val score: Int = -1
 )
 
 sealed class PersonalityTestEvent {
+    object Loading : PersonalityTestEvent()
     data class MovePage(val direction: Int) : PersonalityTestEvent()
     data class GoToResultView(val testResultColor: String) : PersonalityTestEvent()
 }

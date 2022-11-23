@@ -23,7 +23,7 @@ interface AuthRepository {
 
     fun initToken(fcmToken: String, socialType: String, token: String)
 
-    suspend fun getFCMToken(setFCMToken: (String) -> Unit)
+    fun getFCMToken(setFCMToken: (String) -> Unit)
 
     suspend fun deleteUser(feedbackType: FeedbackType, comment: String): Result<Boolean>
 
