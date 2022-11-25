@@ -105,7 +105,7 @@ class LoginViewModel @Inject constructor(
                 initTokenUseCase(
                     fcmToken = requireNotNull(fcmToken.value),
                     socialType = SOCIAL_TYPE,
-                    token = kakaoToken.value!!
+                    token = requireNotNull(kakaoToken.value)
                 )
                 initHousTokenUseCase(
                     token = response.token
@@ -118,7 +118,7 @@ class LoginViewModel @Inject constructor(
                             initTokenUseCase(
                                 fcmToken = requireNotNull(fcmToken.value),
                                 socialType = SOCIAL_TYPE,
-                                token = kakaoToken.value!!
+                                token = requireNotNull(kakaoToken.value)
                             )
                             _isUser.value = false
                             Timber.e(throwable.message)
@@ -146,7 +146,7 @@ class LoginViewModel @Inject constructor(
                 initTokenUseCase(
                     fcmToken = requireNotNull(fcmToken.value),
                     socialType = SOCIAL_TYPE,
-                    token = kakaoToken.value!!
+                    token = requireNotNull(kakaoToken.value)
                 )
                 initHousTokenUseCase(
                     token = response.token
