@@ -9,6 +9,7 @@ import hous.release.android.databinding.ActivityHomieProfileBinding
 import hous.release.android.presentation.hous.HousFragment.Companion.HOMIE_ID
 import hous.release.android.presentation.personality.result.PersonalityResultActivity
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.LOCATION
+import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.RESULT_COLOR
 import hous.release.android.presentation.profile.ProfileFragment.Companion.personalityInfo
 import hous.release.android.presentation.profile.adapter.ProfilePersonalityAdapter
 import hous.release.android.util.binding.BindingActivity
@@ -46,6 +47,10 @@ class HomieProfileActivity :
         binding.llHomieProfilePersonalityDetail.setOnClickListener {
             val toPersonalityDetail = Intent(this, PersonalityResultActivity::class.java)
             toPersonalityDetail.putExtra(LOCATION, HOMIE)
+            toPersonalityDetail.putExtra(
+                RESULT_COLOR,
+                homieProfileViewModel.homieProfileData.value!!.personalityColor.toString()
+            )
             startActivity(toPersonalityDetail)
         }
     }
