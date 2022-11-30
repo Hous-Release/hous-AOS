@@ -8,16 +8,22 @@ import hous.release.android.databinding.ItemToDoDailyOurRuleBinding
 import hous.release.android.util.ItemDiffCallback
 import hous.release.domain.entity.Todo
 
-class DailyOurTodoAdapter :
-    ListAdapter<Todo, DailyOurTodoAdapter.OurToDoViewHolder>(TodoComparator) {
+class DailyOurTodoAdapter(
+    private val showTodoBottomSheet: (Int) -> Unit
+) : ListAdapter<Todo, DailyOurTodoAdapter.OurToDoViewHolder>(TodoComparator) {
 
     class OurToDoViewHolder(
-        private val binding: ItemToDoDailyOurRuleBinding
+        private val binding: ItemToDoDailyOurRuleBinding,
+        private val showTodoBottomSheet: (Int) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(todo: Todo) {
             with(binding) {
                 this.todo = todo
+
+                clOurToDo.setOnClickListener {
+                    showTodoBottomSheet(todo.todoId)
+                }
 
                 when (todo.nicknames.size) {
                     ONE_PARTICIPANT -> tvToDoDailyOurRuleParticipants.text = todo.nicknames[0]
@@ -34,7 +40,7 @@ class DailyOurTodoAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OurToDoViewHolder {
         val view =
             ItemToDoDailyOurRuleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return OurToDoViewHolder(view)
+        return OurToDoViewHolder(view, showTodoBottomSheet)
     }
 
     override fun onBindViewHolder(holder: OurToDoViewHolder, position: Int) {

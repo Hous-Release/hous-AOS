@@ -22,7 +22,7 @@ class DailyMyTodoAdapter(
         fun bind(todo: Todo) {
             with(binding) {
                 this.todo = todo
-                tvToDoDailyMyRule.setOnClickListener {
+                clMyToDo.setOnClickListener {
                     showTodoBottomSheet(todo.todoId)
                 }
             }
