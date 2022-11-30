@@ -41,7 +41,7 @@
                     android:id="@+id/tv_to_do_daily_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{Integer.toString(todo_main.ourTodosCnt)}"
+                    android:text="@{Integer.toString(todo_main.myTodos.size + todo_main.ourTodos.size)}"
                     android:textAppearance="@style/H3"
                     android:textColor="@color/hous_blue" />
 
