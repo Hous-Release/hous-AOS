@@ -100,7 +100,7 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
     private fun initFloatingButton() {
         binding.cvDailyFloatingButton.setContent {
             HousFloatingButton {
-                if (todoDetailViewModel.uiState.value.totalTodoCount == 60) {
+                if (todoDetailViewModel.uiState.value.totalTodoCount >= 60) {
                     TodoLimitDialog().show(childFragmentManager, this.javaClass.name)
                     return@HousFloatingButton
                 }

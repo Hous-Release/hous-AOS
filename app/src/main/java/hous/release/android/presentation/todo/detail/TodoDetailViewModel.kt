@@ -8,13 +8,13 @@ import hous.release.domain.entity.response.TodoMain
 import hous.release.domain.usecase.DeleteTodoUseCase
 import hous.release.domain.usecase.GetDailyTodosUseCase
 import hous.release.domain.usecase.GetMemberTodosUseCase
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 class TodoDetailViewModel @Inject constructor(
@@ -38,8 +38,7 @@ class TodoDetailViewModel @Inject constructor(
             getMemberTodosUseCase()
                 .onSuccess { result ->
                     _uiState.value = _uiState.value.copy(memberToDos = result)
-                    val count = result.sumOf { todo -> todo.totalTodoCnt }
-                    _uiState.value = _uiState.value.copy(totalTodoCount = count)
+                    sumTotalTodoCnt()
                 }
                 .onFailure {
                     Timber.e("error: ${it.message}")
@@ -52,11 +51,17 @@ class TodoDetailViewModel @Inject constructor(
             dailyTodosUseCase()
                 .onSuccess { result ->
                     _uiState.value = _uiState.value.copy(dailyTodos = result)
+                    sumTotalTodoCnt()
                 }
                 .onFailure {
                     Timber.e("error: ${it.message}")
                 }
         }
+    }
+
+    private fun sumTotalTodoCnt() {
+        val count = uiState.value.memberToDos.sumOf { todo -> todo.totalTodoCnt }
+        _uiState.value = _uiState.value.copy(totalTodoCount = count)
     }
 
     fun deleteTodo(todoId: Int) {

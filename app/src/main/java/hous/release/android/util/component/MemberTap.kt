@@ -73,9 +73,9 @@ private fun MemberTapItem(
     ) {
         Box(
             modifier = Modifier
-                .clickable { setCurrIndex(index) }
                 .size(40.dp)
                 .clip(CircleShape)
+                .clickable { setCurrIndex(index) }
                 .background(memberColor)
                 .padding(8.dp),
             contentAlignment = Alignment.Center
