@@ -7,6 +7,8 @@ import hous.release.android.presentation.todo.viewmodel.UpdateToDoViewModel
 import hous.release.domain.entity.ApiResult
 import hous.release.domain.usecase.GetEditTodoContentUseCase
 import hous.release.domain.usecase.PutEditToDoUseCase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -19,6 +21,8 @@ class EditToDoViewModel @Inject constructor(
 ) :
     UpdateToDoViewModel() {
     private var todoId = -1
+    private val _todoHint = MutableStateFlow("")
+    val todoHint = _todoHint.asStateFlow()
     override fun putTodo() = viewModelScope.launch {
         putEditToDoUseCase(
             todoId = todoId,
@@ -42,6 +46,7 @@ class EditToDoViewModel @Inject constructor(
                     is ApiResult.Success -> _uiState.update { uiState ->
                         val data = apiResult.data
                         todoName.value = data.name
+                        _todoHint.update { data.name }
                         uiState.copy(
                             isPushNotification = data.isPushNotification,
                             buttonState = ButtonState.ACTIVE,
