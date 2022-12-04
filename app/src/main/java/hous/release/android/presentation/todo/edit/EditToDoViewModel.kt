@@ -61,4 +61,15 @@ class EditToDoViewModel @Inject constructor(
             }
         }
     }
+
+    companion object {
+        const val DUPLICATED_ERROR_CODE = "409"
+        const val LIMITED_ERROR_CODE = "403"
+    }
+}
+
+sealed class UpdateToDoEvent {
+    object Duplicate : UpdateToDoEvent()
+    object Limit : UpdateToDoEvent()
+    object Finish : UpdateToDoEvent()
 }
