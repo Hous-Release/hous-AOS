@@ -45,7 +45,12 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
         val currentId = homy.homieId
         Timber.e("${homy.homieId}")
         when (HomyType.valueOf(homy.color)) {
-            HomyType.GRAY -> return
+            HomyType.GRAY -> {
+                ToastMessageUtil.showToast(
+                    requireContext(),
+                    getString(R.string.hous_not_tested_yet)
+                )
+            }
             else -> {
                 val toHomieProfile = Intent(requireActivity(), HomieProfileActivity::class.java)
                 toHomieProfile.putExtra(HOMIE_ID, currentId)

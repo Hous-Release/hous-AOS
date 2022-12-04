@@ -151,6 +151,7 @@
     <string name="hous_empty_our_rules">아직 우리 집 Rules가 없어요!</string>
     <string name="hous_empty_our_rules_add">다른 Rule도 추가해보세요!</string>
     <string name="hous_toast_copy">참여코드가 복사되었습니다.</string>
+    <string name="hous_not_tested_yet">아직 성향 테스트를 하지 않은 호미예요!</string>
 
     <!-- EditHousName -->
     <string name="edit_hous_name_back_img_desc">back button</string>
