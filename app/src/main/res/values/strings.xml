@@ -205,6 +205,7 @@
     <string name="dialog_cancel">취소하기</string>
 
     <!-- To Do-add,edit-->
+    <string name="to_do_duplicate_toast_msg">똑같은 이름의 to-do가 있어요!</string>
     <string name="to_do_manager">담당자</string>
     <string name="to_do_add_title">새로운 to-do 추가</string>
     <string name="to_do_edit_title">to-do 수정</string>
