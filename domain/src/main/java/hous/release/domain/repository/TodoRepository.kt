@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface TodoRepository {
     suspend fun getTodoMainContent(): Result<TodoMain>
-    suspend fun checkTodo(todoId: Int, isChecked: Boolean)
+    suspend fun checkTodo(todoId: Int, isChecked: Boolean): Result<Unit>
     suspend fun getDailyTodos(): Result<List<TodoMain>>
     suspend fun getMemberTodos(): Result<List<MemberTodoContent>>
     suspend fun getTodoDetail(todoId: Int): Result<TodoDetail>

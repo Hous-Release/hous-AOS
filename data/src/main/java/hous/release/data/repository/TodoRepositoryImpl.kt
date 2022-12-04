@@ -8,6 +8,7 @@ import hous.release.domain.entity.response.ToDoContent
 import hous.release.domain.entity.response.ToDoUser
 import hous.release.domain.entity.response.TodoMain
 import hous.release.domain.repository.TodoRepository
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +17,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import retrofit2.HttpException
 import timber.log.Timber
-import javax.inject.Inject
 
 class TodoRepositoryImpl @Inject constructor(
     private val todoDataSource: TodoDataSource,
@@ -25,11 +25,8 @@ class TodoRepositoryImpl @Inject constructor(
     override suspend fun getTodoMainContent(): Result<TodoMain> =
         runCatching { todoDataSource.getTodoMainContent().data.toTodoMain() }
 
-    override suspend fun checkTodo(todoId: Int, isChecked: Boolean) {
+    override suspend fun checkTodo(todoId: Int, isChecked: Boolean): Result<Unit> =
         runCatching { todoDataSource.checkTodo(todoId = todoId, isChecked = isChecked) }
-            .onSuccess { Timber.d("check todo 통신 성공") }
-            .onFailure { Timber.d("check todo 통신 실패 : ${it.message}") }
-    }
 
     override suspend fun getDailyTodos(): Result<List<TodoMain>> =
         runCatching { todoDataSource.getDailyTodos().data.map { todoMain -> todoMain.toTodoMain() } }
