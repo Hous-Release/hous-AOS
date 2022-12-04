@@ -4,11 +4,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.presentation.todo.edit.EditToDoViewModel
 import hous.release.android.presentation.todo.edit.UpdateToDoEvent
-import hous.release.android.presentation.todo.viewmodel.UpdateToDoUiState
 import hous.release.android.presentation.todo.viewmodel.UpdateToDoViewModel
 import hous.release.domain.entity.ApiResult
-import hous.release.domain.entity.HomyType
-import hous.release.domain.entity.response.ToDoUser
 import hous.release.domain.usecase.GetToDoUsersUseCase
 import hous.release.domain.usecase.PostAddToDoUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -62,32 +59,5 @@ class AddToDoVIewModel @Inject constructor(
                 is ApiResult.Empty -> Timber.e(IllegalArgumentException())
             }
         }
-    }
-
-    companion object {
-        private val dummyUiState = UpdateToDoUiState(
-            todoUsers = listOf(
-                ToDoUser().copy(
-                    homyType = HomyType.GREEN,
-                    nickname = "이준원",
-                    onBoardingId = 0
-                ),
-                ToDoUser().copy(
-                    homyType = HomyType.RED,
-                    nickname = "손연주",
-                    onBoardingId = 1
-                ),
-                ToDoUser().copy(
-                    homyType = HomyType.YELLOW,
-                    nickname = "이영주",
-                    onBoardingId = 2
-                ),
-                ToDoUser().copy(
-                    homyType = HomyType.BLUE,
-                    nickname = "강원용",
-                    onBoardingId = 3
-                )
-            )
-        )
     }
 }
