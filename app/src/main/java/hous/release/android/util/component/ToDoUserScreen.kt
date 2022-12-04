@@ -32,7 +32,6 @@ fun TodoUserScreen(
     checkUser: (Int) -> Unit,
     selectTodoDay: (Int, Int) -> Unit,
     showLoadingDialog: () -> Unit,
-    finish: () -> Boolean,
     name: String,
     putToDo: () -> Job,
     hideKeyBoard: () -> Unit
@@ -99,7 +98,6 @@ fun TodoUserScreen(
                 buttonState = uiState.buttonState,
                 name = name,
                 showLoadingDialog = showLoadingDialog,
-                finish = finish,
                 putToDo = putToDo,
                 coroutineScope = rememberCoroutineScope()
             )

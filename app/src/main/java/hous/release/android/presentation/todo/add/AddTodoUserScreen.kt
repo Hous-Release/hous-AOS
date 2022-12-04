@@ -10,7 +10,6 @@ import hous.release.android.util.extension.collectAsStateWithLifecycleRemember
 fun AddTodoUserScreen(
     viewModel: AddToDoVIewModel,
     showLoadingDialog: () -> Unit = {},
-    finish: () -> Boolean,
     name: String,
     hideKeyBoard: () -> Unit
 ) {
@@ -20,7 +19,6 @@ fun AddTodoUserScreen(
         checkUser = viewModel::checkUser,
         selectTodoDay = viewModel::selectTodoDay,
         showLoadingDialog = showLoadingDialog,
-        finish = finish,
         name = name,
         putToDo = viewModel::putTodo,
         hideKeyBoard = hideKeyBoard
