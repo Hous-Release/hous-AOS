@@ -358,7 +358,7 @@
     <string name="withdraw_comment_hint">의견 남기기</string>
     <string name="withdraw_comment_count">%d/200</string>
     <string name="withdraw_check_desc">탈퇴하겠습니다.</string>
-    <string name="withdraw_done">방 탈퇴하기</string>
+    <string name="withdraw_done">회원 탈퇴하기</string>
     <string name="withdraw_spinner_img_desc">피드백 스피너 이미지</string>
     <string name="withdraw_toast">탈퇴되었습니다.</string>
 
