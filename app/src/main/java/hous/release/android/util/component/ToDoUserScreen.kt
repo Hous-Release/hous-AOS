@@ -47,6 +47,7 @@ fun TodoUserScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(bottom = 83.dp)
                 .clickable(interactionSource = interactionSource, indication = null) {
                     hideKeyBoard()
                 }
@@ -87,7 +88,6 @@ fun TodoUserScreen(
                     Divider(thickness = 1.dp, color = colorResource(id = R.color.hous_g_2))
                 }
             }
-            Spacer(modifier = Modifier.size(65.dp))
         }
         Row(
             modifier = Modifier
