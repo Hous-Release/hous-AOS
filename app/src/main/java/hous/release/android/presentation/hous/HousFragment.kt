@@ -85,6 +85,9 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
         binding.btnHousOurRules.setOnClickListener {
             startActivity(Intent(requireContext(), OurRulesActivity::class.java))
         }
+        binding.layoutHousOurRules.setOnClickListener {
+            startActivity(Intent(requireContext(), OurRulesActivity::class.java))
+        }
     }
 
     private fun initMoveToToDoClickListener() {
