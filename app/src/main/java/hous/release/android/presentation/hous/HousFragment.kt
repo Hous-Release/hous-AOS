@@ -14,9 +14,9 @@ import hous.release.android.presentation.hous.adapter.HomiesAdapter
 import hous.release.android.presentation.main.MainActivity
 import hous.release.android.presentation.our_rules.OurRulesActivity
 import hous.release.android.presentation.profile.homie.HomieProfileActivity
+import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
-import hous.release.android.util.showToast
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.Homy
 import timber.log.Timber
@@ -69,7 +69,10 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
             val clipCode =
                 ClipData.newPlainText(ROOM_CODE, viewModel.hous.value.roomCode)
             clipboard.setPrimaryClip(clipCode)
-            requireContext().showToast(getString(R.string.hous_toast_copy))
+            ToastMessageUtil.showToast(
+                requireContext(),
+                getString(R.string.hous_toast_copy)
+            )
         }
     }
 
