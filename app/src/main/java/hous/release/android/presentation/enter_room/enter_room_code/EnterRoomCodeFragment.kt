@@ -8,9 +8,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentEnterRoomCodeBinding
 import hous.release.android.util.KeyBoardUtil
+import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
-import hous.release.android.util.showToast
 
 @AndroidEntryPoint
 class EnterRoomCodeFragment :
@@ -55,7 +55,10 @@ class EnterRoomCodeFragment :
         repeatOnStarted {
             viewModel.isFullCapacity.collect { isFull ->
                 if (isFull) {
-                    requireContext().showToast(getString(R.string.enter_room_code_full_capacity))
+                    ToastMessageUtil.showToast(
+                        requireContext(),
+                        getString(R.string.enter_room_code_full_capacity)
+                    )
                 }
             }
         }

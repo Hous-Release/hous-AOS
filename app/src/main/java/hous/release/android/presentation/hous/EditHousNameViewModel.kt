@@ -27,6 +27,8 @@ class EditHousNameViewModel @Inject constructor(
         roomName.value = originalRoomName
     }
 
+    fun getIsEdited(): Boolean = originalRoomName != roomName.value
+
     fun putHousName() {
         viewModelScope.launch {
             housRepository.putHousName(roomName.value)
