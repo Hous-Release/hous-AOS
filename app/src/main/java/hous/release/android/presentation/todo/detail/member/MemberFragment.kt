@@ -18,6 +18,7 @@ import hous.release.android.util.component.HousFloatingButton
 import hous.release.android.util.component.MemberTodoTap
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.extension.withArgs
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -47,7 +48,6 @@ class MemberFragment : BindingFragment<FragmentMemberBinding>(R.layout.fragment_
     private fun changeTodoDetail() {
         binding.llMemberChangeView.setOnClickListener {
             findNavController().navigate(R.id.action_memberFragment_to_dailyFragment)
-            todoDetailViewModel.setMemberTabIndex(0)
         }
     }
 
@@ -79,6 +79,7 @@ class MemberFragment : BindingFragment<FragmentMemberBinding>(R.layout.fragment_
                         setCurrIndex = todoDetailViewModel::setMemberTabIndex
                     )
                 }
+                delay(10)
                 binding.vpMemberTodos.currentItem = uiState.memberTabIndex
             }
             .launchIn(lifecycleScope)

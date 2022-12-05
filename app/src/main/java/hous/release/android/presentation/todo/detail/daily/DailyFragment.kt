@@ -18,8 +18,10 @@ import hous.release.android.util.component.HousFloatingButton
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.extension.withArgs
 import hous.release.android.util.style.HousTheme
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_daily) {
@@ -48,7 +50,6 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
     private fun changeTodoDetail() {
         binding.llDailyChangeView.setOnClickListener {
             findNavController().navigate(R.id.action_dailyFragment_to_memberFragment)
-            todoDetailViewModel.setDailyTabIndex(0)
         }
     }
 
@@ -78,6 +79,7 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
                         )
                     }
                 }
+                delay(10)
                 binding.vpDailyTodos.currentItem = uiState.dailyTabIndex
             }
             .launchIn(lifecycleScope)
