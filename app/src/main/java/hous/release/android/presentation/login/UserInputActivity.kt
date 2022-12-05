@@ -8,11 +8,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityUserInputBinding
 import hous.release.android.presentation.enter_room.EnterRoomActivity
+import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.DatePickerClickListener
 import hous.release.android.util.dialog.DatePickerDialog
 import hous.release.android.util.dialog.WarningDialogFragment.Companion.CONFIRM_ACTION
-import hous.release.android.util.showToast
 import kotlin.system.exitProcess
 
 @AndroidEntryPoint
@@ -36,7 +36,10 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
                 override fun handleOnBackPressed() {
                     if (System.currentTimeMillis() - onBackPressedTime >= WAITING_DEADLINE) {
                         onBackPressedTime = System.currentTimeMillis()
-                        showToast(getString(R.string.finish_app_toast_msg))
+                        ToastMessageUtil.showToast(
+                            this@UserInputActivity,
+                            getString(R.string.finish_app_toast_msg)
+                        )
                     } else {
                         finishAffinity()
                         System.runFinalization()

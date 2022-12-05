@@ -10,9 +10,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityWithdrawBinding
 import hous.release.android.presentation.login.LoginActivity
+import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.extension.repeatOnStarted
-import hous.release.android.util.showToast
 import hous.release.domain.entity.FeedbackType
 
 @AndroidEntryPoint
@@ -36,7 +36,10 @@ class WithdrawActivity :
         repeatOnStarted {
             viewModel.isSuccessWithdraw.collect { isSuccess ->
                 if (isSuccess) {
-                    showToast(getString(R.string.withdraw_toast))
+                    ToastMessageUtil.showToast(
+                        this@WithdrawActivity,
+                        getString(R.string.withdraw_toast)
+                    )
                     startActivity(
                         Intent(this, LoginActivity::class.java).apply {
                             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)

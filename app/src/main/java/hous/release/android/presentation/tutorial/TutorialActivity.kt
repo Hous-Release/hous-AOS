@@ -11,8 +11,8 @@ import hous.release.android.R
 import hous.release.android.databinding.ActivityTutorialBinding
 import hous.release.android.presentation.login.LoginActivity
 import hous.release.android.presentation.tutorial.adapter.TutorialAdapter
+import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingActivity
-import hous.release.android.util.showToast
 import hous.release.domain.entity.TutorialEntity
 import kotlin.system.exitProcess
 
@@ -35,7 +35,10 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
         onBackPressedDispatcher.addCallback {
             if (System.currentTimeMillis() - onBackPressedTime >= WAITING_DEADLINE) {
                 onBackPressedTime = System.currentTimeMillis()
-                showToast(getString(R.string.finish_app_toast_msg))
+                ToastMessageUtil.showToast(
+                    this@TutorialActivity,
+                    getString(R.string.finish_app_toast_msg)
+                )
             } else {
                 finishAffinity()
                 System.runFinalization()

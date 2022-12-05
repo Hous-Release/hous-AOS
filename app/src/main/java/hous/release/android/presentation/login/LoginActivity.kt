@@ -9,12 +9,12 @@ import hous.release.android.R
 import hous.release.android.databinding.ActivityLoginBinding
 import hous.release.android.presentation.enter_room.EnterRoomActivity
 import hous.release.android.presentation.main.MainActivity
+import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.EventObserver
-import hous.release.android.util.showToast
 import hous.release.data.service.KakaoLoginService
 import timber.log.Timber
 import javax.inject.Inject
@@ -41,7 +41,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     private fun initIsUserObserve() {
         loginViewModel.isJoiningRoom.observe(this) {
             if (loginViewModel.isJoiningRoom.value == true) {
-                showToast(getString(R.string.login_toast))
+                ToastMessageUtil.showToast(this@LoginActivity, getString(R.string.login_toast))
                 val toMain = Intent(this, MainActivity::class.java)
                 startActivity(toMain)
                 finishAffinity()
@@ -67,7 +67,10 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         onBackPressedDispatcher.addCallback {
             if (System.currentTimeMillis() - onBackPressedTime >= WAITING_DEADLINE) {
                 onBackPressedTime = System.currentTimeMillis()
-                showToast(getString(R.string.finish_app_toast_msg))
+                ToastMessageUtil.showToast(
+                    this@LoginActivity,
+                    getString(R.string.finish_app_toast_msg)
+                )
             } else {
                 finishAffinity()
                 System.runFinalization()

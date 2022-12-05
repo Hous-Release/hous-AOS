@@ -38,10 +38,16 @@ class EditHousNameActivity :
     }
 
     private fun initBackBtnClickListener() {
-        binding.btnEditHousNameBack.setOnClickListener { showWarningDialog() }
+        binding.btnEditHousNameBack.setOnClickListener { exitEdit() }
 
-        onBackPressedDispatcher.addCallback {
+        onBackPressedDispatcher.addCallback { exitEdit() }
+    }
+
+    private fun exitEdit() {
+        if (viewModel.getIsEdited()) {
             showWarningDialog()
+        } else {
+            finish()
         }
     }
 
