@@ -21,7 +21,6 @@ import hous.release.android.util.style.HousTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 
 @AndroidEntryPoint
 class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_daily) {

@@ -11,7 +11,6 @@ import hous.release.android.presentation.todo.main.TodoFragment.Companion.CURREN
 import hous.release.android.util.binding.BindingActivity
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 
 @AndroidEntryPoint
 class TodoDetailActivity :
@@ -24,7 +23,6 @@ class TodoDetailActivity :
     }
 
     private fun initCurrentDay() {
-        Timber.d("todoscheck activity first")
         val currentDay = intent.getStringExtra(CURRENT_DAY) ?: "MONDAY"
         when (currentDay) {
             "MONDAY" -> todoDetailViewModel.setDailyTabIndex(0)
