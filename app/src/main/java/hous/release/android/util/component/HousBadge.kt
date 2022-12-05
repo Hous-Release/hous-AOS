@@ -131,12 +131,8 @@ private fun CheckedRepresentationBadge(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_badge_check),
-            contentDescription = ""
-        )
-        Spacer(modifier = Modifier.height(6.dp))
         Text(
+            textAlign = TextAlign.Center,
             text = stringResource(R.string.badge_checked),
             color = colorResource(id = R.color.hous_white),
             style = HousTheme.typography.description
