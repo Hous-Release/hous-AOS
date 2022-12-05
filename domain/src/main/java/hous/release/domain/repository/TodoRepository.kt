@@ -2,7 +2,7 @@ package hous.release.domain.repository
 
 import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.TodoDetail
-import hous.release.domain.entity.response.MemberTodoContent
+import hous.release.domain.entity.response.AllMemberTodo
 import hous.release.domain.entity.response.ToDoContent
 import hous.release.domain.entity.response.ToDoUser
 import hous.release.domain.entity.response.TodoMain
@@ -12,7 +12,7 @@ interface TodoRepository {
     suspend fun getTodoMainContent(): Result<TodoMain>
     suspend fun checkTodo(todoId: Int, isChecked: Boolean): Result<Unit>
     suspend fun getDailyTodos(): Result<List<TodoMain>>
-    suspend fun getMemberTodos(): Result<List<MemberTodoContent>>
+    suspend fun getMemberTodos(): Result<AllMemberTodo>
     suspend fun getTodoDetail(todoId: Int): Result<TodoDetail>
     suspend fun deleteTodo(todoId: Int)
     fun getToDoUsers(): Flow<ApiResult<List<ToDoUser>>>

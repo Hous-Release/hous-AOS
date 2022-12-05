@@ -2,6 +2,7 @@ package hous.release.data.service
 
 import hous.release.data.entity.request.ToDoCheckRequest
 import hous.release.data.entity.request.UpdateToDoUsersRequest
+import hous.release.data.entity.response.AllMemberTodoResponse
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.EditToDoContentResponse
 import hous.release.data.entity.response.MemberTodoResponse
@@ -30,7 +31,7 @@ interface TodoService {
     suspend fun getDailyTodos(): BaseResponse<List<ToDoMainResponse>>
 
     @GET("/v1/todos/member")
-    suspend fun getMembersTodos(): BaseResponse<List<MemberTodoResponse>>
+    suspend fun getMembersTodos(): BaseResponse<AllMemberTodoResponse>
 
     @GET("/v1/todo/{todoId}/summary")
     suspend fun getTodoDetail(

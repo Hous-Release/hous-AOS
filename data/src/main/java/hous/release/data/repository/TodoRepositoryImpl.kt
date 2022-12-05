@@ -3,12 +3,11 @@ package hous.release.data.repository
 import hous.release.data.datasource.TodoDataSource
 import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.TodoDetail
-import hous.release.domain.entity.response.MemberTodoContent
+import hous.release.domain.entity.response.AllMemberTodo
 import hous.release.domain.entity.response.ToDoContent
 import hous.release.domain.entity.response.ToDoUser
 import hous.release.domain.entity.response.TodoMain
 import hous.release.domain.repository.TodoRepository
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -17,6 +16,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import retrofit2.HttpException
 import timber.log.Timber
+import javax.inject.Inject
 
 class TodoRepositoryImpl @Inject constructor(
     private val todoDataSource: TodoDataSource,
@@ -31,8 +31,8 @@ class TodoRepositoryImpl @Inject constructor(
     override suspend fun getDailyTodos(): Result<List<TodoMain>> =
         runCatching { todoDataSource.getDailyTodos().data.map { todoMain -> todoMain.toTodoMain() } }
 
-    override suspend fun getMemberTodos(): Result<List<MemberTodoContent>> =
-        runCatching { todoDataSource.getMemberTodos().data.map { memberTodoResponse -> memberTodoResponse.toMemberTodoContent() } }
+    override suspend fun getMemberTodos(): Result<AllMemberTodo> =
+        runCatching { todoDataSource.getMemberTodos().data.toAllMemberTodo() }
 
     override suspend fun getTodoDetail(todoId: Int): Result<TodoDetail> =
         runCatching { todoDataSource.getTodoDetail(todoId).data.toTodoDetail() }
