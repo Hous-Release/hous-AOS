@@ -66,8 +66,11 @@ class TodoDetailViewModel @Inject constructor(
     fun deleteTodo(todoId: Int) {
         viewModelScope.launch {
             deleteTodoUseCase(todoId)
-            fetchMemberToDos()
-            fetchDailyToDos()
+                .onSuccess {
+                    fetchMemberToDos()
+                    fetchDailyToDos()
+                }
+                .onFailure { Timber.e("delete error ${it.message}") }
         }
     }
 

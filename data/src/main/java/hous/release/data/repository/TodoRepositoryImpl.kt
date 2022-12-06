@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import retrofit2.HttpException
-import timber.log.Timber
 
 class TodoRepositoryImpl @Inject constructor(
     private val todoDataSource: TodoDataSource,
@@ -38,11 +37,8 @@ class TodoRepositoryImpl @Inject constructor(
     override suspend fun getTodoDetail(todoId: Int): Result<TodoDetail> =
         runCatching { todoDataSource.getTodoDetail(todoId).data.toTodoDetail() }
 
-    override suspend fun deleteTodo(todoId: Int) {
+    override suspend fun deleteTodo(todoId: Int): Result<Unit> =
         runCatching { todoDataSource.deleteTodo(todoId) }
-            .onSuccess { Timber.d("delete todo 통신 성공") }
-            .onFailure { Timber.d("delete todo 통신 실패 : ${it.message}") }
-    }
 
     override fun getToDoUsers(): Flow<ApiResult<List<ToDoUser>>> = flow {
         val response = todoDataSource.getToDoUsers()

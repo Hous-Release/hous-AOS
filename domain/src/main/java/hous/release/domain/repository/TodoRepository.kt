@@ -15,7 +15,7 @@ interface TodoRepository {
     suspend fun getDailyTodos(): Result<DailyTodo>
     suspend fun getMemberTodos(): Result<AllMemberTodo>
     suspend fun getTodoDetail(todoId: Int): Result<TodoDetail>
-    suspend fun deleteTodo(todoId: Int)
+    suspend fun deleteTodo(todoId: Int): Result<Unit>
     fun getToDoUsers(): Flow<ApiResult<List<ToDoUser>>>
     fun postAddToDo(
         isPushNotification: Boolean,
