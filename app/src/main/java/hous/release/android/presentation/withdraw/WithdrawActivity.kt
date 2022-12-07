@@ -12,19 +12,22 @@ import hous.release.android.databinding.ActivityWithdrawBinding
 import hous.release.android.presentation.login.LoginActivity
 import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingActivity
+import hous.release.android.util.dialog.LoadingDialogFragment
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.domain.entity.FeedbackType
+import hous.release.domain.entity.RequestState
 
 @AndroidEntryPoint
 class WithdrawActivity :
     BindingActivity<ActivityWithdrawBinding>(R.layout.activity_withdraw) {
     private val viewModel by viewModels<WithdrawViewModel>()
+    private val loadingDialog = LoadingDialogFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.vm = viewModel
         initBackBtnClickListener()
-        initIsSuccessWithdrawCollector()
+        initWithdrawRequestStateCollector()
         initWithdrawFeedbackSpinner()
     }
 
@@ -32,19 +35,28 @@ class WithdrawActivity :
         binding.btnWithdrawBack.setOnClickListener { finish() }
     }
 
-    private fun initIsSuccessWithdrawCollector() {
+    private fun initWithdrawRequestStateCollector() {
         repeatOnStarted {
-            viewModel.isSuccessWithdraw.collect { isSuccess ->
-                if (isSuccess) {
-                    ToastMessageUtil.showToast(
-                        this@WithdrawActivity,
-                        getString(R.string.withdraw_toast)
-                    )
-                    startActivity(
-                        Intent(this, LoginActivity::class.java).apply {
-                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        }
-                    )
+            viewModel.withdrawRequestState.collect { requestState ->
+                when (requestState) {
+                    RequestState.LOADING -> {
+                        loadingDialog.show(supportFragmentManager, LoadingDialogFragment.TAG)
+                    }
+                    RequestState.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        ToastMessageUtil.showToast(
+                            this@WithdrawActivity,
+                            getString(R.string.withdraw_toast)
+                        )
+                        startActivity(
+                            Intent(this, LoginActivity::class.java).apply {
+                                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            }
+                        )
+                    }
+                    RequestState.FAILED -> {
+                        loadingDialog.dismiss()
+                    }
                 }
             }
         }
