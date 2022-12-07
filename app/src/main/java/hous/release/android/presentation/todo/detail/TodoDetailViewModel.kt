@@ -3,6 +3,9 @@ package hous.release.android.presentation.todo.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hous.release.android.presentation.todo.main.TodoState
+import hous.release.android.presentation.todo.main.TodoState.IDLE
+import hous.release.android.presentation.todo.main.TodoState.PROGRESS
 import hous.release.domain.entity.response.MemberTodoContent
 import hous.release.domain.entity.response.TodoMain
 import hous.release.domain.usecase.DeleteTodoUseCase
@@ -25,8 +28,8 @@ class TodoDetailViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(TodoDetailUiState())
     val uiState = _uiState.asStateFlow()
 
-    private val _isFinish = MutableSharedFlow<Boolean>()
-    val isFinish = _isFinish.asSharedFlow()
+    private val _isLoading = MutableSharedFlow<TodoState>()
+    val isLoading = _isLoading.asSharedFlow()
 
     init {
         fetchMemberToDos()
@@ -65,12 +68,17 @@ class TodoDetailViewModel @Inject constructor(
 
     fun deleteTodo(todoId: Int) {
         viewModelScope.launch {
+            _isLoading.emit(PROGRESS)
             deleteTodoUseCase(todoId)
                 .onSuccess {
+                    _isLoading.emit(IDLE)
                     fetchMemberToDos()
                     fetchDailyToDos()
                 }
-                .onFailure { Timber.e("delete error ${it.message}") }
+                .onFailure {
+                    _isLoading.emit(IDLE)
+                    Timber.e("delete error ${it.message}")
+                }
         }
     }
 
@@ -80,10 +88,6 @@ class TodoDetailViewModel @Inject constructor(
 
     fun setDailyTabIndex(index: Int) {
         _uiState.value = _uiState.value.copy(dailyTabIndex = index)
-    }
-
-    fun setIsFinish() {
-        viewModelScope.launch { _isFinish.emit(true) }
     }
 }
 

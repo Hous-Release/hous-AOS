@@ -43,7 +43,7 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
     }
 
     private fun initFinishOnClick() {
-        binding.ivDailyBackButton.setOnClickListener { todoDetailViewModel.setIsFinish() }
+        binding.ivDailyBackButton.setOnClickListener { requireActivity().finish() }
     }
 
     private fun changeTodoDetail() {

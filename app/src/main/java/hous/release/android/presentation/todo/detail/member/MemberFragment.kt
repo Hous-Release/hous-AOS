@@ -42,7 +42,7 @@ class MemberFragment : BindingFragment<FragmentMemberBinding>(R.layout.fragment_
     }
 
     private fun initFinishOnClick() {
-        binding.ivMemberBackButton.setOnClickListener { todoDetailViewModel.setIsFinish() }
+        binding.ivMemberBackButton.setOnClickListener { requireActivity().finish() }
     }
 
     private fun changeTodoDetail() {
