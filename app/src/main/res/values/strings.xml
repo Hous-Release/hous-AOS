@@ -151,6 +151,7 @@
     <string name="hous_empty_our_rules">아직 우리 집 Rules가 없어요!</string>
     <string name="hous_empty_our_rules_add">다른 Rule도 추가해보세요!</string>
     <string name="hous_toast_copy">참여코드가 복사되었습니다.</string>
+    <string name="hous_not_tested_yet">아직 성향 테스트를 하지 않은 호미예요!</string>
 
     <!-- EditHousName -->
     <string name="edit_hous_name_back_img_desc">back button</string>
@@ -358,7 +359,7 @@
     <string name="withdraw_comment_hint">의견 남기기</string>
     <string name="withdraw_comment_count">%d/200</string>
     <string name="withdraw_check_desc">탈퇴하겠습니다.</string>
-    <string name="withdraw_done">방 탈퇴하기</string>
+    <string name="withdraw_done">회원 탈퇴하기</string>
     <string name="withdraw_spinner_img_desc">피드백 스피너 이미지</string>
     <string name="withdraw_toast">탈퇴되었습니다.</string>
 

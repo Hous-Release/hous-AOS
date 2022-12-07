@@ -46,7 +46,6 @@ class EnterRoomCodeViewModel @Inject constructor(
             enterRoomRepository.getEnterRoomCode(roomCode.value)
                 .onSuccess { response ->
                     _roomInfo.value = response
-                    setSplashStateUseCase(SplashState.MAIN)
                     _isSuccessGetRoom.emit(true)
                 }
                 .onFailure {
@@ -59,6 +58,7 @@ class EnterRoomCodeViewModel @Inject constructor(
         viewModelScope.launch {
             enterRoomRepository.postEnterRoomId(roomInfo.value.roomId.toString())
                 .onSuccess {
+                    setSplashStateUseCase(SplashState.MAIN)
                     _isSuccessEnterRoom.emit(true)
                 }
                 .onFailure { throwable ->

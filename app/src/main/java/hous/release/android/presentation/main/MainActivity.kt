@@ -9,8 +9,8 @@ import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityMainBinding
+import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingActivity
-import hous.release.android.util.showToast
 import timber.log.Timber
 import kotlin.system.exitProcess
 
@@ -43,7 +43,10 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
                     val gap = curTime - onBackPressedTime
                     if (gap > WAITING_DEADLINE) {
                         onBackPressedTime = curTime
-                        showToast(getString(R.string.finish_app_toast_msg))
+                        ToastMessageUtil.showToast(
+                            this@MainActivity,
+                            getString(R.string.finish_app_toast_msg)
+                        )
                         return@addCallback
                     }
                     finishAffinity()

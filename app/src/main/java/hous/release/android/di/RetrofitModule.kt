@@ -12,7 +12,7 @@ import dagger.hilt.components.SingletonComponent
 import hous.release.android.BuildConfig
 import hous.release.android.R
 import hous.release.android.presentation.login.LoginActivity
-import hous.release.android.util.showToast
+import hous.release.android.util.ToastMessageUtil
 import hous.release.data.datasource.LocalPrefTokenDataSource
 import hous.release.data.repository.RefreshRepositoryImpl.Companion.EXPIRED_REFRESH_TOKEN
 import hous.release.data.repository.RefreshRepositoryImpl.Companion.EXPIRED_TOKEN
@@ -90,7 +90,10 @@ object RetrofitModule {
                                                 clear()
                                                 commit()
                                             }
-                                            context.showToast(context.getString(R.string.refresh_error))
+                                            ToastMessageUtil.showToast(
+                                                context,
+                                                context.getString(R.string.refresh_error)
+                                            )
                                             context.startActivity(
                                                 Intent(context, LoginActivity::class.java).apply {
                                                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)

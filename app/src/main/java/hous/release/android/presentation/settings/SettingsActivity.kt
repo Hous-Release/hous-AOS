@@ -12,12 +12,12 @@ import hous.release.android.databinding.ActivitySettingsBinding
 import hous.release.android.presentation.login.LoginActivity
 import hous.release.android.presentation.out_room.OutRoomActivity
 import hous.release.android.presentation.withdraw.WithdrawActivity
+import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.repeatOnStarted
-import hous.release.android.util.showToast
 
 @AndroidEntryPoint
 class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activity_settings) {
@@ -103,7 +103,10 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
         repeatOnStarted {
             viewModel.isSuccessLogout.collect { isSuccess ->
                 if (isSuccess) {
-                    showToast(getString(R.string.settings_logout_toast))
+                    ToastMessageUtil.showToast(
+                        this@SettingsActivity,
+                        getString(R.string.settings_logout_toast)
+                    )
                     startActivity(
                         Intent(this, LoginActivity::class.java).apply {
                             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
