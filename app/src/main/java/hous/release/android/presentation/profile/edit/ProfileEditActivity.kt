@@ -1,6 +1,7 @@
 package hous.release.android.presentation.profile.edit
 
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
@@ -27,6 +28,29 @@ class ProfileEditActivity :
         initBirthdayOnClickListener()
         initBirthdayPublicOnClickListener()
         initSaveBtnColor()
+        initBackPressedCallback()
+    }
+
+    private fun initBackPressedCallback() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    WarningDialogFragment().apply {
+                        arguments = Bundle().apply {
+                            putSerializable(
+                                WarningDialogFragment.WARNING_TYPE,
+                                WarningType.WARNING_EDIT_PROFILE
+                            )
+                            putParcelable(
+                                WarningDialogFragment.CONFIRM_ACTION,
+                                ConfirmClickListener(confirmAction = { finish() })
+                            )
+                        }
+                    }.show(supportFragmentManager, WarningDialogFragment.DIALOG_WARNING)
+                }
+            }
+        )
     }
 
     private fun initProfileData() {
@@ -53,8 +77,6 @@ class ProfileEditActivity :
         profileEditViewModel.isEditProfile.observe(this) { isSuccess ->
             if (isSuccess) {
                 finish()
-            } else {
-                // 에러 시에 띄울 뷰
             }
         }
     }
