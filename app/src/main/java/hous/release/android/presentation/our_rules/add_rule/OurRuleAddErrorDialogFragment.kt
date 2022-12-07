@@ -36,6 +36,5 @@ class OurRuleAddErrorDialogFragment : DialogFragment() {
         binding.tvOurRuleAddErrorOkBtn.setOnClickListener {
             dismiss()
         }
-        requireContext()
     }
 }

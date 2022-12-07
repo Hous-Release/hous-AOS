@@ -77,13 +77,15 @@ class TodoRepositoryImpl @Inject constructor(
             updateTodoUsers = todoUsers.map { toDoUser -> toDoUser.toAddedToDoUser() }
         )
         if (!response.success) {
-            emit(ApiResult.Error(response.message))
+            Timber.e("$response")
+            emit(ApiResult.Error("${response.status}"))
             return@flow
         }
         emit(ApiResult.Success(response.message))
     }.catch { e ->
         if (e is HttpException) {
-            emit(ApiResult.Error(e.message))
+            Timber.e(e)
+            emit(ApiResult.Error("${e.code()}"))
         }
     }.flowOn(ioDispatcher)
 
@@ -126,13 +128,15 @@ class TodoRepositoryImpl @Inject constructor(
             updateTodoUsers = todoUsers.map { toDoUser -> toDoUser.toAddedToDoUser() }
         )
         if (!response.success) {
-            emit(ApiResult.Error(response.message))
+            Timber.e("$response")
+            emit(ApiResult.Error("${response.status}"))
             return@flow
         }
         emit(ApiResult.Success(response.message))
     }.catch { e ->
         if (e is HttpException) {
-            emit(ApiResult.Error(e.message))
+            Timber.e(e)
+            emit(ApiResult.Error("${e.code()}"))
         }
     }.flowOn(ioDispatcher)
 }
