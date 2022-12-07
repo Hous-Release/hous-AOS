@@ -11,14 +11,16 @@ import androidx.fragment.app.activityViewModels
 import hous.release.android.R
 import hous.release.android.databinding.DialogEnterRoomCodeBinding
 import hous.release.android.presentation.main.MainActivity
+import hous.release.android.util.dialog.LoadingDialogFragment
 import hous.release.android.util.extension.repeatOnStarted
-import kotlinx.coroutines.flow.filter
+import hous.release.domain.entity.RequestState
 
 class EnterRoomCodeDialogFragment : DialogFragment() {
     private var _binding: DialogEnterRoomCodeBinding? = null
     val binding get() = _binding ?: error(getString(R.string.binding_error))
 
     private val viewModel by activityViewModels<EnterRoomCodeViewModel>()
+    private val loadingDialog = LoadingDialogFragment()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +40,7 @@ class EnterRoomCodeDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         initLayout()
-        initIsSuccessEnterRoomCollector()
+        initEnterRoomRequestStateCollector()
         initCloseClickListener()
     }
 
@@ -54,12 +56,23 @@ class EnterRoomCodeDialogFragment : DialogFragment() {
         }
     }
 
-    private fun initIsSuccessEnterRoomCollector() {
+    private fun initEnterRoomRequestStateCollector() {
         repeatOnStarted {
-            viewModel.isSuccessEnterRoom.filter { isSuccess -> isSuccess }.collect {
-                dismiss()
-                requireActivity().finish()
-                startActivity(Intent(requireContext(), MainActivity::class.java))
+            viewModel.enterRoomRequestState.collect { requestState ->
+                when (requestState) {
+                    RequestState.LOADING -> {
+                        loadingDialog.show(childFragmentManager, LoadingDialogFragment.TAG)
+                    }
+                    RequestState.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        dismiss()
+                        requireActivity().finish()
+                        startActivity(Intent(requireContext(), MainActivity::class.java))
+                    }
+                    RequestState.FAILED -> {
+                        loadingDialog.dismiss()
+                    }
+                }
             }
         }
     }
