@@ -102,7 +102,7 @@ class MemberFragment : BindingFragment<FragmentMemberBinding>(R.layout.fragment_
         binding.cvMemberFloatingButton.setContent {
             HousFloatingButton {
                 if (todoDetailViewModel.uiState.value.totalTodoCount == 60) {
-                    TodoLimitDialog().show(childFragmentManager, this.javaClass.name)
+                    TodoLimitDialog().show(childFragmentManager, TodoLimitDialog.TAG)
                     return@HousFloatingButton
                 }
                 findNavController().navigate(R.id.action_memberFragment_to_addToDoFragment)
