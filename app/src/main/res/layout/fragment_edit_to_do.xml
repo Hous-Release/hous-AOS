@@ -62,7 +62,7 @@
             android:layout_marginHorizontal="18dp"
             android:layout_marginTop="32dp"
             android:background="@null"
-            android:hint="@string/to_do_text_field_hint"
+            android:hint="@{vm.todoHint}"
             android:importantForAutofill="no"
             android:inputType="text"
             android:maxLength="15"

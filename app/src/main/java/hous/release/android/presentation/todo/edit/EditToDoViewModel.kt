@@ -7,6 +7,10 @@ import hous.release.android.presentation.todo.viewmodel.UpdateToDoViewModel
 import hous.release.domain.entity.ApiResult
 import hous.release.domain.usecase.GetEditTodoContentUseCase
 import hous.release.domain.usecase.PutEditToDoUseCase
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -19,6 +23,13 @@ class EditToDoViewModel @Inject constructor(
 ) :
     UpdateToDoViewModel() {
     private var todoId = -1
+
+    private val _todoHint = MutableStateFlow("")
+    val todoHint = _todoHint.asStateFlow()
+
+    private val _uiEvent = MutableSharedFlow<UpdateToDoEvent>()
+    val uiEvent = _uiEvent.asSharedFlow()
+
     override fun putTodo() = viewModelScope.launch {
         putEditToDoUseCase(
             todoId = todoId,
@@ -27,8 +38,17 @@ class EditToDoViewModel @Inject constructor(
             toDoName = todoName.value
         ).collect { apiResult ->
             when (apiResult) {
-                is ApiResult.Success -> Timber.i(apiResult.data)
-                is ApiResult.Error -> Timber.e(apiResult.msg)
+                is ApiResult.Success -> {
+                    Timber.i(apiResult.data)
+                    _uiEvent.emit(UpdateToDoEvent.Finish)
+                }
+                is ApiResult.Error -> {
+                    Timber.e(apiResult.msg)
+                    when (apiResult.msg) {
+                        DUPLICATED_ERROR_CODE -> _uiEvent.emit(UpdateToDoEvent.Duplicate)
+                        LIMITED_ERROR_CODE -> _uiEvent.emit(UpdateToDoEvent.Limit)
+                    }
+                }
                 is ApiResult.Empty -> Timber.e(IllegalArgumentException())
             }
         }
@@ -42,6 +62,7 @@ class EditToDoViewModel @Inject constructor(
                     is ApiResult.Success -> _uiState.update { uiState ->
                         val data = apiResult.data
                         todoName.value = data.name
+                        _todoHint.update { data.name }
                         uiState.copy(
                             isPushNotification = data.isPushNotification,
                             buttonState = ButtonState.ACTIVE,
@@ -56,4 +77,17 @@ class EditToDoViewModel @Inject constructor(
             }
         }
     }
+
+    fun isChangeToDoName() = (todoHint.value == todoName.value)
+
+    companion object {
+        const val DUPLICATED_ERROR_CODE = "409"
+        const val LIMITED_ERROR_CODE = "403"
+    }
+}
+
+sealed class UpdateToDoEvent {
+    object Duplicate : UpdateToDoEvent()
+    object Limit : UpdateToDoEvent()
+    object Finish : UpdateToDoEvent()
 }

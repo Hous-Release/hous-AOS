@@ -102,7 +102,7 @@ abstract class UpdateToDoViewModel : ViewModel() {
 data class UpdateToDoUiState(
     val selectedUsers: List<ToDoUser> = emptyList(),
     val todoUsers: List<ToDoUser> = emptyList(),
-    val isPushNotification: Boolean = false,
+    val isPushNotification: Boolean = true,
     val buttonState: ButtonState = ButtonState.INACTIVE,
     val isBlankTodoName: Boolean = true
 )
