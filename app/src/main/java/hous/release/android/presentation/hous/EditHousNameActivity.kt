@@ -10,17 +10,20 @@ import hous.release.android.presentation.hous.HousFragment.Companion.ROOM_NAME
 import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.ConfirmClickListener
+import hous.release.android.util.dialog.LoadingDialogFragment
 import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningDialogFragment.Companion.CONFIRM_ACTION
 import hous.release.android.util.dialog.WarningDialogFragment.Companion.DIALOG_WARNING
 import hous.release.android.util.dialog.WarningDialogFragment.Companion.WARNING_TYPE
 import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.repeatOnStarted
+import hous.release.domain.entity.RequestState
 
 @AndroidEntryPoint
 class EditHousNameActivity :
     BindingActivity<ActivityEditHousNameBinding>(R.layout.activity_edit_hous_name) {
     private val viewModel by viewModels<EditHousNameViewModel>()
+    private val loadingDialog = LoadingDialogFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +31,7 @@ class EditHousNameActivity :
         initEditTextClearFocus()
         initBackBtnClickListener()
         initOriginalRoomName()
-        initIsSuccessEditHousNameCollector()
+        initEditHousNameRequestStateCollector()
     }
 
     private fun initEditTextClearFocus() {
@@ -69,10 +72,21 @@ class EditHousNameActivity :
         )
     }
 
-    private fun initIsSuccessEditHousNameCollector() {
+    private fun initEditHousNameRequestStateCollector() {
         repeatOnStarted {
-            viewModel.isSuccessEditHousName.collect { isSuccess ->
-                if (isSuccess) finish()
+            viewModel.editHousNameRequestState.collect { requestState ->
+                when (requestState) {
+                    RequestState.LOADING -> {
+                        loadingDialog.show(supportFragmentManager, LoadingDialogFragment.TAG)
+                    }
+                    RequestState.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        finish()
+                    }
+                    RequestState.FAILED -> {
+                        loadingDialog.dismiss()
+                    }
+                }
             }
         }
     }
