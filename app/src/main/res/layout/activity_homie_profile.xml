@@ -152,14 +152,17 @@
 
                 <TextView
                     android:id="@+id/tv_homie_profile_introduction"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="13dp"
+                    android:layout_marginEnd="51dp"
                     android:maxLength="40"
+                    android:maxLines="3"
                     android:textAppearance="@style/B2"
+                    app:layout_constraintEnd_toStartOf="@id/iv_homie_profile_representation_image_empty"
                     app:layout_constraintStart_toStartOf="@id/tv_homie_profile_age"
                     app:layout_constraintTop_toBottomOf="@id/tv_homie_profile_age"
-                    tools:text="저는어쩌구저꺼주가우저는어쩌구저꺼주가우\n저는어쩌구저꺼주가우저는어쩌구저꺼주가우!" />
+                    tools:text="저는어쩌구저꺼주가우저는어쩌구저꺼주가우저는어쩌구저꺼주가우저는어쩌구저꺼주가우!" />
 
                 <ImageView
                     android:id="@+id/iv_homie_profile_representation_image"
