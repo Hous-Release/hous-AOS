@@ -78,6 +78,8 @@ class EditToDoViewModel @Inject constructor(
         }
     }
 
+    fun isChangeToDoName() = (todoHint.value == todoName.value)
+
     companion object {
         const val DUPLICATED_ERROR_CODE = "409"
         const val LIMITED_ERROR_CODE = "403"
