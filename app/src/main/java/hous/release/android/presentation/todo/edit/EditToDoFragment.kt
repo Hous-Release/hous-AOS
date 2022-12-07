@@ -2,7 +2,6 @@ package hous.release.android.presentation.todo.edit
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
@@ -13,6 +12,7 @@ import hous.release.android.R
 import hous.release.android.databinding.FragmentEditToDoBinding
 import hous.release.android.presentation.todo.detail.TodoLimitDialog
 import hous.release.android.util.KeyBoardUtil
+import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.LoadingDialogFragment
@@ -100,9 +100,10 @@ class EditToDoFragment : BindingFragment<FragmentEditToDoBinding>(R.layout.fragm
                         TodoLimitDialog().show(childFragmentManager, TodoLimitDialog.TAG)
                     }
                     UpdateToDoEvent.Duplicate -> {
-                        // TODO 확장함수 쓰기
-                        Toast.makeText(requireContext(), requireContext().getString(R.string.to_do_duplicate_toast_msg), Toast.LENGTH_SHORT)
-                            .show()
+                        ToastMessageUtil.showToast(
+                            requireContext(),
+                            getString(R.string.to_do_duplicate_toast_msg)
+                        )
                     }
                 }
             }
