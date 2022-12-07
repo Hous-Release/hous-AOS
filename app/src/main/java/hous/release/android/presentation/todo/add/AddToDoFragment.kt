@@ -10,7 +10,10 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentAddToDoBinding
+import hous.release.android.presentation.todo.detail.TodoLimitDialog
+import hous.release.android.presentation.todo.edit.UpdateToDoEvent
 import hous.release.android.util.KeyBoardUtil
+import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.LoadingDialogFragment
@@ -31,6 +34,7 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
         initToDoUserScreen()
         initBackButtonListener()
         collectTodoName()
+        collectUiEvent()
         initEditTextClearFocus()
     }
 
@@ -61,10 +65,6 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
                 AddTodoUserScreen(
                     viewModel = viewModel,
                     showLoadingDialog = ::showLoadingDialog,
-                    finish = {
-                        (childFragmentManager.findFragmentByTag(LoadingDialogFragment.TAG) as? LoadingDialogFragment)?.dismiss()
-                        findNavController().popBackStack()
-                    },
                     name = getString(R.string.to_do_add_button),
                     hideKeyBoard = ::hideKeyBoard
                 )
@@ -80,6 +80,28 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
         repeatOnStarted {
             viewModel.todoName.collect {
                 viewModel.setToDoNameState(isBlank = viewModel.isBlankToDoName())
+            }
+        }
+    }
+
+    private fun collectUiEvent() {
+        repeatOnStarted {
+            viewModel.uiEvent.collect { uiEvent ->
+                (childFragmentManager.findFragmentByTag(LoadingDialogFragment.TAG) as? LoadingDialogFragment)?.dismiss()
+                when (uiEvent) {
+                    UpdateToDoEvent.Finish -> {
+                        findNavController().popBackStack()
+                    }
+                    UpdateToDoEvent.Limit -> {
+                        TodoLimitDialog().show(childFragmentManager, TodoLimitDialog.TAG)
+                    }
+                    UpdateToDoEvent.Duplicate -> {
+                        ToastMessageUtil.showToast(
+                            requireContext(),
+                            getString(R.string.to_do_duplicate_toast_msg)
+                        )
+                    }
+                }
             }
         }
     }

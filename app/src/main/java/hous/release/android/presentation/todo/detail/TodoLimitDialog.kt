@@ -38,4 +38,8 @@ class TodoLimitDialog : DialogFragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    companion object {
+        const val TAG = "TodoLimitDialogFragment"
+    }
 }
