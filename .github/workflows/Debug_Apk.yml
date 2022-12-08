@@ -55,7 +55,7 @@ jobs:
       - name: Build debug APK
         run: ./gradlew assembleDebug
 
-      - uses: MeilCli/slack-upload-file@v2
+      - uses: MeilCli/slack-upload-file@v1
         with:
           slack_token: ${{ secrets.SLACK_TOKEN }}
           channels: ${{ secrets.SLACK_CHANNEL }}
