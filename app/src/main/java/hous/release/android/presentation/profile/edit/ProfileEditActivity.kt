@@ -1,7 +1,7 @@
 package hous.release.android.presentation.profile.edit
 
 import android.os.Bundle
-import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
@@ -13,6 +13,7 @@ import hous.release.android.util.dialog.DatePickerClickListener
 import hous.release.android.util.dialog.DatePickerDialog
 import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningType
+import hous.release.android.util.extension.withArgs
 
 @AndroidEntryPoint
 class ProfileEditActivity :
@@ -32,25 +33,18 @@ class ProfileEditActivity :
     }
 
     private fun initBackPressedCallback() {
-        onBackPressedDispatcher.addCallback(
-            this,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    WarningDialogFragment().apply {
-                        arguments = Bundle().apply {
-                            putSerializable(
-                                WarningDialogFragment.WARNING_TYPE,
-                                WarningType.WARNING_EDIT_PROFILE
-                            )
-                            putParcelable(
-                                WarningDialogFragment.CONFIRM_ACTION,
-                                ConfirmClickListener(confirmAction = { finish() })
-                            )
-                        }
-                    }.show(supportFragmentManager, WarningDialogFragment.DIALOG_WARNING)
-                }
-            }
-        )
+        onBackPressedDispatcher.addCallback {
+            WarningDialogFragment().withArgs {
+                putSerializable(
+                    WarningDialogFragment.WARNING_TYPE,
+                    WarningType.WARNING_EDIT_PROFILE
+                )
+                putParcelable(
+                    WarningDialogFragment.CONFIRM_ACTION,
+                    ConfirmClickListener(confirmAction = { finish() })
+                )
+            }.show(supportFragmentManager, WarningDialogFragment.DIALOG_WARNING)
+        }
     }
 
     private fun initProfileData() {
