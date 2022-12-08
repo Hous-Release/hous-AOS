@@ -6,6 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: ${{ contains(github.event.head_commit.message, '[QA]') }}
     steps:
       - uses: actions/checkout@v2
 
@@ -62,3 +63,4 @@ jobs:
           file_type: 'apk'
           file_name: 'Hous.apk'
           file_path: './app/build/outputs/apk/debug/app-debug.apk'
+          retries: 1
