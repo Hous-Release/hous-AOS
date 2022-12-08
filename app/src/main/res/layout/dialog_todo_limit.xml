@@ -20,10 +20,10 @@
 
     <ImageView
         android:id="@+id/iv_todo_limit_img"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:src="@drawable/shape_g_1_fill_8_rect"
+        android:src="@drawable/ic_todo_limit"
         app:layout_constraintEnd_toEndOf="@+id/tv_todo_limit_title"
         app:layout_constraintStart_toStartOf="@+id/tv_todo_limit_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_todo_limit_title" />
@@ -31,6 +31,7 @@
     <TextView
         android:id="@+id/tv_todo_limit_content"
         style="@style/B2"
+        android:textAlignment="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

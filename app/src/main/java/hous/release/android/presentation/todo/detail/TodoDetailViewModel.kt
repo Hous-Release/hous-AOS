@@ -3,18 +3,21 @@ package hous.release.android.presentation.todo.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hous.release.android.presentation.todo.main.TodoState
+import hous.release.android.presentation.todo.main.TodoState.IDLE
+import hous.release.android.presentation.todo.main.TodoState.PROGRESS
 import hous.release.domain.entity.response.MemberTodoContent
 import hous.release.domain.entity.response.TodoMain
 import hous.release.domain.usecase.DeleteTodoUseCase
 import hous.release.domain.usecase.GetDailyTodosUseCase
 import hous.release.domain.usecase.GetMemberTodosUseCase
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 class TodoDetailViewModel @Inject constructor(
@@ -25,8 +28,8 @@ class TodoDetailViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(TodoDetailUiState())
     val uiState = _uiState.asStateFlow()
 
-    private val _isFinish = MutableSharedFlow<Boolean>()
-    val isFinish = _isFinish.asSharedFlow()
+    private val _isLoading = MutableSharedFlow<TodoState>()
+    val isLoading = _isLoading.asSharedFlow()
 
     init {
         fetchMemberToDos()
@@ -37,9 +40,10 @@ class TodoDetailViewModel @Inject constructor(
         viewModelScope.launch {
             getMemberTodosUseCase()
                 .onSuccess { result ->
-                    _uiState.value = _uiState.value.copy(memberToDos = result)
-                    val count = result.sumOf { todo -> todo.totalTodoCnt }
-                    _uiState.value = _uiState.value.copy(totalTodoCount = count)
+                    _uiState.value = _uiState.value.copy(
+                        memberToDos = result.todos,
+                        totalTodoCount = result.totalRoomTodoCnt
+                    )
                 }
                 .onFailure {
                     Timber.e("error: ${it.message}")
@@ -51,7 +55,10 @@ class TodoDetailViewModel @Inject constructor(
         viewModelScope.launch {
             dailyTodosUseCase()
                 .onSuccess { result ->
-                    _uiState.value = _uiState.value.copy(dailyTodos = result)
+                    _uiState.value = _uiState.value.copy(
+                        dailyTodos = result.todos,
+                        totalTodoCount = result.totalRoomTodoCnt
+                    )
                 }
                 .onFailure {
                     Timber.e("error: ${it.message}")
@@ -61,9 +68,17 @@ class TodoDetailViewModel @Inject constructor(
 
     fun deleteTodo(todoId: Int) {
         viewModelScope.launch {
+            _isLoading.emit(PROGRESS)
             deleteTodoUseCase(todoId)
-            fetchMemberToDos()
-            fetchDailyToDos()
+                .onSuccess {
+                    _isLoading.emit(IDLE)
+                    fetchMemberToDos()
+                    fetchDailyToDos()
+                }
+                .onFailure {
+                    _isLoading.emit(IDLE)
+                    Timber.e("delete error ${it.message}")
+                }
         }
     }
 
@@ -73,10 +88,6 @@ class TodoDetailViewModel @Inject constructor(
 
     fun setDailyTabIndex(index: Int) {
         _uiState.value = _uiState.value.copy(dailyTabIndex = index)
-    }
-
-    fun setIsFinish() {
-        viewModelScope.launch { _isFinish.emit(true) }
     }
 }
 

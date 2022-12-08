@@ -43,6 +43,7 @@ class TodoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
     private fun initClickListener() {
         binding.llToDoViewAll.setOnClickListener {
             Intent(requireActivity(), TodoDetailActivity::class.java)
+                .apply { putExtra(CURRENT_DAY, toDoViewModel.uiState.value.dayOfWeek) }
                 .also { intent -> startActivity(intent) }
         }
     }
@@ -99,5 +100,9 @@ class TodoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
         super.onDestroyView()
         myToDoAdapter = null
         ourToDoAdapter = null
+    }
+
+    companion object {
+        const val CURRENT_DAY = "currentDay"
     }
 }

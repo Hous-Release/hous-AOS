@@ -270,7 +270,7 @@
     <string name="notification_empty">아직 도착한 알람이 없어요!</string>
 
     <!-- Badge -->
-    <string name="badge_checked">배지로 설정</string>
+    <string name="badge_checked">터치해서\n대표로 확정</string>
     <string name="represent_badge">"눌러서\n대표 배지를\n설정해보세요"</string>
     <string name="badge_title">내 배지</string>
 

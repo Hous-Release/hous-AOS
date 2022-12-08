@@ -30,7 +30,7 @@ class DailyAdapter(
         }
 
         fun fetchDailyOurToDos(ourToDos: List<Todo>) {
-            val dailyOurToDoAdapter = DailyOurTodoAdapter()
+            val dailyOurToDoAdapter = DailyOurTodoAdapter(showTodoBottomSheet)
             binding.rvToDoDailyOurRules.adapter = dailyOurToDoAdapter
             dailyOurToDoAdapter.submitList(ourToDos)
         }
