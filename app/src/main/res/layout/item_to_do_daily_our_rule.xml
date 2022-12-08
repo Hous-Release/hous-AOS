@@ -11,6 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_our_to_do"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp">
@@ -33,7 +34,7 @@
             android:layout_marginStart="16dp"
             android:text="@{todo.todoName}"
             android:textAppearance="@style/B2"
-            android:textColor="@color/hous_g_5"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_to_do_daily_our_dot_indicator"
             app:layout_constraintTop_toTopOf="parent"

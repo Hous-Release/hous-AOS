@@ -7,7 +7,11 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityTodoDetailBinding
+import hous.release.android.presentation.todo.main.TodoFragment.Companion.CURRENT_DAY
+import hous.release.android.presentation.todo.main.TodoState.IDLE
+import hous.release.android.presentation.todo.main.TodoState.PROGRESS
 import hous.release.android.util.binding.BindingActivity
+import hous.release.android.util.dialog.LoadingDialogFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -17,12 +21,38 @@ class TodoDetailActivity :
     private val todoDetailViewModel: TodoDetailViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        collectIsFinish()
+        initCurrentDay()
+        collectLoadingEvent()
     }
 
-    private fun collectIsFinish() {
-        todoDetailViewModel.isFinish.flowWithLifecycle(lifecycle)
-            .onEach { isFinish -> if (isFinish) finish() }
+    private fun initCurrentDay() {
+        val currentDay = intent.getStringExtra(CURRENT_DAY) ?: "MONDAY"
+        when (currentDay) {
+            "MONDAY" -> todoDetailViewModel.setDailyTabIndex(0)
+            "TUESDAY" -> todoDetailViewModel.setDailyTabIndex(1)
+            "WEDNESDAY" -> todoDetailViewModel.setDailyTabIndex(2)
+            "THURSDAY" -> todoDetailViewModel.setDailyTabIndex(3)
+            "FRIDAY" -> todoDetailViewModel.setDailyTabIndex(4)
+            "SATURDAY" -> todoDetailViewModel.setDailyTabIndex(5)
+            "SUNDAY" -> todoDetailViewModel.setDailyTabIndex(6)
+        }
+    }
+
+    private fun collectLoadingEvent() {
+        todoDetailViewModel.isLoading.flowWithLifecycle(lifecycle)
+            .onEach {
+                when (it) {
+                    IDLE -> (
+                        supportFragmentManager.findFragmentByTag(
+                            LoadingDialogFragment.TAG
+                        ) as? LoadingDialogFragment
+                        )?.dismiss()
+                    PROGRESS -> LoadingDialogFragment().show(
+                        supportFragmentManager,
+                        LoadingDialogFragment.TAG
+                    )
+                }
+            }
             .launchIn(lifecycleScope)
     }
 }
