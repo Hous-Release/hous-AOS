@@ -2,7 +2,7 @@ name: Hous debug apk
 on:
   push:
     branches:
-      - develop
+      - feature/#162-feat-auto-emit-debug-apk
 jobs:
   build:
     runs-on: ubuntu-latest
