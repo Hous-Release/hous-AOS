@@ -7,6 +7,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: ${{ contains(github.event.head_commit.message, '[QA]') }}
+    env:
+      KEYSTORE_PATH: ${{ secrets.KEYSTORE_PATH }}
     steps:
       - uses: actions/checkout@v2
 
@@ -51,7 +53,10 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-
+      
+      - name: Create Key Store
+        run: echo "${{ secrets.KEYSTORE_FILE_BASE_64 }}" | base64 -d > debug.keystore
+        
       - name: Build debug APK
         run: ./gradlew assembleDebug
         
