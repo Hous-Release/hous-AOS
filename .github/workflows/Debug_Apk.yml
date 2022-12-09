@@ -56,7 +56,7 @@ jobs:
         run: echo "${{ secrets.KEYSTORE_FILE_BASE_64 }}" | base64 -d > debug.keystore
         
       - name: Build debug APK
-        run: ./gradlew assembleDebug
+        run: ./gradlew clean assembleDebug
 
       - uses: MeilCli/slack-upload-file@v3
         with:
