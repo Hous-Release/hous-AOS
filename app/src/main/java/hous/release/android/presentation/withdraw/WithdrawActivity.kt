@@ -11,11 +11,11 @@ import hous.release.android.R
 import hous.release.android.databinding.ActivityWithdrawBinding
 import hous.release.android.presentation.login.LoginActivity
 import hous.release.android.util.ToastMessageUtil
+import hous.release.android.util.UiEvent
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.LoadingDialogFragment
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.domain.entity.FeedbackType
-import hous.release.domain.entity.RequestState
 
 @AndroidEntryPoint
 class WithdrawActivity :
@@ -27,7 +27,7 @@ class WithdrawActivity :
         super.onCreate(savedInstanceState)
         binding.vm = viewModel
         initBackBtnClickListener()
-        initWithdrawRequestStateCollector()
+        initWithdrawUiEventCollector()
         initWithdrawFeedbackSpinner()
     }
 
@@ -35,14 +35,14 @@ class WithdrawActivity :
         binding.btnWithdrawBack.setOnClickListener { finish() }
     }
 
-    private fun initWithdrawRequestStateCollector() {
+    private fun initWithdrawUiEventCollector() {
         repeatOnStarted {
-            viewModel.withdrawRequestState.collect { requestState ->
-                when (requestState) {
-                    RequestState.LOADING -> {
+            viewModel.withdrawUiEvent.collect { uiEvent ->
+                when (uiEvent) {
+                    UiEvent.LOADING -> {
                         loadingDialog.show(supportFragmentManager, LoadingDialogFragment.TAG)
                     }
-                    RequestState.SUCCESS -> {
+                    UiEvent.SUCCESS -> {
                         loadingDialog.dismiss()
                         ToastMessageUtil.showToast(
                             this@WithdrawActivity,
@@ -54,7 +54,7 @@ class WithdrawActivity :
                             }
                         )
                     }
-                    RequestState.FAILED -> {
+                    UiEvent.ERROR -> {
                         loadingDialog.dismiss()
                     }
                 }

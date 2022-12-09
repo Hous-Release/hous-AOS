@@ -8,10 +8,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentCreateRoomBinding
 import hous.release.android.util.KeyBoardUtil
+import hous.release.android.util.UiEvent
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.dialog.LoadingDialogFragment
 import hous.release.android.util.extension.repeatOnStarted
-import hous.release.domain.entity.RequestState
 
 @AndroidEntryPoint
 class CreateRoomFragment :
@@ -24,7 +24,7 @@ class CreateRoomFragment :
         binding.viewModel = viewModel
         initEditTextClearFocus()
         initBackBtnClickListener()
-        initCreateRoomRequestStateCollector()
+        initCreateRoomUiEventCollector()
     }
 
     override fun onDestroyView() {
@@ -42,18 +42,18 @@ class CreateRoomFragment :
         binding.btnCreateRoomBack.setOnClickListener { findNavController().popBackStack() }
     }
 
-    private fun initCreateRoomRequestStateCollector() {
+    private fun initCreateRoomUiEventCollector() {
         repeatOnStarted {
-            viewModel.createRoomRequestState.collect { requestState ->
-                when (requestState) {
-                    RequestState.LOADING -> {
+            viewModel.createRoomUiEvent.collect { uiEvent ->
+                when (uiEvent) {
+                    UiEvent.LOADING -> {
                         loadingDialog.show(childFragmentManager, LoadingDialogFragment.TAG)
                     }
-                    RequestState.SUCCESS -> {
+                    UiEvent.SUCCESS -> {
                         loadingDialog.dismiss()
                         CreateRoomDialogFragment().show(childFragmentManager, this.javaClass.name)
                     }
-                    RequestState.FAILED -> {
+                    UiEvent.ERROR -> {
                         loadingDialog.dismiss()
                     }
                 }

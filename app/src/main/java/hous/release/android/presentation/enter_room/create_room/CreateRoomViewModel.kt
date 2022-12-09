@@ -3,7 +3,7 @@ package hous.release.android.presentation.enter_room.create_room
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hous.release.domain.entity.RequestState
+import hous.release.android.util.UiEvent
 import hous.release.domain.entity.SplashState
 import hous.release.domain.entity.response.NewRoom
 import hous.release.domain.repository.EnterRoomRepository
@@ -23,8 +23,8 @@ class CreateRoomViewModel @Inject constructor(
 ) : ViewModel() {
     val roomName = MutableStateFlow<String>("")
 
-    private val _createRoomRequestState = MutableSharedFlow<RequestState>()
-    val createRoomRequestState: SharedFlow<RequestState> = _createRoomRequestState.asSharedFlow()
+    private val _createRoomUiEvent = MutableSharedFlow<UiEvent>()
+    val createRoomUiEvent: SharedFlow<UiEvent> = _createRoomUiEvent.asSharedFlow()
 
     var newRoomInfo: NewRoom = NewRoom()
         private set
@@ -35,15 +35,15 @@ class CreateRoomViewModel @Inject constructor(
 
     fun postCreateRoom() {
         viewModelScope.launch {
-            _createRoomRequestState.emit(RequestState.LOADING)
+            _createRoomUiEvent.emit(UiEvent.LOADING)
             enterRoomRepository.postCreateRoom(roomName.value)
                 .onSuccess { response ->
                     newRoomInfo = response
                     setSplashStateUseCase(SplashState.MAIN)
-                    _createRoomRequestState.emit(RequestState.SUCCESS)
+                    _createRoomUiEvent.emit(UiEvent.SUCCESS)
                 }
                 .onFailure {
-                    _createRoomRequestState.emit(RequestState.FAILED)
+                    _createRoomUiEvent.emit(UiEvent.ERROR)
                     Timber.d(it.message.toString())
                 }
         }

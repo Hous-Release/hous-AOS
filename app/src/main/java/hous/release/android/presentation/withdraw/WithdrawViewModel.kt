@@ -3,8 +3,8 @@ package hous.release.android.presentation.withdraw
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hous.release.android.util.UiEvent
 import hous.release.domain.entity.FeedbackType
-import hous.release.domain.entity.RequestState
 import hous.release.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,8 +24,8 @@ class WithdrawViewModel @Inject constructor(
 
     val isCheckedWithdraw = MutableStateFlow(false)
 
-    private val _withdrawRequestState = MutableSharedFlow<RequestState>()
-    val withdrawRequestState: SharedFlow<RequestState> = _withdrawRequestState.asSharedFlow()
+    private val _withdrawUiEvent = MutableSharedFlow<UiEvent>()
+    val withdrawUiEvent: SharedFlow<UiEvent> = _withdrawUiEvent.asSharedFlow()
 
     fun initFeedbackType(type: FeedbackType) {
         feedbackType = type
@@ -33,15 +33,15 @@ class WithdrawViewModel @Inject constructor(
 
     fun deleteUser() {
         viewModelScope.launch {
-            _withdrawRequestState.emit(RequestState.LOADING)
+            _withdrawUiEvent.emit(UiEvent.LOADING)
             authRepository.deleteUser(feedbackType = feedbackType, comment = comment.value)
                 .onSuccess { response ->
                     authRepository.clearLocalPref()
-                    _withdrawRequestState.emit(RequestState.SUCCESS)
+                    _withdrawUiEvent.emit(UiEvent.SUCCESS)
                 }
                 .onFailure {
                     Timber.d(it.message.toString())
-                    _withdrawRequestState.emit(RequestState.FAILED)
+                    _withdrawUiEvent.emit(UiEvent.ERROR)
                 }
         }
     }

@@ -8,6 +8,7 @@ import hous.release.android.R
 import hous.release.android.databinding.ActivityEditHousNameBinding
 import hous.release.android.presentation.hous.HousFragment.Companion.ROOM_NAME
 import hous.release.android.util.KeyBoardUtil
+import hous.release.android.util.UiEvent
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.LoadingDialogFragment
@@ -17,7 +18,6 @@ import hous.release.android.util.dialog.WarningDialogFragment.Companion.DIALOG_W
 import hous.release.android.util.dialog.WarningDialogFragment.Companion.WARNING_TYPE
 import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.repeatOnStarted
-import hous.release.domain.entity.RequestState
 
 @AndroidEntryPoint
 class EditHousNameActivity :
@@ -31,7 +31,7 @@ class EditHousNameActivity :
         initEditTextClearFocus()
         initBackBtnClickListener()
         initOriginalRoomName()
-        initEditHousNameRequestStateCollector()
+        initEditHousNameUiEventCollector()
     }
 
     private fun initEditTextClearFocus() {
@@ -72,18 +72,18 @@ class EditHousNameActivity :
         )
     }
 
-    private fun initEditHousNameRequestStateCollector() {
+    private fun initEditHousNameUiEventCollector() {
         repeatOnStarted {
-            viewModel.editHousNameRequestState.collect { requestState ->
-                when (requestState) {
-                    RequestState.LOADING -> {
+            viewModel.editHousNameUiEvent.collect { uiEvent ->
+                when (uiEvent) {
+                    UiEvent.LOADING -> {
                         loadingDialog.show(supportFragmentManager, LoadingDialogFragment.TAG)
                     }
-                    RequestState.SUCCESS -> {
+                    UiEvent.SUCCESS -> {
                         loadingDialog.dismiss()
                         finish()
                     }
-                    RequestState.FAILED -> {
+                    UiEvent.ERROR -> {
                         loadingDialog.dismiss()
                     }
                 }
