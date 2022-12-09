@@ -101,7 +101,6 @@ class OurRuleEditFragment :
                 .also { adapter ->
                     binding.rvEditOurRules.run {
                         this.adapter = adapter
-                        itemAnimator = null
                     }
                 }.also { adapter ->
                     itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter)).apply {
