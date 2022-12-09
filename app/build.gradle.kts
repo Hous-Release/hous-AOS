@@ -16,7 +16,14 @@ properties.load(project.rootProject.file("local.properties").inputStream())
 android {
     signingConfigs {
         getByName("debug") {
-            storeFile = file(properties.getProperty("debug_keystore"))
+            val tempFile = file(properties.getProperty("debug_keystore")).listFiles()
+
+            if (tempFile != null) {
+                val keystoreFile = tempFile.first()
+                keystoreFile.renameTo(file("keystore/debug.keystore"))
+            }
+
+            storeFile = file("keystore/debug.keystore")
         }
     }
     compileSdk = AppConfig.compileSdkVersion
