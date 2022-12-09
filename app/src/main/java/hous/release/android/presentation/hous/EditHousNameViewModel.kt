@@ -3,10 +3,12 @@ package hous.release.android.presentation.hous
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hous.release.android.util.UiEvent
 import hous.release.domain.repository.HousRepository
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -19,8 +21,8 @@ class EditHousNameViewModel @Inject constructor(
         private set
     val roomName = MutableStateFlow<String>("")
 
-    private val _isSuccessEditHousName = MutableStateFlow<Boolean>(false)
-    val isSuccessEditHousName: StateFlow<Boolean> = _isSuccessEditHousName.asStateFlow()
+    private val _editHousNameUiEvent = MutableSharedFlow<UiEvent>()
+    val editHousNameUiEvent: SharedFlow<UiEvent> = _editHousNameUiEvent.asSharedFlow()
 
     fun initOriginalRoomName(name: String) {
         originalRoomName = name
@@ -31,11 +33,15 @@ class EditHousNameViewModel @Inject constructor(
 
     fun putHousName() {
         viewModelScope.launch {
+            _editHousNameUiEvent.emit(UiEvent.LOADING)
             housRepository.putHousName(roomName.value)
                 .onSuccess { isSuccess ->
-                    _isSuccessEditHousName.value = isSuccess
+                    _editHousNameUiEvent.emit(UiEvent.SUCCESS)
                 }
-                .onFailure { Timber.d(it.message.toString()) }
+                .onFailure {
+                    Timber.d(it.message.toString())
+                    _editHousNameUiEvent.emit(UiEvent.ERROR)
+                }
         }
     }
 }

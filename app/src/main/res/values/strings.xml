@@ -190,7 +190,7 @@
     <!-- Our Rule add,edit-->
     <string name="our_rule_empty_description">아직 우리 집 Rules가 없어요!</string>
     <string name="our_rule_add_new_rule_title">새로운 Rules 추가</string>
-    <string name="our_rule_edit_rule_title">우리 집 Rules</string>
+    <string name="our_rule_edit_rule_title">Rules 수정</string>
     <string name="our_rule_save_new_rule">저장</string>
     <string name="our_rule_delete_our_rule_button">삭제</string>
     <string name="our_rule_delete_our_rule_title">Rules 삭제</string>
@@ -285,7 +285,7 @@
     <string name="settings_withdraw_desc">* 회원 탈퇴는 방 퇴사 이후 \'방만들기 화면\'에서 할 수 있어요!</string>
     <string name="settings_withdraw"><u>회원탈퇴</u></string>
     <string name="settings_feedback_email">hanzip001@gmail.com</string>
-    <string name="settings_feedback_subject">Hous- 문의사항</string>
+    <string name="settings_feedback_subject">[ 호미나라 피드백 ]</string>
     <string name="settings_feedback_content">\n\n\nDevice : %s\nOS Version : Android %s\nApp Version : %s\n-------------------------\n\n\n\n호미나라에 자유로운 피드백을 보내주세요!\n-------------------------</string>
     <string name="settings_feedback_empty_string"> </string>
     <string name="settings_info_link">https://sugared-lemming-812.notion.site/6d9d478df40b4a20811e0020c15af3bc</string>
