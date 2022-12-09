@@ -56,7 +56,7 @@ jobs:
 
       - name: Create Key Store
         run: |
-          touch app/keystore
+          mkdir -p app/keystore
           touch app/keystore/debug.keystore
 
       - name: decode keystore
