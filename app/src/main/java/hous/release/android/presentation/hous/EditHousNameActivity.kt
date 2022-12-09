@@ -8,8 +8,10 @@ import hous.release.android.R
 import hous.release.android.databinding.ActivityEditHousNameBinding
 import hous.release.android.presentation.hous.HousFragment.Companion.ROOM_NAME
 import hous.release.android.util.KeyBoardUtil
+import hous.release.android.util.UiEvent
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.ConfirmClickListener
+import hous.release.android.util.dialog.LoadingDialogFragment
 import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningDialogFragment.Companion.CONFIRM_ACTION
 import hous.release.android.util.dialog.WarningDialogFragment.Companion.DIALOG_WARNING
@@ -21,6 +23,7 @@ import hous.release.android.util.extension.repeatOnStarted
 class EditHousNameActivity :
     BindingActivity<ActivityEditHousNameBinding>(R.layout.activity_edit_hous_name) {
     private val viewModel by viewModels<EditHousNameViewModel>()
+    private val loadingDialog = LoadingDialogFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +31,7 @@ class EditHousNameActivity :
         initEditTextClearFocus()
         initBackBtnClickListener()
         initOriginalRoomName()
-        initIsSuccessEditHousNameCollector()
+        initEditHousNameUiEventCollector()
     }
 
     private fun initEditTextClearFocus() {
@@ -69,10 +72,21 @@ class EditHousNameActivity :
         )
     }
 
-    private fun initIsSuccessEditHousNameCollector() {
+    private fun initEditHousNameUiEventCollector() {
         repeatOnStarted {
-            viewModel.isSuccessEditHousName.collect { isSuccess ->
-                if (isSuccess) finish()
+            viewModel.editHousNameUiEvent.collect { uiEvent ->
+                when (uiEvent) {
+                    UiEvent.LOADING -> {
+                        loadingDialog.show(supportFragmentManager, LoadingDialogFragment.TAG)
+                    }
+                    UiEvent.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        finish()
+                    }
+                    UiEvent.ERROR -> {
+                        loadingDialog.dismiss()
+                    }
+                }
             }
         }
     }

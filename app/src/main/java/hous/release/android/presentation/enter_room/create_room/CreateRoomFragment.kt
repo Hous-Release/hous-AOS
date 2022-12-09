@@ -8,20 +8,23 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentCreateRoomBinding
 import hous.release.android.util.KeyBoardUtil
+import hous.release.android.util.UiEvent
 import hous.release.android.util.binding.BindingFragment
+import hous.release.android.util.dialog.LoadingDialogFragment
 import hous.release.android.util.extension.repeatOnStarted
 
 @AndroidEntryPoint
 class CreateRoomFragment :
     BindingFragment<FragmentCreateRoomBinding>(R.layout.fragment_create_room) {
     private val viewModel by activityViewModels<CreateRoomViewModel>()
+    private val loadingDialog = LoadingDialogFragment()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         initEditTextClearFocus()
         initBackBtnClickListener()
-        initIsSuccessCreateRoomCollector()
+        initCreateRoomUiEventCollector()
     }
 
     override fun onDestroyView() {
@@ -39,11 +42,20 @@ class CreateRoomFragment :
         binding.btnCreateRoomBack.setOnClickListener { findNavController().popBackStack() }
     }
 
-    private fun initIsSuccessCreateRoomCollector() {
+    private fun initCreateRoomUiEventCollector() {
         repeatOnStarted {
-            viewModel.isSuccessCreateRoom.collect { isSuccess ->
-                if (isSuccess) {
-                    CreateRoomDialogFragment().show(childFragmentManager, this.javaClass.name)
+            viewModel.createRoomUiEvent.collect { uiEvent ->
+                when (uiEvent) {
+                    UiEvent.LOADING -> {
+                        loadingDialog.show(childFragmentManager, LoadingDialogFragment.TAG)
+                    }
+                    UiEvent.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        CreateRoomDialogFragment().show(childFragmentManager, this.javaClass.name)
+                    }
+                    UiEvent.ERROR -> {
+                        loadingDialog.dismiss()
+                    }
                 }
             }
         }
