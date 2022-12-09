@@ -60,7 +60,7 @@ jobs:
           touch app/keystore/debug.keystore
 
       - name: decode keystore
-        run: echo "${{ secrets.KEYSTORE_FILE_BASE_64 }}" | base64 -d >> app/keystore/debug.keystore
+        run: echo "${{ secrets.KEYSTORE_FILE_BASE_64 }}" | base64 -d > app/keystore/debug.keystore
 
       - name: Build debug APK
         run: ./gradlew assembleDebug
