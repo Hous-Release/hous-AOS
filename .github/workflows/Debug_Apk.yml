@@ -55,9 +55,12 @@ jobs:
         run: chmod +x gradlew
 
       - name: Create Key Store
+        run: touch app/keystore
+
+      - name: Create debug Key Store
         run: touch app/keystore/debug.keystore
 
-      - name: Create Key Store
+      - name: decode keystore
         run: echo "${{ secrets.KEYSTORE_FILE_BASE_64 }}" | base64 -d >> app/keystore/debug.keystore
 
       - name: Build debug APK
