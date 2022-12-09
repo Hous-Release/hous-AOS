@@ -112,11 +112,13 @@ class EditToDoFragment : BindingFragment<FragmentEditToDoBinding>(R.layout.fragm
 
     private fun initBackButtonListener() {
         requireActivity().onBackPressedDispatcher.addCallback {
-            if (viewModel.isChangeToDoName()) showOutDialog()
+            if (viewModel.isChangeToDoName()) return@addCallback showOutDialog()
+            findNavController().popBackStack()
         }.also { callback -> onBackPressedCallback = callback }
 
         binding.btnEditToDoBack.setOnClickListener {
-            if (viewModel.isChangeToDoName()) showOutDialog()
+            if (viewModel.isChangeToDoName()) return@setOnClickListener showOutDialog()
+            findNavController().popBackStack()
         }
     }
 
