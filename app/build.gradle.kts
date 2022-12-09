@@ -13,8 +13,12 @@ plugins {
 
 val properties = Properties()
 properties.load(project.rootProject.file("local.properties").inputStream())
-
 android {
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file(properties.getProperty("debug_keystore"))
+        }
+    }
     compileSdk = AppConfig.compileSdkVersion
     buildToolsVersion = AppConfig.buildToolsVersion
 
@@ -68,6 +72,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        getByName("debug") {
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
