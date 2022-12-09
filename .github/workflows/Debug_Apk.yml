@@ -59,6 +59,7 @@ jobs:
         
       - name: Build debug APK
         run: ./gradlew clean assembleDebug
+        
 
       - uses: MeilCli/slack-upload-file@v3
         with:
