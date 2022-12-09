@@ -6,6 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: ${{ contains(github.event.head_commit.message, '[QA]') }}
     steps:
       - uses: actions/checkout@v2
 
@@ -53,12 +54,14 @@ jobs:
 
       - name: Build debug APK
         run: ./gradlew assembleDebug
+        
 
-      - uses: MeilCli/slack-upload-file@v2
+      - uses: MeilCli/slack-upload-file@v3
         with:
           slack_token: ${{ secrets.SLACK_TOKEN }}
-          channels: ${{ secrets.SLACK_CHANNEL }}
+          channel_id: ${{ secrets.SLACK_CHANNEL }}
           initial_comment: 'Hous APK ! ! !'
           file_type: 'apk'
           file_name: 'Hous.apk'
           file_path: './app/build/outputs/apk/debug/app-debug.apk'
+          retries: 1
