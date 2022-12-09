@@ -16,7 +16,7 @@ properties.load(project.rootProject.file("local.properties").inputStream())
 android {
     signingConfigs {
         getByName("debug") {
-            storeFile = file(properties.getProperty("debug_keystore"))
+            storeFile = file(properties.getProperty("KEYSTORE_PATH"))
         }
     }
     compileSdk = AppConfig.compileSdkVersion
