@@ -33,24 +33,24 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="총"
-                    android:textAppearance="@style/B1"
-                    android:textColor="@color/hous_g_5" />
+                    android:text="@string/to_do_total"
+                    android:textColor="@color/hous_g_5"
+                    android:theme="@style/B1" />
 
                 <TextView
                     android:id="@+id/tv_to_do_daily_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{Integer.toString(todo_main.ourTodosCnt)}"
-                    android:textAppearance="@style/H3"
-                    android:textColor="@color/hous_blue" />
+                    android:textColor="@color/hous_blue"
+                    android:theme="@style/H3" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="개"
-                    android:textAppearance="@style/B1"
-                    android:textColor="@color/hous_g_5" />
+                    android:text="@string/to_do_count"
+                    android:textColor="@color/hous_g_5"
+                    android:theme="@style/B1" />
             </LinearLayout>
 
             <TextView
@@ -59,13 +59,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
-                android:fontFamily="@font/montserrat_semibold"
-                android:letterSpacing="-0.02"
-                android:lineSpacingExtra="6dp"
                 android:text="@string/to_do_my_title"
                 android:textColor="@color/hous_black"
-                android:textSize="20dp"
-                android:textStyle="normal"
+                android:theme="@style/Emt1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ll_to_do_daily_total" />
 
@@ -97,8 +93,8 @@
                     android:paddingBottom="28dp"
                     android:text="@string/to_do_my_empty"
                     android:textAlignment="center"
-                    android:textAppearance="@style/B2"
                     android:textColor="@color/hous_g_5"
+                    android:theme="@style/B2"
                     android:visibility="@{todo_main.myTodos.isEmpty() ? View.VISIBLE : View.GONE}" />
             </FrameLayout>
 
@@ -117,13 +113,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/montserrat_semibold"
-                android:letterSpacing="-0.02"
-                android:lineSpacingExtra="6dp"
                 android:text="@string/to_do_our_title"
                 android:textColor="@color/hous_black"
-                android:textSize="20dp"
-                android:textStyle="normal"
+                android:theme="@style/Emt1"
                 app:layout_constraintStart_toStartOf="@+id/divider_to_do_daily_my"
                 app:layout_constraintTop_toBottomOf="@+id/divider_to_do_daily_my" />
 
@@ -154,8 +146,8 @@
                     android:paddingBottom="28dp"
                     android:text="@string/to_do_our_empty"
                     android:textAlignment="center"
-                    android:textAppearance="@style/B2"
                     android:textColor="@color/hous_g_5"
+                    android:theme="@style/B2"
                     android:visibility="@{todo_main.ourTodos.isEmpty() ? View.VISIBLE : View.GONE}" />
             </FrameLayout>
 

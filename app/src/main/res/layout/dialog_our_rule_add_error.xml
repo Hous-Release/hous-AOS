@@ -15,7 +15,7 @@
         android:layout_marginHorizontal="80dp"
         android:layout_marginTop="36dp"
         android:text="@string/our_rule_add_error_title"
-        android:textAppearance="@style/H4"
+        android:theme="@style/H4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,8 +39,8 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/our_rule_add_error_description"
-        android:textAppearance="@style/B2"
         android:textColor="@color/hous_g_7"
+        android:theme="@style/B2"
         app:layout_constraintEnd_toEndOf="@id/iv_our_rule_add_error"
         app:layout_constraintStart_toStartOf="@id/iv_our_rule_add_error"
         app:layout_constraintTop_toBottomOf="@id/iv_our_rule_add_error" />
@@ -52,8 +52,8 @@
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:text="@string/our_rule_add_error_ok"
-        android:textAppearance="@style/B3"
         android:textColor="@color/hous_g_5"
+        android:theme="@style/B3"
         app:layout_constraintEnd_toEndOf="@id/tv_our_rule_add_error_description"
         app:layout_constraintStart_toStartOf="@id/tv_our_rule_add_error_description"
         app:layout_constraintTop_toBottomOf="@id/tv_our_rule_add_error_description" />

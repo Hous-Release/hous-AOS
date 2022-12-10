@@ -36,8 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/create_room_title"
-            android:textAppearance="@style/H3"
             android:textColor="@color/hous_black"
+            android:theme="@style/H3"
             app:layout_constraintBottom_toTopOf="@id/tv_create_room_desc"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -50,8 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/create_room_desc"
-            android:textAppearance="@style/B2"
             android:textColor="@color/hous_g_5"
+            android:theme="@style/B2"
             app:layout_constraintBottom_toTopOf="@id/et_create_room_name"
             app:layout_constraintStart_toStartOf="@id/tv_create_room_title"
             app:layout_constraintTop_toBottomOf="@id/tv_create_room_title" />
@@ -69,9 +69,9 @@
             android:maxLength="8"
             android:paddingVertical="2dp"
             android:text="@={viewModel.roomName}"
-            android:textAppearance="@style/B2"
             android:textColor="@color/hous_black"
             android:textColorHint="@color/hous_g_5"
+            android:theme="@style/B2"
             app:layout_constraintBottom_toTopOf="@id/view_create_room"
             app:layout_constraintEnd_toStartOf="@id/tv_create_room_count"
             app:layout_constraintStart_toStartOf="@id/tv_create_room_title"
@@ -83,8 +83,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="18dp"
             android:text="@{@string/create_room_name_count(viewModel.roomName.length)}"
-            android:textAppearance="@style/B2"
             android:textColor="@color/hous_g_4"
+            android:theme="@style/B2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/et_create_room_name" />
 
@@ -113,8 +113,8 @@
             android:paddingVertical="10dp"
             android:stateListAnimator="@null"
             android:text="@string/create_room_title"
-            android:textAppearance="@style/B1"
             android:textColor="@color/hous_white"
+            android:theme="@style/B1"
             app:cornerRadius="8dp"
             app:layout_constraintBottom_toBottomOf="parent" />
 

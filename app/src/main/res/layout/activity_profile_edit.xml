@@ -33,8 +33,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/profile_edit_title"
-            android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
+            android:theme="@style/B1"
             app:layout_constraintBottom_toBottomOf="@id/btn_profile_edit_back"
             app:layout_constraintStart_toEndOf="@id/btn_profile_edit_back"
             app:layout_constraintTop_toTopOf="@id/btn_profile_edit_back" />
@@ -48,7 +48,7 @@
             android:onClick="@{()->vm.onClickSave()}"
             android:padding="8dp"
             android:text="@string/profile_edit_save"
-            android:textAppearance="@style/B1"
+            android:theme="@style/B1"
             app:layout_constraintBottom_toBottomOf="@id/tv_profile_edit_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_profile_edit_title"
@@ -67,9 +67,9 @@
             android:padding="7dp"
             android:singleLine="true"
             android:text="@={vm.nickname}"
-            android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
             android:textColorHint="@color/hous_g_5"
+            android:theme="@style/B1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_profile_edit_back"
@@ -91,7 +91,7 @@
             app:layout_constraintEnd_toStartOf="@id/ll_profile_edit_birthday_public"
             app:layout_constraintStart_toStartOf="@id/et_profile_edit_nickname"
             app:layout_constraintTop_toBottomOf="@id/et_profile_edit_nickname"
-            tools:textAppearance="@style/B1" />
+            tools:theme="@style/B1" />
 
         <LinearLayout
             android:id="@+id/ll_profile_edit_birthday_public"
@@ -111,8 +111,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/profile_edit_birthday_public"
-                android:textAppearance="@style/Description"
                 android:textColor="@color/selector_profile_edit_text"
+                android:theme="@style/Description"
                 tools:textColor="@color/hous_g_5" />
 
             <ImageView
@@ -147,9 +147,9 @@
             android:maxLines="1"
             android:padding="7dp"
             android:text="@={vm.mbti}"
-            android:textAppearance="@style/En3"
             android:textColor="@color/hous_black"
             android:textColorHint="@color/hous_g_5"
+            android:theme="@style/En3"
             app:layout_constraintEnd_toEndOf="@id/et_profile_edit_nickname"
             app:layout_constraintStart_toStartOf="@id/et_profile_edit_nickname"
             app:layout_constraintTop_toBottomOf="@id/view_profile_edit_birthay" />
@@ -166,9 +166,9 @@
             android:maxLines="1"
             android:padding="7dp"
             android:text="@={vm.job}"
-            android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
             android:textColorHint="@color/hous_g_5"
+            android:theme="@style/B1"
             app:layout_constraintEnd_toEndOf="@id/et_profile_edit_mbti"
             app:layout_constraintStart_toStartOf="@id/et_profile_edit_mbti"
             app:layout_constraintTop_toBottomOf="@id/et_profile_edit_mbti" />
@@ -184,9 +184,9 @@
             android:maxLength="40"
             android:padding="7dp"
             android:text="@={vm.introduction}"
-            android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
             android:textColorHint="@color/hous_g_5"
+            android:theme="@style/B1"
             app:layout_constraintEnd_toEndOf="@id/et_profile_edit_job"
             app:layout_constraintStart_toStartOf="@id/et_profile_edit_job"
             app:layout_constraintTop_toBottomOf="@id/et_profile_edit_job" />
@@ -199,8 +199,8 @@
             android:layout_marginEnd="10dp"
             android:importantForAutofill="no"
             android:text="@{vm.introduction.length() + `/40`}"
-            android:textAppearance="@style/En2"
             android:textColor="@color/hous_g_5"
+            android:theme="@style/En2"
             app:layout_constraintEnd_toEndOf="@id/et_profile_edit_introduction"
             app:layout_constraintTop_toBottomOf="@id/et_profile_edit_introduction"
             tools:text="0/40" />

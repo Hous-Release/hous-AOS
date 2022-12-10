@@ -32,24 +32,24 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="총"
-                    android:textAppearance="@style/B1"
-                    android:textColor="@color/hous_g_5" />
+                    android:text="@string/to_do_total"
+                    android:textColor="@color/hous_g_5"
+                    android:theme="@style/B1" />
 
                 <TextView
                     android:id="@+id/tv_to_do_daily_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{Integer.toString(member_todo.totalTodoCnt)}"
-                    android:textAppearance="@style/H3"
-                    android:textColor="@color/hous_blue" />
+                    android:textColor="@color/hous_blue"
+                    android:theme="@style/H3" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="개"
-                    android:textAppearance="@style/B1"
-                    android:textColor="@color/hous_g_5" />
+                    android:text="@string/to_do_count"
+                    android:textColor="@color/hous_g_5"
+                    android:theme="@style/B1" />
             </LinearLayout>
 
             <FrameLayout
@@ -77,8 +77,8 @@
                     android:paddingBottom="28dp"
                     android:text="@string/to_do_my_empty"
                     android:textAlignment="center"
-                    android:textAppearance="@style/B2"
                     android:textColor="@color/hous_g_5"
+                    android:theme="@style/B2"
                     android:visibility="@{member_todo.totalTodoCnt == 0 ? View.VISIBLE : View.GONE}" />
             </FrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

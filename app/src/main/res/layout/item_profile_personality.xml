@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="@{data.type}"
-            android:textAppearance="@style/B2"
             android:textColor="@color/hous_black"
+            android:theme="@style/B2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="빛" />
@@ -35,8 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
             android:text="@{data.description}"
-            android:textAppearance="@style/Description"
             android:textColor="@color/hous_g_6"
+            android:theme="@style/Description"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_personality_title"
             tools:text="@string/personality_light_description" />

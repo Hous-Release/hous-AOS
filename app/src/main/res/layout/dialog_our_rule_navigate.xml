@@ -16,7 +16,7 @@
         android:paddingTop="22dp"
         android:paddingBottom="17dp"
         android:text="@string/our_rule_add"
-        android:textAppearance="@style/B2"
+        android:theme="@style/B2"
         android:textColor="@color/hous_blue"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="16dp" />
@@ -36,7 +36,7 @@
         android:paddingTop="18dp"
         android:paddingBottom="17dp"
         android:text="@string/our_rule_edit"
-        android:textAppearance="@style/B2"
+        android:theme="@style/B2"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/view_division1"
         tools:layout_editor_absoluteX="16dp" />
@@ -56,7 +56,7 @@
         android:paddingTop="18dp"
         android:paddingBottom="25dp"
         android:text="@string/our_rule_delete"
-        android:textAppearance="@style/B2"
+        android:theme="@style/B2"
         android:textColor="@color/hous_red"
         app:layout_constraintTop_toBottomOf="@id/view_division2"
         tools:layout_editor_absoluteX="16dp" />

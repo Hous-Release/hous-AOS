@@ -13,8 +13,8 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:text="@string/dialog_to_do_title"
-        android:textAppearance="@style/H4"
         android:textColor="@color/black"
+        android:theme="@style/H4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,8 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/dialog_to_do_content"
-        android:textAppearance="@style/Description"
         android:textColor="@color/hous_g_5"
+        android:theme="@style/Description"
         app:layout_constraintStart_toStartOf="@+id/tv_dialog_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_dialog_title" />
 
@@ -37,8 +37,8 @@
         android:layout_marginEnd="24dp"
         android:clickable="true"
         android:text="@string/dialog_cancel"
-        android:textAppearance="@style/B2"
         android:textColor="@color/hous_g_6"
+        android:theme="@style/B2"
         app:layout_constraintEnd_toStartOf="@+id/tv_dialog_delete"
         app:layout_constraintTop_toBottomOf="@+id/tv_dialog_content" />
 
@@ -48,8 +48,8 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:text="@string/to_do_bottom_sheet_delete"
-        android:textAppearance="@style/B2"
         android:textColor="@color/hous_red"
+        android:theme="@style/B2"
         app:layout_constraintBottom_toBottomOf="@+id/tv_dialog_cancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_dialog_cancel" />
