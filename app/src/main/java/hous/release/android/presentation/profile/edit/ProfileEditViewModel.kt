@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hous.release.android.util.extension.addSourceList
 import hous.release.domain.usecase.PutProfileEditUseCase
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -34,19 +33,26 @@ class ProfileEditViewModel @Inject constructor(
     val isEditProfile: LiveData<Boolean> = _isEditProfile
 
     private val _changedEditInfo = MediatorLiveData<Boolean>().apply {
-        addSourceList(nickname, birthday, isBirthdayPublic, mbti, job, introduction) {
-            checkChanged()
+        addSource(nickname) { nickname ->
+            value = originData.value!!.nickname != nickname
+        }
+        addSource(birthday) { birthday ->
+            value = originData.value!!.birthday != birthday
+        }
+        addSource(isBirthdayPublic) { isBirthdayPublic ->
+            value = originData.value!!.birthdayPublic != isBirthdayPublic
+        }
+        addSource(mbti) { mbti ->
+            value = originData.value!!.mbti != mbti
+        }
+        addSource(job) { job ->
+            value = originData.value!!.job != job
+        }
+        addSource(introduction) { introduction ->
+            value = originData.value!!.introduction != introduction
         }
     }
     val changedEditInfo: LiveData<Boolean> = _changedEditInfo
-
-    private fun checkChanged(): Boolean =
-        originData.value!!.nickname != nickname.value ||
-            originData.value!!.birthday != birthday.value ||
-            originData.value!!.birthdayPublic != isBirthdayPublic.value ||
-            originData.value!!.mbti != mbti.value ||
-            originData.value!!.job != job.value ||
-            originData.value!!.introduction != introduction.value
 
     fun onClickSave() {
         viewModelScope.launch {
