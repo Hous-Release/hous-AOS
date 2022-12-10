@@ -58,7 +58,7 @@
             android:id="@+id/et_profile_edit_nickname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="33dp"
             android:background="@null"
             android:hint="@string/profile_edit_hint_nickname"
@@ -70,7 +70,7 @@
             android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
             android:textColorHint="@color/hous_g_5"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_profile_edit_nickname_length"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_profile_edit_back"
             tools:text="이빵주" />
