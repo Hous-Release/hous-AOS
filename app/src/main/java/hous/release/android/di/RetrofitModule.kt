@@ -3,6 +3,8 @@ package hous.release.android.di
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Handler
 import android.os.Looper
 import com.google.gson.GsonBuilder
@@ -14,6 +16,7 @@ import dagger.hilt.components.SingletonComponent
 import hous.release.android.BuildConfig
 import hous.release.android.R
 import hous.release.android.presentation.login.LoginActivity
+import hous.release.android.presentation.network_error.NetworkErrorActivity
 import hous.release.android.util.ToastMessageUtil
 import hous.release.data.datasource.LocalPrefTokenDataSource
 import hous.release.data.repository.RefreshRepositoryImpl.Companion.EXPIRED_REFRESH_TOKEN
@@ -22,6 +25,7 @@ import hous.release.domain.repository.RefreshRepository
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.HttpException
 import retrofit2.Retrofit
@@ -39,6 +43,7 @@ object RetrofitModule {
     private const val HEADER_VERSION = "HousVersion"
     private const val OS_TYPE = "AOS"
     private const val BEARER = "Bearer "
+    private const val NETWORK_ERROR = 500
 
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
@@ -52,8 +57,28 @@ object RetrofitModule {
         localPref: SharedPreferences,
         refreshRepository: RefreshRepository,
         localPrefTokenDataSource: LocalPrefTokenDataSource
-    ): Interceptor =
-        Interceptor { chain ->
+    ): Interceptor = object : Interceptor {
+        fun isNetworkConnected(): Boolean {
+            var isConnected = false
+            val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val capabilities = cm.getNetworkCapabilities(cm.activeNetwork)
+            if (capabilities != null) {
+                isConnected =
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+            }
+            return isConnected
+        }
+
+        override fun intercept(chain: Interceptor.Chain): Response {
+            if (!isNetworkConnected()) {
+                context.startActivity(
+                    Intent(
+                        context, NetworkErrorActivity::class.java
+                    ).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    }
+                )
+            }
             val request = chain.request()
             var response = chain.proceed(
                 request
@@ -67,6 +92,7 @@ object RetrofitModule {
                     .build()
             )
             when (response.code) {
+                NETWORK_ERROR -> context.startActivity(Intent(context, NetworkErrorActivity::class.java))
                 EXPIRED_TOKEN -> {
                     runBlocking {
                         refreshRepository.refreshHousToken()
@@ -94,15 +120,12 @@ object RetrofitModule {
                                             }
                                             Handler(Looper.getMainLooper()).post(
                                                 Runnable {
-                                                    ToastMessageUtil.showToast(
-                                                        context,
-                                                        context.getString(R.string.refresh_error)
+                                                    ToastMessageUtil.showToast(context, context.getString(R.string.refresh_error))
+                                                    context.startActivity(
+                                                        Intent(context, LoginActivity::class.java).apply {
+                                                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                                        }
                                                     )
-                                                }
-                                            )
-                                            context.startActivity(
-                                                Intent(context, LoginActivity::class.java).apply {
-                                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                                                 }
                                             )
                                         }
@@ -112,13 +135,14 @@ object RetrofitModule {
                     }
                 }
             }
-            response
+            return response
         }
+    }
 
     @Provides
     @Singleton
-    @NormalType
-    fun providesOkHttpClient(@NormalType interceptor: Interceptor): OkHttpClient =
+    @RetrofitModule.NormalType
+    fun providesOkHttpClient(@RetrofitModule.NormalType interceptor: Interceptor): OkHttpClient =
         OkHttpClient.Builder()
             .connectTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
