@@ -178,7 +178,5 @@ class LoginViewModel @Inject constructor(
         private const val SOCIAL_TYPE = "KAKAO"
         private const val NOT_SIGN_UP = 404
         private const val ALREADY_LOGIN = 409
-
-        // private const val INVALID_TOKEN = 401
     }
 }
