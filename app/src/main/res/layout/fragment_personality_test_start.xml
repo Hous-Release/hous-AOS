@@ -53,6 +53,7 @@
             android:text="@string/test_start_content"
             android:textAlignment="center"
             android:textAppearance="@style/B2"
+            android:lineSpacingExtra="4dp"
             android:textColor="@color/hous_g_6"
             app:layout_constraintEnd_toEndOf="@+id/tv_test_start_title"
             app:layout_constraintStart_toStartOf="@+id/tv_test_start_title"
