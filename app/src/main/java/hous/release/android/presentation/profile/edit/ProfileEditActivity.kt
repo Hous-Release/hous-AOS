@@ -28,22 +28,44 @@ class ProfileEditActivity :
         initBackBtnOnClickListener()
         initBirthdayOnClickListener()
         initBirthdayPublicOnClickListener()
-        initSaveBtnColor()
         initBackPressedCallback()
     }
 
     private fun initBackPressedCallback() {
         onBackPressedDispatcher.addCallback {
-            WarningDialogFragment().withArgs {
-                putSerializable(
-                    WarningDialogFragment.WARNING_TYPE,
-                    WarningType.WARNING_EDIT_PROFILE
-                )
-                putParcelable(
-                    WarningDialogFragment.CONFIRM_ACTION,
-                    ConfirmClickListener(confirmAction = { finish() })
-                )
-            }.show(supportFragmentManager, WarningDialogFragment.DIALOG_WARNING)
+            if (profileEditViewModel.changedEditInfo.value == true) {
+                WarningDialogFragment().withArgs {
+                    putSerializable(
+                        WarningDialogFragment.WARNING_TYPE,
+                        WarningType.WARNING_EDIT_PROFILE
+                    )
+                    putParcelable(
+                        WarningDialogFragment.CONFIRM_ACTION,
+                        ConfirmClickListener(confirmAction = { finish() })
+                    )
+                }.show(supportFragmentManager, WarningDialogFragment.DIALOG_WARNING)
+            } else if (profileEditViewModel.changedEditInfo.value == false) {
+                finish()
+            }
+        }
+    }
+
+    private fun initBackBtnOnClickListener() {
+        binding.btnProfileEditBack.setOnClickListener {
+            if (profileEditViewModel.changedEditInfo.value == true) {
+                WarningDialogFragment().withArgs {
+                    putSerializable(
+                        WarningDialogFragment.WARNING_TYPE,
+                        WarningType.WARNING_EDIT_PROFILE
+                    )
+                    putParcelable(
+                        WarningDialogFragment.CONFIRM_ACTION,
+                        ConfirmClickListener(confirmAction = { finish() })
+                    )
+                }.show(supportFragmentManager, WarningDialogFragment.DIALOG_WARNING)
+            } else {
+                finish()
+            }
         }
     }
 
@@ -72,33 +94,6 @@ class ProfileEditActivity :
             if (isSuccess) {
                 finish()
             }
-        }
-    }
-
-    private fun initSaveBtnColor() {
-        profileEditViewModel.nickname.observe(this) { nickname ->
-            if (nickname.isNullOrEmpty()) {
-                binding.tvProfileEditSave.setTextColor(getColor(R.color.hous_g_4))
-            } else {
-                binding.tvProfileEditSave.setTextColor(getColor(R.color.hous_blue))
-            }
-        }
-    }
-
-    private fun initBackBtnOnClickListener() {
-        binding.btnProfileEditBack.setOnClickListener {
-            WarningDialogFragment().apply {
-                arguments = Bundle().apply {
-                    putSerializable(
-                        WarningDialogFragment.WARNING_TYPE,
-                        WarningType.WARNING_EDIT_PROFILE
-                    )
-                    putParcelable(
-                        WarningDialogFragment.CONFIRM_ACTION,
-                        ConfirmClickListener(confirmAction = { finish() })
-                    )
-                }
-            }.show(supportFragmentManager, WarningDialogFragment.DIALOG_WARNING)
         }
     }
 
