@@ -33,6 +33,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
                     android:text="@string/to_do_total"
                     android:textColor="@color/hous_g_5"
                     android:theme="@style/B1" />
@@ -43,7 +44,8 @@
                     android:layout_height="wrap_content"
                     android:text="@{Integer.toString(todo_main.ourTodosCnt)}"
                     android:textColor="@color/hous_blue"
-                    android:theme="@style/H3" />
+                    android:theme="@style/DpB"
+                    tools:text="1" />
 
                 <TextView
                     android:layout_width="wrap_content"

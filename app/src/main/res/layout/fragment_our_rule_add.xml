@@ -28,6 +28,7 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="11dp"
             android:text="@string/our_rule_add_new_rule_title"
+            android:textColor="@color/hous_black"
             android:textStyle="bold"
             android:theme="@style/B1"
             app:layout_constraintStart_toEndOf="@id/iv_add_rule_back_button"

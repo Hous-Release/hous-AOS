@@ -144,4 +144,12 @@
         <item name="android:letterSpacing">0.11</item>
     </style>
 
+    <style name="DpB">
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="android:lineSpacingExtra">10sp</item>
+    </style>
+
 </resources>

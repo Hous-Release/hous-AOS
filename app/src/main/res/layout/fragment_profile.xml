@@ -70,6 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="@string/profile_title"
+                android:textColor="@color/hous_black"
                 android:theme="@style/H3"
                 app:layout_constraintBottom_toBottomOf="@id/btn_profile_setting"
                 app:layout_constraintStart_toStartOf="parent"
