@@ -3,6 +3,8 @@ package hous.release.android.presentation.todo.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hous.release.android.presentation.todo.main.TodoState.IDLE
+import hous.release.android.presentation.todo.main.TodoState.PROGRESS
 import hous.release.domain.entity.Todo
 import hous.release.domain.repository.TodoRepository
 import javax.inject.Inject
@@ -15,6 +17,7 @@ import timber.log.Timber
 class TodoViewModel @Inject constructor(
     private val todoRepository: TodoRepository
 ) : ViewModel() {
+    private var todoState = IDLE
     private val _uiState = MutableStateFlow(ToDoUiState())
     val uiState = _uiState.asStateFlow()
 
@@ -37,9 +40,19 @@ class TodoViewModel @Inject constructor(
     }
 
     fun checkTodo(todoId: Int, isChecked: Boolean) {
-        viewModelScope.launch {
-            todoRepository.checkTodo(todoId = todoId, isChecked = isChecked)
-            fetchTodoMainContent()
+        if (todoState == IDLE) {
+            todoState = PROGRESS
+            viewModelScope.launch {
+                todoRepository.checkTodo(todoId = todoId, isChecked = isChecked)
+                    .onSuccess {
+                        fetchTodoMainContent()
+                        todoState = IDLE
+                    }
+                    .onFailure {
+                        Timber.e("error : ${it.message}")
+                        todoState = IDLE
+                    }
+            }
         }
     }
 }
@@ -53,3 +66,7 @@ data class ToDoUiState(
     val ourTodosCount: Int = 0,
     val progress: Float = 0f
 )
+
+enum class TodoState {
+    IDLE, PROGRESS
+}

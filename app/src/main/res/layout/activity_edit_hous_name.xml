@@ -36,10 +36,11 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
             android:onClick="@{()->vm.putHousName()}"
+            android:clickable="@{vm.roomName.length() == 0 ? false : true}"
             android:padding="8dp"
             android:text="@string/edit_hous_name_done"
             android:textAppearance="@style/B1"
-            android:textColor="@color/hous_blue"
+            android:textColor="@{vm.roomName.length() == 0 ? @color/hous_g_4 : @color/hous_blue}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

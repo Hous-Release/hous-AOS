@@ -18,6 +18,7 @@ import hous.release.android.util.component.HousFloatingButton
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.extension.withArgs
 import hous.release.android.util.style.HousTheme
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -42,13 +43,12 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
     }
 
     private fun initFinishOnClick() {
-        binding.ivDailyBackButton.setOnClickListener { todoDetailViewModel.setIsFinish() }
+        binding.ivDailyBackButton.setOnClickListener { requireActivity().finish() }
     }
 
     private fun changeTodoDetail() {
         binding.llDailyChangeView.setOnClickListener {
             findNavController().navigate(R.id.action_dailyFragment_to_memberFragment)
-            todoDetailViewModel.setDailyTabIndex(0)
         }
     }
 
@@ -78,6 +78,7 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
                         )
                     }
                 }
+                delay(10)
                 binding.vpDailyTodos.currentItem = uiState.dailyTabIndex
             }
             .launchIn(lifecycleScope)
@@ -100,8 +101,8 @@ class DailyFragment : BindingFragment<FragmentDailyBinding>(R.layout.fragment_da
     private fun initFloatingButton() {
         binding.cvDailyFloatingButton.setContent {
             HousFloatingButton {
-                if (todoDetailViewModel.uiState.value.totalTodoCount == 60) {
-                    TodoLimitDialog().show(childFragmentManager, TodoLimitDialog.TAG)
+                if (todoDetailViewModel.uiState.value.totalTodoCount >= 60) {
+                    TodoLimitDialog().show(childFragmentManager, this.javaClass.name)
                     return@HousFloatingButton
                 }
                 findNavController().navigate(R.id.action_dailyFragment_to_addToDoFragment)

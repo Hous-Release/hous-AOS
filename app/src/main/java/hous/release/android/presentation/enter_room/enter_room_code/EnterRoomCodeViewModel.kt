@@ -3,6 +3,7 @@ package hous.release.android.presentation.enter_room.enter_room_code
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hous.release.android.util.UiEvent
 import hous.release.domain.entity.SplashState
 import hous.release.domain.entity.response.Room
 import hous.release.domain.repository.EnterRoomRepository
@@ -31,8 +32,8 @@ class EnterRoomCodeViewModel @Inject constructor(
     private val _roomInfo = MutableStateFlow(Room())
     val roomInfo: StateFlow<Room> = _roomInfo.asStateFlow()
 
-    private val _isSuccessEnterRoom = MutableSharedFlow<Boolean>()
-    val isSuccessEnterRoom: SharedFlow<Boolean> = _isSuccessEnterRoom.asSharedFlow()
+    private val _enterRoomUiEvent = MutableSharedFlow<UiEvent>()
+    val enterRoomUiEvent: SharedFlow<UiEvent> = _enterRoomUiEvent.asSharedFlow()
 
     private val _isFullCapacity = MutableSharedFlow<Boolean>()
     val isFullCapacity: SharedFlow<Boolean> = _isFullCapacity.asSharedFlow()
@@ -56,13 +57,15 @@ class EnterRoomCodeViewModel @Inject constructor(
 
     fun postEnterRoomId() {
         viewModelScope.launch {
+            _enterRoomUiEvent.emit(UiEvent.LOADING)
             enterRoomRepository.postEnterRoomId(roomInfo.value.roomId.toString())
                 .onSuccess {
                     setSplashStateUseCase(SplashState.MAIN)
-                    _isSuccessEnterRoom.emit(true)
+                    _enterRoomUiEvent.emit(UiEvent.SUCCESS)
                 }
                 .onFailure { throwable ->
                     Timber.d(throwable.message)
+                    _enterRoomUiEvent.emit(UiEvent.ERROR)
                     if (throwable is HttpException) {
                         when (throwable.code()) {
                             FULL_CAPACITY -> _isFullCapacity.emit(true)

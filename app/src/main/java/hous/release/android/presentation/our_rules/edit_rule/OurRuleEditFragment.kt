@@ -89,6 +89,7 @@ class OurRuleEditFragment :
         }.show(childFragmentManager, WarningDialogFragment.DIALOG_WARNING)
     }
 
+    // 이 부분은 나중에 AdapterController 하나 만들어서 관리하면 좋을 듯
     private fun initAdapter() {
         val itemTouchHelper: ItemTouchHelper
         ourRulesEditAdapter =
@@ -100,7 +101,6 @@ class OurRuleEditFragment :
                 .also { adapter ->
                     binding.rvEditOurRules.run {
                         this.adapter = adapter
-                        itemAnimator = null
                     }
                 }.also { adapter ->
                     itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter)).apply {
@@ -112,6 +112,19 @@ class OurRuleEditFragment :
                             itemTouchHelper.startDrag(viewHolder)
                         }
                     })
+                }.also { adapter ->
+                    adapter.registerAdapterDataObserver(object :
+                            RecyclerView.AdapterDataObserver() {
+                            override fun onItemRangeMoved(
+                                fromPosition: Int,
+                                toPosition: Int,
+                                itemCount: Int
+                            ) {
+                                if (fromPosition == 0) {
+                                    binding.rvEditOurRules.scrollToPosition(0)
+                                }
+                            }
+                        })
                 }
     }
 
