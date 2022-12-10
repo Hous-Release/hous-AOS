@@ -68,7 +68,6 @@ fun PersonalityResultImage(
         AsyncImage(
             model = imageUrl,
             contentDescription = null,
-            placeholder = painterResource(id = R.drawable.ic_tutorial_1),
             contentScale = ContentScale.Crop
         )
     }
