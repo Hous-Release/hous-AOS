@@ -3,6 +3,8 @@ package hous.release.android.di
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Handler
+import android.os.Looper
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -90,9 +92,13 @@ object RetrofitModule {
                                                 clear()
                                                 commit()
                                             }
-                                            ToastMessageUtil.showToast(
-                                                context,
-                                                context.getString(R.string.refresh_error)
+                                            Handler(Looper.getMainLooper()).post(
+                                                Runnable {
+                                                    ToastMessageUtil.showToast(
+                                                        context,
+                                                        context.getString(R.string.refresh_error)
+                                                    )
+                                                }
                                             )
                                             context.startActivity(
                                                 Intent(context, LoginActivity::class.java).apply {
