@@ -56,8 +56,6 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
                 val toEnterRoom = Intent(this, EnterRoomActivity::class.java)
                 startActivity(toEnterRoom)
                 finishAffinity()
-            } else {
-                // 에러 시에 띄울 뷰
             }
         }
     }
