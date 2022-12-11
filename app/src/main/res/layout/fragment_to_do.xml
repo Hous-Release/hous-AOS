@@ -23,13 +23,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:letterSpacing="-0.01"
-            android:lineSpacingExtra="7.2sp"
             android:text="@{vm.uiState.date}"
             android:textColor="@color/hous_blue_l1"
-            android:textSize="24dp"
-            android:textStyle="bold"
+            android:theme="@style/Ebt2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="08.18" />
@@ -38,13 +34,9 @@
             android:id="@+id/tv_to_do_dayOfWeek"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_bold"
-            android:letterSpacing="-0.01"
-            android:lineSpacingExtra="7.2sp"
             android:text="@{vm.uiState.dayOfWeek}"
             android:textColor="@color/hous_blue"
-            android:textSize="24dp"
-            android:textStyle="bold"
+            android:theme="@style/Ebt2"
             app:layout_constraintStart_toStartOf="@+id/tv_to_do_date"
             app:layout_constraintTop_toBottomOf="@+id/tv_to_do_date"
             tools:text="Thursday" />
@@ -67,22 +59,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_semibold"
                 android:text="@string/to_do_small_letter"
                 android:textColor="@color/hous_blue"
-                android:textSize="14dp"
-                tools:layout_editor_absoluteX="261dp"
-                tools:layout_editor_absoluteY="68dp" />
+                android:theme="@style/En1" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/spoqa_han_sans_neo_bold"
                 android:text="@string/to_do_view_all"
                 android:textColor="@color/hous_blue"
-                android:textSize="12dp"
-                tools:layout_editor_absoluteX="261dp"
-                tools:layout_editor_absoluteY="91dp" />
+                android:theme="@style/H5" />
         </LinearLayout>
 
         <androidx.compose.ui.platform.ComposeView
@@ -177,8 +163,8 @@
                         android:paddingBottom="28dp"
                         android:text="@string/to_do_my_empty"
                         android:textAlignment="center"
-                        android:textAppearance="@style/B2"
                         android:textColor="@color/hous_g_5"
+                        android:theme="@style/B2"
                         android:visibility="@{vm.uiState.myTodosCount == 0 ? View.VISIBLE : View.GONE}" />
                 </FrameLayout>
 
@@ -272,8 +258,8 @@
                         android:paddingBottom="28dp"
                         android:text="@string/to_do_our_empty"
                         android:textAlignment="center"
-                        android:textAppearance="@style/B2"
                         android:textColor="@color/hous_g_5"
+                        android:theme="@style/B2"
                         android:visibility="@{vm.uiState.ourTodosCount == 0 ? View.VISIBLE : View.GONE}" />
                 </FrameLayout>
 

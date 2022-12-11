@@ -35,8 +35,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/noti_settings_title"
-            android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
+            android:theme="@style/B1"
             app:layout_constraintBottom_toBottomOf="@id/btn_noti_settings_back"
             app:layout_constraintStart_toEndOf="@id/btn_noti_settings_back"
             app:layout_constraintTop_toTopOf="@id/btn_noti_settings_back" />
@@ -67,8 +67,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="24dp"
                     android:text="@string/noti_settings_accept_alarm"
-                    android:textAppearance="@style/B1"
                     android:textColor="@color/hous_black"
+                    android:theme="@style/B1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -103,8 +103,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
                     android:text="@string/noti_settings_new_rules"
-                    android:textAppearance="@style/B1"
                     android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_black : @color/hous_g_5}"
+                    android:theme="@style/B1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_noti_settings_1" />
 
@@ -114,8 +114,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@string/noti_settings_new_rules_desc"
-                    android:textAppearance="@style/Description"
                     android:textColor="@color/hous_g_5"
+                    android:theme="@style/Description"
                     app:layout_constraintStart_toStartOf="@id/tv_noti_settings_new_rules"
                     app:layout_constraintTop_toBottomOf="@id/tv_noti_settings_new_rules" />
 
@@ -145,8 +145,8 @@
                         android:paddingVertical="8dp"
                         android:text="@string/noti_settings_on"
                         android:textAlignment="textStart"
-                        android:textAppearance="@style/B2"
-                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}"
+                        android:theme="@style/B2" />
 
                     <RadioButton
                         android:id="@+id/rb_noti_settings_new_rules_off"
@@ -163,8 +163,8 @@
                         android:paddingVertical="8dp"
                         android:text="@string/noti_settings_off"
                         android:textAlignment="textStart"
-                        android:textAppearance="@style/B2"
-                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}"
+                        android:theme="@style/B2" />
                 </RadioGroup>
 
                 <View
@@ -183,8 +183,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
                     android:text="@string/noti_settings_new_todos"
-                    android:textAppearance="@style/B1"
                     android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_black : @color/hous_g_5}"
+                    android:theme="@style/B1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_noti_settings_2" />
 
@@ -194,8 +194,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@string/noti_settings_new_todos_desc"
-                    android:textAppearance="@style/Description"
                     android:textColor="@color/hous_g_5"
+                    android:theme="@style/Description"
                     app:layout_constraintStart_toStartOf="@id/tv_noti_settings_new_todos"
                     app:layout_constraintTop_toBottomOf="@id/tv_noti_settings_new_todos" />
 
@@ -225,8 +225,8 @@
                         android:paddingVertical="8dp"
                         android:text="@string/noti_settings_new_todos_on_all"
                         android:textAlignment="textStart"
-                        android:textAppearance="@style/B2"
-                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}"
+                        android:theme="@style/B2" />
 
                     <RadioButton
                         android:id="@+id/rb_noti_settings_new_todos_on_me"
@@ -243,8 +243,8 @@
                         android:paddingVertical="8dp"
                         android:text="@string/noti_settings_on_me"
                         android:textAlignment="textStart"
-                        android:textAppearance="@style/B2"
-                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}"
+                        android:theme="@style/B2" />
 
                     <RadioButton
                         android:id="@+id/rb_noti_settings_new_todos_off"
@@ -261,8 +261,8 @@
                         android:paddingVertical="8dp"
                         android:text="@string/noti_settings_off"
                         android:textAlignment="textStart"
-                        android:textAppearance="@style/B2"
-                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}"
+                        android:theme="@style/B2" />
                 </RadioGroup>
 
                 <View
@@ -281,8 +281,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
                     android:text="@string/noti_settings_start_todos"
-                    android:textAppearance="@style/B1"
                     android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_black : @color/hous_g_5}"
+                    android:theme="@style/B1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_noti_settings_3" />
 
@@ -292,8 +292,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@string/noti_settings_start_todos_desc"
-                    android:textAppearance="@style/Description"
                     android:textColor="@color/hous_g_5"
+                    android:theme="@style/Description"
                     app:layout_constraintStart_toStartOf="@id/tv_noti_settings_start_todos"
                     app:layout_constraintTop_toBottomOf="@id/tv_noti_settings_start_todos" />
 
@@ -323,8 +323,8 @@
                         android:paddingVertical="8dp"
                         android:text="@string/noti_settings_start_todos_on_all"
                         android:textAlignment="textStart"
-                        android:textAppearance="@style/B2"
-                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}"
+                        android:theme="@style/B2" />
 
                     <RadioButton
                         android:id="@+id/rb_noti_settings_start_todos_on_me"
@@ -341,8 +341,8 @@
                         android:paddingVertical="8dp"
                         android:text="@string/noti_settings_on_me"
                         android:textAlignment="textStart"
-                        android:textAppearance="@style/B2"
-                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}"
+                        android:theme="@style/B2" />
 
                     <RadioButton
                         android:id="@+id/rb_noti_settings_start_todos_off"
@@ -359,8 +359,8 @@
                         android:paddingVertical="8dp"
                         android:text="@string/noti_settings_off"
                         android:textAlignment="textStart"
-                        android:textAppearance="@style/B2"
-                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}"
+                        android:theme="@style/B2" />
                 </RadioGroup>
 
                 <View
@@ -379,8 +379,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
                     android:text="@string/noti_settings_remind_todos"
-                    android:textAppearance="@style/B1"
                     android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_black : @color/hous_g_5}"
+                    android:theme="@style/B1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_noti_settings_4" />
 
@@ -390,8 +390,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@string/noti_settings_remind_todos_desc"
-                    android:textAppearance="@style/Description"
                     android:textColor="@color/hous_g_5"
+                    android:theme="@style/Description"
                     app:layout_constraintStart_toStartOf="@id/tv_noti_settings_remind_todos"
                     app:layout_constraintTop_toBottomOf="@id/tv_noti_settings_remind_todos" />
 
@@ -421,8 +421,8 @@
                         android:paddingVertical="8dp"
                         android:text="@string/noti_settings_remind_todos_on_all"
                         android:textAlignment="textStart"
-                        android:textAppearance="@style/B2"
-                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}"
+                        android:theme="@style/B2" />
 
                     <RadioButton
                         android:id="@+id/rb_noti_settings_remind_todos_on_me"
@@ -439,8 +439,8 @@
                         android:paddingVertical="8dp"
                         android:text="@string/noti_settings_on_me"
                         android:textAlignment="textStart"
-                        android:textAppearance="@style/B2"
-                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}"
+                        android:theme="@style/B2" />
 
                     <RadioButton
                         android:id="@+id/rb_noti_settings_remind_todos_off"
@@ -457,8 +457,8 @@
                         android:paddingVertical="8dp"
                         android:text="@string/noti_settings_off"
                         android:textAlignment="textStart"
-                        android:textAppearance="@style/B2"
-                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}"
+                        android:theme="@style/B2" />
                 </RadioGroup>
 
                 <View
@@ -477,8 +477,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
                     android:text="@string/noti_settings_badge"
-                    android:textAppearance="@style/B1"
                     android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_black : @color/hous_g_5}"
+                    android:theme="@style/B1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_noti_settings_5" />
 
@@ -488,8 +488,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@string/noti_settings_badge_desc"
-                    android:textAppearance="@style/Description"
                     android:textColor="@color/hous_g_5"
+                    android:theme="@style/Description"
                     app:layout_constraintStart_toStartOf="@id/tv_noti_settings_badge"
                     app:layout_constraintTop_toBottomOf="@id/tv_noti_settings_badge" />
 
@@ -519,8 +519,8 @@
                         android:paddingVertical="8dp"
                         android:text="@string/noti_settings_on"
                         android:textAlignment="textStart"
-                        android:textAppearance="@style/B2"
-                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}"
+                        android:theme="@style/B2" />
 
                     <RadioButton
                         android:id="@+id/rb_noti_settings_badge_off"
@@ -537,8 +537,8 @@
                         android:paddingVertical="8dp"
                         android:text="@string/noti_settings_off"
                         android:textAlignment="textStart"
-                        android:textAppearance="@style/B2"
-                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}" />
+                        android:textColor="@{vm.notificationSettingsInfo.pushNotification ? @color/hous_g_7 : @color/hous_g_5}"
+                        android:theme="@style/B2" />
                 </RadioGroup>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

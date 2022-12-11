@@ -25,8 +25,8 @@
             android:paddingVertical="10dp"
             android:stateListAnimator="@null"
             android:text="@string/login_kakao_login"
-            android:textAppearance="@style/B1"
             android:textColor="@color/kakao_brown"
+            android:theme="@style/B1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

@@ -23,8 +23,8 @@
             android:layout_marginStart="18dp"
             android:layout_marginTop="20dp"
             android:text="@string/user_input_user_info"
-            android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
+            android:theme="@style/B1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,8 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="99dp"
             android:text="@string/user_input_nickname"
-            android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
+            android:theme="@style/B1"
             app:layout_constraintStart_toStartOf="@id/tv_user_input_user_info"
             app:layout_constraintTop_toBottomOf="@id/tv_user_input_user_info" />
 
@@ -51,9 +51,9 @@
             android:maxLength="3"
             android:paddingVertical="2dp"
             android:text="@={vm.nickname}"
-            android:textAppearance="@style/B2"
             android:textColor="@color/hous_black"
             android:textColorHint="@color/hous_g_4"
+            android:theme="@style/B2"
             app:layout_constraintEnd_toStartOf="@id/tv_user_input_nickname_length"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_user_input_nickname" />
@@ -88,8 +88,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:text="@string/user_input_birthday"
-            android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
+            android:theme="@style/B1"
             app:layout_constraintStart_toStartOf="@id/tv_user_input_nickname"
             app:layout_constraintTop_toBottomOf="@id/view_user_input_nickname" />
 
@@ -110,9 +110,9 @@
             android:paddingVertical="2dp"
             android:singleLine="true"
             android:text="@{vm.birthday}"
-            android:textAppearance="@style/En2"
             android:textColor="@color/hous_black"
             android:textColorHint="@color/hous_g_4"
+            android:theme="@style/En2"
             app:layout_constraintTop_toBottomOf="@id/tv_user_input_birthday" />
 
         <View
@@ -145,8 +145,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/user_input_open_birthday"
-            android:textAppearance="@style/Description"
             android:textColor="@color/hous_g_5"
+            android:theme="@style/Description"
             app:layout_constraintBottom_toBottomOf="@id/cb_user_input_check_birthday"
             app:layout_constraintStart_toEndOf="@id/cb_user_input_check_birthday"
             app:layout_constraintTop_toTopOf="@id/cb_user_input_check_birthday" />
@@ -163,8 +163,8 @@
             android:onClick="@{()->vm.nextOnClick()}"
             android:paddingVertical="10dp"
             android:text="@string/user_input_next"
-            android:textAppearance="@style/B1"
             android:textColor="@color/hous_white"
+            android:theme="@style/B1"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

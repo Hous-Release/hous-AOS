@@ -22,12 +22,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
             android:layout_marginTop="18dp"
-            android:fontFamily="@font/montserrat_medium"
-            android:letterSpacing="-0.02"
-            android:lineSpacingExtra="8sp"
             android:text="@string/our_house_representative_rules_number_one"
             android:textColor="@color/hous_blue"
-            android:textSize="16sp"
+            android:theme="@style/En3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="1." />
@@ -39,7 +36,8 @@
             android:layout_marginStart="52dp"
             android:layout_marginTop="21dp"
             android:text="@{data.name}"
-            android:textAppearance="@style/B2"
+            android:textColor="@color/hous_black"
+            android:theme="@style/B2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="우리 집 대장은 최코코" />

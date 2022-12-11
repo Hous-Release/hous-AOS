@@ -35,12 +35,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
-            android:onClick="@{()->vm.putHousName()}"
             android:clickable="@{vm.roomName.length() == 0 ? false : true}"
+            android:onClick="@{()->vm.putHousName()}"
             android:padding="8dp"
             android:text="@string/edit_hous_name_done"
-            android:textAppearance="@style/B1"
             android:textColor="@{vm.roomName.length() == 0 ? @color/hous_g_4 : @color/hous_blue}"
+            android:theme="@style/B1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,8 +52,8 @@
             android:layout_marginEnd="8dp"
             android:padding="8dp"
             android:text="@string/edit_hous_name_title"
-            android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
+            android:theme="@style/B1"
             app:layout_constraintEnd_toStartOf="@id/tv_edit_hous_name_done"
             app:layout_constraintStart_toEndOf="@id/btn_edit_hous_name_back"
             app:layout_constraintTop_toTopOf="parent" />
@@ -67,8 +67,8 @@
             android:gravity="center_horizontal"
             android:padding="8dp"
             android:text="함께 사는 우리 집을 위한 별명을 지어주세요!"
-            android:textAppearance="@style/B2"
             android:textColor="@color/hous_g_5"
+            android:theme="@style/B2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_edit_hous_name_title" />
@@ -85,9 +85,9 @@
             android:inputType="text"
             android:maxLength="8"
             android:text="@={vm.roomName}"
-            android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
             android:textColorHint="@color/hous_g_5"
+            android:theme="@style/B1"
             app:layout_constraintEnd_toEndOf="@id/view_room_name"
             app:layout_constraintStart_toStartOf="@id/view_room_name"
             app:layout_constraintTop_toBottomOf="@id/tv_edit_hous_name_desc" />
@@ -107,8 +107,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@{@string/edit_hous_name_count(vm.roomName.length)}"
-            android:textAppearance="@style/Description"
             android:textColor="@color/hous_g_5"
+            android:theme="@style/Description"
             app:layout_constraintEnd_toEndOf="@id/view_room_name"
             app:layout_constraintTop_toBottomOf="@id/view_room_name" />
 

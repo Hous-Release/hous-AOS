@@ -41,7 +41,7 @@
             android:layout_marginTop="16dp"
             android:maxLines="1"
             android:text="@{data.name}"
-            android:textAppearance="@style/B2"
+            android:theme="@style/B2"
             app:layout_constraintStart_toEndOf="@id/cv_dot_indicator"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="우리 집 대장은 최코코" />

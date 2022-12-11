@@ -33,6 +33,14 @@
         <item name="android:lineSpacingExtra">5.4dp</item>
     </style>
 
+    <style name="H5">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+    </style>
+
     <style name="B1">
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
         <item name="android:textStyle">normal</item>
@@ -134,6 +142,14 @@
         <item name="android:textSize">16dp</item>
         <item name="android:lineSpacingExtra">9dp</item>
         <item name="android:letterSpacing">0.11</item>
+    </style>
+
+    <style name="DpB">
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="android:lineSpacingExtra">10sp</item>
     </style>
 
 </resources>
