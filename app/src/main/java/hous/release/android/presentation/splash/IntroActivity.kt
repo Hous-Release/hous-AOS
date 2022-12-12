@@ -12,6 +12,9 @@ import hous.release.android.presentation.enter_room.EnterRoomActivity
 import hous.release.android.presentation.login.LoginActivity
 import hous.release.android.presentation.main.MainActivity
 import hous.release.android.presentation.tutorial.TutorialActivity
+import hous.release.android.util.HousLogEvent.SCREEN_HOME
+import hous.release.android.util.HousLogEvent.enterScreenLogEvent
+import hous.release.android.util.HousLogEvent.openAppEvent
 import hous.release.android.util.binding.BindingActivity
 import hous.release.domain.entity.SplashState
 import hous.release.domain.usecase.GetSplashStateUseCase
@@ -26,6 +29,7 @@ class IntroActivity : BindingActivity<ActivityIntroBinding>(R.layout.activity_in
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        openAppEvent()
         binding.lottieSplashImg.playAnimation()
         lifecycleScope.launch {
             delay(3000)
@@ -33,7 +37,10 @@ class IntroActivity : BindingActivity<ActivityIntroBinding>(R.layout.activity_in
                 SplashState.TUTORIAL -> startActivity<TutorialActivity>()
                 SplashState.LOGIN -> startActivity<LoginActivity>()
                 SplashState.ENTER_ROOM -> startActivity<EnterRoomActivity>()
-                SplashState.MAIN -> startActivity<MainActivity>()
+                SplashState.MAIN -> {
+                    enterScreenLogEvent(SCREEN_HOME, MAIN_ACTIVITY_TAG)
+                    startActivity<MainActivity>()
+                }
             }
             overridePendingTransition(0, 0)
             finish()
@@ -42,5 +49,9 @@ class IntroActivity : BindingActivity<ActivityIntroBinding>(R.layout.activity_in
 
     inline fun <reified T : Activity> Context.startActivity(block: Intent.() -> Unit = {}) {
         startActivity(Intent(this, T::class.java).apply(block))
+    }
+
+    companion object {
+        private const val MAIN_ACTIVITY_TAG = "MainActivity"
     }
 }
