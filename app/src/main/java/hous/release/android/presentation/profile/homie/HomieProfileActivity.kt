@@ -7,11 +7,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityHomieProfileBinding
 import hous.release.android.presentation.hous.HousFragment.Companion.HOMIE_ID
+import hous.release.android.presentation.hous.HousFragment.Companion.HOMIE_POSITION
 import hous.release.android.presentation.personality.result.PersonalityResultActivity
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.LOCATION
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.RESULT_COLOR
 import hous.release.android.presentation.profile.ProfileFragment.Companion.personalityInfo
 import hous.release.android.presentation.profile.adapter.ProfilePersonalityAdapter
+import hous.release.android.util.HousLogEvent.CLICK_MY_PERSONALITY
+import hous.release.android.util.HousLogEvent.clickDateLogEvent
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.component.HousPersonalityPentagon
 import hous.release.android.util.style.HousTheme
@@ -45,6 +48,9 @@ class HomieProfileActivity :
 
     private fun initHomiePersonalityOnClickListener() {
         binding.llHomieProfilePersonalityDetail.setOnClickListener {
+            if (intent.getIntExtra(HOMIE_POSITION, DEFAULT) == MY) {
+                clickDateLogEvent(CLICK_MY_PERSONALITY)
+            }
             val toPersonalityDetail = Intent(this, PersonalityResultActivity::class.java)
             toPersonalityDetail.putExtra(LOCATION, HOMIE)
             toPersonalityDetail.putExtra(
@@ -95,7 +101,8 @@ class HomieProfileActivity :
     }
 
     companion object {
-        private val HOMIE = "homie"
-        private val DEFAULT = -1
+        private const val HOMIE = "homie"
+        private const val DEFAULT = -1
+        private const val MY = 0
     }
 }

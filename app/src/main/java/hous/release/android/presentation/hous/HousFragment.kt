@@ -44,7 +44,7 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
         viewModel.getHome()
     }
 
-    private fun onClickHomie(homy: Homy) {
+    private fun onClickHomie(homy: Homy, position: Int) {
         val currentId = homy.homieId
         clickLogEvent(CLICK_HOME_HOMIES)
         when (HomyType.valueOf(homy.color)) {
@@ -56,7 +56,10 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
             }
             else -> {
                 val toHomieProfile = Intent(requireActivity(), HomieProfileActivity::class.java)
-                toHomieProfile.putExtra(HOMIE_ID, currentId)
+                toHomieProfile.apply {
+                    putExtra(HOMIE_ID, currentId)
+                    putExtra(HOMIE_POSITION, position)
+                }
                 startActivity(toHomieProfile)
             }
         }
@@ -120,5 +123,6 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
         const val ROOM_NAME = "roomName"
         const val ROOM_CODE = "roomCode"
         const val HOMIE_ID = "homie id"
+        const val HOMIE_POSITION = "homie_position"
     }
 }

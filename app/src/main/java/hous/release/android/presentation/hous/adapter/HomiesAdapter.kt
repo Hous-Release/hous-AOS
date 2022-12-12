@@ -9,17 +9,17 @@ import hous.release.android.util.ItemDiffCallback
 import hous.release.domain.entity.response.Homy
 
 class HomiesAdapter(
-    private val onClickHomie: (Homy) -> Unit
+    private val onClickHomie: (Homy, Int) -> Unit
 ) : ListAdapter<Homy, HomiesAdapter.HomiesViewHolder>(homyDiffUtil) {
     class HomiesViewHolder(
         private val binding: ItemHousHomiesBinding,
-        private val onClickHomie: (Homy) -> Unit
+        private val onClickHomie: (Homy, Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(homy: Homy) {
             binding.homy = homy
             binding.executePendingBindings()
             binding.clHousProfile.setOnClickListener {
-                onClickHomie(homy)
+                onClickHomie(homy, absoluteAdapterPosition)
             }
         }
     }
