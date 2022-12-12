@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.databinding.ItemHousHomiesBinding
 import hous.release.android.util.ItemDiffCallback
 import hous.release.domain.entity.response.Homy
-import timber.log.Timber
 
 class HomiesAdapter(
     private val onClickHomie: (Homy) -> Unit
@@ -21,7 +20,6 @@ class HomiesAdapter(
             binding.executePendingBindings()
             binding.clHousProfile.setOnClickListener {
                 onClickHomie(homy)
-                Timber.e("${homy.homieId}")
             }
         }
     }

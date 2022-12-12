@@ -14,12 +14,15 @@ import hous.release.android.presentation.hous.adapter.HomiesAdapter
 import hous.release.android.presentation.main.MainActivity
 import hous.release.android.presentation.our_rules.OurRulesActivity
 import hous.release.android.presentation.profile.homie.HomieProfileActivity
+import hous.release.android.util.HousLogEvent.CLICK_BLANK
+import hous.release.android.util.HousLogEvent.CLICK_COPY
+import hous.release.android.util.HousLogEvent.CLICK_HOME_HOMIES
+import hous.release.android.util.HousLogEvent.clickLogEvent
 import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.Homy
-import timber.log.Timber
 
 @AndroidEntryPoint
 class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous) {
@@ -43,7 +46,7 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
 
     private fun onClickHomie(homy: Homy) {
         val currentId = homy.homieId
-        Timber.e("${homy.homieId}")
+        clickLogEvent(CLICK_HOME_HOMIES)
         when (HomyType.valueOf(homy.color)) {
             HomyType.GRAY -> {
                 ToastMessageUtil.showToast(
@@ -78,6 +81,11 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
                 requireContext(),
                 getString(R.string.hous_toast_copy)
             )
+            clickLogEvent(CLICK_COPY)
+        }
+
+        binding.lottieHous.setOnClickListener {
+            clickLogEvent(CLICK_BLANK)
         }
     }
 
