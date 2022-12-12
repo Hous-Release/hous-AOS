@@ -56,6 +56,14 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
+    - name: Create debug keystore
+      run: |
+        mkdir -p app/keystore
+        touch app/keystore/debug.keystore
+
+    - name: decode debug keystore
+      run: echo "${{ secrets.KEYSTORE_FILE_BASE_64 }}" | base64 -d > app/keystore/debug.keystore
+
     - name: Lint Check
       run: ./gradlew ktlintCheck
 
