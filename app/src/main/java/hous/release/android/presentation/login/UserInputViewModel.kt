@@ -31,7 +31,7 @@ class UserInputViewModel @Inject constructor(
         viewModelScope.launch {
             postSignUpUseCase(
                 birthday = requireNotNull(birthday.value),
-                isPublic = requireNotNull(isPrivateBirthday.value),
+                isPublic = requireNotNull(isPrivateBirthday.value != true),
                 nickname = requireNotNull(nickname.value)
             ).onSuccess { response ->
                 initHousTokenUseCase(response.token)

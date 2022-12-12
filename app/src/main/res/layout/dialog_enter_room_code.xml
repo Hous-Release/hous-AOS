@@ -60,8 +60,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginBottom="2dp"
             android:text="@string/enter_room_code_dialog_owner_desc"
-            android:textAppearance="@style/B2"
             android:textColor="@color/hous_g_6"
+            android:theme="@style/B2"
             app:layout_constraintBottom_toBottomOf="@id/tv_enter_room_code_dialog_owner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_enter_room_code_dialog_owner" />
@@ -73,8 +73,8 @@
             android:layout_marginHorizontal="24dp"
             android:gravity="center"
             android:text="@string/enter_room_code_dialog_desc"
-            android:textAppearance="@style/B1"
             android:textColor="@color/hous_g_6"
+            android:theme="@style/B1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_enter_room_code_dialog_owner" />
@@ -93,8 +93,8 @@
             android:paddingVertical="10dp"
             android:stateListAnimator="@null"
             android:text="@string/enter_room_code_dialog_enter"
-            android:textAppearance="@style/B1"
             android:textColor="@color/hous_white"
+            android:theme="@style/B1"
             app:cornerRadius="8dp"
             app:layout_constraintTop_toBottomOf="@id/tv_enter_room_code_dialog_desc" />
 

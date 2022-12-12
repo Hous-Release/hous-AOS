@@ -6,6 +6,6 @@
     android:paddingHorizontal="16dp"
     android:paddingVertical="10dp"
     android:singleLine="true"
-    android:textAppearance="@style/B2"
-    android:textColor="@color/hous_black" />
+    android:textColor="@color/hous_black"
+    android:theme="@style/B2" />
 

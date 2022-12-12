@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/hous_white"
+        android:visibility="@{vm.loadingState ? View.INVISIBLE : View.VISIBLE}"
         tools:context=".presentation.profile.ProfileFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,7 +70,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="@string/profile_title"
-                android:textAppearance="@style/H3"
+                android:textColor="@color/hous_black"
+                android:theme="@style/H3"
                 app:layout_constraintBottom_toBottomOf="@id/btn_profile_setting"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/btn_profile_setting" />
@@ -97,8 +99,8 @@
                 android:elevation="10dp"
                 android:gravity="center"
                 android:text="@string/profile_empty_badge"
-                android:textAppearance="@style/Description"
                 android:textColor="@color/hous_g_9"
+                android:theme="@style/Description"
                 android:visibility="@{vm.profileData.representBadgeImage==null ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_profile_notification" />
@@ -110,8 +112,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="29dp"
                 android:text="@string/profile_my_badge"
-                android:textAppearance="@style/B3"
                 android:textColor="@color/hous_g_7"
+                android:theme="@style/B3"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/iv_profile_badge"
                 app:layout_constraintStart_toStartOf="@id/iv_profile_badge"
@@ -137,8 +139,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="23dp"
                     android:text="@{vm.profileData.nickname}"
-                    android:textAppearance="@style/H4"
                     android:textColor="@color/hous_black"
+                    android:theme="@style/H4"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="이빵주" />
@@ -149,9 +151,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="@string/profile_homie"
-                    android:textAppearance="@style/B1"
                     android:textColor="@color/hous_g_4"
                     android:textStyle="bold"
+                    android:theme="@style/B1"
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_name"
                     app:layout_constraintStart_toEndOf="@id/tv_profile_name" />
 
@@ -177,8 +179,8 @@
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="4dp"
                     android:text="@{vm.profileData.age}"
-                    android:textAppearance="@style/Description"
                     android:textColor="@color/hous_g_6"
+                    android:theme="@style/Description"
                     app:layout_constraintStart_toStartOf="@id/tv_profile_name"
                     app:layout_constraintTop_toBottomOf="@id/tv_profile_name"
                     tools:text="23세" />
@@ -191,8 +193,8 @@
                     android:background="@drawable/shape_g6_line_20_rect"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="4dp"
-                    android:textAppearance="@style/En2"
                     android:textColor="@color/hous_g_6"
+                    android:theme="@style/En2"
                     android:visibility="@{vm.profileData.birthdayPublic ? View.VISIBLE : View.GONE}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_age"
                     app:layout_constraintStart_toEndOf="@id/tv_profile_age"
@@ -208,8 +210,8 @@
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="4dp"
                     android:text="@{vm.profileData.mbti}"
-                    android:textAppearance="@style/En2"
                     android:textColor="@color/hous_g_6"
+                    android:theme="@style/En2"
                     android:visibility="@{vm.profileData.mbti}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_age"
                     app:layout_constraintStart_toEndOf="@id/tv_profile_birthday"
@@ -225,8 +227,8 @@
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="4dp"
                     android:text="@{vm.profileData.job}"
-                    android:textAppearance="@style/Description"
                     android:textColor="@color/hous_g_6"
+                    android:theme="@style/Description"
                     android:visibility="@{vm.profileData.job}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_age"
                     app:layout_constraintStart_toEndOf="@id/tv_profile_mbti"
@@ -235,14 +237,17 @@
 
                 <TextView
                     android:id="@+id/tv_profile_introduction"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="13dp"
+                    android:layout_marginEnd="92dp"
                     android:maxLength="40"
-                    android:textAppearance="@style/B2"
+                    android:maxLines="3"
+                    android:theme="@style/B2"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_profile_age"
                     app:layout_constraintTop_toBottomOf="@id/tv_profile_age"
-                    tools:text="저는어쩌구저꺼주가우저는어쩌구저꺼주가우\n저는어쩌구저꺼주가우저는어쩌구저꺼주가우!" />
+                    tools:text="저는어쩌구저꺼주가우저는어쩌구저꺼주가우저는어쩌구저꺼주가우저는어쩌구저꺼주가우!" />
 
                 <View
                     android:id="@+id/view_profile"
@@ -282,7 +287,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:textAppearance="@style/H2"
+                            android:theme="@style/H2"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:text="@string/personality_red"
@@ -345,8 +350,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="@{vm.isTest ? @string/profile_not_my_personality : @string/profile_empty_personality}"
-                    android:textAppearance="@style/B2"
                     android:textColor="@color/hous_g_6"
+                    android:theme="@style/B2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fl_profile_personality"
@@ -361,8 +366,8 @@
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/shape_black_fill_8_rect"
                     android:text="@{vm.isTest ? @string/profile_test_again : @string/profile_empty_go_test}"
-                    android:textAppearance="@style/B1"
                     android:textColor="@color/hous_white"
+                    android:theme="@style/B1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_profile_tendency"
                     tools:text="@string/profile_empty_go_test" />

@@ -34,8 +34,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/withdraw_title"
-            android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
+            android:theme="@style/B1"
             app:layout_constraintBottom_toBottomOf="@id/btn_withdraw_back"
             app:layout_constraintStart_toEndOf="@id/btn_withdraw_back"
             app:layout_constraintTop_toTopOf="@id/btn_withdraw_back" />
@@ -69,8 +69,8 @@
                     android:layout_marginTop="32dp"
                     android:gravity="center_horizontal"
                     android:text="@string/withdraw_question"
-                    android:textAppearance="@style/H4"
                     android:textColor="@color/hous_black"
+                    android:theme="@style/H4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -96,8 +96,8 @@
                     android:layout_marginTop="20dp"
                     android:gravity="center"
                     android:text="@string/withdraw_thanks_title"
-                    android:textAppearance="@style/B1"
                     android:textColor="@color/hous_g_7"
+                    android:theme="@style/B1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/iv_withdraw" />
@@ -110,8 +110,8 @@
                     android:layout_marginTop="16dp"
                     android:gravity="center"
                     android:text="@string/withdraw_thanks_desc"
-                    android:textAppearance="@style/B3"
                     android:textColor="@color/hous_g_4"
+                    android:theme="@style/B3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_withdraw_thanks_title" />
@@ -132,8 +132,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="20dp"
                     android:text="@string/withdraw_feedback_title"
-                    android:textAppearance="@style/B2"
                     android:textColor="@color/hous_black"
+                    android:theme="@style/B2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_withdraw_middle" />
 
@@ -187,8 +187,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="@{@string/withdraw_comment_count(vm.comment.length)}"
-                    android:textAppearance="@style/En2"
                     android:textColor="@color/hous_g_5"
+                    android:theme="@style/En2"
                     app:layout_constraintEnd_toEndOf="@id/view_withdraw_feedback"
                     app:layout_constraintTop_toBottomOf="@id/view_withdraw_feedback" />
 
@@ -212,8 +212,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="@string/withdraw_check_desc"
-                    android:textAppearance="@style/Description"
                     android:textColor="@color/hous_g_5"
+                    android:theme="@style/Description"
                     app:layout_constraintBottom_toBottomOf="@id/cb_withdraw"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/cb_withdraw"
@@ -234,8 +234,8 @@
                     android:paddingVertical="10dp"
                     android:stateListAnimator="@null"
                     android:text="@string/withdraw_done"
-                    android:textAppearance="@style/B1"
                     android:textColor="@color/hous_white"
+                    android:theme="@style/B1"
                     app:cornerRadius="8dp"
                     app:layout_constraintTop_toBottomOf="@id/cb_withdraw" />
 

@@ -54,7 +54,7 @@ class LoginViewModel @Inject constructor(
             value = Event(token.isNotBlank() && kakaoToken.value != null)
         }
     }
-    val isInitUserInfo get() = _isInitUserInfo
+    val isInitUserInfo: LiveData<Event<Boolean>> = _isInitUserInfo
 
     val kakaoLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
@@ -178,7 +178,5 @@ class LoginViewModel @Inject constructor(
         private const val SOCIAL_TYPE = "KAKAO"
         private const val NOT_SIGN_UP = 404
         private const val ALREADY_LOGIN = 409
-
-        // private const val INVALID_TOKEN = 401
     }
 }

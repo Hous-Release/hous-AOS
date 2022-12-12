@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingVertical="32dp">
 
     <TextView
         android:id="@+id/tv_todo_limit_title"
-        style="@style/H4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="@string/to_do_limit_title"
         android:textColor="@color/hous_black"
+        android:theme="@style/H4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,25 +29,25 @@
 
     <TextView
         android:id="@+id/tv_todo_limit_content"
-        style="@style/B2"
-        android:textAlignment="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/to_do_limit_content"
+        android:textAlignment="center"
         android:textColor="@color/hous_g_7"
+        android:theme="@style/B2"
         app:layout_constraintEnd_toEndOf="@+id/iv_todo_limit_img"
         app:layout_constraintStart_toStartOf="@+id/iv_todo_limit_img"
         app:layout_constraintTop_toBottomOf="@+id/iv_todo_limit_img" />
 
     <TextView
         android:id="@+id/tv_todo_limit_confirm"
-        style="@style/B3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/todo_limit_confirm"
         android:textColor="@color/hous_g_5"
+        android:theme="@style/B3"
         app:layout_constraintEnd_toEndOf="@+id/tv_todo_limit_content"
         app:layout_constraintStart_toStartOf="@+id/tv_todo_limit_content"
         app:layout_constraintTop_toBottomOf="@+id/tv_todo_limit_content" />
