@@ -78,7 +78,13 @@ object RetrofitModule {
                 .build()
         )
         when (response.code) {
-            NETWORK_ERROR -> context.startActivity(Intent(context, NetworkErrorActivity::class.java))
+            NETWORK_ERROR -> {
+                Handler(Looper.getMainLooper()).post(
+                    Runnable {
+                        ToastMessageUtil.showToast(context, context.getString(R.string.sever_500_error_msg))
+                    }
+                )
+            }
             EXPIRED_TOKEN -> {
                 runBlocking {
                     refreshRepository.refreshHousToken()

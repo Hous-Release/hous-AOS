@@ -12,6 +12,7 @@
     <string name="finish_app_toast_msg">뒤로가기를 한 번 더 누르시면 앱이 종료돼요!</string>
     <string name="not_supported_type">지원하지 않는 타입입니다.</string>
     <string name="refresh_error">자동로그인이 만료되었습니다. 다시 로그인해주시기 바랍니다.</string>
+    <string name="sever_500_error_msg">정보를 불러오는 데 실패했어요.</string>
 
     <!-- WarningDialogUtil -->
     <string name="warning_splash_title">다른 기기에서 로그인 중이에요!</string>
