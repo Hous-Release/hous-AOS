@@ -8,6 +8,8 @@ import hous.release.android.R
 import hous.release.android.databinding.ActivityOutRoomBinding
 import hous.release.android.presentation.enter_room.EnterRoomActivity
 import hous.release.android.presentation.out_room.adapter.MyToDoAdapter
+import hous.release.android.util.HousLogEvent.CLICK_ROOM_OUT
+import hous.release.android.util.HousLogEvent.clickDateLogEvent
 import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.extension.repeatOnStarted
@@ -51,6 +53,7 @@ class OutRoomActivity : BindingActivity<ActivityOutRoomBinding>(R.layout.activit
                         this@OutRoomActivity,
                         getString(R.string.out_room_toast)
                     )
+                    clickDateLogEvent(CLICK_ROOM_OUT)
                     startActivity(
                         Intent(this, EnterRoomActivity::class.java).apply {
                             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
