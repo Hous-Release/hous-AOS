@@ -8,6 +8,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentOurRuleBinding
 import hous.release.android.presentation.our_rules.adapter.OurRulesAdapter
+import hous.release.android.util.HousLogEvent.CLICK_RULES_SETTING
+import hous.release.android.util.HousLogEvent.clickLogEvent
 import hous.release.android.util.ItemDecorationUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
@@ -43,6 +45,7 @@ class OurRulesFragment : BindingFragment<FragmentOurRuleBinding>(R.layout.fragme
         binding.ivMainRuleSettingButton.setOnClickListener {
             val ourRulesBottomSheetDialog = OurRulesNavigateBottomSheet()
             ourRulesBottomSheetDialog.show(parentFragmentManager, this.javaClass.name)
+            clickLogEvent(CLICK_RULES_SETTING)
         }
     }
 
