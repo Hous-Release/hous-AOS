@@ -15,6 +15,9 @@ import hous.release.android.presentation.personality.result.PersonalityResultAct
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.LOCATION
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.RESULT
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.RESULT_COLOR
+import hous.release.android.util.HousLogEvent.CLICK_DROP_OUT_TEST
+import hous.release.android.util.HousLogEvent.CLICK_FINISH_TEST
+import hous.release.android.util.HousLogEvent.clickLogEvent
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.WarningDialogFragment
@@ -86,6 +89,7 @@ class PersonalityTestFragment :
     }
 
     private fun goPersonalityTestResult(resultColor: String) {
+        clickLogEvent(CLICK_FINISH_TEST)
         Intent(requireContext(), PersonalityResultActivity::class.java).apply {
             putExtra(LOCATION, RESULT)
             putExtra(RESULT_COLOR, resultColor)
@@ -114,7 +118,12 @@ class PersonalityTestFragment :
                 )
                 putParcelable(
                     WarningDialogFragment.CONFIRM_ACTION,
-                    ConfirmClickListener(confirmAction = { requireActivity().finish() })
+                    ConfirmClickListener(
+                        confirmAction = {
+                            clickLogEvent(CLICK_DROP_OUT_TEST)
+                            requireActivity().finish()
+                        }
+                    )
                 )
             }
         }.show(childFragmentManager, WarningDialogFragment.DIALOG_WARNING)
