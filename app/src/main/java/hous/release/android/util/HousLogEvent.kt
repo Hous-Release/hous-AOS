@@ -1,9 +1,22 @@
 package hous.release.android.util
 
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.BuildConfig
 import com.google.firebase.ktx.Firebase
+import hous.release.domain.entity.SplashState
+import hous.release.domain.usecase.GetSplashStateUseCase
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
 object HousLogEvent {
+    @Inject
+    lateinit var getSplashStateUseCase: GetSplashStateUseCase
+    private const val DATE_FORMAT = "yyyy-MM-dd"
+    private val formatter = DateTimeFormatter.ofPattern(DATE_FORMAT)
+
     const val FIRST_OPEN = "FIRST_OPEN"
     const val SCREEN_HOME = "SCREEN_HOME"
     const val SCREEN_FIRST_HOME = "SCREEN_FIRST_HOME"
@@ -25,7 +38,30 @@ object HousLogEvent {
     const val CLICK_SIGN_OUT = "CLICK_SIGN_OUT"
     const val DROP_OUT_TEST = "DROP_OUT_TEST"
 
+    fun enterScreenLogEvent(screenClass: String, screenName: String) {
+        Firebase.analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, screenClass)
+            param(FirebaseAnalytics.Param.SCREEN_NAME, screenName)
+        }
+    }
+
     fun clickLogEvent(event: String) {
-        Firebase.analytics.logEvent(event, null)
+        if (!BuildConfig.DEBUG) Firebase.analytics.logEvent(event, null)
+    }
+
+    fun clickDateLogEvent(event: String) {
+        if (!BuildConfig.DEBUG) {
+            val date = LocalDateTime.now()
+            val formattedDate = date.format(formatter)
+            Firebase.analytics.logEvent(event) {
+                param(FirebaseAnalytics.Param.START_DATE, formattedDate)
+            }
+        }
+    }
+
+    fun openAppEvent() {
+        if (!BuildConfig.DEBUG && getSplashStateUseCase() == SplashState.TUTORIAL) {
+            Firebase.analytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, null)
+        }
     }
 }
