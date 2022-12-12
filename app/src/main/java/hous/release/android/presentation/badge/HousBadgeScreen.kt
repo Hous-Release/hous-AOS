@@ -49,34 +49,37 @@ fun HousBadgeScreen(
 ) {
     val uiState by badgeViewModel.uiState.collectAsState()
     val interactionSource = remember { MutableInteractionSource() }
-    LazyColumn(
-        modifier = Modifier.fillMaxSize()
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null
-            ) { badgeViewModel.unLockBadges() },
-        verticalArrangement = Arrangement.spacedBy(28.dp)
-    ) {
-        item {
-            BadgeToolBar(backButtonOnClick)
-            RepresentBackground(uiState.representBadge)
-            Spacer(modifier = Modifier.height(20.dp))
-        }
-        gridItems(
-            data = uiState.badges,
-            columnCount = 3,
-            modifier = Modifier.padding(horizontal = 28.dp),
-            horizontalArrangement = Arrangement.spacedBy(32.dp)
-        ) { index, data ->
-            HousBadge(
-                badge = data,
-                badgeIndex = index,
-                selectBadge = badgeViewModel::selectBadge,
-                changeRepresentBadge = badgeViewModel::changeRepresentBadge
-            )
-        }
-        item {
-            Spacer(modifier = Modifier.height(20.dp))
+    Column {
+        BadgeToolBar(backButtonOnClick)
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null
+                ) { badgeViewModel.unLockBadges() },
+            verticalArrangement = Arrangement.spacedBy(28.dp)
+        ) {
+            item {
+                RepresentBackground(uiState.representBadge)
+                Spacer(modifier = Modifier.height(20.dp))
+            }
+            gridItems(
+                data = uiState.badges,
+                columnCount = 3,
+                modifier = Modifier.padding(horizontal = 28.dp),
+                horizontalArrangement = Arrangement.spacedBy(32.dp)
+            ) { index, data ->
+                HousBadge(
+                    badge = data,
+                    badgeIndex = index,
+                    selectBadge = badgeViewModel::selectBadge,
+                    changeRepresentBadge = badgeViewModel::changeRepresentBadge
+                )
+            }
+            item {
+                Spacer(modifier = Modifier.height(20.dp))
+            }
         }
     }
 }
@@ -89,7 +92,7 @@ private fun BadgeToolBar(
         modifier = Modifier
             .fillMaxWidth()
             .background(colorResource(id = R.color.hous_g_7))
-            .padding(start = 15.dp, top = 20.dp)
+            .padding(start = 15.dp, top = 20.dp, bottom = 20.dp)
     ) {
         Image(
             modifier = Modifier
