@@ -364,9 +364,12 @@
     <string name="withdraw_done">회원 탈퇴하기</string>
     <string name="withdraw_spinner_img_desc">피드백 스피너 이미지</string>
     <string name="withdraw_toast">탈퇴되었습니다.</string>
+
+    <!-- NetworkError -->
     <string name="network_error_img_desc">네트워크 에러 이미지</string>
     <string name="network_error_title">인터넷에 연결되어 있지 않아요!</string>
     <string name="network_error_desc">Hous-를 사용하려면 인터넷 연결이 필요해요.\nWi-Fi를 다시 한 번 확인해주세요!</string>
     <string name="network_error_retry">다시 시도하기</string>
+    <string name="network_error_toast">인터넷 연결 후 다시 시도해 주세요.</string>
 
 </resources>
