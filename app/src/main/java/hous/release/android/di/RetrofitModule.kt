@@ -15,6 +15,7 @@ import hous.release.android.BuildConfig
 import hous.release.android.R
 import hous.release.android.presentation.login.LoginActivity
 import hous.release.android.presentation.network_error.NetworkErrorActivity
+import hous.release.android.presentation.splash.IntroActivity
 import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.extension.isNetworkConnected
 import hous.release.data.datasource.LocalPrefTokenDataSource
@@ -42,6 +43,7 @@ object RetrofitModule {
     private const val OS_TYPE = "AOS"
     private const val BEARER = "Bearer "
     private const val NETWORK_ERROR = 500
+    private const val FORCE_UPDATE = 426
 
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
@@ -78,10 +80,18 @@ object RetrofitModule {
                 .build()
         )
         when (response.code) {
+            FORCE_UPDATE -> context.startActivity(
+                Intent(context, IntroActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                }
+            )
             NETWORK_ERROR -> {
                 Handler(Looper.getMainLooper()).post(
                     Runnable {
-                        ToastMessageUtil.showToast(context, context.getString(R.string.sever_500_error_msg))
+                        ToastMessageUtil.showToast(
+                            context,
+                            context.getString(R.string.sever_500_error_msg)
+                        )
                     }
                 )
             }
@@ -112,9 +122,15 @@ object RetrofitModule {
                                         }
                                         Handler(Looper.getMainLooper()).post(
                                             Runnable {
-                                                ToastMessageUtil.showToast(context, context.getString(R.string.refresh_error))
+                                                ToastMessageUtil.showToast(
+                                                    context,
+                                                    context.getString(R.string.refresh_error)
+                                                )
                                                 context.startActivity(
-                                                    Intent(context, LoginActivity::class.java).apply {
+                                                    Intent(
+                                                        context,
+                                                        LoginActivity::class.java
+                                                    ).apply {
                                                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                                                     }
                                                 )
