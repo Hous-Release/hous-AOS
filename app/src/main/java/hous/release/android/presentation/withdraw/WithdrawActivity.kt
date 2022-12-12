@@ -10,7 +10,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityWithdrawBinding
 import hous.release.android.presentation.login.LoginActivity
-import hous.release.android.util.HousLogEvent
 import hous.release.android.util.HousLogEvent.CLICK_WITHDRAW
 import hous.release.android.util.HousLogEvent.clickDateLogEvent
 import hous.release.android.util.ToastMessageUtil
@@ -71,7 +70,7 @@ class WithdrawActivity :
             adapter = ArrayAdapter<String>(
                 this@WithdrawActivity,
                 R.layout.item_withdraw_feedback_title,
-                feedbackTypeItems,
+                feedbackTypeItems
             ).apply {
                 setDropDownViewResource(R.layout.item_withdraw_feedback)
             }
