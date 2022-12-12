@@ -38,6 +38,7 @@ class EnterRoomCodeDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        isCancelable = false
         binding.viewModel = viewModel
         initLayout()
         initEnterRoomUiEventCollector()
