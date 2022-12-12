@@ -108,7 +108,7 @@
         <activity
             android:name=".presentation.main.MainActivity"
             android:exported="false"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true"
