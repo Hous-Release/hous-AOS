@@ -25,7 +25,7 @@ class ForceUpdateDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isCancelable = false
-        initLayout(0.66)
+        initLayout(0.77)
     }
 
     override fun onDestroyView() {
