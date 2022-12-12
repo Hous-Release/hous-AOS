@@ -373,4 +373,10 @@
     <string name="network_error_retry">다시 시도하기</string>
     <string name="network_error_toast">인터넷 연결 후 다시 시도해 주세요.</string>
 
+    <!-- ForceUpdate -->
+    <string name="force_update_title">업데이트 해주세요!</string>
+    <string name="force_update_desc">새로운 Hous-가 나왔어요!\nHous-와 함께 즐거운\n공동생활을 계속해 봐요!</string>
+    <string name="force_update_img_desc">강제 업데이트 이미지</string>
+    <string name="force_update_confirm">좋아요!</string>
+
 </resources>
