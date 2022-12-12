@@ -15,12 +15,18 @@ import hous.release.data.service.ProfileService
 import hous.release.data.service.RefreshService
 import hous.release.data.service.SettingsService
 import hous.release.data.service.TodoService
+import hous.release.data.service.VersionService
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object RetrofitServiceModule {
+    @Provides
+    @Singleton
+    fun providesRefreshService(@RefreshRetrofitModule.RefreshType retrofit: Retrofit): RefreshService =
+        retrofit.create(RefreshService::class.java)
+
     @Provides
     @Singleton
     fun providesAuthService(@RetrofitModule.NormalType retrofit: Retrofit): AuthService =
@@ -73,6 +79,6 @@ object RetrofitServiceModule {
 
     @Provides
     @Singleton
-    fun providesRefreshService(@RefreshRetrofitModule.RefreshType retrofit: Retrofit): RefreshService =
-        retrofit.create(RefreshService::class.java)
+    fun providesVersionService(@RetrofitModule.NormalType retrofit: Retrofit): VersionService =
+        retrofit.create(VersionService::class.java)
 }
