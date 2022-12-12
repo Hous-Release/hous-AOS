@@ -10,6 +10,8 @@ import hous.release.android.databinding.ActivityTodoDetailBinding
 import hous.release.android.presentation.todo.main.TodoFragment.Companion.CURRENT_DAY
 import hous.release.android.presentation.todo.main.TodoState.IDLE
 import hous.release.android.presentation.todo.main.TodoState.PROGRESS
+import hous.release.android.util.HousLogEvent.SCREEN_TODO_DETAIL
+import hous.release.android.util.HousLogEvent.enterScreenLogEvent
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.LoadingDialogFragment
 import kotlinx.coroutines.flow.launchIn
@@ -21,6 +23,7 @@ class TodoDetailActivity :
     private val todoDetailViewModel: TodoDetailViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enterScreenLogEvent(SCREEN_TODO_DETAIL, javaClass.name)
         initCurrentDay()
         collectLoadingEvent()
     }
