@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,6 +16,7 @@ import hous.release.android.presentation.login.LoginActivity
 import hous.release.android.presentation.main.MainActivity
 import hous.release.android.presentation.tutorial.TutorialActivity
 import hous.release.android.util.binding.BindingActivity
+import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.domain.entity.SplashState
 import hous.release.domain.usecase.GetSplashStateUseCase
@@ -50,10 +52,20 @@ class IntroActivity : BindingActivity<ActivityIntroBinding>(R.layout.activity_in
         repeatOnStarted {
             viewModel.versionInfo.collect { versionInfo ->
                 if (versionInfo.needsForceUpdate) {
-                    ForceUpdateDialogFragment().show(
-                        supportFragmentManager,
-                        ForceUpdateDialogFragment().javaClass.name
-                    )
+                    ForceUpdateDialogFragment().apply {
+                        arguments = Bundle().apply {
+                            putParcelable(
+                                ForceUpdateDialogFragment.CONFIRM_ACTION,
+                                ConfirmClickListener(
+                                    confirmAction = {
+                                        startActivity(
+                                            Intent(Intent.ACTION_VIEW, Uri.parse(versionInfo.marketUrl))
+                                        )
+                                    }
+                                )
+                            )
+                        }
+                    }.show(supportFragmentManager, ForceUpdateDialogFragment().javaClass.name)
                 }
             }
         }

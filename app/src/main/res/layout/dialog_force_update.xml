@@ -10,15 +10,26 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="36dp"
         android:paddingBottom="32dp"
         tools:background="@drawable/shape_blue_fill_8_rect"
         tools:context=".presentation.force_update.ForceUpdateDialogFragment">
+
+        <ImageButton
+            android:id="@+id/btn_force_update_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:contentDescription="@string/close_img_desc"
+            android:padding="16dp"
+            android:src="@drawable/ic_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_force_update_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
             android:text="@string/force_update_title"
             android:textColor="@color/hous_black"
             android:theme="@style/H4"
