@@ -10,6 +10,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityWithdrawBinding
 import hous.release.android.presentation.login.LoginActivity
+import hous.release.android.util.HousLogEvent
+import hous.release.android.util.HousLogEvent.CLICK_WITHDRAW
+import hous.release.android.util.HousLogEvent.clickDateLogEvent
 import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.UiEvent
 import hous.release.android.util.binding.BindingActivity
@@ -48,6 +51,7 @@ class WithdrawActivity :
                             this@WithdrawActivity,
                             getString(R.string.withdraw_toast)
                         )
+                        clickDateLogEvent(CLICK_WITHDRAW)
                         startActivity(
                             Intent(this, LoginActivity::class.java).apply {
                                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
