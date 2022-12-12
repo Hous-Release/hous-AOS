@@ -29,12 +29,14 @@ class IntroActivity : BindingActivity<ActivityIntroBinding>(R.layout.activity_in
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        openAppEvent()
         binding.lottieSplashImg.playAnimation()
         lifecycleScope.launch {
             delay(3000)
             when (getSplashStateUseCase()) {
-                SplashState.TUTORIAL -> startActivity<TutorialActivity>()
+                SplashState.TUTORIAL -> {
+                    openAppEvent()
+                    startActivity<TutorialActivity>()
+                }
                 SplashState.LOGIN -> startActivity<LoginActivity>()
                 SplashState.ENTER_ROOM -> startActivity<EnterRoomActivity>()
                 SplashState.MAIN -> {
