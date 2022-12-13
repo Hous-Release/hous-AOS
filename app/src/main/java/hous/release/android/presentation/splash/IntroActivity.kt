@@ -1,8 +1,6 @@
 package hous.release.android.presentation.splash
 
 import android.animation.Animator
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -18,6 +16,7 @@ import hous.release.android.presentation.tutorial.TutorialActivity
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.extension.repeatOnStarted
+import hous.release.android.util.extension.startActivity
 import hous.release.domain.entity.SplashState
 
 @AndroidEntryPoint
@@ -55,7 +54,10 @@ class IntroActivity : BindingActivity<ActivityIntroBinding>(R.layout.activity_in
                                 ConfirmClickListener(
                                     confirmAction = {
                                         startActivity(
-                                            Intent(Intent.ACTION_VIEW, Uri.parse(versionInfo.marketUrl))
+                                            Intent(
+                                                Intent.ACTION_VIEW,
+                                                Uri.parse(versionInfo.marketUrl)
+                                            )
                                         )
                                     }
                                 )
@@ -82,9 +84,5 @@ class IntroActivity : BindingActivity<ActivityIntroBinding>(R.layout.activity_in
                 }
             }
         }
-    }
-
-    inline fun <reified T : Activity> Context.startActivity(block: Intent.() -> Unit = {}) {
-        startActivity(Intent(this, T::class.java).apply(block))
     }
 }

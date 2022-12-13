@@ -1,6 +1,8 @@
 package hous.release.android.util.extension
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 
@@ -13,4 +15,8 @@ fun Context.isNetworkConnected(): Boolean {
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
     }
     return isConnected
+}
+
+inline fun <reified T : Activity> Context.startActivity(block: Intent.() -> Unit = {}) {
+    startActivity(Intent(this, T::class.java).apply(block))
 }
