@@ -12,6 +12,8 @@ import hous.release.android.databinding.ActivitySettingsBinding
 import hous.release.android.presentation.login.LoginActivity
 import hous.release.android.presentation.out_room.OutRoomActivity
 import hous.release.android.presentation.withdraw.WithdrawActivity
+import hous.release.android.util.HousLogEvent.CLICK_LOG_OUT
+import hous.release.android.util.HousLogEvent.clickDateLogEvent
 import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.ConfirmClickListener
@@ -136,7 +138,10 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
                 )
                 putParcelable(
                     WarningDialogFragment.CONFIRM_ACTION,
-                    ConfirmClickListener(confirmAction = { viewModel.initIsAllowedLogout(true) })
+                    ConfirmClickListener(confirmAction = {
+                        clickDateLogEvent(CLICK_LOG_OUT)
+                        viewModel.initIsAllowedLogout(true)
+                    })
                 )
             }
         }.show(supportFragmentManager, WarningDialogFragment.DIALOG_WARNING)

@@ -26,7 +26,7 @@ object HousLogEvent {
     const val CLICK_RE_TEST = "CLICK_RE_TEST"
     const val CLICK_MY_PERSONALITY = "CLICK_MY_PERSONALITY"
     const val CLICK_ROOM_OUT = "CLICK_ROOM_OUT"
-    const val CLICK_WITHDRAW = "CLICK_SIGN_OUT"
+    const val CLICK_LOG_OUT = "CLICK_LOG_OUT"
     const val CLICK_DROP_OUT_TEST = "CLICK_DROP_OUT_TEST"
     const val CLICK_FINISH_TEST = "CLICK_FINISH_TEST"
 
