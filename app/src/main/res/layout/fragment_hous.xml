@@ -153,8 +153,8 @@
 
                 <View
                     android:id="@+id/view_hous_my_todo_1"
-                    android:layout_width="3dp"
-                    android:layout_height="3dp"
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
                     android:layout_marginTop="14dp"
                     android:background="@drawable/shape_blue_fill_oval"
                     android:visibility="@{vm.hous.myTodosCnt >= 1 ? View.VISIBLE : View.INVISIBLE}"
@@ -179,8 +179,8 @@
 
                 <View
                     android:id="@+id/view_hous_my_todo_2"
-                    android:layout_width="3dp"
-                    android:layout_height="3dp"
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/shape_blue_fill_oval"
                     android:visibility="@{vm.hous.myTodosCnt >= 2 ? View.VISIBLE : View.INVISIBLE}"
@@ -205,8 +205,8 @@
 
                 <View
                     android:id="@+id/view_hous_my_todo_3"
-                    android:layout_width="3dp"
-                    android:layout_height="3dp"
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/shape_blue_fill_oval"
                     android:visibility="@{vm.hous.myTodosCnt >= 3 ? View.VISIBLE : View.INVISIBLE}"

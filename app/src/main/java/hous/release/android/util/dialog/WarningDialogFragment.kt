@@ -26,6 +26,7 @@ class WarningDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        isCancelable = false
         initLayout()
         initWarningDialogContent()
         initCancelClickListener()

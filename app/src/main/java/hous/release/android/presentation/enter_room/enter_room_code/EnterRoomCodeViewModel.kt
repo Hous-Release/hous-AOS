@@ -40,6 +40,7 @@ class EnterRoomCodeViewModel @Inject constructor(
 
     fun resetRoomCode() {
         roomCode.value = ""
+        _roomInfo.value = Room()
     }
 
     fun getEnterRoomCode() {
