@@ -19,13 +19,9 @@ import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.domain.entity.SplashState
-import hous.release.domain.usecase.GetSplashStateUseCase
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class IntroActivity : BindingActivity<ActivityIntroBinding>(R.layout.activity_intro) {
-    @Inject
-    lateinit var getSplashStateUseCase: GetSplashStateUseCase
     private val viewModel by viewModels<IntroViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,7 +71,7 @@ class IntroActivity : BindingActivity<ActivityIntroBinding>(R.layout.activity_in
         repeatOnStarted {
             viewModel.isSuccessUiEvent.collect { isSuccess ->
                 if (isSuccess) {
-                    when (getSplashStateUseCase()) {
+                    when (viewModel.getSplashState()) {
                         SplashState.TUTORIAL -> startActivity<TutorialActivity>()
                         SplashState.LOGIN -> startActivity<LoginActivity>()
                         SplashState.ENTER_ROOM -> startActivity<EnterRoomActivity>()
