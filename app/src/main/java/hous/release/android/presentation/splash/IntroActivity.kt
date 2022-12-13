@@ -45,7 +45,7 @@ class IntroActivity : BindingActivity<ActivityIntroBinding>(R.layout.activity_in
 
     private fun initVersionInfoCollector() {
         repeatOnStarted {
-            viewModel.versionInfo.collect { versionInfo ->
+            viewModel.versionCheck.collect { versionInfo ->
                 if (versionInfo.needsForceUpdate) {
                     ForceUpdateDialogFragment().apply {
                         arguments = Bundle().apply {

@@ -1,6 +1,6 @@
 package hous.release.domain.entity.response
 
-data class VersionInfo(
+data class VersionCheck(
     val marketUrl: String = "",
     val needsForceUpdate: Boolean = false
 )

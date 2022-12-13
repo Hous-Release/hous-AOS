@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.SplashState
-import hous.release.domain.entity.response.VersionInfo
+import hous.release.domain.entity.response.VersionCheck
 import hous.release.domain.repository.VersionRepository
 import hous.release.domain.usecase.GetSplashStateUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -20,13 +20,13 @@ class IntroViewModel @Inject constructor(
     private val getSplashStateUseCase: GetSplashStateUseCase,
     private val versionRepository: VersionRepository
 ) : ViewModel() {
-    private val _versionInfo = MutableSharedFlow<VersionInfo>()
-    val versionInfo: SharedFlow<VersionInfo> = _versionInfo.asSharedFlow()
+    private val _versionCheck = MutableSharedFlow<VersionCheck>()
+    val versionCheck: SharedFlow<VersionCheck> = _versionCheck.asSharedFlow()
 
     private val isAnimatorDone = MutableSharedFlow<Boolean>()
 
     val isSuccessUiEvent = combine(
-        versionInfo,
+        versionCheck,
         isAnimatorDone
     ) { version, isDone -> !version.needsForceUpdate == isDone }
 
@@ -41,7 +41,7 @@ class IntroViewModel @Inject constructor(
             versionRepository.getVersionCheck()
                 .onSuccess { response ->
                     Timber.d(response.toString())
-                    _versionInfo.emit(response)
+                    _versionCheck.emit(response)
                 }
                 .onFailure { Timber.d(it.message.toString()) }
         }
