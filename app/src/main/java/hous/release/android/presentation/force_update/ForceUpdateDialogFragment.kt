@@ -34,6 +34,10 @@ class ForceUpdateDialogFragment : DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
         requireActivity().finish()
     }
 
