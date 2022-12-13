@@ -105,6 +105,7 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
         repeatOnStarted {
             viewModel.isSuccessLogout.collect { isSuccess ->
                 if (isSuccess) {
+                    clickDateLogEvent(CLICK_LOG_OUT)
                     ToastMessageUtil.showToast(
                         this@SettingsActivity,
                         getString(R.string.settings_logout_toast)
@@ -138,10 +139,7 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
                 )
                 putParcelable(
                     WarningDialogFragment.CONFIRM_ACTION,
-                    ConfirmClickListener(confirmAction = {
-                        clickDateLogEvent(CLICK_LOG_OUT)
-                        viewModel.initIsAllowedLogout(true)
-                    })
+                    ConfirmClickListener(confirmAction = { viewModel.initIsAllowedLogout(true) })
                 )
             }
         }.show(supportFragmentManager, WarningDialogFragment.DIALOG_WARNING)
