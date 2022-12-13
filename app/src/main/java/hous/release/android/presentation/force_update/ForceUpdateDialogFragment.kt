@@ -29,7 +29,6 @@ class ForceUpdateDialogFragment : DialogFragment() {
         isCancelable = false
         initLayout(0.77)
         initConfirmClickListener()
-        initCloseClickListener()
     }
 
     override fun onDestroyView() {
@@ -44,10 +43,6 @@ class ForceUpdateDialogFragment : DialogFragment() {
                 ?: Timber.e(getString(R.string.null_point_exception_warning_dialog_argument))
             dismiss()
         }
-    }
-
-    private fun initCloseClickListener() {
-        binding.btnForceUpdateClose.setOnClickListener { dismiss() }
     }
 
     companion object {
