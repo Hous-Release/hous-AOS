@@ -1,8 +1,8 @@
 name: Hous release apk
 on:
   push:
-    branches:
-      - feature/#176-emit-release-apk
+    branches: [ "feature/#176-emit-release-apk" ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
