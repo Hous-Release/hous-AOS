@@ -35,7 +35,7 @@ class EditHousNameViewModel @Inject constructor(
         viewModelScope.launch {
             _editHousNameUiEvent.emit(UiEvent.LOADING)
             housRepository.putHousName(roomName.value)
-                .onSuccess { isSuccess ->
+                .onSuccess {
                     _editHousNameUiEvent.emit(UiEvent.SUCCESS)
                 }
                 .onFailure {
