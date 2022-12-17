@@ -82,8 +82,10 @@ class OurRuleEditViewModel @Inject constructor(
 
     fun isChangeRuleList(): Boolean {
         val ourEditRuleList = uiState.value.editRuleList
-        uiState.value.originalEditRuleList.forEachIndexed { index, ourRule ->
-            if (ourEditRuleList[index] != ourRule) return true
+        uiState.value.originalEditRuleList.forEachIndexed { index, oldRule ->
+            val newRule = ourEditRuleList[index]
+            if (newRule.name.isBlank()) return false
+            if (newRule != oldRule) return true
         }
         return false
     }
