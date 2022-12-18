@@ -77,11 +77,7 @@ android {
             isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
-                "proguard-glide.pro",
-                "proguard-gson.pro",
-                "proguard-okhttp3.pro",
-                "proguard-retrofit2.pro"
+                "proguard-rules.pro"
             )
             signingConfig = signingConfigs.getByName("release")
         }
