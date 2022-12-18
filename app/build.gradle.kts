@@ -14,6 +14,17 @@ plugins {
 val properties = Properties()
 properties.load(project.rootProject.file("local.properties").inputStream())
 android {
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file(properties.getProperty("KEYSTORE_PATH"))
+        }
+        create("release") {
+            storeFile = file(properties.getProperty("STORE_FILE"))
+            keyAlias = properties.getProperty("KEY_ALIAS")
+            keyPassword = properties.getProperty("KEY_PASSWORD")
+            storePassword = properties.getProperty("STORE_PASSWORD")
+        }
+    }
     compileSdk = AppConfig.compileSdkVersion
     buildToolsVersion = AppConfig.buildToolsVersion
 
@@ -62,11 +73,13 @@ android {
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 

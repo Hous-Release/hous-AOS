@@ -23,3 +23,6 @@
 # https://developers.kakao.com/docs/latest/en/getting-started/sdk-android#configure-for-shrinking-and-obfuscation-(optional)
 -keep class com.kakao.sdk.**.model.* { <fields>; }
 -keep class * extends com.google.gson.TypeAdapter
+
+-keep class hous.release.data.entity.** { *; }
+-keep class hous.release.domain.entity.** { *; }

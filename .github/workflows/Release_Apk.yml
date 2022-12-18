@@ -1,15 +1,14 @@
-name: Hous PR Builder
-
+name: Hous release apk
 on:
-  pull_request:
+  push:
     branches: [ "develop" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    if: ${{ contains(github.event.head_commit.message, 'RELEASE') }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
 
     - name: Gradle cache
       uses: actions/cache@v2
@@ -64,42 +63,24 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Create keystore
+    - name: Create release keystore
       run: |
         mkdir -p app/keystore
-        touch app/keystore/debug.keystore
         touch app/keystore/hous_key.jks
-
-    - name: decode debug keystore
-      run: echo "${{ secrets.KEYSTORE_FILE_BASE_64 }}" | base64 -d > app/keystore/debug.keystore
 
     - name: decode release keystore
       run: echo "${{ secrets.RELEASE_KEYSTORE_FILE_BASE_64 }}" | base64 -d > app/keystore/hous_key.jks
 
-    - name: Lint Check
-      run: ./gradlew ktlintCheck
+    - name: Build release APK
+      run: ./gradlew assembleRelease
 
-    - name: Build with Gradle
-      run: ./gradlew build
-
-    - name: On Success!! Congratulations
-      if: ${{ success() }}
-      uses: rtCamp/action-slack-notify@v2
-      env:
-        SLACK_COLOR: '#53A551'
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-        SLACK_TITLE: 'Hous/PR Check S.U.C.C.E.S.S 🎉🎉🎉'
-        MSG_MINIMAL: true
-        SLACK_USERNAME: Hous-AOS
-        SLACK_MESSAGE: 'PR이 완료되었습니다!!! 🎉🎉🎉'
-
-    - name: On Failed, Notify in Slack
-      if: ${{ failure() }}
-      uses: rtCamp/action-slack-notify@v2
-      env:
-        SLACK_COLOR: '#ff0000'
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-        SLACK_TITLE: 'Hous/Android Debug build Fail❌'
-        MSG_MINIMAL: true
-        SLACK_USERNAME: Hous-AOS
-        SLACK_MESSAGE: '에러를 확인해주세요'
+    - name: send apk
+      uses: MeilCli/slack-upload-file@v3
+      with:
+        slack_token: ${{ secrets.SLACK_TOKEN }}
+        channel_id: ${{ secrets.SLACK_CHANNEL }}
+        initial_comment: 'Hous Release APK ! ! !'
+        file_type: 'apk'
+        file_name: 'Hous.apk'
+        file_path: './app/build/outputs/apk/release/app-release.apk'
+        retries: 1
