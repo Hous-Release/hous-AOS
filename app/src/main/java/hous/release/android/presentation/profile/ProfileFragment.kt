@@ -18,6 +18,10 @@ import hous.release.android.presentation.profile.adapter.ProfilePersonalityAdapt
 import hous.release.android.presentation.profile.edit.ProfileEditActivity
 import hous.release.android.presentation.profile.edit.ProfileEntity
 import hous.release.android.presentation.settings.SettingsActivity
+import hous.release.android.util.HousLogEvent.CLICK_MY_PERSONALITY
+import hous.release.android.util.HousLogEvent.CLICK_RE_TEST
+import hous.release.android.util.HousLogEvent.clickDateLogEvent
+import hous.release.android.util.HousLogEvent.clickLogEvent
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.component.HousPersonalityPentagon
 import hous.release.android.util.style.HousTheme
@@ -49,6 +53,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
 
     private fun initPersonalityOnClickListener() {
         binding.llProfilePersonalityDetail.setOnClickListener {
+            clickDateLogEvent(CLICK_MY_PERSONALITY)
             val toPersonalityResult =
                 Intent(requireActivity(), PersonalityResultActivity::class.java)
             toPersonalityResult.putExtra(
@@ -106,6 +111,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
 
     private fun initTestBtnOnClickListener() {
         binding.btnProfileTestAgain.setOnClickListener {
+            if (profileViewModel.isTest.value == true) clickLogEvent(CLICK_RE_TEST)
             startActivity(Intent(requireContext(), PersonalityActivity::class.java))
         }
     }

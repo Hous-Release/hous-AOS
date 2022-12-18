@@ -7,6 +7,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.presentation.badge.BadgeViewModel.Companion.NON_SELECTED
+import hous.release.android.util.HousLogEvent
+import hous.release.android.util.HousLogEvent.SCREEN_BADGE
 import hous.release.android.util.style.HousTheme
 
 @AndroidEntryPoint
@@ -22,6 +24,7 @@ class BadgeActivity : ComponentActivity() {
             }
         }
         initBackPressedCallback()
+        HousLogEvent.enterScreenLogEvent(SCREEN_BADGE, javaClass.name)
     }
 
     private fun initBackPressedCallback() {

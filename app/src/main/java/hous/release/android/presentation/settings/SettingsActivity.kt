@@ -12,6 +12,8 @@ import hous.release.android.databinding.ActivitySettingsBinding
 import hous.release.android.presentation.login.LoginActivity
 import hous.release.android.presentation.out_room.OutRoomActivity
 import hous.release.android.presentation.withdraw.WithdrawActivity
+import hous.release.android.util.HousLogEvent.CLICK_LOG_OUT
+import hous.release.android.util.HousLogEvent.clickDateLogEvent
 import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.ConfirmClickListener
@@ -103,6 +105,7 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
         repeatOnStarted {
             viewModel.isSuccessLogout.collect { isSuccess ->
                 if (isSuccess) {
+                    clickDateLogEvent(CLICK_LOG_OUT)
                     ToastMessageUtil.showToast(
                         this@SettingsActivity,
                         getString(R.string.settings_logout_toast)

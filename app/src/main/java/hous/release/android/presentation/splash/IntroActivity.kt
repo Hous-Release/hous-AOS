@@ -13,6 +13,8 @@ import hous.release.android.presentation.force_update.ForceUpdateDialogFragment
 import hous.release.android.presentation.login.LoginActivity
 import hous.release.android.presentation.main.MainActivity
 import hous.release.android.presentation.tutorial.TutorialActivity
+import hous.release.android.util.HousLogEvent.SCREEN_HOME
+import hous.release.android.util.HousLogEvent.enterScreenLogEvent
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.extension.repeatOnStarted
@@ -77,12 +79,19 @@ class IntroActivity : BindingActivity<ActivityIntroBinding>(R.layout.activity_in
                         SplashState.TUTORIAL -> startActivity<TutorialActivity>()
                         SplashState.LOGIN -> startActivity<LoginActivity>()
                         SplashState.ENTER_ROOM -> startActivity<EnterRoomActivity>()
-                        SplashState.MAIN -> startActivity<MainActivity>()
+                        SplashState.MAIN -> {
+                            enterScreenLogEvent(SCREEN_HOME, MAIN_ACTIVITY_TAG)
+                            startActivity<MainActivity>()
+                        }
                     }
                     overridePendingTransition(0, 0)
                     finish()
                 }
             }
         }
+    }
+
+    companion object {
+        private const val MAIN_ACTIVITY_TAG = "MainActivity"
     }
 }
