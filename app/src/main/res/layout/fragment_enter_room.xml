@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:text="@string/enter_room_title"
             android:theme="@style/H3"
+            android:textColor="@color/hous_black"
             app:layout_constraintBottom_toTopOf="@id/layout_enter_room_create"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

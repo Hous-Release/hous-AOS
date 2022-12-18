@@ -40,6 +40,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:maxLines="1"
+            android:textColor="@color/hous_black"
             android:text="@{data.name}"
             android:theme="@style/B2"
             app:layout_constraintStart_toEndOf="@id/cv_dot_indicator"
