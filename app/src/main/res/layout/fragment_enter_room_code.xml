@@ -95,7 +95,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="20dp"
             android:backgroundTint="@{viewModel.roomCode.length != 0 ? @color/hous_blue : @color/hous_g_4}"
-            android:clickable="@{viewModel.roomCode.length != 0 ? true : false}"
+            android:enabled="@{viewModel.roomCode.length != 0 ? true : false}"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:minHeight="0dp"

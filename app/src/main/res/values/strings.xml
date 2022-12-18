@@ -134,7 +134,7 @@
 
     <!-- Hous -->
     <string name="hous_title">%s님의,\n%s 하우스</string>
-    <string name="hous_btn_copy_code_desc">참여코드 복사 버튼</string>
+    <string name="hous_btn_copy_code_desc">초대코드 복사 버튼</string>
     <string name="hous_btn_edit_desc">수정하기 버튼</string>
     <string name="hous_to_do_progress_title">오늘 우리의 to-do 진행률</string>
     <string name="hous_my_todo">MY to-do</string>
@@ -151,7 +151,7 @@
     <string name="hous_empty_my_todo">아직 내 to-do가 없어요!</string>
     <string name="hous_empty_our_rules">아직 우리 집 Rules가 없어요!</string>
     <string name="hous_empty_our_rules_add">다른 Rule도 추가해보세요!</string>
-    <string name="hous_toast_copy">참여코드가 복사되었습니다.</string>
+    <string name="hous_toast_copy">초대코드가 복사되었습니다.</string>
     <string name="hous_not_tested_yet">아직 성향 테스트를 하지 않은 호미예요!</string>
 
     <!-- EditHousName -->
