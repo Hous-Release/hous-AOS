@@ -6,6 +6,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityNotificationBinding
 import hous.release.android.presentation.notification.paging.NotificationPagingAdapter
+import hous.release.android.util.HousLogEvent
+import hous.release.android.util.HousLogEvent.SCREEN_ALARM
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.extension.repeatOnStarted
 import kotlinx.coroutines.flow.collectLatest
@@ -22,6 +24,7 @@ class NotificationActivity :
         initNotificationAdapter()
         collectNotificationList()
         initEmptyView()
+        HousLogEvent.enterScreenLogEvent(SCREEN_ALARM, javaClass.name)
     }
 
     private fun initBackBtnClickListener() {

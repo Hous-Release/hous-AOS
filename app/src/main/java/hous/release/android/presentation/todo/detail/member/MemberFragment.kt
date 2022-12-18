@@ -13,6 +13,8 @@ import hous.release.android.presentation.todo.detail.TodoBottomSheet
 import hous.release.android.presentation.todo.detail.TodoDetailViewModel
 import hous.release.android.presentation.todo.detail.TodoLimitDialog
 import hous.release.android.presentation.todo.detail.daily.DailyFragment
+import hous.release.android.util.HousLogEvent.CLICK_ADD_TODO
+import hous.release.android.util.HousLogEvent.clickLogEvent
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.component.HousFloatingButton
 import hous.release.android.util.component.MemberTodoTap
@@ -106,6 +108,7 @@ class MemberFragment : BindingFragment<FragmentMemberBinding>(R.layout.fragment_
                     TodoLimitDialog().show(childFragmentManager, this.javaClass.name)
                     return@HousFloatingButton
                 }
+                clickLogEvent(CLICK_ADD_TODO)
                 findNavController().navigate(R.id.action_memberFragment_to_addToDoFragment)
             }
         }

@@ -67,7 +67,7 @@ class WithdrawActivity :
             adapter = ArrayAdapter<String>(
                 this@WithdrawActivity,
                 R.layout.item_withdraw_feedback_title,
-                feedbackTypeItems,
+                feedbackTypeItems
             ).apply {
                 setDropDownViewResource(R.layout.item_withdraw_feedback)
             }
