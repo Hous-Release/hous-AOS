@@ -3,6 +3,8 @@ package hous.release.android.di
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Handler
+import android.os.Looper
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -12,7 +14,10 @@ import dagger.hilt.components.SingletonComponent
 import hous.release.android.BuildConfig
 import hous.release.android.R
 import hous.release.android.presentation.login.LoginActivity
+import hous.release.android.presentation.network_error.NetworkErrorActivity
+import hous.release.android.presentation.splash.IntroActivity
 import hous.release.android.util.ToastMessageUtil
+import hous.release.android.util.extension.isNetworkConnected
 import hous.release.data.datasource.LocalPrefTokenDataSource
 import hous.release.data.repository.RefreshRepositoryImpl.Companion.EXPIRED_REFRESH_TOKEN
 import hous.release.data.repository.RefreshRepositoryImpl.Companion.EXPIRED_TOKEN
@@ -37,6 +42,8 @@ object RetrofitModule {
     private const val HEADER_VERSION = "HousVersion"
     private const val OS_TYPE = "AOS"
     private const val BEARER = "Bearer "
+    private const val NETWORK_ERROR = 500
+    private const val FORCE_UPDATE = 426
 
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
@@ -50,69 +57,99 @@ object RetrofitModule {
         localPref: SharedPreferences,
         refreshRepository: RefreshRepository,
         localPrefTokenDataSource: LocalPrefTokenDataSource
-    ): Interceptor =
-        Interceptor { chain ->
-            val request = chain.request()
-            var response = chain.proceed(
-                request
-                    .newBuilder()
-                    .addHeader(
-                        HEADER_AUTHORIZATION,
-                        BEARER + localPrefTokenDataSource.accessToken
-                    )
-                    .addHeader(HEADER_OS_TYPE, OS_TYPE)
-                    .addHeader(HEADER_VERSION, BuildConfig.VERSION_NAME)
-                    .build()
+    ): Interceptor = Interceptor { chain ->
+        if (!context.isNetworkConnected()) {
+            context.startActivity(
+                Intent(
+                    context, NetworkErrorActivity::class.java
+                ).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                }
             )
-            when (response.code) {
-                EXPIRED_TOKEN -> {
-                    runBlocking {
-                        refreshRepository.refreshHousToken()
-                            .onSuccess {
-                                response = chain.proceed(
-                                    request
-                                        .newBuilder()
-                                        .addHeader(
-                                            HEADER_AUTHORIZATION,
-                                            BEARER + localPrefTokenDataSource.accessToken
-                                        )
-                                        .addHeader(HEADER_OS_TYPE, OS_TYPE)
-                                        .addHeader(HEADER_VERSION, BuildConfig.VERSION_NAME)
-                                        .build()
-                                )
-                            }
-                            .onFailure { throwable ->
-                                Timber.e("토큰 갱신 실패 ${throwable.message}")
-                                if (throwable is HttpException) {
-                                    when (throwable.code()) {
-                                        EXPIRED_REFRESH_TOKEN -> {
-                                            with(localPref.edit()) {
-                                                clear()
-                                                commit()
-                                            }
-                                            ToastMessageUtil.showToast(
-                                                context,
-                                                context.getString(R.string.refresh_error)
-                                            )
-                                            context.startActivity(
-                                                Intent(context, LoginActivity::class.java).apply {
-                                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                                                }
-                                            )
+        }
+        val request = chain.request()
+        var response = chain.proceed(
+            request
+                .newBuilder()
+                .addHeader(
+                    HEADER_AUTHORIZATION,
+                    BEARER + localPrefTokenDataSource.accessToken
+                )
+                .addHeader(HEADER_OS_TYPE, OS_TYPE)
+                .addHeader(HEADER_VERSION, BuildConfig.VERSION_NAME)
+                .build()
+        )
+        when (response.code) {
+            FORCE_UPDATE -> context.startActivity(
+                Intent(context, IntroActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                }
+            )
+            NETWORK_ERROR -> {
+                Handler(Looper.getMainLooper()).post(
+                    Runnable {
+                        ToastMessageUtil.showToast(
+                            context,
+                            context.getString(R.string.sever_500_error_msg)
+                        )
+                    }
+                )
+            }
+            EXPIRED_TOKEN -> {
+                runBlocking {
+                    refreshRepository.refreshHousToken()
+                        .onSuccess {
+                            response = chain.proceed(
+                                request
+                                    .newBuilder()
+                                    .addHeader(
+                                        HEADER_AUTHORIZATION,
+                                        BEARER + localPrefTokenDataSource.accessToken
+                                    )
+                                    .addHeader(HEADER_OS_TYPE, OS_TYPE)
+                                    .addHeader(HEADER_VERSION, BuildConfig.VERSION_NAME)
+                                    .build()
+                            )
+                        }
+                        .onFailure { throwable ->
+                            Timber.e("토큰 갱신 실패 ${throwable.message}")
+                            if (throwable is HttpException) {
+                                when (throwable.code()) {
+                                    EXPIRED_REFRESH_TOKEN -> {
+                                        with(localPref.edit()) {
+                                            clear()
+                                            commit()
                                         }
+                                        Handler(Looper.getMainLooper()).post(
+                                            Runnable {
+                                                ToastMessageUtil.showToast(
+                                                    context,
+                                                    context.getString(R.string.refresh_error)
+                                                )
+                                                context.startActivity(
+                                                    Intent(
+                                                        context,
+                                                        LoginActivity::class.java
+                                                    ).apply {
+                                                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                                    }
+                                                )
+                                            }
+                                        )
                                     }
                                 }
                             }
-                    }
+                        }
                 }
             }
-            response
         }
+        response
+    }
 
     @Provides
     @Singleton
-    @NormalType
-    fun providesOkHttpClient(@NormalType interceptor: Interceptor): OkHttpClient =
+    @RetrofitModule.NormalType
+    fun providesOkHttpClient(@RetrofitModule.NormalType interceptor: Interceptor): OkHttpClient =
         OkHttpClient.Builder()
             .connectTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)

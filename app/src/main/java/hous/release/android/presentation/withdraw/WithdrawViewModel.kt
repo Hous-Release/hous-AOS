@@ -35,7 +35,7 @@ class WithdrawViewModel @Inject constructor(
         viewModelScope.launch {
             _withdrawUiEvent.emit(UiEvent.LOADING)
             authRepository.deleteUser(feedbackType = feedbackType, comment = comment.value)
-                .onSuccess { response ->
+                .onSuccess {
                     authRepository.clearLocalPref()
                     _withdrawUiEvent.emit(UiEvent.SUCCESS)
                 }

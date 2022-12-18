@@ -35,8 +35,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/out_room_title"
-            android:textAppearance="@style/B1"
             android:textColor="@color/hous_black"
+            android:theme="@style/B1"
             app:layout_constraintBottom_toBottomOf="@id/btn_out_room_back"
             app:layout_constraintStart_toEndOf="@id/btn_out_room_back"
             app:layout_constraintTop_toTopOf="@id/btn_out_room_back" />
@@ -78,8 +78,8 @@
                     android:layout_marginTop="32dp"
                     android:gravity="center_horizontal"
                     android:text="@string/out_room_bye_title"
-                    android:textAppearance="@style/H4"
                     android:textColor="@color/hous_black"
+                    android:theme="@style/H4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/iv_out_room_graphic" />
@@ -101,14 +101,14 @@
                     android:id="@+id/tv_out_room_bye_caution"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="42dp"
+                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="34dp"
                     android:gravity="center_horizontal"
                     android:text="@string/out_room_bye_caution"
-                    android:textAppearance="@style/B2"
                     android:textColor="@color/hous_red"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:theme="@style/B2"
+                    app:layout_constraintEnd_toEndOf="@id/view_out_room_bye_caution"
+                    app:layout_constraintStart_toStartOf="@id/view_out_room_bye_caution"
                     app:layout_constraintTop_toBottomOf="@id/tv_out_room_bye_title" />
 
                 <TextView
@@ -119,8 +119,8 @@
                     android:layout_marginTop="12dp"
                     android:gravity="center_horizontal"
                     android:text="@string/room_out_bye_desc"
-                    android:textAppearance="@style/B3"
                     android:textColor="@color/hous_g_5"
+                    android:theme="@style/B3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_out_room_bye_caution" />
@@ -141,8 +141,8 @@
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="24dp"
                     android:text="@string/out_room_to_do_prefix"
-                    android:textAppearance="@style/B1"
                     android:textColor="@color/hous_g_5"
+                    android:theme="@style/B1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_out_room_middle" />
 
@@ -151,8 +151,8 @@
                     myTodoCnt="@{vm.myToDoCnt}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/H3"
                     android:textColor="@color/hous_blue"
+                    android:theme="@style/H3"
                     app:layout_constraintBottom_toBottomOf="@id/tv_out_room_to_room_prefix"
                     app:layout_constraintStart_toEndOf="@id/tv_out_room_to_room_prefix"
                     app:layout_constraintTop_toTopOf="@id/tv_out_room_to_room_prefix" />
@@ -162,8 +162,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/out_room_to_do_suffix"
-                    android:textAppearance="@style/B1"
                     android:textColor="@color/hous_g_5"
+                    android:theme="@style/B1"
                     app:layout_constraintStart_toEndOf="@id/tv_out_room_to_room_count"
                     app:layout_constraintTop_toTopOf="@id/tv_out_room_to_room_prefix" />
 
@@ -174,8 +174,8 @@
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/hous_my_todo"
-                    android:textAppearance="@style/Emt2"
                     android:textColor="@color/hous_black"
+                    android:theme="@style/Emt2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_out_room_to_room_prefix" />
 
@@ -187,8 +187,8 @@
                     android:layout_marginTop="40dp"
                     android:gravity="center_horizontal"
                     android:text="@string/out_room_to_do_empty"
-                    android:textAppearance="@style/B3"
                     android:textColor="@color/hous_g_5"
+                    android:theme="@style/B3"
                     android:visibility="@{vm.myToDoCnt == 0 ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -235,8 +235,8 @@
             android:paddingVertical="10dp"
             android:stateListAnimator="@null"
             android:text="@string/out_room_title"
-            android:textAppearance="@style/B1"
             android:textColor="@color/hous_white"
+            android:theme="@style/B1"
             app:cornerRadius="8dp"
             app:layout_constraintBottom_toBottomOf="parent" />
 

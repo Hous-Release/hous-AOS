@@ -48,13 +48,13 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
     }
 
     private fun initNotiSettingClickListener() {
-        binding.btnSettingsNotification.setOnClickListener {
+        binding.tvSettingsNotification.setOnClickListener {
             startActivity(Intent(this, NotificationSettingsActivity::class.java))
         }
     }
 
     private fun initInfoClickListener() {
-        binding.btnSettingsInfo.setOnClickListener {
+        binding.tvSettingsInfo.setOnClickListener {
             startActivity(
                 Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.settings_info_link)))
             )
@@ -62,7 +62,7 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
     }
 
     private fun initFeedbackClickListener() {
-        binding.btnSettingsFeedback.setOnClickListener {
+        binding.tvSettingsFeedback.setOnClickListener {
             startActivity(
                 Intent(Intent.ACTION_SEND).apply {
                     type = "plain/text"

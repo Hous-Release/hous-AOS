@@ -8,10 +8,12 @@
     <string name="null_point_exception_warning_dialog_argument">"WarningDialogFragment에 필요한 arguments에 안들어옴"</string>
     <string name="null_point_exception_to_do_bottom_sheet_dialog_argument">"ToDoBottomSheetDialogFragment에 필요한 arguments에 안들어옴"</string>
     <string name="binding_error">Binding not initialized to reference the view.</string>
+    <string name="close_img_desc">닫기 버튼</string>
     <string name="back_btn_image_desc">뒤로가기 버튼</string>
     <string name="finish_app_toast_msg">뒤로가기를 한 번 더 누르시면 앱이 종료돼요!</string>
     <string name="not_supported_type">지원하지 않는 타입입니다.</string>
     <string name="refresh_error">자동로그인이 만료되었습니다. 다시 로그인해주시기 바랍니다.</string>
+    <string name="sever_500_error_msg">정보를 불러오는 데 실패했어요.</string>
 
     <!-- WarningDialogUtil -->
     <string name="warning_splash_title">다른 기기에서 로그인 중이에요!</string>
@@ -117,7 +119,6 @@
     <string name="create_room_dialog_img_desc">img of dialog enter room</string>
     <string name="create_room_dialog_invite">호미들 바로 초대하기</string>
     <string name="crate_room_dialog_desc">방 생성이 완료 되었습니다.\n참여 코드를 복사해서\n룸메이트에게 공유해보세요!</string>
-    <string name="create_room_close_img_desc">닫기 버튼</string>
 
     <!-- EnterRoomCode -->
     <string name="enter_room_code_title">방 초대코드 입력하기</string>
@@ -341,8 +342,8 @@
     <string name="out_room_title">방 퇴사하기</string>
     <string name="out_room_img_desc">방 퇴사하기 그래픽</string>
     <string name="out_room_bye_title">안녕... 정든 우리 Hous-...</string>
-    <string name="out_room_bye_caution">*방을 탈퇴하면 내게만 배정된 to-do가 삭제돼요!</string>
-    <string name="room_out_bye_desc">탈퇴 전에 이 페이지를 캡쳐해서 호미들에게 공유하고,\n담당자 교체를 제안하면 어떨까요?</string>
+    <string name="out_room_bye_caution">*방을 퇴사하면 내게만 배정된 to-do가 삭제돼요!</string>
+    <string name="room_out_bye_desc">퇴사 전에 이 페이지를 캡쳐해서 호미들에게 공유하고,\n담당자 교체를 제안하면 어떨까요?</string>
     <string name="out_room_to_do_prefix">총</string>
     <string name="out_room_to_do_suffix">개</string>
     <string name="out_room_blur_bottom_img_desc">방 퇴사하기 하단 블러</string>
@@ -364,5 +365,18 @@
     <string name="withdraw_done">회원 탈퇴하기</string>
     <string name="withdraw_spinner_img_desc">피드백 스피너 이미지</string>
     <string name="withdraw_toast">탈퇴되었습니다.</string>
+
+    <!-- NetworkError -->
+    <string name="network_error_img_desc">네트워크 에러 이미지</string>
+    <string name="network_error_title">인터넷에 연결되어 있지 않아요!</string>
+    <string name="network_error_desc">Hous-를 사용하려면 인터넷 연결이 필요해요.\nWi-Fi를 다시 한 번 확인해주세요!</string>
+    <string name="network_error_retry">다시 시도하기</string>
+    <string name="network_error_toast">인터넷 연결 후 다시 시도해 주세요.</string>
+
+    <!-- ForceUpdate -->
+    <string name="force_update_title">업데이트 해주세요!</string>
+    <string name="force_update_desc">새로운 Hous-가 나왔어요!\nHous-와 함께 즐거운\n공동생활을 계속해 봐요!</string>
+    <string name="force_update_img_desc">강제 업데이트 이미지</string>
+    <string name="force_update_confirm">좋아요!</string>
 
 </resources>
