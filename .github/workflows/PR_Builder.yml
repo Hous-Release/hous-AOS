@@ -44,7 +44,6 @@ jobs:
         HOST_URI: ${{ secrets.HOST_URI }}
         KAKAO_NATIVE_APP_KEY: ${{ secrets.KAKAO_NATIVE_APP_KEY }}
         KAKAO_REDIRECT_SCHEME: ${{ secrets.KAKAO_REDIRECT_SCHEME }}
-        DUMMY_ACCESS_TOKEN: ${{ secrets.DUMMY_ACCEESS_TOKEN }}
         KEYSTORE_PATH: ${{ secrets.KEYSTORE_PATH }}
         STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
         KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
@@ -54,7 +53,6 @@ jobs:
         echo HOST_URI=\"$HOST_URI\" >> local.properties
         echo KAKAO_NATIVE_APP_KEY=\"$KAKAO_NATIVE_APP_KEY\" >> local.properties
         echo KAKAO_REDIRECT_SCHEME=\"$KAKAO_REDIRECT_SCHEME\" >> local.properties
-        echo DUMMY_ACCESS_TOKEN=\"$DUMMY_ACCESS_TOKEN\" >> local.properties
         echo KEYSTORE_PATH= $KEYSTORE_PATH >> local.properties
         echo STORE_PASSWORD= $STORE_PASSWORD >> local.properties
         echo KEY_PASSWORD= $KEY_PASSWORD >> local.properties
@@ -67,11 +65,7 @@ jobs:
     - name: Create keystore
       run: |
         mkdir -p app/keystore
-        touch app/keystore/debug.keystore
         touch app/keystore/hous_key.jks
-
-    - name: decode debug keystore
-      run: echo "${{ secrets.KEYSTORE_FILE_BASE_64 }}" | base64 -d > app/keystore/debug.keystore
 
     - name: decode release keystore
       run: echo "${{ secrets.RELEASE_KEYSTORE_FILE_BASE_64 }}" | base64 -d > app/keystore/hous_key.jks

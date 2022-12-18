@@ -66,7 +66,7 @@
             android:layout_marginTop="100dp"
             android:gravity="center_horizontal"
             android:padding="8dp"
-            android:text="함께 사는 우리 집을 위한 별명을 지어주세요!"
+            android:text="@string/edit_hous_name_description"
             android:textColor="@color/hous_g_5"
             android:theme="@style/B2"
             app:layout_constraintEnd_toEndOf="parent"

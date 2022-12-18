@@ -17,22 +17,22 @@
 
     <!-- WarningDialogUtil -->
     <string name="warning_splash_title">다른 기기에서 로그인 중이에요!</string>
-    <string name="warning_splash_desc">다른 기기에서 강제 로그아웃 후  현재 기기에서\nHous-를 사용해볼까요?</string>
+    <string name="warning_splash_desc">다른 기기에서 강제 로그아웃 후\n현재 기기에서 Hous-를 사용해볼까요?</string>
     <string name="warning_splash_cancel">취소</string>
     <string name="warning_splash_confirm">현재 기기에서 로그인</string>
 
     <string name="warning_edit_hous_name_title">앗, 잠깐! 이대로 나가면\n우리 집 별명이 저장되지 않아요!</string>
-    <string name="warning_edit_hous_name_desc">정말 취소하려면 나가기 버튼을 눌러주세요.</string>
+    <string name="warning_edit_hous_name_desc">수정을 취소하려면 나가기 버튼을 눌러주세요.</string>
     <string name="warning_edit_hous_name_cancel">돌아가기</string>
     <string name="warning_edit_hous_name_confirm">나가기</string>
 
     <string name="warning_add_rule_title">앗, 잠깐! 이대로 나가면\nRules가 추가되지 않아요!</string>
-    <string name="warning_add_rule_desc">정말 취소하려면 나가기 버튼을 눌러주세요.</string>
+    <string name="warning_add_rule_desc">Rules 추가를 취소하려면 나가기 버튼을 눌러주세요.</string>
     <string name="warning_add_rule_cancel">계속 작성하기</string>
     <string name="warning_add_rule_confirm">나가기</string>
 
     <string name="warning_edit_rule_title">수정사항이 저장되지 않았어요!</string>
-    <string name="warning_edit_rule_desc">정말 취소하려면 나가기 버튼을 눌러주세요.</string>
+    <string name="warning_edit_rule_desc">Rules 수정을 취소하려면 나가기 버튼을 눌러주세요.</string>
     <string name="warning_edit_rule_cancel">계속 수정하기</string>
     <string name="warning_edit_rule_confirm">나가기</string>
 
@@ -42,12 +42,12 @@
     <string name="warning_delete_rule_confirm">삭제하기</string>
 
     <string name="warning_add_to_do_title">앗, 잠깐! 이대로 나가면\nto-do가 추가되지 않아요!</string>
-    <string name="warning_add_to_do_desc">정말 취소하려면 나가기 버튼을 눌러주세요.</string>
+    <string name="warning_add_to_do_desc">to-do 추가를 취소하려면 나가기 버튼을 눌러주세요.</string>
     <string name="warning_add_to_do_cancel">계속 작성하기</string>
     <string name="warning_add_to_do_confirm">나가기</string>
 
     <string name="warning_edit_to_do_title">수정사항이 저장되지 않았어요!</string>
-    <string name="warning_edit_to_do_desc">정말 취소하려면 나가기 버튼을 눌러주세요.</string>
+    <string name="warning_edit_to_do_desc">to-do 수정을 취소하려면 나가기 버튼을 눌러주세요.</string>
     <string name="warning_edit_to_do_cancel">계속 수정하기</string>
     <string name="warning_edit_to_do_confirm">나가기</string>
 
@@ -62,12 +62,12 @@
     <string name="warning_edit_profile_confirm">나가기</string>
 
     <string name="warning_stop_test_title">테스트를 완료하지 않았어요\n여기서 그만둘까요?</string>
-    <string name="warning_stop_test_desc">나중에 다시 할 수 있어요.</string>
+    <string name="warning_stop_test_desc">그만둔 테스트는 나중에 다시 시작할 수 있어요.</string>
     <string name="warning_stop_test_cancel">계속하기</string>
     <string name="warning_stop_test_confirm">그만두기</string>
 
     <string name="warning_logout_title">정말 로그아웃 하시겠어요?</string>
-    <string name="warning_logout_desc">재로그인 시 현재 방을 계속 사용하실 수 있어요.</string>
+    <string name="warning_logout_desc">다시 로그인하면 현재 방을 계속 사용할 수 있어요.</string>
     <string name="warning_logout_cancel">취소하기</string>
     <string name="warning_logout_confirm">로그아웃</string>
 
@@ -82,7 +82,7 @@
     <!-- UserInput -->
     <string name="user_input_user_info">회원 정보 입력</string>
     <string name="user_input_nickname">닉네임</string>
-    <string name="user_input_nickname_hint">Hous-에서 사용할 이름을 입력해주세요.</string>
+    <string name="user_input_nickname_hint">Hous-에서 사용할 이름을 입력해 주세요.</string>
     <string name="user_input_birthday">생년월일</string>
     <string name="user_input_birthday_hint">YYYY / MM / DD</string>
     <string name="user_input_open_birthday">생일 정보 비공개</string>
@@ -105,7 +105,7 @@
     <string name="enter_room_settings_img_desc">설정 버튼</string>
     <string name="enter_room_title">이제 하우스에 입장해볼까요?</string>
     <string name="enter_room_create_title">방 만들기</string>
-    <string name="enter_room_create_desc">가장 먼저 방을 만들어\n호미들을 초대해보세요!</string>
+    <string name="enter_room_create_desc">가장 먼저 방을 만들어\n호미들을 초대해 보세요!</string>
     <string name="enter_room_create_img_desc">img of create room</string>
     <string name="enter_room_enter_code_title">초대코드 입력하기</string>
     <string name="enter_room_enter_code_desc">초대코드를 입력해\n방에 입장하세요!</string>
@@ -113,21 +113,21 @@
 
     <!-- CreateRoom -->
     <string name="create_room_title">방 만들기</string>
-    <string name="create_room_desc">멤버들이 확인할 수 있도록 방 이름을 설정해주세요.</string>
+    <string name="create_room_desc">멤버들이 확인할 수 있도록 방 이름을 설정해 주세요.</string>
     <string name="create_room_edit_text_hint">방 이름</string>\
     <string name="create_room_name_count">%d/8</string>
     <string name="create_room_dialog_img_desc">img of dialog enter room</string>
     <string name="create_room_dialog_invite">호미들 바로 초대하기</string>
-    <string name="crate_room_dialog_desc">방 생성이 완료 되었습니다.\n참여 코드를 복사해서\n룸메이트에게 공유해보세요!</string>
+    <string name="crate_room_dialog_desc">방 생성이 완료되었습니다.\n참여 코드를 복사해서\n룸메이트에게 공유해 보세요!</string>
 
     <!-- EnterRoomCode -->
     <string name="enter_room_code_title">방 초대코드 입력하기</string>
-    <string name="enter_room_code_desc">초대코드를 입력해야 방에 들어갈 수 있어요.</string>
+    <string name="enter_room_code_desc">초대코드를 입력하면 방에 들어갈 수 있어요.</string>
     <string name="enter_room_code_edit_text_hint">방 초대코드</string>
     <string name="enter_room_code_warning">* 참여할 수 없는 코드예요.</string>
     <string name="enter_room_code_btn">방 참여하기</string>
     <string name="enter_room_code_dialog_owner_desc">님이</string>
-    <string name="enter_room_code_dialog_desc">초대한 방에 참여할까요?</string>
+    <string name="enter_room_code_dialog_desc">생성한 방에 참여할까요?</string>
     <string name="enter_room_code_dialog_enter">참여하기</string>
     <string name="enter_room_code_close_img_desc">닫기 버튼</string>
     <string name="enter_room_code_full_capacity">해당 방의 정원인 16명을 초과했습니다.</string>
@@ -136,7 +136,7 @@
     <string name="hous_title">%s님의,\n%s 하우스</string>
     <string name="hous_btn_copy_code_desc">초대코드 복사 버튼</string>
     <string name="hous_btn_edit_desc">수정하기 버튼</string>
-    <string name="hous_to_do_progress_title">오늘 우리의 to-do 진행률</string>
+    <string name="hous_to_do_progress_title">오늘의 Our to-do 진행률</string>
     <string name="hous_my_todo">MY to-do</string>
     <string name="hous_my_todo_img_desc">img of myTod in hous</string>
     <string name="hous_my_todo_cheer">동글이의\n응원을 받고\n오늘도 화이팅!</string>
@@ -157,7 +157,8 @@
     <!-- EditHousName -->
     <string name="edit_hous_name_back_img_desc">back button</string>
     <string name="edit_hous_name_done">저장</string>
-    <string name="edit_hous_name_title">우리 집 별명 바꾸기</string>
+    <string name="edit_hous_name_title">우리 집 별명 수정</string>
+    <string name="edit_hous_name_description">함께 사는 우리 집을 위한 별명을 지어주세요.</string>
     <string name="edit_hous_name_hint_for_error">우리 집 별명</string>
     <string name="edit_hous_name_count">%d/8</string>
 
@@ -213,7 +214,7 @@
     <string name="to_do_manager">담당자</string>
     <string name="to_do_add_title">새로운 to-do 추가</string>
     <string name="to_do_edit_title">to-do 수정</string>
-    <string name="to_do_text_field_hint">To-Do 입력</string>
+    <string name="to_do_text_field_hint">to-do 입력</string>
     <string name="to_do_save_button">저장하기</string>
     <string name="to_do_add_button">추가하기</string>
     <string name="to_do_name_count">%d/15</string>
@@ -222,11 +223,11 @@
     <string name="tutorial_1_head">Welcome to\nYour Hous-</string>
     <string name="tutorial_1_body">슬기로운 공동생활을 위한 서비스, Hous-\n\n우리의 Hous-를 위한 How is-\n반가워요, 호미들!</string>
     <string name="tutorial_2_head">Rules</string>
-    <string name="tutorial_2_body">우리 집의 기둥이 될 Rules예요!\n\n항상 놓치지 않고 지켜야 하는 것들을\nRules로 등록할 수 있어요 :)</string>
-    <string name="tutorial_3_head">To-do</string>
-    <string name="tutorial_3_body">요일과 담당자를 설정할 수 있는 to-do!\n\n매일 매일 My to-do를 체크하고\n채워지는 Our to-do를 확인해봐요~</string>
+    <string name="tutorial_2_body">Rules는 우리 집의 기둥이 될 중요한 규칙이에요!\n\n항상 놓치지 않고 지켜야 하는 것들을\nRules로 등록할 수 있어요 :)</string>
+    <string name="tutorial_3_head">To-Do</string>
+    <string name="tutorial_3_body">담당자와 요일을 설정할 수 있는 to-do!\n\n매일 매일 My to-do를 체크하고\n채워지는 Our to-do를 확인해 봐요~</string>
     <string name="tutorial_4_head">Homies</string>
-    <string name="tutorial_4_body">생활 성향 테스트를 참여하면 우리 집 모든\n호미들에게 내 성향 카드를 보여줄 수 있어요.\n\n호미 카드는 나 대신 나를 잘 설명해줄 거예요!</string>
+    <string name="tutorial_4_body">생활 성향 테스트를 참여하면 나를 대신해\n나를 잘 설명해줄 호미 성향 카드를 받을 수 있어요.\n\n이제 Hous-와 함께 우리 집 호미들의 성향 카드를\n확인하며 즐거운 공동생활을 시작해볼까요?</string>
 
     <string name="to_do_limit_title">to-do 개수 초과</string>
     <string name="to_do_limit_content">우리 집 to-do가 너무 많아요!\n필요하지 않은 to-do를 삭제하고\n다시 시도해주세요~</string>
@@ -252,11 +253,11 @@
     <string name="personality_smell">냄새</string>
     <string name="personality_introversion">내향</string>
     <string name="personality_clean">정리정돈</string>
-    <string name="personality_light_description">빛 수치가 높은 호미는 소등\n시간이 중요해요! 이 호미를\n위해 스탠드는 꼭 끄도록 해요!</string>
-    <string name="personality_noise_description">소음 수치가 높은 호미를\n위해 영상/전화를 보거나\n할 땐 이어폰이 필수!</string>
-    <string name="personality_smell_description">냄새 수치가 높은 호미를\n위해 음식은 꼭 부엌에서\n먹어요! 아, 환기도 틈틈히!\n잊지 말아요~</string>
-    <string name="personality_introversion_description">내향 수치가 높은 호미는 혼자\n만의 시간이 필요해요. 충전\n중이니 조금만 기다려주세요!</string>
-    <string name="personality_clean_description">청소 전 정리정돈 수치가\n높은 호미들의 이야기를\n들어주면 더 나은 공동생활이\n가능할 거예요~</string>
+    <string name="personality_light_description">빛 수치가 높은 호미를 위해\n소등 시간을 정해봐요!\n이 호미를 위해 자기 전\n스탠드는 꼭 꺼야겠죠!?</string>
+    <string name="personality_noise_description">소음 수치가 높은 호미를 위해\n영상을 보거나 전화를 할 땐\n이어폰이 필수! 서로 배려해\n조용하고 쾌적한 방을 만들어요~</string>
+    <string name="personality_smell_description">냄새 수치가 높은 호미를 위해\n음식은 꼭 부엌에서 먹어요!\n쓰레기 정리와 환기도 틈틈히!\n잊지 말아요~</string>
+    <string name="personality_introversion_description">내향 수치가 높은 호미들은 혼자\n있는 시간이 필요해요. 바쁘고\n지친 바깥 생활로 충전 중이니\n조금만 기다려주세요!</string>
+    <string name="personality_clean_description">정리정돈 수치가 높은 호미들의\n이야기를 들은 후 청소 규칙을 정하면\n지금보다 더 깔끔하고 깨끗한\n공동생활이 가능할 거예요~</string>
     <string name="personality_red">슈퍼 팔로워 셋돌이</string>
     <string name="personality_yellow">늘 행복한 동글이</string>
     <string name="personality_green">룰 세터 육각이</string>
@@ -264,7 +265,7 @@
     <string name="personality_purple">하이레벨 오돌이</string>
     <string name="gray">GRAY</string>
 
-    <string name="homie_profile_introduction_empty">아직 소개가 작성되지 않았어요.</string>
+    <string name="homie_profile_introduction_empty">아직 소개가 작성되지 않았어요!</string>
     <string name="homie_profile_representation_empty">배지가 없어요</string>
 
     <!-- Notification -->
@@ -301,9 +302,9 @@
     <string name="noti_settings_off">해제</string>
     <string name="noti_settings_on_me">내가 담당자일 때만 알림 받기</string>
     <string name="noti_settings_new_rules">새로운 Rules 추가</string>
-    <string name="noti_settings_new_rules_desc">추가된 Our Rules를 알려줘요!</string>
+    <string name="noti_settings_new_rules_desc">추가된 우리 집 Rules를 알려줘요!</string>
     <string name="noti_settings_new_todos">새로운 to-do 추가</string>
-    <string name="noti_settings_new_todos_desc">추가된 My 혹은 Our to-do 를 알려줘요!</string>
+    <string name="noti_settings_new_todos_desc">추가된 My to-do, Our to-do 를 알려줘요!</string>
     <string name="noti_settings_new_todos_on_all">모든 to-do 알림 받기</string>
     <string name="noti_settings_start_todos">오늘의 to-do 시작</string>
     <string name="noti_settings_start_todos_desc">오늘 해야 할 to-do를 9:00에 알려줘요!</string>
@@ -315,13 +316,13 @@
     <string name="noti_settings_badge_desc">우리 집에서 새로 받은 배지를 알려줘요!</string>
 
     <!-- Personality Test Result -->
-    <string name="personality_result_detail">성향 자세히 보기</string>
+    <string name="personality_result_detail">성향 설명</string>
     <string name="personality_result_info">성향 설명</string>
     <string name="personality_result_complete">완료</string>
     <string name="personality_result_good">찰떡궁합</string>
     <string name="personality_result_bad">맞춰가요</string>
     <string name="test_start_title">생활패턴 체크 시작!</string>
-    <string name="test_start_content">지금부터 15개의 질문에 답변해주세요:)\n솔직한 답변은 서로를 배려할 수 있는\n좋은 기회가 될거에요!</string>
+    <string name="test_start_content">지금부터 15개의 질문에 답변해주세요 :)\n솔직한 답변은 서로를 배려할 수 있는\n좋은 기회가 될거에요!</string>
     <string name="test_start">시작하기</string>
     <string name="test_loading_title">결과 나오는 중</string>
     <string name="test_loading_subtitle">조금만 기다려주세요!</string>
@@ -342,7 +343,7 @@
     <string name="out_room_title">방 퇴사하기</string>
     <string name="out_room_img_desc">방 퇴사하기 그래픽</string>
     <string name="out_room_bye_title">안녕... 정든 우리 Hous-...</string>
-    <string name="out_room_bye_caution">*방을 퇴사하면 내게만 배정된 to-do가 삭제돼요!</string>
+    <string name="out_room_bye_caution">방을 탈퇴하면 내게만 배정된 to-do가 삭제돼요!</string>
     <string name="room_out_bye_desc">퇴사 전에 이 페이지를 캡쳐해서 호미들에게 공유하고,\n담당자 교체를 제안하면 어떨까요?</string>
     <string name="out_room_to_do_prefix">총</string>
     <string name="out_room_to_do_suffix">개</string>
@@ -356,7 +357,7 @@
     <string name="withdraw_question">정말 탈퇴하시겠어요?</string>
     <string name="withdraw_img_desc">회원탈퇴 이미지</string>
     <string name="withdraw_thanks_title">지금까지 Hous- 를 이용해주셔서 감사합니다.</string>
-    <string name="withdraw_thanks_desc">회원을 탈퇴하면 탈퇴 신청 즉시\n회원의 개인정보는 삭제되며 복구할 수 없습니다.\n\n회원님께서 불편하셨던 점이나 불만사항을\n알려주시면 적극 반영해서 고객님의 불편함을\n해결해 드리도록 노력하는 Hous-가 되겠습니다.</string>
+    <string name="withdraw_thanks_desc">회원을 탈퇴하면 탈퇴 신청 즉시\n회원님의 개인정보는 삭제되며 복구할 수 없습니다.\n\n회원님께서 불편하셨던 점이나 불만사항을\n알려주시면 적극 반영해서 고객님의 불편함을\n해결해 드리도록 노력하는 Hous-가 되겠습니다.</string>
     <string name="withdraw_feedback_title">피드백 남기기</string>
     <string name="withdraw_feedback_select">사유 선택하기</string>
     <string name="withdraw_comment_hint">의견 남기기</string>
@@ -374,7 +375,7 @@
     <string name="network_error_toast">인터넷 연결 후 다시 시도해 주세요.</string>
 
     <!-- ForceUpdate -->
-    <string name="force_update_title">업데이트 해주세요!</string>
+    <string name="force_update_title">업데이트가 필요해요!</string>
     <string name="force_update_desc">새로운 Hous-가 나왔어요!\nHous-와 함께 즐거운\n공동생활을 계속해 봐요!</string>
     <string name="force_update_img_desc">강제 업데이트 이미지</string>
     <string name="force_update_confirm">좋아요!</string>
