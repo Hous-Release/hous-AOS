@@ -15,9 +15,6 @@ val properties = Properties()
 properties.load(project.rootProject.file("local.properties").inputStream())
 android {
     signingConfigs {
-        getByName("debug") {
-            storeFile = file(properties.getProperty("KEYSTORE_PATH"))
-        }
         create("release") {
             storeFile = file(properties.getProperty("STORE_FILE"))
             keyAlias = properties.getProperty("KEY_ALIAS")
