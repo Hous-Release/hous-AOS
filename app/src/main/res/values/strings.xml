@@ -283,6 +283,7 @@
     <string name="settings_title">설정</string>
     <string name="settings_notification">알림</string>
     <string name="settings_info">개인정보 및 약관</string>
+    <string name="settings_opensource">오픈소스 라이브러리</string>
     <string name="settings_feedback">호미나라 피드백 보내기</string>
     <string name="settings_logout">로그아웃</string>
     <string name="settings_room_out">방 퇴사하기</string>
@@ -293,6 +294,7 @@
     <string name="settings_feedback_content">\n\n\nDevice : %s\nOS Version : Android %s\nApp Version : %s\n-------------------------\n\n\n\n호미나라에 자유로운 피드백을 보내주세요!\n-------------------------</string>
     <string name="settings_feedback_empty_string"> </string>
     <string name="settings_info_link">https://sugared-lemming-812.notion.site/6d9d478df40b4a20811e0020c15af3bc</string>
+    <string name="settings_opensource_link">https://sugared-lemming-812.notion.site/Android-18e491e09b3648b2bc1cd1d3c82ccf01</string>
     <string name="settings_logout_toast">로그아웃되었습니다.</string>
 
     <!-- Notification Settings -->

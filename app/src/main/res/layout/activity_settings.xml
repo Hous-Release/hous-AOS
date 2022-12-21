@@ -83,6 +83,22 @@
             app:layout_constraintTop_toBottomOf="@id/tv_settings_notification" />
 
         <TextView
+            android:id="@+id/tv_settings_opensource"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="12dp"
+            android:paddingVertical="8dp"
+            android:text="@string/settings_opensource"
+            android:textColor="@color/hous_black"
+            android:theme="@style/B1"
+            app:drawableEndCompat="@drawable/ic_settings_next"
+            app:drawableStartCompat="@drawable/ic_opensource"
+            app:layout_constraintStart_toStartOf="@id/tv_settings_notification"
+            app:layout_constraintTop_toBottomOf="@id/tv_settings_info" />
+
+        <TextView
             android:id="@+id/tv_settings_feedback"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -96,7 +112,7 @@
             app:drawableEndCompat="@drawable/ic_settings_next"
             app:drawableStartCompat="@drawable/ic_feedback"
             app:layout_constraintStart_toStartOf="@id/tv_settings_notification"
-            app:layout_constraintTop_toBottomOf="@id/tv_settings_info" />
+            app:layout_constraintTop_toBottomOf="@id/tv_settings_opensource" />
 
         <View
             android:id="@+id/view_settings_bottom"
