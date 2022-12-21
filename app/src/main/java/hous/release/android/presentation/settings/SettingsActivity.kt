@@ -31,6 +31,7 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
         initBackClickListener()
         initNotiSettingClickListener()
         initInfoClickListener()
+        initOpensourceClickListener()
         initFeedbackClickListener()
         initOutRoomClickListener()
         initWithdrawClickListener()
@@ -57,6 +58,14 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
         binding.tvSettingsInfo.setOnClickListener {
             startActivity(
                 Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.settings_info_link)))
+            )
+        }
+    }
+
+    private fun initOpensourceClickListener() {
+        binding.tvSettingsOpensource.setOnClickListener {
+            startActivity(
+                Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.settings_opensource_link)))
             )
         }
     }
