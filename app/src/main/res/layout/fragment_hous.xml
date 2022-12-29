@@ -313,7 +313,7 @@
 
                 <TextView
                     android:id="@+id/tv_hous_our_rules_num_1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="14dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="28dp"
                     android:fontFamily="@font/montserrat_semibold"
@@ -354,7 +354,7 @@
 
                 <TextView
                     android:id="@+id/tv_hous_our_rules_num_2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="14dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/montserrat_semibold"
@@ -395,7 +395,7 @@
 
                 <TextView
                     android:id="@+id/tv_hous_our_rules_num_3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="14dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/montserrat_semibold"
