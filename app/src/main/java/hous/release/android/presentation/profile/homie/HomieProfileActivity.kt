@@ -19,7 +19,6 @@ import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.component.HousPersonalityPentagon
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.style.HousTheme
-import timber.log.Timber
 
 @AndroidEntryPoint
 class HomieProfileActivity :
