@@ -22,7 +22,7 @@ class HomieProfileViewModel @Inject constructor(
         viewModelScope.launch {
             getHomieProfileUseCase(homieId)
                 .onSuccess { response ->
-                    _uiState.value = response
+                    _uiState.emit(response)
                     _uiState.value = _uiState.value.copy(
                         birthday = response.birthday.substring(5..9)
                     )
