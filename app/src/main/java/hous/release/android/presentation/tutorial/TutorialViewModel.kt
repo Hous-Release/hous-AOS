@@ -1,14 +1,15 @@
 package hous.release.android.presentation.tutorial
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.SplashState
 import hous.release.domain.usecase.SetSplashStateUseCase
-import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class TutorialViewModel @Inject constructor(
@@ -16,13 +17,13 @@ class TutorialViewModel @Inject constructor(
 ) : ViewModel() {
     val showNextBtn = MutableLiveData<Boolean>()
 
-    private val _isTutorialState = MutableLiveData<Boolean>(false)
-    val isTutorialState: LiveData<Boolean> = _isTutorialState
+    private val _isTutorialState = MutableSharedFlow<Boolean>()
+    val isTutorialState = _isTutorialState.asSharedFlow()
 
     fun nextOnClick() {
         viewModelScope.launch {
             setSplashStateUseCase(splashState = SplashState.LOGIN)
-            _isTutorialState.value = true
+            _isTutorialState.emit(true)
         }
     }
 }

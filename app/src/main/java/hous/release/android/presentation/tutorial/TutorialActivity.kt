@@ -13,6 +13,7 @@ import hous.release.android.presentation.login.LoginActivity
 import hous.release.android.presentation.tutorial.adapter.TutorialAdapter
 import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingActivity
+import hous.release.android.util.extension.repeatOnStarted
 import hous.release.domain.entity.TutorialEntity
 import kotlin.system.exitProcess
 
@@ -48,9 +49,11 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
     }
 
     private fun observeTutorialState() {
-        tutorialViewModel.isTutorialState.observe(this) { skip ->
-            if (skip) {
-                intentToLogin()
+        repeatOnStarted {
+            tutorialViewModel.isTutorialState.collect { skip ->
+                if (skip) {
+                    intentToLogin()
+                }
             }
         }
     }
