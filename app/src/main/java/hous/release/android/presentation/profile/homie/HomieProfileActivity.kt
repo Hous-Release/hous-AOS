@@ -17,7 +17,9 @@ import hous.release.android.util.HousLogEvent.CLICK_MY_PERSONALITY
 import hous.release.android.util.HousLogEvent.clickDateLogEvent
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.component.HousPersonalityPentagon
+import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.style.HousTheme
+import timber.log.Timber
 
 @AndroidEntryPoint
 class HomieProfileActivity :
@@ -32,7 +34,7 @@ class HomieProfileActivity :
         initBackBtnOnClickListener()
         initHomiePersonalityOnClickListener()
         initHomiePersonalityAdapter()
-        initHomieProfileUi()
+        initUiStateCollect()
         observeHomiePersonalityPentagon()
     }
 
@@ -51,13 +53,15 @@ class HomieProfileActivity :
             if (intent.getIntExtra(HOMIE_POSITION, DEFAULT) == MY) {
                 clickDateLogEvent(CLICK_MY_PERSONALITY)
             }
-            val toPersonalityDetail = Intent(this, PersonalityResultActivity::class.java)
-            toPersonalityDetail.putExtra(LOCATION, HOMIE)
-            toPersonalityDetail.putExtra(
-                RESULT_COLOR,
-                homieProfileViewModel.homieProfileData.value!!.personalityColor.toString()
-            )
-            startActivity(toPersonalityDetail)
+            Intent(this, PersonalityResultActivity::class.java).apply {
+                putExtra(LOCATION, HOMIE)
+                putExtra(
+                    RESULT_COLOR,
+                    homieProfileViewModel.uiState.value.personalityColor.toString()
+                )
+            }.also { toPersonalityDetail ->
+                startActivity(toPersonalityDetail)
+            }
         }
     }
 
@@ -66,35 +70,34 @@ class HomieProfileActivity :
         profilePersonalityAdapter.submitList(personalityInfo)
     }
 
-    private fun initHomieProfileUi() {
-        homieProfileViewModel.homieProfileData.observe(this) { homie ->
-            binding.tvHomieProfileBirthday.text = homie.birthday.substring(5..9)
-            if (homie.introduction.isNullOrBlank()) {
-                with(binding) {
-                    tvHomieProfileIntroduction.setText(R.string.homie_profile_introduction_empty)
-                    tvHomieProfileIntroduction.setTextColor(
-                        getColor(R.color.hous_g_4)
-                    )
-                }
-            } else {
-                with(binding) {
-                    tvHomieProfileIntroduction.text = homie.introduction
-                    tvHomieProfileIntroduction.setTextColor(
-                        getColor(R.color.hous_g_6)
-                    )
+    private fun initUiStateCollect() {
+        repeatOnStarted {
+            homieProfileViewModel.uiState.collect { uiState ->
+                if (uiState.introduction.isNullOrBlank()) {
+                    with(binding) {
+                        tvHomieProfileIntroduction.setText(R.string.homie_profile_introduction_empty)
+                        tvHomieProfileIntroduction.setTextColor(getColor(R.color.hous_g_4))
+                    }
+                } else {
+                    with(binding) {
+                        tvHomieProfileIntroduction.text = uiState.introduction
+                        tvHomieProfileIntroduction.setTextColor(getColor(R.color.hous_g_6))
+                    }
                 }
             }
         }
     }
 
     private fun observeHomiePersonalityPentagon() {
-        homieProfileViewModel.homieProfileData.observe(this) { homie ->
-            binding.cvHomieProfilePersonalityPentagon.setContent {
-                HousTheme {
-                    HousPersonalityPentagon(
-                        testScore = homie.testScore,
-                        homyType = homie.personalityColor
-                    )
+        repeatOnStarted {
+            homieProfileViewModel.uiState.collect { uiState ->
+                binding.cvHomieProfilePersonalityPentagon.setContent {
+                    HousTheme {
+                        HousPersonalityPentagon(
+                            testScore = uiState.testScore,
+                            homyType = uiState.personalityColor
+                        )
+                    }
                 }
             }
         }
