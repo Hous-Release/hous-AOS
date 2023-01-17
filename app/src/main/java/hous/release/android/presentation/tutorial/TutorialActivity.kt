@@ -77,7 +77,7 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
         binding.vpTutorial.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                tutorialViewModel.showNextBtn.value = position == 3
+                tutorialViewModel.isNextBtn.value = position == 3
             }
         })
     }
