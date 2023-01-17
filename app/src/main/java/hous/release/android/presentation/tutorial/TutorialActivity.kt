@@ -19,8 +19,9 @@ import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activity_tutorial) {
-    private lateinit var tutorialAdapter: TutorialAdapter
     private val tutorialViewModel: TutorialViewModel by viewModels()
+    private val tutorialAdapter: TutorialAdapter?
+        get() = binding.vpTutorial.adapter as? TutorialAdapter
     private var onBackPressedTime = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,9 +66,11 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
     }
 
     private fun initAdapter() {
-        tutorialAdapter = TutorialAdapter()
-        tutorialAdapter.submitList(tutorialList)
+        if (binding.vpTutorial.adapter == null) {
+            binding.vpTutorial.adapter = TutorialAdapter()
+        }
         binding.vpTutorial.adapter = tutorialAdapter
+        tutorialAdapter?.submitList(tutorialList)
         binding.vpTutorial.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
         TabLayoutMediator(binding.tlTutorialDot, binding.vpTutorial) { tab, _ ->
