@@ -17,13 +17,13 @@ class TutorialViewModel @Inject constructor(
 ) : ViewModel() {
     val isNextBtn = MutableStateFlow(false)
 
-    private val _isTutorialState = MutableSharedFlow<Boolean>()
-    val isTutorialState = _isTutorialState.asSharedFlow()
+    private val _isTutorialEvent = MutableSharedFlow<Boolean>()
+    val isTutorialState = _isTutorialEvent.asSharedFlow()
 
     fun nextOnClick() {
         viewModelScope.launch {
             setSplashStateUseCase(splashState = SplashState.LOGIN)
-            _isTutorialState.emit(true)
+            _isTutorialEvent.emit(true)
         }
     }
 }
