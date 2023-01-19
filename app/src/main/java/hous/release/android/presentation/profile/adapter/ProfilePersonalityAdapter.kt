@@ -10,15 +10,14 @@ import hous.release.domain.entity.PersonalityInfo
 
 class ProfilePersonalityAdapter :
     ListAdapter<PersonalityInfo, ProfilePersonalityAdapter.PersonalityViewHolder>(
-        personalityDiffCallBack
+        PERSONALITY_DIFF_CALLBACK
     ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonalityViewHolder {
-        val binding =
-            ItemProfilePersonalityBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+        val binding = ItemProfilePersonalityBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return PersonalityViewHolder(binding)
     }
 
@@ -28,17 +27,17 @@ class ProfilePersonalityAdapter :
 
     class PersonalityViewHolder(
         val binding: ItemProfilePersonalityBinding
-    ) :
-        RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: PersonalityInfo) {
             binding.data = data
         }
     }
 
     companion object {
-        private val personalityDiffCallBack = ItemDiffCallback<PersonalityInfo>(
-            onItemsTheSame = { old, new -> old.type == new.type },
-            onContentsTheSame = { old, new -> old == new }
-        )
+        private val PERSONALITY_DIFF_CALLBACK =
+            ItemDiffCallback<PersonalityInfo>(
+                onItemsTheSame = { old, new -> old.type == new.type },
+                onContentsTheSame = { old, new -> old == new }
+            )
     }
 }
