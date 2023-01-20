@@ -10,7 +10,7 @@ import hous.release.android.util.ItemDiffCallback
 import hous.release.domain.entity.TutorialEntity
 
 class TutorialAdapter :
-    ListAdapter<TutorialEntity, TutorialAdapter.TutorialViewHolder>(TUTORIAL_DIFF_CALLBACK) {
+    ListAdapter<TutorialEntity, TutorialAdapter.TutorialViewHolder>(tutorialDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TutorialViewHolder {
         val binding =
@@ -44,7 +44,7 @@ class TutorialAdapter :
     }
 
     companion object {
-        private val TUTORIAL_DIFF_CALLBACK = ItemDiffCallback<TutorialEntity>(
+        private val tutorialDiffCallback = ItemDiffCallback<TutorialEntity>(
             onItemsTheSame = { old, new -> old.head == new.head },
             onContentsTheSame = { old, new -> old == new }
         )
