@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.view.View
+import hous.release.android.util.OnSingleClickListener
 
 fun Context.isNetworkConnected(): Boolean {
     var isConnected = false
@@ -21,4 +23,8 @@ fun Context.isNetworkConnected(): Boolean {
 
 inline fun <reified T : Activity> Context.startActivity(block: Intent.() -> Unit = {}) {
     startActivity(Intent(this, T::class.java).apply(block))
+}
+
+fun View.setSingleOnClickListener(onSingleClick: (View) -> Unit) {
+    setOnClickListener(OnSingleClickListener { onSingleClick(it) })
 }
