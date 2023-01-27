@@ -34,7 +34,6 @@ class HomieProfileActivity :
         initHomiePersonalityOnClickListener()
         initHomiePersonalityAdapter()
         initUiStateCollect()
-        observeHomiePersonalityPentagon()
     }
 
     private fun initHomieProfile() {
@@ -73,23 +72,17 @@ class HomieProfileActivity :
         repeatOnStarted {
             homieProfileViewModel.uiState.collect { uiState ->
                 if (uiState.introduction.isNullOrBlank()) {
-                    with(binding) {
-                        tvHomieProfileIntroduction.setText(R.string.homie_profile_introduction_empty)
-                        tvHomieProfileIntroduction.setTextColor(getColor(R.color.hous_g_4))
+                    with(binding.tvHomieProfileIntroduction) {
+                        setText(R.string.homie_profile_introduction_empty)
+                        setTextColor(getColor(R.color.hous_g_4))
                     }
                 } else {
-                    with(binding) {
-                        tvHomieProfileIntroduction.text = uiState.introduction
-                        tvHomieProfileIntroduction.setTextColor(getColor(R.color.hous_g_6))
+                    with(binding.tvHomieProfileIntroduction) {
+                        text = uiState.introduction
+                        setTextColor(getColor(R.color.hous_g_6))
                     }
                 }
-            }
-        }
-    }
 
-    private fun observeHomiePersonalityPentagon() {
-        repeatOnStarted {
-            homieProfileViewModel.uiState.collect { uiState ->
                 binding.cvHomieProfilePersonalityPentagon.setContent {
                     HousTheme {
                         HousPersonalityPentagon(
