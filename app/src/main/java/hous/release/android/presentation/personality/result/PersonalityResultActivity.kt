@@ -7,6 +7,7 @@ import hous.release.android.R
 import hous.release.android.databinding.ActivityPersonalityResultBinding
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.component.PersonalityResultImage
+import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.style.HousTheme
 
 @AndroidEntryPoint
@@ -37,13 +38,15 @@ class PersonalityResultActivity :
     }
 
     private fun initPersonalityImage() {
-        personalityResultViewModel.resultData.observe(this) { personalityResult ->
-            binding.cvPersonalityResultImage.setContent {
-                HousTheme {
-                    PersonalityResultImage(
-                        homyType = personalityResult.color,
-                        imageUrl = personalityResult.imageUrl
-                    )
+        repeatOnStarted {
+            personalityResultViewModel.uiState.collect { uiState ->
+                binding.cvPersonalityResultImage.setContent {
+                    HousTheme {
+                        PersonalityResultImage(
+                            homyType = uiState.personalityResult.color,
+                            imageUrl = uiState.personalityResult.imageUrl
+                        )
+                    }
                 }
             }
         }
