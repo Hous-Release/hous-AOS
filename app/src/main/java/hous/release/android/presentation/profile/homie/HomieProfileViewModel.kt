@@ -22,18 +22,8 @@ class HomieProfileViewModel @Inject constructor(
         viewModelScope.launch {
             getHomieProfileUseCase(homieId)
                 .onSuccess { response ->
-                    _uiState.value = _uiState.value.copy(
-                        age = response.age,
-                        birthday = response.birthday.substring(5..9),
-                        birthdayPublic = response.birthdayPublic,
-                        introduction = response.introduction,
-                        job = response.job,
-                        mbti = response.mbti,
-                        nickname = response.nickname,
-                        personalityColor = response.personalityColor,
-                        representBadge = response.representBadge,
-                        representBadgeImage = response.representBadgeImage,
-                        testScore = response.testScore
+                    _uiState.value = response.copy(
+                        birthday = response.birthday.substring(5..9)
                     )
                 }.onFailure { response ->
                     Timber.e(response.message)
