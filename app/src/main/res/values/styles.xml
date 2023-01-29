@@ -29,8 +29,18 @@
         <item name="android:textColor">@color/hous_black</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">20dp</item>
+        <item name="android:windowIsFloating">false</item>
         <item name="android:letterSpacing">-0.02</item>
         <item name="android:lineSpacingExtra">10dp</item>
-        <item name="android:colorControlNormal">@android:color/transparent</item>
+        <item name="android:colorControlNormal">@color/hous_g_5</item>
+    </style>
+
+    <style name="MaterialAlertDialog_rounded" parent="@style/ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="shapeAppearanceOverlay">@style/DialogCorners</item>
+    </style>
+
+    <style name="DialogCorners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
     </style>
 </resources>
