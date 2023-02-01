@@ -10,7 +10,6 @@ import hous.release.android.databinding.DialogDatePickerBinding
 import hous.release.android.util.dialog.WarningDialogFragment.Companion.CONFIRM_ACTION
 import hous.release.android.util.extension.initLayout
 import timber.log.Timber
-import java.util.*
 
 class DatePickerDialog : DialogFragment() {
     private var _binding: DialogDatePickerBinding? = null
@@ -21,7 +20,10 @@ class DatePickerDialog : DialogFragment() {
         initConfirmTextClickListener()
         initCancelTextClickListener()
         return activity?.let {
-            val dialog = MaterialAlertDialogBuilder(requireActivity(), R.style.MaterialAlertDialog_rounded).create()
+            val dialog = MaterialAlertDialogBuilder(
+                requireActivity(),
+                R.style.MaterialAlertDialog_rounded
+            ).create()
             dialog.setView(binding.root)
             dialog
         } ?: throw IllegalStateException()
