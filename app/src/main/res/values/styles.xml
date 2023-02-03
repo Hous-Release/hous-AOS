@@ -32,7 +32,7 @@
         <item name="android:windowIsFloating">false</item>
         <item name="android:letterSpacing">-0.02</item>
         <item name="android:lineSpacingExtra">10dp</item>
-        <item name="android:colorControlNormal">@color/hous_g_5</item>
+        <item name="android:colorControlNormal">@android:color/transparent</item>
     </style>
 
     <style name="MaterialAlertDialog_rounded" parent="@style/ThemeOverlay.MaterialComponents.Dialog.Alert">
