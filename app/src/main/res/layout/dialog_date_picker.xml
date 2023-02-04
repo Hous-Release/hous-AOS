@@ -26,6 +26,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:text="@string/user_input_birthday"
+        android:textColor="@color/hous_black"
         android:theme="@style/H4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
