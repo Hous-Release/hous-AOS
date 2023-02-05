@@ -20,6 +20,8 @@ class DatePickerDialog : DialogFragment() {
         _binding = DialogDatePickerBinding.inflate(requireActivity().layoutInflater)
         initConfirmTextClickListener()
         initCancelTextClickListener()
+        initMaxDate()
+        isCancelable = false
         return activity?.let {
             val dialog = MaterialAlertDialogBuilder(
                 requireActivity(),
@@ -33,7 +35,6 @@ class DatePickerDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
-        initMaxDate()
     }
 
     private fun initMaxDate() {
