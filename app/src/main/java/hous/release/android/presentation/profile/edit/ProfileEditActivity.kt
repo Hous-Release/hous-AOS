@@ -13,7 +13,7 @@ import hous.release.android.util.dialog.DatePickerClickListener
 import hous.release.android.util.dialog.DatePickerDialog
 import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningType
-import hous.release.android.util.extension.setSingleOnClickListener
+import hous.release.android.util.extension.setOnSingleClickListener
 import hous.release.android.util.extension.withArgs
 
 @AndroidEntryPoint
@@ -99,7 +99,7 @@ class ProfileEditActivity :
     }
 
     private fun initBirthdayOnClickListener() {
-        binding.etProfileEditBirthday.setSingleOnClickListener {
+        binding.etProfileEditBirthday.setOnSingleClickListener {
             DatePickerDialog().apply {
                 arguments = Bundle().apply {
                     putParcelable(

@@ -21,7 +21,7 @@ import hous.release.android.util.HousLogEvent.clickLogEvent
 import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
-import hous.release.android.util.extension.setSingleOnClickListener
+import hous.release.android.util.extension.setOnSingleClickListener
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.Homy
 
@@ -67,7 +67,7 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
     }
 
     private fun initClickListener() {
-        binding.btnHousEdit.setSingleOnClickListener {
+        binding.btnHousEdit.setOnSingleClickListener {
             startActivity(
                 Intent(requireContext(), EditHousNameActivity::class.java).apply {
                     putExtra(ROOM_NAME, viewModel.hous.value.roomName)

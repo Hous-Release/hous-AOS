@@ -25,6 +25,6 @@ inline fun <reified T : Activity> Context.startActivity(block: Intent.() -> Unit
     startActivity(Intent(this, T::class.java).apply(block))
 }
 
-fun View.setSingleOnClickListener(onSingleClick: (View) -> Unit) {
+fun View.setOnSingleClickListener(onSingleClick: (View) -> Unit) {
     setOnClickListener(OnSingleClickListener { onSingleClick(it) })
 }
