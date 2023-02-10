@@ -88,7 +88,7 @@ class PersonalityTestViewModel @Inject constructor(
                 smellScore = requireNotNull(sumScore[QuestionType.SMELL])
             )
                 .onSuccess { resultColor ->
-                    delay(2000)
+                    delay(1000)
                     onEvent(PersonalityTestEvent.GoToResultView(resultColor))
                 }
                 .onFailure {
