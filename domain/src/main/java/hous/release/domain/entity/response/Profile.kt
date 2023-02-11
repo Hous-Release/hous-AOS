@@ -11,7 +11,7 @@ data class Profile(
     val job: String? = "",
     val mbti: String? = "",
     val nickname: String = "",
-    val personalityColor: HomyType,
+    val personalityColor: HomyType = HomyType.GRAY,
     val representBadge: String? = "",
     val representBadgeImage: String? = "",
     val testScore: TestScore = TestScore()

@@ -5,10 +5,10 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ProfileEntity(
-    val nickname: String,
-    val birthday: String,
-    val birthdayPublic: Boolean,
-    val mbti: String?,
-    val job: String?,
-    val introduction: String?
+    val nickname: String = "",
+    val birthday: String = "",
+    val birthdayPublic: Boolean = false,
+    val mbti: String? = "",
+    val job: String? = "",
+    val introduction: String? = ""
 ) : Parcelable

@@ -147,5 +147,4 @@
         app:layout_constraintEnd_toStartOf="@+id/tv_date_picker_confirm"
         app:layout_constraintTop_toTopOf="@id/tv_date_picker_confirm" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

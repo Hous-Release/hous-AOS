@@ -20,7 +20,7 @@ data class PersonalityResultResponse(
         badPersonalityImageUrl = this.badPersonalityImageUrl,
         badPersonalityName = this.badPersonalityName,
         color = HomyType.valueOf(color),
-        description = this.description,
+        description = this.description.joinToString(ENTER),
         goodPersonalityImageUrl = this.goodPersonalityImageUrl,
         goodPersonalityName = this.goodPersonalityName,
         imageUrl = this.imageUrl,
@@ -29,4 +29,8 @@ data class PersonalityResultResponse(
         recommendTodo = this.recommendTodo,
         title = this.title
     )
+
+    companion object {
+        private const val ENTER = "\n"
+    }
 }

@@ -1,13 +1,13 @@
 package hous.release.android.presentation.profile
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.Profile
 import hous.release.domain.usecase.GetProfileUseCase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -16,31 +16,31 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val getProfileUseCase: GetProfileUseCase
 ) : ViewModel() {
-    private val _loadingState = MutableLiveData(true)
-    val loadingState: LiveData<Boolean> = _loadingState
-
-    private val _profileData = MutableLiveData<Profile>()
-    val profileData: LiveData<Profile> = _profileData
-
-    private val _isTest = MutableLiveData<Boolean>()
-    val isTest: LiveData<Boolean> = _isTest
+    private val _uiState = MutableStateFlow(ProfileUiState())
+    val uiState = _uiState.asStateFlow()
 
     fun getProfile() {
         viewModelScope.launch {
-            getProfileUseCase()
-                .onSuccess { response ->
-                    _profileData.value = response
-                    checkTest()
-                    _loadingState.value = false
-                }.onFailure { response ->
-                    Timber.e(response.message)
-                }
+            getProfileUseCase().onSuccess { response ->
+                _uiState.value = _uiState.value.copy(
+                    profile = response,
+                    birthday = response.birthday.substring(5..9),
+                    isTest = _uiState.value.profile.personalityColor != HomyType.GRAY,
+                    isLoadingState = false
+                )
+            }.onFailure { response ->
+                Timber.e(response.message)
+                _uiState.value = uiState.value.copy(
+                    isLoadingState = false
+                )
+            }
         }
     }
 
-    private fun checkTest() {
-        viewModelScope.launch {
-            _isTest.value = _profileData.value!!.personalityColor != HomyType.GRAY
-        }
-    }
+    data class ProfileUiState(
+        val profile: Profile = Profile(),
+        val birthday: String = "",
+        val isTest: Boolean = false,
+        val isLoadingState: Boolean = true
+    )
 }

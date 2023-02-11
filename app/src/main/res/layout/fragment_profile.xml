@@ -10,14 +10,13 @@
         <variable
             name="vm"
             type="hous.release.android.presentation.profile.ProfileViewModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/hous_white"
-        android:visibility="@{vm.loadingState ? View.INVISIBLE : View.VISIBLE}"
+        android:visibility="@{vm.uiState.isLoadingState ? View.INVISIBLE : View.VISIBLE}"
         tools:context=".presentation.profile.ProfileFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,9 +27,9 @@
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottie_profile"
-                badge="@{vm.profileData.representBadgeImage}"
-                lottieBackground="@{vm.profileData.personalityColor.name()}"
-                lottieColor="@{vm.profileData.personalityColor.name()}"
+                badge="@{vm.uiState.profile.representBadgeImage}"
+                lottieBackground="@{vm.uiState.profile.personalityColor.name()}"
+                lottieColor="@{vm.uiState.profile.personalityColor.name()}"
                 android:layout_width="0dp"
                 android:layout_height="230dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +46,7 @@
                 android:layout_marginEnd="14dp"
                 android:background="@null"
                 android:padding="10dp"
-                android:src="@{vm.isTest ? @drawable/ic_profile_setting_white : @drawable/ic_setting_gray}"
+                android:src="@{vm.uiState.isTest ? @drawable/ic_profile_setting_white : @drawable/ic_setting_gray}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/ic_profile_setting_white" />
@@ -58,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:padding="10dp"
-                android:src="@{vm.isTest ? @drawable/ic_profile_alarm_white : @drawable/ic_profile_alarm_gray}"
+                android:src="@{vm.uiState.isTest ? @drawable/ic_profile_alarm_white : @drawable/ic_profile_alarm_gray}"
                 app:layout_constraintBottom_toBottomOf="@id/btn_profile_setting"
                 app:layout_constraintEnd_toStartOf="@id/btn_profile_setting"
                 app:layout_constraintTop_toTopOf="@id/btn_profile_setting"
@@ -78,13 +77,13 @@
 
             <ImageView
                 android:id="@+id/iv_profile_badge"
-                setImage="@{vm.profileData.representBadgeImage}"
+                setImage="@{vm.uiState.profile.representBadgeImage}"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="43dp"
                 android:elevation="10dp"
-                android:visibility="@{vm.profileData.representBadgeImage==null ? View.INVISIBLE : View.VISIBLE}"
+                android:visibility="@{vm.uiState.profile.representBadgeImage==null ? View.INVISIBLE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_profile_notification"
                 tools:src="@drawable/shape_white_fill_100_circle" />
@@ -101,7 +100,7 @@
                 android:text="@string/profile_empty_badge"
                 android:textColor="@color/hous_g_9"
                 android:theme="@style/Description"
-                android:visibility="@{vm.profileData.representBadgeImage==null ? View.VISIBLE : View.INVISIBLE}"
+                android:visibility="@{vm.uiState.profile.representBadgeImage==null ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_profile_notification" />
 
@@ -138,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="23dp"
-                    android:text="@{vm.profileData.nickname}"
+                    android:text="@{vm.uiState.profile.nickname}"
                     android:textColor="@color/hous_black"
                     android:theme="@style/H4"
                     app:layout_constraintStart_toStartOf="parent"
@@ -178,7 +177,7 @@
                     android:background="@drawable/shape_g6_line_20_rect"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="4dp"
-                    android:text="@{vm.profileData.age}"
+                    android:text="@{vm.uiState.profile.age}"
                     android:textColor="@color/hous_g_6"
                     android:theme="@style/Description"
                     app:layout_constraintStart_toStartOf="@id/tv_profile_name"
@@ -193,9 +192,10 @@
                     android:background="@drawable/shape_g6_line_20_rect"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="4dp"
+                    android:text="@{vm.uiState.birthday}"
                     android:textColor="@color/hous_g_6"
                     android:theme="@style/En2"
-                    android:visibility="@{vm.profileData.birthdayPublic ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{vm.uiState.profile.birthdayPublic ? View.VISIBLE : View.GONE}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_age"
                     app:layout_constraintStart_toEndOf="@id/tv_profile_age"
                     app:layout_constraintTop_toTopOf="@id/tv_profile_age"
@@ -209,10 +209,10 @@
                     android:background="@drawable/shape_g6_line_20_rect"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="4dp"
-                    android:text="@{vm.profileData.mbti}"
+                    android:text="@{vm.uiState.profile.mbti}"
                     android:textColor="@color/hous_g_6"
                     android:theme="@style/En2"
-                    android:visibility="@{vm.profileData.mbti}"
+                    android:visibility="@{vm.uiState.profile.mbti}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_age"
                     app:layout_constraintStart_toEndOf="@id/tv_profile_birthday"
                     app:layout_constraintTop_toTopOf="@id/tv_profile_age"
@@ -226,10 +226,10 @@
                     android:background="@drawable/shape_g6_line_20_rect"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="4dp"
-                    android:text="@{vm.profileData.job}"
+                    android:text="@{vm.uiState.profile.job}"
                     android:textColor="@color/hous_g_6"
                     android:theme="@style/Description"
-                    android:visibility="@{vm.profileData.job}"
+                    android:visibility="@{vm.uiState.profile.job}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_age"
                     app:layout_constraintStart_toEndOf="@id/tv_profile_mbti"
                     app:layout_constraintTop_toTopOf="@id/tv_profile_age"
@@ -271,19 +271,19 @@
                         android:layout_gravity="top|center"
                         android:layout_marginTop="28dp"
                         android:src="@drawable/ic_profile_empty_tendency"
-                        android:visibility="@{vm.isTest ? View.GONE : View.VISIBLE}" />
+                        android:visibility="@{vm.uiState.isTest ? View.GONE : View.VISIBLE}" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cl_profile_has_personality"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:visibility="@{vm.isTest ? View.VISIBLE : View.GONE}">
+                        android:visibility="@{vm.uiState.isTest ? View.VISIBLE : View.GONE}">
 
                         <TextView
                             android:id="@+id/tv_profile_personality"
-                            personalityResultColor="@{vm.profileData.personalityColor.name()}"
-                            personalityTitle="@{vm.profileData.personalityColor.name()}"
+                            personalityResultColor="@{vm.uiState.profile.personalityColor.name()}"
+                            personalityTitle="@{vm.uiState.profile.personalityColor.name()}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
@@ -349,7 +349,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{vm.isTest ? @string/profile_not_my_personality : @string/profile_empty_personality}"
+                    android:text="@{vm.uiState.isTest ? @string/profile_not_my_personality : @string/profile_empty_personality}"
                     android:textColor="@color/hous_g_6"
                     android:theme="@style/B2"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -365,7 +365,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/shape_black_fill_8_rect"
-                    android:text="@{vm.isTest ? @string/profile_test_again : @string/profile_empty_go_test}"
+                    android:text="@{vm.uiState.isTest ? @string/profile_test_again : @string/profile_empty_go_test}"
                     android:textColor="@color/hous_white"
                     android:theme="@style/B1"
                     app:layout_constraintBottom_toBottomOf="parent"
