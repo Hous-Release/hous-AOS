@@ -23,9 +23,7 @@ import hous.release.android.util.HousLogEvent.CLICK_RE_TEST
 import hous.release.android.util.HousLogEvent.clickDateLogEvent
 import hous.release.android.util.HousLogEvent.clickLogEvent
 import hous.release.android.util.binding.BindingFragment
-import hous.release.android.util.component.HousPersonalityPentagon
 import hous.release.android.util.extension.repeatOnStarted
-import hous.release.android.util.style.HousTheme
 import hous.release.domain.entity.PersonalityInfo
 
 @AndroidEntryPoint
@@ -41,7 +39,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = profileViewModel
-        initUiStateCollect()
+        collectUiState()
         initNotificationOnClickListener()
         initSettingOnClickListener()
         initBadgeOnClickListener()
@@ -51,26 +49,22 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
         initPersonalityOnClickListener()
     }
 
-    private fun initUiStateCollect() {
+    private fun collectUiState() {
         repeatOnStarted {
             profileViewModel.uiState.collect { uiState ->
-                if (uiState.profile.introduction.isNullOrEmpty()) {
-                    with(binding.tvProfileIntroduction) {
-                        setText(R.string.profile_empty_introduction)
-                        setTextColor(ContextCompat.getColor(requireContext(), R.color.hous_g_4))
-                    }
-                } else {
-                    with(binding.tvProfileIntroduction) {
-                        text = uiState.profile.introduction
-                        setTextColor(ContextCompat.getColor(requireContext(), R.color.hous_g_6))
-                    }
-                }
-
-                binding.cvProfilePersonalityPentagon.setContent {
-                    HousTheme {
-                        HousPersonalityPentagon(
-                            testScore = uiState.profile.testScore,
-                            homyType = uiState.profile.personalityColor
+                with(binding) {
+                    if (uiState.profile.introduction.isNullOrEmpty()) {
+                        tvProfileIntroduction.setText(R.string.profile_empty_introduction)
+                        tvProfileIntroduction.setTextColor(
+                            ContextCompat.getColor(requireContext(), R.color.hous_g_4)
+                        )
+                    } else {
+                        tvProfileIntroduction.text = uiState.profile.introduction
+                        tvProfileIntroduction.setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.hous_g_6
+                            )
                         )
                     }
                 }

@@ -71,13 +71,11 @@ class HomieProfileActivity :
     private fun initUiStateCollect() {
         repeatOnStarted {
             homieProfileViewModel.uiState.collect { uiState ->
-                if (uiState.introduction.isNullOrBlank()) {
-                    with(binding.tvHomieProfileIntroduction) {
+                with(binding.tvHomieProfileIntroduction) {
+                    if (uiState.introduction.isNullOrBlank()) {
                         setText(R.string.homie_profile_introduction_empty)
                         setTextColor(getColor(R.color.hous_g_4))
-                    }
-                } else {
-                    with(binding.tvHomieProfileIntroduction) {
+                    } else {
                         text = uiState.introduction
                         setTextColor(getColor(R.color.hous_g_6))
                     }
