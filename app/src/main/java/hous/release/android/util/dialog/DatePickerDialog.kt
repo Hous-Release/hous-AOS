@@ -10,6 +10,7 @@ import hous.release.android.databinding.DialogDatePickerBinding
 import hous.release.android.util.dialog.WarningDialogFragment.Companion.CONFIRM_ACTION
 import hous.release.android.util.extension.initLayout
 import timber.log.Timber
+import java.util.Calendar
 
 class DatePickerDialog : DialogFragment() {
     private var _binding: DialogDatePickerBinding? = null
@@ -32,6 +33,11 @@ class DatePickerDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
+        initMaxDate()
+    }
+
+    private fun initMaxDate() {
+        binding.datePickerDialogDatePicker.maxDate = Calendar.getInstance().timeInMillis
     }
 
     private fun getYearFormat(year: Int): String = year.toString()
