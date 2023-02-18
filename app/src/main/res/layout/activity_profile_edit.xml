@@ -43,7 +43,7 @@
             android:id="@+id/tv_profile_edit_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:enabled="@{vm.changedEditInfo &amp;&amp; vm.nickname.length() > 0 ? true : false}"
             android:onClick="@{()->vm.onClickSave()}"
             android:padding="8dp"
