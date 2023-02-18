@@ -31,9 +31,11 @@ object HousLogEvent {
     const val CLICK_FINISH_TEST = "CLICK_FINISH_TEST"
 
     fun enterScreenLogEvent(screenClass: String, screenName: String) {
-        Firebase.analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
-            param(FirebaseAnalytics.Param.SCREEN_CLASS, screenClass)
-            param(FirebaseAnalytics.Param.SCREEN_NAME, screenName)
+        if (!BuildConfig.DEBUG) {
+            Firebase.analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+                param(FirebaseAnalytics.Param.SCREEN_CLASS, screenClass)
+                param(FirebaseAnalytics.Param.SCREEN_NAME, screenName)
+            }
         }
     }
 
