@@ -42,6 +42,7 @@ jobs:
     - name: Access Local Properties
       env:
         HOST_URI: ${{ secrets.HOST_URI }}
+        HOST_RELEASE_URI: ${{ secrets.HOST_RELEASE_URI }}
         KAKAO_NATIVE_APP_KEY: ${{ secrets.KAKAO_NATIVE_APP_KEY }}
         KAKAO_REDIRECT_SCHEME: ${{ secrets.KAKAO_REDIRECT_SCHEME }}
         KEYSTORE_PATH: ${{ secrets.KEYSTORE_PATH }}
@@ -51,6 +52,7 @@ jobs:
         STORE_FILE: ${{ secrets.STORE_FILE }}
       run: |
         echo HOST_URI=\"$HOST_URI\" >> local.properties
+        echo HOST_RELEASE_URI=\"$HOST_RELEASE_URI\" >> local.properties
         echo KAKAO_NATIVE_APP_KEY=\"$KAKAO_NATIVE_APP_KEY\" >> local.properties
         echo KAKAO_REDIRECT_SCHEME=\"$KAKAO_REDIRECT_SCHEME\" >> local.properties
         echo KEYSTORE_PATH= $KEYSTORE_PATH >> local.properties

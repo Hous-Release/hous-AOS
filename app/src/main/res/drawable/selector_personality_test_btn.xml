@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@drawable/shape_g_1_fill_8_rect" android:state_selected="false" />
-    <item android:drawable="@drawable/shape_red_b_1_fill_8_rect" android:state_selected="true" />
+    <item android:drawable="@drawable/shape_blue_edit_fill_8_rect" android:state_selected="true" />
 </selector>
