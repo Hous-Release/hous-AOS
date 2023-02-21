@@ -24,6 +24,7 @@ import hous.release.android.util.HousLogEvent.clickDateLogEvent
 import hous.release.android.util.HousLogEvent.clickLogEvent
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.extension.repeatOnStarted
+import hous.release.android.util.extension.setOnSingleClickListener
 import hous.release.domain.entity.PersonalityInfo
 
 @AndroidEntryPoint
@@ -73,13 +74,13 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
     }
 
     private fun initNotificationOnClickListener() {
-        binding.btnProfileNotification.setOnClickListener {
+        binding.btnProfileNotification.setOnSingleClickListener {
             startActivity(Intent(requireContext(), NotificationActivity::class.java))
         }
     }
 
     private fun initPersonalityOnClickListener() {
-        binding.llProfilePersonalityDetail.setOnClickListener {
+        binding.llProfilePersonalityDetail.setOnSingleClickListener {
             clickDateLogEvent(CLICK_MY_PERSONALITY)
             startActivity(
                 Intent(requireActivity(), PersonalityResultActivity::class.java).apply {
@@ -94,7 +95,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
     }
 
     private fun initSettingOnClickListener() {
-        binding.btnProfileSetting.setOnClickListener {
+        binding.btnProfileSetting.setOnSingleClickListener {
             startActivity(
                 Intent(requireContext(), SettingsActivity::class.java).apply {
                     putExtra(SettingsActivity.HAS_ROOM, true)
@@ -104,17 +105,17 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
     }
 
     private fun initBadgeOnClickListener() {
-        binding.ivProfileBadge.setOnClickListener {
+        binding.ivProfileBadge.setOnSingleClickListener {
             startActivity(Intent(requireContext(), BadgeActivity::class.java))
         }
 
-        binding.tvProfileBadgeEmpty.setOnClickListener {
+        binding.tvProfileBadgeEmpty.setOnSingleClickListener {
             startActivity(Intent(requireContext(), BadgeActivity::class.java))
         }
     }
 
     private fun initEditOnClickListener() {
-        binding.btnProfileEdit.setOnClickListener {
+        binding.btnProfileEdit.setOnSingleClickListener {
             startActivity(
                 Intent(requireContext(), ProfileEditActivity::class.java).apply {
                     with(profileViewModel.uiState.value.profile) {
@@ -141,7 +142,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
     }
 
     private fun initTestBtnOnClickListener() {
-        binding.btnProfileTestAgain.setOnClickListener {
+        binding.btnProfileTestAgain.setOnSingleClickListener {
             if (profileViewModel.uiState.value.isTest) clickLogEvent(CLICK_RE_TEST)
             startActivity(Intent(requireContext(), PersonalityActivity::class.java))
         }

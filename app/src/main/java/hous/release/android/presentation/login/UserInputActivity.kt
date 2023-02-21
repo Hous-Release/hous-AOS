@@ -17,6 +17,7 @@ import hous.release.android.util.dialog.DatePickerClickListener
 import hous.release.android.util.dialog.DatePickerDialog
 import hous.release.android.util.dialog.WarningDialogFragment.Companion.CONFIRM_ACTION
 import hous.release.android.util.extension.repeatOnStarted
+import hous.release.android.util.extension.setOnSingleClickListener
 import kotlin.system.exitProcess
 
 @AndroidEntryPoint
@@ -76,7 +77,7 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
     }
 
     private fun initBirthdayOnClickListener() {
-        binding.etUserInputBirthday.setOnClickListener {
+        binding.etUserInputBirthday.setOnSingleClickListener {
             DatePickerDialog().apply {
                 arguments = Bundle().apply {
                     putParcelable(

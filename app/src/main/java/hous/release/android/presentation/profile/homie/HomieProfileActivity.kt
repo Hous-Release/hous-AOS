@@ -18,6 +18,7 @@ import hous.release.android.util.HousLogEvent.clickDateLogEvent
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.component.HousPersonalityPentagon
 import hous.release.android.util.extension.repeatOnStarted
+import hous.release.android.util.extension.setOnSingleClickListener
 import hous.release.android.util.style.HousTheme
 
 @AndroidEntryPoint
@@ -47,7 +48,7 @@ class HomieProfileActivity :
     }
 
     private fun initHomiePersonalityOnClickListener() {
-        binding.llHomieProfilePersonalityDetail.setOnClickListener {
+        binding.llHomieProfilePersonalityDetail.setOnSingleClickListener {
             if (intent.getIntExtra(HOMIE_POSITION, DEFAULT) == MY) {
                 clickDateLogEvent(CLICK_MY_PERSONALITY)
             }

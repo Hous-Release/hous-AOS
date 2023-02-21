@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:background="@drawable/shape_white_fill_8_rect">
+    android:background="@drawable/shape_white_fill_8_rect">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_date_picker_horizental"
@@ -27,6 +26,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:text="@string/user_input_birthday"
+        android:textColor="@color/hous_black"
         android:theme="@style/H4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,6 +37,7 @@
         android:layout_height="0dp"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
+        android:descendantFocusability="blocksDescendants"
         android:endYear="2099"
         android:startYear="1900"
         android:theme="@style/PickerTheme"

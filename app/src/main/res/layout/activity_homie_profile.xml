@@ -38,7 +38,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@null"
                     android:padding="14dp"
-                    android:src="@drawable/ic_back_g5"
+                    android:src="@drawable/ic_back_g6"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
