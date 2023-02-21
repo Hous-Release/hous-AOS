@@ -44,12 +44,6 @@ android {
 
         buildConfigField(
             "String",
-            "HOST_URI",
-            properties.getProperty("HOST_URI")
-        )
-
-        buildConfigField(
-            "String",
             "KAKAO_NATIVE_APP_KEY",
             properties.getProperty("KAKAO_NATIVE_APP_KEY")
         )
@@ -71,6 +65,18 @@ android {
                 "proguard-rules.pro"
             )
             signingConfig = signingConfigs.getByName("release")
+            buildConfigField(
+                "String",
+                "HOST_URI",
+                properties.getProperty("HOST_RELEASE_URI")
+            )
+        }
+        getByName("debug") {
+            buildConfigField(
+                "String",
+                "HOST_URI",
+                properties.getProperty("HOST_URI")
+            )
         }
     }
 
