@@ -16,8 +16,8 @@ class OurRulesDataSource @Inject constructor(private val ourRulesService: OurRul
     suspend fun getOurRulesContent(): BaseResponse<OurRulesResponse> =
         ourRulesService.getOurRuleContent()
 
-    suspend fun postAddedRuleContent(addedRules: List<String>): NoDataResponse =
-        ourRulesService.postAddedRuleContent(AddRulesRequest(addedRules = addedRules))
+    suspend fun postAddedRuleContent(addedRules: List<String>): Result<NoDataResponse> =
+        runCatching { ourRulesService.postAddedRuleContent(AddRulesRequest(addedRules = addedRules)) }
 
     suspend fun putEditedRuleContent(editedRules: List<OurRule>): NoDataResponse =
         ourRulesService.putEditedRuleContent(

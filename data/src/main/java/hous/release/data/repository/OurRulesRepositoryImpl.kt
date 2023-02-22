@@ -33,18 +33,13 @@ class OurRulesRepositoryImpl @Inject constructor(
         }
     }.flowOn(ioDispatcher)
 
-    override fun postAddedRule(addedRuleList: List<String>): Flow<ApiResult<String>> = flow {
-        val response = ourRulesDataSource.postAddedRuleContent(addedRuleList)
-        if (response.success) {
-            emit(ApiResult.Success(response.message))
-        } else {
-            emit(ApiResult.Error(response.message))
-        }
-    }.catch { e ->
-        if (e is HttpException) {
-            emit(ApiResult.Error(e.message))
-        }
-    }.flowOn(ioDispatcher)
+    override suspend fun postAddedRule(addedRuleList: List<String>): Int {
+        var code: Int = -999
+        ourRulesDataSource.postAddedRuleContent(addedRuleList)
+            .onSuccess { code = it.status }
+            .onFailure { if (it is HttpException) code = it.code() }
+        return code
+    }
 
     override fun putEditedRuleContent(editedRuleList: List<OurRule>): Flow<ApiResult<String>> =
         flow {
