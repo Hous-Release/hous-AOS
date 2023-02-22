@@ -8,8 +8,11 @@ import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.response.OurRule
 import hous.release.domain.usecase.GetOurRulesUseCase
 import hous.release.domain.usecase.PostAddRulesUseCase
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -20,28 +23,27 @@ import javax.inject.Inject
 class OurRuleAddViewModel @Inject constructor(
     private val ourRulesUseCase: GetOurRulesUseCase,
     private val postAddRulesUseCase: PostAddRulesUseCase
-) :
-    ViewModel() {
+) : ViewModel() {
     private var tmpId = -1
     var inputRuleNameField = MutableStateFlow<String>("")
     private var _uiState = MutableStateFlow(OurRuleAddUIState())
     val uiState: StateFlow<OurRuleAddUIState> = _uiState.asStateFlow()
+    private val _uiEvent = MutableSharedFlow<OurRuleAddEvent>()
+    val uiEvent: SharedFlow<OurRuleAddEvent> = _uiEvent.asSharedFlow()
 
     init {
         viewModelScope.launch {
             ourRulesUseCase().collect { apiResult ->
                 when (apiResult) {
-                    is ApiResult.Success ->
-                        _uiState.update { uiState ->
-                            uiState.copy(isLoading = false, ourRuleList = apiResult.data)
-                        }
+                    is ApiResult.Success -> _uiState.update { uiState ->
+                        uiState.copy(isLoading = false, ourRuleList = apiResult.data)
+                    }
                     is ApiResult.Empty -> {
                         _uiState.update { uiState ->
                             uiState.copy(isEmpty = true, isLoading = false)
                         }
                     }
                     is ApiResult.Error -> {
-                        // TODO ERROR 뷰 나오면 ERROR 로직 처리해주기
                         _uiState.update { uiState ->
                             uiState.copy(isError = true, isLoading = false)
                         }
@@ -54,6 +56,7 @@ class OurRuleAddViewModel @Inject constructor(
     private fun initInputRuleNameField() {
         inputRuleNameField.value = ""
     }
+
     fun isActiveSaveButton() = (uiState.value.saveButtonState == ButtonState.ACTIVE)
 
     fun setSaveButtonState(saveButtonState: ButtonState) {
@@ -64,40 +67,46 @@ class OurRuleAddViewModel @Inject constructor(
 
     fun addRule() {
         if (inputRuleNameField.value.isNotBlank()) {
-            _uiState.value =
-                uiState.value.copy(
-                    ourRuleList = _uiState.value.ourRuleList + listOf(
-                        OurRule(
-                            tmpId--,
-                            inputRuleNameField.value
-                        )
-                    ),
-                    addedRuleList = _uiState.value.addedRuleList + listOf(
+            _uiState.value = uiState.value.copy(
+                ourRuleList = _uiState.value.ourRuleList + listOf(
+                    OurRule(
+                        tmpId--,
                         inputRuleNameField.value
                     )
+                ),
+                addedRuleList = _uiState.value.addedRuleList + listOf(
+                    inputRuleNameField.value
                 )
+            )
             initInputRuleNameField()
         }
     }
 
-    fun putAddRuleList() =
-        viewModelScope.launch {
-            postAddRulesUseCase(uiState.value.addedRuleList)
-                .collect { apiResult ->
-                    when (apiResult) {
-                        is ApiResult.Success -> Timber.i(apiResult.data)
-                        is ApiResult.Error -> Timber.e(apiResult.msg)
-                        is ApiResult.Empty -> Timber.e("IllegalArgument Exception")
-                    }
-                }
+    fun addRuleList() = viewModelScope.launch {
+        when (val responseCode = postAddRulesUseCase(uiState.value.addedRuleList)) {
+            SUCCEES_CODE -> _uiEvent.emit(OurRuleAddEvent.AddSuccess)
+            DUPLICATE_ERROR_CODE -> _uiEvent.emit(OurRuleAddEvent.DuplicateError)
+            else -> Timber.d("Error $responseCode")
         }
+    }
 
     data class OurRuleAddUIState(
         val ourRuleList: List<OurRule> = emptyList(),
         val addedRuleList: List<String> = emptyList(),
         val isError: Boolean = false,
+        val isDuplicate: Boolean = false,
         val isEmpty: Boolean = false,
         val isLoading: Boolean = true,
         val saveButtonState: ButtonState = ButtonState.INACTIVE
     )
+
+    companion object {
+        private const val SUCCEES_CODE = 201
+        private const val DUPLICATE_ERROR_CODE = 409
+    }
+}
+
+sealed class OurRuleAddEvent {
+    object DuplicateError : OurRuleAddEvent()
+    object AddSuccess : OurRuleAddEvent()
 }

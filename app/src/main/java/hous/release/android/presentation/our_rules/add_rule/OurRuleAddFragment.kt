@@ -13,6 +13,7 @@ import hous.release.android.databinding.FragmentOurRuleAddBinding
 import hous.release.android.presentation.our_rules.adapter.OurRulesAddAdapter
 import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.android.util.KeyBoardUtil
+import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.LoadingDialogFragment
@@ -40,6 +41,7 @@ class OurRuleAddFragment :
         collectUiState()
     }
 
+    // // {"status":409,"success":false,"message":"이미 존재하는 규칙입니다."}
     override fun onDestroyView() {
         super.onDestroyView()
         onBackPressedCallback.remove()
@@ -66,6 +68,9 @@ class OurRuleAddFragment :
                     viewModel.setSaveButtonState(ButtonState.INACTIVE)
                 }
             }
+        }
+        repeatOnStarted {
+            viewModel.uiEvent.collect(::handleUiEvent)
         }
     }
 
@@ -94,9 +99,8 @@ class OurRuleAddFragment :
             viewLifecycleOwner.lifecycleScope.launch {
                 val loadingDialogFragment = LoadingDialogFragment()
                 loadingDialogFragment.show(childFragmentManager, LoadingDialogFragment.TAG)
-                viewModel.putAddRuleList().join()
+                viewModel.addRuleList().join()
                 loadingDialogFragment.dismiss()
-                findNavController().popBackStack()
             }
         }
     }
@@ -130,6 +134,20 @@ class OurRuleAddFragment :
                 ConfirmClickListener(confirmAction = { findNavController().popBackStack() })
             )
         }.show(childFragmentManager, WarningDialogFragment.DIALOG_WARNING)
+    }
+
+    private fun handleUiEvent(uiEvent: OurRuleAddEvent) {
+        when (uiEvent) {
+            is OurRuleAddEvent.DuplicateError -> {
+                ToastMessageUtil.showToast(
+                    requireContext(),
+                    getString(R.string.our_rule_duplicate_rule)
+                )
+            }
+            is OurRuleAddEvent.AddSuccess -> {
+                findNavController().popBackStack()
+            }
+        }
     }
 
     companion object {
