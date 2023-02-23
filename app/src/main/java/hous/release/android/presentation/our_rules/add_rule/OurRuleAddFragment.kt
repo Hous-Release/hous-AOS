@@ -38,7 +38,7 @@ class OurRuleAddFragment :
         initSaveButtonListener()
         initAddRuleButtonListener()
         initAdapter()
-        collectUiState()
+        collectUiStateAndUiEvent()
     }
 
     // // {"status":409,"success":false,"message":"이미 존재하는 규칙입니다."}
@@ -56,21 +56,37 @@ class OurRuleAddFragment :
 
     private fun hideKeyBoard() = KeyBoardUtil.hide(requireActivity())
 
-    private fun collectUiState() {
+    private fun collectUiStateAndUiEvent() {
         repeatOnStarted {
-            viewModel.uiState.collect { uiState ->
-                requireNotNull(ourRulesAddAdapter) {
-                    getString(R.string.null_point_exception)
-                }.submitList(uiState.ourRuleList)
-                if (viewModel.uiState.value.addedRuleList.isNotEmpty()) {
-                    viewModel.setSaveButtonState(ButtonState.ACTIVE)
-                } else {
-                    viewModel.setSaveButtonState(ButtonState.INACTIVE)
-                }
-            }
+            viewModel.uiState.collect(::handelUiState)
         }
         repeatOnStarted {
             viewModel.uiEvent.collect(::handleUiEvent)
+        }
+    }
+
+    private fun handelUiState(uiState: OurRuleAddUIState) {
+        requireNotNull(ourRulesAddAdapter) {
+            getString(R.string.null_point_exception)
+        }.submitList(uiState.ourRuleList)
+        if (viewModel.uiState.value.addedRuleList.isNotEmpty()) {
+            viewModel.setSaveButtonState(ButtonState.ACTIVE)
+        } else {
+            viewModel.setSaveButtonState(ButtonState.INACTIVE)
+        }
+    }
+
+    private fun handleUiEvent(uiEvent: OurRuleAddEvent) {
+        when (uiEvent) {
+            is OurRuleAddEvent.DuplicateError -> {
+                ToastMessageUtil.showToast(
+                    requireContext(),
+                    getString(R.string.our_rule_duplicate_rule)
+                )
+            }
+            is OurRuleAddEvent.AddSuccess -> {
+                findNavController().popBackStack()
+            }
         }
     }
 
@@ -134,20 +150,6 @@ class OurRuleAddFragment :
                 ConfirmClickListener(confirmAction = { findNavController().popBackStack() })
             )
         }.show(childFragmentManager, WarningDialogFragment.DIALOG_WARNING)
-    }
-
-    private fun handleUiEvent(uiEvent: OurRuleAddEvent) {
-        when (uiEvent) {
-            is OurRuleAddEvent.DuplicateError -> {
-                ToastMessageUtil.showToast(
-                    requireContext(),
-                    getString(R.string.our_rule_duplicate_rule)
-                )
-            }
-            is OurRuleAddEvent.AddSuccess -> {
-                findNavController().popBackStack()
-            }
-        }
     }
 
     companion object {

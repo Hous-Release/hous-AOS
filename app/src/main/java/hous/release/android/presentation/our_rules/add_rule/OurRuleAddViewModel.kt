@@ -90,21 +90,20 @@ class OurRuleAddViewModel @Inject constructor(
         }
     }
 
-    data class OurRuleAddUIState(
-        val ourRuleList: List<OurRule> = emptyList(),
-        val addedRuleList: List<String> = emptyList(),
-        val isError: Boolean = false,
-        val isDuplicate: Boolean = false,
-        val isEmpty: Boolean = false,
-        val isLoading: Boolean = true,
-        val saveButtonState: ButtonState = ButtonState.INACTIVE
-    )
-
     companion object {
         private const val SUCCEES_CODE = 201
         private const val DUPLICATE_ERROR_CODE = 409
     }
 }
+
+data class OurRuleAddUIState(
+    val ourRuleList: List<OurRule> = emptyList(),
+    val addedRuleList: List<String> = emptyList(),
+    val isError: Boolean = false,
+    val isEmpty: Boolean = false,
+    val isLoading: Boolean = true,
+    val saveButtonState: ButtonState = ButtonState.INACTIVE
+)
 
 sealed class OurRuleAddEvent {
     object DuplicateError : OurRuleAddEvent()
