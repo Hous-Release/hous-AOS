@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/shape_blue_fill_16_rect"
+            android:background="@drawable/shape_blue_fill_8_rect"
             android:gravity="center"
             android:onClick="@{()->vm.nextOnClick()}"
             android:paddingVertical="10dp"
