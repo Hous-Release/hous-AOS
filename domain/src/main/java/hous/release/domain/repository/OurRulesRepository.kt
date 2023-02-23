@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface OurRulesRepository {
     fun fetchOurRulesContent(): Flow<ApiResult<List<OurRule>>>
-    fun postAddedRule(addedRuleList: List<String>): Flow<ApiResult<String>>
+    suspend fun postAddedRule(addedRuleList: List<String>): Int
     fun putEditedRuleContent(editedRuleList: List<OurRule>): Flow<ApiResult<String>>
     fun deleteRuleContent(deleteRules: List<Int>): Flow<ApiResult<String>>
 }
