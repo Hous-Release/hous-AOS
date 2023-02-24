@@ -21,12 +21,12 @@ class ProfileViewModel @Inject constructor(
 
     fun getProfile() {
         viewModelScope.launch {
-                    isTest = _uiState.value.profile.personalityColor != HomyType.GRAY,
             getProfileUseCase()
                 .onSuccess { response ->
                     _uiState.value = _uiState.value.copy(
                         profile = response,
                         birthday = response.birthday.substring(5..9),
+                        isTest = response.personalityColor != HomyType.GRAY,
                         isLoadingState = false
                     )
                 }.onFailure { response ->
