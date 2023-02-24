@@ -34,7 +34,7 @@ class HomieProfileActivity :
         initBackBtnOnClickListener()
         initHomiePersonalityOnClickListener()
         initHomiePersonalityAdapter()
-        initUiStateCollect()
+        collectUiState()
     }
 
     private fun initHomieProfile() {
@@ -69,7 +69,7 @@ class HomieProfileActivity :
         profilePersonalityAdapter.submitList(personalityInfo)
     }
 
-    private fun initUiStateCollect() {
+    private fun collectUiState() {
         repeatOnStarted {
             homieProfileViewModel.uiState.collect { uiState ->
                 with(binding.tvHomieProfileIntroduction) {
