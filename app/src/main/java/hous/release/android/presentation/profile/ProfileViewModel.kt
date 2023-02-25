@@ -21,19 +21,20 @@ class ProfileViewModel @Inject constructor(
 
     fun getProfile() {
         viewModelScope.launch {
-            getProfileUseCase().onSuccess { response ->
-                _uiState.value = _uiState.value.copy(
-                    profile = response,
-                    birthday = response.birthday.substring(5..9),
-                    isTest = _uiState.value.profile.personalityColor != HomyType.GRAY,
-                    isLoadingState = false
-                )
-            }.onFailure { response ->
-                Timber.e(response.message)
-                _uiState.value = uiState.value.copy(
-                    isLoadingState = false
-                )
-            }
+            getProfileUseCase()
+                .onSuccess { response ->
+                    _uiState.value = _uiState.value.copy(
+                        profile = response,
+                        birthday = response.birthday.substring(5..9),
+                        isTest = response.personalityColor != HomyType.GRAY,
+                        isLoadingState = false
+                    )
+                }.onFailure { response ->
+                    Timber.e(response.message)
+                    _uiState.value = uiState.value.copy(
+                        isLoadingState = false
+                    )
+                }
         }
     }
 
