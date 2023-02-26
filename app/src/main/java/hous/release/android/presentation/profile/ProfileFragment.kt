@@ -24,6 +24,8 @@ import hous.release.android.util.HousLogEvent.clickDateLogEvent
 import hous.release.android.util.HousLogEvent.clickLogEvent
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.component.HousPersonalityPentagon
+import hous.release.android.util.extension.repeatOnStarted
+import hous.release.android.util.extension.setOnSingleClickListener
 import hous.release.android.util.style.HousTheme
 import hous.release.domain.entity.PersonalityInfo
 
@@ -40,7 +42,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = profileViewModel
-        initProfileInfo()
+        collectUiState()
         initNotificationOnClickListener()
         initSettingOnClickListener()
         initBadgeOnClickListener()
@@ -48,31 +50,63 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
         initTestBtnOnClickListener()
         initPersonalityAdapter()
         initPersonalityOnClickListener()
-        observePersonalityPentagon()
     }
 
-    private fun initPersonalityOnClickListener() {
-        binding.llProfilePersonalityDetail.setOnClickListener {
-            clickDateLogEvent(CLICK_MY_PERSONALITY)
-            val toPersonalityResult =
-                Intent(requireActivity(), PersonalityResultActivity::class.java)
-            toPersonalityResult.putExtra(
-                RESULT_COLOR,
-                profileViewModel.profileData.value!!.personalityColor.name
-            )
-            toPersonalityResult.putExtra(LOCATION, PROFILE)
-            startActivity(toPersonalityResult)
+    private fun collectUiState() {
+        repeatOnStarted {
+            profileViewModel.uiState.collect { uiState ->
+                with(binding) {
+                    if (uiState.profile.introduction.isNullOrEmpty()) {
+                        tvProfileIntroduction.setText(R.string.profile_empty_introduction)
+                        tvProfileIntroduction.setTextColor(
+                            ContextCompat.getColor(requireContext(), R.color.hous_g_4)
+                        )
+                    } else {
+                        tvProfileIntroduction.text = uiState.profile.introduction
+                        tvProfileIntroduction.setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.hous_g_6
+                            )
+                        )
+                    }
+                }
+
+                binding.cvProfilePersonalityPentagon.setContent {
+                    HousTheme {
+                        HousPersonalityPentagon(
+                            testScore = uiState.profile.testScore,
+                            homyType = uiState.profile.personalityColor
+                        )
+                    }
+                }
+            }
         }
     }
 
     private fun initNotificationOnClickListener() {
-        binding.btnProfileNotification.setOnClickListener {
+        binding.btnProfileNotification.setOnSingleClickListener {
             startActivity(Intent(requireContext(), NotificationActivity::class.java))
         }
     }
 
+    private fun initPersonalityOnClickListener() {
+        binding.llProfilePersonalityDetail.setOnSingleClickListener {
+            clickDateLogEvent(CLICK_MY_PERSONALITY)
+            startActivity(
+                Intent(requireActivity(), PersonalityResultActivity::class.java).apply {
+                    putExtra(
+                        RESULT_COLOR,
+                        profileViewModel.uiState.value.profile.personalityColor.name
+                    )
+                    putExtra(LOCATION, PROFILE)
+                }
+            )
+        }
+    }
+
     private fun initSettingOnClickListener() {
-        binding.btnProfileSetting.setOnClickListener {
+        binding.btnProfileSetting.setOnSingleClickListener {
             startActivity(
                 Intent(requireContext(), SettingsActivity::class.java).apply {
                     putExtra(SettingsActivity.HAS_ROOM, true)
@@ -82,37 +116,34 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
     }
 
     private fun initBadgeOnClickListener() {
-        binding.ivProfileBadge.setOnClickListener {
+        binding.ivProfileBadge.setOnSingleClickListener {
             startActivity(Intent(requireContext(), BadgeActivity::class.java))
         }
 
-        binding.tvProfileBadgeEmpty.setOnClickListener {
+        binding.tvProfileBadgeEmpty.setOnSingleClickListener {
             startActivity(Intent(requireContext(), BadgeActivity::class.java))
         }
     }
 
     private fun initEditOnClickListener() {
-        binding.btnProfileEdit.setOnClickListener {
-            val toProfileEdit = Intent(requireContext(), ProfileEditActivity::class.java)
-            toProfileEdit.putExtra(
-                PROFILE,
-                ProfileEntity(
-                    profileViewModel.profileData.value!!.nickname,
-                    profileViewModel.profileData.value!!.birthday,
-                    profileViewModel.profileData.value!!.birthdayPublic,
-                    profileViewModel.profileData.value!!.mbti,
-                    profileViewModel.profileData.value!!.job,
-                    profileViewModel.profileData.value!!.introduction
-                )
+        binding.btnProfileEdit.setOnSingleClickListener {
+            startActivity(
+                Intent(requireContext(), ProfileEditActivity::class.java).apply {
+                    with(profileViewModel.uiState.value.profile) {
+                        putExtra(
+                            PROFILE,
+                            ProfileEntity(
+                                nickname,
+                                birthday,
+                                birthdayPublic,
+                                mbti,
+                                job,
+                                introduction
+                            )
+                        )
+                    }
+                }
             )
-            startActivity(toProfileEdit)
-        }
-    }
-
-    private fun initTestBtnOnClickListener() {
-        binding.btnProfileTestAgain.setOnClickListener {
-            if (profileViewModel.isTest.value == true) clickLogEvent(CLICK_RE_TEST)
-            startActivity(Intent(requireContext(), PersonalityActivity::class.java))
         }
     }
 
@@ -121,43 +152,10 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
         profilePersonalityAdapter.submitList(personalityInfo)
     }
 
-    private fun initProfileInfo() {
-        profileViewModel.profileData.observe(viewLifecycleOwner) { profile ->
-            binding.tvProfileBirthday.text = profile.birthday.substring(5..9)
-            if (profile.introduction.isNullOrEmpty()) {
-                with(binding) {
-                    tvProfileIntroduction.setText(R.string.profile_empty_introduction)
-                    tvProfileIntroduction.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.hous_g_4
-                        )
-                    )
-                }
-            } else {
-                with(binding) {
-                    tvProfileIntroduction.text = profile.introduction
-                    tvProfileIntroduction.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.hous_g_6
-                        )
-                    )
-                }
-            }
-        }
-    }
-
-    private fun observePersonalityPentagon() {
-        profileViewModel.profileData.observe(viewLifecycleOwner) { profile ->
-            binding.cvProfilePersonalityPentagon.setContent {
-                HousTheme {
-                    HousPersonalityPentagon(
-                        testScore = profile.testScore,
-                        homyType = profile.personalityColor
-                    )
-                }
-            }
+    private fun initTestBtnOnClickListener() {
+        binding.btnProfileTestAgain.setOnSingleClickListener {
+            if (profileViewModel.uiState.value.isTest) clickLogEvent(CLICK_RE_TEST)
+            startActivity(Intent(requireContext(), PersonalityActivity::class.java))
         }
     }
 

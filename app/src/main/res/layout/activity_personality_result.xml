@@ -27,7 +27,7 @@
             android:background="@null"
             android:padding="10dp"
             android:src="@drawable/ic_back_g5"
-            android:visibility="@{vm.fromTestResult ? View.INVISIBLE : View.VISIBLE}"
+            android:visibility="@{vm.uiState.fromTestResult ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,7 +39,7 @@
             android:text="@string/personality_result_info"
             android:textColor="@color/hous_black"
             android:theme="@style/B1"
-            android:visibility="@{vm.fromTestResult ? View.INVISIBLE : View.VISIBLE}"
+            android:visibility="@{vm.uiState.fromTestResult ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@id/btn_personality_result_back"
             app:layout_constraintStart_toEndOf="@id/btn_personality_result_back"
             app:layout_constraintTop_toTopOf="@id/btn_personality_result_back" />
@@ -53,7 +53,7 @@
             android:text="@string/personality_result_detail"
             android:textColor="@color/hous_black"
             android:theme="@style/B1"
-            android:visibility="@{vm.fromTestResult ? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="@{vm.uiState.fromTestResult ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,7 +67,7 @@
             android:text="@string/personality_result_complete"
             android:textColor="@color/hous_blue"
             android:theme="@style/B1"
-            android:visibility="@{vm.fromTestResult ? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="@{vm.uiState.fromTestResult ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,10 +85,10 @@
 
                 <TextView
                     android:id="@+id/tv_personality_result_name"
-                    personalityResultColor="@{vm.resultData.color.name()}"
+                    personalityResultColor="@{vm.uiState.personalityResult.color.name()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{vm.resultData.name}"
+                    android:text="@{vm.uiState.personalityResult.name}"
                     android:theme="@style/H2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -107,11 +107,11 @@
 
                 <TextView
                     android:id="@+id/tv_personality_result_title"
-                    personalityResultColor="@{vm.resultData.color.name()}"
+                    personalityResultColor="@{vm.uiState.personalityResult.color.name()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="26dp"
-                    android:text="@{vm.resultData.title}"
+                    android:text="@{vm.uiState.personalityResult.title}"
                     android:theme="@style/H4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:text="@{vm.description}"
+                    android:text="@{vm.uiState.personalityResult.description}"
                     android:textColor="@color/hous_g_7"
                     android:theme="@style/B2"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -135,11 +135,11 @@
 
                 <TextView
                     android:id="@+id/tv_personality_result_recommend_title"
-                    personalityResultColor="@{vm.resultData.color.name()}"
+                    personalityResultColor="@{vm.uiState.personalityResult.color.name()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="@{vm.resultData.recommendTitle}"
+                    android:text="@{vm.uiState.personalityResult.recommendTitle}"
                     android:theme="@style/H4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -149,7 +149,7 @@
 
                 <ImageView
                     android:id="@+id/iv_personality_result_check1"
-                    personalityResultIcon="@{vm.resultData.color.name()}"
+                    personalityResultIcon="@{vm.uiState.personalityResult.color.name()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -165,7 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="@{vm.resultData.recommendTodo[0]}"
+                    android:text="@{vm.uiState.personalityResult.recommendTodo[0]}"
                     android:textColor="@color/hous_g_7"
                     android:theme="@style/B2"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -175,7 +175,7 @@
 
                 <ImageView
                     android:id="@+id/iv_personality_result_check2"
-                    personalityResultIcon="@{vm.resultData.color.name()}"
+                    personalityResultIcon="@{vm.uiState.personalityResult.color.name()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -191,7 +191,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:text="@{vm.resultData.recommendTodo[1]}"
+                    android:text="@{vm.uiState.personalityResult.recommendTodo[1]}"
                     android:textColor="@color/hous_g_7"
                     android:theme="@style/B2"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -233,7 +233,7 @@
                         android:id="@+id/tv_personality_result_bad_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{vm.resultData.badPersonalityName}"
+                        android:text="@{vm.uiState.personalityResult.badPersonalityName}"
                         android:textColor="@color/hous_black"
                         android:theme="@style/B2"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -243,7 +243,7 @@
 
                     <ImageView
                         android:id="@+id/iv_personality_result_bad"
-                        setImage="@{vm.resultData.badPersonalityImageUrl}"
+                        setImage="@{vm.uiState.personalityResult.badPersonalityImageUrl}"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginHorizontal="18dp"
@@ -290,7 +290,7 @@
                         android:id="@+id/tv_personality_result_good_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{vm.resultData.goodPersonalityName}"
+                        android:text="@{vm.uiState.personalityResult.goodPersonalityName}"
                         android:textColor="@color/hous_black"
                         android:theme="@style/B2"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -300,7 +300,7 @@
 
                     <ImageView
                         android:id="@+id/iv_personality_result_good"
-                        setImage="@{vm.resultData.goodPersonalityImageUrl}"
+                        setImage="@{vm.uiState.personalityResult.goodPersonalityImageUrl}"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginHorizontal="18dp"
@@ -313,12 +313,7 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_personality_result_good_name"
                         tools:src="@drawable/ic_tutorial_1" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </ScrollView>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

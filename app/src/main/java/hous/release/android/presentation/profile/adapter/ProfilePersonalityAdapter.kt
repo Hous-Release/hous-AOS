@@ -10,7 +10,7 @@ import hous.release.domain.entity.PersonalityInfo
 
 class ProfilePersonalityAdapter :
     ListAdapter<PersonalityInfo, ProfilePersonalityAdapter.PersonalityViewHolder>(
-        personalityDiffCallBack
+        personalityDiffCallback
     ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonalityViewHolder {
         val binding =
@@ -36,7 +36,7 @@ class ProfilePersonalityAdapter :
     }
 
     companion object {
-        private val personalityDiffCallBack = ItemDiffCallback<PersonalityInfo>(
+        private val personalityDiffCallback = ItemDiffCallback<PersonalityInfo>(
             onItemsTheSame = { old, new -> old.type == new.type },
             onContentsTheSame = { old, new -> old == new }
         )

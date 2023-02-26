@@ -45,7 +45,7 @@
             android:layout_height="0dp"
             android:layout_gravity="center"
             android:clickable="false"
-            android:visibility="@{vm.showNextBtn?View.INVISIBLE:View.VISIBLE}"
+            android:visibility="@{vm.isNextBtn?View.INVISIBLE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@id/tv_tutorial_next"
             app:layout_constraintTop_toTopOf="@id/tv_tutorial_next"
             app:tabBackground="@drawable/selector_tutorial_index"
@@ -59,14 +59,14 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/shape_blue_fill_16_rect"
+            android:background="@drawable/shape_blue_fill_8_rect"
             android:gravity="center"
             android:onClick="@{()->vm.nextOnClick()}"
             android:paddingVertical="10dp"
             android:text="@string/user_input_next"
             android:textColor="@color/hous_white"
             android:theme="@style/B1"
-            android:visibility="@{vm.showNextBtn?View.VISIBLE:View.INVISIBLE}"
+            android:visibility="@{vm.isNextBtn?View.VISIBLE:View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

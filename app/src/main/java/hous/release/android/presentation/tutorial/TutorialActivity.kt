@@ -13,13 +13,15 @@ import hous.release.android.presentation.login.LoginActivity
 import hous.release.android.presentation.tutorial.adapter.TutorialAdapter
 import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingActivity
+import hous.release.android.util.extension.repeatOnStarted
 import hous.release.domain.entity.TutorialEntity
 import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activity_tutorial) {
-    private lateinit var tutorialAdapter: TutorialAdapter
     private val tutorialViewModel: TutorialViewModel by viewModels()
+    private val tutorialAdapter: TutorialAdapter?
+        get() = binding.vpTutorial.adapter as? TutorialAdapter
     private var onBackPressedTime = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,9 +50,11 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
     }
 
     private fun observeTutorialState() {
-        tutorialViewModel.isTutorialState.observe(this) { skip ->
-            if (skip) {
-                intentToLogin()
+        repeatOnStarted {
+            tutorialViewModel.isTutorialState.collect { skip ->
+                if (skip) {
+                    intentToLogin()
+                }
             }
         }
     }
@@ -62,9 +66,11 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
     }
 
     private fun initAdapter() {
-        tutorialAdapter = TutorialAdapter()
-        tutorialAdapter.submitList(tutorialList)
+        if (binding.vpTutorial.adapter == null) {
+            binding.vpTutorial.adapter = TutorialAdapter()
+        }
         binding.vpTutorial.adapter = tutorialAdapter
+        tutorialAdapter?.submitList(tutorialList)
         binding.vpTutorial.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
         TabLayoutMediator(binding.tlTutorialDot, binding.vpTutorial) { tab, _ ->
@@ -74,7 +80,7 @@ class TutorialActivity : BindingActivity<ActivityTutorialBinding>(R.layout.activ
         binding.vpTutorial.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                tutorialViewModel.showNextBtn.value = position == 3
+                tutorialViewModel.isNextBtn.value = position == 3
             }
         })
     }

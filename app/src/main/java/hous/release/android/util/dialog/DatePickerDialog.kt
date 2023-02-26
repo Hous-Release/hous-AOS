@@ -1,16 +1,16 @@
 package hous.release.android.util.dialog
 
-import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import hous.release.android.R
 import hous.release.android.databinding.DialogDatePickerBinding
 import hous.release.android.util.dialog.WarningDialogFragment.Companion.CONFIRM_ACTION
 import hous.release.android.util.extension.initLayout
 import timber.log.Timber
-import java.util.*
+import java.util.Calendar
 
 class DatePickerDialog : DialogFragment() {
     private var _binding: DialogDatePickerBinding? = null
@@ -18,11 +18,15 @@ class DatePickerDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = DialogDatePickerBinding.inflate(requireActivity().layoutInflater)
-        initDatePicker()
         initConfirmTextClickListener()
         initCancelTextClickListener()
+        initMaxDate()
+        isCancelable = false
         return activity?.let {
-            val dialog = AlertDialog.Builder(it).create()
+            val dialog = MaterialAlertDialogBuilder(
+                requireActivity(),
+                R.style.MaterialAlertDialog_rounded
+            ).create()
             dialog.setView(binding.root)
             dialog
         } ?: throw IllegalStateException()
@@ -33,10 +37,8 @@ class DatePickerDialog : DialogFragment() {
         initLayout()
     }
 
-    private fun initDatePicker() {
-        with(binding.datePickerDialogDatePicker) {
-            maxDate = Calendar.getInstance().timeInMillis
-        }
+    private fun initMaxDate() {
+        binding.datePickerDialogDatePicker.maxDate = Calendar.getInstance().timeInMillis
     }
 
     private fun getYearFormat(year: Int): String = year.toString()
@@ -55,6 +57,7 @@ class DatePickerDialog : DialogFragment() {
                 arguments?.getParcelable<DatePickerClickListener>(CONFIRM_ACTION)
                     ?.onConfirmClick(date)
                     ?: Timber.e(getString(R.string.null_point_exception_warning_dialog_argument))
+                updateDate(year, month, dayOfMonth)
             }
             dismiss()
         }

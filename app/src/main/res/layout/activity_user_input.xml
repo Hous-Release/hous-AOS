@@ -12,6 +12,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_user_input"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.login.UserInputActivity">
@@ -47,6 +48,7 @@
             android:layout_marginTop="20dp"
             android:background="@null"
             android:hint="@string/user_input_nickname_hint"
+            android:imeOptions="actionNext"
             android:inputType="text"
             android:maxLength="3"
             android:paddingVertical="2dp"

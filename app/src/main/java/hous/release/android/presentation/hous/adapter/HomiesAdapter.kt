@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.databinding.ItemHousHomiesBinding
 import hous.release.android.util.ItemDiffCallback
+import hous.release.android.util.extension.setOnSingleClickListener
 import hous.release.domain.entity.response.Homy
 
 class HomiesAdapter(
@@ -18,7 +19,7 @@ class HomiesAdapter(
         fun bind(homy: Homy) {
             binding.homy = homy
             binding.executePendingBindings()
-            binding.clHousProfile.setOnClickListener {
+            binding.clHousProfile.setOnSingleClickListener {
                 onClickHomie(homy, absoluteAdapterPosition)
             }
         }
