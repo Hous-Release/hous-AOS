@@ -60,9 +60,7 @@ object RetrofitModule {
     ): Interceptor = Interceptor { chain ->
         if (!context.isNetworkConnected()) {
             context.startActivity(
-                Intent(
-                    context, NetworkErrorActivity::class.java
-                ).apply {
+                Intent(context, NetworkErrorActivity::class.java).apply {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 }
             )
@@ -71,10 +69,7 @@ object RetrofitModule {
         var response = chain.proceed(
             request
                 .newBuilder()
-                .addHeader(
-                    HEADER_AUTHORIZATION,
-                    BEARER + localPrefTokenDataSource.accessToken
-                )
+                .addHeader(HEADER_AUTHORIZATION, BEARER + localPrefTokenDataSource.accessToken)
                 .addHeader(HEADER_OS_TYPE, OS_TYPE)
                 .addHeader(HEADER_VERSION, BuildConfig.VERSION_NAME)
                 .build()

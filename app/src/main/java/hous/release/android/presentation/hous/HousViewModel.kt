@@ -29,7 +29,7 @@ class HousViewModel @Inject constructor(
                 .onSuccess { response ->
                     _hous.value = response
                     _homies.value = response.homies
-                    Timber.e("${hous.value.homies[0].homieId}")
+                    Timber.d("${hous.value.homies[0].homieId}")
                 }
                 .onFailure { Timber.d(it.message.toString()) }
         }

@@ -14,9 +14,9 @@ import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningType
-import hous.release.android.util.extension.EventObserver
+import hous.release.android.util.extension.repeatOnStarted
+import hous.release.android.util.extension.setOnSingleClickListener
 import hous.release.data.service.KakaoLoginService
-import timber.log.Timber
 import javax.inject.Inject
 import kotlin.system.exitProcess
 
@@ -30,35 +30,35 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initKakaoLoginBtnClickListener()
-        initIsSuccessKakaoLoginObserver()
-        initIsInitUserInfoObserver()
         initBackPressedCallback()
-        initIsJoiningRoomObserve()
-        initIsUserObserve()
-        initIsPermitAccessObserve()
+        collectIsJoiningRoom()
+        collectIsSignedUp()
+        collectIsKakaoLogin()
+        collectIsMiultipleAccess()
     }
 
-    private fun initIsUserObserve() {
-        loginViewModel.isJoiningRoom.observe(this) {
-            if (loginViewModel.isJoiningRoom.value == true) {
-                ToastMessageUtil.showToast(this@LoginActivity, getString(R.string.login_toast))
-                val toMain = Intent(this, MainActivity::class.java)
-                startActivity(toMain)
-                finishAffinity()
-            } else {
-                val toEnterRoom = Intent(this, EnterRoomActivity::class.java)
-                startActivity(toEnterRoom)
-                finishAffinity()
+    private fun collectIsJoiningRoom() {
+        repeatOnStarted {
+            loginViewModel.isJoiningRoom.collect { joiningRoom ->
+                if (joiningRoom) {
+                    ToastMessageUtil.showToast(this@LoginActivity, getString(R.string.login_toast))
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finishAffinity()
+                } else {
+                    startActivity(Intent(this@LoginActivity, EnterRoomActivity::class.java))
+                    finishAffinity()
+                }
             }
         }
     }
 
-    private fun initIsJoiningRoomObserve() {
-        loginViewModel.isUser.observe(this) {
-            if (loginViewModel.isUser.value == false) {
-                val toUserInput = Intent(this, UserInputActivity::class.java)
-                startActivity(toUserInput)
-                finishAffinity()
+    private fun collectIsSignedUp() {
+        repeatOnStarted {
+            loginViewModel.isSignedUp.collect { signedUp ->
+                if (!signedUp) {
+                    startActivity(Intent(this@LoginActivity, UserInputActivity::class.java))
+                    finishAffinity()
+                }
             }
         }
     }
@@ -80,52 +80,38 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun initKakaoLoginBtnClickListener() {
-        binding.btnLoginKakao.setOnClickListener {
-            startKakaoLogin()
+        binding.btnLoginKakao.setOnSingleClickListener {
+            kakaoLoginService.startKakaoLogin(loginViewModel.kakaoLoginCallback)
         }
     }
 
-    private fun startKakaoLogin() {
-        kakaoLoginService.startKakaoLogin(loginViewModel.kakaoLoginCallback)
-    }
-
-    private fun initIsSuccessKakaoLoginObserver() {
-        loginViewModel.isSuccessKakaoLogin.observe(
-            this,
-            EventObserver { isSuccess ->
-                if (isSuccess) {
-                    Timber.e("카카오 로그인 성공")
-                } else {
-                    Timber.e("카카오 로그인 실패")
+    private fun collectIsKakaoLogin() {
+        repeatOnStarted {
+            loginViewModel.isKakaoLogin.collect { success ->
+                if (success) {
+                    loginViewModel.postLogin()
                 }
             }
-        )
+        }
     }
 
-    private fun initIsInitUserInfoObserver() {
-        loginViewModel.isInitUserInfo.observe(
-            this,
-            EventObserver { isSuccess ->
-                if (isSuccess) loginViewModel.postLogin()
-            }
-        )
-    }
-
-    private fun initIsPermitAccessObserve() {
-        loginViewModel.isMultipleAccess.observe(this) { isMultipleAccess ->
-            if (isMultipleAccess == true) {
-                WarningDialogFragment().apply {
-                    arguments = Bundle().apply {
-                        putSerializable(
-                            WarningDialogFragment.WARNING_TYPE,
-                            WarningType.WARNING_SPLASH
-                        )
-                        putParcelable(
-                            WarningDialogFragment.CONFIRM_ACTION,
-                            ConfirmClickListener(confirmAction = { loginViewModel.initIsPermitAccess() })
-                        )
-                    }
-                }.show(supportFragmentManager, WarningDialogFragment.DIALOG_WARNING)
+    private fun collectIsMiultipleAccess() {
+        repeatOnStarted {
+            loginViewModel.isMiultipleAccess.collect { accessLogin ->
+                if (accessLogin) {
+                    WarningDialogFragment().apply {
+                        arguments = Bundle().apply {
+                            putSerializable(
+                                WarningDialogFragment.WARNING_TYPE,
+                                WarningType.WARNING_SPLASH
+                            )
+                            putParcelable(
+                                WarningDialogFragment.CONFIRM_ACTION,
+                                ConfirmClickListener(confirmAction = { loginViewModel.postForceLogin() })
+                            )
+                        }
+                    }.show(supportFragmentManager, WarningDialogFragment.DIALOG_WARNING)
+                }
             }
         }
     }

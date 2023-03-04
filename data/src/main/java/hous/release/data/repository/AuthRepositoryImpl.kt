@@ -11,8 +11,8 @@ import hous.release.domain.entity.Token
 import hous.release.domain.entity.response.Login
 import hous.release.domain.entity.response.SignUp
 import hous.release.domain.repository.AuthRepository
-import javax.inject.Inject
 import timber.log.Timber
+import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val authDataSource: AuthDataSource,
@@ -51,16 +51,6 @@ class AuthRepositoryImpl @Inject constructor(
     override fun initHousToken(token: Token) {
         localPrefTokenDataSource.accessToken = token.accessToken
         localPrefTokenDataSource.refreshToken = token.refreshToken
-    }
-
-    override fun initToken(
-        fcmToken: String,
-        socialType: String,
-        token: String
-    ) {
-        localPrefTokenDataSource.fcmToken = fcmToken
-        localPrefTokenDataSource.socialType = socialType
-        localPrefTokenDataSource.token = token
     }
 
     override fun getFCMToken(setFCMToken: (String) -> Unit) {
