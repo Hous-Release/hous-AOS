@@ -80,9 +80,13 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun initKakaoLoginBtnClickListener() {
-        binding.btnLoginKakao.setOnSingleClickListener {
-            kakaoLoginService.startKakaoLogin(loginViewModel.kakaoLoginCallback)
+        binding.btnLoginKakao.setOnClickListener {
+            startKakaoLogin()
         }
+    }
+
+    private fun startKakaoLogin() {
+        kakaoLoginService.startKakaoLogin(loginViewModel.kakaoLoginCallback)
     }
 
     private fun collectIsKakaoLogin() {
