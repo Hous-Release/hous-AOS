@@ -8,6 +8,7 @@ import hous.release.android.util.KakaoLoginCallback
 import hous.release.domain.entity.SplashState
 import hous.release.domain.usecase.GetFcmTokenUseCase
 import hous.release.domain.usecase.InitHousTokenUseCase
+import hous.release.domain.usecase.InitLoginTokenUseCase
 import hous.release.domain.usecase.PostForceLoginUseCase
 import hous.release.domain.usecase.PostLoginUseCase
 import hous.release.domain.usecase.SetSplashStateUseCase
@@ -25,6 +26,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val postLoginUseCase: PostLoginUseCase,
     private val initHousTokenUseCase: InitHousTokenUseCase,
+    private val initLoginTokenUseCase: InitLoginTokenUseCase,
     private val getFcmTokenUseCase: GetFcmTokenUseCase,
     private val postForceLoginUseCase: PostForceLoginUseCase,
     private val setSplashStateUseCase: SetSplashStateUseCase
@@ -72,6 +74,11 @@ class LoginViewModel @Inject constructor(
                 if (throwable is HttpException) {
                     when (throwable.code()) {
                         NOT_SIGN_UP -> {
+                            initLoginTokenUseCase(
+                                fcmToken = fcmToken.value,
+                                socialType = SOCIAL_TYPE,
+                                token = kakaoToken.value
+                            )
                             _isSignedUp.emit(false)
                             Timber.e(throwable.message)
                         }

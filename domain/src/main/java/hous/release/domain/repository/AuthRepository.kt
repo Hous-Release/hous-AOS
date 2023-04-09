@@ -19,6 +19,8 @@ interface AuthRepository {
         nickname: String
     ): Result<SignUp>
 
+    fun initLoginToken(fcmToken: String, socialType: String, token: String)
+
     fun initHousToken(token: Token)
 
     fun getFCMToken(setFCMToken: (String) -> Unit)

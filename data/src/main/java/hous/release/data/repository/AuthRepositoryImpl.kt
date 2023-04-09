@@ -48,6 +48,16 @@ class AuthRepositoryImpl @Inject constructor(
             )
         }.map { response -> response.data.toSignUp() }
 
+    override fun initLoginToken(
+        fcmToken: String,
+        socialType: String,
+        token: String
+    ) {
+        localPrefTokenDataSource.fcmToken = fcmToken
+        localPrefTokenDataSource.socialType = socialType
+        localPrefTokenDataSource.token = token
+    }
+
     override fun initHousToken(token: Token) {
         localPrefTokenDataSource.accessToken = token.accessToken
         localPrefTokenDataSource.refreshToken = token.refreshToken
