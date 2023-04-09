@@ -15,7 +15,6 @@ import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.repeatOnStarted
-import hous.release.android.util.extension.setOnSingleClickListener
 import hous.release.data.service.KakaoLoginService
 import javax.inject.Inject
 import kotlin.system.exitProcess
@@ -42,11 +41,17 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             loginViewModel.isJoiningRoom.collect { joiningRoom ->
                 if (joiningRoom) {
                     ToastMessageUtil.showToast(this@LoginActivity, getString(R.string.login_toast))
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finishAffinity()
+                    startActivity(
+                        Intent(this, MainActivity::class.java).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        }
+                    )
                 } else {
-                    startActivity(Intent(this@LoginActivity, EnterRoomActivity::class.java))
-                    finishAffinity()
+                    startActivity(
+                        Intent(this@LoginActivity, EnterRoomActivity::class.java).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        }
+                    )
                 }
             }
         }
@@ -56,8 +61,11 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         repeatOnStarted {
             loginViewModel.isSignedUp.collect { signedUp ->
                 if (!signedUp) {
-                    startActivity(Intent(this@LoginActivity, UserInputActivity::class.java))
-                    finishAffinity()
+                    startActivity(
+                        Intent(this@LoginActivity, UserInputActivity::class.java).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        }
+                    )
                 }
             }
         }
