@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/shape_kakao_yellow_fill_8_rect"
             android:gravity="center"
             android:paddingHorizontal="90dp"
@@ -27,6 +27,18 @@
             android:text="@string/login_kakao_login"
             android:textColor="@color/kakao_brown"
             android:theme="@style/B1"
+            app:layout_constraintBottom_toTopOf="@id/tv_login_desc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_login_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:text="@string/login_desc"
+            android:textColor="@color/hous_g_5"
+            android:theme="@style/Description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
