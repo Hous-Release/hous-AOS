@@ -81,8 +81,8 @@
 
     <!-- UserInput -->
     <string name="user_input_user_info">회원 정보 입력</string>
-    <string name="user_input_nickname">닉네임</string>
-    <string name="user_input_nickname_hint">Hous-에서 사용할 이름을 입력해 주세요.</string>
+    <string name="user_input_nickname">이름</string>
+    <string name="user_input_required">*</string>
     <string name="user_input_birthday">생년월일</string>
     <string name="user_input_birthday_hint">YYYY / MM / DD</string>
     <string name="user_input_open_birthday">생일 정보 비공개</string>
