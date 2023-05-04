@@ -23,7 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
 import hous.release.android.presentation.todo.viewmodel.UpdateToDoUiState
-import hous.release.android.util.style.HousTheme
+import hous.release.designsystem.theme.HousTheme
 import kotlinx.coroutines.Job
 
 @Composable

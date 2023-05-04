@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hous.release.android.R
 import hous.release.android.presentation.our_rules.type.ButtonState
-import hous.release.android.util.style.HousTheme
+import hous.release.designsystem.theme.HousTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

@@ -25,7 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
-import hous.release.android.util.style.HousTheme
+import hous.release.designsystem.theme.HousTheme
 
 enum class HomiesPosition {
     START, LEFT, RIGHT, END

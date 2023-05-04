@@ -20,7 +20,7 @@ import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.extension.withArgs
-import hous.release.android.util.style.HousTheme
+import hous.release.designsystem.theme.HousTheme
 
 @AndroidEntryPoint
 class EditToDoFragment : BindingFragment<FragmentEditToDoBinding>(R.layout.fragment_edit_to_do) {

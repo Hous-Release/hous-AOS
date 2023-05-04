@@ -1,4 +1,4 @@
-package hous.release.android.util.style
+package hous.release.designsystem.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable

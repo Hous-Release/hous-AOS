@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("org.jlleitschuh.gradle.ktlint") version ktlintVersion
 }
 
 android {
@@ -31,7 +32,35 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.3.0"
+    }
 }
 
 dependencies {
+    Deps.AndroidX.Compose.run {
+        implementation(activity)
+        implementation(material)
+        implementation(animations)
+        implementation(tool)
+        implementation(viewModel)
+        implementation(mdcTheme)
+        implementation(appCompatTheme)
+    }
+}
+
+ktlint {
+    android.set(true)
+    coloredOutput.set(true)
+    verbose.set(true)
+    outputToConsole.set(true)
+    disabledRules.set(setOf("max-line-length", "no-wildcard-imports", "import-ordering"))
+    reporters {
+        reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
+        reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
+    }
 }

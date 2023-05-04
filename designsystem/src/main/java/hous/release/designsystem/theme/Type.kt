@@ -1,18 +1,19 @@
-package hous.release.android.util.style
+package hous.release.designsystem.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import hous.release.android.util.component.dpToSp
 import hous.release.designsystem.R
 
 private val spoqaHanSansNeo = FontFamily(
@@ -88,58 +89,61 @@ fun HousTypography(): HousTypography {
         h1 = TextStyle(
             fontFamily = spoqaHanSansNeo,
             fontWeight = FontWeight.Bold,
-            fontSize = dpToSp(dp = 28.dp),
+            fontSize = 28.dp.toSp(),
             letterSpacing = (-0.01).sp,
             lineHeight = 36.4.sp
         ),
         h2 = TextStyle(
             fontFamily = spoqaHanSansNeo,
             fontWeight = FontWeight.Bold,
-            fontSize = dpToSp(22.dp),
+            fontSize = 22.dp.toSp(),
             letterSpacing = (-0.01).sp,
             lineHeight = 28.6.sp
         ),
         h3 = TextStyle(
             fontFamily = spoqaHanSansNeo,
             fontWeight = FontWeight.Bold,
-            fontSize = dpToSp(20.dp),
+            fontSize = 20.dp.toSp(),
             letterSpacing = (-0.02).sp,
             lineHeight = 28.sp
         ),
         h4 = TextStyle(
             fontFamily = spoqaHanSansNeo,
             fontWeight = FontWeight.Bold,
-            fontSize = dpToSp(18.dp),
+            fontSize = 18.dp.toSp(),
             letterSpacing = (-0.02).sp,
             lineHeight = 23.4.sp
         ),
         b1 = TextStyle(
             fontFamily = spoqaHanSansNeoMedium,
             fontWeight = FontWeight.Normal,
-            fontSize = dpToSp(16.dp),
+            fontSize = 16.dp.toSp(),
             letterSpacing = (-0.02).sp,
             lineHeight = 24.sp
         ),
         b2 = TextStyle(
             fontFamily = spoqaHanSansNeoMedium,
             fontWeight = FontWeight.Normal,
-            fontSize = dpToSp(14.dp),
+            fontSize = 14.dp.toSp(),
             letterSpacing = (-0.02).sp,
             lineHeight = 21.sp
         ),
         b3 = TextStyle(
             fontFamily = spoqaHanSansNeoMedium,
             fontWeight = FontWeight.Normal,
-            fontSize = dpToSp(13.dp),
+            fontSize = 13.dp.toSp(),
             letterSpacing = (-0.02).sp,
             lineHeight = 19.5.sp
         ),
         description = TextStyle(
             fontFamily = spoqaHanSansNeoMedium,
             fontWeight = FontWeight.Normal,
-            fontSize = dpToSp(12.dp),
+            fontSize = 12.dp.toSp(),
             letterSpacing = (-0.02).sp,
             lineHeight = 15.6.sp
         )
     )
 }
+
+@Composable
+private fun Dp.toSp() = with(LocalDensity.current) { this@toSp.toSp() }
