@@ -12,8 +12,8 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import hous.release.android.R
 import hous.release.android.util.component.dpToSp
+import hous.release.designsystem.R
 
 private val spoqaHanSansNeo = FontFamily(
     Font(
