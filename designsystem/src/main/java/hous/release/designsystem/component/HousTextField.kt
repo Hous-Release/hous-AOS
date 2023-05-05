@@ -46,7 +46,7 @@ import hous.release.designsystem.theme.HousTheme
 
 @Composable
 fun HousBottomLimitedTextField(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     text: String,
     color: Color,
     limitTextCount: Int,
@@ -84,7 +84,7 @@ fun HousBottomLimitedTextField(
 
 @Composable
 fun HousLeftLimitedTextField(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     text: String,
     color: Color,
     limitTextCount: Int,
@@ -126,7 +126,7 @@ fun HousLeftLimitedTextField(
 
 @Composable
 fun HousSearchTextField(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     text: String,
     hint: String,
     localFocusManager: FocusManager = LocalFocusManager.current,
