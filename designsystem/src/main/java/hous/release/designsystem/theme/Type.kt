@@ -32,6 +32,14 @@ private val spoqaHanSansNeoMedium = FontFamily(
     )
 )
 
+private val montserratMedium = FontFamily(
+    Font(
+        R.font.montserrat_medium,
+        FontWeight.W500,
+        FontStyle.Normal
+    )
+)
+
 @Stable
 class HousTypography internal constructor(
     h1: TextStyle,
@@ -41,7 +49,8 @@ class HousTypography internal constructor(
     b1: TextStyle,
     b2: TextStyle,
     b3: TextStyle,
-    description: TextStyle
+    description: TextStyle,
+    en2: TextStyle
 ) {
     var h1: TextStyle by mutableStateOf(h1)
         private set
@@ -59,6 +68,8 @@ class HousTypography internal constructor(
         private set
     var description: TextStyle by mutableStateOf(description)
         private set
+    var en2: TextStyle by mutableStateOf(en2)
+        private set
 
     fun copy(
         h1: TextStyle = this.h1,
@@ -68,8 +79,9 @@ class HousTypography internal constructor(
         b1: TextStyle = this.b1,
         b2: TextStyle = this.b2,
         b3: TextStyle = this.b3,
-        description: TextStyle = this.description
-    ): HousTypography = HousTypography(h1, h2, h3, h4, b1, b2, b3, description)
+        description: TextStyle = this.description,
+        en2: TextStyle = this.en2
+    ): HousTypography = HousTypography(h1, h2, h3, h4, b1, b2, b3, description, en2)
 
     fun update(other: HousTypography) {
         h1 = other.h1
@@ -80,6 +92,7 @@ class HousTypography internal constructor(
         b2 = other.b2
         b3 = other.b3
         description = other.description
+        en2 = other.en2
     }
 }
 
@@ -141,6 +154,12 @@ fun HousTypography(): HousTypography {
             fontSize = 12.dp.toSp(),
             letterSpacing = (-0.02).sp,
             lineHeight = 15.6.sp
+        ),
+        en2 = TextStyle(
+            fontFamily = montserratMedium,
+            fontWeight = FontWeight.Normal,
+            fontSize = 12.dp.toSp(),
+            lineHeight = 18.sp
         )
     )
 }
