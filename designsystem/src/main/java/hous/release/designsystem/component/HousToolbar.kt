@@ -17,14 +17,13 @@ import hous.release.designsystem.theme.HousTheme
 
 @Composable
 fun HousToolbarSlot(
+    modifier: Modifier,
     leadingIcon: @Composable () -> Unit = {},
     title: String = "",
     trailingIcon: @Composable () -> Unit = {}
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 20.dp),
+        modifier = modifier,
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -46,6 +45,9 @@ fun HousToolbarSlot(
 private fun HousToolBarPreview() {
     HousTheme {
         HousToolbarSlot(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 24.dp, top = 20.dp, bottom = 20.dp),
             leadingIcon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_plus),
@@ -68,6 +70,9 @@ private fun HousToolBarPreview() {
 private fun HousToolBarPreview2() {
     HousTheme {
         HousToolbarSlot(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, top = 20.dp, bottom = 20.dp),
             leadingIcon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_plus),
@@ -84,6 +89,9 @@ private fun HousToolBarPreview2() {
 private fun HousToolBarPreview3() {
     HousTheme {
         HousToolbarSlot(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp, top = 20.dp, bottom = 20.dp),
             leadingIcon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_plus),
@@ -105,6 +113,9 @@ private fun HousToolBarPreview3() {
 private fun HousToolBarPreview4() {
     HousTheme {
         HousToolbarSlot(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 24.dp, top = 20.dp, bottom = 20.dp),
             title = "설정",
             trailingIcon = {
                 Icon(
