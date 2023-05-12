@@ -29,11 +29,43 @@ import hous.release.designsystem.theme.HousG7
 import hous.release.designsystem.theme.HousTheme
 
 @Composable
-fun HousEditRule(
-    text: String
+fun HousRuleSlot(
+    modifier: Modifier,
+    text: String,
+    isShowTrailingIcon: Boolean,
+    leadingIcon: @Composable () -> Unit,
+    trailingIcon: @Composable () -> Unit
 ) {
+    Column {
+        Row(
+            modifier = modifier,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            leadingIcon()
+            Text(
+                modifier = Modifier.weight(1f),
+                text = text,
+                color = HousG7,
+                style = HousTheme.typography.b2
+            )
+            if (isShowTrailingIcon) trailingIcon()
+        }
+        Divider(
+            modifier = Modifier.height(1.dp),
+            color = HousG2
+        )
+    }
+}
+
+@Preview(name = "hous edit")
+@Composable
+fun HousEditRulePreview() {
     HousRuleSlot(
-        text = text,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 6.dp, top = 12.dp, bottom = 12.dp),
+        text = "edit",
         isShowTrailingIcon = true,
         leadingIcon = {
             Box(
@@ -55,20 +87,21 @@ fun HousEditRule(
 }
 
 @Composable
-fun HousRule(
-    text: String,
-    isNew: Boolean
-) {
+@Preview(name = "hous rule")
+fun HousRulePreview() {
     HousRuleSlot(
-        text = text,
-        isShowTrailingIcon = isNew,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 6.dp, top = 12.dp, bottom = 12.dp),
+        text = "text",
+        isShowTrailingIcon = false,
         leadingIcon = {
             Box(
                 modifier = Modifier
                     .padding(8.dp)
                     .size(8.dp)
                     .clip(CircleShape)
-                    .background(if (isNew) HousBlueL1 else HousG3)
+                    .background(if (false) HousBlueL1 else HousG3)
             )
         },
         trailingIcon = {
@@ -80,71 +113,4 @@ fun HousRule(
             )
         }
     )
-}
-
-@Composable
-private fun HousRuleSlot(
-    text: String,
-    isShowTrailingIcon: Boolean,
-    leadingIcon: @Composable () -> Unit,
-    trailingIcon: @Composable () -> Unit
-) {
-    Column {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 6.dp, top = 12.dp, bottom = 12.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            leadingIcon()
-            Text(
-                modifier = Modifier.weight(1f),
-                text = text,
-                color = HousG7,
-                style = HousTheme.typography.b2
-            )
-            if (isShowTrailingIcon) trailingIcon()
-        }
-        Divider(
-            modifier = Modifier.height(1.dp),
-            color = HousG2
-        )
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun HousRulePreview() {
-    HousTheme {
-        Column(
-            modifier = Modifier.padding(horizontal = 16.dp)
-        ) {
-            HousRule(
-                text = "하이",
-                isNew = true
-            )
-            HousRule(
-                text = "하이",
-                isNew = false
-            )
-        }
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun HousEditRulePreview() {
-    HousTheme {
-        Column(
-            modifier = Modifier.padding(horizontal = 16.dp)
-        ) {
-            HousEditRule(
-                text = "하이"
-            )
-            HousEditRule(
-                text = "하이"
-            )
-        }
-    }
 }
