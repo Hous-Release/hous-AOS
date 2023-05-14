@@ -1,6 +1,5 @@
 package hous.release.designsystem.constant
 
-
 import androidx.compose.ui.graphics.Color
 import hous.release.designsystem.theme.HousBlue
 import hous.release.designsystem.theme.HousG3

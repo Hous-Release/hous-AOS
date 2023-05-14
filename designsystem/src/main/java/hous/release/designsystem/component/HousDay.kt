@@ -86,6 +86,7 @@ fun DayPreView() {
             dayIdx = 0,
             text = "월",
             isSelected = isSelected,
-            selectTodoDay = { isSelected = !isSelected })
+            selectTodoDay = { isSelected = !isSelected }
+        )
     }
 }
