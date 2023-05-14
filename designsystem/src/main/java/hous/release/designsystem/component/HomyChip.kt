@@ -22,16 +22,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hous.release.designsystem.R
+import hous.release.designsystem.constant.HomyType
 import hous.release.designsystem.theme.HousBlue
 import hous.release.designsystem.theme.HousG1
-import hous.release.designsystem.theme.HousG3
 import hous.release.designsystem.theme.HousG6
-import hous.release.designsystem.theme.HousGreen
-import hous.release.designsystem.theme.HousPurple
-import hous.release.designsystem.theme.HousRed
 import hous.release.designsystem.theme.HousTheme
 import hous.release.designsystem.theme.HousWhite
-import hous.release.designsystem.theme.HousYellow
 
 @Composable
 fun HomyChip(
@@ -60,7 +56,7 @@ fun HomyChip(
             Box(
                 modifier = Modifier
                     .clip(CircleShape)
-                    .background(getHomyColor(homyTypeOrdinal))
+                    .background(HomyType(homyTypeOrdinal).getColor())
                     .size(12.dp)
             )
         }
@@ -77,16 +73,6 @@ fun HomyChip(
         )
     }
 }
-
-private fun getHomyColor(homyTypeOrdinal: Int) =
-    when (homyTypeOrdinal) {
-        0 -> HousYellow
-        1 -> HousRed
-        2 -> HousBlue
-        3 -> HousPurple
-        4 -> HousGreen
-        else -> HousG3
-    }
 
 @Preview(name = "non-click homy chip")
 @Composable
