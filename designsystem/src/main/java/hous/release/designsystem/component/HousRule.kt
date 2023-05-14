@@ -1,6 +1,5 @@
 package hous.release.designsystem.component
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,10 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import hous.release.designsystem.R
 import hous.release.designsystem.theme.HousBlue
 import hous.release.designsystem.theme.HousBlueL1
 import hous.release.designsystem.theme.HousG2
@@ -58,59 +55,64 @@ fun HousRuleSlot(
     }
 }
 
-@Preview(name = "hous edit")
+@Preview(name = "hous edit", showBackground = true)
 @Composable
 fun HousEditRulePreview() {
-    HousRuleSlot(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 6.dp, top = 12.dp, bottom = 12.dp),
-        text = "edit",
-        isShowTrailingIcon = true,
-        leadingIcon = {
-            Box(
-                modifier = Modifier
-                    .padding(8.dp)
-                    .size(8.dp)
-                    .clip(CircleShape)
-                    .background(HousG3)
-            )
-        },
-        trailingIcon = {
-            Image(
-                modifier = Modifier.padding(end = 20.dp),
-                painter = painterResource(id = R.drawable.ic_move),
-                contentDescription = null
-            )
-        }
-    )
+    HousTheme {
+        HousRuleSlot(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 6.dp, top = 12.dp, bottom = 12.dp),
+            text = "text",
+            isShowTrailingIcon = false,
+            leadingIcon = {
+                Box(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .size(8.dp)
+                        .clip(CircleShape)
+                        .background(if (true) HousBlueL1 else HousG3)
+                )
+            },
+            trailingIcon = {
+                Text(
+                    modifier = Modifier.padding(end = 16.dp),
+                    text = "new !",
+                    color = HousBlue,
+                    style = HousTheme.typography.en2
+                )
+            }
+        )
+    }
 }
 
 @Composable
-@Preview(name = "hous rule")
+@Preview(name = "hous rule", showBackground = true)
 fun HousRulePreview() {
-    HousRuleSlot(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 6.dp, top = 12.dp, bottom = 12.dp),
-        text = "text",
-        isShowTrailingIcon = false,
-        leadingIcon = {
-            Box(
-                modifier = Modifier
-                    .padding(8.dp)
-                    .size(8.dp)
-                    .clip(CircleShape)
-                    .background(if (false) HousBlueL1 else HousG3)
-            )
-        },
-        trailingIcon = {
-            Text(
-                modifier = Modifier.padding(end = 16.dp),
-                text = "new !",
-                color = HousBlue,
-                style = HousTheme.typography.en2
-            )
-        }
-    )
+    HousTheme {
+        HousRuleSlot(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 6.dp, top = 12.dp, bottom = 12.dp),
+            text = "text",
+            isShowTrailingIcon = false,
+            leadingIcon = {
+                Box(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .size(8.dp)
+                        .clip(CircleShape)
+                        .background(if (false) HousBlueL1 else HousG3)
+                )
+            },
+            trailingIcon = {
+                Text(
+                    modifier = Modifier.padding(end = 16.dp),
+                    text = "new !",
+                    color = HousBlue,
+                    style = HousTheme.typography.en2
+                )
+            }
+        )
+    }
 }
