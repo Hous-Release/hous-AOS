@@ -16,10 +16,10 @@ import hous.release.android.util.HousLogEvent.CLICK_ADD_TODO
 import hous.release.android.util.HousLogEvent.clickLogEvent
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.component.DailyTab
-import hous.release.android.util.component.HousFloatingButton
+import hous.release.designsystem.component.HousFloatingButton
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.extension.withArgs
-import hous.release.android.util.style.HousTheme
+import hous.release.designsystem.theme.HousTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

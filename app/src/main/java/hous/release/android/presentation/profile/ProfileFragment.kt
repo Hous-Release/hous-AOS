@@ -26,7 +26,7 @@ import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.component.HousPersonalityPentagon
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.extension.setOnSingleClickListener
-import hous.release.android.util.style.HousTheme
+import hous.release.designsystem.theme.HousTheme
 import hous.release.domain.entity.PersonalityInfo
 
 @AndroidEntryPoint

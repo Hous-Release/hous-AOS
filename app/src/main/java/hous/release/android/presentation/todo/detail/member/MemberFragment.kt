@@ -16,7 +16,7 @@ import hous.release.android.presentation.todo.detail.daily.DailyFragment
 import hous.release.android.util.HousLogEvent.CLICK_ADD_TODO
 import hous.release.android.util.HousLogEvent.clickLogEvent
 import hous.release.android.util.binding.BindingFragment
-import hous.release.android.util.component.HousFloatingButton
+import hous.release.designsystem.component.HousFloatingButton
 import hous.release.android.util.component.MemberTodoTap
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.extension.withArgs

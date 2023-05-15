@@ -39,12 +39,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
-import hous.release.android.util.style.HousTheme
+import hous.release.designsystem.theme.HousTheme
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.TestScore
+import kotlinx.coroutines.delay
 import kotlin.math.cos
 import kotlin.math.sin
-import kotlinx.coroutines.delay
 
 @Preview(showBackground = true)
 @Composable

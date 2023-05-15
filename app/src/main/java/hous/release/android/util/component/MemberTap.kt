@@ -24,7 +24,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
-import hous.release.android.util.style.HousTheme
+import hous.release.designsystem.theme.HousTheme
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.MemberTodoContent
 

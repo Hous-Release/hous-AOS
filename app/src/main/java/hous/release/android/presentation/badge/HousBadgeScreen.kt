@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import hous.release.android.R
 import hous.release.android.util.component.HousBadge
-import hous.release.android.util.style.HousTheme
+import hous.release.designsystem.theme.HousTheme
 import hous.release.domain.entity.Badge
 
 @Composable

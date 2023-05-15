@@ -8,7 +8,7 @@ import hous.release.android.databinding.ActivityPersonalityResultBinding
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.component.PersonalityResultImage
 import hous.release.android.util.extension.repeatOnStarted
-import hous.release.android.util.style.HousTheme
+import hous.release.designsystem.theme.HousTheme
 
 @AndroidEntryPoint
 class PersonalityResultActivity :

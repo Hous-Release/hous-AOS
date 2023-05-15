@@ -9,7 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.presentation.badge.BadgeViewModel.Companion.NON_SELECTED
 import hous.release.android.util.HousLogEvent
 import hous.release.android.util.HousLogEvent.SCREEN_BADGE
-import hous.release.android.util.style.HousTheme
+import hous.release.designsystem.theme.HousTheme
 
 @AndroidEntryPoint
 class BadgeActivity : ComponentActivity() {

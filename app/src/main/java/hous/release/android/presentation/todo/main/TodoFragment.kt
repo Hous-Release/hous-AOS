@@ -16,7 +16,7 @@ import hous.release.android.presentation.todo.detail.TodoDetailActivity
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.component.RoundedLinearIndicatorWithHomie
 import hous.release.android.util.component.TodoMainEmpty
-import hous.release.android.util.style.HousTheme
+import hous.release.designsystem.theme.HousTheme
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 

@@ -19,15 +19,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import hous.release.android.R
 import hous.release.android.util.extension.getHomyColorRes
+import hous.release.designsystem.theme.HousTheme
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.ToDoUser
 
@@ -73,13 +69,7 @@ fun ToDoUserProfile(
         Text(
             text = name,
             color = colorResource(id = R.color.hous_g_6),
-            style = TextStyle(
-                fontFamily = FontFamily(Font(R.font.spoqa_han_sans_neo_medium)),
-                fontWeight = FontWeight.Normal,
-                fontSize = dpToSp(dp = 13.dp),
-                letterSpacing = (-0.02).sp,
-                lineHeight = 18.sp
-            ),
+            style = HousTheme.typography.b3,
             modifier = Modifier
                 .padding(top = 5.dp, bottom = 3.dp)
         )
