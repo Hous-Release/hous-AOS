@@ -17,17 +17,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hous.release.designsystem.R
-import hous.release.designsystem.constant.HomyType
 import hous.release.designsystem.theme.HousBlue
 import hous.release.designsystem.theme.HousG1
+import hous.release.designsystem.theme.HousG3
 import hous.release.designsystem.theme.HousG6
+import hous.release.designsystem.theme.HousGreen
+import hous.release.designsystem.theme.HousPurple
+import hous.release.designsystem.theme.HousRed
 import hous.release.designsystem.theme.HousTheme
 import hous.release.designsystem.theme.HousWhite
+import hous.release.designsystem.theme.HousYellow
+
+const val MIN_ORDINAL = 0
+const val MAX_ORDINAL = 5
 
 @Composable
 fun HomyChip(
@@ -56,7 +64,7 @@ fun HomyChip(
             Box(
                 modifier = Modifier
                     .clip(CircleShape)
-                    .background(HomyType(homyTypeOrdinal).getColor())
+                    .background(getHomyColor(homyTypeOrdinal))
                     .size(12.dp)
             )
         }
@@ -71,6 +79,21 @@ fun HomyChip(
             modifier = Modifier
                 .padding(top = 5.dp, bottom = 3.dp)
         )
+    }
+}
+
+private fun getHomyColor(homyTypeOrdinal: Int): Color {
+    require(homyTypeOrdinal in MIN_ORDINAL..MAX_ORDINAL) {
+        "해당 ordinal($homyTypeOrdinal)은($MIN_ORDINAL ~ $MAX_ORDINAL) 내의 숫자가 아닙니다"
+    }
+
+    return when (homyTypeOrdinal) {
+        0 -> HousYellow
+        1 -> HousRed
+        2 -> HousBlue
+        3 -> HousPurple
+        4 -> HousGreen
+        else -> HousG3
     }
 }
 
