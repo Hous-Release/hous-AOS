@@ -41,7 +41,7 @@ class TodoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
     }
 
     private fun initClickListener() {
-        binding.llToDoViewAll.setOnClickListener {
+        binding.ivToDoViewAll.setOnClickListener {
             Intent(requireActivity(), TodoDetailActivity::class.java)
                 .apply { putExtra(CURRENT_DAY, toDoViewModel.uiState.value.dayOfWeek) }
                 .also { intent -> startActivity(intent) }
@@ -86,7 +86,8 @@ class TodoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
             .setArrowOrientation(ArrowOrientation.TOP)
             .setArrowPositionRules(ArrowPositionRules.ALIGN_ANCHOR)
             .setCornerRadius(10f)
-            .setBackgroundColorResource(R.color.hous_blue)
+            .setBackgroundColorResource(R.color.hous_blue_80)
+            .setArrowColorResource(R.color.hous_blue_l1)
             .setMarginRight(18)
             .setLifecycleOwner(viewLifecycleOwner)
             .build()
