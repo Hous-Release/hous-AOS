@@ -75,6 +75,9 @@ jobs:
     - name: Lint Check
       run: ./gradlew ktlintCheck
 
+    - name: run rest
+      run: ./gradlew test
+
     - name: Build with Gradle
       run: ./gradlew build
 
