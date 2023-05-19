@@ -14,7 +14,7 @@ dependencies {
     Deps.Coroutines.run {
         implementation(core)
         implementation(android)
-//        implementation(reflect)
+        implementation(reflect)
         implementation(test)
     }
     Deps.Test.run {
