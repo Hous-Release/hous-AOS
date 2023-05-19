@@ -14,6 +14,9 @@ plugins {
 val properties = Properties()
 properties.load(project.rootProject.file("local.properties").inputStream())
 android {
+    packagingOptions {
+        resources.excludes.add("META-INF/LICENSE*")
+    }
     signingConfigs {
         create("release") {
             storeFile = file(properties.getProperty("STORE_FILE"))
@@ -41,6 +44,7 @@ android {
         versionName = AppConfig.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments["runnerBuilder"] = "de.mannodermaus.junit5.AndroidJUnit5Builder"
 
         buildConfigField(
             "String",

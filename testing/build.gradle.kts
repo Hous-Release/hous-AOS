@@ -6,15 +6,15 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 dependencies {
     Deps.Coroutines.run {
         implementation(core)
         implementation(android)
-        implementation(reflect)
+//        implementation(reflect)
         implementation(test)
     }
     Deps.Test.run {

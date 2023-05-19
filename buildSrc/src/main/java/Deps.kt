@@ -1,7 +1,7 @@
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 
 const val ktlintVersion = "10.3.0"
-const val kotlinVersion = "1.7.20"
+const val kotlinVersion = "1.7.10"
 
 object AppConfig {
     const val applicationId = "hous.release.android"
@@ -52,11 +52,11 @@ object Deps {
     }
 
     object Coroutines {
-        private const val version = "1.7.1"
+        private const val version = "1.6.4"
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
         const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
-        const val reflect = "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
+//        const val reflect = "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
     }
 
     object Network {
