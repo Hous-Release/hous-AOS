@@ -87,7 +87,7 @@ class TodoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
             .setArrowPositionRules(ArrowPositionRules.ALIGN_ANCHOR)
             .setCornerRadius(10f)
             .setBackgroundColorResource(R.color.hous_blue_80)
-            .setArrowColorResource(R.color.hous_blue_l1)
+            .setArrowColorResource(R.color.hous_blue_arrow)
             .setMarginRight(18)
             .setLifecycleOwner(viewLifecycleOwner)
             .build()
