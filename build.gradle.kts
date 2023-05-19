@@ -5,6 +5,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         classpath(Deps.DI.hiltClassPath)
         classpath(Deps.Google.googleServices)
+        classpath(Deps.Test.junit5Path)
     }
 }
 

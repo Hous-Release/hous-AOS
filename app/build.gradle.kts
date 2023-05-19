@@ -104,6 +104,7 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":designsystem"))
+    implementation(project(":testing"))
 
     implementation("androidx.appcompat:appcompat:1.5.1")
     implementation("com.google.android.material:material:1.6.1")
@@ -144,6 +145,7 @@ dependencies {
     Deps.Coroutines.run {
         implementation(core)
         implementation(android)
+        testImplementation(test)
     }
 
     Deps.Network.run {
@@ -171,12 +173,8 @@ dependencies {
         implementation(kapt)
     }
 
-    Deps.Test.run {
-        testImplementation(junit)
-        androidTestImplementation(androidTest)
-        androidTestImplementation(espresso)
-        androidTestImplementation(compose)
-    }
+    testImplementation()
+    androidTestImplementation()
 }
 
 ktlint {
