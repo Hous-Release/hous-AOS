@@ -1,13 +1,29 @@
 package hous.release.domain.usecase
 
-
 import com.google.common.truth.Truth.assertThat
-import hous.release.domain.entity.MainTodo
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import javax.inject.Inject
 
-class SearchUseCaseTest {
-    private val searchUseCase = SearchUseCase()
+internal class ExampleUseCaseTest {
+    abstract class Rule(
+        open val id: Int,
+        open val name: String
+    )
+
+    data class MainTodo(
+        val isNew: Boolean,
+        override val id: Int,
+        override val name: String
+    ) : Rule(id, name)
+
+    class ExampleUseCase @Inject constructor() {
+        operator fun invoke(search: String, rules: List<Rule>): List<Rule> {
+            return rules
+        }
+    }
+
+    private val searchUseCase = ExampleUseCase()
 
     @Test
     @DisplayName("rule 반환")
