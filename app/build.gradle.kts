@@ -11,6 +11,10 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
 }
 
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
 val properties = Properties()
 properties.load(project.rootProject.file("local.properties").inputStream())
 android {
