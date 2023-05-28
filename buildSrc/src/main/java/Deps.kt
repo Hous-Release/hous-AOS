@@ -1,5 +1,7 @@
+import org.gradle.kotlin.dsl.DependencyHandlerScope
+
 const val ktlintVersion = "10.3.0"
-const val kotlinVersion = "1.7.10"
+const val kotlinVersion = "1.7.20"
 
 object AppConfig {
     const val applicationId = "hous.release.android"
@@ -9,6 +11,7 @@ object AppConfig {
     const val targetSdkVersion = 32
     const val versionCode = 6
     const val versionName = "1.0.6"
+    const val kotlinCompilerExtensionVersion = "1.3.2"
 }
 
 object Deps {
@@ -51,9 +54,10 @@ object Deps {
 
     object Coroutines {
         private const val version = "1.6.4"
-
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
+        const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
+        const val reflect = "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
     }
 
     object Network {
@@ -84,6 +88,21 @@ object Deps {
         const val androidTest = "androidx.test.ext:junit:1.1.3"
         const val espresso = "androidx.test.espresso:espresso-core:3.4.0"
         const val compose = "androidx.compose.ui:ui-test-junit4:1.2.1"
+
+        private const val junit5Ver = "5.9.3"
+        private const val junit5PluginVer = "1.9.3.0"
+        const val junit5Path = "de.mannodermaus.gradle.plugins:android-junit5:${junit5PluginVer}"
+        const val junit5Api = "org.junit.jupiter:junit-jupiter-api:${junit5Ver}"
+        const val junit5Engine = "org.junit.jupiter:junit-jupiter-engine:${junit5Ver}"
+        const val junit5ParameterizedTest = "org.junit.jupiter:junit-jupiter-params:${junit5Ver}"
+        const val junit4 = "junit:junit:4.13.2"
+        const val junit4Engine = "org.junit.vintage:junit-vintage-engine:${junit5Ver}"
+
+        private const val mockkVer = "1.13.3"
+        const val mockk = "io.mockk:mockk:${mockkVer}"
+        const val mockkAndroid = "io.mockk:mockk-android:${mockkVer}"
+
+        const val kotlin = "org.jetbrains.kotlin:kotlin-test"
     }
 
     object Google {
@@ -91,5 +110,25 @@ object Deps {
         const val firebaseBom = "com.google.firebase:firebase-bom:30.4.1"
         const val firebaseMessaging = "com.google.firebase:firebase-messaging-ktx"
         const val analytics = "com.google.firebase:firebase-analytics-ktx"
+    }
+}
+
+fun DependencyHandlerScope.testImplementation() {
+    Deps.Test.run {
+        "testRuntimeOnly"(junit5Engine)
+        "testImplementation"(junit5Api)
+        "testImplementation"(junit5ParameterizedTest)
+        "testImplementation"(junit4)
+        "testRuntimeOnly"(junit4Engine)
+        "testImplementation"(mockk)
+        "testImplementation"(kotlin)
+    }
+    "testImplementation"(Deps.Coroutines.test)
+}
+
+fun DependencyHandlerScope.androidTestImplementation() {
+    Deps.Test.run {
+        "androidTestImplementation"(androidTest)
+        "androidTestImplementation"(mockkAndroid)
     }
 }

@@ -14,6 +14,9 @@ plugins {
 val properties = Properties()
 properties.load(project.rootProject.file("local.properties").inputStream())
 android {
+    packagingOptions {
+        resources.excludes.add("META-INF/LICENSE*")
+    }
     signingConfigs {
         create("release") {
             storeFile = file(properties.getProperty("STORE_FILE"))
@@ -41,6 +44,7 @@ android {
         versionName = AppConfig.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments["runnerBuilder"] = "de.mannodermaus.junit5.AndroidJUnit5Builder"
 
         buildConfigField(
             "String",
@@ -96,7 +100,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.0"
+        kotlinCompilerExtensionVersion = AppConfig.kotlinCompilerExtensionVersion
     }
 }
 
@@ -104,6 +108,7 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":designsystem"))
+    implementation(project(":testing"))
 
     implementation("androidx.appcompat:appcompat:1.5.1")
     implementation("com.google.android.material:material:1.6.1")
@@ -144,6 +149,7 @@ dependencies {
     Deps.Coroutines.run {
         implementation(core)
         implementation(android)
+        testImplementation(test)
     }
 
     Deps.Network.run {
@@ -171,12 +177,8 @@ dependencies {
         implementation(kapt)
     }
 
-    Deps.Test.run {
-        testImplementation(junit)
-        androidTestImplementation(androidTest)
-        androidTestImplementation(espresso)
-        androidTestImplementation(compose)
-    }
+    testImplementation()
+    androidTestImplementation()
 }
 
 ktlint {
