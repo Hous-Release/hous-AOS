@@ -41,36 +41,6 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_to_do_date"
             tools:text="Thursday" />
 
-        <LinearLayout
-            android:id="@+id/ll_to_do_view_all"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="17dp"
-            android:background="@drawable/shape_blue_i2_fill_8_rect"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingHorizontal="12dp"
-            android:paddingTop="6dp"
-            android:paddingBottom="9dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_to_do_dayOfWeek"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_to_do_date">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/to_do_small_letter"
-                android:textColor="@color/hous_blue"
-                android:theme="@style/En1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/to_do_view_all"
-                android:textColor="@color/hous_blue"
-                android:theme="@style/H5" />
-        </LinearLayout>
-
         <androidx.compose.ui.platform.ComposeView
             android:id="@+id/cv_to_do_progress"
             android:layout_width="wrap_content"
@@ -221,16 +191,6 @@
                     app:layout_constraintTop_toTopOf="@+id/iv_to_do_our_dot"
                     tools:text="2" />
 
-                <ImageView
-                    android:id="@+id/iv_to_do_tool_tip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="27dp"
-                    android:src="@drawable/ic_to_do_help"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_to_do_our_title"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_to_do_our_title" />
-
                 <FrameLayout
                     android:id="@+id/fl_to_do_our"
                     android:layout_width="match_parent"
@@ -273,7 +233,27 @@
                     app:layout_constraintStart_toStartOf="@+id/fl_to_do_our"
                     app:layout_constraintTop_toBottomOf="@+id/fl_to_do_our" />
 
+                <ImageView
+                    android:id="@+id/iv_to_do_view_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_back_right"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_to_do_our_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_to_do_our_title" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <ImageView
+            android:id="@+id/iv_to_do_tool_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/ic_to_do_help"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_to_do_date" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

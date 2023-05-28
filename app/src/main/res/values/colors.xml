@@ -11,6 +11,8 @@
     <color name="hous_red">#FF6666</color>
     <color name="hous_yellow">#FFD66D</color>
     <color name="hous_blue">#5E9EFF</color>
+    <color name="hous_blue_arrow">#7EB1FF</color>
+    <color name="hous_blue_80">#805E9EFF</color>
     <color name="hous_blue_l1">#BCD7FF</color>
     <color name="hous_blue_l2">#F5F9FF</color>
     <color name="hous_blue_l2_80">#80f5f9ff</color>
