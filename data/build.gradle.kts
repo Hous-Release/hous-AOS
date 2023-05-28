@@ -26,6 +26,10 @@ android {
     }
 }
 
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
 dependencies {
     implementation(project(":domain"))
 
@@ -65,6 +69,7 @@ dependencies {
         implementation(platform(firebaseBom))
         implementation(firebaseMessaging)
     }
+    testImplementation()
 }
 
 ktlint {

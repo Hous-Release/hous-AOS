@@ -97,6 +97,7 @@ object Deps {
         const val junit5ParameterizedTest = "org.junit.jupiter:junit-jupiter-params:${junit5Ver}"
         const val junit4 = "junit:junit:4.13.2"
         const val junit4Engine = "org.junit.vintage:junit-vintage-engine:${junit5Ver}"
+        const val thruth = "com.google.truth:truth:1.1.3"
 
         private const val mockkVer = "1.13.3"
         const val mockk = "io.mockk:mockk:${mockkVer}"
@@ -122,6 +123,7 @@ fun DependencyHandlerScope.testImplementation() {
         "testRuntimeOnly"(junit4Engine)
         "testImplementation"(mockk)
         "testImplementation"(kotlin)
+        "testImplementation"(thruth)
     }
     "testImplementation"(Deps.Coroutines.test)
 }

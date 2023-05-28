@@ -5,6 +5,10 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version ktlintVersion
 }
 
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -20,6 +24,7 @@ dependencies {
         implementation(core)
         implementation(android)
     }
+    testImplementation()
 }
 
 ktlint {
