@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="filter_title">필터 설정</string>
+    <string name="filter_day">요일</string>
+    <string name="filter_homy">호미</string>
+    <string name="filter_save">저장하기</string>
+    <string-array name="to_do_week_of_day">
+        <item>월</item>
+        <item>화</item>
+        <item>수</item>
+        <item>목</item>
+        <item>금</item>
+        <item>토</item>
+        <item>일</item>
+    </string-array>
+</resources>
