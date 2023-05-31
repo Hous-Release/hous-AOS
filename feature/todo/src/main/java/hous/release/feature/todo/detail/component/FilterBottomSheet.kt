@@ -61,7 +61,7 @@ fun FilterBottomSheet(
             style = HousTheme.typography.b1
         )
         Spacer(modifier = Modifier.height(8.dp))
-        DayOfWeek(
+        Week(
             isSelectedDay = isSelectedDay,
             selectTodoDay = selectTodoDay,
             week = week
@@ -83,7 +83,7 @@ fun FilterBottomSheet(
 }
 
 @Composable
-private fun DayOfWeek(
+private fun Week(
     isSelectedDay: List<Boolean>,
     selectTodoDay: (dayIdx: Int) -> Unit,
     week: Array<String>
