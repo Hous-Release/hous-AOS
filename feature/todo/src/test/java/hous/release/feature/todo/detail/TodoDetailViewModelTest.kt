@@ -29,18 +29,14 @@ class TodoDetailViewModelTest {
     }
 
     @Test
-    @DisplayName("요일을 복수로 선택할 수 있다.")
+    @DisplayName("selectDay 함수는 해당 요일을 반전한다.")
     fun dayTest() {
-        assertAll(
-            { assertThat(todoDetailViewModel.isSelectedDay.value[0]).isEqualTo(false) },
-            { assertThat(todoDetailViewModel.isSelectedDay.value[1]).isEqualTo(false) },
-            { assertThat(todoDetailViewModel.isSelectedDay.value[2]).isEqualTo(false) }
-        )
-
+        // when
         todoDetailViewModel.selectDay(0)
         todoDetailViewModel.selectDay(1)
         todoDetailViewModel.selectDay(2)
 
+        // then
         assertAll(
             { assertThat(todoDetailViewModel.isSelectedDay.value[0]).isEqualTo(true) },
             { assertThat(todoDetailViewModel.isSelectedDay.value[1]).isEqualTo(true) },
@@ -49,8 +45,9 @@ class TodoDetailViewModelTest {
     }
 
     @Test
-    @DisplayName("SelectableHomy 타입으로 매핑한다.")
+    @DisplayName("getHomies 함수는 Homy 객체를 SelectableHomy 객체로 매핑 후 저장한다.")
     fun homyChipClickTest() = runTest {
+        // given
         coEvery { getHomiesUseCase() } returns listOf(
             Homy(0, "KWY", HomyType.BLUE),
             Homy(1, "SYJ", HomyType.BLUE),
@@ -58,8 +55,10 @@ class TodoDetailViewModelTest {
             Homy(3, "LYJ", HomyType.BLUE),
         )
 
+        // when
         todoDetailViewModel.callPrivateFunc("getHomies")
 
+        // then
         assertAll(
             { assertIs<SelectableHomy>(todoDetailViewModel.homies.value[0]) },
             { assertIs<SelectableHomy>(todoDetailViewModel.homies.value[1]) },
@@ -69,8 +68,9 @@ class TodoDetailViewModelTest {
     }
 
     @Test
-    @DisplayName("호미를 복수로 클릭할 수 있다.")
+    @DisplayName("selectHomy 함수는 호미의 selected 를 반전한다.")
     fun homyChipClickTest2() = runTest {
+        // given
         coEvery { getHomiesUseCase() } returns listOf(
             Homy(0, "KWY", HomyType.BLUE),
             Homy(1, "SYJ", HomyType.BLUE),
@@ -79,17 +79,12 @@ class TodoDetailViewModelTest {
         )
         todoDetailViewModel.callPrivateFunc("getHomies")
 
-        assertAll(
-            { assertThat(todoDetailViewModel.homies.value[0].isSelected).isEqualTo(false) },
-            { assertThat(todoDetailViewModel.homies.value[1].isSelected).isEqualTo(false) },
-            { assertThat(todoDetailViewModel.homies.value[2].isSelected).isEqualTo(false) },
-            { assertThat(todoDetailViewModel.homies.value[3].isSelected).isEqualTo(false) }
-        )
-
+        // when
         todoDetailViewModel.selectHomy(0)
         todoDetailViewModel.selectHomy(1)
         todoDetailViewModel.selectHomy(2)
 
+        // then
         assertAll(
             { assertThat(todoDetailViewModel.homies.value[0].isSelected).isEqualTo(true) },
             { assertThat(todoDetailViewModel.homies.value[1].isSelected).isEqualTo(true) },
