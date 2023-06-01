@@ -23,10 +23,10 @@ class TodoDetailViewModel @Inject constructor(
     val homies = _homies.asStateFlow()
 
     init {
-        getHomies()
+        setHomies()
     }
 
-    private fun getHomies() {
+    private fun setHomies() {
         viewModelScope.launch {
             _homies.value = getHomiesUseCase().map { homy ->
                 SelectableHomy(

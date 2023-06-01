@@ -44,7 +44,7 @@ class TodoDetailViewModelTest {
     }
 
     @Test
-    @DisplayName("getHomies 함수는 Homy 객체를 SelectableHomy 객체로 매핑 후 저장한다.")
+    @DisplayName("setHomies 함수는 Homy 객체를 SelectableHomy 객체로 매핑 후 저장한다.")
     fun homyChipClickTest() = runTest {
         // given
         coEvery { getHomiesUseCase() } returns listOf(
@@ -55,7 +55,7 @@ class TodoDetailViewModelTest {
         )
 
         // when
-        todoDetailViewModel.callPrivateFunc("getHomies")
+        todoDetailViewModel.callPrivateFunc("setHomies")
 
         // then
         assertThat(todoDetailViewModel.homies.value).isEqualTo(
@@ -78,7 +78,7 @@ class TodoDetailViewModelTest {
             Homy(2, "LJW", HomyType.BLUE),
             Homy(3, "LYJ", HomyType.BLUE),
         )
-        todoDetailViewModel.callPrivateFunc("getHomies")
+        todoDetailViewModel.callPrivateFunc("setHomies")
 
         // when
         todoDetailViewModel.selectHomy(0)
