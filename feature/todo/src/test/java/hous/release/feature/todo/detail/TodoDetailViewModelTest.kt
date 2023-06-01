@@ -15,7 +15,6 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.extension.ExtendWith
-import kotlin.test.assertIs
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @ExtendWith(CoroutinesTestExtension::class)
@@ -59,11 +58,13 @@ class TodoDetailViewModelTest {
         todoDetailViewModel.callPrivateFunc("getHomies")
 
         // then
-        assertAll(
-            { assertIs<SelectableHomy>(todoDetailViewModel.homies.value[0]) },
-            { assertIs<SelectableHomy>(todoDetailViewModel.homies.value[1]) },
-            { assertIs<SelectableHomy>(todoDetailViewModel.homies.value[2]) },
-            { assertIs<SelectableHomy>(todoDetailViewModel.homies.value[3]) }
+        assertThat(todoDetailViewModel.homies.value).isEqualTo(
+            listOf(
+                SelectableHomy(0, name = "KWY", homyType = HomyType.BLUE),
+                SelectableHomy(1, name = "SYJ", homyType = HomyType.BLUE),
+                SelectableHomy(2, name = "LJW", homyType = HomyType.BLUE),
+                SelectableHomy(3, name = "LYJ", homyType = HomyType.BLUE),
+            )
         )
     }
 
