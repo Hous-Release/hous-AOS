@@ -140,4 +140,52 @@ class TodoDetailViewModelTest {
 
         collectJob.cancel()
     }
+
+    @Test
+    @DisplayName("클릭한 homy가 한명일 때 해당 homy의 이름을 표출한다.")
+    fun filterHomiesNameTest() = runTest {
+        // given
+        coEvery { getHomiesUseCase() } returns listOf(
+            Homy(0, "KWY", HomyType.BLUE),
+            Homy(1, "SYJ", HomyType.BLUE),
+            Homy(2, "LJW", HomyType.BLUE),
+            Homy(3, "LYJ", HomyType.BLUE),
+        )
+        val collectJob =
+            launch(UnconfinedTestDispatcher()) { todoDetailViewModel.selectedHomies.collect() }
+        todoDetailViewModel.callPrivateFunc("setHomies")
+
+        // when
+        todoDetailViewModel.selectHomy(0)
+
+        // then
+        assertThat(todoDetailViewModel.selectedHomies.value).isEqualTo("KWY")
+
+        collectJob.cancel()
+    }
+
+    @Test
+    @DisplayName("클릭한 homy가 두명 이상일 때 `{호미 이름} 외 {선택한 호미의 수 -1}` 형식으로 이름을 표시한다.")
+    fun filterHomiesNameTest2() = runTest {
+        // given
+        coEvery { getHomiesUseCase() } returns listOf(
+            Homy(0, "KWY", HomyType.BLUE),
+            Homy(1, "SYJ", HomyType.BLUE),
+            Homy(2, "LJW", HomyType.BLUE),
+            Homy(3, "LYJ", HomyType.BLUE),
+        )
+        val collectJob =
+            launch(UnconfinedTestDispatcher()) { todoDetailViewModel.selectedHomies.collect() }
+        todoDetailViewModel.callPrivateFunc("setHomies")
+
+        // when
+        todoDetailViewModel.selectHomy(0)
+        todoDetailViewModel.selectHomy(1)
+        todoDetailViewModel.selectHomy(2)
+
+        // then
+        assertThat(todoDetailViewModel.selectedHomies.value).isEqualTo("KWY 외 2명")
+
+        collectJob.cancel()
+    }
 }
