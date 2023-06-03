@@ -24,16 +24,18 @@ class TodoDetailViewModel @Inject constructor(
 
     val week: StateFlow<List<SelectableDayOfWeek>> = _week.asStateFlow()
     val homies = _homies.asStateFlow()
-//    val selectedDays: StateFlow<String> =
-//        _week
-//            .map { selectedDays ->
-//                selectedDays.filter { b -> b }
-//            }
-//            .stateIn(
-//                scope = viewModelScope,
-//                started = SharingStarted.WhileSubscribed(5000L),
-//                initialValue = ""
-//            )
+    val selectedDays: StateFlow<String> =
+        _week
+            .map { selectedDays ->
+                selectedDays
+                    .filter { dayOfWeek -> dayOfWeek.isSelected }
+                    .joinToString(", ") { week -> week.dayOfWeek }
+            }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000L),
+                initialValue = ""
+            )
 
     init {
         setHomies()
