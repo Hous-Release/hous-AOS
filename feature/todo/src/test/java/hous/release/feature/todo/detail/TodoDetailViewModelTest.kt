@@ -9,9 +9,6 @@ import hous.release.testing.callPrivateFunc
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -54,6 +51,9 @@ class TodoDetailViewModelTest {
     @Test
     @DisplayName("selectDay 함수는 해당 요일을 반전한다.")
     fun dayTest() {
+        // given
+        todoDetailViewModel.callPrivateFunc("setWeek")
+
         // when
         todoDetailViewModel.selectDay(0)
         todoDetailViewModel.selectDay(1)
@@ -61,9 +61,9 @@ class TodoDetailViewModelTest {
 
         // then
         assertAll(
-            { assertThat(todoDetailViewModel.week.value[0]).isEqualTo(true) },
-            { assertThat(todoDetailViewModel.week.value[1]).isEqualTo(true) },
-            { assertThat(todoDetailViewModel.week.value[2]).isEqualTo(true) }
+            { assertThat(todoDetailViewModel.week.value[0].isSelected).isEqualTo(true) },
+            { assertThat(todoDetailViewModel.week.value[1].isSelected).isEqualTo(true) },
+            { assertThat(todoDetailViewModel.week.value[2].isSelected).isEqualTo(true) }
         )
     }
 
