@@ -6,8 +6,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.HomyType
 import hous.release.domain.usecase.todo.GetHomiesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,15 +18,29 @@ import javax.inject.Inject
 class TodoDetailViewModel @Inject constructor(
     private val getHomiesUseCase: GetHomiesUseCase
 ) : ViewModel() {
-    private val _isSelectedDay: MutableStateFlow<List<Boolean>> =
-        MutableStateFlow(listOf(false, false, false, false, false, false, false))
+    private val _week: MutableStateFlow<List<SelectableDayOfWeek>> =
+        MutableStateFlow(emptyList())
     private val _homies: MutableStateFlow<List<SelectableHomy>> = MutableStateFlow(emptyList())
 
-    val isSelectedDay: StateFlow<List<Boolean>> = _isSelectedDay.asStateFlow()
+    val week: StateFlow<List<SelectableDayOfWeek>> = _week.asStateFlow()
     val homies = _homies.asStateFlow()
+//    val selectedDays: StateFlow<String> =
+//        _week
+//            .map { selectedDays ->
+//                selectedDays.filter { b -> b }
+//            }
+//            .stateIn(
+//                scope = viewModelScope,
+//                started = SharingStarted.WhileSubscribed(5000L),
+//                initialValue = ""
+//            )
 
     init {
         setHomies()
+    }
+
+    private fun setWeek() {
+        _week.value = WEEK.map { dayOfWeek -> SelectableDayOfWeek(dayOfWeek = dayOfWeek) }
     }
 
     private fun setHomies() {
@@ -39,8 +56,11 @@ class TodoDetailViewModel @Inject constructor(
     }
 
     fun selectDay(index: Int) {
-        _isSelectedDay.value = _isSelectedDay.value
-            .mapIndexed { idx, isSelected -> if (idx == index) !isSelected else isSelected }
+        _week.value = _week.value
+            .mapIndexed { idx, selectableDayOfWeek ->
+                if (idx == index) selectableDayOfWeek.copy(isSelected = !selectableDayOfWeek.isSelected)
+                else selectableDayOfWeek
+            }
     }
 
     fun selectHomy(index: Int) {
@@ -49,7 +69,16 @@ class TodoDetailViewModel @Inject constructor(
             else selectableHomy
         }
     }
+
+    companion object {
+        val WEEK = listOf("월", "화", "수", "목", "금", "토", "일")
+    }
 }
+
+data class SelectableDayOfWeek(
+    val dayOfWeek: String,
+    val isSelected: Boolean = false
+)
 
 data class SelectableHomy(
     val id: Int,

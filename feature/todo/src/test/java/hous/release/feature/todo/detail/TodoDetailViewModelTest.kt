@@ -9,6 +9,9 @@ import hous.release.testing.callPrivateFunc
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -28,6 +31,27 @@ class TodoDetailViewModelTest {
     }
 
     @Test
+    @DisplayName("setDay 함수는 String 을 selectableWeek 객체로 매핑 후 저장한다.")
+    fun setDayTest() {
+        // given
+        val result = listOf(
+            SelectableDayOfWeek(dayOfWeek = "월"),
+            SelectableDayOfWeek(dayOfWeek = "화"),
+            SelectableDayOfWeek(dayOfWeek = "수"),
+            SelectableDayOfWeek(dayOfWeek = "목"),
+            SelectableDayOfWeek(dayOfWeek = "금"),
+            SelectableDayOfWeek(dayOfWeek = "토"),
+            SelectableDayOfWeek(dayOfWeek = "일")
+        )
+
+        // when
+        todoDetailViewModel.callPrivateFunc("setWeek")
+
+        // then
+        assertThat(todoDetailViewModel.week.value).isEqualTo(result)
+    }
+
+    @Test
     @DisplayName("selectDay 함수는 해당 요일을 반전한다.")
     fun dayTest() {
         // when
@@ -37,9 +61,9 @@ class TodoDetailViewModelTest {
 
         // then
         assertAll(
-            { assertThat(todoDetailViewModel.isSelectedDay.value[0]).isEqualTo(true) },
-            { assertThat(todoDetailViewModel.isSelectedDay.value[1]).isEqualTo(true) },
-            { assertThat(todoDetailViewModel.isSelectedDay.value[2]).isEqualTo(true) }
+            { assertThat(todoDetailViewModel.week.value[0]).isEqualTo(true) },
+            { assertThat(todoDetailViewModel.week.value[1]).isEqualTo(true) },
+            { assertThat(todoDetailViewModel.week.value[2]).isEqualTo(true) }
         )
     }
 
@@ -93,4 +117,23 @@ class TodoDetailViewModelTest {
             { assertThat(todoDetailViewModel.homies.value[3].isSelected).isEqualTo(false) }
         )
     }
+
+//    @Test
+//    @DisplayName("selectDay 클릭 시 해당 인덱스에 해당하는 요일들이 string으로 표시된다.")
+//    fun filterWeekTest() = runTest {
+//        // given
+//        val collectJob =
+//            launch(UnconfinedTestDispatcher()) { todoDetailViewModel.selectedDays.collect() }
+//
+//        // 월(0) 화(1) 수(2) 목(3) 금(4) 토(5) 일(6)
+//        // when
+//        todoDetailViewModel.selectDay(0)
+//        todoDetailViewModel.selectDay(4)
+//        todoDetailViewModel.selectDay(2)
+//
+//        // then
+//        assertThat(todoDetailViewModel.selectedDays.value).isEqualTo("월, 수, 금")
+//
+//        collectJob.cancel()
+//    }
 }
