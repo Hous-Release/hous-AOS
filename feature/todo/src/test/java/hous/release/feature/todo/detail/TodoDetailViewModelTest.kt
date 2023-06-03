@@ -2,7 +2,9 @@ package hous.release.feature.todo.detail
 
 import com.google.common.truth.Truth.assertThat
 import hous.release.domain.entity.HomyType
+import hous.release.domain.entity.todo.FilteredTodo
 import hous.release.domain.entity.todo.Homy
+import hous.release.domain.entity.todo.TodoWithNew
 import hous.release.domain.usecase.todo.GetFilteredTodoUseCase
 import hous.release.domain.usecase.todo.GetHomiesUseCase
 import hous.release.testing.CoroutinesTestExtension
@@ -197,6 +199,44 @@ class TodoDetailViewModelTest {
             assertThat(todoDetailViewModel.selectedHomies.value).isEqualTo("KWY 외 2명")
 
             collectJob.cancel()
+        }
+    }
+
+    @Nested
+    @DisplayName("필터링 된 todo 관련 테스트 모음")
+    inner class FilteredTodoTest {
+        @Test
+        @DisplayName("setFilteredTodo 함수를 호출하면 필터링된 FilteredTodo 객체를 적용한다.")
+        fun setFilteredTodoTest() = runTest {
+            // given
+            val expectedValue = listOf(
+                TodoWithNew(
+                    id = 1,
+                    name = "todo1",
+                    isNew = false
+                ),
+                TodoWithNew(
+                    id = 2,
+                    name = "todo2",
+                    isNew = false
+                ),
+                TodoWithNew(
+                    id = 3,
+                    name = "todo3",
+                    isNew = false
+                )
+            )
+            coEvery { getFilteredTodoUseCase(null, null) } returns FilteredTodo(
+                todos = expectedValue,
+                todosCnt = expectedValue.size
+            )
+
+            // when
+            todoDetailViewModel.callPrivateFunc("setFilteredTodo", null, null)
+
+            // then
+            assertThat(todoDetailViewModel.filteredTodo.value.todos).isEqualTo(expectedValue)
+            assertThat(todoDetailViewModel.filteredTodo.value.todosCnt).isEqualTo(expectedValue.size)
         }
     }
 }
