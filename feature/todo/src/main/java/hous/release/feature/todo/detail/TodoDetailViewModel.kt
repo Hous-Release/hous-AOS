@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.HomyType
+import hous.release.domain.usecase.todo.GetFilteredTodoUseCase
 import hous.release.domain.usecase.todo.GetHomiesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TodoDetailViewModel @Inject constructor(
-    private val getHomiesUseCase: GetHomiesUseCase
+    private val getHomiesUseCase: GetHomiesUseCase,
+    private val getFilteredTodoUseCase: GetFilteredTodoUseCase
 ) : ViewModel() {
     private val _week: MutableStateFlow<List<SelectableDayOfWeek>> = MutableStateFlow(emptyList())
     private val _homies: MutableStateFlow<List<SelectableHomy>> = MutableStateFlow(emptyList())
@@ -44,6 +46,10 @@ class TodoDetailViewModel @Inject constructor(
 
     init {
         setHomies()
+    }
+
+    private fun setFilteredTodos() {
+
     }
 
     private fun setWeek() {
