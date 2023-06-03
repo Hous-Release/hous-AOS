@@ -18,24 +18,29 @@ import javax.inject.Inject
 class TodoDetailViewModel @Inject constructor(
     private val getHomiesUseCase: GetHomiesUseCase
 ) : ViewModel() {
-    private val _week: MutableStateFlow<List<SelectableDayOfWeek>> =
-        MutableStateFlow(emptyList())
+    private val _week: MutableStateFlow<List<SelectableDayOfWeek>> = MutableStateFlow(emptyList())
     private val _homies: MutableStateFlow<List<SelectableHomy>> = MutableStateFlow(emptyList())
 
     val week: StateFlow<List<SelectableDayOfWeek>> = _week.asStateFlow()
     val homies = _homies.asStateFlow()
-    val selectedDays: StateFlow<String> =
-        _week
-            .map { selectedDays ->
-                selectedDays
-                    .filter { dayOfWeek -> dayOfWeek.isSelected }
-                    .joinToString(", ") { week -> week.dayOfWeek }
-            }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5000L),
-                initialValue = ""
-            )
+    val selectedDays: StateFlow<String> = _week.map { selectedDays ->
+        selectedDays
+            .filter { dayOfWeek -> dayOfWeek.isSelected }
+            .joinToString(", ") { week -> week.dayOfWeek }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000L),
+        initialValue = ""
+    )
+    val selectedHomies: StateFlow<String> = _homies.map { homies ->
+        val selectedHomies = homies.filter { homy -> homy.isSelected }
+        if (selectedHomies.count() > 1) "${selectedHomies[0].name} 외 ${selectedHomies.count() - 1}명"
+        else selectedHomies.joinToString("") { homy -> homy.name }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000L),
+        initialValue = ""
+    )
 
     init {
         setHomies()
@@ -58,11 +63,10 @@ class TodoDetailViewModel @Inject constructor(
     }
 
     fun selectDay(index: Int) {
-        _week.value = _week.value
-            .mapIndexed { idx, selectableDayOfWeek ->
-                if (idx == index) selectableDayOfWeek.copy(isSelected = !selectableDayOfWeek.isSelected)
-                else selectableDayOfWeek
-            }
+        _week.value = _week.value.mapIndexed { idx, selectableDayOfWeek ->
+            if (idx == index) selectableDayOfWeek.copy(isSelected = !selectableDayOfWeek.isSelected)
+            else selectableDayOfWeek
+        }
     }
 
     fun selectHomy(index: Int) {
