@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.HomyType
+import hous.release.domain.entity.todo.FilteredTodo
 import hous.release.domain.usecase.todo.GetFilteredTodoUseCase
 import hous.release.domain.usecase.todo.GetHomiesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,9 +23,17 @@ class TodoDetailViewModel @Inject constructor(
 ) : ViewModel() {
     private val _week: MutableStateFlow<List<SelectableDayOfWeek>> = MutableStateFlow(emptyList())
     private val _homies: MutableStateFlow<List<SelectableHomy>> = MutableStateFlow(emptyList())
+    private val _filteredTodo: MutableStateFlow<FilteredTodo> =
+        MutableStateFlow(
+            FilteredTodo(
+                emptyList(),
+                0
+            )
+        )
 
     val week: StateFlow<List<SelectableDayOfWeek>> = _week.asStateFlow()
     val homies = _homies.asStateFlow()
+    val filteredTodo = _filteredTodo.asStateFlow()
     val selectedDays: StateFlow<String> = _week.map { selectedDays ->
         selectedDays
             .filter { dayOfWeek -> dayOfWeek.isSelected }
@@ -48,8 +57,13 @@ class TodoDetailViewModel @Inject constructor(
         setHomies()
     }
 
-    private fun setFilteredTodos() {
-
+    private fun setFilteredTodo(
+        dayOfWeeks: List<String>?,
+        onboardingIds: List<Int>?
+    ) {
+        viewModelScope.launch {
+            _filteredTodo.value = getFilteredTodoUseCase(dayOfWeeks, onboardingIds)
+        }
     }
 
     private fun setWeek() {
