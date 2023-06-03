@@ -4,6 +4,7 @@
     <string name="filter_day">요일</string>
     <string name="filter_homy">호미</string>
     <string name="filter_save">저장하기</string>
+    <string name="todo_detail_title">우리 집 to-do</string>
     <string-array name="to_do_week_of_day">
         <item>월</item>
         <item>화</item>
