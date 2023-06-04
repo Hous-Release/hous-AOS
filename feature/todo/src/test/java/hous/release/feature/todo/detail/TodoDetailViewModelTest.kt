@@ -284,38 +284,22 @@ class TodoDetailViewModelTest {
             assertThat(todoDetailViewModel.filteredTodo.value.todos).isEqualTo(listOf(expectedValue[0]))
         }
 
-//        @Test
-//        @DisplayName("검색 기능과 필터 기능을 동시 사용했을 경우 교집합으로 처리한다.")
-//        fun setFilteredTodoTest2() = runTest {
-//            // given
-//            val expectedValue = listOf(
-//                TodoWithNew(
-//                    id = 1,
-//                    name = "todo1",
-//                    isNew = false
-//                ),
-//                TodoWithNew(
-//                    id = 2,
-//                    name = "todo2",
-//                    isNew = false
-//                ),
-//                TodoWithNew(
-//                    id = 3,
-//                    name = "todo3",
-//                    isNew = false
-//                )
-//            )
-//            coEvery { getFilteredTodoUseCase(null, null) } returns FilteredTodo(
-//                todos = expectedValue,
-//                todosCnt = expectedValue.size
-//            )
-//
-//            // when
-//            todoDetailViewModel.callPrivateFunc("setFilteredTodo", null, null)
-//
-//            // then
-//            assertThat(todoDetailViewModel.filteredTodo.value.todos).isEqualTo(expectedValue)
-//            assertThat(todoDetailViewModel.filteredTodo.value.todosCnt).isEqualTo(expectedValue.size)
-//        }
+        @Test
+        @DisplayName("검색 기능과 필터 기능을 동시 사용했을 경우 교집합으로 처리한다.")
+        fun setFilteredTodoTest2() = runTest {
+            // given
+            coEvery { getFilteredTodoUseCase(null, null) } returns FilteredTodo(
+                todos = expectedValue,
+                todosCnt = expectedValue.size
+            )
+            todoDetailViewModel.writeSearchText("1")
+
+            // when
+            todoDetailViewModel.callPrivateFunc("setFilteredTodo", null, null)
+
+            // then
+            assertThat(todoDetailViewModel.filteredTodo.value.todos).isEqualTo(listOf(expectedValue[0]))
+            assertThat(todoDetailViewModel.filteredTodo.value.todosCnt).isEqualTo(expectedValue.size)
+        }
     }
 }

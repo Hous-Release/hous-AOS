@@ -68,7 +68,14 @@ class TodoDetailViewModel @Inject constructor(
         onboardingIds: List<Int>?
     ) {
         viewModelScope.launch {
-            _filteredTodo.value = getFilteredTodoUseCase(dayOfWeeks, onboardingIds)
+            val result = getFilteredTodoUseCase(dayOfWeeks, onboardingIds)
+            _filteredTodo.value = if (searchText.value.isNotBlank()) result.copy(
+                todos = searchRuleUseCase(
+                    searchText.value,
+                    result.todos
+                ).filterIsInstance<TodoWithNew>()
+            )
+            else result
         }
     }
 
