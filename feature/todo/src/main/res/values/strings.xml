@@ -6,6 +6,11 @@
     <string name="filter_save">저장하기</string>
     <string name="todo_detail_title">우리 집 to-do</string>
     <string name="new_todo">new !</string>
+    <string name="todo_filter">필터</string>
+    <string name="todo_filter_day_of_week">요일</string>
+    <string name="todo_filter_homy">호미</string>
+    <string name="filter_search_result">\"검색 결과 \"</string>
+    <string name="filter_search_result_postfix">개</string>
     <string-array name="to_do_week_of_day">
         <item>월</item>
         <item>화</item>
