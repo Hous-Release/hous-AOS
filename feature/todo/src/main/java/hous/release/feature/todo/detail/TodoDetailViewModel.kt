@@ -21,7 +21,7 @@ class TodoDetailViewModel @Inject constructor(
     private val getHomiesUseCase: GetHomiesUseCase,
     private val getFilteredTodoUseCase: GetFilteredTodoUseCase
 ) : ViewModel() {
-    private val _week: MutableStateFlow<List<SelectableDayOfWeek>> = MutableStateFlow(emptyList())
+    private val _selectedDayOfWeeks: MutableStateFlow<List<SelectableDayOfWeek>> = MutableStateFlow(emptyList())
     private val _homies: MutableStateFlow<List<SelectableHomy>> = MutableStateFlow(emptyList())
     private val _filteredTodo: MutableStateFlow<FilteredTodo> =
         MutableStateFlow(
@@ -31,13 +31,13 @@ class TodoDetailViewModel @Inject constructor(
             )
         )
 
-    val week: StateFlow<List<SelectableDayOfWeek>> = _week.asStateFlow()
+    val week: StateFlow<List<SelectableDayOfWeek>> = _selectedDayOfWeeks.asStateFlow()
     val homies = _homies.asStateFlow()
     val filteredTodo = _filteredTodo.asStateFlow()
-    val selectedDays: StateFlow<String> = _week.map { selectedDays ->
-        selectedDays
-            .filter { dayOfWeek -> dayOfWeek.isSelected }
-            .joinToString(", ") { week -> week.dayOfWeek }
+    val selectedDayOfWeeks: StateFlow<String> = _selectedDayOfWeeks.map { selectedDays ->
+        val selectedDayOfWeeks = selectedDays.filter { dayOfWeek -> dayOfWeek.isSelected }
+        if (selectedDayOfWeeks.count() != 7) selectedDayOfWeeks.joinToString(", ") { week -> week.dayOfWeek }
+        else "매일"
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000L),
@@ -67,7 +67,7 @@ class TodoDetailViewModel @Inject constructor(
     }
 
     private fun setWeek() {
-        _week.value = WEEK.map { dayOfWeek -> SelectableDayOfWeek(dayOfWeek = dayOfWeek) }
+        _selectedDayOfWeeks.value = WEEK.map { dayOfWeek -> SelectableDayOfWeek(dayOfWeek = dayOfWeek) }
     }
 
     private fun setHomies() {
@@ -82,8 +82,8 @@ class TodoDetailViewModel @Inject constructor(
         }
     }
 
-    fun selectDay(index: Int) {
-        _week.value = _week.value.mapIndexed { idx, selectableDayOfWeek ->
+    fun selectDayOfWeek(index: Int) {
+        _selectedDayOfWeeks.value = _selectedDayOfWeeks.value.mapIndexed { idx, selectableDayOfWeek ->
             if (idx == index) selectableDayOfWeek.copy(isSelected = !selectableDayOfWeek.isSelected)
             else selectableDayOfWeek
         }

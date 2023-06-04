@@ -66,9 +66,9 @@ class TodoDetailViewModelTest {
             todoDetailViewModel.callPrivateFunc("setWeek")
 
             // when
-            todoDetailViewModel.selectDay(0)
-            todoDetailViewModel.selectDay(1)
-            todoDetailViewModel.selectDay(2)
+            todoDetailViewModel.selectDayOfWeek(0)
+            todoDetailViewModel.selectDayOfWeek(1)
+            todoDetailViewModel.selectDayOfWeek(2)
 
             // then
             assertAll(
@@ -84,16 +84,40 @@ class TodoDetailViewModelTest {
             // given
             todoDetailViewModel.callPrivateFunc("setWeek")
             val collectJob =
-                launch(UnconfinedTestDispatcher()) { todoDetailViewModel.selectedDays.collect() }
+                launch(UnconfinedTestDispatcher()) { todoDetailViewModel.selectedDayOfWeeks.collect() }
 
             // 월(0) 화(1) 수(2) 목(3) 금(4) 토(5) 일(6)
             // when
-            todoDetailViewModel.selectDay(0)
-            todoDetailViewModel.selectDay(4)
-            todoDetailViewModel.selectDay(2)
+            todoDetailViewModel.selectDayOfWeek(0)
+            todoDetailViewModel.selectDayOfWeek(4)
+            todoDetailViewModel.selectDayOfWeek(2)
 
             // then
-            assertThat(todoDetailViewModel.selectedDays.value).isEqualTo("월, 수, 금")
+            assertThat(todoDetailViewModel.selectedDayOfWeeks.value).isEqualTo("월, 수, 금")
+
+            collectJob.cancel()
+        }
+
+        @Test
+        @DisplayName("selectDay 모두 클릭 했을 때 '매일' 로 표시한다.")
+        fun filterWeekTest2() = runTest {
+            // given
+            todoDetailViewModel.callPrivateFunc("setWeek")
+            val collectJob =
+                launch(UnconfinedTestDispatcher()) { todoDetailViewModel.selectedDayOfWeeks.collect() }
+
+            // 월(0) 화(1) 수(2) 목(3) 금(4) 토(5) 일(6)
+            // when
+            todoDetailViewModel.selectDayOfWeek(0)
+            todoDetailViewModel.selectDayOfWeek(1)
+            todoDetailViewModel.selectDayOfWeek(2)
+            todoDetailViewModel.selectDayOfWeek(3)
+            todoDetailViewModel.selectDayOfWeek(4)
+            todoDetailViewModel.selectDayOfWeek(5)
+            todoDetailViewModel.selectDayOfWeek(6)
+
+            // then
+            assertThat(todoDetailViewModel.selectedDayOfWeeks.value).isEqualTo("매일")
 
             collectJob.cancel()
         }
