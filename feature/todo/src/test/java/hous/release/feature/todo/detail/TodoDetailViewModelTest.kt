@@ -5,6 +5,7 @@ import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.todo.FilteredTodo
 import hous.release.domain.entity.todo.Homy
 import hous.release.domain.entity.todo.TodoWithNew
+import hous.release.domain.usecase.SearchRuleUseCase
 import hous.release.domain.usecase.todo.GetFilteredTodoUseCase
 import hous.release.domain.usecase.todo.GetHomiesUseCase
 import hous.release.testing.CoroutinesTestExtension
@@ -29,10 +30,12 @@ class TodoDetailViewModelTest {
     private lateinit var todoDetailViewModel: TodoDetailViewModel
     private val getHomiesUseCase: GetHomiesUseCase = mockk(relaxed = true)
     private val getFilteredTodoUseCase: GetFilteredTodoUseCase = mockk(relaxed = true)
+    private val searchRuleUseCase: SearchRuleUseCase = SearchRuleUseCase()
 
     @BeforeEach
     fun setUp() {
-        todoDetailViewModel = TodoDetailViewModel(getHomiesUseCase, getFilteredTodoUseCase)
+        todoDetailViewModel =
+            TodoDetailViewModel(getHomiesUseCase, getFilteredTodoUseCase, searchRuleUseCase)
     }
 
     @Nested
@@ -227,29 +230,30 @@ class TodoDetailViewModelTest {
     }
 
     @Nested
-    @DisplayName("필터링 된 todo 관련 테스트 모음")
+    @DisplayName("todo 관련 테스트 모음")
     inner class FilteredTodoTest {
+        private val expectedValue = listOf(
+            TodoWithNew(
+                id = 1,
+                name = "todo1",
+                isNew = false
+            ),
+            TodoWithNew(
+                id = 2,
+                name = "todo2",
+                isNew = false
+            ),
+            TodoWithNew(
+                id = 3,
+                name = "todo3",
+                isNew = false
+            )
+        )
+
         @Test
         @DisplayName("setFilteredTodo 함수를 호출하면 필터링된 FilteredTodo 객체를 적용한다.")
         fun setFilteredTodoTest() = runTest {
             // given
-            val expectedValue = listOf(
-                TodoWithNew(
-                    id = 1,
-                    name = "todo1",
-                    isNew = false
-                ),
-                TodoWithNew(
-                    id = 2,
-                    name = "todo2",
-                    isNew = false
-                ),
-                TodoWithNew(
-                    id = 3,
-                    name = "todo3",
-                    isNew = false
-                )
-            )
             coEvery { getFilteredTodoUseCase(null, null) } returns FilteredTodo(
                 todos = expectedValue,
                 todosCnt = expectedValue.size
@@ -262,5 +266,56 @@ class TodoDetailViewModelTest {
             assertThat(todoDetailViewModel.filteredTodo.value.todos).isEqualTo(expectedValue)
             assertThat(todoDetailViewModel.filteredTodo.value.todosCnt).isEqualTo(expectedValue.size)
         }
+
+        @Test
+        @DisplayName("writeSearchText 함수를 통해 text를 입력하면 해당 text를 포함한 todo를 검색한다.")
+        fun setSearchRuleTest() = runTest {
+            // given
+            coEvery { getFilteredTodoUseCase(null, null) } returns FilteredTodo(
+                todos = expectedValue,
+                todosCnt = expectedValue.size
+            )
+            todoDetailViewModel.callPrivateFunc("setFilteredTodo", null, null)
+
+            // when
+            todoDetailViewModel.writeSearchText("1")
+
+            // then
+            assertThat(todoDetailViewModel.filteredTodo.value.todos).isEqualTo(listOf(expectedValue[0]))
+        }
+
+//        @Test
+//        @DisplayName("검색 기능과 필터 기능을 동시 사용했을 경우 교집합으로 처리한다.")
+//        fun setFilteredTodoTest2() = runTest {
+//            // given
+//            val expectedValue = listOf(
+//                TodoWithNew(
+//                    id = 1,
+//                    name = "todo1",
+//                    isNew = false
+//                ),
+//                TodoWithNew(
+//                    id = 2,
+//                    name = "todo2",
+//                    isNew = false
+//                ),
+//                TodoWithNew(
+//                    id = 3,
+//                    name = "todo3",
+//                    isNew = false
+//                )
+//            )
+//            coEvery { getFilteredTodoUseCase(null, null) } returns FilteredTodo(
+//                todos = expectedValue,
+//                todosCnt = expectedValue.size
+//            )
+//
+//            // when
+//            todoDetailViewModel.callPrivateFunc("setFilteredTodo", null, null)
+//
+//            // then
+//            assertThat(todoDetailViewModel.filteredTodo.value.todos).isEqualTo(expectedValue)
+//            assertThat(todoDetailViewModel.filteredTodo.value.todosCnt).isEqualTo(expectedValue.size)
+//        }
     }
 }

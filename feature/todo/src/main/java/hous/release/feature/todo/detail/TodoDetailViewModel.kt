@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.todo.FilteredTodo
+import hous.release.domain.entity.todo.TodoWithNew
+import hous.release.domain.usecase.SearchRuleUseCase
 import hous.release.domain.usecase.todo.GetFilteredTodoUseCase
 import hous.release.domain.usecase.todo.GetHomiesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,9 +21,12 @@ import javax.inject.Inject
 @HiltViewModel
 class TodoDetailViewModel @Inject constructor(
     private val getHomiesUseCase: GetHomiesUseCase,
-    private val getFilteredTodoUseCase: GetFilteredTodoUseCase
+    private val getFilteredTodoUseCase: GetFilteredTodoUseCase,
+    private val searchRuleUseCase: SearchRuleUseCase
 ) : ViewModel() {
-    private val _selectedDayOfWeeks: MutableStateFlow<List<SelectableDayOfWeek>> = MutableStateFlow(emptyList())
+    private val _searchText = MutableStateFlow("")
+    private val _selectedDayOfWeeks: MutableStateFlow<List<SelectableDayOfWeek>> =
+        MutableStateFlow(emptyList())
     private val _homies: MutableStateFlow<List<SelectableHomy>> = MutableStateFlow(emptyList())
     private val _filteredTodo: MutableStateFlow<FilteredTodo> =
         MutableStateFlow(
@@ -31,6 +36,7 @@ class TodoDetailViewModel @Inject constructor(
             )
         )
 
+    val searchText: StateFlow<String> = _searchText.asStateFlow()
     val week: StateFlow<List<SelectableDayOfWeek>> = _selectedDayOfWeeks.asStateFlow()
     val homies = _homies.asStateFlow()
     val filteredTodo = _filteredTodo.asStateFlow()
@@ -67,7 +73,8 @@ class TodoDetailViewModel @Inject constructor(
     }
 
     private fun setWeek() {
-        _selectedDayOfWeeks.value = WEEK.map { dayOfWeek -> SelectableDayOfWeek(dayOfWeek = dayOfWeek) }
+        _selectedDayOfWeeks.value =
+            WEEK.map { dayOfWeek -> SelectableDayOfWeek(dayOfWeek = dayOfWeek) }
     }
 
     private fun setHomies() {
@@ -83,10 +90,11 @@ class TodoDetailViewModel @Inject constructor(
     }
 
     fun selectDayOfWeek(index: Int) {
-        _selectedDayOfWeeks.value = _selectedDayOfWeeks.value.mapIndexed { idx, selectableDayOfWeek ->
-            if (idx == index) selectableDayOfWeek.copy(isSelected = !selectableDayOfWeek.isSelected)
-            else selectableDayOfWeek
-        }
+        _selectedDayOfWeeks.value =
+            _selectedDayOfWeeks.value.mapIndexed { idx, selectableDayOfWeek ->
+                if (idx == index) selectableDayOfWeek.copy(isSelected = !selectableDayOfWeek.isSelected)
+                else selectableDayOfWeek
+            }
     }
 
     fun selectHomy(index: Int) {
@@ -94,6 +102,17 @@ class TodoDetailViewModel @Inject constructor(
             if (idx == index) selectableHomy.copy(isSelected = !selectableHomy.isSelected)
             else selectableHomy
         }
+    }
+
+    fun writeSearchText(text: String) {
+        _searchText.value = text
+        _filteredTodo.value = _filteredTodo.value
+            .copy(
+                todos = searchRuleUseCase(
+                    searchText.value,
+                    filteredTodo.value.todos
+                ).filterIsInstance<TodoWithNew>()
+            )
     }
 
     companion object {
