@@ -65,8 +65,9 @@ fun TodoFilter(
                 )
             } else {
                 FilterContent(
-                    selectedDayOfWeek,
-                    selectedHomies
+                    selectedDayOfWeek = selectedDayOfWeek,
+                    selectedHomies = selectedHomies,
+                    isShowBottomSheet = isShowBottomSheet
                 )
             }
         }
@@ -76,7 +77,8 @@ fun TodoFilter(
 @Composable
 private fun FilterContent(
     selectedDayOfWeek: String,
-    selectedHomies: String
+    selectedHomies: String,
+    isShowBottomSheet: Boolean
 ) {
     Row(
         modifier = Modifier.height(IntrinsicSize.Min),
@@ -85,7 +87,8 @@ private fun FilterContent(
         if (selectedDayOfWeek.isNotBlank()) {
             FilterTextSlot(
                 prefixText = stringResource(R.string.todo_filter_day_of_week),
-                tailText = selectedDayOfWeek
+                tailText = selectedDayOfWeek,
+                isShowBottomSheet = isShowBottomSheet
             )
         }
         if (selectedDayOfWeek.isNotBlank() && selectedHomies.isNotBlank()) {
@@ -99,7 +102,8 @@ private fun FilterContent(
         if (selectedHomies.isNotBlank()) {
             FilterTextSlot(
                 prefixText = stringResource(R.string.todo_filter_homy),
-                tailText = selectedHomies
+                tailText = selectedHomies,
+                isShowBottomSheet = isShowBottomSheet
             )
         }
     }
@@ -108,7 +112,8 @@ private fun FilterContent(
 @Composable
 private fun FilterTextSlot(
     prefixText: String,
-    tailText: String
+    tailText: String,
+    isShowBottomSheet: Boolean
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -116,18 +121,18 @@ private fun FilterTextSlot(
     ) {
         Text(
             text = prefixText,
-            color = HousG6,
+            color = if (isShowBottomSheet) HousBlueL1 else HousG6,
             style = HousTheme.typography.description
         )
         Box(
             modifier = Modifier
                 .clip(CircleShape)
                 .size(3.dp)
-                .background(HousBlue)
+                .background(if (isShowBottomSheet) HousBlueL1 else HousBlue)
         )
         Text(
             text = tailText,
-            color = HousBlue,
+            color = if (isShowBottomSheet) HousWhite else HousBlue,
             style = HousTheme.typography.description
         )
     }
@@ -140,7 +145,7 @@ private fun FilterPreview() {
         TodoFilter(
             selectedDayOfWeek = "월, 화, 수, 목, 금",
             selectedHomies = "강원용 외 2명",
-            isShowBottomSheet = false,
+            isShowBottomSheet = true,
             showFilterBottomSheet = {}
         )
     }
