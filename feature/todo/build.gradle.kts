@@ -62,6 +62,7 @@ dependencies {
         implementation(viewModel)
         implementation(mdcTheme)
         implementation(appCompatTheme)
+        implementation(lifecycle)
     }
 
     Deps.Coroutines.run {
