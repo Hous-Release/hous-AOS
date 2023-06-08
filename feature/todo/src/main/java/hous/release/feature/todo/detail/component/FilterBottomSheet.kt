@@ -30,16 +30,16 @@ import hous.release.designsystem.theme.HousTheme
 import hous.release.designsystem.theme.HousWhite
 import hous.release.domain.entity.HomyType
 import hous.release.feature.todo.R
+import hous.release.feature.todo.detail.SelectableDayOfWeek
 import hous.release.feature.todo.detail.SelectableHomy
 
 @Composable
 fun FilterBottomSheet(
     homies: List<SelectableHomy>,
-    isSelectedDay: List<Boolean>,
+    isSelectedDay: List<SelectableDayOfWeek>,
     selectTodoDay: (dayIdx: Int) -> Unit,
     selectHomy: (homyIdx: Int) -> Unit,
-    getTodosAppliedFilter: () -> Unit,
-    week: Array<String> = stringArrayResource(id = R.array.to_do_week_of_day)
+    getTodosAppliedFilter: () -> Unit
 ) {
     Column(
         modifier = Modifier.padding(
@@ -63,8 +63,7 @@ fun FilterBottomSheet(
         Spacer(modifier = Modifier.height(8.dp))
         Week(
             isSelectedDay = isSelectedDay,
-            selectTodoDay = selectTodoDay,
-            week = week
+            selectTodoDay = selectTodoDay
         )
         Spacer(modifier = Modifier.height(12.dp))
         Text(
@@ -84,20 +83,19 @@ fun FilterBottomSheet(
 
 @Composable
 private fun Week(
-    isSelectedDay: List<Boolean>,
-    selectTodoDay: (dayIdx: Int) -> Unit,
-    week: Array<String>
+    isSelectedDay: List<SelectableDayOfWeek>,
+    selectTodoDay: (dayIdx: Int) -> Unit
 ) {
     LazyRow(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        itemsIndexed(week) { idx, dayOfWeek ->
+        itemsIndexed(isSelectedDay) { idx, dayOfWeek ->
             DayItem(
                 dayIdx = idx,
-                text = dayOfWeek,
+                text = dayOfWeek.dayOfWeek,
                 selectTodoDay = { selectTodoDay(idx) },
-                isSelected = isSelectedDay[idx]
+                isSelected = dayOfWeek.isSelected
             )
         }
     }
@@ -168,7 +166,15 @@ private fun FilterBottomSheetPreview() {
                         homyType = HomyType.BLUE
                     ),
                 ),
-                isSelectedDay = listOf(false, false, true, false, false, true, false),
+                isSelectedDay = listOf(
+                    SelectableDayOfWeek(dayOfWeek = "월"),
+                    SelectableDayOfWeek(dayOfWeek = "화"),
+                    SelectableDayOfWeek(dayOfWeek = "수"),
+                    SelectableDayOfWeek(dayOfWeek = "목"),
+                    SelectableDayOfWeek(dayOfWeek = "금"),
+                    SelectableDayOfWeek(dayOfWeek = "토"),
+                    SelectableDayOfWeek(dayOfWeek = "일")
+                ),
                 selectTodoDay = {},
                 selectHomy = {},
                 getTodosAppliedFilter = {}
