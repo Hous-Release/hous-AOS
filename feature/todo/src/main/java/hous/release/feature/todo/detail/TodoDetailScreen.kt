@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import hous.release.designsystem.component.FabScreenSlot
 import hous.release.designsystem.component.HousSearchTextField
@@ -34,7 +35,7 @@ import hous.release.feature.todo.detail.component.TodoFilter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalLifecycleComposeApi::class)
 @Composable
 fun TodoDetailScreen(
     todoDetailViewModel: TodoDetailViewModel,
@@ -55,7 +56,12 @@ fun TodoDetailScreen(
             isSelectedDay = week.value,
             selectTodoDay = todoDetailViewModel::selectDayOfWeek,
             selectHomy = todoDetailViewModel::selectHomy,
-            getTodosAppliedFilter = { /*TODO*/ }
+            getTodosAppliedFilter = {
+                /*TODO*/
+                coroutineScope.launch {
+                    bottomSheetState.hide()
+                }
+            }
         )
     }) {
         FabScreenSlot(

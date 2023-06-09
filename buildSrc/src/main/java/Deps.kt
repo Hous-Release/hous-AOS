@@ -42,7 +42,7 @@ object Deps {
             const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
             const val mdcTheme = "com.google.android.material:compose-theme-adapter:1.1.16"
             const val appCompatTheme = "com.google.accompanist:accompanist-appcompat-theme:0.25.1"
-            const val lifecycle = "androidx.lifecycle:lifecycle-runtime-compose:2.6.0"
+            const val lifecycle = "androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha01"
         }
     }
 

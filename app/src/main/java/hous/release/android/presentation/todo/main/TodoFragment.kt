@@ -12,11 +12,11 @@ import com.skydoves.balloon.Balloon
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentToDoBinding
-import hous.release.android.presentation.todo.detail.TodoDetailActivity
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.component.RoundedLinearIndicatorWithHomie
 import hous.release.android.util.component.TodoMainEmpty
 import hous.release.designsystem.theme.HousTheme
+import hous.release.feature.todo.detail.TodoDetailActivity
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -43,8 +43,9 @@ class TodoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
     private fun initClickListener() {
         binding.ivToDoViewAll.setOnClickListener {
             Intent(requireActivity(), TodoDetailActivity::class.java)
-                .apply { putExtra(CURRENT_DAY, toDoViewModel.uiState.value.dayOfWeek) }
-                .also { intent -> startActivity(intent) }
+                .also { intent ->
+                    startActivity(intent)
+                }
         }
     }
 
