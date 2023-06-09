@@ -37,7 +37,7 @@ class TodoDetailViewModel @Inject constructor(
         )
 
     val searchText: StateFlow<String> = _searchText.asStateFlow()
-    val week: StateFlow<List<SelectableDayOfWeek>> = _selectedDayOfWeeks.asStateFlow()
+    val selectableWeek: StateFlow<List<SelectableDayOfWeek>> = _selectedDayOfWeeks.asStateFlow()
     val homies = _homies.asStateFlow()
     val filteredTodo = _filteredTodo.asStateFlow()
     val selectedDayOfWeeks: StateFlow<String> = _selectedDayOfWeeks.map { selectedDays ->
@@ -79,7 +79,7 @@ class TodoDetailViewModel @Inject constructor(
         }
     }
 
-    private fun setWeek() {
+    private fun setSelectableWeek() {
         _selectedDayOfWeeks.value =
             WEEK.map { dayOfWeek -> SelectableDayOfWeek(dayOfWeek = dayOfWeek) }
     }

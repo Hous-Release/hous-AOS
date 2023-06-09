@@ -56,17 +56,17 @@ class TodoDetailViewModelTest {
             )
 
             // when
-            todoDetailViewModel.callPrivateFunc("setWeek")
+            todoDetailViewModel.callPrivateFunc("setSelectableWeek")
 
             // then
-            assertThat(todoDetailViewModel.week.value).isEqualTo(result)
+            assertThat(todoDetailViewModel.selectableWeek.value).isEqualTo(result)
         }
 
         @Test
         @DisplayName("selectDay 함수는 해당 요일을 반전한다.")
         fun dayTest() {
             // given
-            todoDetailViewModel.callPrivateFunc("setWeek")
+            todoDetailViewModel.callPrivateFunc("setSelectableWeek")
 
             // when
             todoDetailViewModel.selectDayOfWeek(0)
@@ -75,9 +75,9 @@ class TodoDetailViewModelTest {
 
             // then
             assertAll(
-                { assertThat(todoDetailViewModel.week.value[0].isSelected).isEqualTo(true) },
-                { assertThat(todoDetailViewModel.week.value[1].isSelected).isEqualTo(true) },
-                { assertThat(todoDetailViewModel.week.value[2].isSelected).isEqualTo(true) }
+                { assertThat(todoDetailViewModel.selectableWeek.value[0].isSelected).isEqualTo(true) },
+                { assertThat(todoDetailViewModel.selectableWeek.value[1].isSelected).isEqualTo(true) },
+                { assertThat(todoDetailViewModel.selectableWeek.value[2].isSelected).isEqualTo(true) }
             )
         }
 
@@ -85,7 +85,7 @@ class TodoDetailViewModelTest {
         @DisplayName("selectDay 클릭 시 해당 인덱스에 해당하는 요일들이 string으로 표시된다.")
         fun filterWeekTest() = runTest {
             // given
-            todoDetailViewModel.callPrivateFunc("setWeek")
+            todoDetailViewModel.callPrivateFunc("setSelectableWeek")
             val collectJob =
                 launch(UnconfinedTestDispatcher()) { todoDetailViewModel.selectedDayOfWeeks.collect() }
 
@@ -105,7 +105,7 @@ class TodoDetailViewModelTest {
         @DisplayName("selectDay 모두 클릭 했을 때 '매일' 로 표시한다.")
         fun filterWeekTest2() = runTest {
             // given
-            todoDetailViewModel.callPrivateFunc("setWeek")
+            todoDetailViewModel.callPrivateFunc("setSelectableWeek")
             val collectJob =
                 launch(UnconfinedTestDispatcher()) { todoDetailViewModel.selectedDayOfWeeks.collect() }
 
