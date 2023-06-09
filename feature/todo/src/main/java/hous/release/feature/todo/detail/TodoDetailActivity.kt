@@ -15,7 +15,10 @@ class TodoDetailActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HousTheme {
-                TodoDetailScreen(todoDetailViewModel = todoDetailViewModel)
+                TodoDetailScreen(
+                    todoDetailViewModel = todoDetailViewModel,
+                    finish = { finish() }
+                )
             }
         }
     }
