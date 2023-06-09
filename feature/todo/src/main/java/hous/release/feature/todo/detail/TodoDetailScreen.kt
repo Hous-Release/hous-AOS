@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.Text
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -22,6 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import hous.release.designsystem.component.FabScreenSlot
 import hous.release.designsystem.component.HousSearchTextField
+import hous.release.designsystem.theme.HousG5
+import hous.release.designsystem.theme.HousTheme
 import hous.release.feature.todo.R
 import hous.release.feature.todo.detail.component.FilterBottomSheet
 import hous.release.feature.todo.detail.component.SearchResultText
@@ -93,12 +96,21 @@ fun TodoDetailScreen(
                     }
                 }
                 Spacer(modifier = Modifier.height(12.dp))
-                LazyColumn {
-                    items(filteredTodo.value.todos) { todo ->
-                        ToDoItem(
-                            todo = todo,
-                            showToDoDetailBottomSheet = { /* todo detail bottom sheet */ }
-                        )
+                if (filteredTodo.value.todos.isEmpty()) {
+                    Text(
+                        text = if (searchText.value.isBlank()) stringResource(R.string.todo_detail_empty)
+                        else stringResource(R.string.todo_filter_empty),
+                        style = HousTheme.typography.b2,
+                        color = HousG5
+                    )
+                } else {
+                    LazyColumn {
+                        items(filteredTodo.value.todos) { todo ->
+                            ToDoItem(
+                                todo = todo,
+                                showToDoDetailBottomSheet = { /* todo detail bottom sheet */ }
+                            )
+                        }
                     }
                 }
             }
