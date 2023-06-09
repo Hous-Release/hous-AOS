@@ -63,7 +63,7 @@ class TodoDetailViewModel @Inject constructor(
         setHomies()
     }
 
-    private fun setFilteredTodo(
+    fun setFilteredTodo(
         dayOfWeeks: List<String>?,
         onboardingIds: List<Int>?
     ) {

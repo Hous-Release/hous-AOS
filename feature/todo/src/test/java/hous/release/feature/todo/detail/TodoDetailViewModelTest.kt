@@ -260,7 +260,7 @@ class TodoDetailViewModelTest {
             )
 
             // when
-            todoDetailViewModel.callPrivateFunc("setFilteredTodo", null, null)
+            todoDetailViewModel.setFilteredTodo(null, null)
 
             // then
             assertThat(todoDetailViewModel.filteredTodo.value.todos).isEqualTo(expectedValue)
@@ -275,7 +275,7 @@ class TodoDetailViewModelTest {
                 todos = expectedValue,
                 todosCnt = expectedValue.size
             )
-            todoDetailViewModel.callPrivateFunc("setFilteredTodo", null, null)
+            todoDetailViewModel.setFilteredTodo(null, null)
 
             // when
             todoDetailViewModel.writeSearchText("1")
@@ -295,7 +295,7 @@ class TodoDetailViewModelTest {
             todoDetailViewModel.writeSearchText("1")
 
             // when
-            todoDetailViewModel.callPrivateFunc("setFilteredTodo", null, null)
+            todoDetailViewModel.setFilteredTodo(null, null)
 
             // then
             assertThat(todoDetailViewModel.filteredTodo.value.todos).isEqualTo(listOf(expectedValue[0]))
