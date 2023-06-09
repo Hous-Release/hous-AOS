@@ -123,7 +123,7 @@ class TodoDetailViewModel @Inject constructor(
     }
 
     companion object {
-        val WEEK = listOf("월", "화", "수", "목", "금", "토", "일")
+        private val WEEK = listOf("월", "화", "수", "목", "금", "토", "일")
     }
 }
 
