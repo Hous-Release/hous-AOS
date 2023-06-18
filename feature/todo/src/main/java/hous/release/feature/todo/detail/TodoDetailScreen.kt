@@ -71,7 +71,8 @@ fun TodoDetailScreen(
                     }
                 }
             )
-        }) {
+        }
+    ) {
         FabScreenSlot(
             fabOnClick = {
                 /* Todo 추가하기 뷰로 이동 */
