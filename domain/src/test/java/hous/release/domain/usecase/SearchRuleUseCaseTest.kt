@@ -22,7 +22,7 @@ internal class SearchRuleUseCaseTest {
         val expectList =
             listOf(MainTodo(true, 1, "KWY"), MainTodo(true, 2, "KWY2"), MainTodo(true, 1, "LJW"))
         // when
-        val result: List<MainTodo> = searchUseCase("kw", expectList).filterIsInstance<MainTodo>()
+        val result: List<MainTodo> = searchUseCase("kw", expectList)
         // then
         assertThat(result).isEqualTo(listOf(MainTodo(true, 1, "KWY"), MainTodo(true, 2, "KWY2")))
     }
@@ -37,7 +37,7 @@ internal class SearchRuleUseCaseTest {
             MainTodo(true, 1, "ㄱ ㅏ ㅇ ㅜ ㅓ ㅇ ㅛㅇ   ")
         )
         // when
-        val result: List<MainTodo> = searchUseCase("강  ", expectList).filterIsInstance<MainTodo>()
+        val result: List<MainTodo> = searchUseCase("강  ", expectList)
         // then
         assertThat(result).isEqualTo(listOf(MainTodo(true, 1, "   강원용   ")))
     }

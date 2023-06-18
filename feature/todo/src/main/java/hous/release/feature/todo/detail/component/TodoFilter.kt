@@ -34,7 +34,7 @@ import hous.release.feature.todo.R
 
 @Composable
 fun TodoFilter(
-    selectedDayOfWeek: String,
+    selectedDayOfWeeks: String,
     selectedHomies: String,
     isShowBottomSheet: Boolean,
     showFilterBottomSheet: () -> Unit
@@ -52,7 +52,7 @@ fun TodoFilter(
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (selectedDayOfWeek.isBlank() && selectedHomies.isBlank()) {
+            if (selectedDayOfWeeks.isBlank() && selectedHomies.isBlank()) {
                 Icon(
                     painter = painterResource(id = hous.release.designsystem.R.drawable.ic_filter),
                     contentDescription = null,
@@ -65,7 +65,7 @@ fun TodoFilter(
                 )
             } else {
                 FilterContent(
-                    selectedDayOfWeek = selectedDayOfWeek,
+                    selectedDayOfWeek = selectedDayOfWeeks,
                     selectedHomies = selectedHomies,
                     isShowBottomSheet = isShowBottomSheet
                 )
@@ -143,7 +143,7 @@ private fun FilterTextSlot(
 private fun FilterPreview() {
     HousTheme {
         TodoFilter(
-            selectedDayOfWeek = "월, 화, 수, 목, 금",
+            selectedDayOfWeeks = "월, 화, 수, 목, 금",
             selectedHomies = "강원용 외 2명",
             isShowBottomSheet = true,
             showFilterBottomSheet = {}

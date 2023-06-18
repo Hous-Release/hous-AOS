@@ -56,17 +56,17 @@ class TodoDetailViewModelTest {
             )
 
             // when
-            todoDetailViewModel.callPrivateFunc("setWeek")
+            todoDetailViewModel.callPrivateFunc("setSelectableWeek")
 
             // then
-            assertThat(todoDetailViewModel.week.value).isEqualTo(result)
+            assertThat(todoDetailViewModel.selectableWeek.value).isEqualTo(result)
         }
 
         @Test
         @DisplayName("selectDay 함수는 해당 요일을 반전한다.")
         fun dayTest() {
             // given
-            todoDetailViewModel.callPrivateFunc("setWeek")
+            todoDetailViewModel.callPrivateFunc("setSelectableWeek")
 
             // when
             todoDetailViewModel.selectDayOfWeek(0)
@@ -75,9 +75,9 @@ class TodoDetailViewModelTest {
 
             // then
             assertAll(
-                { assertThat(todoDetailViewModel.week.value[0].isSelected).isEqualTo(true) },
-                { assertThat(todoDetailViewModel.week.value[1].isSelected).isEqualTo(true) },
-                { assertThat(todoDetailViewModel.week.value[2].isSelected).isEqualTo(true) }
+                { assertThat(todoDetailViewModel.selectableWeek.value[0].isSelected).isEqualTo(true) },
+                { assertThat(todoDetailViewModel.selectableWeek.value[1].isSelected).isEqualTo(true) },
+                { assertThat(todoDetailViewModel.selectableWeek.value[2].isSelected).isEqualTo(true) }
             )
         }
 
@@ -85,7 +85,7 @@ class TodoDetailViewModelTest {
         @DisplayName("selectDay 클릭 시 해당 인덱스에 해당하는 요일들이 string으로 표시된다.")
         fun filterWeekTest() = runTest {
             // given
-            todoDetailViewModel.callPrivateFunc("setWeek")
+            todoDetailViewModel.callPrivateFunc("setSelectableWeek")
             val collectJob =
                 launch(UnconfinedTestDispatcher()) { todoDetailViewModel.selectedDayOfWeeks.collect() }
 
@@ -105,7 +105,7 @@ class TodoDetailViewModelTest {
         @DisplayName("selectDay 모두 클릭 했을 때 '매일' 로 표시한다.")
         fun filterWeekTest2() = runTest {
             // given
-            todoDetailViewModel.callPrivateFunc("setWeek")
+            todoDetailViewModel.callPrivateFunc("setSelectableWeek")
             val collectJob =
                 launch(UnconfinedTestDispatcher()) { todoDetailViewModel.selectedDayOfWeeks.collect() }
 
@@ -232,27 +232,26 @@ class TodoDetailViewModelTest {
     @Nested
     @DisplayName("todo 관련 테스트 모음")
     inner class FilteredTodoTest {
-        private val expectedValue = listOf(
-            TodoWithNew(
-                id = 1,
-                name = "todo1",
-                isNew = false
-            ),
-            TodoWithNew(
-                id = 2,
-                name = "todo2",
-                isNew = false
-            ),
-            TodoWithNew(
-                id = 3,
-                name = "todo3",
-                isNew = false
-            )
-        )
-
         @Test
         @DisplayName("setFilteredTodo 함수를 호출하면 필터링된 FilteredTodo 객체를 적용한다.")
         fun setFilteredTodoTest() = runTest {
+            val expectedValue = listOf(
+                TodoWithNew(
+                    id = 1,
+                    name = "todo1",
+                    isNew = false
+                ),
+                TodoWithNew(
+                    id = 2,
+                    name = "todo2",
+                    isNew = false
+                ),
+                TodoWithNew(
+                    id = 3,
+                    name = "todo3",
+                    isNew = false
+                )
+            )
             // given
             coEvery { getFilteredTodoUseCase(null, null) } returns FilteredTodo(
                 todos = expectedValue,
@@ -271,6 +270,23 @@ class TodoDetailViewModelTest {
         @DisplayName("writeSearchText 함수를 통해 text를 입력하면 해당 text를 포함한 todo를 검색한다.")
         fun setSearchRuleTest() = runTest {
             // given
+            val expectedValue = listOf(
+                TodoWithNew(
+                    id = 1,
+                    name = "todo1",
+                    isNew = false
+                ),
+                TodoWithNew(
+                    id = 2,
+                    name = "todo2",
+                    isNew = false
+                ),
+                TodoWithNew(
+                    id = 3,
+                    name = "todo3",
+                    isNew = false
+                )
+            )
             coEvery { getFilteredTodoUseCase(null, null) } returns FilteredTodo(
                 todos = expectedValue,
                 todosCnt = expectedValue.size
@@ -288,6 +304,23 @@ class TodoDetailViewModelTest {
         @DisplayName("검색 기능과 필터 기능을 동시 사용했을 경우 교집합으로 처리한다.")
         fun setFilteredTodoTest2() = runTest {
             // given
+            val expectedValue = listOf(
+                TodoWithNew(
+                    id = 1,
+                    name = "todo1",
+                    isNew = false
+                ),
+                TodoWithNew(
+                    id = 2,
+                    name = "todo2",
+                    isNew = false
+                ),
+                TodoWithNew(
+                    id = 3,
+                    name = "todo3",
+                    isNew = false
+                )
+            )
             coEvery { getFilteredTodoUseCase(null, null) } returns FilteredTodo(
                 todos = expectedValue,
                 todosCnt = expectedValue.size

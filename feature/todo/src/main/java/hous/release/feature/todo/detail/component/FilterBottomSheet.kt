@@ -16,7 +16,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,8 +35,8 @@ import hous.release.feature.todo.detail.SelectableHomy
 @Composable
 fun FilterBottomSheet(
     homies: List<SelectableHomy>,
-    isSelectedDay: List<SelectableDayOfWeek>,
-    selectTodoDay: (dayIdx: Int) -> Unit,
+    selectableWeek: List<SelectableDayOfWeek>,
+    selectDayOfWeek: (dayIdx: Int) -> Unit,
     selectHomy: (homyIdx: Int) -> Unit,
     getTodosAppliedFilter: () -> Unit
 ) {
@@ -61,9 +60,9 @@ fun FilterBottomSheet(
             style = HousTheme.typography.b1
         )
         Spacer(modifier = Modifier.height(8.dp))
-        Week(
-            isSelectedDay = isSelectedDay,
-            selectTodoDay = selectTodoDay
+        SelectableWeek(
+            selectableWeek = selectableWeek,
+            selectDayOfWeek = selectDayOfWeek
         )
         Spacer(modifier = Modifier.height(12.dp))
         Text(
@@ -82,20 +81,20 @@ fun FilterBottomSheet(
 }
 
 @Composable
-private fun Week(
-    isSelectedDay: List<SelectableDayOfWeek>,
-    selectTodoDay: (dayIdx: Int) -> Unit
+private fun SelectableWeek(
+    selectableWeek: List<SelectableDayOfWeek>,
+    selectDayOfWeek: (dayIdx: Int) -> Unit
 ) {
     LazyRow(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        itemsIndexed(isSelectedDay) { idx, dayOfWeek ->
+        itemsIndexed(selectableWeek) { idx, selectableDayOfWeek ->
             DayItem(
                 dayIdx = idx,
-                text = dayOfWeek.dayOfWeek,
-                selectTodoDay = { selectTodoDay(idx) },
-                isSelected = dayOfWeek.isSelected
+                text = selectableDayOfWeek.dayOfWeek,
+                selectTodoDay = { selectDayOfWeek(idx) },
+                isSelected = selectableDayOfWeek.isSelected
             )
         }
     }
@@ -166,7 +165,7 @@ private fun FilterBottomSheetPreview() {
                         homyType = HomyType.BLUE
                     ),
                 ),
-                isSelectedDay = listOf(
+                selectableWeek = listOf(
                     SelectableDayOfWeek(dayOfWeek = "월"),
                     SelectableDayOfWeek(dayOfWeek = "화"),
                     SelectableDayOfWeek(dayOfWeek = "수"),
@@ -175,7 +174,7 @@ private fun FilterBottomSheetPreview() {
                     SelectableDayOfWeek(dayOfWeek = "토"),
                     SelectableDayOfWeek(dayOfWeek = "일")
                 ),
-                selectTodoDay = {},
+                selectDayOfWeek = {},
                 selectHomy = {},
                 getTodosAppliedFilter = {}
             )

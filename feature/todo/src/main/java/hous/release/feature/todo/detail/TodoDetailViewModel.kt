@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.todo.FilteredTodo
-import hous.release.domain.entity.todo.TodoWithNew
 import hous.release.domain.usecase.SearchRuleUseCase
 import hous.release.domain.usecase.todo.GetFilteredTodoUseCase
 import hous.release.domain.usecase.todo.GetHomiesUseCase
@@ -37,33 +36,41 @@ class TodoDetailViewModel @Inject constructor(
         )
 
     val searchText: StateFlow<String> = _searchText.asStateFlow()
-    val week: StateFlow<List<SelectableDayOfWeek>> = _selectedDayOfWeeks.asStateFlow()
+    val selectableWeek: StateFlow<List<SelectableDayOfWeek>> = _selectedDayOfWeeks.asStateFlow()
     val homies = _homies.asStateFlow()
     val filteredTodo = _filteredTodo.asStateFlow()
-    val selectedDayOfWeeks: StateFlow<String> = _selectedDayOfWeeks.map { selectedDays ->
-        val selectedDayOfWeeks = selectedDays.filter { dayOfWeek -> dayOfWeek.isSelected }
-        if (selectedDayOfWeeks.count() != 7) selectedDayOfWeeks.joinToString(", ") { week -> week.dayOfWeek }
-        else "매일"
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000L),
-        initialValue = ""
-    )
-    val selectedHomies: StateFlow<String> = _homies.map { homies ->
-        val selectedHomies = homies.filter { homy -> homy.isSelected }
-        if (selectedHomies.count() > 1) "${selectedHomies[0].name} 외 ${selectedHomies.count() - 1}명"
-        else selectedHomies.joinToString("") { homy -> homy.name }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000L),
-        initialValue = ""
-    )
+    val selectedDayOfWeeks: StateFlow<String> =
+        _selectedDayOfWeeks.map { selectedDays -> transformSelectedDaysToString(selectedDays) }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000L),
+                initialValue = ""
+            )
+    val selectedHomies: StateFlow<String> =
+        _homies.map { homies -> transformSelectedHomiesToString(homies) }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000L),
+                initialValue = ""
+            )
 
     init {
         setHomies()
     }
 
-    fun setFilteredTodo(
+    private fun transformSelectedDaysToString(selectedDays: List<SelectableDayOfWeek>): String {
+        val selectedDayOfWeeks = selectedDays.filter { dayOfWeek -> dayOfWeek.isSelected }
+        return if (selectedDayOfWeeks.count() != 7) selectedDayOfWeeks.joinToString(", ") { week -> week.dayOfWeek }
+        else "매일"
+    }
+
+    private fun transformSelectedHomiesToString(homies: List<SelectableHomy>): String {
+        val selectedHomies = homies.filter { homy -> homy.isSelected }
+        return if (selectedHomies.count() > 1) "${selectedHomies[0].name} 외 ${selectedHomies.count() - 1}명"
+        else selectedHomies.joinToString("") { homy -> homy.name }
+    }
+
+    private fun setFilteredTodo(
         dayOfWeeks: List<String>?,
         onboardingIds: List<Int>?
     ) {
@@ -73,13 +80,13 @@ class TodoDetailViewModel @Inject constructor(
                 todos = searchRuleUseCase(
                     searchText.value,
                     result.todos
-                ).filterIsInstance<TodoWithNew>()
+                )
             )
             else result
         }
     }
 
-    private fun setWeek() {
+    private fun setSelectableWeek() {
         _selectedDayOfWeeks.value =
             WEEK.map { dayOfWeek -> SelectableDayOfWeek(dayOfWeek = dayOfWeek) }
     }
@@ -118,12 +125,12 @@ class TodoDetailViewModel @Inject constructor(
                 todos = searchRuleUseCase(
                     searchText.value,
                     filteredTodo.value.todos
-                ).filterIsInstance<TodoWithNew>()
+                )
             )
     }
 
     companion object {
-        val WEEK = listOf("월", "화", "수", "목", "금", "토", "일")
+        private val WEEK = listOf("월", "화", "수", "목", "금", "토", "일")
     }
 }
 
