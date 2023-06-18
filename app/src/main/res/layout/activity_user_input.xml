@@ -150,7 +150,7 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/selector_userinput_check"
             android:button="@android:color/transparent"
-            android:checked="@={vm.isPrivateBirthday}"
+            android:checked="@{vm.isPrivateBirthday}"
             android:clickable="true"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
