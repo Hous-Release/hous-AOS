@@ -39,27 +39,35 @@ class TodoDetailViewModel @Inject constructor(
     val selectableWeek: StateFlow<List<SelectableDayOfWeek>> = _selectedDayOfWeeks.asStateFlow()
     val homies = _homies.asStateFlow()
     val filteredTodo = _filteredTodo.asStateFlow()
-    val selectedDayOfWeeks: StateFlow<String> = _selectedDayOfWeeks.map { selectedDays ->
-        val selectedDayOfWeeks = selectedDays.filter { dayOfWeek -> dayOfWeek.isSelected }
-        if (selectedDayOfWeeks.count() != 7) selectedDayOfWeeks.joinToString(", ") { week -> week.dayOfWeek }
-        else "매일"
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000L),
-        initialValue = ""
-    )
-    val selectedHomies: StateFlow<String> = _homies.map { homies ->
-        val selectedHomies = homies.filter { homy -> homy.isSelected }
-        if (selectedHomies.count() > 1) "${selectedHomies[0].name} 외 ${selectedHomies.count() - 1}명"
-        else selectedHomies.joinToString("") { homy -> homy.name }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000L),
-        initialValue = ""
-    )
+    val selectedDayOfWeeks: StateFlow<String> =
+        _selectedDayOfWeeks.map { selectedDays -> transformSelectedDaysToString(selectedDays) }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000L),
+                initialValue = ""
+            )
+    val selectedHomies: StateFlow<String> =
+        _homies.map { homies -> transformSelectedHomiesToString(homies) }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000L),
+                initialValue = ""
+            )
 
     init {
         setHomies()
+    }
+
+    private fun transformSelectedDaysToString(selectedDays: List<SelectableDayOfWeek>): String {
+        val selectedDayOfWeeks = selectedDays.filter { dayOfWeek -> dayOfWeek.isSelected }
+        return if (selectedDayOfWeeks.count() != 7) selectedDayOfWeeks.joinToString(", ") { week -> week.dayOfWeek }
+        else "매일"
+    }
+
+    private fun transformSelectedHomiesToString(homies: List<SelectableHomy>): String {
+        val selectedHomies = homies.filter { homy -> homy.isSelected }
+        return if (selectedHomies.count() > 1) "${selectedHomies[0].name} 외 ${selectedHomies.count() - 1}명"
+        else selectedHomies.joinToString("") { homy -> homy.name }
     }
 
     private fun setFilteredTodo(
