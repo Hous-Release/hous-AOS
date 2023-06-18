@@ -187,7 +187,7 @@ private fun HousTextField(
                 modifier = Modifier.fillMaxHeight(),
                 contentAlignment = if (isPrefixIcon) Alignment.CenterStart else Alignment.TopStart
             ) {
-                if (hint.isNotBlank()) {
+                if (text.isEmpty()) {
                     Text(
                         text = hint,
                         color = HousG5,
