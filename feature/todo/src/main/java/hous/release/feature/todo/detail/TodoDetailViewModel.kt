@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.todo.FilteredTodo
-import hous.release.domain.entity.todo.TodoWithNew
 import hous.release.domain.usecase.SearchRuleUseCase
 import hous.release.domain.usecase.todo.GetFilteredTodoUseCase
 import hous.release.domain.usecase.todo.GetHomiesUseCase
@@ -73,7 +72,7 @@ class TodoDetailViewModel @Inject constructor(
                 todos = searchRuleUseCase(
                     searchText.value,
                     result.todos
-                ).filterIsInstance<TodoWithNew>()
+                )
             )
             else result
         }
@@ -118,7 +117,7 @@ class TodoDetailViewModel @Inject constructor(
                 todos = searchRuleUseCase(
                     searchText.value,
                     filteredTodo.value.todos
-                ).filterIsInstance<TodoWithNew>()
+                )
             )
     }
 
