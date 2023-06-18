@@ -70,7 +70,7 @@ class TodoDetailViewModel @Inject constructor(
         else selectedHomies.joinToString("") { homy -> homy.name }
     }
 
-    private fun setFilteredTodo(
+    fun setFilteredTodo(
         dayOfWeeks: List<String>?,
         onboardingIds: List<Int>?
     ) {

@@ -52,7 +52,7 @@ fun TodoDetailScreen(
     val selectedHomies = todoDetailViewModel.selectedHomies.collectAsStateWithLifecycle()
     val filteredTodo = todoDetailViewModel.filteredTodo.collectAsStateWithLifecycle()
     val homies = todoDetailViewModel.homies.collectAsStateWithLifecycle()
-    val week = todoDetailViewModel.week.collectAsStateWithLifecycle()
+    val selectableWeek = todoDetailViewModel.selectableWeek.collectAsStateWithLifecycle()
     val bottomSheetState =
         rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 
@@ -61,8 +61,8 @@ fun TodoDetailScreen(
         sheetContent = {
             FilterBottomSheet(
                 homies = homies.value,
-                isSelectedDay = week.value,
-                selectTodoDay = todoDetailViewModel::selectDayOfWeek,
+                selectableWeek = selectableWeek.value,
+                selectDayOfWeek = todoDetailViewModel::selectDayOfWeek,
                 selectHomy = todoDetailViewModel::selectHomy,
                 getTodosAppliedFilter = {
                     /* TODO 필터링 api 연결 */
@@ -164,7 +164,7 @@ private fun TodoFilterAndSearchResult(
         verticalAlignment = Alignment.CenterVertically
     ) {
         TodoFilter(
-            selectedDayOfWeek = selectedDayOfWeek,
+            selectedDayOfWeeks = selectedDayOfWeek,
             selectedHomies = selectedHomies,
             isShowBottomSheet = false,
             showFilterBottomSheet = showFilterBottomSheet
