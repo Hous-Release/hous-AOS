@@ -19,6 +19,8 @@ import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Text
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,6 +32,7 @@ import hous.release.designsystem.component.FabScreenSlot
 import hous.release.designsystem.component.HousSearchTextField
 import hous.release.designsystem.theme.HousG5
 import hous.release.designsystem.theme.HousTheme
+import hous.release.domain.entity.TodoDetail
 import hous.release.domain.entity.todo.TodoWithNew
 import hous.release.feature.todo.R
 import hous.release.feature.todo.detail.component.FilterBottomSheet
@@ -40,6 +43,9 @@ import hous.release.feature.todo.detail.component.TodoDetailToolbar
 import hous.release.feature.todo.detail.component.TodoFilter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+
+const val FILTER_BOTTOM_SHEET = 0
+const val DETAIL_BOTTOM_SHEET = 1
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
@@ -57,34 +63,33 @@ fun TodoDetailScreen(
     val todoDetail = todoDetailViewModel.todoDetail.collectAsStateWithLifecycle()
     val bottomSheetState =
         rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
+    val (selected, setSelected) = remember(calculation = { mutableStateOf(FILTER_BOTTOM_SHEET) })
 
     ModalBottomSheetLayout(
         sheetState = bottomSheetState,
         sheetContent = {
-            FilterBottomSheet(
+            BottomSheetContent(
+                selected = selected,
                 homies = homies.value,
                 selectableWeek = selectableWeek.value,
-                selectDayOfWeek = todoDetailViewModel::selectDayOfWeek,
-                selectHomy = todoDetailViewModel::selectHomy,
+                todoDetail = todoDetail.value,
                 getTodosAppliedFilter = {
-                    /* TODO 필터링 api 연결 */
                     coroutineScope.launch {
+                        /* TODO 필터링 api 연결 */
                         bottomSheetState.hide()
                     }
-                }
-            )
-            TodoDetailBottomSheet(
-                todoId = 1,
-                todoDetail = todoDetail.value,
+                },
+                selectDayOfWeek = todoDetailViewModel::selectDayOfWeek,
+                selectHomy = todoDetailViewModel::selectHomy,
                 editAction = {
                     coroutineScope.launch {
-                        /* 수정하기 뷰로 이동하기 */
+                        /* TODO edit 화면으로 이동 */
                         bottomSheetState.hide()
                     }
                 },
                 deleteAction = {
                     coroutineScope.launch {
-                        /* delete dialog 띄우기 */
+                        /* TODO delete dialog 띄우기 */
                         bottomSheetState.hide()
                     }
                 }
@@ -104,10 +109,17 @@ fun TodoDetailScreen(
                 writeSearchText = todoDetailViewModel::writeSearchText,
                 showFilterBottomSheet = {
                     coroutineScope.launch {
+                        setSelected(FILTER_BOTTOM_SHEET)
                         bottomSheetState.show()
                     }
                 },
-                showToDoDetailBottomSheet = todoDetailViewModel::setTodoDetail,
+                showToDoDetailBottomSheet = { todoId ->
+                    coroutineScope.launch {
+                        todoDetailViewModel.setTodoDetail(todoId)
+                        setSelected(DETAIL_BOTTOM_SHEET)
+                        bottomSheetState.show()
+                    }
+                },
                 finish = finish
             )
         }
@@ -215,5 +227,37 @@ private fun EmptyGuideText(
             style = HousTheme.typography.b2,
             color = HousG5
         )
+    }
+}
+
+@Composable
+private fun BottomSheetContent(
+    selected: Int,
+    homies: List<SelectableHomy>,
+    selectableWeek: List<SelectableDayOfWeek>,
+    todoDetail: TodoDetail,
+    getTodosAppliedFilter: () -> Unit,
+    selectDayOfWeek: (Int) -> Unit,
+    selectHomy: (Int) -> Unit,
+    editAction: (Int) -> Unit,
+    deleteAction: (Int) -> Unit
+) {
+    when (selected) {
+        FILTER_BOTTOM_SHEET -> {
+            FilterBottomSheet(
+                homies = homies,
+                selectableWeek = selectableWeek,
+                selectDayOfWeek = selectDayOfWeek,
+                selectHomy = selectHomy,
+                getTodosAppliedFilter = getTodosAppliedFilter
+            )
+        }
+        DETAIL_BOTTOM_SHEET -> {
+            TodoDetailBottomSheet(
+                todoDetail = todoDetail,
+                editAction = editAction,
+                deleteAction = deleteAction
+            )
+        }
     }
 }

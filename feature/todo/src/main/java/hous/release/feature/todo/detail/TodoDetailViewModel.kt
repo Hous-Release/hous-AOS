@@ -139,7 +139,6 @@ class TodoDetailViewModel @Inject constructor(
     }
 
     fun setTodoDetail(todoId: Int) {
-
     }
 
     companion object {
