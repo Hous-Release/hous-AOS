@@ -23,9 +23,10 @@ import hous.release.designsystem.theme.HousTheme
 @Composable
 fun HousDetailBottomSheet(
     modifier: Modifier = Modifier,
+    todoId: Int,
     content: @Composable () -> Unit,
-    editAction: () -> Unit,
-    deleteAction: () -> Unit
+    editAction: (Int) -> Unit,
+    deleteAction: (Int) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -33,6 +34,7 @@ fun HousDetailBottomSheet(
     ) {
         content()
         BottomSheetButton(
+            todoId = todoId,
             text = stringResource(R.string.todo_detail_bs_edit),
             color = HousBlack,
             action = editAction,
@@ -40,6 +42,7 @@ fun HousDetailBottomSheet(
             bottomPadding = 14.dp
         )
         BottomSheetButton(
+            todoId = todoId,
             text = stringResource(R.string.todo_detail_bs_delete),
             color = HousRed,
             action = deleteAction,
@@ -51,17 +54,18 @@ fun HousDetailBottomSheet(
 
 @Composable
 private fun BottomSheetButton(
+    todoId: Int,
     text: String,
     color: Color,
     topPadding: Dp,
     bottomPadding: Dp,
-    action: () -> Unit
+    action: (Int) -> Unit
 ) {
     Divider(modifier = Modifier.height(1.dp))
     Text(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { action() }
+            .clickable { action(todoId) }
             .padding(top = topPadding, bottom = bottomPadding),
         text = text,
         color = color,

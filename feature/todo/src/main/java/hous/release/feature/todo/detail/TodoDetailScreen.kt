@@ -142,7 +142,12 @@ private fun Todos(
     showToDoDetailBottomSheet: () -> Unit
 ) {
     LazyColumn {
-        items(todos) { todo ->
+        items(
+            items = todos,
+            key = { todo ->
+                todo.id
+            }
+        ) { todo ->
             ToDoItem(
                 todo = todo,
                 showToDoDetailBottomSheet = showToDoDetailBottomSheet
