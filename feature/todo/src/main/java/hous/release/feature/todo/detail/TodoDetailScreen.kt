@@ -35,6 +35,7 @@ import hous.release.feature.todo.R
 import hous.release.feature.todo.detail.component.FilterBottomSheet
 import hous.release.feature.todo.detail.component.SearchResultText
 import hous.release.feature.todo.detail.component.ToDoItem
+import hous.release.feature.todo.detail.component.TodoDetailBottomSheet
 import hous.release.feature.todo.detail.component.TodoDetailToolbar
 import hous.release.feature.todo.detail.component.TodoFilter
 import kotlinx.coroutines.CoroutineScope
@@ -53,6 +54,7 @@ fun TodoDetailScreen(
     val filteredTodo = todoDetailViewModel.filteredTodo.collectAsStateWithLifecycle()
     val homies = todoDetailViewModel.homies.collectAsStateWithLifecycle()
     val selectableWeek = todoDetailViewModel.selectableWeek.collectAsStateWithLifecycle()
+    val todoDetail = todoDetailViewModel.todoDetail.collectAsStateWithLifecycle()
     val bottomSheetState =
         rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 
@@ -67,6 +69,22 @@ fun TodoDetailScreen(
                 getTodosAppliedFilter = {
                     /* TODO 필터링 api 연결 */
                     coroutineScope.launch {
+                        bottomSheetState.hide()
+                    }
+                }
+            )
+            TodoDetailBottomSheet(
+                todoId = 1,
+                todoDetail = todoDetail.value,
+                editAction = {
+                    coroutineScope.launch {
+                        /* 수정하기 뷰로 이동하기 */
+                        bottomSheetState.hide()
+                    }
+                },
+                deleteAction = {
+                    coroutineScope.launch {
+                        /* delete dialog 띄우기 */
                         bottomSheetState.hide()
                     }
                 }
@@ -89,6 +107,7 @@ fun TodoDetailScreen(
                         bottomSheetState.show()
                     }
                 },
+                showToDoDetailBottomSheet = todoDetailViewModel::setTodoDetail,
                 finish = finish
             )
         }
@@ -103,6 +122,7 @@ private fun TodoDetailContent(
     todos: List<TodoWithNew>,
     writeSearchText: (String) -> Unit,
     showFilterBottomSheet: () -> Unit,
+    showToDoDetailBottomSheet: (Int) -> Unit,
     finish: () -> Unit
 ) {
     Column(
@@ -127,7 +147,7 @@ private fun TodoDetailContent(
         if (todos.isNotEmpty()) {
             Todos(
                 todos = todos,
-                showToDoDetailBottomSheet = { /* todo detail bottom sheet */ }
+                showToDoDetailBottomSheet = showToDoDetailBottomSheet
             )
         }
     }
@@ -139,7 +159,7 @@ private fun TodoDetailContent(
 @Composable
 private fun Todos(
     todos: List<TodoWithNew>,
-    showToDoDetailBottomSheet: () -> Unit
+    showToDoDetailBottomSheet: (Int) -> Unit
 ) {
     LazyColumn {
         items(
