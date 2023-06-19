@@ -19,7 +19,7 @@ fun TodoDetailToolbar(
     HousToolbarSlot(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, top = 20.dp, bottom = 20.dp),
+            .padding(top = 20.dp, bottom = 20.dp),
         leadingIcon = {
             Icon(
                 modifier = Modifier.clickable { finish() },

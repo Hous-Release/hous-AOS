@@ -9,6 +9,18 @@
     <string name="todo_filter">필터</string>
     <string name="todo_filter_day_of_week">요일</string>
     <string name="todo_filter_homy">호미</string>
-    <string name="filter_search_result">\"검색 결과 \"</string>
+    <string name="filter_search_result">검색 결과</string>
     <string name="filter_search_result_postfix">개</string>
+    <string name="todo_detail_textfield_hint">검색하기</string>
+    <string name="todo_detail_empty">아직 우리집 to-do가 없어요!</string>
+    <string name="todo_filter_empty">해당되는 to-do가 없어요!</string>
+    <string-array name="to_do_week_of_day">
+        <item>월</item>
+        <item>화</item>
+        <item>수</item>
+        <item>목</item>
+        <item>금</item>
+        <item>토</item>
+        <item>일</item>
+    </string-array>
 </resources>

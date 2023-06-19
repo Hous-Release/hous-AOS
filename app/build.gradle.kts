@@ -113,6 +113,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":designsystem"))
     implementation(project(":testing"))
+    implementation(project(":feature:todo"))
 
     implementation("androidx.appcompat:appcompat:1.5.1")
     implementation("com.google.android.material:material:1.6.1")
