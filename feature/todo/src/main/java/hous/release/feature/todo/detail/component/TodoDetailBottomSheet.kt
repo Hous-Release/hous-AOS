@@ -26,13 +26,12 @@ import hous.release.domain.entity.TodoDetail.User
 
 @Composable
 fun TodoDetailBottomSheet(
-    todoId: Int,
     todoDetail: TodoDetail,
     editAction: (Int) -> Unit,
     deleteAction: (Int) -> Unit
 ) {
     HousDetailBottomSheet(
-        todoId = todoId,
+        todoId = todoDetail.todoId,
         content = {
             TodoDetailBottomSheetContent(
                 todo = todoDetail.name,
@@ -98,7 +97,6 @@ private fun TodoDetailBottomSheetPreview() {
     HousTheme {
         Box(modifier = Modifier.background(Color.White)) {
             TodoDetailBottomSheet(
-                todoId = 0,
                 todoDetail = TodoDetail(
                     name = "청소기 좀 돌려라",
                     selectedUsers = listOf(
