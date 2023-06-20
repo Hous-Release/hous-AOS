@@ -2,43 +2,47 @@ package hous.release.domain.usecase
 
 import com.google.common.truth.Truth.assertThat
 import hous.release.domain.entity.Rule
-import org.junit.jupiter.api.DisplayName
+import hous.release.domain.usecase.search.SearchRuleUseCase
+import hous.release.domain.usecase.search.matcher.RuleNameMatcher
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertAll
 
 internal class SearchRuleUseCaseTest {
 
     data class MainTodo(
-        val isNew: Boolean,
-        override val id: Int,
-        override val name: String
+        val isNew: Boolean = false,
+        override val id: Int = 0,
+        override val name: String = ""
     ) : Rule(id, name)
 
-    private val searchUseCase = SearchRuleUseCase()
-
     @Test
-    @DisplayName("영어 rule name 반환")
-    fun useCaseTest() {
+    fun `rule의 name에 검색값이 매칭되는 rule을 반환한다`() {
         // given
-        val expectList =
-            listOf(MainTodo(true, 1, "KWY"), MainTodo(true, 2, "KWY2"), MainTodo(true, 1, "LJW"))
+        val searchUseCase = SearchRuleUseCase(RuleNameMatcher())
+
+        val rules: List<Rule> =
+            listOf(
+                MainTodo(name = "이준원"),
+                MainTodo(name = " 이준원MURJUNE "),
+                MainTodo(name = "이준원murjune"),
+                MainTodo(name = "이#준@원")
+            )
         // when
-        val result: List<MainTodo> = searchUseCase("kw", expectList)
+        val res: List<Rule> = searchUseCase("kw", rules)
+        val res2: List<Rule> = searchUseCase("ㅇㅈㅇ", rules)
+        val res3: List<Rule> = searchUseCase("muㅕrj&une", rules)
         // then
-        assertThat(result).isEqualTo(listOf(MainTodo(true, 1, "KWY"), MainTodo(true, 2, "KWY2")))
-    }
-
-    @Test
-    @DisplayName("한국 rule name 반환")
-    fun useCaseTest2() {
-        // given
-        val expectList = listOf(
-            MainTodo(true, 1, "   강원용   "),
-            MainTodo(true, 2, "깡원용"),
-            MainTodo(true, 1, "ㄱ ㅏ ㅇ ㅜ ㅓ ㅇ ㅛㅇ   ")
+        assertAll(
+            { assertThat(res).isEqualTo(emptyList<Rule>()) },
+            { assertThat(res2).isEqualTo(rules) },
+            {
+                assertThat(res3).isEqualTo(
+                    listOf(
+                        MainTodo(name = " 이준원MURJUNE "),
+                        MainTodo(name = "이준원murjune")
+                    )
+                )
+            }
         )
-        // when
-        val result: List<MainTodo> = searchUseCase("강  ", expectList)
-        // then
-        assertThat(result).isEqualTo(listOf(MainTodo(true, 1, "   강원용   ")))
     }
 }
