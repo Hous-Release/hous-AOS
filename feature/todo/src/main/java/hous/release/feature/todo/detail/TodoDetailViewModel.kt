@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.TodoDetail
 import hous.release.domain.entity.todo.FilteredTodo
-import hous.release.domain.usecase.SearchRuleUseCase
+import hous.release.domain.usecase.search.SearchRuleUseCase
 import hous.release.domain.usecase.todo.GetFilteredTodoUseCase
 import hous.release.domain.usecase.todo.GetHomiesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow

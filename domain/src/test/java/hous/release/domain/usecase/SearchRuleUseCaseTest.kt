@@ -4,6 +4,7 @@ import com.google.common.truth.Truth.assertThat
 import hous.release.domain.entity.Rule
 import hous.release.domain.usecase.search.SearchRuleUseCase
 import hous.release.domain.usecase.search.matcher.RuleNameMatcher
+import hous.release.domain.usecase.search.strategy.MixedEnKrMatchStrategy
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 
@@ -18,7 +19,7 @@ internal class SearchRuleUseCaseTest {
     @Test
     fun `rule의 name에 검색값이 매칭되는 rule을 반환한다`() {
         // given
-        val searchUseCase = SearchRuleUseCase(RuleNameMatcher())
+        val searchUseCase = SearchRuleUseCase(RuleNameMatcher(MixedEnKrMatchStrategy()))
 
         val rules: List<Rule> =
             listOf(
