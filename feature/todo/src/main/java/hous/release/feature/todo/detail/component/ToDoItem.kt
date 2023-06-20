@@ -24,12 +24,12 @@ import hous.release.feature.todo.R
 @Composable
 fun ToDoItem(
     todo: TodoWithNew,
-    showToDoDetailBottomSheet: () -> Unit
+    showToDoDetailBottomSheet: (Int) -> Unit
 ) {
     HousRuleSlot(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { showToDoDetailBottomSheet() }
+            .clickable { showToDoDetailBottomSheet(todo.id) }
             .padding(start = 6.dp, top = 12.dp, bottom = 12.dp),
         text = todo.name,
         isShowTrailingIcon = todo.isNew,

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.HomyType
+import hous.release.domain.entity.TodoDetail
 import hous.release.domain.entity.todo.FilteredTodo
 import hous.release.domain.usecase.SearchRuleUseCase
 import hous.release.domain.usecase.todo.GetFilteredTodoUseCase
@@ -34,11 +35,19 @@ class TodoDetailViewModel @Inject constructor(
                 0
             )
         )
+    private val _todoDetail: MutableStateFlow<TodoDetail> = MutableStateFlow(
+        TodoDetail(
+            name = "",
+            selectedUsers = emptyList(),
+            dayOfWeeks = ""
+        )
+    )
 
     val searchText: StateFlow<String> = _searchText.asStateFlow()
     val selectableWeek: StateFlow<List<SelectableDayOfWeek>> = _selectedDayOfWeeks.asStateFlow()
     val homies = _homies.asStateFlow()
     val filteredTodo = _filteredTodo.asStateFlow()
+    val todoDetail = _todoDetail.asStateFlow()
     val selectedDayOfWeeks: StateFlow<String> =
         _selectedDayOfWeeks.map { selectedDays -> transformSelectedDaysToString(selectedDays) }
             .stateIn(
@@ -127,6 +136,9 @@ class TodoDetailViewModel @Inject constructor(
                     filteredTodo.value.todos
                 )
             )
+    }
+
+    fun setTodoDetail(todoId: Int) {
     }
 
     companion object {
