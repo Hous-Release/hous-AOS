@@ -82,7 +82,8 @@ fun TodoDetailScreen(
                     bottomSheetState.hide()
                 }
             },
-            onDismissRequest = { isDeleteTodo = false })
+            onDismissRequest = { isDeleteTodo = false }
+        )
     }
 
     ModalBottomSheetLayout(
