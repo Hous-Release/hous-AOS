@@ -254,8 +254,8 @@ private fun BottomSheetContent(
     getTodosAppliedFilter: () -> Unit,
     selectDayOfWeek: (Int) -> Unit,
     selectHomy: (Int) -> Unit,
-    editAction: (Int) -> Unit,
-    deleteAction: (Int) -> Unit
+    editAction: () -> Unit,
+    deleteAction: () -> Unit
 ) {
     when (selected) {
         FILTER_BOTTOM_SHEET -> {
