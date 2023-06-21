@@ -10,12 +10,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import hous.release.designsystem.theme.HousBlack
 import hous.release.designsystem.theme.HousG5
 import hous.release.designsystem.theme.HousRed
@@ -23,6 +26,37 @@ import hous.release.designsystem.theme.HousTheme
 
 @Composable
 fun HousDialog(
+    title: String,
+    content: String,
+    neutralText: String,
+    actionText: String,
+    actionOnClick: () -> Unit,
+    onDismissRequest: () -> Unit,
+    properties: DialogProperties = DialogProperties()
+) {
+    Dialog(
+        onDismissRequest = onDismissRequest,
+        properties = properties
+    ) {
+        Surface(
+            modifier = Modifier,
+            shape = RoundedCornerShape(8.dp),
+            color = Color.White
+        ) {
+            HousDialogFrame(
+                title = title,
+                content = content,
+                neutralText = neutralText,
+                actionText = actionText,
+                actionOnClick = actionOnClick,
+                neutralOnClick = onDismissRequest
+            )
+        }
+    }
+}
+
+@Composable
+private fun HousDialogFrame(
     title: String,
     content: String,
     neutralText: String,
@@ -64,7 +98,6 @@ private fun HousDialogSlot(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
             .padding(
                 top = 24.dp,
                 bottom = 20.dp,
@@ -107,7 +140,7 @@ private fun HousDialogPreview() {
             content = "정말 취소하려면 나가기 버튼을 눌러주세요.",
             neutralText = "계속 수정하기",
             actionText = "나가기",
-            neutralOnClick = { /*TODO*/ },
+            onDismissRequest = { /*TODO*/ },
             actionOnClick = {}
         )
     }
@@ -127,7 +160,7 @@ private fun HousDialogPreview2() {
             content = "정말 취소하려면 나가기 버튼을 눌러주세요.",
             neutralText = "계속 수정하기",
             actionText = "나가기",
-            neutralOnClick = { /*TODO*/ },
+            onDismissRequest = { /*TODO*/ },
             actionOnClick = { method(id) }
         )
     }

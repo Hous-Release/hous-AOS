@@ -141,6 +141,10 @@ class TodoDetailViewModel @Inject constructor(
     fun setTodoDetail(todoId: Int) {
     }
 
+    fun deleteTodo() {
+        /* todoDetail.value.todoId 를 통해 delete 진행 */
+    }
+
     companion object {
         private val WEEK = listOf("월", "화", "수", "목", "금", "토", "일")
     }
