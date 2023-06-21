@@ -1,6 +1,8 @@
 package hous.release.domain.usecase.search.strategy
 
-class MixedEnKrMatchStrategy : RuleNameMatchStrategy {
+import javax.inject.Inject
+
+class MixedEnKrMatchStrategy @Inject constructor() : RuleNameMatchStrategy {
 
     override fun isMatched(search: String, target: String): Boolean {
         val diff = target.length - search.length
@@ -21,16 +23,16 @@ class MixedEnKrMatchStrategy : RuleNameMatchStrategy {
      * 위의 조건을 만족하면 loop를 돈다
      * */
     private fun isSubstring(search: String, target: String, startIndex: Int): Boolean {
-        var t = 0
+        var subStringLen = 0
         val searchLen = search.length
 
-        while (t < searchLen) {
-            val searchChr = search[t]
-            val targetChr = target[startIndex + t]
+        while (subStringLen < searchLen) {
+            val searchChr = search[subStringLen]
+            val targetChr = target[startIndex + subStringLen]
             if (searchChr != targetChr) {
                 if (!isKrConsonantMatch(searchChr, targetChr)) return false
             }
-            t++
+            subStringLen++
         }
         return true
     }

@@ -8,15 +8,15 @@ class RuleNameMatcher @Inject constructor(
 ) : StringMatcher {
     override fun isMatched(searchValue: String, targetValue: String): Boolean {
         return ruleNameMatchStrategy.isMatched(
-            searchValue.clear(),
-            targetValue.clear()
+            searchValue.mapToSearchFormat(),
+            targetValue.mapToSearchFormat()
         )
     }
 
     /**
      * 공백 제거, 특수문자 제거, lowerCase
      * */
-    private fun String.clear(): String =
+    private fun String.mapToSearchFormat(): String =
         this.replace("\\s".toRegex(), "")
             .replace("[^a-zA-Z0-9가-힣]".toRegex(), "")
             .lowercase()
