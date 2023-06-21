@@ -36,7 +36,7 @@ class EditToDoFragment : BindingFragment<FragmentEditToDoBinding>(R.layout.fragm
         binding.vm = viewModel
         passIdToViewModel()
         initToDoUserScreen()
-//        initBackButtonListener()
+        initBackButtonListener()
         collectTodoName()
         collectUiEvent()
         initEditTextClearFocus()
@@ -115,17 +115,17 @@ class EditToDoFragment : BindingFragment<FragmentEditToDoBinding>(R.layout.fragm
         }
     }
 
-//    private fun initBackButtonListener() {
-//        requireActivity().onBackPressedDispatcher.addCallback {
-//            if (viewModel.isChangeToDoName()) return@addCallback showOutDialog()
-//            findNavController().popBackStack()
-//        }.also { callback -> onBackPressedCallback = callback }
-//
+    private fun initBackButtonListener() {
+        requireActivity().onBackPressedDispatcher.addCallback {
+            if (viewModel.isChangeToDoName()) return@addCallback showOutDialog()
+            findNavController().popBackStack()
+        }.also { callback -> onBackPressedCallback = callback }
+
 //        binding.btnEditToDoBack.setOnClickListener {
 //            if (viewModel.isChangeToDoName()) return@setOnClickListener showOutDialog()
 //            findNavController().popBackStack()
 //        }
-//    }
+    }
 
     private fun showOutDialog() {
         WarningDialogFragment().withArgs {
