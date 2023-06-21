@@ -381,7 +381,7 @@
     <string name="force_update_img_desc">강제 업데이트 이미지</string>
     <string name="force_update_confirm">좋아요!</string>
     <string name="todo_notification">알람 받기</string>
-    <string name="todo_add_edit_title">\"제목 \"</string>
+    <string name="todo_add_edit_title">제목</string>
     <string name="todo_star">*</string>
     <string name="todo_edit_title">to-do 수정</string>
     <string name="todo_add_title">새로운 to-do 추가</string>

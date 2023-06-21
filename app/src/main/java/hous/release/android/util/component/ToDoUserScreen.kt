@@ -28,7 +28,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
 import hous.release.android.presentation.our_rules.type.ButtonState
@@ -198,23 +197,4 @@ private fun TodoTitleGuide() {
             }
         }
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun pv() {
-    HousTheme {
-        TodoUserScreen(
-            title = "to-do 수정",
-            uiState = UpdateToDoUiState(),
-            setTodoText = {},
-            todoText = "",
-            checkUser = {},
-            selectTodoDay = { x, y -> },
-            showLoadingDialog = {},
-            buttonText = "수정하기",
-            putToDo = { Job() },
-            hideKeyBoard = {}
-        )
-    }
 }
