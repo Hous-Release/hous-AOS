@@ -22,11 +22,11 @@
             android:name=".presentation.splash.IntroActivity"
             android:exported="true"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".presentation.network_error.NetworkErrorActivity"
@@ -126,6 +126,17 @@
                 <data
                     android:host="oauth"
                     android:scheme="${KAKAO_REDIRECT_SCHEME}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.practice.GalleryPracticeActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
