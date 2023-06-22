@@ -8,7 +8,6 @@ import dagger.hilt.android.scopes.ActivityScoped
 import hous.release.android.navigation.TodoNavigatorImpl
 import hous.release.feature.todo.detail.navigation.TodoNavigator
 
-
 @Module
 @InstallIn(ActivityComponent::class)
 abstract class NavigationModule {
