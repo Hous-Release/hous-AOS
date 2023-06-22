@@ -14,7 +14,8 @@ fun AddTodoUserScreen(
     todoText: String,
     setTodoText: (String) -> Unit,
     showLoadingDialog: () -> Unit = {},
-    hideKeyBoard: () -> Unit
+    hideKeyBoard: () -> Unit,
+    checkFinish: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycleRemember(UpdateToDoUiState())
     TodoUserScreen(
@@ -27,6 +28,7 @@ fun AddTodoUserScreen(
         selectTodoDay = viewModel::selectTodoDay,
         showLoadingDialog = showLoadingDialog,
         putToDo = viewModel::putTodo,
-        hideKeyBoard = hideKeyBoard
+        hideKeyBoard = hideKeyBoard,
+        checkFinish = checkFinish
     )
 }

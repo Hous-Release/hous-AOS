@@ -1,22 +1,29 @@
 package hous.release.android.presentation.todo.add
 
 import android.os.Bundle
-import android.os.PersistableBundle
-import androidx.activity.ComponentActivity
-import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
+import hous.release.android.R
+import hous.release.android.presentation.todo.detail.TodoLimitDialog
+import hous.release.android.presentation.todo.edit.UpdateToDoEvent
 import hous.release.android.util.KeyBoardUtil
+import hous.release.android.util.ToastMessageUtil
+import hous.release.android.util.dialog.ConfirmClickListener
+import hous.release.android.util.dialog.LoadingDialogFragment
+import hous.release.android.util.dialog.WarningDialogFragment
+import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.repeatOnStarted
+import hous.release.android.util.extension.withArgs
 import hous.release.designsystem.theme.HousTheme
 
 @AndroidEntryPoint
-class AddToDoActivity : ComponentActivity() {
+class AddToDoActivity : AppCompatActivity() {
     private val viewModel by viewModels<AddToDoVIewModel>()
-    private lateinit var onBackPressedCallback: OnBackPressedCallback
 
     @OptIn(ExperimentalLifecycleComposeApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,44 +36,22 @@ class AddToDoActivity : ComponentActivity() {
                     showLoadingDialog = ::showLoadingDialog,
                     todoText = todoText.value,
                     setTodoText = viewModel::setTodoText,
-                    hideKeyBoard = ::hideKeyBoard
+                    hideKeyBoard = ::hideKeyBoard,
+                    checkFinish = ::checkFinish
                 )
             }
         }
+        initBackButtonListener()
+        collectTodoName()
+        collectUiEvent()
     }
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        binding.vm = viewModel
-//        initToDoUserScreen()
-//        initBackButtonListener()
-//        collectTodoName()
-//        collectUiEvent()
-//        initEditTextClearFocus()
-//    }
-//
-//    override fun onDestroyView() {
-//        super.onDestroyView()
-//        onBackPressedCallback.remove()
-//    }
-//
-//    @SuppressLint("ClickableViewAccessibility")
-//    private fun initEditTextClearFocus() {
-//        binding.clAddToDo.setOnTouchListener { _, _ ->
-//            KeyBoardUtil.hide(requireActivity())
-//            return@setOnTouchListener false
-//        }
-//        binding.composeViewAddToDo.setOnTouchListener { _, _ ->
-//            KeyBoardUtil.hide(requireActivity())
-//            return@setOnTouchListener false
-//        }
-//    }
 
     private fun hideKeyBoard() {
         KeyBoardUtil.hide(this)
     }
 
     private fun showLoadingDialog() {
-//        LoadingDialogFragment().show(this, LoadingDialogFragment.TAG)
+        LoadingDialogFragment().show(supportFragmentManager, LoadingDialogFragment.TAG)
     }
 
     private fun collectTodoName() {
@@ -76,21 +61,29 @@ class AddToDoActivity : ComponentActivity() {
             }
         }
     }
-/*
+
+    private fun checkFinish() {
+        if (viewModel.isActiveAddButton() || !viewModel.isBlankToDoName()) {
+            showOutDialog()
+            return
+        }
+        finish()
+    }
+
     private fun collectUiEvent() {
         repeatOnStarted {
             viewModel.uiEvent.collect { uiEvent ->
-                (childFragmentManager.findFragmentByTag(LoadingDialogFragment.TAG) as? LoadingDialogFragment)?.dismiss()
+                (supportFragmentManager.findFragmentByTag(LoadingDialogFragment.TAG) as? LoadingDialogFragment)?.dismiss()
                 when (uiEvent) {
                     UpdateToDoEvent.Finish -> {
-                        findNavController().popBackStack()
+                        finish()
                     }
                     UpdateToDoEvent.Limit -> {
-                        TodoLimitDialog().show(childFragmentManager, TodoLimitDialog.TAG)
+                        TodoLimitDialog().show(supportFragmentManager, TodoLimitDialog.TAG)
                     }
                     UpdateToDoEvent.Duplicate -> {
                         ToastMessageUtil.showToast(
-                            requireContext(),
+                            this,
                             getString(R.string.to_do_duplicate_toast_msg)
                         )
                     }
@@ -100,21 +93,13 @@ class AddToDoActivity : ComponentActivity() {
     }
 
     private fun initBackButtonListener() {
-        requireActivity().onBackPressedDispatcher.addCallback {
+        onBackPressedDispatcher.addCallback {
             if (viewModel.isActiveAddButton() || !viewModel.isBlankToDoName()) {
                 showOutDialog()
                 return@addCallback
             }
-            findNavController().popBackStack()
-        }.also { callback -> onBackPressedCallback = callback }
-
-//        binding.btnAddToDoBack.setOnClickListener {
-//            if (viewModel.isActiveAddButton() || !viewModel.isBlankToDoName()) {
-//                showOutDialog()
-//                return@setOnClickListener
-//            }
-//            findNavController().popBackStack()
-//        }
+            finish()
+        }
     }
 
     private fun showOutDialog() {
@@ -125,8 +110,8 @@ class AddToDoActivity : ComponentActivity() {
             )
             putParcelable(
                 WarningDialogFragment.CONFIRM_ACTION,
-                ConfirmClickListener(confirmAction = { findNavController().popBackStack() })
+                ConfirmClickListener(confirmAction = { finish() })
             )
-        }.show(childFragmentManager, WarningDialogFragment.DIALOG_WARNING)
-    }*/
+        }.show(supportFragmentManager, WarningDialogFragment.DIALOG_WARNING)
+    }
 }

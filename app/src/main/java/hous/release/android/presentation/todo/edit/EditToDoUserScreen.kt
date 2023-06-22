@@ -13,6 +13,7 @@ fun EditTodoUserScreen(
     viewModel: EditToDoViewModel,
     todoText: String,
     setTodoText: (String) -> Unit,
+    checkFinish: () -> Unit,
     showLoadingDialog: () -> Unit,
     hideKeyBoard: () -> Unit
 ) {
@@ -25,6 +26,7 @@ fun EditTodoUserScreen(
         uiState = uiState,
         checkUser = viewModel::checkUser,
         selectTodoDay = viewModel::selectTodoDay,
+        checkFinish = checkFinish,
         showLoadingDialog = showLoadingDialog,
         putToDo = viewModel::putTodo,
         hideKeyBoard = hideKeyBoard
