@@ -18,11 +18,7 @@ class TodoDataSource @Inject constructor(
         toDoService.checkTodo(todoId, ToDoCheckRequest(isChecked))
     }
 
-    suspend fun getDailyTodos() = toDoService.getDailyTodos()
-
     suspend fun getTodoDetail(todoId: Int) = toDoService.getTodoDetail(todoId)
-
-    suspend fun getMemberTodos() = toDoService.getMembersTodos()
 
     suspend fun deleteTodo(todoId: Int) = toDoService.deleteTodo(todoId)
 
