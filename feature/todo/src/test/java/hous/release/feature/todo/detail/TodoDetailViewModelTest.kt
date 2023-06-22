@@ -5,7 +5,9 @@ import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.todo.FilteredTodo
 import hous.release.domain.entity.todo.Homy
 import hous.release.domain.entity.todo.TodoWithNew
-import hous.release.domain.usecase.SearchRuleUseCase
+import hous.release.domain.usecase.search.SearchRuleUseCase
+import hous.release.domain.usecase.search.matcher.RuleNameMatcher
+import hous.release.domain.usecase.search.strategy.MixedEnKrMatchStrategy
 import hous.release.domain.usecase.todo.GetFilteredTodoUseCase
 import hous.release.domain.usecase.todo.GetHomiesUseCase
 import hous.release.testing.CoroutinesTestExtension
@@ -30,7 +32,8 @@ class TodoDetailViewModelTest {
     private lateinit var todoDetailViewModel: TodoDetailViewModel
     private val getHomiesUseCase: GetHomiesUseCase = mockk(relaxed = true)
     private val getFilteredTodoUseCase: GetFilteredTodoUseCase = mockk(relaxed = true)
-    private val searchRuleUseCase: SearchRuleUseCase = SearchRuleUseCase()
+    private val searchRuleUseCase: SearchRuleUseCase =
+        SearchRuleUseCase(RuleNameMatcher(MixedEnKrMatchStrategy()))
 
     @BeforeEach
     fun setUp() {
@@ -137,7 +140,7 @@ class TodoDetailViewModelTest {
                 Homy(0, "KWY", HomyType.BLUE),
                 Homy(1, "SYJ", HomyType.BLUE),
                 Homy(2, "LJW", HomyType.BLUE),
-                Homy(3, "LYJ", HomyType.BLUE),
+                Homy(3, "LYJ", HomyType.BLUE)
             )
 
             // when
@@ -149,7 +152,7 @@ class TodoDetailViewModelTest {
                     SelectableHomy(0, name = "KWY", homyType = HomyType.BLUE),
                     SelectableHomy(1, name = "SYJ", homyType = HomyType.BLUE),
                     SelectableHomy(2, name = "LJW", homyType = HomyType.BLUE),
-                    SelectableHomy(3, name = "LYJ", homyType = HomyType.BLUE),
+                    SelectableHomy(3, name = "LYJ", homyType = HomyType.BLUE)
                 )
             )
         }
@@ -162,7 +165,7 @@ class TodoDetailViewModelTest {
                 Homy(0, "KWY", HomyType.BLUE),
                 Homy(1, "SYJ", HomyType.BLUE),
                 Homy(2, "LJW", HomyType.BLUE),
-                Homy(3, "LYJ", HomyType.BLUE),
+                Homy(3, "LYJ", HomyType.BLUE)
             )
             todoDetailViewModel.callPrivateFunc("setHomies")
 
@@ -188,7 +191,7 @@ class TodoDetailViewModelTest {
                 Homy(0, "KWY", HomyType.BLUE),
                 Homy(1, "SYJ", HomyType.BLUE),
                 Homy(2, "LJW", HomyType.BLUE),
-                Homy(3, "LYJ", HomyType.BLUE),
+                Homy(3, "LYJ", HomyType.BLUE)
             )
             val collectJob =
                 launch(UnconfinedTestDispatcher()) { todoDetailViewModel.selectedHomies.collect() }
@@ -211,7 +214,7 @@ class TodoDetailViewModelTest {
                 Homy(0, "KWY", HomyType.BLUE),
                 Homy(1, "SYJ", HomyType.BLUE),
                 Homy(2, "LJW", HomyType.BLUE),
-                Homy(3, "LYJ", HomyType.BLUE),
+                Homy(3, "LYJ", HomyType.BLUE)
             )
             val collectJob =
                 launch(UnconfinedTestDispatcher()) { todoDetailViewModel.selectedHomies.collect() }
