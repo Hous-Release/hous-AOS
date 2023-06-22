@@ -90,7 +90,7 @@ fun TodoUserScreen(
             trailingIcon = {
                 Text(
                     modifier = Modifier
-                        .clickable {
+                        .clickable(uiState.buttonState == ButtonState.ACTIVE) {
                             coroutineScope.launch {
                                 showLoadingDialog()
                                 putToDo()
