@@ -54,6 +54,7 @@ fun TodoUserScreen(
     setTodoText: (String) -> Unit,
     checkUser: (Int) -> Unit,
     selectTodoDay: (Int, Int) -> Unit,
+    checkFinish: () -> Unit,
     showLoadingDialog: () -> Unit,
     putToDo: () -> Job,
     hideKeyBoard: () -> Unit,
@@ -78,6 +79,9 @@ fun TodoUserScreen(
                 .padding(top = 20.dp, bottom = 24.dp, end = 8.dp),
             leadingIcon = {
                 Icon(
+                    modifier = Modifier.clickable {
+                        checkFinish()
+                    },
                     painter = painterResource(id = hous.release.designsystem.R.drawable.ic_back),
                     contentDescription = null
                 )
@@ -86,7 +90,7 @@ fun TodoUserScreen(
             trailingIcon = {
                 Text(
                     modifier = Modifier
-                        .clickable {
+                        .clickable(uiState.buttonState == ButtonState.ACTIVE) {
                             coroutineScope.launch {
                                 showLoadingDialog()
                                 putToDo()

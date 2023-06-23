@@ -54,6 +54,8 @@ const val DETAIL_BOTTOM_SHEET = 1
 @Composable
 fun TodoDetailScreen(
     todoDetailViewModel: TodoDetailViewModel,
+    navigateToAddTodo: () -> Unit,
+    navigateToEditTodo: (Int) -> Unit,
     finish: () -> Unit,
     coroutineScope: CoroutineScope = rememberCoroutineScope()
 ) {
@@ -104,7 +106,7 @@ fun TodoDetailScreen(
                 selectHomy = todoDetailViewModel::selectHomy,
                 editAction = {
                     coroutineScope.launch {
-                        /* TODO edit 화면으로 이동 */
+                        navigateToEditTodo(todoDetail.value.todoId)
                         bottomSheetState.hide()
                     }
                 },
@@ -115,6 +117,7 @@ fun TodoDetailScreen(
         FabScreenSlot(
             fabOnClick = {
                 /* Todo 추가하기 뷰로 이동 */
+                navigateToAddTodo()
             }
         ) {
             TodoDetailContent(

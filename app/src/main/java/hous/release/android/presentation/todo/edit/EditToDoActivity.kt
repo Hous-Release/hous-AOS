@@ -1,21 +1,18 @@
 package hous.release.android.presentation.todo.edit
 
 import android.os.Bundle
-import android.view.View
-import androidx.activity.OnBackPressedCallback
+import android.os.PersistableBundle
 import androidx.activity.addCallback
-import androidx.fragment.app.viewModels
+import androidx.activity.compose.setContent
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
-import hous.release.android.databinding.FragmentEditToDoBinding
 import hous.release.android.presentation.todo.detail.TodoLimitDialog
 import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.ToastMessageUtil
-import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.LoadingDialogFragment
 import hous.release.android.util.dialog.WarningDialogFragment
@@ -25,49 +22,13 @@ import hous.release.android.util.extension.withArgs
 import hous.release.designsystem.theme.HousTheme
 
 @AndroidEntryPoint
-class EditToDoFragment : BindingFragment<FragmentEditToDoBinding>(R.layout.fragment_edit_to_do) {
-
+class EditToDoActivity : AppCompatActivity() {
     private val viewModel by viewModels<EditToDoViewModel>()
-    private val safeArgs: EditToDoFragmentArgs by navArgs()
-    private lateinit var onBackPressedCallback: OnBackPressedCallback
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.vm = viewModel
-        passIdToViewModel()
-        initToDoUserScreen()
-        initBackButtonListener()
-        collectTodoName()
-        collectUiEvent()
-        initEditTextClearFocus()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        onBackPressedCallback.remove()
-    }
-
-    private fun passIdToViewModel() {
-        val toDoId = safeArgs.todoId
-        viewModel.fetchEditTodoContent(toDoId)
-    }
-
-    private fun initEditTextClearFocus() {
-        binding.clEditToDo.setOnClickListener {
-            KeyBoardUtil.hide(requireActivity())
-        }
-        binding.composeViewEditToDo.setOnClickListener {
-            KeyBoardUtil.hide(requireActivity())
-        }
-    }
-
-    private fun hideKeyBoard() {
-        KeyBoardUtil.hide(requireActivity())
-    }
 
     @OptIn(ExperimentalLifecycleComposeApi::class)
-    private fun initToDoUserScreen() {
-        binding.composeViewEditToDo.setContent {
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+        setContent {
             val todoText = viewModel.todoText.collectAsStateWithLifecycle()
             HousTheme {
                 EditTodoUserScreen(
@@ -75,14 +36,28 @@ class EditToDoFragment : BindingFragment<FragmentEditToDoBinding>(R.layout.fragm
                     todoText = todoText.value,
                     setTodoText = viewModel::setTodoText,
                     showLoadingDialog = ::showLoadingDialog,
-                    hideKeyBoard = ::hideKeyBoard
+                    hideKeyBoard = ::hideKeyBoard,
+                    checkFinish = ::checkFinish
                 )
             }
         }
+        passIdToViewModel()
+        collectTodoName()
+        collectUiEvent()
+        initBackButtonListener()
+    }
+
+    private fun passIdToViewModel() {
+        val todoId = intent.getIntExtra("todoId", 0)
+        viewModel.fetchEditTodoContent(todoId)
+    }
+
+    private fun hideKeyBoard() {
+        KeyBoardUtil.hide(this)
     }
 
     private fun showLoadingDialog() {
-        LoadingDialogFragment().show(childFragmentManager, LoadingDialogFragment.TAG)
+        LoadingDialogFragment().show(supportFragmentManager, LoadingDialogFragment.TAG)
     }
 
     private fun collectTodoName() {
@@ -96,17 +71,17 @@ class EditToDoFragment : BindingFragment<FragmentEditToDoBinding>(R.layout.fragm
     private fun collectUiEvent() {
         repeatOnStarted {
             viewModel.uiEvent.collect { uiEvent ->
-                (childFragmentManager.findFragmentByTag(LoadingDialogFragment.TAG) as? LoadingDialogFragment)?.dismiss()
+                (supportFragmentManager.findFragmentByTag(LoadingDialogFragment.TAG) as? LoadingDialogFragment)?.dismiss()
                 when (uiEvent) {
                     UpdateToDoEvent.Finish -> {
-                        findNavController().popBackStack()
+                        finish()
                     }
                     UpdateToDoEvent.Limit -> {
-                        TodoLimitDialog().show(childFragmentManager, TodoLimitDialog.TAG)
+                        TodoLimitDialog().show(supportFragmentManager, TodoLimitDialog.TAG)
                     }
                     UpdateToDoEvent.Duplicate -> {
                         ToastMessageUtil.showToast(
-                            requireContext(),
+                            this,
                             getString(R.string.to_do_duplicate_toast_msg)
                         )
                     }
@@ -116,15 +91,15 @@ class EditToDoFragment : BindingFragment<FragmentEditToDoBinding>(R.layout.fragm
     }
 
     private fun initBackButtonListener() {
-        requireActivity().onBackPressedDispatcher.addCallback {
+        onBackPressedDispatcher.addCallback {
             if (viewModel.isChangeToDoName()) return@addCallback showOutDialog()
-            findNavController().popBackStack()
-        }.also { callback -> onBackPressedCallback = callback }
+            finish()
+        }
+    }
 
-//        binding.btnEditToDoBack.setOnClickListener {
-//            if (viewModel.isChangeToDoName()) return@setOnClickListener showOutDialog()
-//            findNavController().popBackStack()
-//        }
+    private fun checkFinish() {
+        if (viewModel.isChangeToDoName()) return showOutDialog()
+        finish()
     }
 
     private fun showOutDialog() {
@@ -135,8 +110,8 @@ class EditToDoFragment : BindingFragment<FragmentEditToDoBinding>(R.layout.fragm
             )
             putParcelable(
                 WarningDialogFragment.CONFIRM_ACTION,
-                ConfirmClickListener(confirmAction = { findNavController().popBackStack() })
+                ConfirmClickListener(confirmAction = { finish() })
             )
-        }.show(childFragmentManager, WarningDialogFragment.DIALOG_WARNING)
+        }.show(supportFragmentManager, WarningDialogFragment.DIALOG_WARNING)
     }
 }
