@@ -15,6 +15,7 @@ import hous.release.android.databinding.FragmentToDoBinding
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.component.RoundedLinearIndicatorWithHomie
 import hous.release.android.util.component.TodoMainEmpty
+import hous.release.designsystem.component.HousFloatingButton
 import hous.release.designsystem.theme.HousTheme
 import hous.release.feature.todo.detail.TodoDetailActivity
 import kotlinx.coroutines.flow.launchIn
@@ -38,6 +39,14 @@ class TodoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
         showToolTip()
         collectUiState()
         initClickListener()
+    }
+
+    private fun initFloatingBtn() {
+        binding.cvToDoFloatingBtn.setContent {
+            HousFloatingButton {
+//                Intent(requireActivity(), AddTodoActivity::class.java)
+            }
+        }
     }
 
     private fun initClickListener() {
