@@ -333,12 +333,12 @@
     <!-- Profile Edit -->
     <string name="profile_edit_title">프로필 수정</string>
     <string name="profile_edit_save">저장</string>
-    <string name="profile_edit_birthday_public">생일 공개</string>
-    <string name="profile_edit_hint_nickname">닉네임</string>
-    <string name="profile_edit_hint_mbti">MBTI</string>
-    <string name="profile_edit_hint_job">직업</string>
-    <string name="profile_edit_hint_introduction">자기소개</string>
-    <string name="profile_edit_hint_birthday">생년월일</string>
+    <string name="profile_edit_birthday_private">생일 정보 비공개</string>
+    <string name="profile_edit_nickname">이름</string>
+    <string name="profile_edit_mbti">MBTI</string>
+    <string name="profile_edit_job">직업</string>
+    <string name="profile_edit_introduction">자기소개</string>
+    <string name="profile_edit_birthday">생년월일</string>
 
     <!-- OutRoom -->
     <string name="out_room_title">방 퇴사하기</string>
