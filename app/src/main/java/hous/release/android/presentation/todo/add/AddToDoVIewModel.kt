@@ -42,7 +42,7 @@ class AddToDoVIewModel @Inject constructor(
         postAddToDoUseCase(
             isPushNotification = uiState.value.isPushNotification,
             todoUsers = uiState.value.selectedUsers,
-            toDoName = todoName.value
+            toDoName = todoText.value
         ).collect { apiResult ->
             when (apiResult) {
                 is ApiResult.Success -> {
