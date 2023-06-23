@@ -31,15 +31,15 @@ import org.junit.jupiter.api.extension.ExtendWith
 @ExtendWith(CoroutinesTestExtension::class)
 class TodoDetailViewModelTest {
     private lateinit var todoDetailViewModel: TodoDetailViewModel
+    private lateinit var getFilteredTodoUseCase: GetFilteredTodoUseCase
+    private lateinit var searchRuleUseCase: SearchRuleUseCase
     private val todoRepository: TodoRepository = mockk()
     private val getHomiesUseCase: GetHomiesUseCase = mockk(relaxed = true)
-    private val getFilteredTodoUseCase: GetFilteredTodoUseCase =
-        GetFilteredTodoUseCase(todoRepository)
-    private val searchRuleUseCase: SearchRuleUseCase =
-        SearchRuleUseCase(RuleNameMatcher(MixedEnKrMatchStrategy()))
 
     @BeforeEach
     fun setUp() {
+        getFilteredTodoUseCase = GetFilteredTodoUseCase(todoRepository)
+        searchRuleUseCase = SearchRuleUseCase(RuleNameMatcher(MixedEnKrMatchStrategy()))
         todoDetailViewModel =
             TodoDetailViewModel(getHomiesUseCase, getFilteredTodoUseCase, searchRuleUseCase)
     }
@@ -267,7 +267,7 @@ class TodoDetailViewModelTest {
             )
 
             // when
-            todoDetailViewModel.setFilteredTodo()
+            todoDetailViewModel.fetchFilteredTodo()
 
             // then
             assertThat(todoDetailViewModel.filteredTodo.value.todos).isEqualTo(expectedValue)
@@ -301,7 +301,7 @@ class TodoDetailViewModelTest {
                     todosCnt = expectedValue.size
                 )
             )
-            todoDetailViewModel.setFilteredTodo()
+            todoDetailViewModel.fetchFilteredTodo()
 
             // when
             todoDetailViewModel.writeSearchText("1")
@@ -340,7 +340,7 @@ class TodoDetailViewModelTest {
             todoDetailViewModel.writeSearchText("1")
 
             // when
-            todoDetailViewModel.setFilteredTodo()
+            todoDetailViewModel.fetchFilteredTodo()
 
             // then
             assertThat(todoDetailViewModel.filteredTodo.value.todos).isEqualTo(listOf(expectedValue[0]))

@@ -80,7 +80,7 @@ class TodoDetailViewModel @Inject constructor(
         else selectedHomies.joinToString("") { homy -> homy.name }
     }
 
-    fun setFilteredTodo() {
+    fun fetchFilteredTodo() {
         viewModelScope.launch {
             val dayOfWeeks: List<String>? =
                 selectableWeek.value
