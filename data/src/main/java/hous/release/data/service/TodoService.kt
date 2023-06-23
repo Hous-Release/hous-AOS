@@ -2,12 +2,14 @@ package hous.release.data.service
 
 import hous.release.data.entity.request.ToDoCheckRequest
 import hous.release.data.entity.request.UpdateToDoUsersRequest
+import hous.release.data.entity.request.todo.FilteredTodoRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.EditToDoContentResponse
 import hous.release.data.entity.response.NoDataResponse
 import hous.release.data.entity.response.ToDoMainResponse
 import hous.release.data.entity.response.ToDoUsersResponse
 import hous.release.data.entity.response.TodoDetailResponse
+import hous.release.data.entity.response.todo.FilteredTodoResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -18,6 +20,11 @@ import retrofit2.http.Path
 interface TodoService {
     @GET("/v1/todos/main")
     suspend fun getTodoMainContent(): BaseResponse<ToDoMainResponse>
+
+    @GET("/v1/todos")
+    suspend fun getFilteredTodos(
+        @Body body: FilteredTodoRequest
+    ): BaseResponse<FilteredTodoResponse>
 
     @POST("/v1/todo/{todoId}/check")
     suspend fun checkTodo(

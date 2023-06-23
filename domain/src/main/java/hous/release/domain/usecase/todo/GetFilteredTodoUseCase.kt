@@ -1,11 +1,14 @@
 package hous.release.domain.usecase.todo
 
 import hous.release.domain.entity.todo.FilteredTodo
+import hous.release.domain.repository.TodoRepository
 import javax.inject.Inject
 
-class GetFilteredTodoUseCase @Inject constructor() {
+class GetFilteredTodoUseCase @Inject constructor(
+    private val todoRepository: TodoRepository
+) {
     suspend operator fun invoke(
         dayOfWeeks: List<String>?,
         onboardingIds: List<Int>?
-    ): FilteredTodo = FilteredTodo(todos = emptyList(), todosCnt = 0)
+    ): Result<FilteredTodo> = todoRepository.getFilteredTodos(dayOfWeeks, onboardingIds)
 }

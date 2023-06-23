@@ -5,9 +5,15 @@ import hous.release.domain.entity.TodoDetail
 import hous.release.domain.entity.response.ToDoContent
 import hous.release.domain.entity.response.ToDoUser
 import hous.release.domain.entity.response.TodoMain
+import hous.release.domain.entity.todo.FilteredTodo
 import kotlinx.coroutines.flow.Flow
 
 interface TodoRepository {
+    suspend fun getFilteredTodos(
+        dayOfWeeks: List<String>?,
+        onboardingIds: List<Int>?
+    ): Result<FilteredTodo>
+
     suspend fun getTodoMainContent(): Result<TodoMain>
     suspend fun checkTodo(todoId: Int, isChecked: Boolean): Result<Unit>
     suspend fun getTodoDetail(todoId: Int): Result<TodoDetail>
