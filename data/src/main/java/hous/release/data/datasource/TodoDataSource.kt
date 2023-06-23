@@ -6,6 +6,7 @@ import hous.release.data.entity.request.todo.FilteredTodoRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.ToDoMainResponse
 import hous.release.data.entity.response.todo.FilteredTodoResponse
+import hous.release.data.entity.response.todo.IsAddableTodoResponse
 import hous.release.data.service.TodoService
 import hous.release.domain.entity.UpdateToDoUser
 import javax.inject.Inject
@@ -26,6 +27,9 @@ class TodoDataSource @Inject constructor(
                 onboardingIds = onboardingIds
             ).newInstance()
         )
+
+    suspend fun getIsAddableTodo(): BaseResponse<IsAddableTodoResponse> =
+        toDoService.getIsAddableTodo()
 
     suspend fun checkTodo(todoId: Int, isChecked: Boolean) {
         toDoService.checkTodo(todoId, ToDoCheckRequest(isChecked))

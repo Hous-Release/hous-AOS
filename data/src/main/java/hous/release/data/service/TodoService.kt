@@ -10,6 +10,7 @@ import hous.release.data.entity.response.ToDoMainResponse
 import hous.release.data.entity.response.ToDoUsersResponse
 import hous.release.data.entity.response.TodoDetailResponse
 import hous.release.data.entity.response.todo.FilteredTodoResponse
+import hous.release.data.entity.response.todo.IsAddableTodoResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -25,6 +26,9 @@ interface TodoService {
     suspend fun getFilteredTodos(
         @Body body: FilteredTodoRequest
     ): BaseResponse<FilteredTodoResponse>
+
+    @GET("/v1/todo/addable")
+    suspend fun getIsAddableTodo(): BaseResponse<IsAddableTodoResponse>
 
     @POST("/v1/todo/{todoId}/check")
     suspend fun checkTodo(

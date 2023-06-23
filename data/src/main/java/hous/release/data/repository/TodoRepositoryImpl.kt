@@ -33,6 +33,9 @@ class TodoRepositoryImpl @Inject constructor(
             ).data.toFilteredTodo()
         }
 
+    override suspend fun getIsAddableTodo(): Result<Boolean> =
+        runCatching { todoDataSource.getIsAddableTodo().data.isAddable }
+
     override suspend fun getTodoMainContent(): Result<TodoMain> =
         runCatching { todoDataSource.getTodoMainContent().data.toTodoMain() }
 

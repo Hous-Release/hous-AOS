@@ -14,6 +14,8 @@ interface TodoRepository {
         onboardingIds: List<Int>?
     ): Result<FilteredTodo>
 
+    suspend fun getIsAddableTodo(): Result<Boolean>
+
     suspend fun getTodoMainContent(): Result<TodoMain>
     suspend fun checkTodo(todoId: Int, isChecked: Boolean): Result<Unit>
     suspend fun getTodoDetail(todoId: Int): Result<TodoDetail>
