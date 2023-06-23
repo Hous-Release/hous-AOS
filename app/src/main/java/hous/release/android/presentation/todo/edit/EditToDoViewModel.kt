@@ -35,7 +35,7 @@ class EditToDoViewModel @Inject constructor(
             todoId = todoId,
             isPushNotification = uiState.value.isPushNotification,
             todoUsers = uiState.value.selectedUsers,
-            toDoName = todoName.value
+            toDoName = todoText.value
         ).collect { apiResult ->
             when (apiResult) {
                 is ApiResult.Success -> {
@@ -61,7 +61,7 @@ class EditToDoViewModel @Inject constructor(
                 when (apiResult) {
                     is ApiResult.Success -> _uiState.update { uiState ->
                         val data = apiResult.data
-                        todoName.value = data.name
+                        _todoText.value = data.name
                         _todoHint.update { data.name }
                         uiState.copy(
                             isPushNotification = data.isPushNotification,
@@ -78,7 +78,7 @@ class EditToDoViewModel @Inject constructor(
         }
     }
 
-    fun isChangeToDoName() = (todoHint.value != todoName.value)
+    fun isChangeToDoName() = (todoHint.value != todoText.value)
 
     companion object {
         const val DUPLICATED_ERROR_CODE = "409"

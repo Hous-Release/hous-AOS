@@ -6,6 +6,8 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
@@ -59,13 +61,16 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
         KeyBoardUtil.hide(requireActivity())
     }
 
+    @OptIn(ExperimentalLifecycleComposeApi::class)
     private fun initToDoUserScreen() {
         binding.composeViewAddToDo.setContent {
             HousTheme {
+                val todoText = viewModel.todoText.collectAsStateWithLifecycle()
                 AddTodoUserScreen(
                     viewModel = viewModel,
                     showLoadingDialog = ::showLoadingDialog,
-                    name = getString(R.string.to_do_add_button),
+                    todoText = todoText.value,
+                    setTodoText = viewModel::setTodoText,
                     hideKeyBoard = ::hideKeyBoard
                 )
             }
@@ -78,7 +83,7 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
 
     private fun collectTodoName() {
         repeatOnStarted {
-            viewModel.todoName.collect {
+            viewModel.todoText.collect {
                 viewModel.setToDoNameState(isBlank = viewModel.isBlankToDoName())
             }
         }
@@ -115,13 +120,13 @@ class AddToDoFragment : BindingFragment<FragmentAddToDoBinding>(R.layout.fragmen
             findNavController().popBackStack()
         }.also { callback -> onBackPressedCallback = callback }
 
-        binding.btnAddToDoBack.setOnClickListener {
-            if (viewModel.isActiveAddButton() || !viewModel.isBlankToDoName()) {
-                showOutDialog()
-                return@setOnClickListener
-            }
-            findNavController().popBackStack()
-        }
+//        binding.btnAddToDoBack.setOnClickListener {
+//            if (viewModel.isActiveAddButton() || !viewModel.isBlankToDoName()) {
+//                showOutDialog()
+//                return@setOnClickListener
+//            }
+//            findNavController().popBackStack()
+//        }
     }
 
     private fun showOutDialog() {
