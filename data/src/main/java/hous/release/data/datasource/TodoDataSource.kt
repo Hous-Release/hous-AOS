@@ -22,10 +22,10 @@ class TodoDataSource @Inject constructor(
         onboardingIds: List<Int>?
     ): BaseResponse<FilteredTodoResponse> =
         toDoService.getFilteredTodos(
-            FilteredTodoRequest(
+            FilteredTodoRequest.instanceOf(
                 dayOfWeeks = dayOfWeeks,
                 onboardingIds = onboardingIds
-            ).newInstance()
+            )
         )
 
     suspend fun getIsAddableTodo(): BaseResponse<IsAddableTodoResponse> =
