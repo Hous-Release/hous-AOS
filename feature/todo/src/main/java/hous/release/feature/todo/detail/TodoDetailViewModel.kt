@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -79,19 +80,31 @@ class TodoDetailViewModel @Inject constructor(
         else selectedHomies.joinToString("") { homy -> homy.name }
     }
 
-    fun setFilteredTodo(
-        dayOfWeeks: List<String>?,
-        onboardingIds: List<Int>?
-    ) {
+    fun setFilteredTodo() {
         viewModelScope.launch {
-            val result = getFilteredTodoUseCase(dayOfWeeks, onboardingIds)
-            _filteredTodo.value = if (searchText.value.isNotBlank()) result.copy(
-                todos = searchRuleUseCase(
-                    searchText.value,
-                    result.todos
-                )
-            )
-            else result
+            val dayOfWeeks: List<String>? =
+                selectableWeek.value
+                    .filter { selectableDayOfWeek -> selectableDayOfWeek.isSelected }
+                    .map { selectableDayOfWeek -> selectableDayOfWeek.dayOfWeek }
+                    .nullIfEmpty()
+            val onboardingIds: List<Int>? =
+                homies.value
+                    .filter { homy -> homy.isSelected }
+                    .map { homy -> homy.id }
+                    .nullIfEmpty()
+
+            getFilteredTodoUseCase(dayOfWeeks, onboardingIds)
+                .onSuccess { filteredTodo ->
+                    _filteredTodo.value = if (searchText.value.isNotEmpty()) filteredTodo.copy(
+                        todos = searchRuleUseCase(
+                            searchText.value,
+                            filteredTodo.todos
+                        )
+                    ) else filteredTodo
+                }
+                .onFailure {
+                    Timber.e(it.message)
+                }
         }
     }
 
@@ -157,3 +170,7 @@ data class SelectableHomy(
     val name: String,
     val homyType: HomyType
 )
+
+fun <T> List<T>.nullIfEmpty(): List<T>? {
+    return ifEmpty { null }
+}

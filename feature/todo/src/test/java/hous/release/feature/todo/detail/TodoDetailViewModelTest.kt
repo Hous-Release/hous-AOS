@@ -5,6 +5,7 @@ import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.todo.FilteredTodo
 import hous.release.domain.entity.todo.Homy
 import hous.release.domain.entity.todo.TodoWithNew
+import hous.release.domain.repository.TodoRepository
 import hous.release.domain.usecase.search.SearchRuleUseCase
 import hous.release.domain.usecase.search.matcher.RuleNameMatcher
 import hous.release.domain.usecase.search.strategy.MixedEnKrMatchStrategy
@@ -30,8 +31,10 @@ import org.junit.jupiter.api.extension.ExtendWith
 @ExtendWith(CoroutinesTestExtension::class)
 class TodoDetailViewModelTest {
     private lateinit var todoDetailViewModel: TodoDetailViewModel
+    private val todoRepository: TodoRepository = mockk()
     private val getHomiesUseCase: GetHomiesUseCase = mockk(relaxed = true)
-    private val getFilteredTodoUseCase: GetFilteredTodoUseCase = mockk(relaxed = true)
+    private val getFilteredTodoUseCase: GetFilteredTodoUseCase =
+        GetFilteredTodoUseCase(todoRepository)
     private val searchRuleUseCase: SearchRuleUseCase =
         SearchRuleUseCase(RuleNameMatcher(MixedEnKrMatchStrategy()))
 
@@ -256,13 +259,15 @@ class TodoDetailViewModelTest {
                 )
             )
             // given
-            coEvery { getFilteredTodoUseCase(null, null) } returns FilteredTodo(
-                todos = expectedValue,
-                todosCnt = expectedValue.size
+            coEvery { todoRepository.getFilteredTodos(null, null) } returns Result.success(
+                FilteredTodo(
+                    todos = expectedValue,
+                    todosCnt = expectedValue.size
+                )
             )
 
             // when
-            todoDetailViewModel.setFilteredTodo(null, null)
+            todoDetailViewModel.setFilteredTodo()
 
             // then
             assertThat(todoDetailViewModel.filteredTodo.value.todos).isEqualTo(expectedValue)
@@ -290,11 +295,13 @@ class TodoDetailViewModelTest {
                     isNew = false
                 )
             )
-            coEvery { getFilteredTodoUseCase(null, null) } returns FilteredTodo(
-                todos = expectedValue,
-                todosCnt = expectedValue.size
+            coEvery { todoRepository.getFilteredTodos(null, null) } returns Result.success(
+                FilteredTodo(
+                    todos = expectedValue,
+                    todosCnt = expectedValue.size
+                )
             )
-            todoDetailViewModel.setFilteredTodo(null, null)
+            todoDetailViewModel.setFilteredTodo()
 
             // when
             todoDetailViewModel.writeSearchText("1")
@@ -324,14 +331,16 @@ class TodoDetailViewModelTest {
                     isNew = false
                 )
             )
-            coEvery { getFilteredTodoUseCase(null, null) } returns FilteredTodo(
-                todos = expectedValue,
-                todosCnt = expectedValue.size
+            coEvery { todoRepository.getFilteredTodos(null, null) } returns Result.success(
+                FilteredTodo(
+                    todos = expectedValue,
+                    todosCnt = expectedValue.size
+                )
             )
             todoDetailViewModel.writeSearchText("1")
 
             // when
-            todoDetailViewModel.setFilteredTodo(null, null)
+            todoDetailViewModel.setFilteredTodo()
 
             // then
             assertThat(todoDetailViewModel.filteredTodo.value.todos).isEqualTo(listOf(expectedValue[0]))
