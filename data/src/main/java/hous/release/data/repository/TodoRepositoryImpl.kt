@@ -6,6 +6,7 @@ import hous.release.domain.entity.TodoDetail
 import hous.release.domain.entity.response.ToDoContent
 import hous.release.domain.entity.response.ToDoUser
 import hous.release.domain.entity.response.TodoMain
+import hous.release.domain.entity.todo.FilteredTodo
 import hous.release.domain.repository.TodoRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +22,20 @@ class TodoRepositoryImpl @Inject constructor(
     private val todoDataSource: TodoDataSource,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : TodoRepository {
+    override suspend fun getFilteredTodos(
+        dayOfWeeks: List<String>?,
+        onboardingIds: List<Int>?
+    ): Result<FilteredTodo> =
+        runCatching {
+            todoDataSource.getFilteredTodos(
+                dayOfWeeks = dayOfWeeks,
+                onboardingIds = onboardingIds
+            ).data.toFilteredTodo()
+        }
+
+    override suspend fun getIsAddableTodo(): Result<Boolean> =
+        runCatching { todoDataSource.getIsAddableTodo().data.isAddable }
+
     override suspend fun getTodoMainContent(): Result<TodoMain> =
         runCatching { todoDataSource.getTodoMainContent().data.toTodoMain() }
 
