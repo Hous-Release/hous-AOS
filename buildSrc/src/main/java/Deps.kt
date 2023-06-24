@@ -16,6 +16,7 @@ object AppConfig {
 
 object Deps {
     object AndroidX {
+        const val activity_version = "1.5.1"
         const val kakao_login = "com.kakao.sdk:v2-user:2.11.0"
         const val hilt_navigation = "androidx.hilt:hilt-navigation-fragment:1.0.0"
         const val nav_version = "2.5.1"
@@ -27,7 +28,7 @@ object Deps {
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"
         const val recyclerview = "androidx.recyclerview:recyclerview:1.2.1"
         const val inject = "javax.inject:javax.inject:1"
-        const val activityKTX = "androidx.activity:activity-ktx:1.5.1"
+        const val activityKTX = "androidx.activity:activity-ktx:$activity_version"
         const val lifecycleKTX = "androidx.lifecycle:lifecycle-runtime-ktx:2.6.0-alpha01"
         const val fragmentKTX = "androidx.fragment:fragment-ktx:1.5.0"
         const val security = "androidx.security:security-crypto-ktx:1.1.0-alpha03"
@@ -35,7 +36,8 @@ object Deps {
         const val pagingWithoutAndroid = "androidx.paging:paging-common-ktx:3.1.1"
 
         object Compose {
-            const val activity = "androidx.activity:activity-compose:1.5.1"
+            const val navigation = "androidx.navigation:navigation-compose:$nav_version"
+            const val activity = "androidx.activity:activity-compose:$activity_version"
             const val material = "androidx.compose.material:material:1.2.1"
             const val animations = "androidx.compose.animation:animation:1.2.1"
             const val tool = "androidx.compose.ui:ui-tooling:1.2.1"
@@ -58,7 +60,7 @@ object Deps {
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
         const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
-        const val reflect = "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
+        const val reflect = "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
     }
 
     object Network {
@@ -92,17 +94,17 @@ object Deps {
 
         private const val junit5Ver = "5.9.3"
         private const val junit5PluginVer = "1.9.3.0"
-        const val junit5Path = "de.mannodermaus.gradle.plugins:android-junit5:${junit5PluginVer}"
-        const val junit5Api = "org.junit.jupiter:junit-jupiter-api:${junit5Ver}"
-        const val junit5Engine = "org.junit.jupiter:junit-jupiter-engine:${junit5Ver}"
-        const val junit5ParameterizedTest = "org.junit.jupiter:junit-jupiter-params:${junit5Ver}"
+        const val junit5Path = "de.mannodermaus.gradle.plugins:android-junit5:$junit5PluginVer"
+        const val junit5Api = "org.junit.jupiter:junit-jupiter-api:$junit5Ver"
+        const val junit5Engine = "org.junit.jupiter:junit-jupiter-engine:$junit5Ver"
+        const val junit5ParameterizedTest = "org.junit.jupiter:junit-jupiter-params:$junit5Ver"
         const val junit4 = "junit:junit:4.13.2"
-        const val junit4Engine = "org.junit.vintage:junit-vintage-engine:${junit5Ver}"
+        const val junit4Engine = "org.junit.vintage:junit-vintage-engine:$junit5Ver"
         const val thruth = "com.google.truth:truth:1.1.3"
 
         private const val mockkVer = "1.13.3"
-        const val mockk = "io.mockk:mockk:${mockkVer}"
-        const val mockkAndroid = "io.mockk:mockk-android:${mockkVer}"
+        const val mockk = "io.mockk:mockk:$mockkVer"
+        const val mockkAndroid = "io.mockk:mockk-android:$mockkVer"
 
         const val kotlin = "org.jetbrains.kotlin:kotlin-test"
     }

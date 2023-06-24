@@ -144,6 +144,7 @@ dependencies {
         implementation(viewModel)
         implementation(mdcTheme)
         implementation(appCompatTheme)
+        implementation(navigation)
     }
 
     Deps.DI.run {
