@@ -1,7 +1,6 @@
 package hous.release.android.presentation.todo.edit
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.activity.addCallback
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -20,7 +19,6 @@ import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.extension.withArgs
 import hous.release.designsystem.theme.HousTheme
-import timber.log.Timber
 
 @AndroidEntryPoint
 class EditToDoActivity : AppCompatActivity() {
