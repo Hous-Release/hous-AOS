@@ -5,7 +5,6 @@ import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.ToDoUser
 import hous.release.domain.entity.todo.FilteredTodo
-import hous.release.domain.entity.todo.Homy
 import hous.release.domain.entity.todo.TodoWithNew
 import hous.release.domain.repository.TodoRepository
 import hous.release.domain.usecase.DeleteTodoUseCase
@@ -21,10 +20,7 @@ import hous.release.testing.callPrivateFunc
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -110,33 +106,26 @@ class TodoDetailViewModelTest {
         @Test
         @DisplayName("selectDay 클릭 시 해당 인덱스에 해당하는 요일들이 string으로 표시된다.")
         fun filterWeekTest() = runTest {
+            // 월(0) 화(1) 수(2) 목(3) 금(4) 토(5) 일(6)
             // given
             todoDetailViewModel.callPrivateFunc("setSelectableWeek")
-            val collectJob =
-                launch(UnconfinedTestDispatcher()) { todoDetailViewModel.selectedDayOfWeeks.collect() }
-
-            // 월(0) 화(1) 수(2) 목(3) 금(4) 토(5) 일(6)
-            // when
             todoDetailViewModel.selectDayOfWeek(0)
             todoDetailViewModel.selectDayOfWeek(4)
             todoDetailViewModel.selectDayOfWeek(2)
 
+            // when
+            todoDetailViewModel.callPrivateFunc("transformSelectedDaysToString")
+
             // then
             assertThat(todoDetailViewModel.selectedDayOfWeeks.value).isEqualTo("월, 수, 금")
-
-            collectJob.cancel()
         }
 
         @Test
         @DisplayName("selectDay 모두 클릭 했을 때 '매일' 로 표시한다.")
         fun filterWeekTest2() = runTest {
+            // 월(0) 화(1) 수(2) 목(3) 금(4) 토(5) 일(6)
             // given
             todoDetailViewModel.callPrivateFunc("setSelectableWeek")
-            val collectJob =
-                launch(UnconfinedTestDispatcher()) { todoDetailViewModel.selectedDayOfWeeks.collect() }
-
-            // 월(0) 화(1) 수(2) 목(3) 금(4) 토(5) 일(6)
-            // when
             todoDetailViewModel.selectDayOfWeek(0)
             todoDetailViewModel.selectDayOfWeek(1)
             todoDetailViewModel.selectDayOfWeek(2)
@@ -145,10 +134,11 @@ class TodoDetailViewModelTest {
             todoDetailViewModel.selectDayOfWeek(5)
             todoDetailViewModel.selectDayOfWeek(6)
 
+            // when
+            todoDetailViewModel.callPrivateFunc("transformSelectedDaysToString")
+
             // then
             assertThat(todoDetailViewModel.selectedDayOfWeeks.value).isEqualTo("매일")
-
-            collectJob.cancel()
         }
     }
 
@@ -282,17 +272,14 @@ class TodoDetailViewModelTest {
                     )
                 )
             }
-            val collectJob =
-                launch(UnconfinedTestDispatcher()) { todoDetailViewModel.selectedHomies.collect() }
             todoDetailViewModel.callPrivateFunc("setHomies")
+            todoDetailViewModel.selectHomy(0)
 
             // when
-            todoDetailViewModel.selectHomy(0)
+            todoDetailViewModel.callPrivateFunc("transformSelectedHomiesToString")
 
             // then
             assertThat(todoDetailViewModel.selectedHomies.value).isEqualTo("KWY")
-
-            collectJob.cancel()
         }
 
         @Test
@@ -327,19 +314,16 @@ class TodoDetailViewModelTest {
                     )
                 )
             }
-            val collectJob =
-                launch(UnconfinedTestDispatcher()) { todoDetailViewModel.selectedHomies.collect() }
             todoDetailViewModel.callPrivateFunc("setHomies")
-
-            // when
             todoDetailViewModel.selectHomy(0)
             todoDetailViewModel.selectHomy(1)
             todoDetailViewModel.selectHomy(2)
 
+            // when
+            todoDetailViewModel.callPrivateFunc("transformSelectedHomiesToString")
+
             // then
             assertThat(todoDetailViewModel.selectedHomies.value).isEqualTo("KWY 외 2명")
-
-            collectJob.cancel()
         }
     }
 

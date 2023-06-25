@@ -16,12 +16,9 @@ import hous.release.domain.usecase.todo.GetToDoUsersUseCase
 import hous.release.domain.usecase.todo.GetTodoDetailUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -41,6 +38,8 @@ class TodoDetailViewModel @Inject constructor(
     private val _selectedDayOfWeeks: MutableStateFlow<List<SelectableDayOfWeek>> =
         MutableStateFlow(emptyList())
     private val _homies: MutableStateFlow<List<SelectableHomy>> = MutableStateFlow(emptyList())
+    private val _selectedDayOfWeeksString: MutableStateFlow<String> = MutableStateFlow("")
+    private val _selectedHomiesString: MutableStateFlow<String> = MutableStateFlow("")
     private val _filteredTodo: MutableStateFlow<FilteredTodo> =
         MutableStateFlow(
             FilteredTodo(
@@ -63,19 +62,9 @@ class TodoDetailViewModel @Inject constructor(
     val filteredTodo = _filteredTodo.asStateFlow()
     val todoDetail = _todoDetail.asStateFlow()
     val selectedDayOfWeeks: StateFlow<String> =
-        _selectedDayOfWeeks.map { selectedDays -> transformSelectedDaysToString(selectedDays) }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5000L),
-                initialValue = ""
-            )
+        _selectedDayOfWeeksString.asStateFlow()
     val selectedHomies: StateFlow<String> =
-        _homies.map { homies -> transformSelectedHomiesToString(homies) }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5000L),
-                initialValue = ""
-            )
+        _selectedHomiesString.asStateFlow()
 
     init {
         setHomies()
@@ -83,16 +72,20 @@ class TodoDetailViewModel @Inject constructor(
         fetchFilteredTodo()
     }
 
-    private fun transformSelectedDaysToString(selectedDays: List<SelectableDayOfWeek>): String {
-        val selectedDayOfWeeks = selectedDays.filter { dayOfWeek -> dayOfWeek.isSelected }
-        return if (selectedDayOfWeeks.count() != 7) selectedDayOfWeeks.joinToString(", ") { week -> week.dayOfWeek }
-        else "매일"
+    private fun transformSelectedDaysToString() {
+        val selectedDayOfWeeks = selectableWeek.value.filter { dayOfWeek -> dayOfWeek.isSelected }
+        val selectedDayOfWeeksString =
+            if (selectedDayOfWeeks.count() != 7) selectedDayOfWeeks.joinToString(", ") { week -> week.dayOfWeek }
+            else "매일"
+        _selectedDayOfWeeksString.value = selectedDayOfWeeksString
     }
 
-    private fun transformSelectedHomiesToString(homies: List<SelectableHomy>): String {
-        val selectedHomies = homies.filter { homy -> homy.isSelected }
-        return if (selectedHomies.count() > 1) "${selectedHomies[0].name} 외 ${selectedHomies.count() - 1}명"
-        else selectedHomies.joinToString("") { homy -> homy.name }
+    private fun transformSelectedHomiesToString() {
+        val selectedHomies = homies.value.filter { homy -> homy.isSelected }
+        val selectedHomiesString =
+            if (selectedHomies.count() > 1) "${selectedHomies[0].name} 외 ${selectedHomies.count() - 1}명"
+            else selectedHomies.joinToString("") { homy -> homy.name }
+        _selectedHomiesString.value = selectedHomiesString
     }
 
     fun fetchFilteredTodo() {
@@ -110,6 +103,8 @@ class TodoDetailViewModel @Inject constructor(
 
             getFilteredTodoUseCase(dayOfWeeks, onboardingIds)
                 .onSuccess { filteredTodo ->
+                    transformSelectedHomiesToString()
+                    transformSelectedDaysToString()
                     originalTodos.value = filteredTodo.todos
                     _filteredTodo.value = if (searchText.value.isNotEmpty()) filteredTodo.copy(
                         todos = searchRuleUseCase(
