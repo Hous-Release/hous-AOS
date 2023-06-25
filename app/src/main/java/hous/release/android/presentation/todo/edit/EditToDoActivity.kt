@@ -20,14 +20,15 @@ import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.extension.withArgs
 import hous.release.designsystem.theme.HousTheme
+import timber.log.Timber
 
 @AndroidEntryPoint
 class EditToDoActivity : AppCompatActivity() {
     private val viewModel by viewModels<EditToDoViewModel>()
 
     @OptIn(ExperimentalLifecycleComposeApi::class)
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContent {
             val todoText = viewModel.todoText.collectAsStateWithLifecycle()
             HousTheme {
