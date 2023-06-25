@@ -3,15 +3,16 @@ package hous.release.feature.todo.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.TodoDetail
 import hous.release.domain.entity.todo.FilteredTodo
 import hous.release.domain.usecase.DeleteTodoUseCase
-import hous.release.domain.usecase.todo.GetTodoDetailUseCase
 import hous.release.domain.usecase.search.SearchRuleUseCase
 import hous.release.domain.usecase.todo.GetFilteredTodoUseCase
-import hous.release.domain.usecase.todo.GetHomiesUseCase
 import hous.release.domain.usecase.todo.GetIsAddableTodoUseCase
+import hous.release.domain.usecase.todo.GetToDoUsersUseCase
+import hous.release.domain.usecase.todo.GetTodoDetailUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -26,12 +27,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TodoDetailViewModel @Inject constructor(
-    private val getHomiesUseCase: GetHomiesUseCase,
     private val getFilteredTodoUseCase: GetFilteredTodoUseCase,
     private val searchRuleUseCase: SearchRuleUseCase,
     private val getIsAddableTodoUseCase: GetIsAddableTodoUseCase,
     private val deleteTodoUseCase: DeleteTodoUseCase,
-    private val getTodoDetailUseCase: GetTodoDetailUseCase
+    private val getTodoDetailUseCase: GetTodoDetailUseCase,
+    private val getToDoUsersUseCase: GetToDoUsersUseCase
 ) : ViewModel() {
     private val _todoEvent = MutableSharedFlow<TodoEvent>()
     private val _searchText = MutableStateFlow("")
@@ -76,6 +77,7 @@ class TodoDetailViewModel @Inject constructor(
 
     init {
         setHomies()
+        setSelectableWeek()
     }
 
     private fun transformSelectedDaysToString(selectedDays: List<SelectableDayOfWeek>): String {
@@ -125,12 +127,18 @@ class TodoDetailViewModel @Inject constructor(
 
     private fun setHomies() {
         viewModelScope.launch {
-            _homies.value = getHomiesUseCase().map { homy ->
-                SelectableHomy(
-                    id = homy.id,
-                    name = homy.name,
-                    homyType = homy.homyType
-                )
+            getToDoUsersUseCase().collect { apiResult ->
+                when (apiResult) {
+                    is ApiResult.Success -> _homies.value = apiResult.data.map { homy ->
+                        SelectableHomy(
+                            id = homy.onBoardingId,
+                            name = homy.nickname,
+                            homyType = homy.homyType
+                        )
+                    }
+                    is ApiResult.Error -> Timber.e(apiResult.msg)
+                    is ApiResult.Empty -> Timber.i("empty View")
+                }
             }
         }
     }

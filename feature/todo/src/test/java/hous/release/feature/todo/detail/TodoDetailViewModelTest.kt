@@ -1,25 +1,28 @@
 package hous.release.feature.todo.detail
 
 import com.google.common.truth.Truth.assertThat
+import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.HomyType
+import hous.release.domain.entity.response.ToDoUser
 import hous.release.domain.entity.todo.FilteredTodo
 import hous.release.domain.entity.todo.Homy
 import hous.release.domain.entity.todo.TodoWithNew
 import hous.release.domain.repository.TodoRepository
 import hous.release.domain.usecase.DeleteTodoUseCase
-import hous.release.domain.usecase.todo.GetTodoDetailUseCase
 import hous.release.domain.usecase.search.SearchRuleUseCase
 import hous.release.domain.usecase.search.matcher.RuleNameMatcher
 import hous.release.domain.usecase.search.strategy.MixedEnKrMatchStrategy
 import hous.release.domain.usecase.todo.GetFilteredTodoUseCase
-import hous.release.domain.usecase.todo.GetHomiesUseCase
 import hous.release.domain.usecase.todo.GetIsAddableTodoUseCase
+import hous.release.domain.usecase.todo.GetToDoUsersUseCase
+import hous.release.domain.usecase.todo.GetTodoDetailUseCase
 import hous.release.testing.CoroutinesTestExtension
 import hous.release.testing.callPrivateFunc
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
@@ -39,8 +42,8 @@ class TodoDetailViewModelTest {
     private lateinit var getIsAddableTodoUseCase: GetIsAddableTodoUseCase
     private lateinit var deleteTodoUseCase: DeleteTodoUseCase
     private lateinit var getTodoDetailUseCase: GetTodoDetailUseCase
+    private lateinit var getToDoUsersUseCase: GetToDoUsersUseCase
     private val todoRepository: TodoRepository = mockk()
-    private val getHomiesUseCase: GetHomiesUseCase = mockk(relaxed = true)
 
     @BeforeEach
     fun setUp() {
@@ -49,14 +52,15 @@ class TodoDetailViewModelTest {
         getIsAddableTodoUseCase = GetIsAddableTodoUseCase(todoRepository)
         deleteTodoUseCase = DeleteTodoUseCase(todoRepository)
         getTodoDetailUseCase = GetTodoDetailUseCase(todoRepository)
+        getToDoUsersUseCase = GetToDoUsersUseCase(todoRepository)
         todoDetailViewModel =
             TodoDetailViewModel(
-                getHomiesUseCase,
                 getFilteredTodoUseCase,
                 searchRuleUseCase,
                 getIsAddableTodoUseCase,
                 deleteTodoUseCase,
-                getTodoDetailUseCase
+                getTodoDetailUseCase,
+                getToDoUsersUseCase
             )
     }
 
@@ -155,12 +159,34 @@ class TodoDetailViewModelTest {
         @DisplayName("setHomies 함수는 Homy 객체를 SelectableHomy 객체로 매핑 후 저장한다.")
         fun homyChipClickTest() = runTest {
             // given
-            coEvery { getHomiesUseCase() } returns listOf(
-                Homy(0, "KWY", HomyType.BLUE),
-                Homy(1, "SYJ", HomyType.BLUE),
-                Homy(2, "LJW", HomyType.BLUE),
-                Homy(3, "LYJ", HomyType.BLUE)
-            )
+            coEvery { todoRepository.getToDoUsers() } returns flow {
+                emit(
+                    ApiResult.Success(
+                        listOf(
+                            ToDoUser(
+                                onBoardingId = 0,
+                                nickname = "KWY",
+                                homyType = HomyType.BLUE
+                            ),
+                            ToDoUser(
+                                onBoardingId = 1,
+                                nickname = "SYJ",
+                                homyType = HomyType.BLUE
+                            ),
+                            ToDoUser(
+                                onBoardingId = 2,
+                                nickname = "LJW",
+                                homyType = HomyType.BLUE
+                            ),
+                            ToDoUser(
+                                onBoardingId = 3,
+                                nickname = "LYJ",
+                                homyType = HomyType.BLUE
+                            )
+                        )
+                    )
+                )
+            }
 
             // when
             todoDetailViewModel.callPrivateFunc("setHomies")
@@ -180,12 +206,34 @@ class TodoDetailViewModelTest {
         @DisplayName("selectHomy 함수는 호미의 selected 를 반전한다.")
         fun homyChipClickTest2() = runTest {
             // given
-            coEvery { getHomiesUseCase() } returns listOf(
-                Homy(0, "KWY", HomyType.BLUE),
-                Homy(1, "SYJ", HomyType.BLUE),
-                Homy(2, "LJW", HomyType.BLUE),
-                Homy(3, "LYJ", HomyType.BLUE)
-            )
+            coEvery { todoRepository.getToDoUsers() } returns flow {
+                emit(
+                    ApiResult.Success(
+                        listOf(
+                            ToDoUser(
+                                onBoardingId = 0,
+                                nickname = "KWY",
+                                homyType = HomyType.BLUE
+                            ),
+                            ToDoUser(
+                                onBoardingId = 1,
+                                nickname = "SYJ",
+                                homyType = HomyType.BLUE
+                            ),
+                            ToDoUser(
+                                onBoardingId = 2,
+                                nickname = "LJW",
+                                homyType = HomyType.BLUE
+                            ),
+                            ToDoUser(
+                                onBoardingId = 3,
+                                nickname = "LYJ",
+                                homyType = HomyType.BLUE
+                            )
+                        )
+                    )
+                )
+            }
             todoDetailViewModel.callPrivateFunc("setHomies")
 
             // when
@@ -206,12 +254,34 @@ class TodoDetailViewModelTest {
         @DisplayName("클릭한 homy가 한명일 때 해당 homy의 이름을 표출한다.")
         fun filterHomiesNameTest() = runTest {
             // given
-            coEvery { getHomiesUseCase() } returns listOf(
-                Homy(0, "KWY", HomyType.BLUE),
-                Homy(1, "SYJ", HomyType.BLUE),
-                Homy(2, "LJW", HomyType.BLUE),
-                Homy(3, "LYJ", HomyType.BLUE)
-            )
+            coEvery { todoRepository.getToDoUsers() } returns flow {
+                emit(
+                    ApiResult.Success(
+                        listOf(
+                            ToDoUser(
+                                onBoardingId = 0,
+                                nickname = "KWY",
+                                homyType = HomyType.BLUE
+                            ),
+                            ToDoUser(
+                                onBoardingId = 1,
+                                nickname = "SYJ",
+                                homyType = HomyType.BLUE
+                            ),
+                            ToDoUser(
+                                onBoardingId = 2,
+                                nickname = "LJW",
+                                homyType = HomyType.BLUE
+                            ),
+                            ToDoUser(
+                                onBoardingId = 3,
+                                nickname = "LYJ",
+                                homyType = HomyType.BLUE
+                            )
+                        )
+                    )
+                )
+            }
             val collectJob =
                 launch(UnconfinedTestDispatcher()) { todoDetailViewModel.selectedHomies.collect() }
             todoDetailViewModel.callPrivateFunc("setHomies")
@@ -229,12 +299,34 @@ class TodoDetailViewModelTest {
         @DisplayName("클릭한 homy가 두명 이상일 때 `{호미 이름} 외 {선택한 호미의 수 -1}` 형식으로 이름을 표시한다.")
         fun filterHomiesNameTest2() = runTest {
             // given
-            coEvery { getHomiesUseCase() } returns listOf(
-                Homy(0, "KWY", HomyType.BLUE),
-                Homy(1, "SYJ", HomyType.BLUE),
-                Homy(2, "LJW", HomyType.BLUE),
-                Homy(3, "LYJ", HomyType.BLUE)
-            )
+            coEvery { todoRepository.getToDoUsers() } returns flow {
+                emit(
+                    ApiResult.Success(
+                        listOf(
+                            ToDoUser(
+                                onBoardingId = 0,
+                                nickname = "KWY",
+                                homyType = HomyType.BLUE
+                            ),
+                            ToDoUser(
+                                onBoardingId = 1,
+                                nickname = "SYJ",
+                                homyType = HomyType.BLUE
+                            ),
+                            ToDoUser(
+                                onBoardingId = 2,
+                                nickname = "LJW",
+                                homyType = HomyType.BLUE
+                            ),
+                            ToDoUser(
+                                onBoardingId = 3,
+                                nickname = "LYJ",
+                                homyType = HomyType.BLUE
+                            )
+                        )
+                    )
+                )
+            }
             val collectJob =
                 launch(UnconfinedTestDispatcher()) { todoDetailViewModel.selectedHomies.collect() }
             todoDetailViewModel.callPrivateFunc("setHomies")
