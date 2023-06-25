@@ -7,7 +7,7 @@ import hous.release.domain.entity.todo.Homy
 import hous.release.domain.entity.todo.TodoWithNew
 import hous.release.domain.repository.TodoRepository
 import hous.release.domain.usecase.DeleteTodoUseCase
-import hous.release.domain.usecase.GetTodoDetailUseCase
+import hous.release.domain.usecase.todo.GetTodoDetailUseCase
 import hous.release.domain.usecase.search.SearchRuleUseCase
 import hous.release.domain.usecase.search.matcher.RuleNameMatcher
 import hous.release.domain.usecase.search.strategy.MixedEnKrMatchStrategy

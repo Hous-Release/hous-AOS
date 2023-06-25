@@ -124,7 +124,7 @@ fun TodoDetailScreen(
                 todoDetail = todoDetail.value,
                 getTodosAppliedFilter = {
                     coroutineScope.launch {
-                        /* TODO 필터링 api 연결 */
+                        todoDetailViewModel.fetchFilteredTodo()
                         bottomSheetState.hide()
                     }
                 },
