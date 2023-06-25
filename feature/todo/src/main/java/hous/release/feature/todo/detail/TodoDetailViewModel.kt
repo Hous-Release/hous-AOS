@@ -7,6 +7,7 @@ import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.TodoDetail
 import hous.release.domain.entity.todo.FilteredTodo
+import hous.release.domain.entity.todo.TodoWithNew
 import hous.release.domain.usecase.DeleteTodoUseCase
 import hous.release.domain.usecase.search.SearchRuleUseCase
 import hous.release.domain.usecase.todo.GetFilteredTodoUseCase
@@ -34,6 +35,7 @@ class TodoDetailViewModel @Inject constructor(
     private val getTodoDetailUseCase: GetTodoDetailUseCase,
     private val getToDoUsersUseCase: GetToDoUsersUseCase
 ) : ViewModel() {
+    private val originalTodos = MutableStateFlow<List<TodoWithNew>>(emptyList())
     private val _todoEvent = MutableSharedFlow<TodoEvent>()
     private val _searchText = MutableStateFlow("")
     private val _selectedDayOfWeeks: MutableStateFlow<List<SelectableDayOfWeek>> =
@@ -78,6 +80,7 @@ class TodoDetailViewModel @Inject constructor(
     init {
         setHomies()
         setSelectableWeek()
+        fetchFilteredTodo()
     }
 
     private fun transformSelectedDaysToString(selectedDays: List<SelectableDayOfWeek>): String {
@@ -107,6 +110,7 @@ class TodoDetailViewModel @Inject constructor(
 
             getFilteredTodoUseCase(dayOfWeeks, onboardingIds)
                 .onSuccess { filteredTodo ->
+                    originalTodos.value = filteredTodo.todos
                     _filteredTodo.value = if (searchText.value.isNotEmpty()) filteredTodo.copy(
                         todos = searchRuleUseCase(
                             searchText.value,
@@ -164,7 +168,7 @@ class TodoDetailViewModel @Inject constructor(
             .copy(
                 todos = searchRuleUseCase(
                     searchText.value,
-                    filteredTodo.value.todos
+                    originalTodos.value
                 )
             )
     }
@@ -185,7 +189,7 @@ class TodoDetailViewModel @Inject constructor(
         viewModelScope.launch {
             deleteTodoUseCase(todoDetail.value.todoId)
                 .onSuccess {
-
+                    fetchFilteredTodo()
                 }
                 .onFailure {
                     Timber.e("delete error ${it.message}")

@@ -2,7 +2,6 @@ package hous.release.data.service
 
 import hous.release.data.entity.request.ToDoCheckRequest
 import hous.release.data.entity.request.UpdateToDoUsersRequest
-import hous.release.data.entity.request.todo.FilteredTodoRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.EditToDoContentResponse
 import hous.release.data.entity.response.NoDataResponse
@@ -17,6 +16,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface TodoService {
     @GET("/v1/todos/main")
@@ -24,7 +24,8 @@ interface TodoService {
 
     @GET("/v1/todos")
     suspend fun getFilteredTodos(
-        @Body body: FilteredTodoRequest
+        @Query("dayOfWeeks") dayOfWeeks: List<String>?,
+        @Query("onboardingIds") onboardingIds: List<Int>?
     ): BaseResponse<FilteredTodoResponse>
 
     @GET("/v1/todo/addable")
