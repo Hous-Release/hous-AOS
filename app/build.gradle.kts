@@ -145,6 +145,7 @@ dependencies {
         implementation(mdcTheme)
         implementation(appCompatTheme)
         implementation(lifecycle)
+        implementation(navigation)
     }
 
     Deps.DI.run {
