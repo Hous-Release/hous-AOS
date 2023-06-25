@@ -11,6 +11,7 @@ import hous.release.domain.usecase.search.matcher.RuleNameMatcher
 import hous.release.domain.usecase.search.strategy.MixedEnKrMatchStrategy
 import hous.release.domain.usecase.todo.GetFilteredTodoUseCase
 import hous.release.domain.usecase.todo.GetHomiesUseCase
+import hous.release.domain.usecase.todo.GetIsAddableTodoUseCase
 import hous.release.testing.CoroutinesTestExtension
 import hous.release.testing.callPrivateFunc
 import io.mockk.coEvery
@@ -33,6 +34,7 @@ class TodoDetailViewModelTest {
     private lateinit var todoDetailViewModel: TodoDetailViewModel
     private lateinit var getFilteredTodoUseCase: GetFilteredTodoUseCase
     private lateinit var searchRuleUseCase: SearchRuleUseCase
+    private lateinit var getIsAddableTodoUseCase: GetIsAddableTodoUseCase
     private val todoRepository: TodoRepository = mockk()
     private val getHomiesUseCase: GetHomiesUseCase = mockk(relaxed = true)
 
@@ -40,8 +42,14 @@ class TodoDetailViewModelTest {
     fun setUp() {
         getFilteredTodoUseCase = GetFilteredTodoUseCase(todoRepository)
         searchRuleUseCase = SearchRuleUseCase(RuleNameMatcher(MixedEnKrMatchStrategy()))
+        getIsAddableTodoUseCase = GetIsAddableTodoUseCase(todoRepository)
         todoDetailViewModel =
-            TodoDetailViewModel(getHomiesUseCase, getFilteredTodoUseCase, searchRuleUseCase)
+            TodoDetailViewModel(
+                getHomiesUseCase,
+                getFilteredTodoUseCase,
+                searchRuleUseCase,
+                getIsAddableTodoUseCase
+            )
     }
 
     @Nested
