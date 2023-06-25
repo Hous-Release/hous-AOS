@@ -13,6 +13,7 @@ import hous.release.android.util.dialog.DatePickerClickListener
 import hous.release.android.util.dialog.DatePickerDialog
 import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningType
+import hous.release.android.util.extension.parcelable
 import hous.release.android.util.extension.setOnSingleClickListener
 import hous.release.android.util.extension.withArgs
 
@@ -71,7 +72,7 @@ class ProfileEditActivity :
     }
 
     private fun initProfileData() {
-        val profileData = intent.getParcelableExtra<ProfileEntity>(PROFILE)
+        val profileData = intent.parcelable<ProfileEntity>(PROFILE)
         profileEditViewModel.initData(profileData!!)
 
         with(binding) {
