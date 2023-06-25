@@ -9,9 +9,12 @@ import hous.release.domain.entity.todo.FilteredTodo
 import hous.release.domain.usecase.search.SearchRuleUseCase
 import hous.release.domain.usecase.todo.GetFilteredTodoUseCase
 import hous.release.domain.usecase.todo.GetHomiesUseCase
+import hous.release.domain.usecase.todo.GetIsAddableTodoUseCase
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -23,8 +26,10 @@ import javax.inject.Inject
 class TodoDetailViewModel @Inject constructor(
     private val getHomiesUseCase: GetHomiesUseCase,
     private val getFilteredTodoUseCase: GetFilteredTodoUseCase,
-    private val searchRuleUseCase: SearchRuleUseCase
+    private val searchRuleUseCase: SearchRuleUseCase,
+    private val getIsAddableTodoUseCase: GetIsAddableTodoUseCase
 ) : ViewModel() {
+    private val _todoEvent = MutableSharedFlow<TodoEvent>()
     private val _searchText = MutableStateFlow("")
     private val _selectedDayOfWeeks: MutableStateFlow<List<SelectableDayOfWeek>> =
         MutableStateFlow(emptyList())
@@ -44,6 +49,7 @@ class TodoDetailViewModel @Inject constructor(
         )
     )
 
+    val todoEvent = _todoEvent.asSharedFlow()
     val searchText: StateFlow<String> = _searchText.asStateFlow()
     val selectableWeek: StateFlow<List<SelectableDayOfWeek>> = _selectedDayOfWeeks.asStateFlow()
     val homies = _homies.asStateFlow()
@@ -158,9 +164,27 @@ class TodoDetailViewModel @Inject constructor(
         /* todoDetail.value.todoId 를 통해 delete 진행 */
     }
 
+    fun getIsAddableTodo() {
+        viewModelScope.launch {
+            getIsAddableTodoUseCase()
+                .onSuccess { isAddable ->
+                    if (isAddable) _todoEvent.emit(TodoEvent.ADD_TODO)
+                    else _todoEvent.emit(TodoEvent.SHOW_LIMIT_DIALOG)
+                }
+                .onFailure {
+                    Timber.e("addable ${it.message}")
+                    _todoEvent.emit(TodoEvent.SHOW_TOAST)
+                }
+        }
+    }
+
     companion object {
         private val WEEK = listOf("월", "화", "수", "목", "금", "토", "일")
     }
+}
+
+enum class TodoEvent {
+    ADD_TODO, SHOW_LIMIT_DIALOG, SHOW_TOAST
 }
 
 data class SelectableDayOfWeek(

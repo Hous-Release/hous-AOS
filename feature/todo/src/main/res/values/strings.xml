@@ -18,6 +18,9 @@
     <string name="todo_delete_content">to-do는 한 번 삭제하면 복구되지 않아요.</string>
     <string name="todo_delete_cancel">취소하기</string>
     <string name="todo_delete_remove">삭제하기</string>
+    <string name="todo_limit_title">to-do 개수 초과</string>
+    <string name="todo_limit_content">우리 집 to-do가 너무 많아요!\n필요하지 않은 to-do를 삭제하고\n다시 시도해주세요~</string>
+    <string name="todo_network_error">인터넷 연결 후 다시 시도해 주세요.</string>
     <string-array name="to_do_week_of_day">
         <item>월</item>
         <item>화</item>
