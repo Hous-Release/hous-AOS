@@ -23,7 +23,6 @@ class TodoDetailActivity : ComponentActivity() {
         setContent {
             HousTheme {
                 TodoDetailScreen(
-                    navigateToAddTodo = { todoNavigator.navigateToAddTodo() },
                     navigateToEditTodo = { todoId -> todoNavigator.navigateToEditTodo(todoId) },
                     todoDetailViewModel = todoDetailViewModel,
                     finish = { finish() },

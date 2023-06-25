@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.TodoDetail
 import hous.release.domain.entity.todo.FilteredTodo
+import hous.release.domain.usecase.DeleteTodoUseCase
 import hous.release.domain.usecase.search.SearchRuleUseCase
 import hous.release.domain.usecase.todo.GetFilteredTodoUseCase
 import hous.release.domain.usecase.todo.GetHomiesUseCase
@@ -27,7 +28,8 @@ class TodoDetailViewModel @Inject constructor(
     private val getHomiesUseCase: GetHomiesUseCase,
     private val getFilteredTodoUseCase: GetFilteredTodoUseCase,
     private val searchRuleUseCase: SearchRuleUseCase,
-    private val getIsAddableTodoUseCase: GetIsAddableTodoUseCase
+    private val getIsAddableTodoUseCase: GetIsAddableTodoUseCase,
+    private val deleteTodoUseCase: DeleteTodoUseCase
 ) : ViewModel() {
     private val _todoEvent = MutableSharedFlow<TodoEvent>()
     private val _searchText = MutableStateFlow("")
@@ -161,7 +163,15 @@ class TodoDetailViewModel @Inject constructor(
     }
 
     fun deleteTodo() {
-        /* todoDetail.value.todoId 를 통해 delete 진행 */
+        viewModelScope.launch {
+            deleteTodoUseCase(todoDetail.value.todoId)
+                .onSuccess {
+
+                }
+                .onFailure {
+                    Timber.e("delete error ${it.message}")
+                }
+        }
     }
 
     fun getIsAddableTodo() {

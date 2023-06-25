@@ -62,7 +62,6 @@ const val DETAIL_BOTTOM_SHEET = 1
 @Composable
 fun TodoDetailScreen(
     todoDetailViewModel: TodoDetailViewModel,
-    navigateToAddTodo: () -> Unit,
     navigateToEditTodo: (Int) -> Unit,
     finish: () -> Unit,
     onEvent: (TodoEvent, () -> Unit) -> Unit,
@@ -142,10 +141,7 @@ fun TodoDetailScreen(
         }
     ) {
         FabScreenSlot(
-            fabOnClick = {
-                /* Todo 추가하기 뷰로 이동 */
-                navigateToAddTodo()
-            }
+            fabOnClick = { todoDetailViewModel.getIsAddableTodo() }
         ) {
             TodoDetailContent(
                 searchText = searchText.value,
