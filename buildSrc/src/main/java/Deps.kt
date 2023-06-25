@@ -6,9 +6,9 @@ const val kotlinVersion = "1.7.20"
 object AppConfig {
     const val applicationId = "hous.release.android"
     const val buildToolsVersion = "30.0.3"
-    const val compileSdkVersion = 32
+    const val compileSdkVersion = 33
     const val minSdkVersion = 26
-    const val targetSdkVersion = 32
+    const val targetSdkVersion = 33
     const val versionCode = 6
     const val versionName = "1.0.6"
     const val kotlinCompilerExtensionVersion = "1.3.2"
