@@ -2,4 +2,5 @@
 <resources>
     <string name="todo_detail_bs_edit">수정하기</string>
     <string name="todo_detail_bs_delete">삭제하기</string>
+    <string name="todo_limit_dialog_check">알겠어요!</string>
 </resources>
