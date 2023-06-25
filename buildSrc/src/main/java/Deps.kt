@@ -16,7 +16,7 @@ object AppConfig {
 
 object Deps {
     object AndroidX {
-        const val activity_version = "1.5.1"
+        const val activity_version = "1.6.1"
         const val kakao_login = "com.kakao.sdk:v2-user:2.11.0"
         const val hilt_navigation = "androidx.hilt:hilt-navigation-fragment:1.0.0"
         const val nav_version = "2.5.1"
