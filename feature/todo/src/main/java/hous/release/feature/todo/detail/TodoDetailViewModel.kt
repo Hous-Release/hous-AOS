@@ -66,10 +66,12 @@ class TodoDetailViewModel @Inject constructor(
     val selectedHomies: StateFlow<String> =
         _selectedHomiesString.asStateFlow()
 
-    init {
-        setHomies()
-        setSelectableWeek()
-        fetchFilteredTodo()
+    fun rollbackUiData() {
+        viewModelScope.launch {
+            setSelectableWeek()
+            fetchHomies()
+            getFilteredTodo(null, null)
+        }
     }
 
     private fun transformSelectedDaysToString() {
@@ -100,23 +102,26 @@ class TodoDetailViewModel @Inject constructor(
                     .filter { homy -> homy.isSelected }
                     .map { homy -> homy.id }
                     .nullIfEmpty()
-
-            getFilteredTodoUseCase(dayOfWeeks, onboardingIds)
-                .onSuccess { filteredTodo ->
-                    transformSelectedHomiesToString()
-                    transformSelectedDaysToString()
-                    originalTodos.value = filteredTodo.todos
-                    _filteredTodo.value = if (searchText.value.isNotEmpty()) filteredTodo.copy(
-                        todos = searchRuleUseCase(
-                            searchText.value,
-                            filteredTodo.todos
-                        )
-                    ) else filteredTodo
-                }
-                .onFailure {
-                    Timber.e(it.message)
-                }
+            getFilteredTodo(dayOfWeeks, onboardingIds)
         }
+    }
+
+    private suspend fun getFilteredTodo(dayOfWeeks: List<String>?, onboardingIds: List<Int>?) {
+        getFilteredTodoUseCase(dayOfWeeks, onboardingIds)
+            .onSuccess { filteredTodo ->
+                transformSelectedHomiesToString()
+                transformSelectedDaysToString()
+                originalTodos.value = filteredTodo.todos
+                _filteredTodo.value = if (searchText.value.isNotEmpty()) filteredTodo.copy(
+                    todos = searchRuleUseCase(
+                        searchText.value,
+                        filteredTodo.todos
+                    )
+                ) else filteredTodo
+            }
+            .onFailure {
+                Timber.e(it.message)
+            }
     }
 
     private fun setSelectableWeek() {
@@ -124,20 +129,18 @@ class TodoDetailViewModel @Inject constructor(
             WEEK.map { dayOfWeek -> SelectableDayOfWeek(dayOfWeek = dayOfWeek) }
     }
 
-    private fun setHomies() {
-        viewModelScope.launch {
-            getToDoUsersUseCase().collect { apiResult ->
-                when (apiResult) {
-                    is ApiResult.Success -> _homies.value = apiResult.data.map { homy ->
-                        SelectableHomy(
-                            id = homy.onBoardingId,
-                            name = homy.nickname,
-                            homyType = homy.homyType
-                        )
-                    }
-                    is ApiResult.Error -> Timber.e(apiResult.msg)
-                    is ApiResult.Empty -> Timber.i("empty View")
+    private suspend fun fetchHomies() {
+        getToDoUsersUseCase().collect { apiResult ->
+            when (apiResult) {
+                is ApiResult.Success -> _homies.value = apiResult.data.map { homy ->
+                    SelectableHomy(
+                        id = homy.onBoardingId,
+                        name = homy.nickname,
+                        homyType = homy.homyType
+                    )
                 }
+                is ApiResult.Error -> Timber.e(apiResult.msg)
+                is ApiResult.Empty -> Timber.i("empty View")
             }
         }
     }

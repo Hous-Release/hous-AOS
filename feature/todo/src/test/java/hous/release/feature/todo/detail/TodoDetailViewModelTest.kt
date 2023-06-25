@@ -17,6 +17,7 @@ import hous.release.domain.usecase.todo.GetToDoUsersUseCase
 import hous.release.domain.usecase.todo.GetTodoDetailUseCase
 import hous.release.testing.CoroutinesTestExtension
 import hous.release.testing.callPrivateFunc
+import hous.release.testing.callSuspendPrivateFunc
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -179,7 +180,7 @@ class TodoDetailViewModelTest {
             }
 
             // when
-            todoDetailViewModel.callPrivateFunc("setHomies")
+            todoDetailViewModel.callSuspendPrivateFunc("fetchHomies")
 
             // then
             assertThat(todoDetailViewModel.homies.value).isEqualTo(
@@ -224,7 +225,7 @@ class TodoDetailViewModelTest {
                     )
                 )
             }
-            todoDetailViewModel.callPrivateFunc("setHomies")
+            todoDetailViewModel.callSuspendPrivateFunc("fetchHomies")
 
             // when
             todoDetailViewModel.selectHomy(0)
@@ -272,7 +273,7 @@ class TodoDetailViewModelTest {
                     )
                 )
             }
-            todoDetailViewModel.callPrivateFunc("setHomies")
+            todoDetailViewModel.callSuspendPrivateFunc("fetchHomies")
             todoDetailViewModel.selectHomy(0)
 
             // when
@@ -314,7 +315,7 @@ class TodoDetailViewModelTest {
                     )
                 )
             }
-            todoDetailViewModel.callPrivateFunc("setHomies")
+            todoDetailViewModel.callSuspendPrivateFunc("fetchHomies")
             todoDetailViewModel.selectHomy(0)
             todoDetailViewModel.selectHomy(1)
             todoDetailViewModel.selectHomy(2)
