@@ -7,6 +7,7 @@ import hous.release.domain.entity.todo.Homy
 import hous.release.domain.entity.todo.TodoWithNew
 import hous.release.domain.repository.TodoRepository
 import hous.release.domain.usecase.DeleteTodoUseCase
+import hous.release.domain.usecase.GetTodoDetailUseCase
 import hous.release.domain.usecase.search.SearchRuleUseCase
 import hous.release.domain.usecase.search.matcher.RuleNameMatcher
 import hous.release.domain.usecase.search.strategy.MixedEnKrMatchStrategy
@@ -37,6 +38,7 @@ class TodoDetailViewModelTest {
     private lateinit var searchRuleUseCase: SearchRuleUseCase
     private lateinit var getIsAddableTodoUseCase: GetIsAddableTodoUseCase
     private lateinit var deleteTodoUseCase: DeleteTodoUseCase
+    private lateinit var getTodoDetailUseCase: GetTodoDetailUseCase
     private val todoRepository: TodoRepository = mockk()
     private val getHomiesUseCase: GetHomiesUseCase = mockk(relaxed = true)
 
@@ -46,13 +48,15 @@ class TodoDetailViewModelTest {
         searchRuleUseCase = SearchRuleUseCase(RuleNameMatcher(MixedEnKrMatchStrategy()))
         getIsAddableTodoUseCase = GetIsAddableTodoUseCase(todoRepository)
         deleteTodoUseCase = DeleteTodoUseCase(todoRepository)
+        getTodoDetailUseCase = GetTodoDetailUseCase(todoRepository)
         todoDetailViewModel =
             TodoDetailViewModel(
                 getHomiesUseCase,
                 getFilteredTodoUseCase,
                 searchRuleUseCase,
                 getIsAddableTodoUseCase,
-                deleteTodoUseCase
+                deleteTodoUseCase,
+                getTodoDetailUseCase
             )
     }
 

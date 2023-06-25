@@ -7,6 +7,7 @@ import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.TodoDetail
 import hous.release.domain.entity.todo.FilteredTodo
 import hous.release.domain.usecase.DeleteTodoUseCase
+import hous.release.domain.usecase.GetTodoDetailUseCase
 import hous.release.domain.usecase.search.SearchRuleUseCase
 import hous.release.domain.usecase.todo.GetFilteredTodoUseCase
 import hous.release.domain.usecase.todo.GetHomiesUseCase
@@ -29,7 +30,8 @@ class TodoDetailViewModel @Inject constructor(
     private val getFilteredTodoUseCase: GetFilteredTodoUseCase,
     private val searchRuleUseCase: SearchRuleUseCase,
     private val getIsAddableTodoUseCase: GetIsAddableTodoUseCase,
-    private val deleteTodoUseCase: DeleteTodoUseCase
+    private val deleteTodoUseCase: DeleteTodoUseCase,
+    private val getTodoDetailUseCase: GetTodoDetailUseCase
 ) : ViewModel() {
     private val _todoEvent = MutableSharedFlow<TodoEvent>()
     private val _searchText = MutableStateFlow("")
@@ -160,6 +162,15 @@ class TodoDetailViewModel @Inject constructor(
     }
 
     fun setTodoDetail(todoId: Int) {
+        viewModelScope.launch {
+            getTodoDetailUseCase(todoId)
+                .onSuccess { todoDetail ->
+                    _todoDetail.value = todoDetail
+                }
+                .onFailure {
+                    Timber.e("delete error ${it.message}")
+                }
+        }
     }
 
     fun deleteTodo() {
