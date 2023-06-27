@@ -78,14 +78,18 @@ class TodoDetailViewModel @Inject constructor(
         val selectedDayOfWeeks = selectableWeek.value.filter { dayOfWeek -> dayOfWeek.isSelected }
         val selectedDayOfWeeksString =
             if (selectedDayOfWeeks.count() != 7) selectedDayOfWeeks.joinToString(", ") { week -> week.dayOfWeek }
-            else "매일"
+            else EVERY_DAY
         _selectedDayOfWeeksString.value = selectedDayOfWeeksString
     }
 
     private fun transformSelectedHomiesToString() {
         val selectedHomies = homies.value.filter { homy -> homy.isSelected }
         val selectedHomiesString =
-            if (selectedHomies.count() > 1) "${selectedHomies[0].name} 외 ${selectedHomies.count() - 1}명"
+            if (selectedHomies.count() > 1) String.format(
+                HOMY_COUNT_FORMAT,
+                selectedHomies[0].name,
+                selectedHomies.count() - 1
+            )
             else selectedHomies.joinToString("") { homy -> homy.name }
         _selectedHomiesString.value = selectedHomiesString
     }
@@ -211,6 +215,8 @@ class TodoDetailViewModel @Inject constructor(
 
     companion object {
         private val WEEK = listOf("월", "화", "수", "목", "금", "토", "일")
+        private const val EVERY_DAY = "매일"
+        private const val HOMY_COUNT_FORMAT = "%s 외 %d명"
     }
 }
 
