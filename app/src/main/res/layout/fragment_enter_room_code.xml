@@ -33,6 +33,24 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tv_create_room_code_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:clickable="true"
+            android:enabled="@{viewModel.roomCode.length != 0 ? true : false}"
+            android:gravity="center"
+            android:onClick="@{()->viewModel.getEnterRoomCode()}"
+            android:paddingVertical="10dp"
+            android:text="@string/enter_room_code_btn"
+            android:textColor="@{viewModel.roomCode.length != 0 ? @color/hous_blue : @color/hous_g_4}"
+            android:theme="@style/B2"
+            app:layout_constraintBottom_toBottomOf="@id/btn_enter_room_code_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_enter_room_code_back"
+            tools:textColor="@color/hous_g_4" />
+
+        <TextView
             android:id="@+id/tv_enter_room_code_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,7 +82,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:background="@null"
-            android:hint="@string/enter_room_code_edit_text_hint"
             android:importantForAutofill="no"
             android:inputType="text"
             android:maxLength="8"
@@ -87,26 +104,6 @@
             android:background="@{viewModel.roomCode.length() == 0 ? @color/hous_g_3 : @color/hous_blue }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_enter_room_code_name" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_enter_room_code_done"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="@{viewModel.roomCode.length != 0 ? @color/hous_blue : @color/hous_g_4}"
-            android:enabled="@{viewModel.roomCode.length != 0 ? true : false}"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:minHeight="0dp"
-            android:onClick="@{()->viewModel.getEnterRoomCode()}"
-            android:paddingVertical="10dp"
-            android:stateListAnimator="@null"
-            android:text="@string/enter_room_code_btn"
-            android:textColor="@color/hous_white"
-            android:theme="@style/B1"
-            app:cornerRadius="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
             android:id="@+id/tv_enter_room_code_warning"

@@ -122,7 +122,6 @@
     <!-- EnterRoomCode -->
     <string name="enter_room_code_title">방 초대코드 입력하기</string>
     <string name="enter_room_code_desc">초대코드를 입력하면 방에 들어갈 수 있어요.</string>
-    <string name="enter_room_code_edit_text_hint">방 초대코드</string>
     <string name="enter_room_code_warning">* 참여할 수 없는 코드예요.</string>
     <string name="enter_room_code_btn">방 참여하기</string>
     <string name="enter_room_code_dialog_owner_desc">님이</string>
