@@ -54,6 +54,7 @@ fun TodoUserScreen(
     setTodoText: (String) -> Unit,
     checkUser: (Int) -> Unit,
     selectTodoDay: (Int, Int) -> Unit,
+    changeNotification: () -> Unit,
     checkFinish: () -> Unit,
     showLoadingDialog: () -> Unit,
     putToDo: () -> Job,
@@ -112,7 +113,10 @@ fun TodoUserScreen(
             limitTextCount = 10
         )
         Spacer(modifier = Modifier.height(8.dp))
-        TodoNotificationCheckBox(uiState.isPushNotification)
+        TodoNotificationCheckBox(
+            isCheck = uiState.isPushNotification,
+            changeNotification = changeNotification
+        )
         Spacer(modifier = Modifier.height(24.dp))
         Text(
             text = stringResource(id = R.string.to_do_manager),
@@ -156,6 +160,7 @@ fun TodoUserScreen(
 
 @Composable
 private fun TodoNotificationCheckBox(
+    changeNotification: () -> Unit,
     isCheck: Boolean
 ) {
     Row(
@@ -163,6 +168,9 @@ private fun TodoNotificationCheckBox(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
+            modifier = Modifier.clickable {
+                changeNotification()
+            },
             painter = painterResource(id = if (isCheck) R.drawable.ic_check_on else R.drawable.ic_check_off),
             contentDescription = null
         )

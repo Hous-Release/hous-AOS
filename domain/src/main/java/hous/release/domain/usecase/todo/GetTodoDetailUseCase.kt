@@ -1,4 +1,4 @@
-package hous.release.domain.usecase
+package hous.release.domain.usecase.todo
 
 import hous.release.domain.repository.TodoRepository
 import javax.inject.Inject

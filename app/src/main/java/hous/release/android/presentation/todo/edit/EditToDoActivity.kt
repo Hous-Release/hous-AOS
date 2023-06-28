@@ -1,7 +1,6 @@
 package hous.release.android.presentation.todo.edit
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.activity.addCallback
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -26,8 +25,8 @@ class EditToDoActivity : AppCompatActivity() {
     private val viewModel by viewModels<EditToDoViewModel>()
 
     @OptIn(ExperimentalLifecycleComposeApi::class)
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContent {
             val todoText = viewModel.todoText.collectAsStateWithLifecycle()
             HousTheme {

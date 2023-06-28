@@ -29,6 +29,7 @@ fun EditTodoUserScreen(
         checkFinish = checkFinish,
         showLoadingDialog = showLoadingDialog,
         putToDo = viewModel::putTodo,
-        hideKeyBoard = hideKeyBoard
+        hideKeyBoard = hideKeyBoard,
+        changeNotification = viewModel::changeNotificationState
     )
 }

@@ -2,7 +2,6 @@ package hous.release.data.datasource
 
 import hous.release.data.entity.request.ToDoCheckRequest
 import hous.release.data.entity.request.UpdateToDoUsersRequest
-import hous.release.data.entity.request.todo.FilteredTodoRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.ToDoMainResponse
 import hous.release.data.entity.response.todo.FilteredTodoResponse
@@ -22,10 +21,8 @@ class TodoDataSource @Inject constructor(
         onboardingIds: List<Int>?
     ): BaseResponse<FilteredTodoResponse> =
         toDoService.getFilteredTodos(
-            FilteredTodoRequest.instanceOf(
-                dayOfWeeks = dayOfWeeks,
-                onboardingIds = onboardingIds
-            )
+            dayOfWeeks = dayOfWeeks?.map { transformDayOfWeek(it) },
+            onboardingIds = onboardingIds
         )
 
     suspend fun getIsAddableTodo(): BaseResponse<IsAddableTodoResponse> =
@@ -67,4 +64,14 @@ class TodoDataSource @Inject constructor(
             name = toDoName
         )
     )
+
+    private fun transformDayOfWeek(dayOfWeek: String): String = when (dayOfWeek) {
+        "월" -> "MONDAY"
+        "화" -> "TUESDAY"
+        "수" -> "WEDNESDAY"
+        "목" -> "THURSDAY"
+        "금" -> "FRIDAY"
+        "토" -> "SATURDAY"
+        else -> "SUNDAY"
+    }
 }

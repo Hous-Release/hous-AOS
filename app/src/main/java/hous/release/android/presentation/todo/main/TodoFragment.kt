@@ -12,9 +12,13 @@ import com.skydoves.balloon.Balloon
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentToDoBinding
+import hous.release.android.presentation.todo.add.AddToDoActivity
+import hous.release.android.presentation.todo.detail.TodoLimitDialog
+import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.component.RoundedLinearIndicatorWithHomie
 import hous.release.android.util.component.TodoMainEmpty
+import hous.release.designsystem.component.HousFloatingButton
 import hous.release.designsystem.theme.HousTheme
 import hous.release.feature.todo.detail.TodoDetailActivity
 import kotlinx.coroutines.flow.launchIn
@@ -38,6 +42,42 @@ class TodoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
         showToolTip()
         collectUiState()
         initClickListener()
+        collectTodoEvent()
+        initFloatingBtn()
+    }
+
+    private fun initFloatingBtn() {
+        binding.cvToDoFloatingBtn.setContent {
+            HousFloatingButton {
+                toDoViewModel.getIsAddableTodo()
+            }
+        }
+    }
+
+    private fun collectTodoEvent() {
+        toDoViewModel.todoEvent
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach(::onEvent)
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private fun onEvent(todoEvent: TodoEvent) {
+        when (todoEvent) {
+            TodoEvent.ADD_TODO -> startActivity(
+                Intent(
+                    requireActivity(),
+                    AddToDoActivity::class.java
+                )
+            )
+            TodoEvent.SHOW_LIMIT_DIALOG -> TodoLimitDialog().show(
+                childFragmentManager,
+                TodoLimitDialog.TAG
+            )
+            TodoEvent.SHOW_TOAST -> ToastMessageUtil.showToast(
+                requireActivity(),
+                getString(R.string.network_error_toast)
+            )
+        }
     }
 
     private fun initClickListener() {
@@ -51,7 +91,7 @@ class TodoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
 
     private fun collectUiState() {
         toDoViewModel.uiState
-            .flowWithLifecycle(lifecycle)
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { toDoUiState ->
                 binding.cvToDoProgress.setContent {
                     HousTheme {
@@ -65,7 +105,7 @@ class TodoFragment : BindingFragment<FragmentToDoBinding>(R.layout.fragment_to_d
                 myToDoAdapter?.submitList(toDoUiState.myTodos)
                 ourToDoAdapter?.submitList(toDoUiState.ourTodos)
             }
-            .launchIn(lifecycleScope)
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun initAdapter() {

@@ -43,7 +43,7 @@ class TodoRepositoryImpl @Inject constructor(
         runCatching { todoDataSource.checkTodo(todoId = todoId, isChecked = isChecked) }
 
     override suspend fun getTodoDetail(todoId: Int): Result<TodoDetail> =
-        runCatching { todoDataSource.getTodoDetail(todoId).data.toTodoDetail() }
+        runCatching { todoDataSource.getTodoDetail(todoId).data.toTodoDetail(todoId) }
 
     override suspend fun deleteTodo(todoId: Int): Result<Unit> =
         runCatching { todoDataSource.deleteTodo(todoId) }
