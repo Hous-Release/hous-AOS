@@ -14,6 +14,7 @@
         android:id="@+id/layout_edit_hous_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/hous_white"
         tools:context=".presentation.hous.EditHousNameActivity">
 
         <ImageButton
@@ -33,7 +34,6 @@
             android:id="@+id/tv_edit_hous_name_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:clickable="@{vm.roomName.length() == 0 ? false : true}"
             android:onClick="@{()->vm.putHousName()}"
@@ -83,7 +83,6 @@
             android:paddingVertical="2dp"
             android:text="@={vm.roomName}"
             android:textColor="@color/hous_black"
-            android:textColorHint="@color/hous_g_5"
             android:theme="@style/B2"
             app:layout_constraintBottom_toTopOf="@id/view_edit_hous_name"
             app:layout_constraintEnd_toStartOf="@id/tv_edit_hous_name_count"
