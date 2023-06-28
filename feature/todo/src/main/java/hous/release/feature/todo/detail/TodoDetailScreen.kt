@@ -2,6 +2,7 @@
 
 package hous.release.feature.todo.detail
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,12 +14,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Text
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,12 +30,19 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import hous.release.designsystem.component.FabScreenSlot
 import hous.release.designsystem.component.HousDialog
+import hous.release.designsystem.component.HousLimitDialog
 import hous.release.designsystem.component.HousSearchTextField
 import hous.release.designsystem.theme.HousG5
 import hous.release.designsystem.theme.HousTheme
@@ -45,6 +56,8 @@ import hous.release.feature.todo.detail.component.TodoDetailBottomSheet
 import hous.release.feature.todo.detail.component.TodoDetailToolbar
 import hous.release.feature.todo.detail.component.TodoFilter
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 const val FILTER_BOTTOM_SHEET = 0
@@ -54,10 +67,11 @@ const val DETAIL_BOTTOM_SHEET = 1
 @Composable
 fun TodoDetailScreen(
     todoDetailViewModel: TodoDetailViewModel,
-    navigateToAddTodo: () -> Unit,
     navigateToEditTodo: (Int) -> Unit,
     finish: () -> Unit,
-    coroutineScope: CoroutineScope = rememberCoroutineScope()
+    onEvent: (TodoEvent, () -> Unit) -> Unit,
+    coroutineScope: CoroutineScope = rememberCoroutineScope(),
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
 ) {
     val searchText = todoDetailViewModel.searchText.collectAsStateWithLifecycle()
     val selectedDayOfWeek = todoDetailViewModel.selectedDayOfWeeks.collectAsStateWithLifecycle()
@@ -70,6 +84,7 @@ fun TodoDetailScreen(
         rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val (selected, setSelected) = remember(calculation = { mutableStateOf(FILTER_BOTTOM_SHEET) })
     var isDeleteTodo by remember { mutableStateOf(false) }
+    var isLimitTodo by remember { mutableStateOf(false) }
 
     if (isDeleteTodo) {
         HousDialog(
@@ -87,9 +102,46 @@ fun TodoDetailScreen(
             onDismissRequest = { isDeleteTodo = false }
         )
     }
+    if (isLimitTodo) {
+        HousLimitDialog(
+            title = stringResource(R.string.todo_limit_title),
+            content = stringResource(R.string.todo_limit_content),
+            onDismissRequest = { isLimitTodo = false }
+        )
+    }
+
+    BackHandler(enabled = bottomSheetState.isVisible) {
+        coroutineScope.launch {
+            bottomSheetState.hide()
+        }
+    }
+
+    LaunchedEffect(true) {
+        todoDetailViewModel.todoEvent
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .onEach { todoEvent ->
+                onEvent(todoEvent) { isLimitTodo = true }
+            }
+            .launchIn(lifecycleOwner.lifecycleScope)
+    }
+
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                todoDetailViewModel.rollbackUiData()
+            }
+        }
+
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
 
     ModalBottomSheetLayout(
         sheetState = bottomSheetState,
+        sheetShape = RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp),
         sheetContent = {
             BottomSheetContent(
                 selected = selected,
@@ -98,7 +150,7 @@ fun TodoDetailScreen(
                 todoDetail = todoDetail.value,
                 getTodosAppliedFilter = {
                     coroutineScope.launch {
-                        /* TODO 필터링 api 연결 */
+                        todoDetailViewModel.fetchFilteredTodo()
                         bottomSheetState.hide()
                     }
                 },
@@ -115,10 +167,7 @@ fun TodoDetailScreen(
         }
     ) {
         FabScreenSlot(
-            fabOnClick = {
-                /* Todo 추가하기 뷰로 이동 */
-                navigateToAddTodo()
-            }
+            fabOnClick = { todoDetailViewModel.getIsAddableTodo() }
         ) {
             TodoDetailContent(
                 searchText = searchText.value,

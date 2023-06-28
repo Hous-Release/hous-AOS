@@ -29,6 +29,7 @@ fun AddTodoUserScreen(
         showLoadingDialog = showLoadingDialog,
         putToDo = viewModel::putTodo,
         hideKeyBoard = hideKeyBoard,
-        checkFinish = checkFinish
+        checkFinish = checkFinish,
+        changeNotification = viewModel::changeNotificationState
     )
 }
