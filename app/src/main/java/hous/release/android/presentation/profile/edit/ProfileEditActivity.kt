@@ -14,6 +14,7 @@ import hous.release.android.util.dialog.DatePickerDialog
 import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningType
 import hous.release.android.util.extension.parcelable
+import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.extension.setOnSingleClickListener
 import hous.release.android.util.extension.withArgs
 
@@ -25,17 +26,15 @@ class ProfileEditActivity :
         super.onCreate(savedInstanceState)
         binding.vm = profileEditViewModel
         initProfileData()
-        initBirthdayTextAppearance()
-        initSaveBtnOnClickListener()
+        initProfileEditCollect()
         initBackBtnOnClickListener()
         initBirthdayOnClickListener()
-        initBirthdayPublicOnClickListener()
         initBackPressedCallback()
     }
 
     private fun initBackPressedCallback() {
         onBackPressedDispatcher.addCallback {
-            if (profileEditViewModel.changedEditInfo.value == true) {
+            if (profileEditViewModel.isProfileChanged.value) {
                 WarningDialogFragment().withArgs {
                     putSerializable(
                         WarningDialogFragment.WARNING_TYPE,
@@ -46,7 +45,7 @@ class ProfileEditActivity :
                         ConfirmClickListener(confirmAction = { finish() })
                     )
                 }.show(supportFragmentManager, WarningDialogFragment.DIALOG_WARNING)
-            } else if (profileEditViewModel.changedEditInfo.value == false) {
+            } else {
                 finish()
             }
         }
@@ -54,7 +53,7 @@ class ProfileEditActivity :
 
     private fun initBackBtnOnClickListener() {
         binding.btnProfileEditBack.setOnClickListener {
-            if (profileEditViewModel.changedEditInfo.value == true) {
+            if (profileEditViewModel.isProfileChanged.value) {
                 WarningDialogFragment().withArgs {
                     putSerializable(
                         WarningDialogFragment.WARNING_TYPE,
@@ -73,28 +72,15 @@ class ProfileEditActivity :
 
     private fun initProfileData() {
         val profileData = intent.parcelable<ProfileEntity>(PROFILE)
-        profileEditViewModel.initData(profileData!!)
-
-        with(binding) {
-            tvProfileEditBirthdayPublic.isSelected = profileData.birthdayPublic
-            ivProfileEditBirthdayCheck.isSelected = profileData.birthdayPublic
-        }
+        profileEditViewModel.initData(requireNotNull(profileData))
     }
 
-    private fun initBirthdayTextAppearance() {
-        profileEditViewModel.birthday.observe(this) { birthday ->
-            if (birthday == null) {
-                binding.etProfileEditBirthday.setTextAppearance(R.style.B1)
-            } else {
-                binding.etProfileEditBirthday.setTextAppearance(R.style.En3)
-            }
-        }
-    }
-
-    private fun initSaveBtnOnClickListener() {
-        profileEditViewModel.isEditProfile.observe(this) { isSuccess ->
-            if (isSuccess) {
-                finish()
+    private fun initProfileEditCollect() {
+        repeatOnStarted {
+            profileEditViewModel.isProfileEdit.collect { success ->
+                if (success) {
+                    finish()
+                }
             }
         }
     }
@@ -111,18 +97,6 @@ class ProfileEditActivity :
                     )
                 }
             }.show(supportFragmentManager, SELECT_BIRTHDAY)
-        }
-    }
-
-    private fun initBirthdayPublicOnClickListener() {
-        binding.llProfileEditBirthdayPublic.setOnClickListener {
-            with(binding) {
-                tvProfileEditBirthdayPublic.isSelected =
-                    !tvProfileEditBirthdayPublic.isSelected
-                ivProfileEditBirthdayCheck.isSelected =
-                    !ivProfileEditBirthdayCheck.isSelected
-            }
-            profileEditViewModel.initBirthdayPublic(binding.tvProfileEditBirthdayPublic.isSelected)
         }
     }
 
