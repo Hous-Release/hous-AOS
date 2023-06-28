@@ -38,8 +38,8 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
 
     private fun initSignUpCollect() {
         repeatOnStarted {
-            userInputViewModel.isSignUp.collect { success ->
-                if (success) {
+            userInputViewModel.isSignUp.collect { isSignUp ->
+                if (isSignUp) {
                     startActivity(Intent(this, EnterRoomActivity::class.java))
                     finishAffinity()
                 }
