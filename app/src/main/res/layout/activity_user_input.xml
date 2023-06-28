@@ -86,7 +86,7 @@
             android:gravity="start"
             android:imeOptions="actionNext"
             android:inputType="text"
-            android:maxLength="10"
+            android:maxLength="4"
             android:paddingVertical="12dp"
             android:paddingStart="16dp"
             android:text="@={vm.nickname}"
@@ -100,13 +100,13 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:importantForAutofill="no"
-            android:text="@{vm.nickname.length() + `/10`}"
+            android:text="@{vm.nickname.length() + `/4`}"
             android:textAppearance="@style/En2"
             android:textColor="@color/hous_g_5"
             app:layout_constraintBottom_toBottomOf="@id/et_user_input_nickname"
             app:layout_constraintEnd_toEndOf="@id/et_user_input_nickname"
             app:layout_constraintTop_toTopOf="@id/et_user_input_nickname"
-            tools:text="0/10" />
+            tools:text="0/4" />
 
         <TextView
             android:id="@+id/tv_user_input_birthday"

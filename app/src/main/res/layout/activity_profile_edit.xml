@@ -84,7 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="@string/user_input_required"
+                    android:text="@string/profile_edit_required"
                     android:textColor="@color/hous_red"
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_edit_nickname"
                     app:layout_constraintStart_toEndOf="@id/tv_profile_edit_nickname"
@@ -100,7 +100,7 @@
                     android:gravity="start"
                     android:imeOptions="actionNext"
                     android:inputType="text"
-                    android:maxLength="10"
+                    android:maxLength="5"
                     android:paddingVertical="12dp"
                     android:paddingStart="16dp"
                     android:text="@={vm.nickname}"
@@ -109,18 +109,18 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_profile_edit_nickname" />
 
                 <TextView
-                    android:id="@+id/tv_user_input_nickname_length"
+                    android:id="@+id/tv_profile_edit_nickname_length"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:importantForAutofill="no"
-                    android:text="@{vm.nickname.length() + `/10`}"
+                    android:text="@{vm.nickname.length() + `/5`}"
                     android:textAppearance="@style/En2"
                     android:textColor="@color/hous_g_5"
                     app:layout_constraintBottom_toBottomOf="@id/et_profile_edit_nickname"
                     app:layout_constraintEnd_toEndOf="@id/et_profile_edit_nickname"
                     app:layout_constraintTop_toTopOf="@id/et_profile_edit_nickname"
-                    tools:text="0/10" />
+                    tools:text="0/5" />
 
                 <TextView
                     android:id="@+id/tv_profile_edit_birthday"
@@ -224,7 +224,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/et_profile_edit_mbti"
                     app:layout_constraintEnd_toEndOf="@id/et_profile_edit_mbti"
                     app:layout_constraintTop_toTopOf="@id/et_profile_edit_mbti"
-                    tools:text="0/3" />
+                    tools:text="0/4" />
 
                 <TextView
                     android:id="@+id/tv_profile_edit_job"
@@ -246,7 +246,7 @@
                     android:gravity="start"
                     android:imeOptions="actionNext"
                     android:inputType="text"
-                    android:maxLength="3"
+                    android:maxLength="5"
                     android:maxLines="1"
                     android:paddingVertical="12dp"
                     android:paddingStart="16dp"
@@ -263,13 +263,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:importantForAutofill="no"
-                    android:text="@{vm.job.length() + `/3`}"
+                    android:text="@{vm.job.length() + `/5`}"
                     android:textAppearance="@style/En2"
                     android:textColor="@color/hous_g_5"
                     app:layout_constraintBottom_toBottomOf="@id/et_profile_edit_job"
                     app:layout_constraintEnd_toEndOf="@id/et_profile_edit_job"
                     app:layout_constraintTop_toTopOf="@id/et_profile_edit_job"
-                    tools:text="0/3" />
+                    tools:text="0/5" />
 
                 <TextView
                     android:id="@+id/tv_profile_edit_introduction"
@@ -292,7 +292,7 @@
                     android:gravity="start"
                     android:imeOptions="actionNext"
                     android:inputType="textMultiLine"
-                    android:maxLength="50"
+                    android:maxLength="40"
                     android:paddingVertical="12dp"
                     android:paddingStart="16dp"
                     android:text="@={vm.introduction}"
@@ -311,12 +311,12 @@
                     android:layout_marginEnd="12dp"
                     android:layout_marginBottom="8dp"
                     android:importantForAutofill="no"
-                    android:text="@{vm.introduction.length() + `/50`}"
+                    android:text="@{vm.introduction.length() + `/40`}"
                     android:textColor="@color/hous_g_5"
                     android:theme="@style/En2"
                     app:layout_constraintBottom_toBottomOf="@id/et_profile_edit_introduction"
                     app:layout_constraintEnd_toEndOf="@id/et_profile_edit_introduction"
-                    tools:text="0/50" />
+                    tools:text="0/40" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
