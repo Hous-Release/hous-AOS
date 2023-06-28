@@ -9,6 +9,7 @@ import hous.release.android.R
 import hous.release.android.databinding.DialogDatePickerBinding
 import hous.release.android.util.dialog.WarningDialogFragment.Companion.CONFIRM_ACTION
 import hous.release.android.util.extension.initLayout
+import hous.release.android.util.extension.parcelable
 import timber.log.Timber
 import java.util.Calendar
 
@@ -54,7 +55,7 @@ class DatePickerDialog : DialogFragment() {
                 val monthFormat = getMonthFormat(month)
                 val dayFormat = getDayFormat(dayOfMonth)
                 val date = "$yearFormat-$monthFormat-$dayFormat"
-                arguments?.getParcelable<DatePickerClickListener>(CONFIRM_ACTION)
+                arguments?.parcelable<DatePickerClickListener>(CONFIRM_ACTION)
                     ?.onConfirmClick(date)
                     ?: Timber.e(getString(R.string.null_point_exception_warning_dialog_argument))
                 updateDate(year, month, dayOfMonth)

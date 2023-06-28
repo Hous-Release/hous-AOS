@@ -29,6 +29,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".presentation.todo.add.AddToDoActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.todo.edit.EditToDoActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".presentation.network_error.NetworkErrorActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

@@ -1,6 +1,7 @@
 package hous.release.android.presentation.splash
 
 import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -34,14 +35,11 @@ class IntroActivity : BindingActivity<ActivityIntroBinding>(R.layout.activity_in
     }
 
     private fun initLottieAnimatorListener() {
-        binding.lottieSplashImg.addAnimatorListener(object : Animator.AnimatorListener {
-            override fun onAnimationEnd(animation: Animator?) {
+        binding.lottieSplashImg.addAnimatorListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                super.onAnimationEnd(animation)
                 viewModel.initIsAnimatorDone()
             }
-
-            override fun onAnimationStart(animation: Animator?) {}
-            override fun onAnimationCancel(animation: Animator?) {}
-            override fun onAnimationRepeat(animation: Animator?) {}
         })
     }
 
