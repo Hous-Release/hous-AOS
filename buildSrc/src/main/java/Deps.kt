@@ -1,7 +1,10 @@
+import org.gradle.api.JavaVersion
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 
 const val ktlintVersion = "10.3.0"
 const val kotlinVersion = "1.7.20"
+val javaVersion = JavaVersion.VERSION_11
+const val jvmVersion = "11"
 
 object AppConfig {
     const val applicationId = "hous.release.android"
