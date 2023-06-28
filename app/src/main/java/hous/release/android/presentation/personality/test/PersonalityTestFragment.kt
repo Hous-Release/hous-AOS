@@ -22,6 +22,7 @@ import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.WarningDialogFragment
 import hous.release.android.util.dialog.WarningType
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -66,6 +67,7 @@ class PersonalityTestFragment :
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
+    @OptIn(FlowPreview::class)
     private fun collectMoveEvent() {
         personalityTestViewModel.moveEvent.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .debounce(300)
