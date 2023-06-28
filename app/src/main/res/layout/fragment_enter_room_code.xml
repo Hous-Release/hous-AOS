@@ -54,7 +54,7 @@
             android:id="@+id/tv_enter_room_code_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="18dp"
             android:text="@string/enter_room_code_title"
             android:textColor="@color/hous_black"
             android:theme="@style/H3"
