@@ -37,7 +37,6 @@
         android:layout_height="0dp"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
-        android:descendantFocusability="blocksDescendants"
         android:endYear="2099"
         android:startYear="1900"
         android:theme="@style/PickerTheme"

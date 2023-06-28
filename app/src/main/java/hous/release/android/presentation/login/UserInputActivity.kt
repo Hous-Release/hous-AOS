@@ -48,7 +48,7 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
     }
 
     private fun initNextBtnOnClickListener() {
-        binding.btnUserInputNext.setOnClickListener {
+        binding.tvUserInputNext.setOnSingleClickListener {
             val toEnterRoom = Intent(this, EnterRoomActivity::class.java)
             startActivity(toEnterRoom)
             finishAffinity()
