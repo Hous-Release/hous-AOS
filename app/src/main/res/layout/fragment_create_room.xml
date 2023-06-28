@@ -87,7 +87,6 @@
             android:paddingVertical="2dp"
             android:text="@={viewModel.roomName}"
             android:textColor="@color/hous_black"
-            android:textColorHint="@color/hous_g_5"
             android:theme="@style/B2"
             app:layout_constraintBottom_toTopOf="@id/view_create_room"
             app:layout_constraintEnd_toStartOf="@id/tv_create_room_count"
