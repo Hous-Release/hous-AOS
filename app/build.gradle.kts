@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
@@ -48,7 +50,8 @@ android {
         versionName = AppConfig.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        testInstrumentationRunnerArguments["runnerBuilder"] = "de.mannodermaus.junit5.AndroidJUnit5Builder"
+        testInstrumentationRunnerArguments["runnerBuilder"] =
+            "de.mannodermaus.junit5.AndroidJUnit5Builder"
 
         buildConfigField(
             "String",
@@ -88,13 +91,12 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+    java {
+        sourceCompatibility = javaVersion
+        targetCompatibility = javaVersion
     }
-
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = jvmVersion
     }
 
     buildFeatures {
