@@ -157,9 +157,8 @@
     <!-- EditHousName -->
     <string name="edit_hous_name_back_img_desc">back button</string>
     <string name="edit_hous_name_done">저장</string>
-    <string name="edit_hous_name_title">우리 집 별명 수정</string>
-    <string name="edit_hous_name_description">함께 사는 우리 집을 위한 별명을 지어주세요.</string>
-    <string name="edit_hous_name_hint_for_error">우리 집 별명</string>
+    <string name="edit_hous_name_title">우리 집 별명 바꾸기</string>
+    <string name="edit_hous_name_description">멤버들이 확인할 수 있도록 방 이름을 설정해주세요.</string>
     <string name="edit_hous_name_count">%d/8</string>
 
     <!-- To-Do -->

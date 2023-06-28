@@ -40,77 +40,76 @@
             android:padding="8dp"
             android:text="@string/edit_hous_name_done"
             android:textColor="@{vm.roomName.length() == 0 ? @color/hous_g_4 : @color/hous_blue}"
-            android:theme="@style/B1"
+            android:theme="@style/B2"
+            app:layout_constraintBottom_toBottomOf="@id/btn_edit_hous_name_back"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/btn_edit_hous_name_back" />
 
         <TextView
             android:id="@+id/tv_edit_hous_name_title"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="8dp"
-            android:padding="8dp"
+            android:layout_marginStart="18dp"
             android:text="@string/edit_hous_name_title"
             android:textColor="@color/hous_black"
-            android:theme="@style/B1"
-            app:layout_constraintEnd_toStartOf="@id/tv_edit_hous_name_done"
-            app:layout_constraintStart_toEndOf="@id/btn_edit_hous_name_back"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:theme="@style/H3"
+            app:layout_constraintBottom_toTopOf="@id/tv_edit_hous_name_desc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
             android:id="@+id/tv_edit_hous_name_desc"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="100dp"
-            android:gravity="center_horizontal"
-            android:padding="8dp"
+            android:layout_marginTop="12dp"
             android:text="@string/edit_hous_name_description"
             android:textColor="@color/hous_g_5"
             android:theme="@style/B2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/et_edit_hous_name_name"
+            app:layout_constraintStart_toStartOf="@id/tv_edit_hous_name_title"
             app:layout_constraintTop_toBottomOf="@id/tv_edit_hous_name_title" />
 
         <EditText
-            android:id="@+id/et_room_name"
+            android:id="@+id/et_edit_hous_name_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
             android:background="@null"
-            android:gravity="center_horizontal"
-            android:hint="@{vm.originalRoomName}"
             android:importantForAutofill="no"
             android:inputType="text"
             android:maxLength="8"
+            android:paddingVertical="2dp"
             android:text="@={vm.roomName}"
             android:textColor="@color/hous_black"
             android:textColorHint="@color/hous_g_5"
-            android:theme="@style/B1"
-            app:layout_constraintEnd_toEndOf="@id/view_room_name"
-            app:layout_constraintStart_toStartOf="@id/view_room_name"
+            android:theme="@style/B2"
+            app:layout_constraintBottom_toTopOf="@id/view_edit_hous_name"
+            app:layout_constraintEnd_toStartOf="@id/tv_edit_hous_name_count"
+            app:layout_constraintStart_toStartOf="@id/tv_edit_hous_name_title"
             app:layout_constraintTop_toBottomOf="@id/tv_edit_hous_name_desc" />
 
-        <View
-            android:id="@+id/view_room_name"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginHorizontal="88dp"
-            android:layout_marginTop="8dp"
-            android:background="@{vm.roomName.length() == 0 ? @color/hous_g_3 : @color/hous_blue }"
-            app:layout_constraintTop_toBottomOf="@id/et_room_name" />
-
         <TextView
-            android:id="@+id/tv_room_name_count"
+            android:id="@+id/tv_edit_hous_name_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
             android:text="@{@string/edit_hous_name_count(vm.roomName.length)}"
-            android:textColor="@color/hous_g_5"
-            android:theme="@style/Description"
-            app:layout_constraintEnd_toEndOf="@id/view_room_name"
-            app:layout_constraintTop_toBottomOf="@id/view_room_name" />
+            android:textColor="@color/hous_g_4"
+            android:theme="@style/En2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/et_edit_hous_name_name" />
+
+        <View
+            android:id="@+id/view_edit_hous_name"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="6dp"
+            android:background="@{vm.roomName.length() == 0 ? @color/hous_g_3 : @color/hous_blue }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_edit_hous_name_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
