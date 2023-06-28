@@ -45,7 +45,7 @@
             android:id="@+id/tv_settings_notification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="38dp"
+            android:layout_marginTop="12dp"
             android:paddingHorizontal="16dp"
             android:paddingVertical="18dp"
             android:text="@string/settings_notification"
