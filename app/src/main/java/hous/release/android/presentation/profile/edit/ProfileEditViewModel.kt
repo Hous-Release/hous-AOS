@@ -31,33 +31,22 @@ class ProfileEditViewModel @Inject constructor(
     val isProfileEdit = _isProfileEdit.asSharedFlow()
 
     private val userBasicInfo = combine(
-        nickname,
-        birthday,
-        isPrivateBirthday
+        nickname, birthday, isPrivateBirthday
     ) { nickname, birthday, isBirthdayPublic ->
         Triple(nickname, birthday, isBirthdayPublic)
     }
 
     private val userAdditionalInfo = combine(
-        mbti,
-        job,
-        introduction
+        mbti, job, introduction
     ) { mbti, job, introduction ->
         Triple(mbti, job, introduction)
     }
 
     val isProfileChanged = combine(
-        userBasicInfo,
-        userAdditionalInfo,
-        originData
+        userBasicInfo, userAdditionalInfo, originData
     ) { userBasicInfo, userAdditionalInfo, originData ->
         originData.let {
-            it.nickname != userBasicInfo.first ||
-                    it.birthday != userBasicInfo.second ||
-                    it.birthdayPublic != userBasicInfo.third ||
-                    it.mbti != userAdditionalInfo.first ||
-                    it.job != userAdditionalInfo.second ||
-                    it.introduction != userAdditionalInfo.third
+            it.nickname != userBasicInfo.first || it.birthday != userBasicInfo.second || it.birthdayPublic != userBasicInfo.third || it.mbti != userAdditionalInfo.first || it.job != userAdditionalInfo.second || it.introduction != userAdditionalInfo.third
         }
     }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
