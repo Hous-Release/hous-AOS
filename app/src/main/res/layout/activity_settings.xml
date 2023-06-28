@@ -41,135 +41,105 @@
             app:layout_constraintStart_toEndOf="@id/btn_settings_back"
             app:layout_constraintTop_toTopOf="@id/btn_settings_back" />
 
-        <View
-            android:id="@+id/view_settings_top"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="12dp"
-            android:background="@color/hous_g_line"
-            app:layout_constraintTop_toBottomOf="@id/btn_settings_back" />
-
-
         <TextView
             android:id="@+id/tv_settings_notification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="12dp"
-            android:drawablePadding="12dp"
-            android:paddingVertical="8dp"
+            android:layout_marginTop="38dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="18dp"
             android:text="@string/settings_notification"
             android:textColor="@color/hous_black"
             android:theme="@style/B1"
             app:drawableEndCompat="@drawable/ic_settings_next"
-            app:drawableStartCompat="@drawable/ic_alarm"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_settings_top" />
+            app:layout_constraintTop_toBottomOf="@id/tv_settings_title" />
 
         <TextView
             android:id="@+id/tv_settings_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="8dp"
-            android:drawablePadding="12dp"
-            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="18dp"
             android:text="@string/settings_info"
             android:textColor="@color/hous_black"
             android:theme="@style/B1"
             app:drawableEndCompat="@drawable/ic_settings_next"
-            app:drawableStartCompat="@drawable/ic_info"
-            app:layout_constraintStart_toStartOf="@id/tv_settings_notification"
             app:layout_constraintTop_toBottomOf="@id/tv_settings_notification" />
 
         <TextView
             android:id="@+id/tv_settings_opensource"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="8dp"
-            android:drawablePadding="12dp"
-            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="18dp"
             android:text="@string/settings_opensource"
             android:textColor="@color/hous_black"
             android:theme="@style/B1"
             app:drawableEndCompat="@drawable/ic_settings_next"
-            app:drawableStartCompat="@drawable/ic_opensource"
-            app:layout_constraintStart_toStartOf="@id/tv_settings_notification"
             app:layout_constraintTop_toBottomOf="@id/tv_settings_info" />
 
         <TextView
             android:id="@+id/tv_settings_feedback"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="8dp"
-            android:drawablePadding="12dp"
-            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="18dp"
             android:text="@string/settings_feedback"
             android:textColor="@color/hous_black"
             android:theme="@style/B1"
             app:drawableEndCompat="@drawable/ic_settings_next"
-            app:drawableStartCompat="@drawable/ic_feedback"
-            app:layout_constraintStart_toStartOf="@id/tv_settings_notification"
             app:layout_constraintTop_toBottomOf="@id/tv_settings_opensource" />
-
-        <View
-            android:id="@+id/view_settings_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@color/hous_g_line"
-            app:layout_constraintTop_toBottomOf="@id/tv_settings_feedback" />
 
         <TextView
             android:id="@+id/tv_settings_logout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="18dp"
             android:text="@string/settings_logout"
             android:textColor="@color/hous_black"
             android:theme="@style/B1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_settings_bottom" />
+            app:drawableEndCompat="@drawable/ic_settings_next"
+            app:layout_constraintTop_toBottomOf="@id/tv_settings_feedback" />
 
         <TextView
             android:id="@+id/tv_settings_room_out"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="18dp"
             android:text="@string/settings_room_out"
             android:textColor="@color/hous_red"
             android:theme="@style/B1"
             android:visibility="@{hasRoom ? View.VISIBLE : View.GONE}"
-            app:layout_constraintStart_toStartOf="@id/tv_settings_logout"
+            app:drawableEndCompat="@drawable/ic_settings_next"
             app:layout_constraintTop_toBottomOf="@id/tv_settings_logout" />
 
         <TextView
             android:id="@+id/tv_settings_withdraw_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="12dp"
             android:text="@string/settings_withdraw_desc"
             android:textColor="@color/hous_g_4"
             android:theme="@style/B3"
             android:visibility="@{hasRoom ? View.VISIBLE : View.GONE}"
-            app:layout_constraintStart_toStartOf="@id/tv_settings_logout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_settings_room_out" />
 
         <TextView
             android:id="@+id/tv_settings_withdraw"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="18dp"
             android:text="@string/settings_withdraw"
-            android:textColor="@color/hous_g_4"
-            android:theme="@style/B3"
+            android:textColor="@color/hous_red"
+            android:theme="@style/B1"
             android:visibility="@{hasRoom ? View.GONE : View.VISIBLE}"
-            app:layout_constraintStart_toStartOf="@id/tv_settings_logout"
-            app:layout_constraintTop_toBottomOf="@id/tv_settings_room_out" />
+            app:drawableEndCompat="@drawable/ic_settings_next"
+            app:layout_constraintTop_toBottomOf="@id/tv_settings_logout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
