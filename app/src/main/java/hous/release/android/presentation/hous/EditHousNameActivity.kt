@@ -67,9 +67,7 @@ class EditHousNameActivity :
     }
 
     private fun initOriginalRoomName() {
-        viewModel.initOriginalRoomName(
-            intent.getStringExtra(ROOM_NAME) ?: getString(R.string.edit_hous_name_hint_for_error)
-        )
+        viewModel.initOriginalRoomName(intent.getStringExtra(ROOM_NAME) ?: "")
     }
 
     private fun initEditHousNameUiEventCollector() {
