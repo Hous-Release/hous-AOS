@@ -114,7 +114,6 @@
     <!-- CreateRoom -->
     <string name="create_room_title">방 만들기</string>
     <string name="create_room_desc">멤버들이 확인할 수 있도록 방 이름을 설정해 주세요.</string>
-    <string name="create_room_edit_text_hint">방 이름</string>\
     <string name="create_room_name_count">%d/8</string>
     <string name="create_room_dialog_img_desc">img of dialog enter room</string>
     <string name="create_room_dialog_invite">호미들 바로 초대하기</string>
@@ -123,7 +122,6 @@
     <!-- EnterRoomCode -->
     <string name="enter_room_code_title">방 초대코드 입력하기</string>
     <string name="enter_room_code_desc">초대코드를 입력하면 방에 들어갈 수 있어요.</string>
-    <string name="enter_room_code_edit_text_hint">방 초대코드</string>
     <string name="enter_room_code_warning">* 참여할 수 없는 코드예요.</string>
     <string name="enter_room_code_btn">방 참여하기</string>
     <string name="enter_room_code_dialog_owner_desc">님이</string>
@@ -157,9 +155,8 @@
     <!-- EditHousName -->
     <string name="edit_hous_name_back_img_desc">back button</string>
     <string name="edit_hous_name_done">저장</string>
-    <string name="edit_hous_name_title">우리 집 별명 수정</string>
-    <string name="edit_hous_name_description">함께 사는 우리 집을 위한 별명을 지어주세요.</string>
-    <string name="edit_hous_name_hint_for_error">우리 집 별명</string>
+    <string name="edit_hous_name_title">우리 집 별명 바꾸기</string>
+    <string name="edit_hous_name_description">멤버들이 확인할 수 있도록 방 이름을 설정해주세요.</string>
     <string name="edit_hous_name_count">%d/8</string>
 
     <!-- To-Do -->
@@ -287,7 +284,7 @@
     <string name="settings_logout">로그아웃</string>
     <string name="settings_room_out">방 퇴사하기</string>
     <string name="settings_withdraw_desc">* 회원 탈퇴는 방 퇴사 이후 \'방만들기 화면\'에서 할 수 있어요!</string>
-    <string name="settings_withdraw"><u>회원탈퇴</u></string>
+    <string name="settings_withdraw">회원탈퇴</string>
     <string name="settings_feedback_email">hanzip001@gmail.com</string>
     <string name="settings_feedback_subject">[ 호미나라 피드백 ]</string>
     <string name="settings_feedback_content">\n\n\nDevice : %s\nOS Version : Android %s\nApp Version : %s\n-------------------------\n\n\n\n호미나라에 자유로운 피드백을 보내주세요!\n-------------------------</string>
