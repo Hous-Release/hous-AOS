@@ -287,7 +287,7 @@
     <string name="settings_logout">로그아웃</string>
     <string name="settings_room_out">방 퇴사하기</string>
     <string name="settings_withdraw_desc">* 회원 탈퇴는 방 퇴사 이후 \'방만들기 화면\'에서 할 수 있어요!</string>
-    <string name="settings_withdraw"><u>회원탈퇴</u></string>
+    <string name="settings_withdraw">회원탈퇴</string>
     <string name="settings_feedback_email">hanzip001@gmail.com</string>
     <string name="settings_feedback_subject">[ 호미나라 피드백 ]</string>
     <string name="settings_feedback_content">\n\n\nDevice : %s\nOS Version : Android %s\nApp Version : %s\n-------------------------\n\n\n\n호미나라에 자유로운 피드백을 보내주세요!\n-------------------------</string>
