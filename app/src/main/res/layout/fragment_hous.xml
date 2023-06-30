@@ -119,13 +119,9 @@
                     android:id="@+id/tv_hous_my_todo_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_semibold"
-                    android:letterSpacing="-0.02"
-                    android:lineSpacingExtra="8dp"
                     android:text="@string/hous_my_todo"
                     android:textColor="@color/hous_black"
-                    android:textSize="16dp"
-                    android:textStyle="normal"
+                    android:theme="@style/Emt3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -143,12 +139,12 @@
                     android:id="@+id/tv_hous_my_todo_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{vm.hous.progress >= 0 ? View.VISIBLE : View.INVISIBLE}"
                     android:layout_marginStart="6dp"
                     android:fontFamily="@font/montserrat_semibold"
                     android:text="@{String.valueOf(vm.hous.myTodosCnt)}"
                     android:textColor="@color/hous_blue_l1"
                     android:textSize="14dp"
+                    android:visibility="@{vm.hous.progress >= 0 ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@id/view_hous_my_todo"
                     app:layout_constraintStart_toEndOf="@id/view_hous_my_todo"
                     app:layout_constraintTop_toTopOf="@id/view_hous_my_todo" />
@@ -263,13 +259,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/montserrat_semibold"
-                android:letterSpacing="-0.02"
-                android:lineSpacingExtra="9dp"
                 android:text="@string/hous_our_rules"
                 android:textColor="@color/hous_black"
-                android:textSize="18dp"
-                android:textStyle="normal"
+                android:theme="@style/Emt2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view_hous_division_1" />
 
@@ -441,13 +433,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/montserrat_semibold"
-                android:letterSpacing="-0.02"
-                android:lineSpacingExtra="9dp"
                 android:text="@string/hous_homies"
                 android:textColor="@color/hous_black"
-                android:textSize="18dp"
-                android:textStyle="normal"
+                android:theme="@style/Emt2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view_hous_division_2" />
 
