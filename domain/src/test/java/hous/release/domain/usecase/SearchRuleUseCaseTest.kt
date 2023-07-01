@@ -29,7 +29,7 @@ internal class SearchRuleUseCaseTest {
                 MainTodo(name = "이#준@원")
             )
         // when
-        val res: List<Rule> = searchUseCase("kw", rules)
+        val res: List<Rule> = searchUseCase("ㄱㄱ", rules)
         val res2: List<Rule> = searchUseCase("ㅇㅈㅇ", rules)
         val res3: List<Rule> = searchUseCase("muㅕrj&une", rules)
         // then
