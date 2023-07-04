@@ -29,8 +29,8 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import hous.release.android.presentation.practice.BitmapManager
 import hous.release.android.presentation.practice.findActivity
-import hous.release.android.presentation.practice.parseBitmap
 import hous.release.designsystem.theme.HousTheme
 import kotlinx.coroutines.launch
 
@@ -41,10 +41,14 @@ fun OpenDocumentScreen() {
     val activity = LocalContext.current.findActivity()
     val (bitmapList, setBitmapList) = remember { mutableStateOf<List<Bitmap>>(listOf()) }
     val takePhotoFromAlbumLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.OpenMultipleDocuments()
+        ActivityResultContracts.GetMultipleContents()
     ) { uriList ->
         if (uriList.isNotEmpty()) {
-            setBitmapList(uriList.map { it.parseBitmap(activity) })
+            setBitmapList(
+                uriList.map {
+                    BitmapManager(activity).optimizeBitmapFromUri(it)
+                }
+            )
             return@rememberLauncherForActivityResult
         }
         coroutineScope.launch {
@@ -59,7 +63,7 @@ fun OpenDocumentScreen() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(onClick = { takePhotoFromAlbumLauncher.launch(arrayOf("*/*")) }) {
+            Button(onClick = { takePhotoFromAlbumLauncher.launch("image/*") }) {
                 Text(text = "Select Photo")
             }
             LazyRow(
