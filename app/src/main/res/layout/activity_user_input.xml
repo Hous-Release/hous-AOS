@@ -18,7 +18,7 @@
         tools:context=".presentation.login.UserInputActivity">
 
         <TextView
-            android:id="@+id/tv_user_input_user_info"
+            android:id="@+id/tv_user_input_user_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
@@ -30,59 +30,83 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tv_user_input_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:clickable="true"
+            android:enabled="@{vm.nickname.length() > 0 &amp;&amp; vm.birthday.length() > 0}"
+            android:gravity="center"
+            android:onClick="@{()->vm.nextOnClick()}"
+            android:paddingVertical="10dp"
+            android:text="@string/user_input_next"
+            android:textColor="@{vm.nickname.length() > 0 &amp;&amp; vm.birthday.length() > 0 ? @color/hous_blue : @color/hous_g_4}"
+            android:theme="@style/B2"
+            app:layout_constraintBottom_toBottomOf="@id/tv_user_input_user_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_user_input_user_title"
+            tools:textColor="@color/hous_g_4" />
+
+        <View
+            android:id="@+id/view_user_input_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/hous_g_0"
+            app:layout_constraintTop_toBottomOf="@id/tv_user_input_user_title" />
+
+        <TextView
             android:id="@+id/tv_user_input_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="99dp"
+            android:layout_marginTop="24dp"
             android:text="@string/user_input_nickname"
             android:textColor="@color/hous_black"
-            android:theme="@style/B1"
-            app:layout_constraintStart_toStartOf="@id/tv_user_input_user_info"
-            app:layout_constraintTop_toBottomOf="@id/tv_user_input_user_info" />
+            android:theme="@style/B2"
+            app:layout_constraintStart_toStartOf="@id/tv_user_input_user_title"
+            app:layout_constraintTop_toBottomOf="@id/view_user_input_line" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/user_input_required"
+            android:textColor="@color/hous_red"
+            app:layout_constraintBottom_toBottomOf="@id/tv_user_input_nickname"
+            app:layout_constraintStart_toEndOf="@id/tv_user_input_nickname"
+            app:layout_constraintTop_toTopOf="@id/tv_user_input_nickname" />
 
         <EditText
             android:id="@+id/et_user_input_nickname"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="20dp"
-            android:background="@null"
-            android:hint="@string/user_input_nickname_hint"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/selector_userinput_pressed"
+            android:gravity="start"
             android:imeOptions="actionNext"
             android:inputType="text"
-            android:maxLength="3"
-            android:paddingVertical="2dp"
+            android:maxLength="10"
+            android:paddingVertical="12dp"
+            android:paddingStart="16dp"
             android:text="@={vm.nickname}"
             android:textColor="@color/hous_black"
-            android:textColorHint="@color/hous_g_4"
             android:theme="@style/B2"
-            app:layout_constraintEnd_toStartOf="@id/tv_user_input_nickname_length"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_user_input_nickname" />
 
         <TextView
             android:id="@+id/tv_user_input_nickname_length"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="18dp"
+            android:layout_marginEnd="16dp"
             android:importantForAutofill="no"
-            android:text="@{vm.nickname.length() + `/3`}"
+            android:text="@{vm.nickname.length() + `/10`}"
             android:textAppearance="@style/En2"
             android:textColor="@color/hous_g_5"
             app:layout_constraintBottom_toBottomOf="@id/et_user_input_nickname"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/et_user_input_nickname"
             app:layout_constraintTop_toTopOf="@id/et_user_input_nickname"
-            tools:text="0/3" />
-
-        <View
-            android:id="@+id/view_user_input_nickname"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="7dp"
-            android:background="@{vm.nickname.length() == 0 ? @color/hous_g_3 : @color/hous_blue }"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_user_input_nickname" />
+            tools:text="0/10" />
 
         <TextView
             android:id="@+id/tv_user_input_birthday"
@@ -91,17 +115,17 @@
             android:layout_marginTop="40dp"
             android:text="@string/user_input_birthday"
             android:textColor="@color/hous_black"
-            android:theme="@style/B1"
+            android:theme="@style/B2"
             app:layout_constraintStart_toStartOf="@id/tv_user_input_nickname"
-            app:layout_constraintTop_toBottomOf="@id/view_user_input_nickname" />
+            app:layout_constraintTop_toBottomOf="@id/et_user_input_nickname" />
 
         <EditText
             android:id="@+id/et_user_input_birthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="18dp"
-            android:layout_marginTop="20dp"
-            android:background="@null"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/selector_userinput_pressed"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:hint="@string/user_input_birthday_hint"
@@ -109,65 +133,41 @@
             android:includeFontPadding="false"
             android:inputType="date"
             android:maxLength="10"
-            android:paddingVertical="2dp"
+            android:paddingVertical="12dp"
+            android:paddingStart="16dp"
             android:singleLine="true"
             android:text="@{vm.birthday}"
             android:textColor="@color/hous_black"
             android:textColorHint="@color/hous_g_4"
-            android:theme="@style/En2"
+            android:theme="@style/En1"
             app:layout_constraintTop_toBottomOf="@id/tv_user_input_birthday" />
-
-        <View
-            android:id="@+id/view_user_input_birthday"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="7dp"
-            android:background="@{vm.birthday.length() == 0 ? @color/hous_g_3 : @color/hous_blue }"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_user_input_birthday" />
 
         <CheckBox
             android:id="@+id/cb_user_input_check_birthday"
-            android:layout_width="0dp"
+            android:layout_width="24dp"
             android:layout_height="0dp"
             android:layout_marginStart="18dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/selector_userinput_check"
             android:button="@android:color/transparent"
             android:checked="@={vm.isPrivateBirthday}"
             android:clickable="true"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_user_input_birthday" />
+            app:layout_constraintTop_toBottomOf="@id/et_user_input_birthday" />
 
         <TextView
             android:id="@+id/tv_user_input_private_birthday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="4dp"
             android:text="@string/user_input_open_birthday"
-            android:textColor="@color/hous_g_5"
-            android:theme="@style/Description"
+            android:textColor="@{vm.isPrivateBirthday ? @color/hous_blue : @color/hous_blue_l1}"
+            android:theme="@style/B3"
             app:layout_constraintBottom_toBottomOf="@id/cb_user_input_check_birthday"
             app:layout_constraintStart_toEndOf="@id/cb_user_input_check_birthday"
-            app:layout_constraintTop_toTopOf="@id/cb_user_input_check_birthday" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_user_input_next"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/selector_userinput_button"
-            android:enabled="@{vm.nickname.length() > 0 &amp;&amp; vm.birthday.length() > 0}"
-            android:gravity="center"
-            android:onClick="@{()->vm.nextOnClick()}"
-            android:paddingVertical="10dp"
-            android:text="@string/user_input_next"
-            android:textColor="@color/hous_white"
-            android:theme="@style/B1"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/cb_user_input_check_birthday"
+            tools:textColor="@color/hous_blue_l1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -2,36 +2,40 @@ package hous.release.data.service
 
 import hous.release.data.entity.request.ToDoCheckRequest
 import hous.release.data.entity.request.UpdateToDoUsersRequest
-import hous.release.data.entity.response.AllMemberTodoResponse
 import hous.release.data.entity.response.BaseResponse
-import hous.release.data.entity.response.DailyTodoResponse
 import hous.release.data.entity.response.EditToDoContentResponse
 import hous.release.data.entity.response.NoDataResponse
 import hous.release.data.entity.response.ToDoMainResponse
 import hous.release.data.entity.response.ToDoUsersResponse
 import hous.release.data.entity.response.TodoDetailResponse
+import hous.release.data.entity.response.todo.FilteredTodoResponse
+import hous.release.data.entity.response.todo.IsAddableTodoResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface TodoService {
-    @GET("/v1/todos")
+    @GET("/v1/todos/main")
     suspend fun getTodoMainContent(): BaseResponse<ToDoMainResponse>
+
+    @GET("/v1/todos")
+    suspend fun getFilteredTodos(
+        @Query("dayOfWeeks") dayOfWeeks: List<String>?,
+        @Query("onboardingIds") onboardingIds: List<Int>?
+    ): BaseResponse<FilteredTodoResponse>
+
+    @GET("/v1/todo/addable")
+    suspend fun getIsAddableTodo(): BaseResponse<IsAddableTodoResponse>
 
     @POST("/v1/todo/{todoId}/check")
     suspend fun checkTodo(
         @Path("todoId") todoId: Int,
         @Body body: ToDoCheckRequest
     )
-
-    @GET("/v1/todos/day")
-    suspend fun getDailyTodos(): BaseResponse<DailyTodoResponse>
-
-    @GET("/v1/todos/member")
-    suspend fun getMembersTodos(): BaseResponse<AllMemberTodoResponse>
 
     @GET("/v1/todo/{todoId}/summary")
     suspend fun getTodoDetail(

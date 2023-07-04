@@ -9,7 +9,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 abstract class UpdateToDoViewModel : ViewModel() {
-    val todoName = MutableStateFlow("")
+    protected val _todoText = MutableStateFlow("")
+    val todoText = _todoText.asStateFlow()
     protected var _uiState = MutableStateFlow(UpdateToDoUiState())
     val uiState = _uiState.asStateFlow()
 
@@ -72,8 +73,12 @@ abstract class UpdateToDoViewModel : ViewModel() {
         }
     }
 
+    fun setTodoText(text: String) {
+        _todoText.value = text
+    }
+
     fun isActiveAddButton() = (uiState.value.buttonState == ButtonState.ACTIVE)
-    fun isBlankToDoName(): Boolean = todoName.value.isBlank()
+    fun isBlankToDoName(): Boolean = todoText.value.isBlank()
     fun setToDoNameState(isBlank: Boolean) {
         _uiState.update { uiState ->
             uiState.copy(isBlankTodoName = isBlank).let { tmpUiState ->

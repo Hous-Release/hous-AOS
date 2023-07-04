@@ -27,10 +27,12 @@ internal class RuleNameMatcherTest {
         // when
         val res = ruleNameMatcher.isMatched(" a#b*c& ", "a%b%c")
         val res2 = ruleNameMatcher.isMatched("ㅇㅈㅐ", "이준원")
+        val res3 = ruleNameMatcher.isMatched("ㄱㄱ", "이준원")
         // then
         assertAll(
             { assertThat(res).isEqualTo(true) },
-            { assertThat(res2).isEqualTo(true) }
+            { assertThat(res2).isEqualTo(true) },
+            { assertThat(res3).isEqualTo(false) }
         )
     }
 }

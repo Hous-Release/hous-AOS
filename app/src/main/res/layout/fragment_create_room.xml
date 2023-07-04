@@ -31,10 +31,28 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tv_create_room_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:clickable="true"
+            android:enabled="@{viewModel.roomName.length != 0 ? true : false}"
+            android:gravity="center"
+            android:onClick="@{()->viewModel.postCreateRoom()}"
+            android:paddingVertical="10dp"
+            android:text="@string/create_room_title"
+            android:textColor="@{viewModel.roomName.length != 0 ? @color/hous_blue : @color/hous_g_4}"
+            android:theme="@style/B2"
+            app:layout_constraintBottom_toBottomOf="@id/btn_create_room_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_create_room_back"
+            tools:textColor="@color/hous_g_4" />
+
+        <TextView
             android:id="@+id/tv_create_room_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="18dp"
             android:text="@string/create_room_title"
             android:textColor="@color/hous_black"
             android:theme="@style/H3"
@@ -63,14 +81,12 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:background="@null"
-            android:hint="@string/create_room_edit_text_hint"
             android:importantForAutofill="no"
             android:inputType="text"
             android:maxLength="8"
             android:paddingVertical="2dp"
             android:text="@={viewModel.roomName}"
             android:textColor="@color/hous_black"
-            android:textColorHint="@color/hous_g_5"
             android:theme="@style/B2"
             app:layout_constraintBottom_toTopOf="@id/view_create_room"
             app:layout_constraintEnd_toStartOf="@id/tv_create_room_count"
@@ -97,26 +113,6 @@
             android:background="@{viewModel.roomName.length() == 0 ? @color/hous_g_3 : @color/hous_blue }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_create_room_name" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_create_room_done"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="@{viewModel.roomName.length != 0 ? @color/hous_blue : @color/hous_g_4}"
-            android:enabled="@{viewModel.roomName.length != 0 ? true : false}"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:minHeight="0dp"
-            android:onClick="@{()->viewModel.postCreateRoom()}"
-            android:paddingVertical="10dp"
-            android:stateListAnimator="@null"
-            android:text="@string/create_room_title"
-            android:textColor="@color/hous_white"
-            android:theme="@style/B1"
-            app:cornerRadius="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -3,13 +3,11 @@ package hous.release.data.repository
 import hous.release.data.datasource.TodoDataSource
 import hous.release.domain.entity.ApiResult
 import hous.release.domain.entity.TodoDetail
-import hous.release.domain.entity.response.AllMemberTodo
-import hous.release.domain.entity.response.DailyTodo
 import hous.release.domain.entity.response.ToDoContent
 import hous.release.domain.entity.response.ToDoUser
 import hous.release.domain.entity.response.TodoMain
+import hous.release.domain.entity.todo.FilteredTodo
 import hous.release.domain.repository.TodoRepository
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -18,25 +16,34 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import retrofit2.HttpException
 import timber.log.Timber
+import javax.inject.Inject
 
 class TodoRepositoryImpl @Inject constructor(
     private val todoDataSource: TodoDataSource,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : TodoRepository {
+    override suspend fun getFilteredTodos(
+        dayOfWeeks: List<String>?,
+        onboardingIds: List<Int>?
+    ): Result<FilteredTodo> =
+        runCatching {
+            todoDataSource.getFilteredTodos(
+                dayOfWeeks = dayOfWeeks,
+                onboardingIds = onboardingIds
+            ).data.toFilteredTodo()
+        }
+
+    override suspend fun getIsAddableTodo(): Result<Boolean> =
+        runCatching { todoDataSource.getIsAddableTodo().data.isAddable }
+
     override suspend fun getTodoMainContent(): Result<TodoMain> =
         runCatching { todoDataSource.getTodoMainContent().data.toTodoMain() }
 
     override suspend fun checkTodo(todoId: Int, isChecked: Boolean): Result<Unit> =
         runCatching { todoDataSource.checkTodo(todoId = todoId, isChecked = isChecked) }
 
-    override suspend fun getDailyTodos(): Result<DailyTodo> =
-        runCatching { todoDataSource.getDailyTodos().data.toDailyTodo() }
-
-    override suspend fun getMemberTodos(): Result<AllMemberTodo> =
-        runCatching { todoDataSource.getMemberTodos().data.toAllMemberTodo() }
-
     override suspend fun getTodoDetail(todoId: Int): Result<TodoDetail> =
-        runCatching { todoDataSource.getTodoDetail(todoId).data.toTodoDetail() }
+        runCatching { todoDataSource.getTodoDetail(todoId).data.toTodoDetail(todoId) }
 
     override suspend fun deleteTodo(todoId: Int): Result<Unit> =
         runCatching { todoDataSource.deleteTodo(todoId) }

@@ -27,11 +27,10 @@ import hous.release.domain.entity.TodoDetail.User
 @Composable
 fun TodoDetailBottomSheet(
     todoDetail: TodoDetail,
-    editAction: (Int) -> Unit,
-    deleteAction: (Int) -> Unit
+    editAction: () -> Unit,
+    deleteAction: () -> Unit
 ) {
     HousDetailBottomSheet(
-        todoId = todoDetail.todoId,
         content = {
             TodoDetailBottomSheetContent(
                 todo = todoDetail.name,

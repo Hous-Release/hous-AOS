@@ -1,8 +1,21 @@
 package hous.release.testing
 
+import kotlin.reflect.full.callSuspend
 import kotlin.reflect.full.declaredMemberFunctions
+import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.isAccessible
+
+/*
+* [Class].callSuspendFunc(`private 메서드명`)
+* ex ) userInputViewModel.callSuspendFunc("selectedHashtags")
+*
+* */
+suspend fun Any.callSuspendPrivateFunc(methodName: String, vararg args: Any?): Any? =
+    this::class.memberFunctions.find { it.name == methodName }?.also {
+        it.isAccessible = true
+        return it.callSuspend(this, *args)
+    }
 
 /*
 * [Class].callPrivateFunc(`private 메서드명`)

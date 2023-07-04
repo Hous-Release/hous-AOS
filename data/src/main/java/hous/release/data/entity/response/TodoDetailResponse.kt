@@ -20,7 +20,8 @@ data class TodoDetailResponse(
         )
     }
 
-    fun toTodoDetail() = TodoDetail(
+    fun toTodoDetail(todoId: Int) = TodoDetail(
+        todoId = todoId,
         name = name,
         selectedUsers = selectedUsers.map { user -> user.toUser() },
         dayOfWeeks = dayOfWeeks

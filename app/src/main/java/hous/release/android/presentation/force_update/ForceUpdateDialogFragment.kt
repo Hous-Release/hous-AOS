@@ -9,6 +9,7 @@ import hous.release.android.R
 import hous.release.android.databinding.DialogForceUpdateBinding
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.extension.initLayout
+import hous.release.android.util.extension.parcelable
 import timber.log.Timber
 
 class ForceUpdateDialogFragment : DialogFragment() {
@@ -43,7 +44,7 @@ class ForceUpdateDialogFragment : DialogFragment() {
 
     private fun initConfirmClickListener() {
         binding.tvForceUpdateConfirm.setOnClickListener {
-            arguments?.getParcelable<ConfirmClickListener>(CONFIRM_ACTION)?.onConfirmClick()
+            arguments?.parcelable<ConfirmClickListener>(CONFIRM_ACTION)?.onConfirmClick()
                 ?: Timber.e(getString(R.string.null_point_exception_warning_dialog_argument))
             dismiss()
         }

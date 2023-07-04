@@ -9,6 +9,8 @@ import androidx.fragment.app.DialogFragment
 import hous.release.android.R
 import hous.release.android.databinding.DialogWarningBinding
 import hous.release.android.util.extension.initLayout
+import hous.release.android.util.extension.parcelable
+import hous.release.android.util.extension.serializable
 import timber.log.Timber
 
 class WarningDialogFragment : DialogFragment() {
@@ -39,34 +41,44 @@ class WarningDialogFragment : DialogFragment() {
     }
 
     private fun initWarningDialogContent() {
-        val warningType = arguments?.get(WARNING_TYPE)
-            ?: Timber.e(getString(R.string.null_point_exception_warning_dialog_argument))
+        val warningType = arguments?.serializable<WarningType>(WARNING_TYPE)
+            ?: error(getString(R.string.null_point_exception_warning_dialog_argument))
         with(binding) {
-            warning = when (warningType as WarningType) {
+            warning = when (warningType) {
                 WarningType.WARNING_SPLASH -> {
                     tvWarningConfirm.setTextColor(
                         ContextCompat.getColor(requireContext(), R.color.hous_blue)
                     )
                     WarningDialogContent().getWarningSplash(requireContext())
                 }
+
                 WarningType.WARNING_EDIT_HOUS_NAME ->
                     WarningDialogContent().getWarningEditHousName(requireContext())
+
                 WarningType.WARNING_ADD_RULE ->
                     WarningDialogContent().getWarningAddRule(requireContext())
+
                 WarningType.WARNING_EDIT_RULE ->
                     WarningDialogContent().getWarningEditRule(requireContext())
+
                 WarningType.WARNING_DELETE_RULE ->
                     WarningDialogContent().getWarningDeleteRule(requireContext())
+
                 WarningType.WARNING_ADD_TO_DO ->
                     WarningDialogContent().getWarningAddToDo(requireContext())
+
                 WarningType.WARNING_EDIT_TO_DO ->
                     WarningDialogContent().getWarningEditToDo(requireContext())
+
                 WarningType.WARNING_DELETE_TO_DO ->
                     WarningDialogContent().getWarningDeleteToDo(requireContext())
+
                 WarningType.WARNING_EDIT_PROFILE ->
                     WarningDialogContent().getWarningEditProfile(requireContext())
+
                 WarningType.WARNING_LOGOUT ->
                     WarningDialogContent().getWarningLogout(requireContext())
+
                 WarningType.WARNING_STOP_TEST ->
                     WarningDialogContent().getWarningStopTest(requireContext())
             }
@@ -81,7 +93,7 @@ class WarningDialogFragment : DialogFragment() {
 
     private fun initConfirmClickListener() {
         binding.tvWarningConfirm.setOnClickListener {
-            arguments?.getParcelable<ConfirmClickListener>(CONFIRM_ACTION)?.onConfirmClick()
+            arguments?.parcelable<ConfirmClickListener>(CONFIRM_ACTION)?.onConfirmClick()
                 ?: Timber.e(getString(R.string.null_point_exception_warning_dialog_argument))
             dismiss()
         }

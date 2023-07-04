@@ -1,14 +1,17 @@
+import org.gradle.api.JavaVersion
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 
 const val ktlintVersion = "10.3.0"
 const val kotlinVersion = "1.7.20"
+val javaVersion = JavaVersion.VERSION_11
+const val jvmVersion = "11"
 
 object AppConfig {
     const val applicationId = "hous.release.android"
     const val buildToolsVersion = "30.0.3"
-    const val compileSdkVersion = 32
+    const val compileSdkVersion = 33
     const val minSdkVersion = 26
-    const val targetSdkVersion = 32
+    const val targetSdkVersion = 33
     const val versionCode = 6
     const val versionName = "1.0.6"
     const val kotlinCompilerExtensionVersion = "1.3.2"
@@ -16,7 +19,7 @@ object AppConfig {
 
 object Deps {
     object AndroidX {
-        const val activity_version = "1.5.1"
+        const val activity_version = "1.6.1"
         const val kakao_login = "com.kakao.sdk:v2-user:2.11.0"
         const val hilt_navigation = "androidx.hilt:hilt-navigation-fragment:1.0.0"
         const val nav_version = "2.5.1"

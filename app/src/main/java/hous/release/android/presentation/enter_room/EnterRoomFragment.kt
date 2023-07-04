@@ -32,7 +32,7 @@ class EnterRoomFragment :
         ).apply {
             setTarget(binding.layoutEnterRoomCreate)
             addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator?) {
+                override fun onAnimationEnd(animation: Animator) {
                     super.onAnimationEnd(animation)
                     createRoomBtnScaleAnimator = null
                     findNavController().navigate(R.id.action_enterRoomFragment_to_createRoomFragment)
@@ -48,7 +48,7 @@ class EnterRoomFragment :
         ).apply {
             setTarget(binding.layoutEnterRoomEnterCode)
             addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator?) {
+                override fun onAnimationEnd(animation: Animator) {
                     super.onAnimationEnd(animation)
                     enterCodeBtnScaleAnimator = null
                     findNavController().navigate(R.id.action_enterRoomFragment_to_enterRoomCodeFragment)

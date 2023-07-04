@@ -29,6 +29,14 @@
             <!--            </intent-filter>-->
         </activity>
         <activity
+            android:name=".presentation.todo.add.AddToDoActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.todo.edit.EditToDoActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".presentation.network_error.NetworkErrorActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -73,7 +81,8 @@
         <activity
             android:name=".presentation.hous.EditHousNameActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.todo.detail.TodoDetailActivity"
             android:exported="false"
