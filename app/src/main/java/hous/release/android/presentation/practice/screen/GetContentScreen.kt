@@ -36,13 +36,13 @@ import hous.release.designsystem.theme.HousTheme
 import kotlinx.coroutines.launch
 
 @Composable
-fun OpenDocumentScreen(navController: NavController) {
+fun GetContentScreen(navController: NavController) {
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
     val activity = LocalContext.current.findActivity()
     val (bitmapList, setBitmapList) = remember { mutableStateOf<List<Bitmap>>(listOf()) }
     val takePhotoFromAlbumLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.OpenMultipleDocuments()
+        ActivityResultContracts.GetMultipleContents()
     ) { uriList ->
         if (uriList.isNotEmpty()) {
             setBitmapList(
@@ -64,13 +64,7 @@ fun OpenDocumentScreen(navController: NavController) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(onClick = {
-                takePhotoFromAlbumLauncher.launch(
-                    arrayOf(
-                        "image/*"
-                    )
-                )
-            }) {
+            Button(onClick = { takePhotoFromAlbumLauncher.launch("image/*") }) {
                 Text(text = "Select Photo")
             }
             LazyRow(

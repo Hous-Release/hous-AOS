@@ -5,4 +5,8 @@ sealed class GalleryScreens(val route: String) {
     object OpenDocument : GalleryScreens("open_document_screen")
     object GetContent : GalleryScreens("get_content_route")
     object ImagePicker : GalleryScreens("image_picker_route")
+
+    companion object {
+        const val ROUTE = "gallery"
+    }
 }

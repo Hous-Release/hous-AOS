@@ -2,6 +2,7 @@ package hous.release.android.presentation.practice.screen
 
 import android.graphics.Bitmap
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -36,13 +37,13 @@ import hous.release.designsystem.theme.HousTheme
 import kotlinx.coroutines.launch
 
 @Composable
-fun OpenDocumentScreen(navController: NavController) {
+fun ImagePickerScreen(navController: NavController) {
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
     val activity = LocalContext.current.findActivity()
     val (bitmapList, setBitmapList) = remember { mutableStateOf<List<Bitmap>>(listOf()) }
     val takePhotoFromAlbumLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.OpenMultipleDocuments()
+        ActivityResultContracts.PickMultipleVisualMedia(5)
     ) { uriList ->
         if (uriList.isNotEmpty()) {
             setBitmapList(
@@ -66,8 +67,8 @@ fun OpenDocumentScreen(navController: NavController) {
         ) {
             Button(onClick = {
                 takePhotoFromAlbumLauncher.launch(
-                    arrayOf(
-                        "image/*"
+                    PickVisualMediaRequest(
+                        ActivityResultContracts.PickVisualMedia.ImageOnly
                     )
                 )
             }) {

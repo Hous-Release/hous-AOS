@@ -35,14 +35,15 @@ class BitmapManager(
                             requiredWidth,
                             requiredHeight
                         )
-                }?.rotateBitMap(
+                }
+                ?.rotateBitMap(
                     getOrientationOfImage(uri)
                 )
         }.onFailure {
             Timber.e(it.stackTraceToString())
         }.getOrNull() ?: BitmapFactory.decodeResource(
             context.resources,
-            R.drawable.ic_alarm
+            R.drawable.ic_alarm_off
         )
     }
 
