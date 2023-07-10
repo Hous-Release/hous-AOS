@@ -69,7 +69,7 @@ class BitmapManager(
             Timber.e(it.stackTraceToString())
         }.getOrNull() ?: BitmapFactory.decodeResource(
             context.resources,
-            R.drawable.ic_alarm_off
+            R.drawable.ic_network_error
         )
     }
 
@@ -89,11 +89,15 @@ class BitmapManager(
             if (width >= height) {
                 resizedWidth = requiredWidth
                 resizedHeight = (requiredWidth * (height.toFloat() / width.toFloat())).toInt()
-                return scale(resizedWidth, resizedHeight)
+                val resizedBitmap = scale(resizedWidth, resizedHeight)
+                if (isRecycled.not()) recycle()
+                return resizedBitmap
             }
             resizedWidth = (requiredHeight * (width.toFloat() / height.toFloat())).toInt()
             resizedHeight = requiredHeight
-            scale(resizedWidth, resizedHeight)
+            val resizedBitmap = scale(resizedWidth, resizedHeight)
+            if (isRecycled.not()) recycle()
+            return resizedBitmap
         }.onFailure {
             Timber.e(it.stackTraceToString())
         }.getOrNull() ?: this
@@ -111,7 +115,9 @@ class BitmapManager(
             val matrix = Matrix().apply {
                 postRotate(orientation.toFloat())
             }
-            Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
+            val rotatedBitmap = Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
+            if (isRecycled.not()) recycle()
+            rotatedBitmap
         }.onFailure {
             Timber.e(it.stackTraceToString())
         }.getOrNull() ?: this
