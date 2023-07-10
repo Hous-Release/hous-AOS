@@ -12,22 +12,48 @@ import dagger.hilt.android.qualifiers.ActivityContext
 import hous.release.android.R
 import timber.log.Timber
 import java.io.File
+import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.URL
 import java.text.SimpleDateFormat
 
 class BitmapManager(
     @ActivityContext private val context: Context
 ) {
+    fun decodeBitmapFromFile(file: File): Bitmap? {
+        return runCatching {
+            BitmapFactory.decodeFile(file.absolutePath)
+        }.onFailure {
+            Timber.e(it.stackTraceToString())
+        }.getOrNull()
+    }
+
+    fun decodeBitmapFromURL(src: String): Bitmap {
+        return runCatching {
+            val url = URL(src)
+            val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+            connection.doInput = true
+            connection.connect()
+            val input: InputStream = connection.inputStream
+            BitmapFactory.decodeStream(input)
+        }.onFailure {
+            Timber.e(it.stackTraceToString())
+        }.getOrNull() ?: BitmapFactory.decodeResource(
+            context.resources,
+            R.drawable.ic_network_error
+        )
+    }
+
     /***
      * uri에 해당하는 이미지의 bitmap을 resize하여 반환한다.
      */
-    fun optimizeBitmapFromUri(
+    fun decodeBitmapFromUri(
         uri: Uri,
         requiredWidth: Int = MAX_SIZE,
         requiredHeight: Int = MAX_SIZE
     ): Bitmap {
         return runCatching {
             val options = BitmapFactory.Options()
-            Timber.d("uri : $uri")
             context.contentResolver.openInputStream(uri)
                 .use { input ->
                     BitmapFactory.decodeStream(input, null, options)
