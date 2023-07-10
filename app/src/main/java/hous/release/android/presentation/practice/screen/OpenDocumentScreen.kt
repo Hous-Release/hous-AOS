@@ -47,7 +47,7 @@ fun OpenDocumentScreen(navController: NavController) {
         if (uriList.isNotEmpty()) {
             setBitmapList(
                 uriList.map {
-                    BitmapManager(activity).optimizeBitmapFromUri(it)
+                    BitmapManager(activity).decodeBitmapFromUri(it)
                 }
             )
             return@rememberLauncherForActivityResult
