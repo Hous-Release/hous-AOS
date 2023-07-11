@@ -69,9 +69,7 @@ fun PhotoItem(
             src.value = it
         }
     }
-    val imageModifier = Modifier
-        .fillMaxSize(0.96f)
-        .clip(RoundedCornerShape(10.dp))
+    val imageModifier = Modifier.fillMaxSize(0.96f).clip(RoundedCornerShape(10.dp))
     Box(
         contentAlignment = Alignment.TopEnd,
         modifier = modifier
@@ -114,9 +112,7 @@ private fun Modifier.deleteButtonLayout() = this.layout { measurable, constraint
     }
 }
 
-@SuppressLint("ModifierFactoryExtensionFunction")
-fun LazyItemScope.photoWidthModifier(fraction: Float): Modifier =
-    Modifier.composed {
-        this.fillParentMaxWidth(0.6f)
-            .aspectRatio(1f)
-    }
+@SuppressLint("ModifierFactoryExtensionFunction", "UnnecessaryComposedModifier")
+fun LazyItemScope.photoWidthModifier(fraction: Float): Modifier = Modifier.composed {
+    this.fillParentMaxWidth(0.6f).aspectRatio(1f)
+}
