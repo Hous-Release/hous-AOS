@@ -6,11 +6,11 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.io.File
 
 class PhotoViewModel(
-    private val photoSaver: PhotoSaverRepository,
-    private val bitmapManager: BitmapManager
+    private val photoSaver: PhotoSaverRepository
 ) : ViewModel() {
     val uiState = MutableStateFlow(PhotoUiState(emptyList()))
 
@@ -19,24 +19,6 @@ class PhotoViewModel(
             it.copy(
                 photos = photoSaver.fetchPhotos()
             )
-        }
-    }
-
-    fun loadImagesFrom(uris: List<Uri>) {
-        viewModelScope.launch {
-            uiState.update {
-                it.copy(
-                    photos = List(uris.size) { null }
-                )
-            }
-            // skeletone test
-//            delay(2000)
-            photoSaver.cacheFromUris(uris)
-            uiState.update {
-                it.copy(
-                    photos = photoSaver.fetchPhotos()
-                )
-            }
         }
     }
 
@@ -55,14 +37,36 @@ class PhotoViewModel(
         }
     }
 
-    fun removePhoto(file: File) {
+    fun loadImagesFrom(uris: List<Uri>) {
         viewModelScope.launch {
-            photoSaver.removeFile(file)
+            uiState.update {
+                it.copy(
+                    photos = List(uris.size) { null }
+                )
+            }
+            photoSaver.cacheFromUris(uris)
             uiState.update {
                 it.copy(
                     photos = photoSaver.fetchPhotos()
                 )
             }
+        }
+    }
+
+    fun removePhoto(file: File) {
+        viewModelScope.launch {
+            runCatching {
+                photoSaver.removeFile(file)
+            }.onSuccess {
+                uiState.update {
+                    it.copy(
+                        photos = photoSaver.fetchPhotos()
+                    )
+                }
+            }
+                .onFailure {
+                    Timber.e(it.stackTraceToString())
+                }
         }
     }
 
