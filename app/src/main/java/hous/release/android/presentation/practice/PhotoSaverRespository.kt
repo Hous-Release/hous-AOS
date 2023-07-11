@@ -9,18 +9,28 @@ import timber.log.Timber
 import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.TimeZone
 
 class PhotoSaverRepository(
     context: Context,
+    private val bitmapManager: BitmapManager,
     private val dispatchers: CoroutineDispatcher = Dispatchers.IO
 ) {
-    private val contentResolver = context.contentResolver
     private val _photos = mutableListOf<File>()
+
     private val cacheFolder by lazy {
         File(context.cacheDir, "photos").also { it.mkdir() }
     }
 
-    private fun generateFileName() = "${System.currentTimeMillis()}.jpg"
+    private fun generateFileName() = FILE_NAME_FORMAT.format(
+        LocalDateTime.now().format(
+            DATE_FORMATTER
+        ),
+        EXTENSION
+    )
+
     private fun generatePhotoCacheFile() = File(cacheFolder, generateFileName())
 
     fun fetchPhotos() = _photos.toList()
@@ -37,17 +47,17 @@ class PhotoSaverRepository(
 
     suspend fun cacheFromUris(uris: List<Uri>) {
         withContext(dispatchers) {
-            Timber.i("cacheFromUris: $uris")
             uris.forEach {
                 cacheFromUri(it)
             }
         }
     }
 
-    suspend fun removeFile(file: File) {
-        withContext(dispatchers) {
-            file.delete()
+    suspend fun removeFile(file: File): Boolean {
+        return withContext(dispatchers) {
+            val isRemoved = file.delete()
             _photos -= file
+            isRemoved
         }
     }
 
@@ -89,18 +99,19 @@ class PhotoSaverRepository(
         if (_photos.size + 1 > MAX_PHOTOS_LIMIT) {
             return
         }
-
-        contentResolver.openInputStream(uri)?.use { input ->
-            val cachedPhoto = generatePhotoCacheFile()
-
-            cachedPhoto.outputStream().use { output ->
-                input.copyTo(output)
-                _photos += cachedPhoto
-            }
+        bitmapManager.cacheBitmapFromUri(uri)?.let { cachedPhoto ->
+            _photos += cachedPhoto
+            Timber.i("cachedPhotoPath: ${cachedPhoto.absolutePath}")
         }
     }
 
     companion object {
         private const val MAX_PHOTOS_LIMIT = 5
+        private const val DATE_TIME_Pattern = "yyyyMMdd_HHmmss"
+        private const val TIME_ZONE = "Asia/Seoul"
+        private var DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_Pattern)
+            .withZone(TimeZone.getTimeZone(TIME_ZONE).toZoneId())
+        private const val EXTENSION = "jpg"
+        private const val FILE_NAME_FORMAT = "%s.%s"
     }
 }
