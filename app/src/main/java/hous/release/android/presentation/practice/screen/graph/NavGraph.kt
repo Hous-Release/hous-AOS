@@ -15,15 +15,41 @@ import hous.release.android.presentation.practice.screen.OpenDocumentScreen
 
 fun NavGraphBuilder.galleryNavGraph(navController: NavController) {
     navigation(startDestination = GalleryScreens.OpenDocument.route, route = GalleryScreens.ROUTE) {
-        composable(GalleryScreens.OpenDocument.route) { OpenDocumentScreen(navController) }
-        composable(GalleryScreens.GetContent.route) { GetContentScreen(navController) }
+        composable(GalleryScreens.OpenDocument.route) {
+            OpenDocumentScreen(
+                navController,
+                PhotoViewModel(
+                    PhotoSaverRepository(
+                        context = LocalContext.current,
+                        bitmapManager = BitmapManager(
+                            context = LocalContext.current
+                        )
+                    )
+                )
+            )
+        }
+        composable(GalleryScreens.GetContent.route) {
+            GetContentScreen(
+                navController,
+                PhotoViewModel(
+                    PhotoSaverRepository(
+                        context = LocalContext.current,
+                        bitmapManager = BitmapManager(
+                            context = LocalContext.current
+                        )
+                    )
+                )
+            )
+        }
         composable(GalleryScreens.ImagePicker.route) {
             ImagePickerScreen(
                 navController,
                 PhotoViewModel(
-                    PhotoSaverRepository(context = LocalContext.current),
-                    BitmapManager(
-                        context = LocalContext.current
+                    PhotoSaverRepository(
+                        context = LocalContext.current,
+                        bitmapManager = BitmapManager(
+                            context = LocalContext.current
+                        )
                     )
                 )
             )
