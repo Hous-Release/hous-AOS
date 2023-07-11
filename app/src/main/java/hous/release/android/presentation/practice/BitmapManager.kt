@@ -1,6 +1,5 @@
 package hous.release.android.presentation.practice
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -15,17 +14,15 @@ import java.io.File
 import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
-import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.TimeZone
 
 class BitmapManager(
     @ActivityContext private val context: Context
 ) {
-    fun decodeBitmapFromFile(file: File): Bitmap? {
-        return runCatching {
-            BitmapFactory.decodeFile(file.absolutePath)
-        }.onFailure {
-            Timber.e(it.stackTraceToString())
-        }.getOrNull()
+    private val cacheFolder by lazy {
+        File(context.cacheDir, "photos").also { it.mkdir() }
     }
 
     fun decodeBitmapFromURL(src: String): Bitmap {
@@ -47,11 +44,11 @@ class BitmapManager(
     /***
      * uri에 해당하는 이미지의 bitmap을 resize하여 반환한다.
      */
-    fun decodeBitmapFromUri(
+    fun cacheBitmapFromUri(
         uri: Uri,
         requiredWidth: Int = MAX_SIZE,
         requiredHeight: Int = MAX_SIZE
-    ): Bitmap {
+    ): File? {
         return runCatching {
             val options = BitmapFactory.Options()
             context.contentResolver.openInputStream(uri)
@@ -64,13 +61,13 @@ class BitmapManager(
                 }
                 ?.rotateBitMap(
                     getOrientationOfImage(uri)
-                )
+                )?.cacheBitmap()
+                ?.let {
+                    File(it)
+                }
         }.onFailure {
             Timber.e(it.stackTraceToString())
-        }.getOrNull() ?: BitmapFactory.decodeResource(
-            context.resources,
-            R.drawable.ic_network_error
-        )
+        }.getOrNull()
     }
 
     /***
@@ -152,33 +149,38 @@ class BitmapManager(
 
     /***
      * Bitmap을 JPEG로 변환하여 캐시 디렉토리에 저장한후, 파일의 절대 경로를 반환한다.
-     * TODO : 쓸모 없으면 추후 삭제 예정
      */
-    @SuppressLint("SimpleDateFormat")
-    fun cacheBitmap(
-        bitmap: Bitmap,
-        extension: String = "jpg"
-    ): String? {
+    private fun Bitmap.cacheBitmap(): String? {
         return runCatching {
-            val cacheDir: File = context.cacheDir
-            val fileName = FILE_NAME_FORMAT.format(
-                SimpleDateFormat(DATE_FORAMT).format(System.currentTimeMillis()),
-                extension
-            )
-            val tempFile = File(cacheDir, fileName).apply { createNewFile() }
-            tempFile.outputStream().use { out ->
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
-                if (bitmap.isRecycled.not()) bitmap.recycle()
+            val cachedFile = generatePhotoCacheFile().apply { createNewFile() }
+            cachedFile.outputStream().use { out ->
+                compress(Bitmap.CompressFormat.JPEG, 100, out)
+                if (isRecycled.not()) recycle()
             }
-            tempFile.absolutePath
+            cachedFile.absolutePath
         }.onFailure {
             Timber.e(it.stackTraceToString())
         }.getOrNull()
     }
 
+    private fun generateFileName() = FILE_NAME_FORMAT.format(
+        LocalDateTime.now().format(
+            DATE_FORMATTER
+        ),
+        EXTENSION
+    )
+
+    private fun generatePhotoCacheFile() = File(cacheFolder, generateFileName())
+
     companion object {
-        private const val DATE_FORAMT = "yyyyMMdd_HHmmss"
+        private const val DATE_TIME_Pattern = "yyyyMMdd_HHmmss"
+        private const val TIME_ZONE = "Asia/Seoul"
+        private var DATE_FORMATTER =
+            DateTimeFormatter
+                .ofPattern(DATE_TIME_Pattern)
+                .withZone(TimeZone.getTimeZone(TIME_ZONE).toZoneId())
         private const val FILE_NAME_FORMAT = "%s.%s"
         private const val MAX_SIZE = 720
+        private const val EXTENSION = "jpg"
     }
 }
