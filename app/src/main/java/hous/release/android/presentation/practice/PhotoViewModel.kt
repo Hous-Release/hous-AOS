@@ -3,18 +3,25 @@ package hous.release.android.presentation.practice
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.io.File
+import javax.inject.Inject
 
-class PhotoViewModel(
+@HiltViewModel
+class PhotoViewModel
+@Inject constructor(
     private val photoSaver: PhotoSaverRepository
 ) : ViewModel() {
     val uiState = MutableStateFlow(PhotoUiState(emptyList()))
 
     init {
+        viewModelScope.launch {
+            photoSaver.removeAllFile()
+        }
         uiState.update {
             it.copy(
                 photos = photoSaver.fetchPhotos()
@@ -40,9 +47,7 @@ class PhotoViewModel(
     fun loadImagesFrom(uris: List<Uri>) {
         viewModelScope.launch {
             uiState.update {
-                it.copy(
-                    photos = List(uris.size) { null }
-                )
+                it.copy(photos = List(uris.size) { null })
             }
             photoSaver.cacheFromUris(uris)
             uiState.update {
@@ -63,17 +68,9 @@ class PhotoViewModel(
                         photos = photoSaver.fetchPhotos()
                     )
                 }
+            }.onFailure {
+                Timber.e(it.stackTraceToString())
             }
-                .onFailure {
-                    Timber.e(it.stackTraceToString())
-                }
-        }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelScope.launch {
-            photoSaver.removeAllFile()
         }
     }
 }

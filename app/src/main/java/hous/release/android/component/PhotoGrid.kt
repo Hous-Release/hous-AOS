@@ -5,10 +5,13 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -37,18 +40,22 @@ import java.io.File
 fun PhotoGrid(
     modifier: Modifier = Modifier.fillMaxWidth(),
     photoFraction: Float = 0.6f,
+    spaceWidth: Int = 6,
     photos: List<File?>,
     onRemove: (photo: File) -> Unit = {}
 ) {
     LazyRow(
-        modifier = modifier
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(spaceWidth.dp)
     ) {
-        itemsIndexed(items = photos, key = { index, _ -> index }) { _, file ->
+        itemsIndexed(items = photos, key = { index, _ -> index }) { idx, file ->
+            if (idx == 0) Spacer(modifier = Modifier.width(spaceWidth.dp))
             PhotoItem(
                 modifier = photoWidthModifier(photoFraction),
                 photo = file,
                 onRemove = onRemove
             )
+            if (idx == photos.lastIndex) Spacer(modifier = Modifier.width(spaceWidth.dp))
         }
     }
 }
@@ -57,7 +64,8 @@ fun PhotoGrid(
 fun PhotoItem(
     modifier: Modifier,
     photo: File?,
-    onRemove: (photo: File) -> Unit = {}
+    onRemove: (photo: File) -> Unit = {},
+    isEditable: Boolean = true
 ) {
     val src = remember { mutableStateOf<Bitmap?>(null) }
     LaunchedEffect(key1 = photo) {
@@ -81,18 +89,20 @@ fun PhotoItem(
                 contentDescription = "image",
                 contentScale = ContentScale.Crop
             )
-            IconButton(
-                onClick = {
-                    onRemove(photo!!)
-                },
-                modifier = Modifier.deleteButtonLayout()
-            ) {
-                Image(
-                    modifier = Modifier.fillMaxWidth(0.16f),
-                    painter = painterResource(id = R.drawable.ic_image_delete),
-                    contentDescription = "delete",
-                    contentScale = ContentScale.Crop
-                )
+            if (isEditable) {
+                IconButton(
+                    onClick = {
+                        onRemove(photo!!)
+                    },
+                    modifier = Modifier.deleteButtonLayout()
+                ) {
+                    Image(
+                        modifier = Modifier.fillMaxWidth(0.16f),
+                        painter = painterResource(id = R.drawable.ic_image_delete),
+                        contentDescription = "delete",
+                        contentScale = ContentScale.Crop
+                    )
+                }
             }
         } ?: Box(
             modifier = imageModifier.background(skeletonBrush())

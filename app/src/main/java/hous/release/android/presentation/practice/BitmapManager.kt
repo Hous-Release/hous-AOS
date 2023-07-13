@@ -7,7 +7,7 @@ import android.graphics.Matrix
 import android.media.ExifInterface
 import android.net.Uri
 import androidx.core.graphics.scale
-import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 import hous.release.android.R
 import timber.log.Timber
 import java.io.File
@@ -17,12 +17,17 @@ import java.net.URL
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.TimeZone
+import java.util.UUID
+import javax.inject.Inject
 
-class BitmapManager(
-    @ActivityContext private val context: Context
+class BitmapManager
+@Inject constructor(
+    @ApplicationContext private val context: Context
 ) {
     private val cacheFolder by lazy {
-        File(context.cacheDir, "photos").also { it.mkdir() }
+        File(context.cacheDir, "photos").also {
+            if (it.exists().not()) it.mkdir()
+        }
     }
 
     fun decodeBitmapFromURL(src: String): Bitmap {
@@ -166,7 +171,7 @@ class BitmapManager(
     private fun generateFileName() = FILE_NAME_FORMAT.format(
         LocalDateTime.now().format(
             DATE_FORMATTER
-        ),
+        ) + UUID.randomUUID().toString(),
         EXTENSION
     )
 

@@ -12,8 +12,10 @@ import android.provider.MediaStore
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.presentation.practice.screen.graph.HomeNavGraph
 
+@AndroidEntryPoint
 class GalleryPracticeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

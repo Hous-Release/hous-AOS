@@ -2,8 +2,9 @@ package hous.release.android.presentation.practice
 
 import android.content.Context
 import android.net.Uri
+import dagger.hilt.android.qualifiers.ApplicationContext
+import hous.release.android.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.io.File
@@ -12,16 +13,18 @@ import java.net.URL
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.TimeZone
+import javax.inject.Inject
 
-class PhotoSaverRepository(
-    context: Context,
+class PhotoSaverRepository
+@Inject constructor(
+    @ApplicationContext context: Context,
     private val bitmapManager: BitmapManager,
-    private val dispatchers: CoroutineDispatcher = Dispatchers.IO
+    @IoDispatcher private val ioDispatchers: CoroutineDispatcher
 ) {
     private val _photos = mutableListOf<File>()
 
     private val cacheFolder by lazy {
-        File(context.cacheDir, "photos").also { it.mkdir() }
+        File(context.cacheDir, "photos").also { if (it.exists().not()) it.mkdir() }
     }
 
     private fun generateFileName() = FILE_NAME_FORMAT.format(
@@ -38,7 +41,7 @@ class PhotoSaverRepository(
     fun canAddPhoto() = _photos.size < MAX_PHOTOS_LIMIT
 
     suspend fun cacheFromUrls(urls: List<String>) {
-        withContext(dispatchers) {
+        withContext(ioDispatchers) {
             urls.forEach {
                 cacheFromUrl(it)
             }
@@ -46,7 +49,7 @@ class PhotoSaverRepository(
     }
 
     suspend fun cacheFromUris(uris: List<Uri>) {
-        withContext(dispatchers) {
+        withContext(ioDispatchers) {
             uris.forEach {
                 cacheFromUri(it)
             }
@@ -54,22 +57,26 @@ class PhotoSaverRepository(
     }
 
     suspend fun removeFile(file: File): Boolean {
-        return withContext(dispatchers) {
+        return withContext(ioDispatchers) {
             val isRemoved = file.delete()
+            Timber.e("isRemoved: $isRemoved")
             _photos -= file
             isRemoved
         }
     }
 
     suspend fun removeAllFile() {
-        withContext(dispatchers) {
-            _photos.forEach { it.delete() }
+        withContext(ioDispatchers) {
             _photos.clear()
+            cacheFolder.listFiles()?.forEach {
+                it.delete()
+            }
         }
+        Timber.e("removeAllFile")
     }
 
     suspend fun savePhotos(): List<File> {
-        return withContext(dispatchers) {
+        return withContext(ioDispatchers) {
             val savedPhotos = _photos.toList()
             removeAllFile()
             savedPhotos
