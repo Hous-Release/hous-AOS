@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="hous.release.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".HousApplication"
+        android:enableOnBackInvokedCallback="true"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="false"
@@ -15,7 +17,8 @@
         android:roundIcon="@mipmap/ic_app_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HousReleaseAos"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="tiramisu">
         <activity
             android:name=".presentation.splash.IntroActivity"
             android:exported="true"
