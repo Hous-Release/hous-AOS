@@ -17,17 +17,14 @@ fun RuleNavGraph(
     NavHost(
         navController = navController,
         startDestination = RulesScreens.Main.route,
-        route = RulesScreens.ROUTE
+        route = RulesScreens.RULE_GRAPH_ROUTE
     ) {
         mainRuleScreen(
             onNavigateToAddRule = navController::navigateToAddRule,
-            onNavigateToDetailRule = navController::navigateToDetailRule
+            onNavigateToDetailRule = navController::navigateToDetailRuleGraph
         )
         addRuleScreen()
-        ruleDetailsGraph(
-            onNavigateToUpdateRule = navController::navigateUpdateRule,
-            onNavigateToDeleteRule = navController::navigateDeleteRule
-        )
+        ruleDetailsGraph(navController)
     }
 }
 
@@ -46,7 +43,7 @@ private fun NavGraphBuilder.mainRuleScreen(
 }
 
 private fun NavGraphBuilder.addRuleScreen() {
-    composable(RulesScreens.ADD.route) {
+    composable(RulesScreens.Add.route) {
         AddRuleScreen()
     }
 }
@@ -54,17 +51,17 @@ private fun NavGraphBuilder.addRuleScreen() {
 // Navigation
 
 fun NavController.navigateToAddRule() {
-    navigate(RulesScreens.ADD.route)
+    navigate(RulesScreens.Add.route)
 }
 
-fun NavController.navigateToDetailRule(id: Int) {
-    navigate(RulesScreens.Detail.createRouteBy(id))
+fun NavController.navigateToDetailRuleGraph(id: Int) {
+    navigate(RulesScreens.DetailGraph.createRouteBy(id))
 }
 
-fun NavController.navigateUpdateRule(id: Int) {
-    navigate(RulesScreens.Update.createRouteBy(id))
+fun NavController.navigateUpdateRule() {
+    navigate(RulesScreens.DetailGraph.Update.route)
 }
 
-fun NavController.navigateDeleteRule(id: Int) {
-    navigate(RulesScreens.Delete.createRouteBy(id))
+fun NavController.navigateDeleteRule() {
+    navigate(RulesScreens.DetailGraph.Delete.route)
 }

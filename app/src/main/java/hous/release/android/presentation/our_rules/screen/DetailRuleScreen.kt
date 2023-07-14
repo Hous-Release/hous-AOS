@@ -13,8 +13,8 @@ import hous.release.designsystem.theme.HousTheme
 @Composable
 fun DetailRuleScreen(
     ruleId: Int = 0,
-    onNavigateToUpdateRule: (Int) -> Unit = {},
-    onNavigateToDeleteRule: (Int) -> Unit = {}
+    onNavigateToUpdateRule: () -> Unit = {},
+    onNavigateToDeleteRule: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -25,13 +25,13 @@ fun DetailRuleScreen(
             text = "Detail Rule $ruleId",
             style = HousTheme.typography.h1
         )
-        Button(onClick = { onNavigateToUpdateRule(2) }) {
+        Button(onClick = onNavigateToUpdateRule) {
             Text(
                 text = "Update Rule",
                 style = HousTheme.typography.h1
             )
         }
-        Button(onClick = { onNavigateToDeleteRule(3) }) {
+        Button(onClick = onNavigateToDeleteRule) {
             Text(
                 text = "Delete Rule",
                 style = HousTheme.typography.h1
