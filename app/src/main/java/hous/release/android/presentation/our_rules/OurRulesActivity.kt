@@ -1,17 +1,22 @@
 package hous.release.android.presentation.our_rules
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import hous.release.android.R
+import hous.release.android.presentation.our_rules.screen.graph.RuleNavGraph
 import hous.release.android.util.HousLogEvent.SCREEN_RULES
 import hous.release.android.util.HousLogEvent.enterScreenLogEvent
 
 @AndroidEntryPoint
-class OurRulesActivity : AppCompatActivity() {
+class OurRulesActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_our_rules)
         enterScreenLogEvent(SCREEN_RULES, javaClass.name)
+        setContent {
+            val navController = rememberNavController()
+            RuleNavGraph(navController)
+        }
     }
 }
