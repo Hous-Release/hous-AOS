@@ -7,7 +7,6 @@ import hous.release.android.presentation.our_rules.screen.DeleteRuleScreen
 import hous.release.android.presentation.our_rules.screen.DetailRuleScreen
 import hous.release.android.presentation.our_rules.screen.RulesScreens
 import hous.release.android.presentation.our_rules.screen.UpdateRuleScreen
-import timber.log.Timber
 
 fun NavGraphBuilder.ruleDetailsGraph(
     onNavigateToUpdateRule: (Int) -> Unit,
@@ -42,7 +41,10 @@ private fun NavGraphBuilder.detailRuleScreen(
 }
 
 private fun NavGraphBuilder.updateRuleScreen() {
-    composable(RulesScreens.Update.route) {
+    composable(
+        RulesScreens.Update.route,
+        arguments = RulesScreens.Detail.arguments
+    ) {
         it.arguments?.getInt(RulesScreens.RULE_ID_KEY)?.let { ruleId ->
             UpdateRuleScreen(ruleId = ruleId)
         }
@@ -50,9 +52,10 @@ private fun NavGraphBuilder.updateRuleScreen() {
 }
 
 private fun NavGraphBuilder.deleteRuleScreen() {
-    composable(RulesScreens.Delete.route) {
-        Timber.d("deleteRuleScreen route: ${it.destination.route}")
-        Timber.d("deleteRuleScreen arguments: ${it.id}")
+    composable(
+        RulesScreens.Delete.route,
+        arguments = RulesScreens.Detail.arguments
+    ) {
         it.arguments?.getInt(RulesScreens.RULE_ID_KEY)?.let { ruleId ->
             DeleteRuleScreen(ruleId = ruleId)
         }

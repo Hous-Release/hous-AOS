@@ -6,6 +6,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import hous.release.android.presentation.our_rules.screen.AddRuleScreen
+import hous.release.android.presentation.our_rules.screen.MainRuleScreen
 import hous.release.android.presentation.our_rules.screen.RulesScreens
 
 @Composable
@@ -35,11 +37,18 @@ private fun NavGraphBuilder.mainRuleScreen(
     onNavigateToAddRule: () -> Unit,
     onNavigateToDetailRule: (Int) -> Unit
 ) {
-    composable(RulesScreens.Main.route) {}
+    composable(RulesScreens.Main.route) {
+        MainRuleScreen(
+            onNavigateToAddRule = onNavigateToAddRule,
+            onNavigateToDetailRule = onNavigateToDetailRule
+        )
+    }
 }
 
 private fun NavGraphBuilder.addRuleScreen() {
-    composable(RulesScreens.ADD.route) {}
+    composable(RulesScreens.ADD.route) {
+        AddRuleScreen()
+    }
 }
 
 // Navigation
