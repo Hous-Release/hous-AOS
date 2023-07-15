@@ -5,8 +5,8 @@ import hous.release.data.entity.request.DeleteRulesRequest
 import hous.release.data.entity.request.EditRulesRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.NoDataResponse
-import hous.release.data.entity.response.OurRuleResponse
-import hous.release.data.entity.response.OurRulesResponse
+import hous.release.data.entity.response.rule.OurRuleResponse
+import hous.release.data.entity.response.rule.OurRulesResponse
 import hous.release.data.service.OurRulesService
 import hous.release.domain.entity.rule.OurRule
 import javax.inject.Inject

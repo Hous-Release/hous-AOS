@@ -5,7 +5,7 @@ import hous.release.data.entity.request.DeleteRulesRequest
 import hous.release.data.entity.request.EditRulesRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.NoDataResponse
-import hous.release.data.entity.response.OurRulesResponse
+import hous.release.data.entity.response.rule.OurRulesResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.HTTP

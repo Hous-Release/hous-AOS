@@ -1,4 +1,4 @@
-package hous.release.data.entity.response
+package hous.release.data.entity.response.rule
 
 import hous.release.domain.entity.rule.type.RuleType
 import hous.release.domain.entity.rule.OurRule
