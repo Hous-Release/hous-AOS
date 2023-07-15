@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.domain.util.ApiResult
-import hous.release.domain.entity.rule.OurRule
+import hous.release.domain.entity.rule.MainRule
 import hous.release.domain.usecase.DeleteOurRulesUseCase
 import hous.release.domain.usecase.GetOurRulesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -94,7 +94,7 @@ class OurRuleDeleteViewModel @Inject constructor(
 
     data class OurRuleDeleteUIState(
         val deleteRuleSize: Int = 0,
-        val ruleList: List<OurRule> = emptyList(),
+        val ruleList: List<MainRule> = emptyList(),
         val isError: Boolean = false,
         val isEmpty: Boolean = true,
         val isLoading: Boolean = true,

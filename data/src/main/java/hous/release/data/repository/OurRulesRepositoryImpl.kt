@@ -2,7 +2,7 @@ package hous.release.data.repository
 
 import hous.release.data.datasource.OurRulesDataSource
 import hous.release.data.di.IoDispatcher
-import hous.release.domain.entity.rule.OurRule
+import hous.release.domain.entity.rule.MainRule
 import hous.release.domain.repository.OurRulesRepository
 import hous.release.domain.util.ApiResult
 import kotlinx.coroutines.CoroutineDispatcher
@@ -17,7 +17,7 @@ class OurRulesRepositoryImpl @Inject constructor(
     private val ourRulesDataSource: OurRulesDataSource,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : OurRulesRepository {
-    override fun fetchOurRulesContent(): Flow<ApiResult<List<OurRule>>> = flow {
+    override fun fetchOurRulesContent(): Flow<ApiResult<List<MainRule>>> = flow {
         val response = ourRulesDataSource.getOurRulesContent()
         if (!response.success) {
             emit(ApiResult.Error(response.message))
@@ -41,7 +41,7 @@ class OurRulesRepositoryImpl @Inject constructor(
         return code
     }
 
-    override fun putEditedRuleContent(editedRuleList: List<OurRule>): Flow<ApiResult<String>> =
+    override fun putEditedRuleContent(editedRuleList: List<MainRule>): Flow<ApiResult<String>> =
         flow {
             val response = ourRulesDataSource.putEditedRuleContent(editedRuleList)
             if (response.success) {

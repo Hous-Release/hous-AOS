@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.util.ApiResult
-import hous.release.domain.entity.rule.OurRule
+import hous.release.domain.entity.rule.MainRule
 import hous.release.domain.usecase.GetOurMainRulesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -52,6 +52,6 @@ class OurRulesViewModel @Inject constructor(
         val isError: Boolean = false,
         val isEmptyRepresentativeRuleList: Boolean = true,
         val isEmptyGeneralRuleList: Boolean = true,
-        val ourRuleList: List<OurRule> = emptyList()
+        val ourRuleList: List<MainRule> = emptyList()
     )
 }

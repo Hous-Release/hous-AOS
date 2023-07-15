@@ -10,10 +10,10 @@ import hous.release.android.databinding.ItemOurRulesRepresentativeRuleMiddleBind
 import hous.release.android.databinding.ItemOurRulesRepresentativeRuleTopBinding
 import hous.release.android.util.ItemDiffCallback
 import hous.release.domain.entity.rule.type.RuleType
-import hous.release.domain.entity.rule.OurRule
+import hous.release.domain.entity.rule.MainRule
 import timber.log.Timber
 
-class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(
+class OurRulesAdapter : ListAdapter<MainRule, RecyclerView.ViewHolder>(
     itemDiffCallback
 ) {
     private lateinit var inflater: LayoutInflater
@@ -79,7 +79,7 @@ class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(
         private val binding: ItemOurRulesRepresentativeRuleTopBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun onBind(data: OurRule) {
+        fun onBind(data: MainRule) {
             binding.data = data
         }
     }
@@ -88,7 +88,7 @@ class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(
         private val binding: ItemOurRulesRepresentativeRuleMiddleBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun onBind(data: OurRule) {
+        fun onBind(data: MainRule) {
             binding.data = data
         }
     }
@@ -97,7 +97,7 @@ class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(
         private val binding: ItemOurRulesRepresentativeRuleBottomBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun onBind(data: OurRule) {
+        fun onBind(data: MainRule) {
             binding.data = data
         }
     }
@@ -106,13 +106,13 @@ class OurRulesAdapter : ListAdapter<OurRule, RecyclerView.ViewHolder>(
         private val binding: ItemOurRulesGeneralRuleBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun onBind(data: OurRule) {
+        fun onBind(data: MainRule) {
             binding.data = data
         }
     }
 
     companion object {
-        private val itemDiffCallback = ItemDiffCallback<OurRule>(
+        private val itemDiffCallback = ItemDiffCallback<MainRule>(
             onItemsTheSame = { old, new -> old.id == new.id },
             onContentsTheSame = { old, new -> old == new }
         )

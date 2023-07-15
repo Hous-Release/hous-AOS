@@ -7,7 +7,7 @@ import hous.release.data.entity.response.NoDataResponse
 import hous.release.data.entity.response.rule.MainRuleResponse
 import hous.release.data.entity.response.rule.MainRulesResponse
 import hous.release.data.service.OurRulesService
-import hous.release.domain.entity.rule.OurRule
+import hous.release.domain.entity.rule.MainRule
 import javax.inject.Inject
 
 class OurRulesDataSource @Inject constructor(private val ourRulesService: OurRulesService) {
@@ -18,7 +18,7 @@ class OurRulesDataSource @Inject constructor(private val ourRulesService: OurRul
     suspend fun postAddedRuleContent(addedRules: List<String>): NoDataResponse =
         ourRulesService.postAddedRuleContent(AddRulesRequest(addedRules = addedRules))
 
-    suspend fun putEditedRuleContent(editedRules: List<OurRule>): NoDataResponse =
+    suspend fun putEditedRuleContent(editedRules: List<MainRule>): NoDataResponse =
         ourRulesService.putEditedRuleContent(
             EditRulesRequest(
                 rules = editedRules.map { ourRule ->

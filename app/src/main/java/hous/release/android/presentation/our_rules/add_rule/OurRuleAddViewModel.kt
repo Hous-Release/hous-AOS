@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.domain.util.ApiResult
-import hous.release.domain.entity.rule.OurRule
+import hous.release.domain.entity.rule.MainRule
 import hous.release.domain.usecase.GetOurRulesUseCase
 import hous.release.domain.usecase.PostAddRulesUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -69,7 +69,7 @@ class OurRuleAddViewModel @Inject constructor(
         if (inputRuleNameField.value.isNotBlank()) {
             _uiState.value = uiState.value.copy(
                 ourRuleList = _uiState.value.ourRuleList + listOf(
-                    OurRule(
+                    MainRule(
                         tmpId--,
                         inputRuleNameField.value
                     )
@@ -97,7 +97,7 @@ class OurRuleAddViewModel @Inject constructor(
 }
 
 data class OurRuleAddUIState(
-    val ourRuleList: List<OurRule> = emptyList(),
+    val ourRuleList: List<MainRule> = emptyList(),
     val addedRuleList: List<String> = emptyList(),
     val isError: Boolean = false,
     val isEmpty: Boolean = false,

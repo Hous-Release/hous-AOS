@@ -13,15 +13,15 @@ import hous.release.android.databinding.ItemOurRulesEditItemBinding
 import hous.release.android.util.ItemDiffCallback
 import hous.release.android.util.ItemTouchHelperCallback
 import hous.release.domain.entity.rule.type.RuleType
-import hous.release.domain.entity.rule.OurRule
+import hous.release.domain.entity.rule.MainRule
 import java.util.*
 
 class OurRulesEditAdapter(
-    private val updateEditRuleList: (List<OurRule>) -> Unit,
+    private val updateEditRuleList: (List<MainRule>) -> Unit,
     private val editRuleName: (place: Int, newRuleName: String) -> Unit,
     private val hideKeyBoard: () -> Unit
 ) :
-    ListAdapter<OurRule, OurRulesEditAdapter.EditRuleViewHolder>(
+    ListAdapter<MainRule, OurRulesEditAdapter.EditRuleViewHolder>(
         itemDiffCallback
     ),
     ItemTouchHelperCallback.OnItemMoveListener {
@@ -104,7 +104,7 @@ class OurRulesEditAdapter(
         }
 
         @SuppressLint("ClickableViewAccessibility")
-        fun onBind(data: OurRule) {
+        fun onBind(data: MainRule) {
             initRuleTextField(data)
             with(binding.clDragHandler) {
                 visibility = View.VISIBLE
@@ -118,7 +118,7 @@ class OurRulesEditAdapter(
             initItemBackGround()
         }
 
-        private fun initRuleTextField(data: OurRule) {
+        private fun initRuleTextField(data: MainRule) {
             binding.edtRuleDescription.setText(data.name)
             binding.edtRuleDescription.hint = data.name
             binding.edtRuleDescription.addTextChangedListener { newRuleName ->
@@ -152,7 +152,7 @@ class OurRulesEditAdapter(
     }
 
     companion object {
-        private val itemDiffCallback = ItemDiffCallback<OurRule>(
+        private val itemDiffCallback = ItemDiffCallback<MainRule>(
             onItemsTheSame = { old, new ->
                 old.id == new.id
             },

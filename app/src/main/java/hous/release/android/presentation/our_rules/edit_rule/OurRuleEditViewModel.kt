@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.domain.util.ApiResult
 import hous.release.domain.entity.rule.type.RuleType
-import hous.release.domain.entity.rule.OurRule
+import hous.release.domain.entity.rule.MainRule
 import hous.release.domain.usecase.GetOurRulesUseCase
 import hous.release.domain.usecase.PutEditOurRulesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -54,7 +54,7 @@ class OurRuleEditViewModel @Inject constructor(
         }
     }
 
-    private fun initEditRuleList(ruleList: List<OurRule>) = ruleList
+    private fun initEditRuleList(ruleList: List<MainRule>) = ruleList
         .mapIndexed { idx, ourRule ->
             when (idx) {
                 0 -> ourRule.copy(ruleType = RuleType.REPRESENTATVIE_TOP)
@@ -74,7 +74,7 @@ class OurRuleEditViewModel @Inject constructor(
         }
     }
 
-    fun updateEditRuleList(editList: List<OurRule>) {
+    fun updateEditRuleList(editList: List<MainRule>) {
         _uiState.update { uiState ->
             uiState.copy(editRuleList = initEditRuleList(editList))
         }
@@ -110,8 +110,8 @@ class OurRuleEditViewModel @Inject constructor(
     fun isActiveSaveButton() = (uiState.value.saveButtonState == ButtonState.ACTIVE)
 
     data class OurRuleEditUIState(
-        val originalEditRuleList: List<OurRule> = emptyList(),
-        val editRuleList: List<OurRule> = emptyList(),
+        val originalEditRuleList: List<MainRule> = emptyList(),
+        val editRuleList: List<MainRule> = emptyList(),
         val isError: Boolean = false,
         val isEmpty: Boolean = true,
         val isLoading: Boolean = true,

@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.databinding.ItemOurRulesDeleteItemBinding
 import hous.release.android.util.ItemDiffCallback
-import hous.release.domain.entity.rule.OurRule
+import hous.release.domain.entity.rule.MainRule
 
 class OurRulesDeleteAdapter(private val updateDeleteRules: (id: Int) -> Unit) :
-    ListAdapter<OurRule, OurRulesDeleteAdapter.DeleteOurRuleViewHolder>(itemDiffCallback) {
+    ListAdapter<MainRule, OurRulesDeleteAdapter.DeleteOurRuleViewHolder>(itemDiffCallback) {
     private lateinit var inflater: LayoutInflater
 
     override fun onCreateViewHolder(
@@ -37,7 +37,7 @@ class OurRulesDeleteAdapter(private val updateDeleteRules: (id: Int) -> Unit) :
         private val updateDeleteRules: (id: Int) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: OurRule) {
+        fun onBind(data: MainRule) {
             with(binding) {
                 pos = absoluteAdapterPosition
                 this.data = data
@@ -54,7 +54,7 @@ class OurRulesDeleteAdapter(private val updateDeleteRules: (id: Int) -> Unit) :
     }
 
     companion object {
-        private val itemDiffCallback = ItemDiffCallback<OurRule>(
+        private val itemDiffCallback = ItemDiffCallback<MainRule>(
             onItemsTheSame = { old, new -> old.id == new.id },
             onContentsTheSame = { old, new -> old == new }
         )

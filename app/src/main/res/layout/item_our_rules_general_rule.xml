@@ -11,7 +11,7 @@
 
         <variable
             name="data"
-            type="hous.release.domain.entity.rule.OurRule" />
+            type="hous.release.domain.entity.rule.MainRule" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

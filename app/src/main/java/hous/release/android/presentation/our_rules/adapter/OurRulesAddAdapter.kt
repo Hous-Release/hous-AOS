@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.databinding.ItemOurRulesGeneralRuleBinding
 import hous.release.android.util.ItemDiffCallback
-import hous.release.domain.entity.rule.OurRule
+import hous.release.domain.entity.rule.MainRule
 
 class OurRulesAddAdapter(private val hideKeyBoard: () -> Unit) :
-    ListAdapter<OurRule, OurRulesAddAdapter.AddRuleViewHolder>(
+    ListAdapter<MainRule, OurRulesAddAdapter.AddRuleViewHolder>(
         itemDiffCallback
     ) {
     private lateinit var inflater: LayoutInflater
@@ -38,7 +38,7 @@ class OurRulesAddAdapter(private val hideKeyBoard: () -> Unit) :
         private val hideKeyBoard: () -> Unit,
         private val binding: ItemOurRulesGeneralRuleBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: OurRule) {
+        fun onBind(data: MainRule) {
             binding.data = data
             binding.clRuleItem.setOnClickListener {
                 hideKeyBoard()
@@ -47,7 +47,7 @@ class OurRulesAddAdapter(private val hideKeyBoard: () -> Unit) :
     }
 
     companion object {
-        private val itemDiffCallback = ItemDiffCallback<OurRule>(
+        private val itemDiffCallback = ItemDiffCallback<MainRule>(
             onItemsTheSame = { old, new -> old.id == new.id },
             onContentsTheSame = { old, new -> old == new }
         )
