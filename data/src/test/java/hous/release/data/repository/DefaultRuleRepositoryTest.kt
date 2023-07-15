@@ -29,7 +29,7 @@ internal class DefaultRuleRepositoryTest {
     }
 
     @Test
-    fun fetchMainRules() = runTest {
+    fun `MainRulesResponse 객체 에서 MainRule로 변환 하여 규칙들을 불러 온다`() = runTest {
         // given
         val expectedMainRules = listOf(
             MainRule(
