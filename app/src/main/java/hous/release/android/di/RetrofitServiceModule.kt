@@ -9,7 +9,7 @@ import hous.release.data.service.BadgeService
 import hous.release.data.service.EnterRoomService
 import hous.release.data.service.HousService
 import hous.release.data.service.NotificationService
-import hous.release.data.service.OurRulesService
+import hous.release.data.service.RuleService
 import hous.release.data.service.PersonalityService
 import hous.release.data.service.ProfileService
 import hous.release.data.service.RefreshService
@@ -44,8 +44,8 @@ object RetrofitServiceModule {
 
     @Provides
     @Singleton
-    fun providesOurRulesService(@RetrofitModule.NormalType retrofit: Retrofit): OurRulesService =
-        retrofit.create(OurRulesService::class.java)
+    fun providesOurRulesService(@RetrofitModule.NormalType retrofit: Retrofit): RuleService =
+        retrofit.create(RuleService::class.java)
 
     @Provides
     @Singleton

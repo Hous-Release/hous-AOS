@@ -61,7 +61,8 @@ object RetrofitModule {
         if (!context.isNetworkConnected()) {
             context.startActivity(
                 Intent(
-                    context, NetworkErrorActivity::class.java
+                    context,
+                    NetworkErrorActivity::class.java
                 ).apply {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 }
