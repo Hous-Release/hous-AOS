@@ -1,7 +1,6 @@
 package hous.release.data.entity.response.rule
 
 import hous.release.domain.entity.rule.MainRule
-import hous.release.domain.entity.rule.type.RuleType
 
 data class MainRulesResponse(
     val rules: List<MainRuleResponse> = emptyList()
@@ -13,9 +12,10 @@ data class MainRuleResponse(
     val createdAt: String = "",
     val isNew: Boolean = false
 ) {
-    fun toOurRule() = MainRule(
+    fun toMainRule() = MainRule(
         id = id,
         name = name,
-        ruleType = RuleType.GENERAL
+        createdAt = createdAt.substringBefore('T').replace('-', '.'),
+        isNew = isNew
     )
 }
