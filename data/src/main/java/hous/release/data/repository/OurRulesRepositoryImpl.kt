@@ -1,11 +1,11 @@
 package hous.release.data.repository
 
 import hous.release.data.datasource.OurRulesDataSource
-import hous.release.domain.util.ApiResult
+import hous.release.data.di.IoDispatcher
 import hous.release.domain.entity.rule.OurRule
 import hous.release.domain.repository.OurRulesRepository
+import hous.release.domain.util.ApiResult
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class OurRulesRepositoryImpl @Inject constructor(
     private val ourRulesDataSource: OurRulesDataSource,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : OurRulesRepository {
     override fun fetchOurRulesContent(): Flow<ApiResult<List<OurRule>>> = flow {
         val response = ourRulesDataSource.getOurRulesContent()

@@ -5,7 +5,7 @@ import hous.release.data.entity.request.DeleteRulesRequest
 import hous.release.data.entity.request.EditRulesRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.NoDataResponse
-import hous.release.data.entity.response.rule.OurRulesResponse
+import hous.release.data.entity.response.rule.MainRulesResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.HTTP
@@ -14,7 +14,7 @@ import retrofit2.http.PUT
 
 interface OurRulesService {
     @GET("/v1/rules")
-    suspend fun getOurRuleContent(): BaseResponse<OurRulesResponse>
+    suspend fun getOurRuleContent(): BaseResponse<MainRulesResponse>
 
     @POST("/v1/rules")
     suspend fun postAddedRuleContent(@Body body: AddRulesRequest): NoDataResponse
