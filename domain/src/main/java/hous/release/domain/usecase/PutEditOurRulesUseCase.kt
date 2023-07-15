@@ -1,6 +1,6 @@
 package hous.release.domain.usecase
 
-import hous.release.domain.entity.response.OurRule
+import hous.release.domain.entity.rule.OurRule
 import hous.release.domain.repository.OurRulesRepository
 import javax.inject.Inject
 

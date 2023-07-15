@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.databinding.ItemOurRulesGeneralRuleBinding
 import hous.release.android.util.ItemDiffCallback
-import hous.release.domain.entity.response.OurRule
+import hous.release.domain.entity.rule.OurRule
 
 class OurRulesAddAdapter(private val hideKeyBoard: () -> Unit) :
     ListAdapter<OurRule, OurRulesAddAdapter.AddRuleViewHolder>(

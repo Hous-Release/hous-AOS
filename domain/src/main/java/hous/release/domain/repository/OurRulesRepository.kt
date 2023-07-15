@@ -1,7 +1,7 @@
 package hous.release.domain.repository
 
-import hous.release.domain.entity.ApiResult
-import hous.release.domain.entity.response.OurRule
+import hous.release.domain.util.ApiResult
+import hous.release.domain.entity.rule.OurRule
 import kotlinx.coroutines.flow.Flow
 
 interface OurRulesRepository {

@@ -1,8 +1,8 @@
 package hous.release.data.repository
 
 import hous.release.data.datasource.OurRulesDataSource
-import hous.release.domain.entity.ApiResult
-import hous.release.domain.entity.response.OurRule
+import hous.release.domain.util.ApiResult
+import hous.release.domain.entity.rule.OurRule
 import hous.release.domain.repository.OurRulesRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

@@ -1,6 +1,4 @@
-package hous.release.domain.entity
-
-import hous.release.domain.entity.response.OurRule
+package hous.release.domain.entity.rule
 
 data class OurRulesContent(
     val ourRuleList: List<OurRule> = defaultRuleList,

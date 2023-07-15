@@ -1,4 +1,4 @@
-package hous.release.domain.entity
+package hous.release.domain.util
 
 sealed class ApiResult<out T> {
     object Empty : ApiResult<Nothing>()

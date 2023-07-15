@@ -1,7 +1,7 @@
 package hous.release.feature.todo.detail
 
 import com.google.common.truth.Truth.assertThat
-import hous.release.domain.entity.ApiResult
+import hous.release.domain.util.ApiResult
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.ToDoUser
 import hous.release.domain.entity.todo.FilteredTodo

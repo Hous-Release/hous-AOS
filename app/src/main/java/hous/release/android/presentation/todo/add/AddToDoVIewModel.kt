@@ -5,7 +5,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.presentation.todo.edit.EditToDoViewModel
 import hous.release.android.presentation.todo.edit.UpdateToDoEvent
 import hous.release.android.presentation.todo.viewmodel.UpdateToDoViewModel
-import hous.release.domain.entity.ApiResult
+import hous.release.domain.util.ApiResult
 import hous.release.domain.usecase.todo.GetToDoUsersUseCase
 import hous.release.domain.usecase.PostAddToDoUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow

@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.presentation.our_rules.type.ButtonState
-import hous.release.domain.entity.ApiResult
-import hous.release.domain.entity.response.OurRule
+import hous.release.domain.util.ApiResult
+import hous.release.domain.entity.rule.OurRule
 import hous.release.domain.usecase.DeleteOurRulesUseCase
 import hous.release.domain.usecase.GetOurRulesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hous.release.android.databinding.ItemOurRulesDeleteItemBinding
 import hous.release.android.util.ItemDiffCallback
-import hous.release.domain.entity.response.OurRule
+import hous.release.domain.entity.rule.OurRule
 
 class OurRulesDeleteAdapter(private val updateDeleteRules: (id: Int) -> Unit) :
     ListAdapter<OurRule, OurRulesDeleteAdapter.DeleteOurRuleViewHolder>(itemDiffCallback) {

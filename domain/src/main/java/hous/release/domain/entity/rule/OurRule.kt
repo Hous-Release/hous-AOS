@@ -1,6 +1,6 @@
-package hous.release.domain.entity.response
+package hous.release.domain.entity.rule
 
-import hous.release.domain.entity.RuleType
+import hous.release.domain.entity.rule.type.RuleType
 
 data class OurRule(
     val id: Int = NO_ID,

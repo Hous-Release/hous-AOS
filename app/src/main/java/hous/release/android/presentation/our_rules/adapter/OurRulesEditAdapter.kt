@@ -12,8 +12,8 @@ import hous.release.android.R
 import hous.release.android.databinding.ItemOurRulesEditItemBinding
 import hous.release.android.util.ItemDiffCallback
 import hous.release.android.util.ItemTouchHelperCallback
-import hous.release.domain.entity.RuleType
-import hous.release.domain.entity.response.OurRule
+import hous.release.domain.entity.rule.type.RuleType
+import hous.release.domain.entity.rule.OurRule
 import java.util.*
 
 class OurRulesEditAdapter(

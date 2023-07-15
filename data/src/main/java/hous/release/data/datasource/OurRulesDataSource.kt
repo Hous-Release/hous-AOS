@@ -8,7 +8,7 @@ import hous.release.data.entity.response.NoDataResponse
 import hous.release.data.entity.response.OurRuleResponse
 import hous.release.data.entity.response.OurRulesResponse
 import hous.release.data.service.OurRulesService
-import hous.release.domain.entity.response.OurRule
+import hous.release.domain.entity.rule.OurRule
 import javax.inject.Inject
 
 class OurRulesDataSource @Inject constructor(private val ourRulesService: OurRulesService) {
