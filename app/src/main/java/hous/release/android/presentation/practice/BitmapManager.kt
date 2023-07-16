@@ -20,8 +20,7 @@ import java.util.TimeZone
 import java.util.UUID
 import javax.inject.Inject
 
-class BitmapManager
-@Inject constructor(
+class BitmapManager @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
     private val cacheFolder by lazy {
