@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun skeletonBrush(isLoading: Boolean = true, targetValue: Float = 1000f): Brush {
+fun createSkeletonBrush(isLoading: Boolean = true, targetValue: Float = 1000f): Brush {
     return if (isLoading) {
         val shimmerColors = listOf(
             Color.LightGray.copy(alpha = 0.6f),
