@@ -1,21 +1,21 @@
 package hous.release.designsystem.component
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.designsystem.R
 import hous.release.designsystem.theme.HousBlue
+import hous.release.designsystem.theme.HousWhite
 
 @Composable
 fun FabScreenSlot(
@@ -35,19 +35,23 @@ fun FabScreenSlot(
 
 @Composable
 fun HousFloatingButton(
-    onClick: () -> Unit
+    onClick: () -> Unit = {}
 ) {
-    Box(
-        modifier = Modifier
-            .clip(CircleShape)
-            .background(HousBlue)
-            .clickable { onClick() }
-            .size(60.dp),
-        contentAlignment = Alignment.Center
+    FloatingActionButton(
+        onClick = onClick,
+        backgroundColor = HousBlue,
+        contentColor = HousWhite,
+        modifier = Modifier.size(92.dp).padding(16.dp)
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_plus),
-            contentDescription = null
+        Icon(
+            imageVector = ImageVector.vectorResource(id = R.drawable.ic_plus),
+            contentDescription = "Add"
         )
     }
+}
+
+@Composable
+@Preview
+fun Preview() {
+    HousFloatingButton()
 }
