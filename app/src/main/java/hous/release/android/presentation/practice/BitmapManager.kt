@@ -1,6 +1,5 @@
 package hous.release.android.presentation.practice
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -8,26 +7,54 @@ import android.graphics.Matrix
 import android.media.ExifInterface
 import android.net.Uri
 import androidx.core.graphics.scale
-import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 import hous.release.android.R
 import timber.log.Timber
 import java.io.File
-import java.text.SimpleDateFormat
+import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.URL
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.TimeZone
+import java.util.UUID
+import javax.inject.Inject
 
-class BitmapManager(
-    @ActivityContext private val context: Context
+class BitmapManager @Inject constructor(
+    @ApplicationContext private val context: Context
 ) {
+    private val cacheFolder by lazy {
+        File(context.cacheDir, "photos").also {
+            if (it.exists().not()) it.mkdir()
+        }
+    }
+
+    fun decodeBitmapFromURL(src: String): Bitmap {
+        return runCatching {
+            val url = URL(src)
+            val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+            connection.doInput = true
+            connection.connect()
+            val input: InputStream = connection.inputStream
+            BitmapFactory.decodeStream(input)
+        }.onFailure {
+            Timber.e(it.stackTraceToString())
+        }.getOrNull() ?: BitmapFactory.decodeResource(
+            context.resources,
+            R.drawable.ic_network_error
+        )
+    }
+
     /***
      * uri에 해당하는 이미지의 bitmap을 resize하여 반환한다.
      */
-    fun optimizeBitmapFromUri(
+    fun cacheBitmapFromUri(
         uri: Uri,
         requiredWidth: Int = MAX_SIZE,
         requiredHeight: Int = MAX_SIZE
-    ): Bitmap {
+    ): File? {
         return runCatching {
             val options = BitmapFactory.Options()
-            Timber.d("uri : $uri")
             context.contentResolver.openInputStream(uri)
                 .use { input ->
                     BitmapFactory.decodeStream(input, null, options)
@@ -38,13 +65,13 @@ class BitmapManager(
                 }
                 ?.rotateBitMap(
                     getOrientationOfImage(uri)
-                )
+                )?.cacheBitmap()
+                ?.let {
+                    File(it)
+                }
         }.onFailure {
             Timber.e(it.stackTraceToString())
-        }.getOrNull() ?: BitmapFactory.decodeResource(
-            context.resources,
-            R.drawable.ic_alarm_off
-        )
+        }.getOrNull()
     }
 
     /***
@@ -63,11 +90,15 @@ class BitmapManager(
             if (width >= height) {
                 resizedWidth = requiredWidth
                 resizedHeight = (requiredWidth * (height.toFloat() / width.toFloat())).toInt()
-                return scale(resizedWidth, resizedHeight)
+                val resizedBitmap = scale(resizedWidth, resizedHeight)
+                if (isRecycled.not()) recycle()
+                return resizedBitmap
             }
             resizedWidth = (requiredHeight * (width.toFloat() / height.toFloat())).toInt()
             resizedHeight = requiredHeight
-            scale(resizedWidth, resizedHeight)
+            val resizedBitmap = scale(resizedWidth, resizedHeight)
+            if (isRecycled.not()) recycle()
+            return resizedBitmap
         }.onFailure {
             Timber.e(it.stackTraceToString())
         }.getOrNull() ?: this
@@ -85,7 +116,9 @@ class BitmapManager(
             val matrix = Matrix().apply {
                 postRotate(orientation.toFloat())
             }
-            Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
+            val rotatedBitmap = Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
+            if (isRecycled.not()) recycle()
+            rotatedBitmap
         }.onFailure {
             Timber.e(it.stackTraceToString())
         }.getOrNull() ?: this
@@ -120,33 +153,38 @@ class BitmapManager(
 
     /***
      * Bitmap을 JPEG로 변환하여 캐시 디렉토리에 저장한후, 파일의 절대 경로를 반환한다.
-     * TODO : 쓸모 없으면 추후 삭제 예정
      */
-    @SuppressLint("SimpleDateFormat")
-    fun cacheBitmap(
-        bitmap: Bitmap,
-        extension: String = "jpg"
-    ): String? {
+    private fun Bitmap.cacheBitmap(): String? {
         return runCatching {
-            val cacheDir: File = context.cacheDir
-            val fileName = FILE_NAME_FORMAT.format(
-                SimpleDateFormat(DATE_FORAMT).format(System.currentTimeMillis()),
-                extension
-            )
-            val tempFile = File(cacheDir, fileName).apply { createNewFile() }
-            tempFile.outputStream().use { out ->
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
-                if (bitmap.isRecycled.not()) bitmap.recycle()
+            val cachedFile = generatePhotoCacheFile().apply { createNewFile() }
+            cachedFile.outputStream().use { out ->
+                compress(Bitmap.CompressFormat.JPEG, 100, out)
+                if (isRecycled.not()) recycle()
             }
-            tempFile.absolutePath
+            cachedFile.absolutePath
         }.onFailure {
             Timber.e(it.stackTraceToString())
         }.getOrNull()
     }
 
+    private fun generateFileName() = FILE_NAME_FORMAT.format(
+        LocalDateTime.now().format(
+            DATE_FORMATTER
+        ) + UUID.randomUUID().toString(),
+        EXTENSION
+    )
+
+    private fun generatePhotoCacheFile() = File(cacheFolder, generateFileName())
+
     companion object {
-        private const val DATE_FORAMT = "yyyyMMdd_HHmmss"
+        private const val DATE_TIME_Pattern = "yyyyMMdd_HHmmss"
+        private const val TIME_ZONE = "Asia/Seoul"
+        private var DATE_FORMATTER =
+            DateTimeFormatter
+                .ofPattern(DATE_TIME_Pattern)
+                .withZone(TimeZone.getTimeZone(TIME_ZONE).toZoneId())
         private const val FILE_NAME_FORMAT = "%s.%s"
         private const val MAX_SIZE = 720
+        private const val EXTENSION = "jpg"
     }
 }

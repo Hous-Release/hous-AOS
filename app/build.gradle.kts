@@ -152,6 +152,7 @@ dependencies {
 
     Deps.DI.run {
         implementation(hilt)
+        implementation(hiltNavigationCompose)
         kapt(hiltKapt)
     }
 

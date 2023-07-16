@@ -30,13 +30,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import hous.release.android.presentation.practice.BitmapManager
+import hous.release.android.presentation.practice.PhotoViewModel
 import hous.release.android.presentation.practice.findActivity
 import hous.release.designsystem.theme.HousTheme
 import kotlinx.coroutines.launch
 
 @Composable
-fun GetContentScreen(navController: NavController) {
+fun GetContentScreen(
+    navController: NavController,
+    viewModel: PhotoViewModel
+) {
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
     val activity = LocalContext.current.findActivity()
@@ -45,11 +48,7 @@ fun GetContentScreen(navController: NavController) {
         ActivityResultContracts.GetMultipleContents()
     ) { uriList ->
         if (uriList.isNotEmpty()) {
-            setBitmapList(
-                uriList.map {
-                    BitmapManager(activity).optimizeBitmapFromUri(it)
-                }
-            )
+            viewModel.loadImagesFrom(uriList)
             return@rememberLauncherForActivityResult
         }
         coroutineScope.launch {

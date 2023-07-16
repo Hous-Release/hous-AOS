@@ -56,6 +56,8 @@ object Deps {
         const val hiltClassPath = "com.google.dagger:hilt-android-gradle-plugin:$version"
         const val hilt = "com.google.dagger:hilt-android:$version"
         const val hiltKapt = "com.google.dagger:hilt-compiler:$version"
+        private const val compose_version = "1.0.0"
+        const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:$compose_version"
     }
 
     object Coroutines {
