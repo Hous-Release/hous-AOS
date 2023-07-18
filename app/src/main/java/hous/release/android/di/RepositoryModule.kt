@@ -4,14 +4,14 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import hous.release.data.datasource.OurRulesDataSource
+import hous.release.data.datasource.RuleDataSource
 import hous.release.data.datasource.TodoDataSource
 import hous.release.data.repository.AuthRepositoryImpl
 import hous.release.data.repository.BadgeRepositoryImpl
+import hous.release.data.repository.DefaultRuleRepository
 import hous.release.data.repository.EnterRoomRepositoryImpl
 import hous.release.data.repository.HousRepositoryImpl
 import hous.release.data.repository.NotificationRepositoryImpl
-import hous.release.data.repository.OurRulesRepositoryImpl
 import hous.release.data.repository.PersonalityRepositoryImpl
 import hous.release.data.repository.ProfileRepositoryImpl
 import hous.release.data.repository.RefreshRepositoryImpl
@@ -23,13 +23,14 @@ import hous.release.domain.repository.BadgeRepository
 import hous.release.domain.repository.EnterRoomRepository
 import hous.release.domain.repository.HousRepository
 import hous.release.domain.repository.NotificationRepository
-import hous.release.domain.repository.OurRulesRepository
 import hous.release.domain.repository.PersonalityRepository
 import hous.release.domain.repository.ProfileRepository
 import hous.release.domain.repository.RefreshRepository
+import hous.release.domain.repository.RuleRepository
 import hous.release.domain.repository.SettingsRepository
 import hous.release.domain.repository.TodoRepository
 import hous.release.domain.repository.VersionRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 @Module
@@ -58,9 +59,10 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun providesOurRulesRepository(
-        ourRulesDataSource: OurRulesDataSource
-    ): OurRulesRepository =
-        OurRulesRepositoryImpl(ourRulesDataSource)
+        ourRulesDataSource: RuleDataSource,
+        @IoDispatcher ioDispatcher: CoroutineDispatcher
+    ): RuleRepository =
+        DefaultRuleRepository(ourRulesDataSource, ioDispatcher)
 
     @Provides
     @Singleton

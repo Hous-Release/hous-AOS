@@ -1,6 +1,6 @@
 package hous.release.domain.repository
 
-import hous.release.domain.entity.ApiResult
+import hous.release.domain.util.ApiResult
 import hous.release.domain.entity.TodoDetail
 import hous.release.domain.entity.response.ToDoContent
 import hous.release.domain.entity.response.ToDoUser

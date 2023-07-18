@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.android.presentation.todo.viewmodel.UpdateToDoViewModel
-import hous.release.domain.entity.ApiResult
+import hous.release.domain.util.ApiResult
 import hous.release.domain.usecase.GetEditTodoContentUseCase
 import hous.release.domain.usecase.PutEditToDoUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
