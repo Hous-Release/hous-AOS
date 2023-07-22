@@ -11,6 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import hous.release.designsystem.component.HousRuleSlot
@@ -26,10 +27,14 @@ fun ToDoItem(
     todo: TodoWithNew,
     showToDoDetailBottomSheet: (Int) -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
     HousRuleSlot(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { showToDoDetailBottomSheet(todo.id) }
+            .clickable {
+                focusManager.clearFocus()
+                showToDoDetailBottomSheet(todo.id)
+            }
             .padding(start = 6.dp, top = 12.dp, bottom = 12.dp),
         text = todo.name,
         isShowTrailingIcon = todo.isNew,
