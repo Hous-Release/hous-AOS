@@ -52,7 +52,17 @@ fun HousFloatingButton(
 }
 
 @Composable
-@Preview
+@Preview(showBackground = true)
 fun Preview() {
     HousFloatingButton()
+}
+
+@Composable
+@Preview(widthDp = 360, heightDp = 640, showBackground = true)
+fun PreviewFabContainerWithContent() {
+    FabScreenSlot(
+        fabOnClick = {},
+        content = {
+        }
+    )
 }
