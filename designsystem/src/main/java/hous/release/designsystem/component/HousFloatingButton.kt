@@ -19,6 +19,7 @@ import hous.release.designsystem.theme.HousWhite
 
 @Composable
 fun FabScreenSlot(
+    modifier: Modifier = Modifier,
     fabOnClick: () -> Unit,
     content: @Composable () -> Unit
 ) {
@@ -26,7 +27,7 @@ fun FabScreenSlot(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(end = 28.dp, bottom = 36.dp),
+            .padding(end = 12.dp, bottom = 20.dp),
         contentAlignment = Alignment.BottomEnd
     ) {
         HousFloatingButton { fabOnClick() }
