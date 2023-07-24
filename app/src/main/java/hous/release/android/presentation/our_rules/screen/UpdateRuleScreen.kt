@@ -7,12 +7,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import hous.release.android.presentation.our_rules.model.DetailRuleUiModel
 import hous.release.designsystem.theme.HousTheme
 
 @Composable
 fun UpdateRuleScreen(
     onBack: () -> Boolean,
-    ruleId: Int = 0
+    rule: DetailRuleUiModel
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -20,7 +21,7 @@ fun UpdateRuleScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Update Rule $ruleId",
+            text = "Update Rule ${rule.id}",
             style = HousTheme.typography.h1
         )
     }

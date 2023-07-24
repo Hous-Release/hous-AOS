@@ -12,20 +12,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.android.presentation.our_rules.component.main.DetailRuleBottomSheetContent
 import hous.release.android.presentation.our_rules.component.main.MainRuleContent
+import hous.release.android.presentation.our_rules.model.DetailRuleUiModel
 import hous.release.designsystem.theme.HousTheme
 import hous.release.designsystem.theme.HousWhite
-import hous.release.domain.entity.rule.DetailRule
 import hous.release.domain.entity.rule.MainRule
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MainRuleScreen(
-    detailRule: DetailRule = DetailRule(),
+    detailRule: DetailRuleUiModel = DetailRuleUiModel(),
     mainRules: List<MainRule> = emptyList(),
     searchQuery: String = "",
     onSearch: (String) -> Unit = {},
-    onNavigateToUpdateRule: (Int) -> Unit = {},
+    onNavigateToUpdateRule: (DetailRuleUiModel) -> Unit = {},
     onNavigateToAddRule: () -> Unit = {},
     onBack: () -> Boolean = { false },
     onFinish: () -> Unit = {}

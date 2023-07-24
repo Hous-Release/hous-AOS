@@ -10,13 +10,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import hous.release.android.presentation.our_rules.model.DetailRuleUiModel
 import hous.release.android.presentation.our_rules.screen.AddRuleScreen
 import hous.release.android.presentation.our_rules.screen.MainRuleScreen
 import hous.release.android.presentation.our_rules.screen.UpdateRuleScreen
 import hous.release.android.presentation.our_rules.screen.type.RulesScreens
 import hous.release.android.presentation.our_rules.viewmodel.MainRuleViewModel
 import hous.release.android.presentation.practice.findActivity
-import hous.release.domain.entity.rule.DetailRule
 import timber.log.Timber
 
 @Composable
@@ -28,13 +28,9 @@ fun RuleNavGraph(
         startDestination = RulesScreens.Main.route,
         route = RulesScreens.RULE_GRAPH_ROUTE
     ) {
-        mainRuleScreen(
-            onNavigateToAddRule = navController::navigateToAddRule,
-            onNavigateToUpdateRule = navController::navigateUpdateRule,
-            onBack = navController::popBackStack
-        )
+        mainRuleScreen(navController)
         addRuleScreen(onBack = navController::popBackStack)
-        updateRuleScreen(onBack = navController::popBackStack)
+        updateRuleScreen(navController)
     }
 }
 
@@ -42,9 +38,7 @@ fun RuleNavGraph(
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 private fun NavGraphBuilder.mainRuleScreen(
-    onNavigateToAddRule: () -> Unit,
-    onNavigateToUpdateRule: (Int) -> Unit,
-    onBack: () -> Boolean
+    navController: NavController
 ) {
     composable(RulesScreens.Main.route) {
         val activity = LocalContext.current.findActivity()
@@ -52,27 +46,30 @@ private fun NavGraphBuilder.mainRuleScreen(
         val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
         MainRuleScreen(
-            detailRule = DetailRule(), // TODO Change to uiState.value.detailRule
+            detailRule = DetailRuleUiModel(),
             mainRules = uiState.value.filteredRules,
             searchQuery = uiState.value.searchQuery,
             onSearch = viewModel::searchRule,
-            onNavigateToAddRule = onNavigateToAddRule,
-            onNavigateToUpdateRule = onNavigateToUpdateRule,
-            onBack = onBack,
+            onNavigateToAddRule = navController::navigateToAddRule,
+            onNavigateToUpdateRule = navController::navigateUpdateRule,
+            onBack = navController::popBackStack,
             onFinish = activity::finish
         )
     }
 }
 
-private fun NavGraphBuilder.updateRuleScreen(onBack: () -> Boolean) {
+private fun NavGraphBuilder.updateRuleScreen(
+    navController: NavController
+) {
     composable(
-        RulesScreens.Update.route,
-        arguments = RulesScreens.Update.arguments
-    ) { entry ->
-        entry.arguments?.getInt(RulesScreens.RULE_ID_KEY)?.let {
-            UpdateRuleScreen(ruleId = id, onBack = onBack)
+        RulesScreens.Update.route
+    ) {
+        navController.previousBackStackEntry?.savedStateHandle?.get<DetailRuleUiModel>(
+            RulesScreens.DETAIL_RULE_KEY
+        )?.let { detailRule ->
+            UpdateRuleScreen(rule = detailRule, onBack = navController::popBackStack)
         } ?: run {
-            Timber.e("Rule id is null")
+            Timber.e("DetailRuleUiModel is null")
         }
     }
 }
@@ -91,6 +88,10 @@ fun NavController.navigateToAddRule() {
     navigate(RulesScreens.Add.route)
 }
 
-fun NavController.navigateUpdateRule(id: Int) {
-    navigate(RulesScreens.Update.createRouteBy(id))
+fun NavController.navigateUpdateRule(detailRuleUiModel: DetailRuleUiModel) {
+    currentBackStackEntry?.savedStateHandle?.set(
+        RulesScreens.DETAIL_RULE_KEY,
+        detailRuleUiModel
+    )
+    navigate(RulesScreens.Update.route)
 }

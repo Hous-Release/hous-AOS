@@ -11,22 +11,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.android.component.PhotoGrid
+import hous.release.android.presentation.our_rules.model.DetailRuleUiModel
 import hous.release.designsystem.component.HousDetailBottomSheet
 import hous.release.designsystem.theme.HousBlack
 import hous.release.designsystem.theme.HousG4
 import hous.release.designsystem.theme.HousG6
 import hous.release.designsystem.theme.HousTheme
-import hous.release.domain.entity.rule.DetailRule
 
 @Composable
 fun DetailRuleBottomSheetContent(
-    detailRule: DetailRule = DetailRule(),
-    onNavigateToUpdateRule: (Int) -> Unit = {},
+    detailRule: DetailRuleUiModel = DetailRuleUiModel(),
+    onNavigateToUpdateRule: (DetailRuleUiModel) -> Unit = {},
     onDeleteRule: (Int) -> Unit = {}
 ) {
     HousDetailBottomSheet(
         modifier = Modifier.padding(top = 26.dp),
-        editAction = { onNavigateToUpdateRule(detailRule.id) },
+        editAction = { onNavigateToUpdateRule(detailRule) },
         deleteAction = { onDeleteRule(detailRule.id) }
     ) {
         if (detailRule.images.isNotEmpty()) {
@@ -77,7 +77,7 @@ private fun String.formatDate() = "마지막 수정 $this"
 fun PreviewDetailRuleBottomSheetContent() {
     HousTheme {
         DetailRuleBottomSheetContent(
-            DetailRule(
+            DetailRuleUiModel(
                 name = "바나나는 옷걸이에 걸어두기!",
                 updatedAt = "2023.04.01"
             )
@@ -90,7 +90,7 @@ fun PreviewDetailRuleBottomSheetContent() {
 fun PreviewDetailRuleBottomSheetContent2() {
     HousTheme {
         DetailRuleBottomSheetContent(
-            DetailRule(
+            DetailRuleUiModel(
                 name = "바나나는 옷걸이에 걸어두기!",
                 updatedAt = "2023.04.01",
                 description = "옷걸이에 걸어두면 바나나는 자기가 아직도 나무에 걸려있다고 착각하고 싱싱한 상태를 유지한대.. 귀여워서 기절"
