@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.entity.rule.MainRule
+import hous.release.domain.usecase.rule.GetDetailRuleUseCase
 import hous.release.domain.usecase.rule.GetMainRulesUseCase
 import hous.release.domain.usecase.search.SearchRuleUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainRuleViewModel @Inject constructor(
     private val getMainRulesUseCase: GetMainRulesUseCase,
+    private val getDetailRuleUseCase: GetDetailRuleUseCase,
     private val searcher: SearchRuleUseCase
 ) : ViewModel() {
 
