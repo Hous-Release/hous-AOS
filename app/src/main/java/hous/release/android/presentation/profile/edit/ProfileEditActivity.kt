@@ -1,5 +1,6 @@
 package hous.release.android.presentation.profile.edit
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.addCallback
 import androidx.activity.viewModels
@@ -7,6 +8,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityProfileEditBinding
 import hous.release.android.presentation.profile.ProfileFragment.Companion.PROFILE
+import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.ConfirmClickListener
 import hous.release.android.util.dialog.DatePickerClickListener
@@ -30,6 +32,20 @@ class ProfileEditActivity :
         initBackBtnOnClickListener()
         initBirthdayOnClickListener()
         initBackPressedCallback()
+        initEditTextClearFocus()
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun initEditTextClearFocus() {
+        binding.clProfileEdit.setOnTouchListener { _, _ ->
+            KeyBoardUtil.hide(activity = this)
+            return@setOnTouchListener false
+        }
+
+        binding.svProfileEdit.setOnTouchListener { _, _ ->
+            KeyBoardUtil.hide(activity = this)
+            return@setOnTouchListener false
+        }
     }
 
     private fun initBackPressedCallback() {
