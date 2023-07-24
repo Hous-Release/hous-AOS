@@ -11,6 +11,7 @@ import hous.release.designsystem.theme.HousTheme
 
 @Composable
 fun UpdateRuleScreen(
+    onBack: () -> Boolean,
     ruleId: Int = 0
 ) {
     Column(

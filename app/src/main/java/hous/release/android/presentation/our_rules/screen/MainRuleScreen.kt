@@ -1,70 +1,76 @@
 package hous.release.android.presentation.our_rules.screen
 
-import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.stringResource
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import hous.release.android.presentation.our_rules.component.main.DetailRuleBottomSheetContent
 import hous.release.android.presentation.our_rules.component.main.MainRuleContent
-import hous.release.android.presentation.our_rules.component.main.MainRuleToolbar
-import hous.release.designsystem.component.FabScreenSlot
-import hous.release.designsystem.component.HousSearchTextField
 import hous.release.designsystem.theme.HousTheme
+import hous.release.designsystem.theme.HousWhite
+import hous.release.domain.entity.rule.DetailRule
 import hous.release.domain.entity.rule.MainRule
-import hous.release.feature.todo.R
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MainRuleScreen(
+    detailRule: DetailRule = DetailRule(),
     mainRules: List<MainRule> = emptyList(),
     searchQuery: String = "",
     onSearch: (String) -> Unit = {},
-    onNavigateToDetailRule: (Int) -> Unit = {},
+    onNavigateToUpdateRule: (Int) -> Unit = {},
     onNavigateToAddRule: () -> Unit = {},
     onBack: () -> Boolean = { false },
     onFinish: () -> Unit = {}
 ) {
-    val focusManager = LocalFocusManager.current
-    FabScreenSlot(
-        fabOnClick = onNavigateToAddRule
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(
-                    start = 16.dp,
-                    end = 16.dp,
-                    top = 20.dp
-                ).pointerInput(Unit) {
-                    detectTapGestures(
-                        onTap = {
-                            focusManager.clearFocus()
-                        }
-                    )
-                },
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            MainRuleToolbar(
-                onBack = onFinish
-            )
-            Spacer(modifier = Modifier.padding(top = 4.dp))
-            HousSearchTextField(
-                text = searchQuery,
-                onTextChange = onSearch,
-                hint = stringResource(R.string.todo_detail_textfield_hint)
-            )
-            MainRuleContent(
-                mainRules = mainRules,
-                onNavigateToDetailRule = onNavigateToDetailRule
-            )
+    val coroutineScope = rememberCoroutineScope()
+    val bottomSheetState = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden,
+        skipHalfExpanded = true
+    )
+
+    BackHandler(enabled = bottomSheetState.isVisible) {
+        coroutineScope.launch {
+            bottomSheetState.hide()
         }
+    }
+
+    ModalBottomSheetLayout(
+        sheetState = bottomSheetState,
+        sheetContent = {
+            DetailRuleBottomSheetContent(
+                detailRule = detailRule,
+                onNavigateToUpdateRule = onNavigateToUpdateRule,
+                onDeleteRule = {
+                    coroutineScope.launch {
+                        bottomSheetState.hide()
+                    }
+                }
+            )
+        },
+        sheetShape = RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp),
+        sheetElevation = 8.dp,
+        sheetBackgroundColor = HousWhite
+    ) {
+        MainRuleContent(
+            mainRules = mainRules,
+            searchQuery = searchQuery,
+            onSearch = onSearch,
+            onOpenDetailRule = {
+                coroutineScope.launch {
+                    bottomSheetState.show()
+                }
+            },
+            onNavigateToAddRule = onNavigateToAddRule,
+            onFinish = onFinish
+        )
     }
 }
 
@@ -80,13 +86,5 @@ private fun MainRuleScreenPreView2() {
                 MainRule().copy(id = 4, name = "test4", isNew = false)
             )
         )
-    }
-}
-
-@Preview(name = "MainRuleScreen - empty Main Rules", showBackground = true)
-@Composable
-private fun MainRuleScreenPreView() {
-    HousTheme {
-        MainRuleScreen()
     }
 }
