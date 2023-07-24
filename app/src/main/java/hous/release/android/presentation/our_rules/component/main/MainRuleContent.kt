@@ -1,66 +1,73 @@
 package hous.release.android.presentation.our_rules.component.main
 
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import hous.release.android.R
-import hous.release.designsystem.theme.HousG5
+import hous.release.designsystem.component.FabScreenSlot
+import hous.release.designsystem.component.HousSearchTextField
 import hous.release.designsystem.theme.HousTheme
 import hous.release.domain.entity.rule.MainRule
+import hous.release.feature.todo.R
 
 @Composable
 fun MainRuleContent(
-    onNavigateToDetailRule: (Int) -> Unit = {},
-    mainRules: List<MainRule> = emptyList()
+    mainRules: List<MainRule> = emptyList(),
+    searchQuery: String = "",
+    onSearch: (String) -> Unit = {},
+    onOpenDetailRule: (Int) -> Unit = {},
+    onNavigateToAddRule: () -> Unit = {},
+    onFinish: () -> Unit = {}
 ) {
-    if (mainRules.isEmpty()) {
-        MainRuleEmptyContent()
-    } else {
-        Spacer(modifier = Modifier.height(16.dp))
-        MainRuleList(
-            onNavigateToDetailRule = onNavigateToDetailRule,
-            mainRules = mainRules
-        )
-    }
-}
-
-@Composable
-fun MainRuleEmptyContent() {
-    Column(
-        modifier = Modifier.fillMaxWidth().padding(top = 88.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+    val focusManager = LocalFocusManager.current
+    FabScreenSlot(
+        fabOnClick = onNavigateToAddRule
     ) {
-        Text(
-            text = stringResource(id = R.string.hous_empty_our_rules),
-            color = HousG5,
-            style = HousTheme.typography.b2
-        )
-    }
-}
-
-@Preview(name = "empty content", showBackground = true)
-@Composable
-private fun EmptyContentPreview() {
-    HousTheme {
-        Surface {
-            MainRuleContent()
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(
+                    start = 16.dp,
+                    end = 16.dp,
+                    top = 20.dp
+                ).pointerInput(Unit) {
+                    detectTapGestures(
+                        onTap = {
+                            focusManager.clearFocus()
+                        }
+                    )
+                },
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            MainRuleToolbar(
+                onBack = onFinish
+            )
+            Spacer(modifier = Modifier.padding(top = 4.dp))
+            HousSearchTextField(
+                text = searchQuery,
+                onTextChange = onSearch,
+                hint = stringResource(R.string.todo_detail_textfield_hint)
+            )
+            MainRuleList(
+                mainRules = mainRules,
+                onNavigateToDetailRule = onOpenDetailRule
+            )
         }
     }
 }
 
-@Preview(name = "MainRuleContent", showBackground = true)
+@Preview(name = "MainRuleScreen", showBackground = true)
 @Composable
-private fun MainRuleContentPreview() {
+private fun MainRuleScreenPreView2() {
     HousTheme {
         MainRuleContent(
             mainRules = listOf(
@@ -70,5 +77,13 @@ private fun MainRuleContentPreview() {
                 MainRule().copy(id = 4, name = "test4", isNew = false)
             )
         )
+    }
+}
+
+@Preview(name = "MainRuleScreen - empty Main Rules", showBackground = true)
+@Composable
+private fun MainRuleScreenPreView() {
+    HousTheme {
+        MainRuleContent()
     }
 }
