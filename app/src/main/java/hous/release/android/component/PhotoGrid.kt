@@ -32,7 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
-import hous.release.designsystem.graphic.skeletonBrush
+import hous.release.designsystem.graphic.createSkeletonBrush
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -109,7 +109,7 @@ fun PhotoItem(
                 }
             }
         } ?: Box(
-            modifier = imageModifier.background(skeletonBrush())
+            modifier = imageModifier.background(createSkeletonBrush())
         )
     }
 }
