@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import hous.release.android.presentation.our_rules.screen.graph.RuleNavGraph
+import hous.release.android.presentation.our_rules.graph.RuleNavGraph
 import hous.release.android.util.HousLogEvent.SCREEN_RULES
 import hous.release.android.util.HousLogEvent.enterScreenLogEvent
 import hous.release.designsystem.theme.HousTheme

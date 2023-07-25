@@ -10,7 +10,9 @@ import androidx.compose.ui.Modifier
 import hous.release.designsystem.theme.HousTheme
 
 @Composable
-fun AddRuleScreen() {
+fun AddRuleScreen(
+    onBack: () -> Boolean
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,

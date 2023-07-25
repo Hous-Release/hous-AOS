@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
 import hous.release.designsystem.graphic.createSkeletonBrush
@@ -40,22 +41,25 @@ import java.io.File
 fun PhotoGrid(
     modifier: Modifier = Modifier.fillMaxWidth(),
     photoFraction: Float = 0.6f,
-    spaceWidth: Int = 6,
+    edgeWidthDp: Dp = 16.dp,
+    spaceWidthDp: Dp = 12.dp,
     photos: List<File?>,
-    onRemove: (photo: File) -> Unit = {}
+    onRemove: (photo: File) -> Unit = {},
+    isEditable: Boolean = true
 ) {
     LazyRow(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(spaceWidth.dp)
+        horizontalArrangement = Arrangement.spacedBy(spaceWidthDp)
     ) {
         itemsIndexed(items = photos, key = { index, _ -> index }) { idx, file ->
-            if (idx == 0) Spacer(modifier = Modifier.width(spaceWidth.dp))
+            if (idx == 0) Spacer(modifier = Modifier.width(edgeWidthDp))
             PhotoItem(
                 modifier = photoWidthModifier(photoFraction),
                 photo = file,
-                onRemove = onRemove
+                onRemove = onRemove,
+                isEditable = isEditable
             )
-            if (idx == photos.lastIndex) Spacer(modifier = Modifier.width(spaceWidth.dp))
+            if (idx == photos.lastIndex) Spacer(modifier = Modifier.width(edgeWidthDp))
         }
     }
 }
