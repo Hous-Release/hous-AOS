@@ -12,7 +12,6 @@ import hous.release.android.presentation.badge.BadgeActivity
 import hous.release.android.presentation.notification.NotificationActivity
 import hous.release.android.presentation.personality.PersonalityActivity
 import hous.release.android.presentation.personality.result.PersonalityResultActivity
-import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.LOCATION
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.RESULT_COLOR
 import hous.release.android.presentation.profile.adapter.ProfilePersonalityAdapter
 import hous.release.android.presentation.profile.edit.ProfileEditActivity
@@ -94,13 +93,10 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
         binding.llProfilePersonalityDetail.setOnSingleClickListener {
             clickDateLogEvent(CLICK_MY_PERSONALITY)
             startActivity(
-                Intent(requireActivity(), PersonalityResultActivity::class.java).apply {
-                    putExtra(
-                        RESULT_COLOR,
-                        profileViewModel.uiState.value.profile.personalityColor.name
-                    )
-                    putExtra(LOCATION, PROFILE)
-                }
+                Intent(requireActivity(), PersonalityResultActivity::class.java).putExtra(
+                    RESULT_COLOR,
+                    profileViewModel.uiState.value.profile.personalityColor.name
+                )
             )
         }
     }
@@ -108,9 +104,10 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
     private fun initSettingOnClickListener() {
         binding.btnProfileSetting.setOnSingleClickListener {
             startActivity(
-                Intent(requireContext(), SettingsActivity::class.java).apply {
-                    putExtra(SettingsActivity.HAS_ROOM, true)
-                }
+                Intent(requireContext(), SettingsActivity::class.java).putExtra(
+                    SettingsActivity.HAS_ROOM,
+                    true
+                )
             )
         }
     }
@@ -127,23 +124,15 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
 
     private fun initEditOnClickListener() {
         binding.btnProfileEdit.setOnSingleClickListener {
-            startActivity(
-                Intent(requireContext(), ProfileEditActivity::class.java).apply {
-                    with(profileViewModel.uiState.value.profile) {
-                        putExtra(
-                            PROFILE,
-                            ProfileEntity(
-                                nickname,
-                                birthday,
-                                birthdayPublic,
-                                mbti,
-                                job,
-                                introduction
-                            )
+            startActivity(Intent(requireContext(), ProfileEditActivity::class.java).apply {
+                with(profileViewModel.uiState.value.profile) {
+                    putExtra(
+                        PROFILE, ProfileEntity(
+                            nickname, birthday, birthdayPublic, mbti, job, introduction
                         )
-                    }
+                    )
                 }
-            )
+            })
         }
     }
 
@@ -165,8 +154,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
             PersonalityInfo(R.string.personality_noise, R.string.personality_noise_description),
             PersonalityInfo(R.string.personality_smell, R.string.personality_smell_description),
             PersonalityInfo(
-                R.string.personality_introversion,
-                R.string.personality_introversion_description
+                R.string.personality_introversion, R.string.personality_introversion_description
             ),
             PersonalityInfo(R.string.personality_clean, R.string.personality_clean_description)
         )

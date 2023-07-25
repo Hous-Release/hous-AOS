@@ -9,7 +9,6 @@ import hous.release.android.databinding.ActivityHomieProfileBinding
 import hous.release.android.presentation.hous.HousFragment.Companion.HOMIE_ID
 import hous.release.android.presentation.hous.HousFragment.Companion.HOMIE_POSITION
 import hous.release.android.presentation.personality.result.PersonalityResultActivity
-import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.LOCATION
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.RESULT_COLOR
 import hous.release.android.presentation.profile.ProfileFragment.Companion.personalityInfo
 import hous.release.android.presentation.profile.adapter.ProfilePersonalityAdapter
@@ -52,13 +51,10 @@ class HomieProfileActivity :
             if (intent.getIntExtra(HOMIE_POSITION, DEFAULT) == MY) {
                 clickDateLogEvent(CLICK_MY_PERSONALITY)
             }
-            Intent(this, PersonalityResultActivity::class.java).apply {
-                putExtra(LOCATION, HOMIE)
-                putExtra(
-                    RESULT_COLOR,
-                    homieProfileViewModel.uiState.value.personalityColor.toString()
-                )
-            }.also { toPersonalityDetail ->
+            Intent(this, PersonalityResultActivity::class.java).putExtra(
+                RESULT_COLOR,
+                homieProfileViewModel.uiState.value.personalityColor.toString()
+            ).also { toPersonalityDetail ->
                 startActivity(toPersonalityDetail)
             }
         }

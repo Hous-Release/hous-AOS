@@ -27,7 +27,6 @@
             android:background="@null"
             android:padding="10dp"
             android:src="@drawable/ic_back_g5"
-            android:visibility="@{vm.uiState.fromTestResult ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,37 +38,10 @@
             android:text="@string/personality_result_info"
             android:textColor="@color/hous_black"
             android:theme="@style/B1"
-            android:visibility="@{vm.uiState.fromTestResult ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@id/btn_personality_result_back"
-            app:layout_constraintStart_toEndOf="@id/btn_personality_result_back"
-            app:layout_constraintTop_toTopOf="@id/btn_personality_result_back" />
-
-        <TextView
-            android:id="@+id/tv_personality_result_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/personality_result_detail"
-            android:textColor="@color/hous_black"
-            android:theme="@style/B1"
-            android:visibility="@{vm.uiState.fromTestResult ? View.VISIBLE : View.INVISIBLE}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_personality_result_complete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:padding="12dp"
-            android:text="@string/personality_result_complete"
-            android:textColor="@color/hous_blue"
-            android:theme="@style/B1"
-            android:visibility="@{vm.uiState.fromTestResult ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_personality_result_back" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -77,7 +49,7 @@
             android:layout_marginTop="16dp"
             android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_personality_result_detail">
+            app:layout_constraintTop_toBottomOf="@id/tv_personality_result_info">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -85,10 +57,10 @@
 
                 <TextView
                     android:id="@+id/tv_personality_result_name"
-                    personalityResultColor="@{vm.uiState.personalityResult.color.name()}"
+                    personalityResultColor="@{vm.uiState.color.name()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{vm.uiState.personalityResult.name}"
+                    android:text="@{vm.uiState.name}"
                     android:theme="@style/H2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -107,11 +79,11 @@
 
                 <TextView
                     android:id="@+id/tv_personality_result_title"
-                    personalityResultColor="@{vm.uiState.personalityResult.color.name()}"
+                    personalityResultColor="@{vm.uiState.color.name()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="26dp"
-                    android:text="@{vm.uiState.personalityResult.title}"
+                    android:text="@{vm.uiState.title}"
                     android:theme="@style/H4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -125,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:text="@{vm.uiState.personalityResult.description}"
+                    android:text="@{vm.uiState.description}"
                     android:textColor="@color/hous_g_7"
                     android:theme="@style/B2"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -135,11 +107,11 @@
 
                 <TextView
                     android:id="@+id/tv_personality_result_recommend_title"
-                    personalityResultColor="@{vm.uiState.personalityResult.color.name()}"
+                    personalityResultColor="@{vm.uiState.color.name()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="@{vm.uiState.personalityResult.recommendTitle}"
+                    android:text="@{vm.uiState.recommendTitle}"
                     android:theme="@style/H4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -149,7 +121,7 @@
 
                 <ImageView
                     android:id="@+id/iv_personality_result_check1"
-                    personalityResultIcon="@{vm.uiState.personalityResult.color.name()}"
+                    personalityResultIcon="@{vm.uiState.color.name()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -165,7 +137,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="@{vm.uiState.personalityResult.recommendTodo[0]}"
+                    android:text="@{vm.uiState.recommendTodo[0]}"
                     android:textColor="@color/hous_g_7"
                     android:theme="@style/B2"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -175,7 +147,7 @@
 
                 <ImageView
                     android:id="@+id/iv_personality_result_check2"
-                    personalityResultIcon="@{vm.uiState.personalityResult.color.name()}"
+                    personalityResultIcon="@{vm.uiState.color.name()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -191,7 +163,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:text="@{vm.uiState.personalityResult.recommendTodo[1]}"
+                    android:text="@{vm.uiState.recommendTodo[1]}"
                     android:textColor="@color/hous_g_7"
                     android:theme="@style/B2"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -233,7 +205,7 @@
                         android:id="@+id/tv_personality_result_bad_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{vm.uiState.personalityResult.badPersonalityName}"
+                        android:text="@{vm.uiState.badPersonalityName}"
                         android:textColor="@color/hous_black"
                         android:theme="@style/B2"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -243,7 +215,7 @@
 
                     <ImageView
                         android:id="@+id/iv_personality_result_bad"
-                        setImage="@{vm.uiState.personalityResult.badPersonalityImageUrl}"
+                        setImage="@{vm.uiState.badPersonalityImageUrl}"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginHorizontal="18dp"
@@ -290,7 +262,7 @@
                         android:id="@+id/tv_personality_result_good_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{vm.uiState.personalityResult.goodPersonalityName}"
+                        android:text="@{vm.uiState.goodPersonalityName}"
                         android:textColor="@color/hous_black"
                         android:theme="@style/B2"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -300,7 +272,7 @@
 
                     <ImageView
                         android:id="@+id/iv_personality_result_good"
-                        setImage="@{vm.uiState.personalityResult.goodPersonalityImageUrl}"
+                        setImage="@{vm.uiState.goodPersonalityImageUrl}"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginHorizontal="18dp"

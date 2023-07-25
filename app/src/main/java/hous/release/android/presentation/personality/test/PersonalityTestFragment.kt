@@ -12,8 +12,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentPersonalityTestBinding
 import hous.release.android.presentation.personality.result.PersonalityResultActivity
-import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.LOCATION
-import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.RESULT
 import hous.release.android.presentation.personality.result.PersonalityResultActivity.Companion.RESULT_COLOR
 import hous.release.android.util.HousLogEvent.CLICK_DROP_OUT_TEST
 import hous.release.android.util.HousLogEvent.CLICK_FINISH_TEST
@@ -92,10 +90,10 @@ class PersonalityTestFragment :
 
     private fun goPersonalityTestResult(resultColor: String) {
         clickLogEvent(CLICK_FINISH_TEST)
-        Intent(requireContext(), PersonalityResultActivity::class.java).apply {
-            putExtra(LOCATION, RESULT)
-            putExtra(RESULT_COLOR, resultColor)
-        }.also { intent ->
+        Intent(requireContext(), PersonalityResultActivity::class.java).putExtra(
+            RESULT_COLOR,
+            resultColor
+        ).also { intent ->
             requireActivity().finish()
             startActivity(intent)
         }
