@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
-import hous.release.designsystem.component.HousDash
+import hous.release.designsystem.component.HousDot
 import hous.release.designsystem.component.HousRuleSlot
 import hous.release.designsystem.theme.HousBlue
 import hous.release.designsystem.theme.HousG5
@@ -71,7 +71,7 @@ private fun MainRuleItem(
         text = mainRule.name,
         isShowTrailingIcon = mainRule.isNew,
         leadingIcon = {
-            HousDash(mainRule.isNew)
+            HousDot(mainRule.isNew)
         },
         trailingIcon = {
             Text(
