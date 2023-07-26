@@ -1,5 +1,6 @@
 package hous.release.android.util.binding
 
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -8,11 +9,15 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.request.RequestOptions.bitmapTransform
 import hous.release.android.R
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.NotificationType
 import java.util.Calendar
 import java.util.Date
+import jp.wasabeef.glide.transformations.BlurTransformation
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
 object BindingAdapters {
     @JvmStatic
@@ -239,6 +244,24 @@ object BindingAdapters {
             " $myTodoCnt"
         } else {
             myTodoCnt.toString()
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("imageResWithBlur")
+    fun ImageView.setImageResWithBlur(resId: Drawable) {
+        this.let {
+            Glide.with(context)
+                .load(resId)
+                .apply(
+                    bitmapTransform(
+                        MultiTransformation(
+                            BlurTransformation(25),
+                            RoundedCornersTransformation(50, 0)
+                        )
+                    )
+                )
+                .into(this)
         }
     }
 }

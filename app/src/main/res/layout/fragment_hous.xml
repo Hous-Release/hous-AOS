@@ -239,6 +239,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/layout_hous_my_todo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/layout_hous_my_todo"
+                app:layout_constraintVertical_bias="1.0"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true" />
 
@@ -445,12 +446,64 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
+                android:visibility="@{vm.hous.isPersonalityTest ? View.VISIBLE : View.GONE}"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_hous_homies_title"
                 app:spanCount="2"
                 tools:listitem="@layout/item_hous_homies" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_homie_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="32dp"
+                android:visibility="@{vm.hous.isPersonalityTest ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_hous_homies_title">
+
+                <ImageView
+                    android:id="@+id/iv_hous_homies_empty"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    app:imageResWithBlur="@{@drawable/ic_hous_personality_empty}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/ic_hous_personality_empty" />
+
+                <TextView
+                    android:id="@+id/tv_hous_homies_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="72dp"
+                    android:text="@string/hous_empty_homies"
+                    android:textColor="@color/hous_white"
+                    android:theme="@style/B1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_hous_check_personality"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/shape_white_fill_8_rect"
+                    android:text="@string/hous_check_personality"
+                    android:theme="@style/B1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_hous_homies_empty" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

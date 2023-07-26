@@ -13,6 +13,7 @@ import hous.release.android.databinding.FragmentHousBinding
 import hous.release.android.presentation.hous.adapter.HomiesAdapter
 import hous.release.android.presentation.main.MainActivity
 import hous.release.android.presentation.our_rules.OurRulesActivity
+import hous.release.android.presentation.personality.PersonalityActivity
 import hous.release.android.presentation.profile.homie.HomieProfileActivity
 import hous.release.android.util.HousLogEvent.CLICK_BLANK
 import hous.release.android.util.HousLogEvent.CLICK_COPY
@@ -38,6 +39,7 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
         initHomiesObserver()
         initNavigateToOurRulesBtnClickListener()
         initMoveToToDoClickListener()
+        initCheckPersonalityClickListener()
     }
 
     override fun onResume() {
@@ -105,6 +107,12 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
     private fun initMoveToToDoClickListener() {
         binding.layoutHousMyTodo.setOnClickListener {
             (requireActivity() as MainActivity).moveToToDoFragment()
+        }
+    }
+
+    private fun initCheckPersonalityClickListener() {
+        binding.btnHousCheckPersonality.setOnSingleClickListener {
+            startActivity(Intent(requireContext(), PersonalityActivity::class.java))
         }
     }
 
