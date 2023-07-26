@@ -3,6 +3,7 @@ package hous.release.data.service
 import com.google.common.truth.Truth.assertThat
 import com.google.gson.GsonBuilder
 import hous.release.data.entity.response.BaseResponse
+import hous.release.data.entity.response.rule.DetailRuleResponse
 import hous.release.data.entity.response.rule.MainRuleResponse
 import hous.release.data.entity.response.rule.MainRulesResponse
 import io.mockk.junit5.MockKExtension
@@ -61,6 +62,30 @@ internal class RuleServiceTest {
         )
         // when
         val actualResponse = ruleService.getMainRules()
+        // then
+        assertThat(actualResponse).isEqualTo(expectedResponse)
+    }
+
+    @Test
+    fun `rule의 id를 통해 rule의 상세 내용을 불러올 수 있다`() = runTest {
+        // given
+        val detailRule = File("src/test/res/rule/success_detail_rule.json").readText()
+        val fakeResponse = MockResponse().setBody(detailRule).setResponseCode(200)
+        mockWebServer.enqueue(fakeResponse)
+        val expectedResponse = BaseResponse(
+            status = 200,
+            success = true,
+            message = "규칙 조회 성공입니다.",
+            data = DetailRuleResponse(
+                id = 34,
+                name = "이준원",
+                description = "ㅎㅇㅎㅇ",
+                images = listOf(),
+                updatedAt = "2023-03-16T17:19:42.158498"
+            )
+        )
+        // when
+        val actualResponse = ruleService.getDetailRuleBy(34)
         // then
         assertThat(actualResponse).isEqualTo(expectedResponse)
     }
