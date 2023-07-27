@@ -3,11 +3,12 @@ package hous.release.android.presentation.profile.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hous.release.android.util.extension.combine
 import hous.release.domain.usecase.PutProfileEditUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -28,27 +29,33 @@ class ProfileEditViewModel @Inject constructor(
     private val _isProfileEdit = MutableSharedFlow<Boolean>()
     val isProfileEdit = _isProfileEdit.asSharedFlow()
 
-    private val userBasicInfo = combine(
-        nickname, birthday, isPrivateBirthday
-    ) { nickname, birthday, isBirthdayPublic ->
-        Triple(nickname, birthday, isBirthdayPublic)
-    }
+    private val _isProfileChanged = MutableStateFlow(false)
+    val isProfileChanged = _isProfileChanged.asStateFlow()
 
-    private val userAdditionalInfo = combine(
-        mbti, job, introduction
-    ) { mbti, job, introduction ->
-        Triple(mbti, job, introduction)
-    }
-
-    val isProfileChanged = combine(
-        userBasicInfo, userAdditionalInfo, originData
-    ) { userBasicInfo, userAdditionalInfo, originData ->
-        originData.let {
-            it.nickname != userBasicInfo.first || it.birthday != userBasicInfo.second || it.birthdayPublic != userBasicInfo.third || it.mbti != userAdditionalInfo.first || it.job != userAdditionalInfo.second || it.introduction != userAdditionalInfo.third
+    init {
+        viewModelScope.launch {
+            combine(
+                nickname,
+                birthday,
+                isPrivateBirthday,
+                mbti,
+                job,
+                introduction,
+                originData
+            ) { nickname, birthday, isBirthdayPublic, mbti, job, introduction, originData ->
+                originData.nickname != nickname ||
+                        originData.birthday != birthday ||
+                        originData.birthdayPublic != isBirthdayPublic ||
+                        originData.mbti != mbti ||
+                        originData.job != job ||
+                        originData.introduction != introduction
+            }.collect { value ->
+                _isProfileChanged.value = value
+            }
         }
     }
 
-    fun onClickSave() {
+    fun updateProfile() {
         viewModelScope.launch {
             putProfileEditUseCase(
                 birthday = birthday.value.replace("/", "-"),
@@ -76,15 +83,15 @@ class ProfileEditViewModel @Inject constructor(
             nickname = profileData.nickname,
             birthday = profileData.birthday.replace(".", "/"),
             birthdayPublic = !profileData.birthdayPublic,
-            mbti = profileData.mbti,
-            job = profileData.job,
-            introduction = profileData.introduction
+            mbti = profileData.mbti ?: "",
+            job = profileData.job ?: "",
+            introduction = profileData.introduction ?: ""
         )
         nickname.value = profileData.nickname
         birthday.value = profileData.birthday.replace(".", "/")
         isPrivateBirthday.value = !profileData.birthdayPublic
-        mbti.value = profileData.mbti
-        job.value = profileData.job
-        introduction.value = profileData.introduction
+        mbti.value = profileData.mbti ?: ""
+        job.value = profileData.job ?: ""
+        introduction.value = profileData.introduction ?: ""
     }
 }
