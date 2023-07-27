@@ -37,7 +37,7 @@
             android:clickable="true"
             android:enabled="@{vm.nickname.length() > 0 &amp;&amp; vm.birthday.length() > 0}"
             android:gravity="center"
-            android:onClick="@{()->vm.onClickNext()}"
+            android:onClick="@{()->vm.signUp()}"
             android:paddingVertical="10dp"
             android:text="@string/user_input_next"
             android:textColor="@{vm.nickname.length() > 0 &amp;&amp; vm.birthday.length() > 0 ? @color/hous_blue : @color/hous_g_4}"

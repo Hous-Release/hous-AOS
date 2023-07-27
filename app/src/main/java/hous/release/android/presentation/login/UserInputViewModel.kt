@@ -26,7 +26,7 @@ class UserInputViewModel @Inject constructor(
     private val _isSignUp = MutableSharedFlow<Boolean>()
     val isSignUp = _isSignUp.asSharedFlow()
 
-    fun onClickNext() {
+    fun signUp() {
         viewModelScope.launch {
             postSignUpUseCase(
                 birthday = birthday.value,
