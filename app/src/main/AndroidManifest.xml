@@ -9,6 +9,7 @@
         android:name=".HousApplication"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="false"
         android:fullBackupOnly="false"
         android:icon="@mipmap/ic_app_logo"
@@ -17,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HousReleaseAos"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31">
+        tools:targetApi="tiramisu">
         <activity
             android:name=".presentation.splash.IntroActivity"
             android:exported="true"
@@ -84,11 +85,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".presentation.todo.detail.TodoDetailActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
             android:name="hous.release.feature.todo.detail.TodoDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -136,6 +132,12 @@
                     android:host="oauth"
                     android:scheme="${KAKAO_REDIRECT_SCHEME}" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.practice.GalleryPracticeActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+
         </activity>
 
         <service

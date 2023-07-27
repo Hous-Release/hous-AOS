@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 plugins {
     id("com.android.library")
     kotlin("android")
@@ -16,13 +18,13 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+    java {
+        sourceCompatibility = javaVersion
+        targetCompatibility = javaVersion
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = jvmVersion
     }
 }
 
@@ -70,6 +72,7 @@ dependencies {
         implementation(firebaseMessaging)
     }
     testImplementation()
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.1")
 }
 
 ktlint {

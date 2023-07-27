@@ -175,3 +175,5 @@ fabric.properties
 # End of https://www.toptal.com/developers/gitignore/api/kotlin,androidstudio
 
 .idea/kotlinc.xml
+
+.idea/

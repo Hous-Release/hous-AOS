@@ -3,7 +3,7 @@ package hous.release.feature.todo.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hous.release.domain.entity.ApiResult
+import hous.release.domain.util.ApiResult
 import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.TodoDetail
 import hous.release.domain.entity.todo.FilteredTodo

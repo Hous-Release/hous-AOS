@@ -21,14 +21,13 @@ import hous.release.designsystem.theme.HousTheme
 
 @Composable
 fun HousDetailBottomSheet(
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit,
+    modifier: Modifier = Modifier.padding(horizontal = 16.dp),
     editAction: () -> Unit,
-    deleteAction: () -> Unit
+    deleteAction: () -> Unit,
+    content: @Composable () -> Unit
 ) {
     Column(
         modifier = modifier
-            .padding(horizontal = 16.dp)
     ) {
         content()
         BottomSheetButton(

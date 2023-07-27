@@ -3,6 +3,7 @@
 package hous.release.feature.todo.detail
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,6 +31,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -71,7 +74,7 @@ fun TodoDetailScreen(
     finish: () -> Unit,
     onEvent: (TodoEvent, () -> Unit) -> Unit,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
-    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
 ) {
     val searchText = todoDetailViewModel.searchText.collectAsStateWithLifecycle()
     val selectedDayOfWeek = todoDetailViewModel.selectedDayOfWeeks.collectAsStateWithLifecycle()
@@ -205,8 +208,17 @@ private fun TodoDetailContent(
     showToDoDetailBottomSheet: (Int) -> Unit,
     finish: () -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
     Column(
-        modifier = Modifier.padding(horizontal = 16.dp)
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onPress = {
+                        focusManager.clearFocus()
+                    }
+                )
+            }
     ) {
         TodoDetailToolbar(finish = finish)
         Spacer(modifier = Modifier.height(4.dp))
@@ -285,8 +297,15 @@ private fun TodoFilterAndSearchResult(
 private fun EmptyGuideText(
     searchText: String
 ) {
+    val focusManager = LocalFocusManager.current
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().pointerInput(Unit) {
+            detectTapGestures(
+                onPress = {
+                    focusManager.clearFocus()
+                }
+            )
+        },
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -320,6 +339,7 @@ private fun BottomSheetContent(
                 getTodosAppliedFilter = getTodosAppliedFilter
             )
         }
+
         DETAIL_BOTTOM_SHEET -> {
             TodoDetailBottomSheet(
                 todoDetail = todoDetail,
