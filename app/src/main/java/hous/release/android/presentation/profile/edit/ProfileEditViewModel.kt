@@ -43,12 +43,7 @@ class ProfileEditViewModel @Inject constructor(
                 introduction,
                 originData
             ) { nickname, birthday, isBirthdayPublic, mbti, job, introduction, originData ->
-                originData.nickname != nickname ||
-                        originData.birthday != birthday ||
-                        originData.birthdayPublic != isBirthdayPublic ||
-                        originData.mbti != mbti ||
-                        originData.job != job ||
-                        originData.introduction != introduction
+                originData.nickname != nickname || originData.birthday != birthday || originData.birthdayPublic != isBirthdayPublic || originData.mbti != mbti || originData.job != job || originData.introduction != introduction
             }.collect { value ->
                 _isProfileChanged.value = value
             }
