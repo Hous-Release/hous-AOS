@@ -6,10 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.domain.usecase.PutProfileEditUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -48,17 +46,17 @@ class ProfileEditViewModel @Inject constructor(
         originData.let {
             it.nickname != userBasicInfo.first || it.birthday != userBasicInfo.second || it.birthdayPublic != userBasicInfo.third || it.mbti != userAdditionalInfo.first || it.job != userAdditionalInfo.second || it.introduction != userAdditionalInfo.third
         }
-    }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+    }
 
     fun onClickSave() {
         viewModelScope.launch {
             putProfileEditUseCase(
-                birthday = requireNotNull(birthday.value.replace("/", "-")),
+                birthday = birthday.value.replace("/", "-"),
                 introduction = introduction.value,
-                isPublic = !requireNotNull(isPrivateBirthday.value),
+                isPublic = !isPrivateBirthday.value,
                 job = job.value,
                 mbti = mbti.value,
-                nickname = requireNotNull(nickname.value)
+                nickname = nickname.value
             ).onSuccess { success ->
                 _isProfileEdit.emit(success)
             }.onFailure { Timber.e(it.message) }
