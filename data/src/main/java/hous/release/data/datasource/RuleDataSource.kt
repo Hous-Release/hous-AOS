@@ -4,6 +4,7 @@ import hous.release.data.entity.request.AddRulesRequest
 import hous.release.data.entity.request.DeleteRulesRequest
 import hous.release.data.entity.request.EditRulesRequest
 import hous.release.data.entity.response.NoDataResponse
+import hous.release.data.entity.response.rule.DetailRuleResponse
 import hous.release.data.entity.response.rule.MainRuleResponse
 import hous.release.data.entity.response.rule.MainRulesResponse
 import hous.release.data.service.RuleService
@@ -15,6 +16,8 @@ class RuleDataSource @Inject constructor(private val ruleService: RuleService) {
     suspend fun fetchMainRules(): MainRulesResponse =
         ruleService.getMainRules().data
 
+    suspend fun fetchDetailRuleBy(id: Int): DetailRuleResponse =
+        ruleService.getDetailRuleBy(id).data
     suspend fun postAddedRuleContent(addedRules: List<String>): Result<NoDataResponse> =
         runCatching { ruleService.postAddedRuleContent(AddRulesRequest(addedRules = addedRules)) }
 

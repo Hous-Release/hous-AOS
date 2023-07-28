@@ -1,6 +1,7 @@
 package hous.release.data.repository
 
 import hous.release.data.datasource.RuleDataSource
+import hous.release.domain.entity.rule.DetailRule
 import hous.release.domain.entity.rule.MainRule
 import hous.release.domain.repository.RuleRepository
 import hous.release.domain.util.ApiResult
@@ -19,6 +20,9 @@ class DefaultRuleRepository @Inject constructor(
 
     override suspend fun fetchMainRules(): List<MainRule> =
         ruleDataSource.fetchMainRules().rules.map { it.toMainRule() }
+
+    override suspend fun fetchDetailRule(id: Int): DetailRule =
+        ruleDataSource.fetchDetailRuleBy(id).toDetailRule()
 
     override suspend fun postAddedRule(addedRuleList: List<String>): Int {
         var code: Int = -999

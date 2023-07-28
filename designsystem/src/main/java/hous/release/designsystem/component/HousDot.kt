@@ -15,7 +15,7 @@ import hous.release.designsystem.theme.HousG3
 import hous.release.designsystem.theme.HousTheme
 
 @Composable
-fun HousDash(
+fun HousDot(
     isNew: Boolean = false
 ) {
     Box(
@@ -31,7 +31,7 @@ fun HousDash(
 @Composable
 private fun HousDashPreview() {
     HousTheme {
-        HousDash(isNew = true)
+        HousDot(isNew = true)
     }
 }
 
@@ -39,6 +39,6 @@ private fun HousDashPreview() {
 @Composable
 private fun HousDashPreview2() {
     HousTheme {
-        HousDash()
+        HousDot()
     }
 }

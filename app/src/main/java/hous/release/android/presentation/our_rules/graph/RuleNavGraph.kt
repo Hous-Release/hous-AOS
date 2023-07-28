@@ -46,9 +46,10 @@ private fun NavGraphBuilder.mainRuleScreen(
         val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
         MainRuleScreen(
-            detailRule = DetailRuleUiModel(),
+            detailRule = uiState.value.detailRule,
             mainRules = uiState.value.filteredRules,
             searchQuery = uiState.value.searchQuery,
+            fetchDetailRuleById = viewModel::fetchDetailRule,
             onSearch = viewModel::searchRule,
             onNavigateToAddRule = navController::navigateToAddRule,
             onNavigateToUpdateRule = navController::navigateUpdateRule,

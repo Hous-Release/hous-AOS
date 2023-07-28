@@ -24,6 +24,7 @@ fun MainRuleScreen(
     detailRule: DetailRuleUiModel = DetailRuleUiModel(),
     mainRules: List<MainRule> = emptyList(),
     searchQuery: String = "",
+    fetchDetailRuleById: (Int) -> Unit = {},
     onSearch: (String) -> Unit = {},
     onNavigateToUpdateRule: (DetailRuleUiModel) -> Unit = {},
     onNavigateToAddRule: () -> Unit = {},
@@ -63,8 +64,9 @@ fun MainRuleScreen(
             mainRules = mainRules,
             searchQuery = searchQuery,
             onSearch = onSearch,
-            onOpenDetailRule = {
+            onOpenDetailRule = { id ->
                 coroutineScope.launch {
+                    fetchDetailRuleById(id)
                     bottomSheetState.show()
                 }
             },
