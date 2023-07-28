@@ -15,6 +15,7 @@ import hous.release.data.repository.NotificationRepositoryImpl
 import hous.release.data.repository.PersonalityRepositoryImpl
 import hous.release.data.repository.ProfileRepositoryImpl
 import hous.release.data.repository.RefreshRepositoryImpl
+import hous.release.data.repository.RulePhotoRepository
 import hous.release.data.repository.SettingsRepositoryImpl
 import hous.release.data.repository.TodoRepositoryImpl
 import hous.release.data.repository.VersionRepositoryImpl
@@ -24,6 +25,7 @@ import hous.release.domain.repository.EnterRoomRepository
 import hous.release.domain.repository.HousRepository
 import hous.release.domain.repository.NotificationRepository
 import hous.release.domain.repository.PersonalityRepository
+import hous.release.domain.repository.PhotoRepository
 import hous.release.domain.repository.ProfileRepository
 import hous.release.domain.repository.RefreshRepository
 import hous.release.domain.repository.RuleRepository
@@ -61,8 +63,7 @@ object RepositoryModule {
     fun providesOurRulesRepository(
         ourRulesDataSource: RuleDataSource,
         @IoDispatcher ioDispatcher: CoroutineDispatcher
-    ): RuleRepository =
-        DefaultRuleRepository(ourRulesDataSource, ioDispatcher)
+    ): RuleRepository = DefaultRuleRepository(ourRulesDataSource, ioDispatcher)
 
     @Provides
     @Singleton
@@ -98,4 +99,9 @@ object RepositoryModule {
     @Singleton
     fun providesVersionRepository(versionRepositoryImpl: VersionRepositoryImpl): VersionRepository =
         versionRepositoryImpl
+
+    @Provides
+    @Singleton
+    fun providePhotoRepository(rulePhotoRepository: RulePhotoRepository): PhotoRepository =
+        rulePhotoRepository
 }
