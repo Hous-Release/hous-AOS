@@ -6,6 +6,7 @@ import hous.release.data.di.IoDispatcher
 import hous.release.data.di.LocalCache
 import hous.release.data.di.RemoteCache
 import hous.release.data.util.image.ImageCacher
+import hous.release.domain.enums.PhotoURL
 import hous.release.domain.enums.PhotoUri
 import hous.release.domain.repository.PhotoRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -62,25 +63,27 @@ class RulePhotoRepository @Inject constructor(
     }.flowOn(ioDispatchers)
 
     // path에 해당하는 remote 사진이 캐시되어 있는지 확인한 후, 캐시되어 있다면 반환한다.
-    override suspend fun fetchRemotePhotos(paths: List<String>): List<File> =
+    override suspend fun fetchPhotos(urls: List<PhotoURL>): List<File> =
         withContext(ioDispatchers) {
-            paths.map {
-                if (isExistPhoto(it).not()) {
-                    remoteCacher.cacheImage(it) ?: error("캐시된 사진이 없습니다.")
+            urls.map {
+                val url = it.path
+                if (isExistPhoto(url).not()) {
+                    remoteCacher.cacheImage(url) ?: error("캐시된 사진이 없습니다.")
                 } else {
-                    File(cacheFolder, it)
+                    File(cacheFolder, url)
                 }
             }
         }
 
     // path에 해당하는 local 사진이 캐시되어 있는지 확인한 후, 캐시되어 있다면 반환한다.
-    override suspend fun fetchLocalPhotos(paths: List<String>): List<File> =
+    override suspend fun fetchPhotos(uris: List<PhotoUri>): List<File> =
         withContext(ioDispatchers) {
-            paths.map {
-                if (isExistPhoto(it).not()) {
-                    localCacher.cacheImage(it) ?: error("캐시된 사진이 없습니다.")
+            uris.map {
+                val uri = it.path
+                if (isExistPhoto(uri).not()) {
+                    localCacher.cacheImage(uri) ?: error("캐시된 사진이 없습니다.")
                 } else {
-                    File(tmpFolder, it)
+                    File(tmpFolder, uri)
                 }
             }
         }
@@ -97,7 +100,7 @@ class RulePhotoRepository @Inject constructor(
     }
 
     // 임시 캐시된 사진들을 삭제한다.
-    override suspend fun removeTmpPhoto() = withContext(ioDispatchers) {
+    override suspend fun removeTemporayPhotos() = withContext(ioDispatchers) {
         var isDeleted = false
         tmpFolder.listFiles()?.forEach {
             isDeleted = it.delete() || isDeleted
