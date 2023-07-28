@@ -23,8 +23,8 @@ class UserInputViewModel @Inject constructor(
     val birthday = MutableStateFlow("")
     val isPrivateBirthday = MutableStateFlow(false)
 
-    private val _isSignUp = MutableSharedFlow<Boolean>()
-    val isSignUp = _isSignUp.asSharedFlow()
+    private val _isSignedUp = MutableSharedFlow<Boolean>()
+    val isSignedUp = _isSignedUp.asSharedFlow()
 
     fun signUp() {
         viewModelScope.launch {
@@ -35,9 +35,9 @@ class UserInputViewModel @Inject constructor(
             ).onSuccess { response ->
                 initHousTokenUseCase(response.token)
                 setSplashStateUseCase(SplashState.ENTER_ROOM)
-                _isSignUp.emit(true)
+                _isSignedUp.emit(true)
             }.onFailure {
-                _isSignUp.emit(false)
+                _isSignedUp.emit(false)
             }
         }
     }
