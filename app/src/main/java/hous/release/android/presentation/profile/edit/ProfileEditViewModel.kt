@@ -74,19 +74,18 @@ class ProfileEditViewModel @Inject constructor(
     }
 
     fun initData(profileData: ProfileEntity) {
-        originData.value = ProfileEntity(
-            nickname = profileData.nickname,
+        originData.value = profileData.copy(
             birthday = profileData.birthday.replace(".", "/"),
             birthdayPublic = !profileData.birthdayPublic,
             mbti = profileData.mbti ?: "",
             job = profileData.job ?: "",
             introduction = profileData.introduction ?: ""
         )
-        nickname.value = profileData.nickname
-        birthday.value = profileData.birthday.replace(".", "/")
-        isPrivateBirthday.value = !profileData.birthdayPublic
-        mbti.value = profileData.mbti ?: ""
-        job.value = profileData.job ?: ""
-        introduction.value = profileData.introduction ?: ""
+        nickname.value = originData.value.nickname
+        birthday.value = originData.value.birthday
+        isPrivateBirthday.value = originData.value.birthdayPublic
+        mbti.value = originData.value.mbti
+        job.value = originData.value.job
+        introduction.value = originData.value.introduction
     }
 }
