@@ -3,16 +3,15 @@ package hous.release.android.presentation.our_rules.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hous.release.android.presentation.our_rules.event.MainRuleReducer
 import hous.release.android.presentation.our_rules.model.DetailRuleUiModel
 import hous.release.android.presentation.our_rules.model.PhotoUiModel
-import hous.release.android.util.Reducer
 import hous.release.data.repository.RulePhotoRepository
 import hous.release.domain.entity.rule.DetailRule
 import hous.release.domain.entity.rule.MainRule
 import hous.release.domain.enums.PhotoUri
 import hous.release.domain.usecase.rule.GetDetailRuleUseCase
 import hous.release.domain.usecase.rule.GetMainRulesUseCase
-import hous.release.domain.usecase.search.SearchRuleUseCase
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collectLatest
@@ -28,12 +27,12 @@ class MainRuleViewModel @Inject constructor(
     private val photoSaver: RulePhotoRepository,
     private val getMainRulesUseCase: GetMainRulesUseCase,
     private val getDetailRuleUseCase: GetDetailRuleUseCase,
-    private val searcher: SearchRuleUseCase
-) : ViewModel(), Reducer<MainRulesState, MainRulesEvent> {
+    private val reducer: MainRuleReducer
+) : ViewModel() {
 
     private val uiEvents = Channel<MainRulesEvent>()
     val uiState = uiEvents.receiveAsFlow()
-        .runningFold(MainRulesState(), ::dispatch)
+        .runningFold(MainRulesState(), reducer::dispatch)
         .stateIn(viewModelScope, SharingStarted.Eagerly, MainRulesState())
 
     init {
@@ -72,54 +71,6 @@ class MainRuleViewModel @Inject constructor(
                 .onFailure {
                     Timber.e(it.stackTraceToString())
                 }
-        }
-    }
-
-    override fun dispatch(state: MainRulesState, event: MainRulesEvent): MainRulesState {
-        return when (event) {
-            is MainRulesEvent.Refresh -> {
-                MainRulesState(
-                    originRules = event.rules,
-                    filteredRules = event.rules
-                )
-            }
-
-            is MainRulesEvent.FetchMainRules -> {
-                state.copy(
-                    originRules = event.rules,
-                    filteredRules = event.rules
-                )
-            }
-
-            is MainRulesEvent.FetchDetailRule -> {
-                state.copy(
-                    detailRule = event.rule.toUiModel()
-                )
-            }
-
-            is MainRulesEvent.LoadedImage -> {
-                val photoUris = event.photoUris
-                Timber.e("LoadedImage photoUris: $photoUris")
-                val updatedImages = state.detailRule.images.mapIndexed { index, photo ->
-                    photo.copy(
-                        isUploading = photoUris[index] == null,
-                        filePath = photoUris[index]?.path
-                    )
-                }
-                Timber.e("LoadedImage updatedImages: $updatedImages")
-                state.copy(
-                    detailRule = state.detailRule.copy(images = updatedImages)
-                )
-            }
-
-            is MainRulesEvent.SearchRule -> {
-                state.copy(
-                    searchQuery = event.searchQuery,
-                    filteredRules = searcher(event.searchQuery, state.originRules)
-                )
-            }
-
-            is MainRulesEvent.DeleteAllFile -> state
         }
     }
 
