@@ -35,5 +35,8 @@ data class HousResponse(
 }
 
 data class HomyEntity(
-    val color: String, @SerializedName("onboardingId") val homieId: Int, val userNickname: String
+    val color: String,
+    @SerializedName("onboardingId")
+    val homieId: Int,
+    val userNickname: String
 )
