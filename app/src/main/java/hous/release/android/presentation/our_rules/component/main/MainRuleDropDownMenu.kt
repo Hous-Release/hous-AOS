@@ -22,9 +22,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import hous.release.android.R
 import hous.release.designsystem.theme.HousBlue
 import hous.release.designsystem.theme.HousG2
 import hous.release.designsystem.theme.HousG6
@@ -61,7 +63,7 @@ fun MainRuleDropDownMenu(
             contentPadding = PaddingValues(start = DropdownMenuItemContentStartPadding)
         ) {
             Text(
-                text = "Rules 편집",
+                text = stringResource(id = R.string.our_rule_menu_edit_representation),
                 style = HousTheme.typography.b2,
                 color = HousBlue,
                 modifier = Modifier.wrapContentSize()
@@ -77,7 +79,7 @@ fun MainRuleDropDownMenu(
             contentPadding = PaddingValues(start = DropdownMenuItemContentStartPadding)
         ) {
             Text(
-                text = "가이드 다시보기",
+                text = stringResource(id = R.string.our_rule_menu_edit_guide),
                 style = HousTheme.typography.b2,
                 color = HousG6,
                 modifier = Modifier.wrapContentSize()

@@ -1,0 +1,12 @@
+{
+  "status": 200,
+  "success": true,
+  "message": "규칙 조회 성공입니다.",
+  "data": {
+    "id": 34,
+    "description": "ㅎㅇㅎㅇ",
+    "images": [],
+    "name": "이준원",
+    "updatedAt": "2023-03-16T17:19:42.158498"
+  }
+}

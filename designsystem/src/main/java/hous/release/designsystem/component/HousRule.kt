@@ -59,7 +59,7 @@ fun HousEditRulePreview() {
             text = "text",
             isShowTrailingIcon = false,
             leadingIcon = {
-                HousDash(true)
+                HousDot(true)
             },
             trailingIcon = {
                 Text(
@@ -84,7 +84,7 @@ fun HousRulePreview() {
             text = "text",
             isShowTrailingIcon = false,
             leadingIcon = {
-                HousDash()
+                HousDot()
             },
             trailingIcon = {
                 Text(

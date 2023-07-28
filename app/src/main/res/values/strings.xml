@@ -100,7 +100,27 @@
     <string name="our_house_representative_rules_number_one">1.</string>
     <string name="our_house_representative_rules_number_two">2.</string>
     <string name="our_house_representative_rules_number_three">3.</string>
-
+    <string name="hous_our_rules">Our Rules</string>
+    <string name="hous_our_rules_img_desc">btn_of_our_rules</string>
+    <string name="hous_empty_our_rules">아직 우리 집 Rules가 없어요!</string>
+    <string name="hous_empty_our_rules_add">다른 Rule도 추가해보세요!</string>
+    <string name="our_rule_duplicate_rule">똑같은 이름의 Rule이 있어요!</string>
+    <string name="our_rule_empty_description">아직 우리 집 Rules가 없어요!</string>
+    <string name="our_rule_add_new_rule_title">새로운 Rules 추가</string>
+    <string name="our_rule_edit_rule_title">Rules 수정</string>
+    <string name="our_rule_save_new_rule">저장</string>
+    <string name="our_rule_delete_our_rule_button">삭제</string>
+    <string name="our_rule_delete_our_rule_title">Rules 삭제</string>
+    <string name="our_rule_input">Rules 입력</string>
+    <string name="our_rule_add_error_title">Rules 개수 초과</string>
+    <string name="our_rule_add_error_description">우리 집 Rules가 너무 많아요!\n필요하지 않은 Rule은 삭제하고\n다시 시도해주세요~</string>
+    <string name="our_rule_add_error_ok">알겠어요!</string>
+    <string name="our_rule_add_cnt">%d/20</string>
+    <string name="our_rule_add">추가하기</string>
+    <string name="our_rule_delete">삭제하기</string>
+    <string name="our_rule_edit">수정하기</string>
+    <string name="our_rule_menu_edit_representation">Rules 편집</string>
+    <string name="our_rule_menu_edit_guide">가이드 다시보기</string>
     <!-- EnterRoom -->
     <string name="enter_room_settings_img_desc">설정 버튼</string>
     <string name="enter_room_title">이제 하우스에 입장해볼까요?</string>
@@ -138,17 +158,10 @@
     <string name="hous_my_todo">MY to-do</string>
     <string name="hous_my_todo_img_desc">img of myTod in hous</string>
     <string name="hous_my_todo_cheer">동글이의\n응원을 받고\n오늘도 화이팅!</string>
-    <string name="hous_our_rules">Our Rules</string>
-    <string name="hous_our_rules_img_desc">btn_of_our_rules</string>
-    <string name="hous_our_rules_num_1">1.</string>
-    <string name="hous_our_rules_num_2">2.</string>
-    <string name="hous_our_rules_num_3">3.</string>
     <string name="hous_homies">Homies</string>
     <string name="hous_homies_profile_img_decnsc">img of profile color</string>
     <string name="hous_homies_profile_img_desc">img of profile color</string>
-    <string name="hous_empty_my_todo">아직 내 to-do가 없어요!</string>
-    <string name="hous_empty_our_rules">아직 우리 집 Rules가 없어요!</string>
-    <string name="hous_empty_our_rules_add">다른 Rule도 추가해보세요!</string>
+    <string name="hous_empty_my_todo">아직 내 to-do가 없어요!</string>>
     <string name="hous_toast_copy">초대코드가 복사되었습니다.</string>
     <string name="hous_not_tested_yet">아직 성향 테스트를 하지 않은 호미예요!</string>
 
@@ -171,9 +184,6 @@
     <string name="to_do_tool_tip_empty">완료되지 않음</string>
     <string name="to_do_tool_tip_half">1명 이상 완료</string>
     <string name="to_do_tool_tip_full">모두 완료</string>
-    <string name="our_rule_add">추가하기</string>
-    <string name="our_rule_delete">삭제하기</string>
-    <string name="our_rule_edit">수정하기</string>
     <string name="todo_member_title">멤버별 보기</string>
     <string name="todo_daily_title">요일별 보기</string>
     <string-array name="to_do_week_of_day">
@@ -186,19 +196,6 @@
         <item>일</item>
     </string-array>
     <string name="to_do_plus">+</string>
-    <!-- Our Rule add,edit-->
-    <string name="our_rule_duplicate_rule">똑같은 이름의 Rule이 있어요!</string>
-    <string name="our_rule_empty_description">아직 우리 집 Rules가 없어요!</string>
-    <string name="our_rule_add_new_rule_title">새로운 Rules 추가</string>
-    <string name="our_rule_edit_rule_title">Rules 수정</string>
-    <string name="our_rule_save_new_rule">저장</string>
-    <string name="our_rule_delete_our_rule_button">삭제</string>
-    <string name="our_rule_delete_our_rule_title">Rules 삭제</string>
-    <string name="our_rule_input">Rules 입력</string>
-    <string name="our_rule_add_error_title">Rules 개수 초과</string>
-    <string name="our_rule_add_error_description">우리 집 Rules가 너무 많아요!\n필요하지 않은 Rule은 삭제하고\n다시 시도해주세요~</string>
-    <string name="our_rule_add_error_ok">알겠어요!</string>
-    <string name="our_rule_add_cnt">%d/20</string>
     <string name="to_do_bottom_sheet_delete">삭제하기</string>
     <string name="to_do_bottom_sheet_edit">수정하기</string>
     <string name="dialog_to_do_title">안녕, to-do...</string>
