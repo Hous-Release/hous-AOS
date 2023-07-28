@@ -53,7 +53,6 @@ private fun NavGraphBuilder.mainRuleScreen(
             onSearch = viewModel::searchRule,
             onNavigateToAddRule = navController::navigateToAddRule,
             onNavigateToUpdateRule = navController::navigateUpdateRule,
-            onBack = navController::popBackStack,
             onFinish = activity::finish
         )
     }
@@ -68,7 +67,10 @@ private fun NavGraphBuilder.updateRuleScreen(
         navController.previousBackStackEntry?.savedStateHandle?.get<DetailRuleUiModel>(
             RulesScreens.DETAIL_RULE_KEY
         )?.let { detailRule ->
-            UpdateRuleScreen(rule = detailRule, onBack = navController::popBackStack)
+            UpdateRuleScreen(
+                rule = detailRule,
+                onBack = navController::popBackStack
+            )
         } ?: run {
             Timber.e("DetailRuleUiModel is null")
         }

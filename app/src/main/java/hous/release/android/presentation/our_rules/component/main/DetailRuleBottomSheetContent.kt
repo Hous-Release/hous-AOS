@@ -24,14 +24,15 @@ fun DetailRuleBottomSheetContent(
     onNavigateToUpdateRule: (DetailRuleUiModel) -> Unit = {},
     onDeleteRule: (Int) -> Unit = {}
 ) {
+    val images = detailRule.images
     HousDetailBottomSheet(
         modifier = Modifier.padding(top = 26.dp),
         editAction = { onNavigateToUpdateRule(detailRule) },
         deleteAction = { onDeleteRule(detailRule.id) }
     ) {
-        if (detailRule.images.isNotEmpty()) {
+        if (images.isNotEmpty()) {
             PhotoGrid(
-                photos = emptyList(),
+                photos = images,
                 isEditable = false,
                 photoFraction = 0.62f,
                 spaceWidthDp = 14.dp,
@@ -77,7 +78,7 @@ private fun String.formatDate() = "마지막 수정 $this"
 fun PreviewDetailRuleBottomSheetContent() {
     HousTheme {
         DetailRuleBottomSheetContent(
-            DetailRuleUiModel(
+            detailRule = DetailRuleUiModel(
                 name = "바나나는 옷걸이에 걸어두기!",
                 updatedAt = "2023.04.01"
             )
@@ -90,7 +91,7 @@ fun PreviewDetailRuleBottomSheetContent() {
 fun PreviewDetailRuleBottomSheetContent2() {
     HousTheme {
         DetailRuleBottomSheetContent(
-            DetailRuleUiModel(
+            detailRule = DetailRuleUiModel(
                 name = "바나나는 옷걸이에 걸어두기!",
                 updatedAt = "2023.04.01",
                 description = "옷걸이에 걸어두면 바나나는 자기가 아직도 나무에 걸려있다고 착각하고 싱싱한 상태를 유지한대.. 귀여워서 기절"
