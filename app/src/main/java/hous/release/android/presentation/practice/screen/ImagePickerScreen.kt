@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import hous.release.android.component.PhotoGrid
 import hous.release.android.presentation.practice.PhotoViewModel
 import hous.release.designsystem.theme.HousTheme
 import kotlinx.coroutines.launch
@@ -59,7 +58,7 @@ fun ImagePickerScreen(
             }) {
                 Text(text = "Select Photo")
             }
-            PhotoGrid(photos = state.photos, onRemove = viewModel::removePhoto)
+//            PhotoGrid(photos = state.photos, onRemove = viewModel::removePhoto)
         }
     }
 }
