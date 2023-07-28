@@ -14,7 +14,7 @@ class AddNewRuleUseCase @Inject constructor(
         name: String,
         imageUri: List<PhotoUri>
     ): Boolean {
-        val localFiles = photoRepository.fetchPhotos(imageUri)
+        val localFiles = photoRepository.fetchPhotosByUri(imageUri)
         ourRulesRepository.postAddedRule(description, name, localFiles)
         return photoRepository.removeTemporayPhotos()
     }

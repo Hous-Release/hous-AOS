@@ -63,7 +63,7 @@ class RulePhotoRepository @Inject constructor(
     }.flowOn(ioDispatchers)
 
     // path에 해당하는 remote 사진이 캐시되어 있는지 확인한 후, 캐시되어 있다면 반환한다.
-    override suspend fun fetchPhotos(urls: List<PhotoURL>): List<File> =
+    override suspend fun fetchPhotosByURL(urls: List<PhotoURL>): List<File> =
         withContext(ioDispatchers) {
             urls.map {
                 val url = it.path
@@ -76,7 +76,7 @@ class RulePhotoRepository @Inject constructor(
         }
 
     // path에 해당하는 local 사진이 캐시되어 있는지 확인한 후, 캐시되어 있다면 반환한다.
-    override suspend fun fetchPhotos(uris: List<PhotoUri>): List<File> =
+    override suspend fun fetchPhotosByUri(uris: List<PhotoUri>): List<File> =
         withContext(ioDispatchers) {
             uris.map {
                 val uri = it.path
