@@ -8,6 +8,13 @@ data class DetailRuleUiModel(
     val id: Int = -1,
     val name: String = "",
     val description: String = "",
-    val images: List<String> = emptyList(),
+    val images: List<PhotoUiModel> = emptyList(),
     val updatedAt: String = ""
+) : Parcelable
+
+@Parcelize
+data class PhotoUiModel(
+    val url: String = "",
+    val isUploading: Boolean = false,
+    val filePath: String? = null
 ) : Parcelable
