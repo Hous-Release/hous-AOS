@@ -3,57 +3,47 @@ package hous.release.android.presentation.our_rules.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hous.release.android.presentation.our_rules.event.MainRuleReducer
 import hous.release.android.presentation.our_rules.model.DetailRuleUiModel
+import hous.release.android.presentation.our_rules.model.PhotoUiModel
+import hous.release.data.repository.RulePhotoRepository
 import hous.release.domain.entity.rule.DetailRule
 import hous.release.domain.entity.rule.MainRule
+import hous.release.domain.enums.PhotoUri
 import hous.release.domain.usecase.rule.GetDetailRuleUseCase
 import hous.release.domain.usecase.rule.GetMainRulesUseCase
-import hous.release.domain.usecase.search.SearchRuleUseCase
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.runningFold
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class MainRuleViewModel @Inject constructor(
+    private val photoSaver: RulePhotoRepository,
     private val getMainRulesUseCase: GetMainRulesUseCase,
     private val getDetailRuleUseCase: GetDetailRuleUseCase,
-    private val searcher: SearchRuleUseCase
+    private val reducer: MainRuleReducer
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(MainRules())
-    val uiState = _uiState.asStateFlow()
+    private val uiEvents = Channel<MainRulesEvent>()
+    val uiState = uiEvents.receiveAsFlow()
+        .runningFold(MainRulesState(), reducer::dispatch)
+        .stateIn(viewModelScope, SharingStarted.Eagerly, MainRulesState())
 
     init {
         fetchMainRules()
-    }
-
-    fun fetchDetailRule(id: Int) {
-        viewModelScope.launch {
-            runCatching { getDetailRuleUseCase(id) }
-                .onSuccess { detailRule ->
-                    _uiState.update { state ->
-                        state.copy(detailRule = detailRule.toUiModel())
-                    }
-                }
-                .onFailure {
-                    Timber.e(it.stackTraceToString())
-                }
-        }
     }
 
     fun fetchMainRules() {
         viewModelScope.launch {
             runCatching { getMainRulesUseCase() }
                 .onSuccess { rules ->
-                    _uiState.update {
-                        MainRules(
-                            originRules = rules,
-                            filteredRules = rules
-                        )
-                    }
+                    uiEvents.send(MainRulesEvent.FetchMainRules(rules))
                 }
                 .onFailure {
                     Timber.e(it.stackTraceToString())
@@ -62,11 +52,25 @@ class MainRuleViewModel @Inject constructor(
     }
 
     fun searchRule(searchQuery: String) {
-        _uiState.update { state ->
-            state.copy(
-                searchQuery = searchQuery,
-                filteredRules = searcher(searchQuery, state.originRules)
-            )
+        viewModelScope.launch {
+            uiEvents.send(MainRulesEvent.SearchRule(searchQuery))
+        }
+    }
+
+    fun fetchDetailRule(id: Int) {
+        viewModelScope.launch {
+            runCatching { getDetailRuleUseCase(id) }
+                .onSuccess { _detailRule: DetailRule ->
+                    uiEvents.send(MainRulesEvent.FetchDetailRule(_detailRule))
+                    // image Url을 photo Uri로 변환하는 작업
+                    photoSaver.fetchRemotePhotosFlow(_detailRule.images).collectLatest {
+                        Timber.d("fetchRemotePhotosFlow: $it")
+                        uiEvents.send(MainRulesEvent.LoadedImage(it))
+                    }
+                }
+                .onFailure {
+                    Timber.e(it.stackTraceToString())
+                }
         }
     }
 
@@ -74,12 +78,32 @@ class MainRuleViewModel @Inject constructor(
         id = id,
         name = name,
         description = description,
-        images = images,
+        images = images.map { url ->
+            PhotoUiModel(
+                url = url,
+                isUploading = true
+            )
+        },
         updatedAt = updatedAt
     )
+
+    private companion object {
+        const val TEST_IMAGE_URL =
+            "https://github.com/Hous-Release/hous-AOS/assets/87055456/e5aa4a25-cbde-4b13-ab3c-6cc002dbc00f"
+    }
 }
 
-data class MainRules(
+sealed class MainRulesEvent {
+    data class LoadedImage(val photoUris: List<PhotoUri?>) : MainRulesEvent()
+
+    data class Refresh(val rules: List<MainRule>) : MainRulesEvent()
+    data class FetchMainRules(val rules: List<MainRule>) : MainRulesEvent()
+    data class FetchDetailRule(val rule: DetailRule) : MainRulesEvent()
+    data class SearchRule(val searchQuery: String) : MainRulesEvent()
+    object DeleteAllFile : MainRulesEvent()
+}
+
+data class MainRulesState(
     val detailRule: DetailRuleUiModel = DetailRuleUiModel(),
     val originRules: List<MainRule> = emptyList(),
     val filteredRules: List<MainRule> = emptyList(),
