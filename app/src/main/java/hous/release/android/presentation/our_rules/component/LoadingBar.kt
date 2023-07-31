@@ -30,7 +30,8 @@ import hous.release.designsystem.theme.HousTheme
 import kotlinx.coroutines.delay
 
 @Composable
-fun LoadingBar(modifier: Modifier = Modifier) {
+fun LoadingBar(
+    modifier: Modifier = Modifier) {
     val composition by rememberLottieComposition(
         LottieCompositionSpec.RawRes(R.raw.loading)
     )

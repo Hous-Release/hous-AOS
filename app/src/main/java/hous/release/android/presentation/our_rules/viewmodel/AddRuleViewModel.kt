@@ -26,7 +26,7 @@ class AddRuleViewModel @Inject constructor(
 
     private val uiEvents = Channel<AddRuleEvent>()
     val uiState = uiEvents.receiveAsFlow().runningFold(AddRuleState(), reducer::dispatch)
-        .stateIn(viewModelScope, SharingStarted.Eagerly, AddRuleState())
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), AddRuleState())
 
     private val _sideEffect: Channel<AddRuleSideEffect> = Channel()
     val sideEffect = _sideEffect.receiveAsFlow()
@@ -73,23 +73,23 @@ class AddRuleViewModel @Inject constructor(
                         PhotoUri(path)
                     } ?: throw NullPointerException("filePath가 null이다")
                 }
-                Timber.e("photoUris: $photoUris")
                 addRuleUseCase(
                     uiState.value.description,
                     uiState.value.name,
                     photoUris
                 )
             }.onSuccess {
-                _sideEffect.send(AddRuleSideEffect.LoadingBar(false))
                 _sideEffect.send(AddRuleSideEffect.PopBackStack)
             }.onFailure { e ->
-                Timber.e("addRule() - onFailure() - e: ${e.stackTraceToString()}")
                 if (e is HttpException) {
                     when (e.code()) {
                         DUPLICATE_CODE -> _sideEffect.send(AddRuleSideEffect.DuplicateToast)
+                        LIMITED_RULE_COUNT_CODE -> _sideEffect.send(AddRuleSideEffect.ShowLimitRuleCountDialog)
                     }
+                } else {
+                    Timber.e("addRule() - onFailure() - e: ${e.stackTraceToString()}")
+                    _sideEffect.send(AddRuleSideEffect.LoadingBar(false))
                 }
-                _sideEffect.send(AddRuleSideEffect.LoadingBar(false))
             }
         }
     }
@@ -104,6 +104,7 @@ sealed class AddRuleSideEffect {
     object IDLE : AddRuleSideEffect()
     data class LoadingBar(val isLoading: Boolean) : AddRuleSideEffect()
     object ShowLimitImageToast : AddRuleSideEffect()
+    object ShowLimitRuleCountDialog : AddRuleSideEffect()
     object DuplicateToast : AddRuleSideEffect()
     object PopBackStack : AddRuleSideEffect()
 }
