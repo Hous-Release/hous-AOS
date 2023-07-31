@@ -13,7 +13,7 @@ data class DetailRuleResponse(
         id = id,
         name = name,
         description = description ?: "",
-        images = images,
+        images = images.map { it.replace("/", "_") },
         updatedAt = updatedAt.substringBefore('T').replace('-', '.')
     )
 }

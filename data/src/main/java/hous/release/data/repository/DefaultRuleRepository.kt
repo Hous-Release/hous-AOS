@@ -26,6 +26,8 @@ class DefaultRuleRepository @Inject constructor(
     override suspend fun fetchDetailRule(id: Int): DetailRule =
         ruleDataSource.fetchDetailRuleBy(id).toDetailRule()
 
+    override suspend fun canAddRule(): Boolean = ruleDataSource.canAddRule()
+
     override suspend fun postAddedRule(
         description: String,
         name: String,
