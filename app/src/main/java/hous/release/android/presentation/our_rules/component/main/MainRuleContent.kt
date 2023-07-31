@@ -37,8 +37,7 @@ fun MainRuleContent(
                 .fillMaxSize()
                 .padding(
                     start = 16.dp,
-                    end = 16.dp,
-                    top = 20.dp
+                    end = 16.dp
                 ).pointerInput(Unit) {
                     detectTapGestures(
                         onTap = {
