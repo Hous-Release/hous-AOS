@@ -127,12 +127,12 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
             startActivity(Intent(requireContext(), ProfileEditActivity::class.java).apply {
                 with(profileViewModel.uiState.value.profile) {
                     putExtra(
-                        PROFILE, ProfileEntity(
-                            nickname, birthday, birthdayPublic, mbti, job, introduction
-                        )
+                        PROFILE,
+                        ProfileEntity(nickname, birthday, birthdayPublic, mbti, job, introduction)
                     )
                 }
-            })
+            }
+            )
         }
     }
 
