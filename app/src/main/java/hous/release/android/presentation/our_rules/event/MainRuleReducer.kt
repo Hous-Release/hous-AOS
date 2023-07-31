@@ -37,7 +37,6 @@ class MainRuleReducer @Inject constructor() : Reducer<MainRulesState, MainRulesE
                 Timber.e("LoadedImage photoUris: $photoUris")
                 val updatedImages = state.detailRule.images.mapIndexed { index, photo ->
                     photo.copy(
-                        isUploading = photoUris[index] == null,
                         filePath = photoUris[index]?.path
                     )
                 }
@@ -64,8 +63,7 @@ class MainRuleReducer @Inject constructor() : Reducer<MainRulesState, MainRulesE
         description = description,
         images = images.map { url ->
             PhotoUiModel(
-                url = url,
-                isUploading = true
+                url = url
             )
         },
         updatedAt = updatedAt

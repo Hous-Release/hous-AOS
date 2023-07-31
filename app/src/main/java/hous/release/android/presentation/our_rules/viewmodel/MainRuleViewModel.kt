@@ -35,7 +35,7 @@ class MainRuleViewModel @Inject constructor(
     private val uiEvents = Channel<MainRulesEvent>()
     val uiState = uiEvents.receiveAsFlow()
         .runningFold(MainRulesState(), reducer::dispatch)
-        .stateIn(viewModelScope, SharingStarted.Eagerly, MainRulesState())
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), MainRulesState())
 
     init {
         fetchMainRules()

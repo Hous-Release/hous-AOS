@@ -46,7 +46,10 @@ fun RuleNavGraph(
         route = RulesScreens.RULE_GRAPH_ROUTE
     ) {
         mainRuleScreen(navController)
-        addRuleScreen(onBack = navController::popBackStack)
+        addRuleScreen(onBack = {
+            Timber.e("popBackStack")
+            navController.popBackStack()
+        })
         updateRuleScreen(navController)
     }
 }
@@ -61,7 +64,7 @@ private fun NavGraphBuilder.mainRuleScreen(
         val activity = LocalContext.current.findActivity()
         val viewModel = hiltViewModel<MainRuleViewModel>()
         val uiState = viewModel.uiState.collectAsStateWithLifecycle()
-
+        Timber.e("mainRuleScreen uiState: $uiState")
         MainRuleScreen(
             detailRule = uiState.value.detailRule,
             mainRules = uiState.value.filteredRules,
@@ -70,7 +73,8 @@ private fun NavGraphBuilder.mainRuleScreen(
             onSearch = viewModel::searchRule,
             onNavigateToAddRule = navController::navigateToAddRule,
             onNavigateToUpdateRule = navController::navigateUpdateRule,
-            onFinish = activity::finish
+            onFinish = activity::finish,
+            refresh = viewModel::fetchMainRules
         )
     }
 }
@@ -100,8 +104,9 @@ private fun NavGraphBuilder.addRuleScreen(onBack: () -> Unit) {
         val viewModel = hiltViewModel<AddRuleViewModel>()
         val uiState = viewModel.uiState.collectAsStateWithLifecycle()
         var isOutDialogShow by remember { mutableStateOf(false) }
-        val sideEffect = viewModel.sideEffect.collectAsStateWithLifecycle(AddRuleSideEffect.IDLE)
         var isLoading by remember { mutableStateOf(false) }
+        var isShowLimitedDialog by remember { mutableStateOf(false) }
+        val sideEffect = viewModel.sideEffect.collectAsStateWithLifecycle(AddRuleSideEffect.IDLE)
         val context = LocalContext.current
         val takePhotoFromAlbumLauncher = rememberLauncherForActivityResult(
             ActivityResultContracts.PickMultipleVisualMedia(5)
@@ -118,9 +123,11 @@ private fun NavGraphBuilder.addRuleScreen(onBack: () -> Unit) {
             )
         }
         LaunchedEffect(sideEffect.value) {
+            Timber.e("sideEffect.value: $sideEffect")
             when (val event = sideEffect.value) {
                 is AddRuleSideEffect.IDLE -> Unit
                 is AddRuleSideEffect.DuplicateToast -> {
+                    isLoading = false
                     ToastMessageUtil.showToast(
                         context,
                         context.getString(R.string.our_rule_duplicate_rule)
@@ -139,7 +146,13 @@ private fun NavGraphBuilder.addRuleScreen(onBack: () -> Unit) {
                 }
 
                 is AddRuleSideEffect.PopBackStack -> {
+                    isLoading = false
                     onBack()
+                }
+
+                is AddRuleSideEffect.ShowLimitRuleCountDialog -> {
+                    isLoading = false
+                    isOutDialogShow = true
                 }
             }
         }
@@ -147,12 +160,15 @@ private fun NavGraphBuilder.addRuleScreen(onBack: () -> Unit) {
             if (uiState.value.name.isNotBlank()) {
                 isOutDialogShow = true
             } else {
+                Timber.d("onBackPressed")
                 onBack()
             }
         }
         BackHandler(uiState.value.name.isNotBlank(), onBackPressed)
         if (isLoading) LoadingBar()
-        AddRuleLimitedDialog()
+        if (isShowLimitedDialog) {
+            AddRuleLimitedDialog(onDismissRequest = { isShowLimitedDialog = false })
+        }
         if (isOutDialogShow) {
             AddRuleOutDialog(
                 onConfirm = {
