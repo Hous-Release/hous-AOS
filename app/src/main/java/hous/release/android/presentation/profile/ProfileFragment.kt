@@ -124,14 +124,23 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
 
     private fun initEditOnClickListener() {
         binding.btnProfileEdit.setOnSingleClickListener {
-            startActivity(Intent(requireContext(), ProfileEditActivity::class.java).apply {
-                with(profileViewModel.uiState.value.profile) {
-                    putExtra(
-                        PROFILE,
-                        ProfileEntity(nickname, birthday, birthdayPublic, mbti, job, introduction)
-                    )
+            startActivity(
+                Intent(requireContext(), ProfileEditActivity::class.java).apply {
+                    with(profileViewModel.uiState.value.profile) {
+                        putExtra(
+                            PROFILE,
+                            ProfileEntity(
+                                nickname,
+                                birthday,
+                                birthdayPublic,
+                                mbti,
+                                job,
+                                introduction
+                            )
+                        )
+                    }
                 }
-            })
+            )
         }
     }
 
