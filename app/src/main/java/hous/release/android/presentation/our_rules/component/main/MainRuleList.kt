@@ -13,6 +13,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -63,10 +64,14 @@ private fun MainRuleItem(
     onClick: () -> Unit = {},
     mainRule: MainRule = MainRule()
 ) {
+    val focusManager = LocalFocusManager.current
     HousRuleSlot(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick)
+            .clickable(onClick = {
+                focusManager.clearFocus()
+                onClick()
+            })
             .padding(start = 6.dp, top = 12.dp, bottom = 12.dp),
         text = mainRule.name,
         isShowTrailingIcon = mainRule.isNew,

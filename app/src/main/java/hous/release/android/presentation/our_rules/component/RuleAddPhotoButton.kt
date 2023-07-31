@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,11 +29,14 @@ fun RuleAddPhotoButton(
     isActiveButton: Boolean = true,
     onClick: () -> Unit = {}
 ) {
-    // button icon and Text("추가하기)
+    val focusManager = LocalFocusManager.current
     Row(
         modifier = Modifier.clickable(
             enabled = isActiveButton,
-            onClick = onClick
+            onClick = {
+                focusManager.clearFocus()
+                onClick()
+            }
         ),
         horizontalArrangement = Arrangement.spacedBy(6.dp),
         verticalAlignment = Alignment.CenterVertically
