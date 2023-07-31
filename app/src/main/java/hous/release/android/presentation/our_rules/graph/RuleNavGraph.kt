@@ -30,6 +30,7 @@ import hous.release.android.presentation.our_rules.screen.UpdateRuleScreen
 import hous.release.android.presentation.our_rules.screen.type.RulesScreens
 import hous.release.android.presentation.our_rules.viewmodel.AddRuleSideEffect
 import hous.release.android.presentation.our_rules.viewmodel.AddRuleViewModel
+import hous.release.android.presentation.our_rules.viewmodel.MainRuleSideEffect
 import hous.release.android.presentation.our_rules.viewmodel.MainRuleViewModel
 import hous.release.android.presentation.practice.findActivity
 import hous.release.android.util.ToastMessageUtil
@@ -64,14 +65,34 @@ private fun NavGraphBuilder.mainRuleScreen(
         val activity = LocalContext.current.findActivity()
         val viewModel = hiltViewModel<MainRuleViewModel>()
         val uiState = viewModel.uiState.collectAsStateWithLifecycle()
-        Timber.e("mainRuleScreen uiState: $uiState")
+        val sideEffect = viewModel.sideEffect.collectAsStateWithLifecycle(MainRuleSideEffect.IDLE)
+
+        var isShowLimitedAddRuleDialog by remember { mutableStateOf(false) }
+        LaunchedEffect(sideEffect.value) {
+            when (val event = sideEffect.value) {
+                is MainRuleSideEffect.IDLE -> Unit
+                is MainRuleSideEffect.ShowLimitedAddRuleDialog -> {
+                    if (event.isShow) {
+                        navController.navigateToAddRule()
+                    } else {
+                        isShowLimitedAddRuleDialog = true
+                    }
+                }
+            }
+        }
+        if (isShowLimitedAddRuleDialog) {
+            AddRuleLimitedDialog(onDismissRequest = {
+                isShowLimitedAddRuleDialog = false
+            })
+        }
+
         MainRuleScreen(
             detailRule = uiState.value.detailRule,
             mainRules = uiState.value.filteredRules,
             searchQuery = uiState.value.searchQuery,
             fetchDetailRuleById = viewModel::fetchDetailRule,
             onSearch = viewModel::searchRule,
-            onNavigateToAddRule = navController::navigateToAddRule,
+            onNavigateToAddRule = viewModel::canAddRule,
             onNavigateToUpdateRule = navController::navigateUpdateRule,
             onFinish = activity::finish,
             refresh = viewModel::fetchMainRules

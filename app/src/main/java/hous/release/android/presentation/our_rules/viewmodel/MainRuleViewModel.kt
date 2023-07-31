@@ -10,6 +10,7 @@ import hous.release.data.repository.RulePhotoRepository
 import hous.release.domain.entity.rule.DetailRule
 import hous.release.domain.entity.rule.MainRule
 import hous.release.domain.enums.PhotoUri
+import hous.release.domain.usecase.rule.CanAddRuleUseCase
 import hous.release.domain.usecase.rule.GetDetailRuleUseCase
 import hous.release.domain.usecase.rule.GetMainRulesUseCase
 import hous.release.domain.usecase.search.SearchRuleUseCase
@@ -28,28 +29,37 @@ class MainRuleViewModel @Inject constructor(
     private val photoSaver: RulePhotoRepository,
     private val getMainRulesUseCase: GetMainRulesUseCase,
     private val getDetailRuleUseCase: GetDetailRuleUseCase,
+    private val canAddRuleUseCase: CanAddRuleUseCase,
     private val searcher: SearchRuleUseCase,
     @MainRules private val reducer: Reducer<MainRulesState, MainRulesEvent>
 ) : ViewModel() {
 
     private val uiEvents = Channel<MainRulesEvent>()
-    val uiState = uiEvents.receiveAsFlow()
-        .runningFold(MainRulesState(), reducer::dispatch)
+    val uiState = uiEvents.receiveAsFlow().runningFold(MainRulesState(), reducer::dispatch)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), MainRulesState())
+
+    private val _sideEffect: Channel<MainRuleSideEffect> = Channel()
+    val sideEffect = _sideEffect.receiveAsFlow()
 
     init {
         fetchMainRules()
     }
 
+    fun canAddRule() {
+        viewModelScope.launch {
+            val canAddRule = canAddRuleUseCase()
+            Timber.e("canAddRule: $canAddRule")
+            _sideEffect.send(MainRuleSideEffect.ShowLimitedAddRuleDialog(canAddRule))
+        }
+    }
+
     fun fetchMainRules() {
         viewModelScope.launch {
-            runCatching { getMainRulesUseCase() }
-                .onSuccess { rules ->
-                    uiEvents.send(MainRulesEvent.FetchMainRules(rules))
-                }
-                .onFailure {
-                    Timber.e(it.stackTraceToString())
-                }
+            runCatching { getMainRulesUseCase() }.onSuccess { rules ->
+                uiEvents.send(MainRulesEvent.FetchMainRules(rules))
+            }.onFailure {
+                Timber.e(it.stackTraceToString())
+            }
         }
     }
 
@@ -66,20 +76,23 @@ class MainRuleViewModel @Inject constructor(
 
     fun fetchDetailRule(id: Int) {
         viewModelScope.launch {
-            runCatching { getDetailRuleUseCase(id) }
-                .onSuccess { _detailRule: DetailRule ->
-                    uiEvents.send(MainRulesEvent.FetchDetailRule(_detailRule))
-                    // image Url을 photo Uri로 변환하는 작업
-                    photoSaver.fetchRemotePhotosFlow(_detailRule.images).collectLatest {
-                        Timber.d("fetchRemotePhotosFlow: $it")
-                        uiEvents.send(MainRulesEvent.LoadedImage(it))
-                    }
+            runCatching { getDetailRuleUseCase(id) }.onSuccess { _detailRule: DetailRule ->
+                uiEvents.send(MainRulesEvent.FetchDetailRule(_detailRule))
+                // image Url을 photo Uri로 변환하는 작업
+                photoSaver.fetchRemotePhotosFlow(_detailRule.images).collectLatest {
+                    Timber.d("fetchRemotePhotosFlow: $it")
+                    uiEvents.send(MainRulesEvent.LoadedImage(it))
                 }
-                .onFailure {
-                    Timber.e(it.stackTraceToString())
-                }
+            }.onFailure {
+                Timber.e(it.stackTraceToString())
+            }
         }
     }
+}
+
+sealed class MainRuleSideEffect {
+    object IDLE : MainRuleSideEffect()
+    data class ShowLimitedAddRuleDialog(val isShow: Boolean) : MainRuleSideEffect()
 }
 
 sealed class MainRulesEvent {
