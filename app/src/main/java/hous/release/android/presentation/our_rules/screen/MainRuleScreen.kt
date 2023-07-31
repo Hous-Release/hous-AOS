@@ -7,7 +7,6 @@ import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,7 +25,6 @@ fun MainRuleScreen(
     mainRules: List<MainRule> = emptyList(),
     searchQuery: String = "",
     fetchDetailRuleById: (Int) -> Unit = {},
-    deleteAllPhotos: () -> Unit = {},
     onSearch: (String) -> Unit = {},
     onNavigateToUpdateRule: (DetailRuleUiModel) -> Unit = {},
     onNavigateToAddRule: () -> Unit = {},
@@ -42,10 +40,6 @@ fun MainRuleScreen(
         coroutineScope.launch {
             bottomSheetState.hide()
         }
-    }
-
-    LaunchedEffect(key1 = bottomSheetState.isVisible.not()) {
-        deleteAllPhotos()
     }
 
     ModalBottomSheetLayout(
