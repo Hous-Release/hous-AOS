@@ -117,8 +117,8 @@ fun PhotoItem(
 
 private fun Modifier.deleteButtonLayout() = this.layout { measurable, constraints ->
     val placeable = measurable.measure(constraints)
-    val placeableY = (placeable.height * 0.3f).toInt()
-    val placeableX = (placeable.width * 0.3f).toInt()
+    val placeableY = (placeable.height * 0.38f).toInt()
+    val placeableX = (placeable.width * 0.38f).toInt()
     layout(placeable.width, placeable.height) {
         placeable.place(
             x = placeableX,
@@ -130,6 +130,6 @@ private fun Modifier.deleteButtonLayout() = this.layout { measurable, constraint
 @SuppressLint("ModifierFactoryExtensionFunction", "UnnecessaryComposedModifier")
 fun LazyItemScope.photoWidthModifier(fraction: Float): Modifier = Modifier.composed {
     this
-        .fillParentMaxWidth(0.6f)
+        .fillParentMaxWidth(fraction)
         .aspectRatio(1f)
 }
