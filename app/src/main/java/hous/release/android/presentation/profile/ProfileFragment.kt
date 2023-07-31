@@ -131,8 +131,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
                         ProfileEntity(nickname, birthday, birthdayPublic, mbti, job, introduction)
                     )
                 }
-            }
-            )
+            })
         }
     }
 
