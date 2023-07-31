@@ -7,9 +7,13 @@ import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import hous.release.android.presentation.our_rules.component.main.DetailRuleBottomSheetContent
 import hous.release.android.presentation.our_rules.component.main.MainRuleContent
 import hous.release.android.presentation.our_rules.model.DetailRuleUiModel
@@ -28,14 +32,28 @@ fun MainRuleScreen(
     onSearch: (String) -> Unit = {},
     onNavigateToUpdateRule: (DetailRuleUiModel) -> Unit = {},
     onNavigateToAddRule: () -> Unit = {},
-    onFinish: () -> Unit = {}
+    onFinish: () -> Unit = {},
+    refresh: () -> Unit = {}
 ) {
     val coroutineScope = rememberCoroutineScope()
     val bottomSheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
         skipHalfExpanded = true
     )
+    val lifecycleOwner = LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                refresh()
+            }
+        }
 
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
     BackHandler(enabled = bottomSheetState.isVisible) {
         coroutineScope.launch {
             bottomSheetState.hide()
