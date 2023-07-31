@@ -11,7 +11,8 @@ import java.net.URL
 import javax.inject.Inject
 
 class RemoteImageCacher @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
+    private val fileNameFormatter: FileNameFormatter
 ) : ImageCacher {
 
     private val cacheFolder by lazy {
@@ -20,7 +21,8 @@ class RemoteImageCacher @Inject constructor(
         }
     }
 
-    private fun generatePhotoCacheFile(name: String) = File(cacheFolder, name.replace("/", "_"))
+    private fun generatePhotoCacheFile(name: String) =
+        File(cacheFolder, fileNameFormatter.formatImageName(name))
 
     override fun cacheImage(url: String): File? = runCatching {
         val connection = URL(url).openConnection() as HttpURLConnection

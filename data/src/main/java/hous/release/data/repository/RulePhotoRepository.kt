@@ -5,6 +5,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import hous.release.data.di.IoDispatcher
 import hous.release.data.di.LocalCache
 import hous.release.data.di.RemoteCache
+import hous.release.data.util.image.FileNameFormatter
 import hous.release.data.util.image.ImageCacher
 import hous.release.domain.enums.PhotoURL
 import hous.release.domain.enums.PhotoUri
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
@@ -21,7 +23,8 @@ class RulePhotoRepository @Inject constructor(
     @ApplicationContext context: Context,
     @RemoteCache private val remoteCacher: ImageCacher,
     @LocalCache private val localCacher: ImageCacher,
-    @IoDispatcher private val ioDispatchers: CoroutineDispatcher
+    @IoDispatcher private val ioDispatchers: CoroutineDispatcher,
+    private val fileNameFormatter: FileNameFormatter
 ) : PhotoRepository {
 
     private val cacheFolder by lazy {
@@ -32,14 +35,14 @@ class RulePhotoRepository @Inject constructor(
         File(context.cacheDir, "tmp_photos").also { if (it.exists().not()) it.mkdir() }
     }
 
-    private fun isExistPhoto(path: String) = (
+    private fun isExistPhoto(name: String) = (
         cacheFolder.listFiles()?.any {
-            it.name == path
+            it.name == name
         } ?: false
         ) || (
         tmpFolder.listFiles()?.any
         {
-            it.name == path
+            it.name == name
         } ?: false
         )
 
@@ -67,10 +70,11 @@ class RulePhotoRepository @Inject constructor(
         withContext(ioDispatchers) {
             urls.map {
                 val url = it.path
-                if (isExistPhoto(url).not()) {
+                val fileName = fileNameFormatter.formatImageName(url)
+                if (isExistPhoto(fileName).not()) {
                     remoteCacher.cacheImage(url) ?: error("캐시된 사진이 없습니다.")
                 } else {
-                    File(cacheFolder, url)
+                    File(cacheFolder, fileName)
                 }
             }
         }
@@ -78,21 +82,26 @@ class RulePhotoRepository @Inject constructor(
     // path에 해당하는 local 사진이 캐시되어 있는지 확인한 후, 캐시되어 있다면 반환한다.
     override suspend fun fetchPhotosByUri(uris: List<PhotoUri>): List<File> =
         withContext(ioDispatchers) {
-            uris.map {
+            val files = uris.map {
                 val uri = it.path
-                if (isExistPhoto(uri).not()) {
+                val fileName = fileNameFormatter.formatImageName(uri)
+
+                if (isExistPhoto(fileName).not()) {
                     localCacher.cacheImage(uri) ?: error("캐시된 사진이 없습니다.")
                 } else {
-                    File(tmpFolder, uri)
+                    Timber.e("캐시된 사진이 있습니다.")
+                    File(tmpFolder, fileName)
                 }
             }
+            files
         }
 
     // path에 해당하는 사진이 캐시되어 있는지 확인한 후, 캐시되어 있다면 삭제한다.
     override suspend fun removePhoto(path: String): Boolean {
+        val fileName = fileNameFormatter.formatImageName(path)
         return withContext(ioDispatchers) {
-            if (isExistPhoto(path)) {
-                File(cacheFolder, path).delete() || File(tmpFolder, path).delete()
+            if (isExistPhoto(fileName)) {
+                File(cacheFolder, fileName).delete() || File(tmpFolder, fileName).delete()
             } else {
                 false
             }

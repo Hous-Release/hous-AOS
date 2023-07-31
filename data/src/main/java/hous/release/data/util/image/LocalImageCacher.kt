@@ -7,7 +7,6 @@ import android.graphics.Matrix
 import android.media.ExifInterface
 import android.net.Uri
 import androidx.core.graphics.scale
-import androidx.core.net.toFile
 import androidx.core.net.toUri
 import dagger.hilt.android.qualifiers.ApplicationContext
 import timber.log.Timber
@@ -15,7 +14,8 @@ import java.io.File
 import javax.inject.Inject
 
 class LocalImageCacher @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
+    private val fileNameFormatter: FileNameFormatter
 ) : ImageCacher {
 
     private val tmpFolder by lazy {
@@ -24,10 +24,11 @@ class LocalImageCacher @Inject constructor(
         }
     }
 
-    private fun generatePhotoCacheFile(name: String) = File(tmpFolder, name)
+    private fun generatePhotoCacheFile(name: String) =
+        File(tmpFolder, fileNameFormatter.formatImageName(name))
 
     override fun cacheImage(path: String): File? {
-        val uri = File(path).toUri()
+        val uri = path.toUri()
         return runCatching {
             val options = BitmapFactory.Options()
             context.contentResolver.openInputStream(uri).use { input ->
@@ -43,10 +44,13 @@ class LocalImageCacher @Inject constructor(
                     compress(Bitmap.CompressFormat.JPEG, 100, output)
                     if (isRecycled.not()) recycle()
                 }
+                Timber.e(
+                    "cacheImage() : ${cachedFile.exists()}"
+                )
                 cachedFile
             }
         }.onFailure {
-            Timber.e(it.stackTraceToString())
+            Timber.e("cacheImage() :" + it.stackTraceToString())
         }.getOrNull()
     }
 
@@ -109,7 +113,7 @@ class LocalImageCacher @Inject constructor(
      */
     private fun getOrientationOfImage(uri: Uri): Int {
         return runCatching {
-            context.contentResolver.openInputStream(uri.toFile().toUri())?.use { input ->
+            context.contentResolver.openInputStream(uri)?.use { input ->
                 val orientation = ExifInterface(input).getAttributeInt(
                     ExifInterface.TAG_ORIENTATION,
                     ExifInterface.ORIENTATION_NORMAL
