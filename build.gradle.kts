@@ -6,6 +6,7 @@ buildscript {
         classpath(Deps.DI.hiltClassPath)
         classpath(Deps.Google.googleServices)
         classpath(Deps.Test.junit5Path)
+        classpath(Deps.ThirdParty.Glide.transformations)
     }
 }
 

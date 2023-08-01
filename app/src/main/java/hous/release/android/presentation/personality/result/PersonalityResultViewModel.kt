@@ -15,30 +15,17 @@ import javax.inject.Inject
 class PersonalityResultViewModel @Inject constructor(
     private val getPersonalityResultUseCase: GetPersonalityResultUseCase
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(PersonalityResultUiState())
+    private val _uiState = MutableStateFlow(PersonalityResult())
     val uiState = _uiState.asStateFlow()
 
     fun getPersonalityResult(personalityColor: String) {
         viewModelScope.launch {
             getPersonalityResultUseCase(personalityColor)
                 .onSuccess { response ->
-                    _uiState.value = _uiState.value.copy(
-                        personalityResult = response
-                    )
+                    _uiState.value = response
                 }.onFailure {
                     Timber.e(it.message)
                 }
         }
     }
-
-    fun initFromTestResult(fromTestResult: Boolean) {
-        _uiState.value = PersonalityResultUiState().copy(
-            fromTestResult = fromTestResult
-        )
-    }
-
-    data class PersonalityResultUiState(
-        val personalityResult: PersonalityResult = PersonalityResult(),
-        val fromTestResult: Boolean = false
-    )
 }

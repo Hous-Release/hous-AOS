@@ -122,6 +122,7 @@
     <string name="our_rule_edit">수정하기</string>
     <string name="our_rule_menu_edit_representation">Rules 편집</string>
     <string name="our_rule_menu_edit_guide">가이드 다시보기</string>
+
     <!-- EnterRoom -->
     <string name="enter_room_settings_img_desc">설정 버튼</string>
     <string name="enter_room_title">이제 하우스에 입장해볼까요?</string>
@@ -165,6 +166,8 @@
     <string name="hous_empty_my_todo">아직 내 to-do가 없어요!</string>>
     <string name="hous_toast_copy">초대코드가 복사되었습니다.</string>
     <string name="hous_not_tested_yet">아직 성향 테스트를 하지 않은 호미예요!</string>
+    <string name="hous_empty_homies">아직 나의 성향을 확인해 보지 않았어요!</string>
+    <string name="hous_check_personality">나의 호미 성향 확인하기</string>
 
     <!-- EditHousName -->
     <string name="edit_hous_name_back_img_desc">back button</string>
@@ -312,7 +315,6 @@
     <string name="noti_settings_badge_desc">우리 집에서 새로 받은 배지를 알려줘요!</string>
 
     <!-- Personality Test Result -->
-    <string name="personality_result_detail">성향 설명</string>
     <string name="personality_result_info">성향 설명</string>
     <string name="personality_result_complete">완료</string>
     <string name="personality_result_good">찰떡궁합</string>
