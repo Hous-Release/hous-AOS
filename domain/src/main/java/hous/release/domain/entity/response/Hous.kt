@@ -8,7 +8,8 @@ data class Hous(
     val progress: Int = -1,
     val roomName: String = "",
     val roomCode: String = "",
-    val userNickname: String = ""
+    val userNickname: String = "",
+    val isPersonalityTest: Boolean = false
 )
 
 data class Homy(
