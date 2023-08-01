@@ -12,8 +12,11 @@ class WithdrawDoneFragment :
     BindingFragment<FragmentWithdrawDoneBinding>(R.layout.fragment_withdraw_done) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initReturnBtnClickListener()
+    }
 
-        binding.onboarding.setOnClickListener {
+    private fun initReturnBtnClickListener() {
+        binding.tvWithdrawDoneReturn.setOnClickListener {
             requireActivity().finish()
         }
     }
