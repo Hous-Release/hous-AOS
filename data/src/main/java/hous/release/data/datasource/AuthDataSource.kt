@@ -1,7 +1,6 @@
 package hous.release.data.datasource
 
 import android.content.SharedPreferences
-import hous.release.data.entity.request.DeleteUserRequest
 import hous.release.data.entity.request.LoginRequest
 import hous.release.data.entity.request.SignUpRequest
 import hous.release.data.entity.response.BaseResponse
@@ -9,7 +8,6 @@ import hous.release.data.entity.response.LoginResponse
 import hous.release.data.entity.response.NoDataResponse
 import hous.release.data.entity.response.SignUpResponse
 import hous.release.data.service.AuthService
-import hous.release.domain.entity.FeedbackType
 import javax.inject.Inject
 
 class AuthDataSource @Inject constructor(
@@ -42,13 +40,9 @@ class AuthDataSource @Inject constructor(
             )
         )
 
-    suspend fun deleteUser(feedbackType: FeedbackType, comment: String): NoDataResponse =
-        authService.deleteUser(
-            DeleteUserRequest(
-                feedbackType = feedbackType.name,
-                comment = comment
-            )
-        )
+    /** TODO 영주 : 회원탈퇴 api 구현 */
+    suspend fun deleteUser(): NoDataResponse =
+        authService.deleteUser()
 
     suspend fun postLogout(): NoDataResponse =
         authService.postLogout()

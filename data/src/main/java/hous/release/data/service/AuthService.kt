@@ -1,6 +1,5 @@
 package hous.release.data.service
 
-import hous.release.data.entity.request.DeleteUserRequest
 import hous.release.data.entity.request.LoginRequest
 import hous.release.data.entity.request.SignUpRequest
 import hous.release.data.entity.response.BaseResponse
@@ -22,10 +21,9 @@ interface AuthService {
         @Body body: SignUpRequest
     ): BaseResponse<SignUpResponse>
 
+    /** TODO 영주 : 회원탈퇴 api 구현 */
     @HTTP(method = "DELETE", path = "/v1/user", hasBody = true)
-    suspend fun deleteUser(
-        @Body body: DeleteUserRequest
-    ): NoDataResponse
+    suspend fun deleteUser(): NoDataResponse
 
     @POST("/v1/auth/logout")
     suspend fun postLogout(): NoDataResponse

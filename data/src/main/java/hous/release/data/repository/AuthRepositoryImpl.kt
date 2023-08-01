@@ -5,14 +5,13 @@ import com.google.firebase.messaging.FirebaseMessaging
 import hous.release.data.datasource.AuthDataSource
 import hous.release.data.datasource.LocalPrefTokenDataSource
 import hous.release.data.datasource.LocalSplashDataSource
-import hous.release.domain.entity.FeedbackType
 import hous.release.domain.entity.SplashState
 import hous.release.domain.entity.Token
 import hous.release.domain.entity.response.Login
 import hous.release.domain.entity.response.SignUp
 import hous.release.domain.repository.AuthRepository
-import javax.inject.Inject
 import timber.log.Timber
+import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val authDataSource: AuthDataSource,
@@ -75,12 +74,10 @@ class AuthRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun deleteUser(feedbackType: FeedbackType, comment: String): Result<Boolean> =
+    /** TODO 영주 : 회원탈퇴 api 구현 */
+    override suspend fun deleteUser(): Result<Boolean> =
         kotlin.runCatching {
-            authDataSource.deleteUser(
-                feedbackType = feedbackType,
-                comment = comment
-            )
+            authDataSource.deleteUser()
         }.map { response ->
             response.success
         }
