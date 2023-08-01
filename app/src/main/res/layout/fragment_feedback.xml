@@ -16,6 +16,8 @@
         android:layout_height="match_parent"
         tools:context=".presentation.withdraw.FeedbackFragment">
 
+        <!-- TODO 영주 : back 버튼을 만들어야 할 수도.. -->
+
         <TextView
             android:id="@+id/tv_feedback_title"
             android:layout_width="wrap_content"
