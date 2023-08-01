@@ -2,26 +2,50 @@ package hous.release.android.presentation.withdraw
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentWithdrawBinding
+import hous.release.android.util.UiEvent
 import hous.release.android.util.binding.BindingFragment
+import hous.release.android.util.dialog.LoadingDialogFragment
+import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class WithdrawFragment : BindingFragment<FragmentWithdrawBinding>(R.layout.fragment_withdraw) {
-    private val withdrawViewModel by activityViewModels<WithdrawViewModel>()
+    private val withdrawViewModel by viewModels<WithdrawViewModel>()
+    private val loadingDialog = LoadingDialogFragment()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = withdrawViewModel
-        initWithdrawDoneClickListener()
+        collectUiEvent()
         initBackBtnClickListener()
     }
 
-    /** TODO 영주 : 클릭리스너 없애고 데바로 탈퇴하기 api 연결 후 옵저버로 넘기는거 구현 */
+    /** TODO 영주 : 탈퇴하기 로직 어떻게 세워질지 보고 함수 살릴지 죽일지 결정 */
+    private fun collectUiEvent() {
+        repeatOnStarted {
+            withdrawViewModel.uiEvent.collect { uiEvent ->
+                when (uiEvent) {
+                    UiEvent.LOADING -> {
+                        loadingDialog.show(childFragmentManager, LoadingDialogFragment.TAG)
+                    }
+                    UiEvent.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        findNavController().navigate(R.id.action_withdrawFragment_to_feedbackFragment)
+                    }
+                    UiEvent.ERROR -> {
+                        loadingDialog.dismiss()
+                    }
+                }
+            }
+        }
+    }
+
+    /** TODO 영주 : 탈퇴하기 로직 어떻게 세워질지 보고 함수 살릴지 죽일지 결정 */
     private fun initWithdrawDoneClickListener() {
         binding.tvWithdrawDone.setOnSingleClickListener {
             findNavController().navigate(R.id.action_withdrawFragment_to_feedbackFragment)

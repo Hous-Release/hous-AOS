@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.util.UiEvent
-import hous.release.domain.entity.FeedbackType
-import hous.release.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -16,33 +14,21 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WithdrawViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+    /** TODO 영주 : 탈퇴하기 api 유즈케이스 */
 ) : ViewModel() {
-    private var feedbackType = FeedbackType.NO
-
-    val comment = MutableStateFlow("")
+    private val _uiEvent = MutableSharedFlow<UiEvent>()
+    val uiEvent: SharedFlow<UiEvent> = _uiEvent.asSharedFlow()
 
     val isCheckedWithdraw = MutableStateFlow(false)
 
-    private val _withdrawUiEvent = MutableSharedFlow<UiEvent>()
-    val withdrawUiEvent: SharedFlow<UiEvent> = _withdrawUiEvent.asSharedFlow()
-
-    fun initFeedbackType(type: FeedbackType) {
-        feedbackType = type
-    }
-
+    /** TODO 영주 : 여기에서 탈퇴하기 api 호출 안 할 수도 있음!!! */
     fun deleteUser() {
         viewModelScope.launch {
-            _withdrawUiEvent.emit(UiEvent.LOADING)
-            authRepository.deleteUser(feedbackType = feedbackType, comment = comment.value)
-                .onSuccess {
-                    authRepository.clearLocalPref()
-                    _withdrawUiEvent.emit(UiEvent.SUCCESS)
-                }
-                .onFailure {
-                    Timber.d(it.message.toString())
-                    _withdrawUiEvent.emit(UiEvent.ERROR)
-                }
+            Timber.e("로딩")
+            _uiEvent.emit(UiEvent.LOADING)
+            /** TODO 영주 : 탈퇴하기 api 호출*/
+            Timber.e("탈퇴성공")
+            _uiEvent.emit(UiEvent.SUCCESS)
         }
     }
 }
