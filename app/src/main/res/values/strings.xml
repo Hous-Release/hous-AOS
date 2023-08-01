@@ -361,10 +361,10 @@
     <!-- Feedback -->
     <string name="feedback_title">피드백 보내기</string>
     <string name="feedback_done">보내기</string>
+    <string name="feedback_skip">건너뛰기</string>
     <string name="feedback_help">더 나은 Hous- 가 될 수 있도록 도와주세요!</string>
     <string name="feedback_help_desc">그동안 서비스를 사용하면서 느꼈던 점을 남겨주시면,\n서비스 개선에 적극적으로 반영하겠습니다.</string>
     <string name="feedback_count">%d/200</string>
-
 
     <!-- NetworkError -->
     <string name="network_error_img_desc">네트워크 에러 이미지</string>
