@@ -225,8 +225,8 @@
     <string name="to_do_limit_title">to-do 개수 초과</string>
     <string name="to_do_limit_content">우리 집 to-do가 너무 많아요!\n필요하지 않은 to-do를 삭제하고\n다시 시도해주세요~</string>
     <string name="todo_limit_confirm">알겠어요!</string>
-    <string name="todo_main_empty_progress">아직 완료할 to-do가 없어요!</string>
-    <string name="to_do_my_empty">아직 담당하는 to-do가 없어요!</string>
+    <string name="todo_main_empty_progress">아직 우리 집 to-do가 없어요!</string>
+    <string name="to_do_my_empty">오늘은 쉬는 날! 내 담당 to-do가 없어요!</string>
     <string name="to_do_our_empty">우리 집 to-do를 추가해 봐요!</string>
 
     <!-- Profile -->
