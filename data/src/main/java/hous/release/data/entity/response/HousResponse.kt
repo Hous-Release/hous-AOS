@@ -12,7 +12,8 @@ data class HousResponse(
     val progress: Int,
     val roomName: String,
     val roomCode: String,
-    val userNickname: String
+    val userNickname: String,
+    val isPersonalityTest: Boolean
 ) {
     fun toHous(): Hous = Hous(
         homies = this.homies.map { homyEntity ->
@@ -28,7 +29,8 @@ data class HousResponse(
         progress = this.progress,
         roomName = this.roomName,
         roomCode = this.roomCode,
-        userNickname = this.userNickname
+        userNickname = this.userNickname,
+        isPersonalityTest = this.isPersonalityTest
     )
 }
 

@@ -78,6 +78,7 @@
 
     <!-- Kakao -->
     <string name="login_kakao_login">카카오톡으로 계속하기</string>
+    <string name="login_desc">로그인 시 이용약관 및 개인정보 처리 방침에 동의하게 됩니다.</string>
 
     <!-- UserInput -->
     <string name="user_input_user_info">회원 정보 입력</string>
@@ -121,6 +122,7 @@
     <string name="our_rule_edit">수정하기</string>
     <string name="our_rule_menu_edit_representation">Rules 편집</string>
     <string name="our_rule_menu_edit_guide">가이드 다시보기</string>
+
     <!-- EnterRoom -->
     <string name="enter_room_settings_img_desc">설정 버튼</string>
     <string name="enter_room_title">이제 하우스에 입장해볼까요?</string>
@@ -164,6 +166,8 @@
     <string name="hous_empty_my_todo">아직 내 to-do가 없어요!</string>>
     <string name="hous_toast_copy">초대코드가 복사되었습니다.</string>
     <string name="hous_not_tested_yet">아직 성향 테스트를 하지 않은 호미예요!</string>
+    <string name="hous_empty_homies">아직 나의 성향을 확인해 보지 않았어요!</string>
+    <string name="hous_check_personality">나의 호미 성향 확인하기</string>
 
     <!-- EditHousName -->
     <string name="edit_hous_name_back_img_desc">back button</string>
@@ -311,7 +315,6 @@
     <string name="noti_settings_badge_desc">우리 집에서 새로 받은 배지를 알려줘요!</string>
 
     <!-- Personality Test Result -->
-    <string name="personality_result_detail">성향 설명</string>
     <string name="personality_result_info">성향 설명</string>
     <string name="personality_result_complete">완료</string>
     <string name="personality_result_good">찰떡궁합</string>
@@ -327,12 +330,13 @@
     <!-- Profile Edit -->
     <string name="profile_edit_title">프로필 수정</string>
     <string name="profile_edit_save">저장</string>
-    <string name="profile_edit_birthday_public">생일 공개</string>
-    <string name="profile_edit_hint_nickname">닉네임</string>
-    <string name="profile_edit_hint_mbti">MBTI</string>
-    <string name="profile_edit_hint_job">직업</string>
-    <string name="profile_edit_hint_introduction">자기소개</string>
-    <string name="profile_edit_hint_birthday">생년월일</string>
+    <string name="profile_edit_birthday_private">생일 정보 비공개</string>
+    <string name="profile_edit_nickname">이름</string>
+    <string name="profile_edit_required">*</string>
+    <string name="profile_edit_mbti">MBTI</string>
+    <string name="profile_edit_job">직업</string>
+    <string name="profile_edit_introduction">자기소개</string>
+    <string name="profile_edit_birthday">생년월일</string>
 
     <!-- OutRoom -->
     <string name="out_room_title">방 퇴사하기</string>

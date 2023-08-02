@@ -19,8 +19,7 @@ class PersonalityResultActivity :
         super.onCreate(savedInstanceState)
         binding.vm = personalityResultViewModel
         initPersonalityResult()
-        initTitlePosition()
-        initBackOnClickListener()
+        initBackBtnClickListener()
         initPersonalityImage()
     }
 
@@ -30,21 +29,14 @@ class PersonalityResultActivity :
         )
     }
 
-    private fun initTitlePosition() {
-        when (intent.getStringExtra(LOCATION)) {
-            RESULT -> personalityResultViewModel.initFromTestResult(true)
-            else -> personalityResultViewModel.initFromTestResult(false)
-        }
-    }
-
     private fun initPersonalityImage() {
         repeatOnStarted {
             personalityResultViewModel.uiState.collect { uiState ->
                 binding.cvPersonalityResultImage.setContent {
                     HousTheme {
                         PersonalityResultImage(
-                            homyType = uiState.personalityResult.color,
-                            imageUrl = uiState.personalityResult.imageUrl
+                            homyType = uiState.color,
+                            imageUrl = uiState.imageUrl
                         )
                     }
                 }
@@ -52,19 +44,13 @@ class PersonalityResultActivity :
         }
     }
 
-    private fun initBackOnClickListener() {
-        binding.tvPersonalityResultComplete.setOnClickListener {
-            finish()
-        }
-
+    private fun initBackBtnClickListener() {
         binding.btnPersonalityResultBack.setOnClickListener {
             finish()
         }
     }
 
     companion object {
-        const val LOCATION = "location"
-        const val RESULT = "result"
         const val RESULT_COLOR = "resultColor"
     }
 }
