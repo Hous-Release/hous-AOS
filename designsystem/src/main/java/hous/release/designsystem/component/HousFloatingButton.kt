@@ -25,7 +25,7 @@ fun FabScreenSlot(
 ) {
     content()
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(end = 12.dp, bottom = 20.dp),
         contentAlignment = Alignment.BottomEnd
