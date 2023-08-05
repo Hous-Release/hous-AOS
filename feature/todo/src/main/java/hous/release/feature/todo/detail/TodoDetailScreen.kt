@@ -46,7 +46,8 @@ import androidx.lifecycle.lifecycleScope
 import hous.release.designsystem.component.FabScreenSlot
 import hous.release.designsystem.component.HousDialog
 import hous.release.designsystem.component.HousLimitDialog
-import hous.release.designsystem.component.HousSearchTextField
+import hous.release.designsystem.component.HousTextField
+import hous.release.designsystem.component.SEARCH_TEXT_FIELD
 import hous.release.designsystem.theme.HousG5
 import hous.release.designsystem.theme.HousTheme
 import hous.release.domain.entity.TodoDetail
@@ -222,7 +223,9 @@ private fun TodoDetailContent(
     ) {
         TodoDetailToolbar(finish = finish)
         Spacer(modifier = Modifier.height(4.dp))
-        HousSearchTextField(
+        HousTextField(
+            textFiledMode = SEARCH_TEXT_FIELD,
+            modifier = Modifier,
             text = searchText,
             hint = stringResource(R.string.todo_detail_textfield_hint),
             onTextChange = writeSearchText
@@ -299,13 +302,15 @@ private fun EmptyGuideText(
 ) {
     val focusManager = LocalFocusManager.current
     Box(
-        modifier = Modifier.fillMaxSize().pointerInput(Unit) {
-            detectTapGestures(
-                onPress = {
-                    focusManager.clearFocus()
-                }
-            )
-        },
+        modifier = Modifier
+            .fillMaxSize()
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onPress = {
+                        focusManager.clearFocus()
+                    }
+                )
+            },
         contentAlignment = Alignment.Center
     ) {
         Text(

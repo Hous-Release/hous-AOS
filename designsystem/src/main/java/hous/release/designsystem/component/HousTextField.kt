@@ -27,10 +27,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -47,49 +47,6 @@ import hous.release.designsystem.theme.HousTheme
 const val SEARCH_TEXT_FIELD = 0
 const val RIGHT_LIMITED_TEXT_FIELD = 1
 const val BOTTOM_END_TEXT_FIELD = 2
-
-@Composable
-fun HousLeftLimitedTextField(
-    modifier: Modifier = Modifier,
-    text: String,
-    color: Color,
-    limitTextCount: Int,
-    localFocusManager: FocusManager = LocalFocusManager.current,
-    onTextChange: (String) -> Unit
-) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(color)
-            .padding(horizontal = 16.dp, vertical = 11.dp)
-    ) {
-        HousTextField(
-            textFiledMode = RIGHT_LIMITED_TEXT_FIELD,
-            modifier = Modifier
-                .height(IntrinsicSize.Min)
-                .weight(1f),
-            text = text,
-            onTextChange = { innerText ->
-                if (innerText.length <= limitTextCount) onTextChange(innerText)
-            },
-            keyboardOptions = KeyboardOptions.Default.copy(
-                capitalization = KeyboardCapitalization.Sentences,
-                autoCorrect = true,
-                keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Done
-            ),
-            keyboardActions = KeyboardActions(
-                onDone = { localFocusManager.clearFocus() }
-            ),
-        )
-        Text(
-            text = "${text.length}/$limitTextCount",
-            style = HousTheme.typography.en2,
-            color = HousG5
-        )
-    }
-}
 
 @Composable
 @Deprecated(
@@ -224,7 +181,11 @@ private fun HousRightLimitedTextField(
     ) {
         innerTextField()
         Text(
-            text = "${text.length}/${limitTextCount}",
+            text = String.format(
+                stringResource(id = R.string.text_field_limit_count),
+                text.length,
+                limitTextCount
+            ),
             style = HousTheme.typography.en2,
             color = HousG5
         )
@@ -246,7 +207,11 @@ private fun HousBottomEndLimitedTextField(
             modifier = Modifier
                 .wrapContentSize()
                 .fillMaxWidth(),
-            text = "${text.length}/${limitTextCount}",
+            text = String.format(
+                stringResource(id = R.string.text_field_limit_count),
+                text.length,
+                limitTextCount
+            ),
             textAlign = TextAlign.End,
             style = HousTheme.typography.en2,
             color = HousG5
