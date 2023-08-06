@@ -31,6 +31,7 @@ class FeedbackViewModel @Inject constructor(
             postWithdrawFeedbackUseCase(comment = comment.value)
                 .onSuccess {
                     _uiEvent.emit(UiEvent.SUCCESS)
+                    comment.value = ""
                 }.onFailure { throwable ->
                     Timber.e(throwable)
                 }
