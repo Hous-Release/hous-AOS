@@ -1,4 +1,4 @@
-package hous.release.android.presentation.withdraw
+package hous.release.android.presentation.withdraw.feedback
 
 import android.annotation.SuppressLint
 import android.os.Bundle

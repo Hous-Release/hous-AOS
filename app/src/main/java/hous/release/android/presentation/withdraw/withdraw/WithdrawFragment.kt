@@ -1,4 +1,4 @@
-package hous.release.android.presentation.withdraw
+package hous.release.android.presentation.withdraw.withdraw
 
 import android.os.Bundle
 import android.view.View

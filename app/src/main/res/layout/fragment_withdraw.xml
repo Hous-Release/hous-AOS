@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="hous.release.android.presentation.withdraw.WithdrawViewModel" />
+            type="hous.release.android.presentation.withdraw.withdraw.WithdrawViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.withdraw.WithdrawFragment">
+        tools:context=".presentation.withdraw.withdraw.WithdrawFragment">
 
         <ImageButton
             android:id="@+id/btn_withdraw_back"

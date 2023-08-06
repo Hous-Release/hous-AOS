@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.withdraw.WithdrawDoneFragment">
+        tools:context=".presentation.withdraw.withdrawDone.WithdrawDoneFragment">
 
         <TextView
             android:id="@+id/tv_withdraw_done_return"

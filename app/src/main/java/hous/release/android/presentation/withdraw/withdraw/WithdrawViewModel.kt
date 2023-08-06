@@ -1,10 +1,13 @@
-package hous.release.android.presentation.withdraw
+package hous.release.android.presentation.withdraw.withdraw
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.util.UiEvent
-import hous.release.domain.usecase.PostWithdrawFeedbackUseCase
+import hous.release.domain.entity.SplashState
+import hous.release.domain.usecase.ClearLocalPrefUseCase
+import hous.release.domain.usecase.DeleteUserUseCase
+import hous.release.domain.usecase.SetSplashStateUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -14,37 +17,27 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class FeedbackViewModel @Inject constructor(
-    private val postWithdrawFeedbackUseCase: PostWithdrawFeedbackUseCase
+class WithdrawViewModel @Inject constructor(
+    private val deleteUserUseCase: DeleteUserUseCase,
+    private val clearLocalPrefUseCase: ClearLocalPrefUseCase,
+    private val setSplashStateUseCase: SetSplashStateUseCase
 ) : ViewModel() {
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent: SharedFlow<UiEvent> = _uiEvent.asSharedFlow()
 
-    private val _isSkip = MutableSharedFlow<Boolean>()
-    val isSkip = _isSkip.asSharedFlow()
+    val isCheckedWithdraw = MutableStateFlow(false)
 
-    val comment = MutableStateFlow("")
-
-    private fun postFeedback() {
+    fun deleteUser() {
         viewModelScope.launch {
             _uiEvent.emit(UiEvent.LOADING)
-            postWithdrawFeedbackUseCase(comment = comment.value)
+            deleteUserUseCase()
                 .onSuccess {
+                    clearLocalPrefUseCase()
+                    setSplashStateUseCase(SplashState.LOGIN)
                     _uiEvent.emit(UiEvent.SUCCESS)
-                    comment.value = ""
                 }.onFailure { throwable ->
                     Timber.e(throwable)
                 }
-        }
-    }
-
-    fun onClickDone() {
-        viewModelScope.launch {
-            if (comment.value.isEmpty()) {
-                _isSkip.emit(true)
-            } else {
-                postFeedback()
-            }
         }
     }
 }
