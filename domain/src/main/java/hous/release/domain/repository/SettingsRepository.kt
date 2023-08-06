@@ -18,4 +18,6 @@ interface SettingsRepository {
     suspend fun getSettingsMyToDo(): Result<SettingsMyToDo>
 
     suspend fun deleteRoom(): Result<Boolean>
+
+    suspend fun postWithdrawFeedback(comment: String): Result<Unit>
 }

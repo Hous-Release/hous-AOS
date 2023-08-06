@@ -1,5 +1,6 @@
 package hous.release.data.datasource
 
+import hous.release.data.entity.request.FeedbackRequest
 import hous.release.data.entity.request.NotificationSettingsRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.NoDataResponse
@@ -38,4 +39,7 @@ class SettingsDataSource @Inject constructor(
 
     suspend fun deleteRoom(): NoDataResponse =
         settingsService.deleteRoom()
+
+    suspend fun postWithdrawFeedback(comment: String): NoDataResponse =
+        settingsService.postWithdrawFeedback(FeedbackRequest(comment = comment))
 }
