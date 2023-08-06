@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_withdraw"
-    app:startDestination="@id/withdrawFragment">
+    app:startDestination="@id/feedbackFragment">
 
     <fragment
         android:id="@+id/feedbackFragment"
@@ -19,6 +19,8 @@
         android:id="@+id/withdrawFragment"
         android:name="hous.release.android.presentation.withdraw.WithdrawFragment"
         android:label="WithdrawFragment"
+        app:popUpTo="@id/feedbackFragment"
+        app:popUpToInclusive="true"
         tools:layout="@layout/fragment_withdraw">
         <action
             android:id="@+id/action_withdrawFragment_to_withdrawDoneFragment"

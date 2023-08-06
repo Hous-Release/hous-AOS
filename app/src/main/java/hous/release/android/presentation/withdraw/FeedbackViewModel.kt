@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -21,8 +20,8 @@ class FeedbackViewModel @Inject constructor(
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent: SharedFlow<UiEvent> = _uiEvent.asSharedFlow()
 
-    private val _isSkip = MutableStateFlow(false)
-    val isSkip = _isSkip.asStateFlow()
+    private val _isSkip = MutableSharedFlow<Boolean>()
+    val isSkip = _isSkip.asSharedFlow()
 
     val comment = MutableStateFlow("")
 
@@ -39,10 +38,12 @@ class FeedbackViewModel @Inject constructor(
     }
 
     fun onClickDone() {
-        if (comment.value.isEmpty()) {
-            _isSkip.value = true
-        } else {
-            postFeedback()
+        viewModelScope.launch {
+            if (comment.value.isEmpty()) {
+                _isSkip.emit(true)
+            } else {
+                postFeedback()
+            }
         }
     }
 }

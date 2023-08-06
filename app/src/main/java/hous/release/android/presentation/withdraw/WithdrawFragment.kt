@@ -24,7 +24,6 @@ class WithdrawFragment : BindingFragment<FragmentWithdrawBinding>(R.layout.fragm
         initBackBtnClickListener()
     }
 
-    /** TODO 영주 : 탈퇴하기 로직 어떻게 세워질지 보고 함수 살릴지 죽일지 결정 */
     private fun collectUiEvent() {
         repeatOnStarted {
             withdrawViewModel.uiEvent.collect { uiEvent ->
@@ -46,7 +45,7 @@ class WithdrawFragment : BindingFragment<FragmentWithdrawBinding>(R.layout.fragm
 
     private fun initBackBtnClickListener() {
         binding.btnWithdrawBack.setOnClickListener {
-            requireActivity().finish()
+            findNavController().popBackStack()
         }
     }
 }
