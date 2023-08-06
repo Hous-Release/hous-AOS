@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
@@ -31,10 +33,15 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -46,7 +53,8 @@ import androidx.lifecycle.lifecycleScope
 import hous.release.designsystem.component.FabScreenSlot
 import hous.release.designsystem.component.HousDialog
 import hous.release.designsystem.component.HousLimitDialog
-import hous.release.designsystem.component.HousSearchTextField
+import hous.release.designsystem.component.HousTextField
+import hous.release.designsystem.component.SEARCH_TEXT_FIELD
 import hous.release.designsystem.theme.HousG5
 import hous.release.designsystem.theme.HousTheme
 import hous.release.domain.entity.TodoDetail
@@ -203,29 +211,41 @@ private fun TodoDetailContent(
     selectedDayOfWeek: String,
     selectedHomies: String,
     todos: List<TodoWithNew>,
+    localFocusManager: FocusManager = LocalFocusManager.current,
     writeSearchText: (String) -> Unit,
     showFilterBottomSheet: () -> Unit,
     showToDoDetailBottomSheet: (Int) -> Unit,
     finish: () -> Unit
 ) {
-    val focusManager = LocalFocusManager.current
     Column(
         modifier = Modifier
+            .fillMaxSize()
             .padding(horizontal = 16.dp)
             .pointerInput(Unit) {
                 detectTapGestures(
                     onPress = {
-                        focusManager.clearFocus()
+                        localFocusManager.clearFocus()
                     }
                 )
             }
     ) {
         TodoDetailToolbar(finish = finish)
         Spacer(modifier = Modifier.height(4.dp))
-        HousSearchTextField(
+        HousTextField(
+            textFiledMode = SEARCH_TEXT_FIELD,
+            modifier = Modifier,
             text = searchText,
             hint = stringResource(R.string.todo_detail_textfield_hint),
-            onTextChange = writeSearchText
+            onTextChange = writeSearchText,
+            keyboardOptions = KeyboardOptions.Default.copy(
+                capitalization = KeyboardCapitalization.Sentences,
+                autoCorrect = true,
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = { localFocusManager.clearFocus() }
+            )
         )
         Spacer(modifier = Modifier.height(12.dp))
         TodoFilterAndSearchResult(
@@ -241,10 +261,12 @@ private fun TodoDetailContent(
                 todos = todos,
                 showToDoDetailBottomSheet = showToDoDetailBottomSheet
             )
+        } else {
+            EmptyGuideText(
+                modifier = Modifier.fillMaxSize(),
+                searchText = searchText
+            )
         }
-    }
-    if (todos.isEmpty()) {
-        EmptyGuideText(searchText)
     }
 }
 
@@ -256,9 +278,7 @@ private fun Todos(
     LazyColumn {
         items(
             items = todos,
-            key = { todo ->
-                todo.id
-            }
+            key = { todo -> todo.id }
         ) { todo ->
             ToDoItem(
                 todo = todo,
@@ -295,24 +315,20 @@ private fun TodoFilterAndSearchResult(
 
 @Composable
 private fun EmptyGuideText(
+    modifier: Modifier,
     searchText: String
 ) {
-    val focusManager = LocalFocusManager.current
     Box(
-        modifier = Modifier.fillMaxSize().pointerInput(Unit) {
-            detectTapGestures(
-                onPress = {
-                    focusManager.clearFocus()
-                }
-            )
-        },
+        modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = if (searchText.isBlank()) stringResource(R.string.todo_detail_empty)
-            else stringResource(R.string.todo_filter_empty),
+            text = if (searchText.isBlank()) stringResource(R.string.todo_detail_empty) else stringResource(
+                R.string.todo_filter_empty
+            ),
             style = HousTheme.typography.b2,
-            color = HousG5
+            color = HousG5,
+            textAlign = TextAlign.Center
         )
     }
 }
