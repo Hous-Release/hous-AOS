@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import hous.release.android.component.PhotoGrid
+import hous.release.android.presentation.our_rules.component.PhotoGrid
 import hous.release.android.presentation.our_rules.model.DetailRuleUiModel
 import hous.release.designsystem.component.HousDetailBottomSheet
 import hous.release.designsystem.theme.HousBlack

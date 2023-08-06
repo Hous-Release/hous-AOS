@@ -1,4 +1,4 @@
-package hous.release.android.component
+package hous.release.android.presentation.our_rules.component
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap

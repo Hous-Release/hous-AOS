@@ -1,6 +1,7 @@
 package hous.release.data.repository
 
 import hous.release.data.datasource.RuleDataSource
+import hous.release.data.entity.request.rule.AddRulesRequest
 import hous.release.domain.entity.rule.DetailRule
 import hous.release.domain.entity.rule.MainRule
 import hous.release.domain.repository.RuleRepository
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import retrofit2.HttpException
+import java.io.File
 import javax.inject.Inject
 
 class DefaultRuleRepository @Inject constructor(
@@ -24,11 +26,18 @@ class DefaultRuleRepository @Inject constructor(
     override suspend fun fetchDetailRule(id: Int): DetailRule =
         ruleDataSource.fetchDetailRuleBy(id).toDetailRule()
 
-    override suspend fun postAddedRule(addedRuleList: List<String>): Int {
-        var code: Int = -999
-        ruleDataSource.postAddedRuleContent(addedRuleList).onSuccess { code = it.status }
-            .onFailure { if (it is HttpException) code = it.code() }
-        return code
+    override suspend fun postAddedRule(
+        description: String,
+        name: String,
+        imageFiles: List<File>
+    ) {
+        ruleDataSource.postAddedRuleContent(
+            AddRulesRequest(
+                description = description,
+                name = name,
+                imageFiles = imageFiles
+            )
+        )
     }
 
     override fun putEditedRuleContent(editedRuleList: List<MainRule>): Flow<ApiResult<String>> =
