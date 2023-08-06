@@ -23,6 +23,7 @@ class FeedbackFragment : BindingFragment<FragmentFeedbackBinding>(R.layout.fragm
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = feedbackViewModel
         collectUiEvent()
+        collectIsSkip()
         initEditTextClearFocus()
         initBackBtnClickListener()
     }
@@ -38,6 +39,16 @@ class FeedbackFragment : BindingFragment<FragmentFeedbackBinding>(R.layout.fragm
     private fun initBackBtnClickListener() {
         binding.btnFeedbackBack.setOnClickListener {
             requireActivity().finish()
+        }
+    }
+
+    private fun collectIsSkip() {
+        repeatOnStarted {
+            feedbackViewModel.isSkip.collect { skip ->
+                if (skip) {
+                    findNavController().navigate(R.id.action_feedbackFragment_to_withdrawFragment)
+                }
+            }
         }
     }
 

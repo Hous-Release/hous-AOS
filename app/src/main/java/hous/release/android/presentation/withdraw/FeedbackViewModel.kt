@@ -4,34 +4,45 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.util.UiEvent
+import hous.release.domain.usecase.PostWithdrawFeedbackUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class FeedbackViewModel @Inject constructor(
-    /** TODO 영주 : 피드백 api 유즈케이스 */
+    private val postWithdrawFeedbackUseCase: PostWithdrawFeedbackUseCase
 ) : ViewModel() {
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent: SharedFlow<UiEvent> = _uiEvent.asSharedFlow()
 
+    private val _isSkip = MutableStateFlow(false)
+    val isSkip = _isSkip.asStateFlow()
+
     val comment = MutableStateFlow("")
 
-    fun postFeedback() {
+    private fun postFeedback() {
         viewModelScope.launch {
             _uiEvent.emit(UiEvent.LOADING)
-            if (comment.value.isEmpty()) {
-                Timber.e("건너뛰기")
-                _uiEvent.emit(UiEvent.SUCCESS)
-            } else {
-                Timber.e("보내기")
-                /** TODO 영주 : 피드백 api 호출 */
-                _uiEvent.emit(UiEvent.SUCCESS)
-            }
+            postWithdrawFeedbackUseCase(comment = comment.value)
+                .onSuccess {
+                    _uiEvent.emit(UiEvent.SUCCESS)
+                }.onFailure { throwable ->
+                    Timber.e(throwable)
+                }
+        }
+    }
+
+    fun onClickDone() {
+        if (comment.value.isEmpty()) {
+            _isSkip.value = true
+        } else {
+            postFeedback()
         }
     }
 }
