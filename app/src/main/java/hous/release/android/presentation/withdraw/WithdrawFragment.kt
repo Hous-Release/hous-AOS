@@ -35,7 +35,7 @@ class WithdrawFragment : BindingFragment<FragmentWithdrawBinding>(R.layout.fragm
                     }
                     UiEvent.SUCCESS -> {
                         loadingDialog.dismiss()
-                        findNavController().navigate(R.id.action_withdrawFragment_to_feedbackFragment)
+                        findNavController().navigate(R.id.action_withdrawFragment_to_withdrawDoneFragment)
                     }
                     UiEvent.ERROR -> {
                         loadingDialog.dismiss()

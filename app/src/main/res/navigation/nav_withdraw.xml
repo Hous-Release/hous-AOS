@@ -6,22 +6,22 @@
     app:startDestination="@id/withdrawFragment">
 
     <fragment
-        android:id="@+id/withdrawFragment"
-        android:name="hous.release.android.presentation.withdraw.WithdrawFragment"
-        android:label="WithdrawFragment"
-        tools:layout="@layout/fragment_withdraw">
-        <action
-            android:id="@+id/action_withdrawFragment_to_feedbackFragment"
-            app:destination="@id/feedbackFragment" />
-    </fragment>
-
-    <fragment
         android:id="@+id/feedbackFragment"
         android:name="hous.release.android.presentation.withdraw.FeedbackFragment"
         android:label="FeedbackFragment"
         tools:layout="@layout/fragment_feedback">
         <action
-            android:id="@+id/action_feedbackFragment_to_withdrawDoneFragment"
+            android:id="@+id/action_feedbackFragment_to_withdrawFragment"
+            app:destination="@id/withdrawFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/withdrawFragment"
+        android:name="hous.release.android.presentation.withdraw.WithdrawFragment"
+        android:label="WithdrawFragment"
+        tools:layout="@layout/fragment_withdraw">
+        <action
+            android:id="@+id/action_withdrawFragment_to_withdrawDoneFragment"
             app:destination="@id/withdrawDoneFragment" />
     </fragment>
 

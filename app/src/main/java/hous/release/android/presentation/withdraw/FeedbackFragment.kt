@@ -44,7 +44,7 @@ class FeedbackFragment : BindingFragment<FragmentFeedbackBinding>(R.layout.fragm
                     }
                     UiEvent.SUCCESS -> {
                         loadingDialog.dismiss()
-                        findNavController().navigate(R.id.action_feedbackFragment_to_withdrawDoneFragment)
+                        findNavController().navigate(R.id.action_feedbackFragment_to_withdrawFragment)
                     }
                     UiEvent.ERROR -> {
                         loadingDialog.dismiss()
