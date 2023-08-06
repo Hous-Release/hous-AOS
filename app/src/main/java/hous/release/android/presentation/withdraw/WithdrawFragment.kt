@@ -11,7 +11,6 @@ import hous.release.android.util.UiEvent
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.dialog.LoadingDialogFragment
 import hous.release.android.util.extension.repeatOnStarted
-import hous.release.android.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class WithdrawFragment : BindingFragment<FragmentWithdrawBinding>(R.layout.fragment_withdraw) {
@@ -42,13 +41,6 @@ class WithdrawFragment : BindingFragment<FragmentWithdrawBinding>(R.layout.fragm
                     }
                 }
             }
-        }
-    }
-
-    /** TODO 영주 : 탈퇴하기 로직 어떻게 세워질지 보고 함수 살릴지 죽일지 결정 */
-    private fun initWithdrawDoneClickListener() {
-        binding.tvWithdrawDone.setOnSingleClickListener {
-            findNavController().navigate(R.id.action_withdrawFragment_to_feedbackFragment)
         }
     }
 

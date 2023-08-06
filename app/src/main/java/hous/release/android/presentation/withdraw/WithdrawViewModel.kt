@@ -21,7 +21,6 @@ class WithdrawViewModel @Inject constructor(
 
     val isCheckedWithdraw = MutableStateFlow(false)
 
-    /** TODO 영주 : 여기에서 탈퇴하기 api 호출 안 할 수도 있음!!! */
     fun deleteUser() {
         viewModelScope.launch {
             Timber.e("로딩")
