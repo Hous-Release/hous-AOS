@@ -16,19 +16,28 @@
         android:layout_height="match_parent"
         tools:context=".presentation.withdraw.FeedbackFragment">
 
-        <!-- TODO 영주 : back 버튼을 만들어야 할 수도.. -->
+        <ImageButton
+            android:id="@+id/btn_feedback_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="14dp"
+            android:background="@null"
+            android:padding="10dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_feedback_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="20dp"
             android:text="@string/feedback_title"
             android:textColor="@color/hous_black"
             android:theme="@style/B1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@id/btn_feedback_back"
+            app:layout_constraintStart_toEndOf="@id/btn_feedback_back"
+            app:layout_constraintTop_toTopOf="@id/btn_feedback_back" />
 
         <TextView
             android:id="@+id/tv_feedback_done"

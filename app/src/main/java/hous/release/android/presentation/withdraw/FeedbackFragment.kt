@@ -24,7 +24,7 @@ class FeedbackFragment : BindingFragment<FragmentFeedbackBinding>(R.layout.fragm
         binding.viewModel = feedbackViewModel
         collectUiEvent()
         initEditTextClearFocus()
-        /** TODO 영주 : 뒤로가기 막는 로직 구현... 어떻게 될지 모름 일단 두고보기 */
+        initBackBtnClickListener()
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -32,6 +32,12 @@ class FeedbackFragment : BindingFragment<FragmentFeedbackBinding>(R.layout.fragm
         binding.clFeedback.setOnTouchListener { _, _ ->
             KeyBoardUtil.hide(activity = requireActivity())
             return@setOnTouchListener false
+        }
+    }
+
+    private fun initBackBtnClickListener() {
+        binding.btnFeedbackBack.setOnClickListener {
+            requireActivity().finish()
         }
     }
 
