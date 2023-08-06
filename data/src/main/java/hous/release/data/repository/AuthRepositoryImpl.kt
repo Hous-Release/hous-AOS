@@ -74,12 +74,9 @@ class AuthRepositoryImpl @Inject constructor(
         )
     }
 
-    /** TODO 영주 : 회원탈퇴 api 구현 */
-    override suspend fun deleteUser(): Result<Boolean> =
+    override suspend fun deleteUser(): Result<Unit> =
         kotlin.runCatching {
             authDataSource.deleteUser()
-        }.map { response ->
-            response.success
         }
 
     override suspend fun postLogout(): Result<Boolean> =

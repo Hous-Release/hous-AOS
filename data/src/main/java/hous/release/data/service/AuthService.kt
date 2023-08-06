@@ -21,8 +21,7 @@ interface AuthService {
         @Body body: SignUpRequest
     ): BaseResponse<SignUpResponse>
 
-    /** TODO 영주 : 회원탈퇴 api 구현 */
-    @HTTP(method = "DELETE", path = "/v1/user", hasBody = true)
+    @HTTP(method = "DELETE", path = "/v2/user", hasBody = true)
     suspend fun deleteUser(): NoDataResponse
 
     @POST("/v1/auth/logout")

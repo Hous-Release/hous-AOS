@@ -24,8 +24,7 @@ interface AuthRepository {
 
     fun getFCMToken(setFCMToken: (String) -> Unit)
 
-    /** TODO 영주 : 회원탈퇴 api 구현 */
-    suspend fun deleteUser(): Result<Boolean>
+    suspend fun deleteUser(): Result<Unit>
 
     suspend fun postLogout(): Result<Boolean>
 

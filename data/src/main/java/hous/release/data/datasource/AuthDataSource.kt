@@ -40,7 +40,6 @@ class AuthDataSource @Inject constructor(
             )
         )
 
-    /** TODO 영주 : 회원탈퇴 api 구현 */
     suspend fun deleteUser(): NoDataResponse =
         authService.deleteUser()
 

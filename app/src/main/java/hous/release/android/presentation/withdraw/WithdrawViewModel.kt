@@ -4,6 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.util.UiEvent
+import hous.release.domain.entity.SplashState
+import hous.release.domain.usecase.ClearLocalPrefUseCase
+import hous.release.domain.usecase.DeleteUserUseCase
+import hous.release.domain.usecase.SetSplashStateUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -14,7 +18,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WithdrawViewModel @Inject constructor(
-    /** TODO 영주 : 탈퇴하기 api 유즈케이스 */
+    private val deleteUserUseCase: DeleteUserUseCase,
+    private val clearLocalPrefUseCase: ClearLocalPrefUseCase,
+    private val setSplashStateUseCase: SetSplashStateUseCase
 ) : ViewModel() {
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent: SharedFlow<UiEvent> = _uiEvent.asSharedFlow()
@@ -23,11 +29,15 @@ class WithdrawViewModel @Inject constructor(
 
     fun deleteUser() {
         viewModelScope.launch {
-            Timber.e("로딩")
             _uiEvent.emit(UiEvent.LOADING)
-            /** TODO 영주 : 탈퇴하기 api 호출*/
-            Timber.e("탈퇴성공")
-            _uiEvent.emit(UiEvent.SUCCESS)
+            deleteUserUseCase()
+                .onSuccess {
+                    clearLocalPrefUseCase()
+                    setSplashStateUseCase(SplashState.LOGIN)
+                    _uiEvent.emit(UiEvent.SUCCESS)
+                }.onFailure { throwable ->
+                    Timber.e(throwable)
+                }
         }
     }
 }
