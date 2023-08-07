@@ -17,15 +17,15 @@ import org.junit.jupiter.api.extension.ExtendWith
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @ExtendWith(MockKExtension::class)
-internal class DefaultRuleRepositoryTest {
+internal class RuleRepositoryImplTest {
     @RelaxedMockK
     lateinit var ruleDataSource: RuleDataSource
 
-    private lateinit var defaultRuleRepository: DefaultRuleRepository
+    private lateinit var defaultRuleRepository: RuleRepositoryImpl
 
     @BeforeEach
     fun setUp() {
-        defaultRuleRepository = DefaultRuleRepository(ruleDataSource, Dispatchers.IO)
+        defaultRuleRepository = RuleRepositoryImpl(ruleDataSource, Dispatchers.IO)
     }
 
     @Test

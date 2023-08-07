@@ -11,7 +11,7 @@ interface RuleRepository {
     suspend fun fetchDetailRule(id: Int): DetailRule
 
     suspend fun canAddRule(): Boolean
-    suspend fun postAddedRule(
+    suspend fun addRule(
         description: String,
         name: String,
         imageFiles: List<File>

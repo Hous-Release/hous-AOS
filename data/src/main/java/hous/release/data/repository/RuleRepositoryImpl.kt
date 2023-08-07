@@ -15,7 +15,7 @@ import retrofit2.HttpException
 import java.io.File
 import javax.inject.Inject
 
-class DefaultRuleRepository @Inject constructor(
+class RuleRepositoryImpl @Inject constructor(
     private val ruleDataSource: RuleDataSource,
     private val ioDispatcher: CoroutineDispatcher
 ) : RuleRepository {
@@ -28,12 +28,12 @@ class DefaultRuleRepository @Inject constructor(
 
     override suspend fun canAddRule(): Boolean = ruleDataSource.canAddRule()
 
-    override suspend fun postAddedRule(
+    override suspend fun addRule(
         description: String,
         name: String,
         imageFiles: List<File>
     ) {
-        ruleDataSource.postAddedRuleContent(
+        ruleDataSource.addRule(
             AddRulesRequest(
                 description = description,
                 name = name,
