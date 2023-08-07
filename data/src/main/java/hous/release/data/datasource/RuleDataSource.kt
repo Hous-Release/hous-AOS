@@ -23,13 +23,19 @@ class RuleDataSource @Inject constructor(private val ruleService: RuleService) {
     suspend fun canAddRule(): Boolean =
         ruleService.getAddableRules().data.isAddable
 
-    suspend fun postAddedRuleContent(req: AddRulesRequest) {
-        return ruleService.postNewRule(
-            description = req.description,
-            name = req.name,
-            images = req.imageFiles.map { file -> file.toImagePart() }
-        )
-    }
+    suspend fun addRule(req: AddRulesRequest) =
+        if (req.imageFiles.isEmpty()) {
+            ruleService.addRuleNoImage(
+                description = req.description,
+                name = req.name
+            )
+        } else {
+            ruleService.addRule(
+                description = req.description,
+                name = req.name,
+                images = req.imageFiles.map { file -> file.toImagePart() }
+            )
+        }
 
     suspend fun putEditedRuleContent(editedRules: List<MainRule>): NoDataResponse =
         ruleService.putEditedRuleContent(
