@@ -186,6 +186,7 @@ dependencies {
     Deps.ThirdParty.Glide.run {
         implementation(glide)
         implementation(kapt)
+        implementation(transformations)
     }
 
     testImplementation()

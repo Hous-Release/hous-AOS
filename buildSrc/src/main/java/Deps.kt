@@ -91,6 +91,7 @@ object Deps {
 
             const val glide = "com.github.bumptech.glide:glide:$version"
             const val kapt = "com.github.bumptech.glide:compiler:$version"
+            const val transformations = "jp.wasabeef:glide-transformations:4.3.0"
         }
     }
 
