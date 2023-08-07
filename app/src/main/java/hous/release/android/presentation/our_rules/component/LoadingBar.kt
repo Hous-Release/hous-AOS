@@ -31,7 +31,8 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun LoadingBar(
-    modifier: Modifier = Modifier) {
+    modifier: Modifier = Modifier
+) {
     val composition by rememberLottieComposition(
         LottieCompositionSpec.RawRes(R.raw.loading)
     )
