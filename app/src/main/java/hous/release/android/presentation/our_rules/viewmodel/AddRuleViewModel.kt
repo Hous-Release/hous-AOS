@@ -6,8 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.di.AddRule
 import hous.release.android.presentation.our_rules.model.PhotoUiModel
 import hous.release.android.util.event.Reducer
-import hous.release.domain.enums.PhotoUri
-import hous.release.domain.usecase.rule.AddNewRuleUseCase
+import hous.release.domain.usecase.rule.AddRuleUseCase
+import hous.release.domain.value.PhotoUri
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddRuleViewModel @Inject constructor(
-    private val addRuleUseCase: AddNewRuleUseCase,
+    private val addRuleUseCase: AddRuleUseCase,
     @AddRule private val reducer: Reducer<AddRuleState, AddRuleEvent>
 ) : ViewModel() {
 

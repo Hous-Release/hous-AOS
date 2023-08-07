@@ -34,7 +34,7 @@ import hous.release.android.presentation.our_rules.viewmodel.MainRuleSideEffect
 import hous.release.android.presentation.our_rules.viewmodel.MainRuleViewModel
 import hous.release.android.presentation.practice.findActivity
 import hous.release.android.util.ToastMessageUtil
-import hous.release.domain.enums.PhotoUri
+import hous.release.domain.value.PhotoUri
 import timber.log.Timber
 
 @Composable

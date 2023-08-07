@@ -6,14 +6,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.di.MainRules
 import hous.release.android.presentation.our_rules.model.DetailRuleUiModel
 import hous.release.android.util.event.Reducer
-import hous.release.data.repository.RulePhotoRepository
 import hous.release.domain.entity.rule.DetailRule
 import hous.release.domain.entity.rule.MainRule
-import hous.release.domain.enums.PhotoUri
+import hous.release.domain.repository.PhotoRepository
 import hous.release.domain.usecase.rule.CanAddRuleUseCase
 import hous.release.domain.usecase.rule.GetDetailRuleUseCase
 import hous.release.domain.usecase.rule.GetMainRulesUseCase
 import hous.release.domain.usecase.search.SearchRuleUseCase
+import hous.release.domain.value.PhotoUri
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collectLatest
@@ -26,7 +26,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainRuleViewModel @Inject constructor(
-    private val photoSaver: RulePhotoRepository,
+    private val photoSaver: PhotoRepository,
     private val getMainRulesUseCase: GetMainRulesUseCase,
     private val getDetailRuleUseCase: GetDetailRuleUseCase,
     private val canAddRuleUseCase: CanAddRuleUseCase,
