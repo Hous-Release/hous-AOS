@@ -11,11 +11,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,6 +33,7 @@ import hous.release.designsystem.component.HousTextField
 import hous.release.designsystem.component.HousTextFieldMode
 import hous.release.designsystem.theme.HousTheme
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun BasicUpdateRuleScreen(
     title: String,
@@ -42,7 +49,8 @@ fun BasicUpdateRuleScreen(
     onBack: () -> Unit = {}
 ) {
     val focusManager = LocalFocusManager.current
-
+    val (focusRequester) = FocusRequester.createRefs()
+    AutoFocusOnInitializeEffect { focusRequester.requestFocus() }
     Box {
         Column(
             modifier = Modifier.fillMaxSize().pointerInput(Unit) {
@@ -67,6 +75,7 @@ fun BasicUpdateRuleScreen(
                     stringResource(R.string.our_rule_add_edit_title)
                 )
                 HousTextField(
+                    modifier = Modifier.focusRequester(focusRequester),
                     textFielddMode = HousTextFieldMode.RIGHT_LIMITED,
                     text = ruleName,
                     onTextChange = changeName,
@@ -115,6 +124,22 @@ fun BasicUpdateRuleScreen(
                 photos = photos,
                 onRemove = deletePhoto
             )
+        }
+    }
+}
+
+/**
+ * design system에 넣어두면 어떰스??
+ * */
+@Composable
+private fun AutoFocusOnInitializeEffect(requestFocus: () -> Unit) {
+    val windowInfo = LocalWindowInfo.current
+
+    LaunchedEffect(windowInfo) {
+        snapshotFlow { windowInfo.isWindowFocused }.collect { isWindowFocused ->
+            if (isWindowFocused) {
+                requestFocus()
+            }
         }
     }
 }
