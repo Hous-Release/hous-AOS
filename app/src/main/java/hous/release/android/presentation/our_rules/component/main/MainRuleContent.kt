@@ -5,16 +5,20 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.designsystem.component.FabScreenSlot
-import hous.release.designsystem.component.HousSearchTextField
+import hous.release.designsystem.component.HousTextField
+import hous.release.designsystem.component.HousTextFieldMode
 import hous.release.designsystem.theme.HousTheme
 import hous.release.domain.entity.rule.MainRule
 import hous.release.feature.todo.R
@@ -51,10 +55,19 @@ fun MainRuleContent(
                 onBack = onFinish
             )
             Spacer(modifier = Modifier.padding(top = 4.dp))
-            HousSearchTextField(
+            HousTextField(
+                textFielddMode = HousTextFieldMode.SEARCH,
                 text = searchQuery,
                 onTextChange = onSearch,
-                hint = stringResource(R.string.todo_detail_textfield_hint)
+                hint = stringResource(R.string.todo_detail_textfield_hint),
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        focusManager.clearFocus()
+                    }
+                )
             )
             MainRuleList(
                 mainRules = mainRules,

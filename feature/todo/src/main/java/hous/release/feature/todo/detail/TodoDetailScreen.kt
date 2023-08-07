@@ -54,7 +54,7 @@ import hous.release.designsystem.component.FabScreenSlot
 import hous.release.designsystem.component.HousDialog
 import hous.release.designsystem.component.HousLimitDialog
 import hous.release.designsystem.component.HousTextField
-import hous.release.designsystem.component.SEARCH_TEXT_FIELD
+import hous.release.designsystem.component.HousTextFieldMode
 import hous.release.designsystem.theme.HousG5
 import hous.release.designsystem.theme.HousTheme
 import hous.release.domain.entity.TodoDetail
@@ -232,7 +232,7 @@ private fun TodoDetailContent(
         TodoDetailToolbar(finish = finish)
         Spacer(modifier = Modifier.height(4.dp))
         HousTextField(
-            textFiledMode = SEARCH_TEXT_FIELD,
+            textFielddMode = HousTextFieldMode.SEARCH,
             modifier = Modifier,
             text = searchText,
             hint = stringResource(R.string.todo_detail_textfield_hint),

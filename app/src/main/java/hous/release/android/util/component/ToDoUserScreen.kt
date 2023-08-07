@@ -40,8 +40,8 @@ import hous.release.android.R
 import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.android.presentation.todo.viewmodel.UpdateToDoUiState
 import hous.release.designsystem.component.HousTextField
+import hous.release.designsystem.component.HousTextFieldMode
 import hous.release.designsystem.component.HousToolbarSlot
-import hous.release.designsystem.component.RIGHT_LIMITED_TEXT_FIELD
 import hous.release.designsystem.theme.HousBlack
 import hous.release.designsystem.theme.HousBlue
 import hous.release.designsystem.theme.HousBlueL1
@@ -114,7 +114,7 @@ fun TodoUserScreen(
         TodoTitleGuide()
         Spacer(modifier = Modifier.height(4.dp))
         HousTextField(
-            textFiledMode = RIGHT_LIMITED_TEXT_FIELD,
+            textFielddMode = HousTextFieldMode.RIGHT_LIMITED,
             modifier = Modifier,
             text = todoText,
             onTextChange = setTodoText,

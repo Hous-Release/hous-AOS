@@ -8,21 +8,23 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
 import hous.release.android.presentation.our_rules.component.add.RuleTitleGuide
 import hous.release.android.presentation.our_rules.model.PhotoUiModel
-import hous.release.designsystem.component.HousBottomLimitedTextField
-import hous.release.designsystem.component.HousLeftLimitedTextField
-import hous.release.designsystem.theme.HousBlueL2
-import hous.release.designsystem.theme.HousG1
+import hous.release.designsystem.component.HousTextField
+import hous.release.designsystem.component.HousTextFieldMode
 import hous.release.designsystem.theme.HousTheme
 
 @Composable
@@ -64,25 +66,34 @@ fun BasicUpdateRuleScreen(
                 RuleTitleGuide(
                     stringResource(R.string.our_rule_add_edit_title)
                 )
-                HousLeftLimitedTextField(
-                    modifier = Modifier,
+                HousTextField(
+                    textFielddMode = HousTextFieldMode.RIGHT_LIMITED,
                     text = ruleName,
                     onTextChange = changeName,
-                    color = HousBlueL2,
-                    limitTextCount = 10
+                    limitTextCount = 10,
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        imeAction = ImeAction.Next
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onNext = { focusManager.moveFocus(FocusDirection.Next) }
+                    )
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 RuleTitleGuide(
                     stringResource(R.string.our_rule_add_edit_description),
                     isEssential = false
                 )
-                HousBottomLimitedTextField(
-                    modifier = Modifier,
+                HousTextField(
+                    textFielddMode = HousTextFieldMode.BOTTOM_END,
                     text = description,
                     onTextChange = changeDescription,
-                    color = HousG1,
-                    height = 136.dp,
-                    limitTextCount = 50
+                    limitTextCount = 50,
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions {
+                        focusManager.clearFocus()
+                    }
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 RuleTitleGuide(

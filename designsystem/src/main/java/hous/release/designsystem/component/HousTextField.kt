@@ -44,9 +44,11 @@ import hous.release.designsystem.theme.HousG1
 import hous.release.designsystem.theme.HousG5
 import hous.release.designsystem.theme.HousTheme
 
-const val SEARCH_TEXT_FIELD = 0
-const val RIGHT_LIMITED_TEXT_FIELD = 1
-const val BOTTOM_END_TEXT_FIELD = 2
+enum class HousTextFieldMode {
+    SEARCH,
+    RIGHT_LIMITED,
+    BOTTOM_END
+}
 
 @Composable
 @Deprecated(
@@ -61,7 +63,7 @@ fun HousSearchTextField(
     onTextChange: (String) -> Unit
 ) {
     HousTextField(
-        textFiledMode = SEARCH_TEXT_FIELD,
+        textFielddMode = HousTextFieldMode.SEARCH,
         modifier = modifier
             .fillMaxWidth()
             .height(IntrinsicSize.Min)
@@ -85,8 +87,8 @@ fun HousSearchTextField(
 
 @Composable
 fun HousTextField(
-    textFiledMode: Int,
-    modifier: Modifier,
+    textFielddMode: HousTextFieldMode,
+    modifier: Modifier = Modifier,
     text: String,
     hint: String = "",
     limitTextCount: Int = 20,
@@ -114,22 +116,24 @@ fun HousTextField(
         keyboardActions = keyboardActions,
         cursorBrush = SolidColor(HousBlue)
     ) { innerTextField ->
-        when (textFiledMode) {
-            SEARCH_TEXT_FIELD -> {
+        when (textFielddMode) {
+            HousTextFieldMode.SEARCH -> {
                 HousSearchTextField(
                     text = text,
                     hint = hint,
                     innerTextField = innerTextField
                 )
             }
-            RIGHT_LIMITED_TEXT_FIELD -> {
+
+            HousTextFieldMode.RIGHT_LIMITED -> {
                 HousRightLimitedTextField(
                     text = text,
                     limitTextCount = limitTextCount,
                     innerTextField = innerTextField
                 )
             }
-            BOTTOM_END_TEXT_FIELD -> {
+
+            HousTextFieldMode.BOTTOM_END -> {
                 HousBottomEndLimitedTextField(
                     text = text,
                     limitTextCount = limitTextCount,
@@ -226,26 +230,26 @@ private fun TextFieldPreview() {
         var text by remember { mutableStateOf("") }
         val onChange: (String) -> Unit = { text = it }
         HousTextField(
-            textFiledMode = SEARCH_TEXT_FIELD,
+            textFielddMode = HousTextFieldMode.SEARCH,
             text = text,
             onTextChange = onChange,
             hint = "검색하기",
-            modifier = Modifier,
+            modifier = Modifier
         )
     }
 }
 
 @Preview(name = "우측에 제한이 있는 text field")
 @Composable
-private fun HousLeftLimitedTextFieldPreview() {
+private fun HousRightLimitedTextFieldPreview() {
     HousTheme {
         var text by remember { mutableStateOf("") }
         val onChange: (String) -> Unit = { text = it }
         HousTextField(
-            textFiledMode = RIGHT_LIMITED_TEXT_FIELD,
+            textFielddMode = HousTextFieldMode.RIGHT_LIMITED,
             modifier = Modifier,
             text = text,
-            onTextChange = onChange,
+            onTextChange = onChange
         )
     }
 }
@@ -257,11 +261,11 @@ private fun HousBottomEndLimitedTextFieldPreview() {
         var text by remember { mutableStateOf("") }
         val onChange: (String) -> Unit = { text = it }
         HousTextField(
-            textFiledMode = BOTTOM_END_TEXT_FIELD,
+            textFielddMode = HousTextFieldMode.BOTTOM_END,
             limitTextCount = 50,
             modifier = Modifier,
             text = text,
-            onTextChange = onChange,
+            onTextChange = onChange
         )
     }
 }
