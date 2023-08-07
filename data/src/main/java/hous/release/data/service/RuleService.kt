@@ -30,10 +30,16 @@ interface RuleService {
 
     @Multipart
     @POST("/v2/rule")
-    suspend fun postNewRule(
+    suspend fun addRule(
         @Query("description") description: String,
         @Query("name") name: String,
-        @Part images: List<MultipartBody.Part>?
+        @Part images: List<MultipartBody.Part>
+    )
+
+    @POST("/v2/rule")
+    suspend fun addRuleNoImage(
+        @Query("description") description: String,
+        @Query("name") name: String
     )
 
     @PUT("/v1/rules")
