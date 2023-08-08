@@ -34,7 +34,7 @@ import hous.release.android.presentation.our_rules.viewmodel.MainRuleSideEffect
 import hous.release.android.presentation.our_rules.viewmodel.MainRuleViewModel
 import hous.release.android.presentation.practice.findActivity
 import hous.release.android.util.ToastMessageUtil
-import hous.release.domain.value.PhotoUri
+import hous.release.domain.entity.Photo
 import timber.log.Timber
 
 @Composable
@@ -130,7 +130,7 @@ private fun NavGraphBuilder.addRuleScreen(onBack: () -> Unit) {
             ActivityResultContracts.PickMultipleVisualMedia(5)
         ) { uriList ->
             if (uriList.isNotEmpty()) {
-                viewModel.loadImage(uriList.map { PhotoUri(it.toString()) })
+                viewModel.loadImage(uriList.map { Photo.from(it.toString()) })
             }
         }
         val onOpenGallery = {

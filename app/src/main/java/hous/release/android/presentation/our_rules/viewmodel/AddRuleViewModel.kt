@@ -6,8 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.di.AddRule
 import hous.release.android.presentation.our_rules.model.PhotoUiModel
 import hous.release.android.util.event.Reducer
+import hous.release.domain.entity.Photo
 import hous.release.domain.usecase.rule.AddRuleUseCase
-import hous.release.domain.value.PhotoUri
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -47,7 +47,7 @@ class AddRuleViewModel @Inject constructor(
         }
     }
 
-    fun loadImage(photoUris: List<PhotoUri>) {
+    fun loadImage(photoUris: List<Photo>) {
         viewModelScope.launch {
             if (canAddPhotos(photoUris.size)) {
                 Timber.e("loadImage() - photoUris: $photoUris")
@@ -118,6 +118,6 @@ data class AddRuleState(
 sealed class AddRuleEvent {
     data class ChangeDescription(val description: String) : AddRuleEvent()
     data class ChangeName(val name: String) : AddRuleEvent()
-    data class LoadImage(val photoUris: List<PhotoUri>) : AddRuleEvent()
+    data class LoadImage(val photos: List<Photo>) : AddRuleEvent()
     data class DeleteImage(val photo: PhotoUiModel) : AddRuleEvent()
 }

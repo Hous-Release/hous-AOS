@@ -33,16 +33,16 @@ class MainRuleReducer @Inject constructor() : Reducer<MainRulesState, MainRulesE
             }
 
             is MainRulesEvent.LoadedImage -> {
-                val photoUris = event.photoUris
-                Timber.e("LoadedImage photoUris: $photoUris")
-                val updatedImages = state.detailRule.images.mapIndexed { index, photo ->
+                val photoPaths = event.photos.map { it?.path }
+                Timber.e("LoadedImage photoUris: $photoPaths")
+                val updatedImages = state.detailRule.photos.mapIndexed { index, photo ->
                     photo.copy(
-                        filePath = photoUris[index]?.path
+                        filePath = photoPaths[index]
                     )
                 }
                 Timber.e("LoadedImage updatedImages: $updatedImages")
                 state.copy(
-                    detailRule = state.detailRule.copy(images = updatedImages)
+                    detailRule = state.detailRule.copy(photos = updatedImages)
                 )
             }
 
