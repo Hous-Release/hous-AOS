@@ -70,7 +70,7 @@ class AddRuleViewModel @Inject constructor(
             runCatching {
                 val photoUris = uiState.value.photos.map { photo ->
                     photo.filePath?.let { path ->
-                        PhotoUri(path)
+                        Photo.from(path)
                     } ?: throw NullPointerException("filePath가 null이다")
                 }
                 addRuleUseCase(

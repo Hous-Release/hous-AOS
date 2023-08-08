@@ -61,10 +61,8 @@ class MainRuleReducer @Inject constructor() : Reducer<MainRulesState, MainRulesE
         id = id,
         name = name,
         description = description,
-        images = images.map { url ->
-            PhotoUiModel(
-                url = url.path
-            )
+        photos = images.map { photo ->
+            PhotoUiModel.from(photo)
         },
         updatedAt = updatedAt
     )

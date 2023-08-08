@@ -18,8 +18,8 @@ class AddRuleReducer : Reducer<AddRuleState, AddRuleEvent> {
             }
 
             is AddRuleEvent.LoadImage -> {
-                val newPhotos = event.photoUris.map { uri ->
-                    PhotoUiModel(filePath = uri.path)
+                val newPhotos = event.photos.map { photo ->
+                    PhotoUiModel.from(photo)
                 }
                 val updatedPhotos = state.photos + newPhotos
                 Timber.e("LoadImage: updatedPhotos: $updatedPhotos")
