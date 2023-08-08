@@ -47,10 +47,7 @@ fun RuleNavGraph(
         route = RulesScreens.RULE_GRAPH_ROUTE
     ) {
         mainRuleScreen(navController)
-        addRuleScreen(onBack = {
-            Timber.e("popBackStack")
-            navController.popBackStack()
-        })
+        addRuleScreen(navController::popBackStack)
         updateRuleScreen(navController)
     }
 }
@@ -144,7 +141,6 @@ private fun NavGraphBuilder.addRuleScreen(onBack: () -> Unit) {
             )
         }
         LaunchedEffect(sideEffect.value) {
-            Timber.e("sideEffect.value: $sideEffect")
             when (val event = sideEffect.value) {
                 is AddRuleSideEffect.IDLE -> Unit
                 is AddRuleSideEffect.DuplicateToast -> {
