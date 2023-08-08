@@ -3,9 +3,9 @@ package hous.release.domain.entity
 sealed class Photo {
     abstract val path: String
 
-    private data class Remote(override val path: String) : Photo()
-    private data class Cache(override val path: String) : Photo()
-    private data class Media(override val path: String) : Photo()
+    data class Remote internal constructor(override val path: String) : Photo()
+    data class Cache internal constructor(override val path: String) : Photo()
+    data class Media internal constructor(override val path: String) : Photo()
 
     companion object {
         fun from(path: String): Photo {
