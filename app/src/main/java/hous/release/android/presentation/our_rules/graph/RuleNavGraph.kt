@@ -62,17 +62,18 @@ private fun NavGraphBuilder.mainRuleScreen(
         val activity = LocalContext.current.findActivity()
         val viewModel = hiltViewModel<MainRuleViewModel>()
         val uiState = viewModel.uiState.collectAsStateWithLifecycle()
-        val sideEffect = viewModel.sideEffect.collectAsStateWithLifecycle(MainRuleSideEffect.IDLE)
 
         var isShowLimitedAddRuleDialog by remember { mutableStateOf(false) }
-        LaunchedEffect(sideEffect.value) {
-            when (val event = sideEffect.value) {
-                is MainRuleSideEffect.IDLE -> Unit
-                is MainRuleSideEffect.ShowLimitedAddRuleDialog -> {
-                    if (event.isShow) {
-                        navController.navigateToAddRule()
-                    } else {
-                        isShowLimitedAddRuleDialog = true
+        LaunchedEffect(Unit) {
+            viewModel.sideEffect.collect { event ->
+                when (event) {
+                    is MainRuleSideEffect.IDLE -> Unit
+                    is MainRuleSideEffect.ShowLimitedAddRuleDialog -> {
+                        if (event.isShow) {
+                            navController.navigateToAddRule()
+                        } else {
+                            isShowLimitedAddRuleDialog = true
+                        }
                     }
                 }
             }
@@ -124,7 +125,6 @@ private fun NavGraphBuilder.addRuleScreen(onBack: () -> Unit) {
         var isOutDialogShow by remember { mutableStateOf(false) }
         var isLoading by remember { mutableStateOf(false) }
         var isShowLimitedDialog by remember { mutableStateOf(false) }
-        val sideEffect = viewModel.sideEffect.collectAsStateWithLifecycle(AddRuleSideEffect.IDLE)
         val context = LocalContext.current
         val takePhotoFromAlbumLauncher = rememberLauncherForActivityResult(
             ActivityResultContracts.PickMultipleVisualMedia(5)
@@ -140,39 +140,42 @@ private fun NavGraphBuilder.addRuleScreen(onBack: () -> Unit) {
                 )
             )
         }
-        LaunchedEffect(sideEffect.value) {
-            when (val event = sideEffect.value) {
-                is AddRuleSideEffect.IDLE -> Unit
-                is AddRuleSideEffect.DuplicateToast -> {
-                    isLoading = false
-                    ToastMessageUtil.showToast(
-                        context,
-                        context.getString(R.string.our_rule_duplicate_rule)
-                    )
-                }
+        LaunchedEffect(Unit) {
+            viewModel.sideEffect.collect { event ->
+                when (event) {
+                    is AddRuleSideEffect.IDLE -> Unit
+                    is AddRuleSideEffect.DuplicateToast -> {
+                        isLoading = false
+                        ToastMessageUtil.showToast(
+                            context,
+                            context.getString(R.string.our_rule_duplicate_rule)
+                        )
+                    }
 
-                is AddRuleSideEffect.ShowLimitImageToast -> {
-                    ToastMessageUtil.showToast(
-                        context,
-                        context.getString(R.string.our_rule_limit_photo_count)
-                    )
-                }
+                    is AddRuleSideEffect.ShowLimitImageToast -> {
+                        ToastMessageUtil.showToast(
+                            context,
+                            context.getString(R.string.our_rule_limit_photo_count)
+                        )
+                    }
 
-                is AddRuleSideEffect.LoadingBar -> {
-                    isLoading = event.isLoading
-                }
+                    is AddRuleSideEffect.LoadingBar -> {
+                        isLoading = event.isLoading
+                    }
 
-                is AddRuleSideEffect.PopBackStack -> {
-                    isLoading = false
-                    onBack()
-                }
+                    is AddRuleSideEffect.PopBackStack -> {
+                        isLoading = false
+                        onBack()
+                    }
 
-                is AddRuleSideEffect.ShowLimitRuleCountDialog -> {
-                    isLoading = false
-                    isOutDialogShow = true
+                    is AddRuleSideEffect.ShowLimitRuleCountDialog -> {
+                        isLoading = false
+                        isShowLimitedDialog = true
+                    }
                 }
             }
         }
+
         val onBackPressed = {
             if (uiState.value.name.isNotBlank()) {
                 isOutDialogShow = true

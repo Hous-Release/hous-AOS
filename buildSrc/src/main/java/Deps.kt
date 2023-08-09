@@ -78,11 +78,11 @@ object Deps {
     }
 
     object ThirdParty {
-        private const val lottie_version = "5.2.0"
-        private const val compose_lottie_version = "4.2.0"
+        private const val lottieVersion = "5.2.0"
+        private const val composeLottieVersion = "4.2.0"
         const val timber = "com.jakewharton.timber:timber:5.0.1"
-        const val lottie = "com.airbnb.android:lottie:$lottie_version"
-        const val compose_lottie = "com.airbnb.android:lottie-compose:$compose_lottie_version"
+        const val lottie = "com.airbnb.android:lottie:$lottieVersion"
+        const val composeLottie = "com.airbnb.android:lottie-compose:$composeLottieVersion"
         const val ballon = "com.github.skydoves:balloon:1.4.7"
         const val coilCompose = "io.coil-kt:coil-compose:2.2.2"
 

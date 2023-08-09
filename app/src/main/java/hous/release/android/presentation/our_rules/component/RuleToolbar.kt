@@ -1,15 +1,12 @@
 package hous.release.android.presentation.our_rules.component
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Icon
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -31,36 +28,32 @@ fun RuleToolbar(
     onAddButton: () -> Unit = {},
     onBack: () -> Unit = {}
 ) {
-    Box(
-        modifier = Modifier.fillMaxWidth().wrapContentSize(align = Alignment.TopEnd)
-    ) {
-        HousToolbarSlot(
-            modifier = modifier.fillMaxWidth()
-                .padding(start = 16.dp, top = 20.dp, bottom = 20.dp, end = 24.dp),
-            leadingIcon = {
-                Icon(
-                    modifier = Modifier.clickable {
-                        onBack()
-                    },
-                    tint = HousG4,
-                    painter = painterResource(id = R.drawable.ic_back),
-                    contentDescription = null
-                )
-            },
-            title = title,
-            trailingIcon = {
-                Text(
-                    modifier = Modifier.then(
-                        if (isButtonActive) Modifier.clickable { onAddButton() }
-                        else Modifier
-                    ),
-                    text = trailingTitle,
-                    style = HousTheme.typography.b2,
-                    color = if (isButtonActive) HousBlue else HousG4
-                )
-            }
-        )
-    }
+    HousToolbarSlot(
+        modifier = modifier.fillMaxWidth()
+            .padding(start = 16.dp, top = 20.dp, bottom = 20.dp, end = 24.dp),
+        leadingIcon = {
+            Icon(
+                modifier = Modifier.clickable {
+                    onBack()
+                },
+                tint = HousG4,
+                painter = painterResource(id = R.drawable.ic_back),
+                contentDescription = null
+            )
+        },
+        title = title,
+        trailingIcon = {
+            Text(
+                modifier = Modifier.then(
+                    if (isButtonActive) Modifier.clickable { onAddButton() }
+                    else Modifier
+                ),
+                text = trailingTitle,
+                style = HousTheme.typography.b2,
+                color = if (isButtonActive) HousBlue else HousG4
+            )
+        }
+    )
 }
 
 @Preview(name = "추가 버튼이 활성화된 Tool Bar")

@@ -1,7 +1,6 @@
 package hous.release.android.presentation.our_rules.component
 
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,7 +11,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -51,80 +49,79 @@ fun BasicUpdateRuleScreen(
     val focusManager = LocalFocusManager.current
     val (focusRequester) = FocusRequester.createRefs()
     AutoFocusOnInitializeEffect { focusRequester.requestFocus() }
-    Box {
+
+    Column(
+        modifier = Modifier.fillMaxSize().pointerInput(Unit) {
+            detectTapGestures(onTap = {
+                focusManager.clearFocus()
+            })
+        },
+        horizontalAlignment = Alignment.Start
+    ) {
+        RuleToolbar(
+            title = title,
+            trailingTitle = trailingTitle,
+            isButtonActive = ruleName.isNotBlank(),
+            onBack = onBack,
+            onAddButton = addRule
+        )
+        Spacer(modifier = Modifier.height(24.dp))
         Column(
-            modifier = Modifier.fillMaxSize().pointerInput(Unit) {
-                detectTapGestures(onTap = {
-                    focusManager.clearFocus()
-                })
-            },
-            horizontalAlignment = Alignment.Start
+            Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp)
         ) {
-            RuleToolbar(
-                title = title,
-                trailingTitle = trailingTitle,
-                isButtonActive = ruleName.isNotBlank(),
-                onBack = onBack,
-                onAddButton = addRule
+            RuleTitleGuide(
+                stringResource(R.string.our_rule_add_edit_title)
             )
-            Spacer(modifier = Modifier.height(24.dp))
-            Column(
-                Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp)
-            ) {
-                RuleTitleGuide(
-                    stringResource(R.string.our_rule_add_edit_title)
+            HousTextField(
+                modifier = Modifier.focusRequester(focusRequester),
+                textFielddMode = HousTextFieldMode.RIGHT_LIMITED,
+                text = ruleName,
+                onTextChange = changeName,
+                limitTextCount = 10,
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    imeAction = ImeAction.Next
+                ),
+                keyboardActions = KeyboardActions(
+                    onNext = { focusManager.moveFocus(FocusDirection.Next) }
                 )
-                HousTextField(
-                    modifier = Modifier.focusRequester(focusRequester),
-                    textFielddMode = HousTextFieldMode.RIGHT_LIMITED,
-                    text = ruleName,
-                    onTextChange = changeName,
-                    limitTextCount = 10,
-                    keyboardOptions = KeyboardOptions.Default.copy(
-                        imeAction = ImeAction.Next
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onNext = { focusManager.moveFocus(FocusDirection.Next) }
-                    )
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                RuleTitleGuide(
-                    stringResource(R.string.our_rule_add_edit_description),
-                    isEssential = false
-                )
-                HousTextField(
-                    textFielddMode = HousTextFieldMode.BOTTOM_END,
-                    text = description,
-                    onTextChange = changeDescription,
-                    limitTextCount = 50,
-                    keyboardOptions = KeyboardOptions.Default.copy(
-                        imeAction = ImeAction.Done
-                    ),
-                    keyboardActions = KeyboardActions {
-                        focusManager.clearFocus()
-                    }
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                RuleTitleGuide(
-                    stringResource(R.string.our_rule_add_edit_photo),
-                    isEssential = false
-                )
-                Spacer(modifier = Modifier.height(2.dp))
-            }
-            RulePhotoStatusBar(
-                photoCount = photos.size,
-                onOpenGallery = onOpenGallery
             )
-            Spacer(modifier = Modifier.height(16.dp))
-            PhotoGrid(
-                edgeWidthDp = 16.dp,
-                spaceWidthDp = 12.dp,
-                photoFraction = 0.416f,
-                isEditable = true,
-                photos = photos,
-                onRemove = deletePhoto
+            Spacer(modifier = Modifier.height(20.dp))
+            RuleTitleGuide(
+                stringResource(R.string.our_rule_add_edit_description),
+                isEssential = false
             )
+            HousTextField(
+                textFielddMode = HousTextFieldMode.BOTTOM_END,
+                text = description,
+                onTextChange = changeDescription,
+                limitTextCount = 50,
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions {
+                    focusManager.clearFocus()
+                }
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            RuleTitleGuide(
+                stringResource(R.string.our_rule_add_edit_photo),
+                isEssential = false
+            )
+            Spacer(modifier = Modifier.height(2.dp))
         }
+        RulePhotoStatusBar(
+            photoCount = photos.size,
+            onOpenGallery = onOpenGallery
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        PhotoGrid(
+            edgeWidthDp = 16.dp,
+            spaceWidthDp = 12.dp,
+            photoFraction = 0.416f,
+            isEditable = true,
+            photos = photos,
+            onRemove = deletePhoto
+        )
     }
 }
 
@@ -132,15 +129,11 @@ fun BasicUpdateRuleScreen(
  * design system에 넣어두면 어떰스??
  * */
 @Composable
-private fun AutoFocusOnInitializeEffect(requestFocus: () -> Unit) {
+private inline fun AutoFocusOnInitializeEffect(crossinline requestFocus: () -> Unit) {
     val windowInfo = LocalWindowInfo.current
 
-    LaunchedEffect(windowInfo) {
-        snapshotFlow { windowInfo.isWindowFocused }.collect { isWindowFocused ->
-            if (isWindowFocused) {
-                requestFocus()
-            }
-        }
+    LaunchedEffect(windowInfo.isWindowFocused) {
+        if (windowInfo.isWindowFocused) requestFocus()
     }
 }
 

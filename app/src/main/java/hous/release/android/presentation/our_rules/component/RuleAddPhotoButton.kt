@@ -17,12 +17,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.designsystem.R
 import hous.release.designsystem.theme.HousBlue
 import hous.release.designsystem.theme.HousG4
 import hous.release.designsystem.theme.HousTheme
+import hous.release.android.R as AppR
 
 @Composable
 fun RuleAddPhotoButton(
@@ -45,7 +47,7 @@ fun RuleAddPhotoButton(
             color = if (isActiveButton) HousBlue else HousG4
         )
         Text(
-            text = "추가하기",
+            text = stringResource(id = AppR.string.our_rule_add),
             style = HousTheme.typography.b3,
             color = if (isActiveButton) HousBlue else HousG4
         )

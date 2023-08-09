@@ -35,7 +35,9 @@ class MainRuleViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val uiEvents = Channel<MainRulesEvent>()
-    val uiState = uiEvents.receiveAsFlow().runningFold(MainRulesState(), reducer::dispatch)
+    val uiState = uiEvents
+        .receiveAsFlow()
+        .runningFold(MainRulesState(), reducer::dispatch)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), MainRulesState())
 
     private val _sideEffect: Channel<MainRuleSideEffect> = Channel()

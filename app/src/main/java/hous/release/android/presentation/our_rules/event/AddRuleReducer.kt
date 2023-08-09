@@ -5,8 +5,9 @@ import hous.release.android.presentation.our_rules.viewmodel.AddRuleEvent
 import hous.release.android.presentation.our_rules.viewmodel.AddRuleState
 import hous.release.android.util.event.Reducer
 import timber.log.Timber
+import javax.inject.Inject
 
-class AddRuleReducer : Reducer<AddRuleState, AddRuleEvent> {
+class AddRuleReducer @Inject constructor() : Reducer<AddRuleState, AddRuleEvent> {
     override fun dispatch(state: AddRuleState, event: AddRuleEvent): AddRuleState {
         return when (event) {
             is AddRuleEvent.ChangeDescription -> {
