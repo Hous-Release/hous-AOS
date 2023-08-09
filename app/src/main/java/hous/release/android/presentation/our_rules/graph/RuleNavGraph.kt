@@ -125,7 +125,6 @@ private fun NavGraphBuilder.addRuleScreen(onBack: () -> Unit) {
         var isOutDialogShow by remember { mutableStateOf(false) }
         var isLoading by remember { mutableStateOf(false) }
         var isShowLimitedDialog by remember { mutableStateOf(false) }
-        val sideEffect = viewModel.sideEffect.collectAsStateWithLifecycle(AddRuleSideEffect.IDLE)
         val context = LocalContext.current
         val takePhotoFromAlbumLauncher = rememberLauncherForActivityResult(
             ActivityResultContracts.PickMultipleVisualMedia(5)
