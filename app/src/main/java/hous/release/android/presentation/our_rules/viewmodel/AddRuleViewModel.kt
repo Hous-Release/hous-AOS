@@ -10,6 +10,7 @@ import hous.release.domain.usecase.rule.AddRuleUseCase
 import hous.release.domain.value.PhotoUri
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.runningFold
 import kotlinx.coroutines.flow.stateIn
@@ -25,7 +26,9 @@ class AddRuleViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val uiEvents = Channel<AddRuleEvent>()
-    val uiState = uiEvents.receiveAsFlow().runningFold(AddRuleState(), reducer::dispatch)
+    val uiState = uiEvents
+        .receiveAsFlow()
+        .runningFold(AddRuleState(), reducer::dispatch)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), AddRuleState())
 
     private val _sideEffect: Channel<AddRuleSideEffect> = Channel()
