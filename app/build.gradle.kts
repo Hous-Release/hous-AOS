@@ -178,7 +178,7 @@ dependencies {
     Deps.ThirdParty.run {
         implementation(timber)
         implementation(lottie)
-        implementation(compose_lottie)
+        implementation(composeLottie)
         implementation(ballon)
         implementation(coilCompose)
     }
