@@ -36,6 +36,7 @@ class WithdrawViewModel @Inject constructor(
                     setSplashStateUseCase(SplashState.LOGIN)
                     _uiEvent.emit(UiEvent.SUCCESS)
                 }.onFailure { throwable ->
+                    _uiEvent.emit(UiEvent.ERROR)
                     Timber.e(throwable)
                 }
         }

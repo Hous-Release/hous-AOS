@@ -33,6 +33,7 @@ class FeedbackViewModel @Inject constructor(
                     _uiEvent.emit(UiEvent.SUCCESS)
                     comment.value = ""
                 }.onFailure { throwable ->
+                    _uiEvent.emit(UiEvent.ERROR)
                     Timber.e(throwable)
                 }
         }
