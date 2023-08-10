@@ -3,7 +3,7 @@ package hous.release.android.presentation.withdraw.withdrawDone
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.core.app.ActivityCompat
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
@@ -29,14 +29,9 @@ class WithdrawDoneFragment :
     }
 
     private fun initBackPressedCallback() {
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    startActivity(Intent(requireActivity(), LoginActivity::class.java))
-                    ActivityCompat.finishAffinity(requireActivity())
-                }
-            }
-        )
+        requireActivity().onBackPressedDispatcher.addCallback {
+            startActivity(Intent(requireActivity(), LoginActivity::class.java))
+            ActivityCompat.finishAffinity(requireActivity())
+        }
     }
 }
