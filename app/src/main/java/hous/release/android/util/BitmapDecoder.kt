@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.io.File
+import java.io.FileNotFoundException
 
 class BitmapDecoder(
     private val context: Context,
@@ -18,12 +19,24 @@ class BitmapDecoder(
 
     suspend fun decode(path: String): Bitmap? = withContext(ioDispatcher) {
         runCatching {
+            // cache에 저장된 이미지 decode
             val inputStream = contentResolver.openInputStream(
                 File(path).toUri()
             )
             inputStream?.use { _inputStream ->
                 BitmapFactory.decodeStream(_inputStream)
             }
+        }.recover {
+            // Gallery에서 선택한 이미지
+            if (it is FileNotFoundException) {
+                val inputStream = contentResolver.openInputStream(
+                    path.toUri()
+                )
+                return@recover inputStream?.use { _inputStream ->
+                    BitmapFactory.decodeStream(_inputStream)
+                }
+            }
+            null
         }.onFailure {
             Timber.e(it.stackTraceToString())
         }.getOrNull()

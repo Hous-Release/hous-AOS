@@ -4,10 +4,10 @@ import hous.release.data.entity.request.DeleteRulesRequest
 import hous.release.data.entity.request.EditRulesRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.NoDataResponse
+import hous.release.data.entity.response.rule.CanAddRuleResponse
 import hous.release.data.entity.response.rule.DetailRuleResponse
 import hous.release.data.entity.response.rule.MainRulesResponse
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.HTTP
@@ -16,6 +16,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface RuleService {
     @GET("/v1/rules")
@@ -24,13 +25,22 @@ interface RuleService {
     @GET("/v2/rule/{id}")
     suspend fun getDetailRuleBy(@Path("id") id: Int): BaseResponse<DetailRuleResponse>
 
+    @GET("/v2/rule/addable")
+    suspend fun getAddableRules(): BaseResponse<CanAddRuleResponse>
+
     @Multipart
-    @POST("/v2/rules")
-    suspend fun postNewRule(
-        @Part("description") description: RequestBody,
-        @Part("name") name: RequestBody,
+    @POST("/v2/rule")
+    suspend fun addRule(
+        @Query("description") description: String,
+        @Query("name") name: String,
         @Part images: List<MultipartBody.Part>
-    ): NoDataResponse
+    )
+
+    @POST("/v2/rule")
+    suspend fun addRuleNoImage(
+        @Query("description") description: String,
+        @Query("name") name: String
+    )
 
     @PUT("/v1/rules")
     suspend fun putEditedRuleContent(@Body body: EditRulesRequest): NoDataResponse

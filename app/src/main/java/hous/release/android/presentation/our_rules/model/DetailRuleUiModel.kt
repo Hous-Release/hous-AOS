@@ -15,6 +15,5 @@ data class DetailRuleUiModel(
 @Parcelize
 data class PhotoUiModel(
     val url: String = "",
-    val isUploading: Boolean = false,
     val filePath: String? = null
 ) : Parcelable
