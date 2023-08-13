@@ -19,7 +19,7 @@ sealed class Photo {
             }
         }
 
-        private const val HOUS_S3_BASE_URL = "https://team-hous.s3.ap-northeast-2.amazonaws.com/"
+        private const val HOUS_S3_BASE_URL = HousConfig.HOUS_S3_BASE_URL
         private const val CACHE_DIR = "hous.release.android/cache"
         private const val CONTENT_SCHEME = "content://"
     }
