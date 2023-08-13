@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
@@ -45,17 +46,19 @@ class PhotoRepositoryImpl @Inject constructor(
         )
 
     // path에 해당하는 remote 사진이 캐시되어 있는지 확인한 후, 캐시되어 있다면 반환한다.
-    override fun fetchRemotePhotosFlow(photos: List<Photo>): Flow<List<Photo?>> = flow {
+    override fun fetchPhotosFlow(photos: List<Photo>): Flow<List<Photo?>> = flow {
         val _photos = MutableList<Photo?>(photos.size) { null }
         emit(_photos)
         photos.forEachIndexed { index, photo ->
             val photoPath = photo.path
             val fileName = photoPath.toFileName()
             if (isCached(fileName)) { // 만약 이미 캐시된 사진이라면
+                Timber.d("isCached: $fileName")
                 _photos[index] = Photo.from(File(cacheFolder, fileName).absolutePath)
                 emit(_photos)
             } else { // 캐시된 사진이 아니라면
                 val remotePhoto = remoteCacher.cacheImage(photoPath)
+                Timber.d("remotePhoto: ${remotePhoto?.absolutePath}")
                 remotePhoto?.let {
                     _photos[index] = Photo.from(it.absolutePath)
                     emit(_photos)
