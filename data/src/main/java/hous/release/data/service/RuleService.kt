@@ -1,7 +1,6 @@
 package hous.release.data.service
 
 import hous.release.data.entity.request.DeleteRulesRequest
-import hous.release.data.entity.request.EditRulesRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.NoDataResponse
 import hous.release.data.entity.response.rule.CanAddRuleResponse
@@ -42,8 +41,21 @@ interface RuleService {
         @Query("name") name: String
     )
 
-    @PUT("/v1/rules")
-    suspend fun putEditedRuleContent(@Body body: EditRulesRequest): NoDataResponse
+    @Multipart
+    @PUT("/v2/rules/{id}")
+    suspend fun updateRule(
+        @Path("id") id: Int,
+        @Query("description") description: String,
+        @Query("name") name: String,
+        @Part images: List<MultipartBody.Part>
+    ): NoDataResponse
+
+    @PUT("/v2/rules/{id}")
+    suspend fun updateRuleNoImage(
+        @Path("id") id: Int,
+        @Query("description") description: String,
+        @Query("name") name: String
+    ): NoDataResponse
 
     @HTTP(method = "DELETE", path = "/v1/rules", hasBody = true)
     suspend fun deleteRuleContent(@Body body: DeleteRulesRequest): NoDataResponse
