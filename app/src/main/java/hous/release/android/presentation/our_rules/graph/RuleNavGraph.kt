@@ -145,7 +145,6 @@ private fun NavGraphBuilder.addRuleScreen(onBack: () -> Unit) {
                 when (event) {
                     is AddRuleSideEffect.IDLE -> Unit
                     is AddRuleSideEffect.DuplicateToast -> {
-                        isLoading = false
                         ToastMessageUtil.showToast(
                             context,
                             context.getString(R.string.our_rule_duplicate_rule)
@@ -164,12 +163,10 @@ private fun NavGraphBuilder.addRuleScreen(onBack: () -> Unit) {
                     }
 
                     is AddRuleSideEffect.PopBackStack -> {
-                        isLoading = false
                         onBack()
                     }
 
                     is AddRuleSideEffect.ShowLimitRuleCountDialog -> {
-                        isLoading = false
                         isShowLimitedDialog = true
                     }
                 }

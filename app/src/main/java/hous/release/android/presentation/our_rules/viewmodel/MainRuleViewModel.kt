@@ -81,10 +81,9 @@ class MainRuleViewModel @Inject constructor(
             runCatching { getDetailRuleUseCase(id) }.onSuccess { _detailRule: DetailRule ->
                 uiEvents.send(MainRulesEvent.FetchDetailRule(_detailRule))
                 // image Url을 photo Uri로 변환하는 작업
-                photoSaver.fetchRemotePhotosFlow(_detailRule.images)
-                    .distinctUntilChanged()
+                photoSaver.fetchPhotosFlow(_detailRule.images)
                     .collect {
-                        Timber.d("fetchRemotePhotosFlow: $it")
+                        Timber.d("fetchPhotosFlow: $it")
                         uiEvents.send(MainRulesEvent.LoadedImage(it))
                     }
             }.onFailure {
