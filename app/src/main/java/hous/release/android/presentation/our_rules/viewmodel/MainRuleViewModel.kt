@@ -16,7 +16,6 @@ import hous.release.domain.usecase.rule.GetMainRulesUseCase
 import hous.release.domain.usecase.search.SearchRuleUseCase
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.runningFold
 import kotlinx.coroutines.flow.stateIn
