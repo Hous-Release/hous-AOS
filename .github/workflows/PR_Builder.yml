@@ -41,6 +41,7 @@ jobs:
 
     - name: Access Local Properties
       env:
+        HOUS_S3_BASE_URL: ${{secrets.HOUS_S3_BASE_URL}}
         HOST_URI: ${{ secrets.HOST_URI }}
         HOST_RELEASE_URI: ${{ secrets.HOST_RELEASE_URI }}
         KAKAO_NATIVE_APP_KEY: ${{ secrets.KAKAO_NATIVE_APP_KEY }}
@@ -51,6 +52,7 @@ jobs:
         KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
         STORE_FILE: ${{ secrets.STORE_FILE }}
       run: |
+        echo HOUS_S3_BASE_URL=\"$HOUS_S3_BASE_URL\" >> local.properties
         echo HOST_URI=\"$HOST_URI\" >> local.properties
         echo HOST_RELEASE_URI=\"$HOST_RELEASE_URI\" >> local.properties
         echo KAKAO_NATIVE_APP_KEY=\"$KAKAO_NATIVE_APP_KEY\" >> local.properties
