@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.konan.properties.Properties
-
 plugins {
     id("kotlin")
     id("java-library")
@@ -7,51 +5,13 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version ktlintVersion
 }
 
-val properties = Properties().apply {
-    load(File(rootDir, "local.properties").inputStream())
-}
-val housS3BaseUrl = properties.getProperty("HOUS_S3_BASE_URL")
-    ?: throw IllegalArgumentException("HOUS_S3_BASE_URL must be set in local.properties")
-
-tasks {
-    register("generatePropertiesSource") {
-        doLast {
-            val outputDir = file("$buildDir/generated/source/myProperties")
-            outputDir.mkdirs()
-
-            file("$outputDir/HousConfig.kt").apply {
-                writeText(
-                    """
-                     
-                    object HousConfig {
-                        const val HOUS_S3_BASE_URL = "$housS3BaseUrl"
-                    }
-                    """.trimIndent()
-                )
-            }
-        }
-    }
-
-    named("compileKotlin") {
-        dependsOn("generatePropertiesSource")
-    }
-
-    withType<Test> {
-        useJUnitPlatform()
-    }
-}
-
-sourceSets {
-    main {
-        kotlin {
-            srcDir("$buildDir/generated/source/myProperties")
-        }
-    }
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
 
 java {
-    sourceCompatibility = javaVersion
-    targetCompatibility = javaVersion
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 dependencies {
