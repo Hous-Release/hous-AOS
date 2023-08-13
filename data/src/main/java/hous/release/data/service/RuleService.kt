@@ -42,7 +42,7 @@ interface RuleService {
     )
 
     @Multipart
-    @PUT("/v2/rules/{id}")
+    @PUT("/v2/rule/{id}")
     suspend fun updateRule(
         @Path("id") id: Int,
         @Query("description") description: String,
@@ -50,7 +50,7 @@ interface RuleService {
         @Part images: List<MultipartBody.Part>
     ): NoDataResponse
 
-    @PUT("/v2/rules/{id}")
+    @PUT("/v2/rule/{id}")
     suspend fun updateRuleNoImage(
         @Path("id") id: Int,
         @Query("description") description: String,
