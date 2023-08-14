@@ -24,15 +24,15 @@ fun DetailRuleBottomSheetContent(
     onNavigateToUpdateRule: (DetailRuleUiModel) -> Unit = {},
     onDeleteRule: (Int) -> Unit = {}
 ) {
-    val images = detailRule.images
+    val photos = detailRule.photos
     HousDetailBottomSheet(
         modifier = Modifier.padding(top = 26.dp),
         editAction = { onNavigateToUpdateRule(detailRule) },
         deleteAction = { onDeleteRule(detailRule.id) }
     ) {
-        if (images.isNotEmpty()) {
+        if (photos.isNotEmpty()) {
             PhotoGrid(
-                photos = images,
+                photos = photos,
                 isEditable = false,
                 photoFraction = 0.62f,
                 spaceWidthDp = 14.dp,

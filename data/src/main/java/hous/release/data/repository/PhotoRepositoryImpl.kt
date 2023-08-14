@@ -7,15 +7,13 @@ import hous.release.data.di.LocalCache
 import hous.release.data.di.RemoteCache
 import hous.release.data.util.image.FileNameFormatter
 import hous.release.data.util.image.ImageCacher
-import hous.release.domain.value.PhotoURL
-import hous.release.domain.value.PhotoUri
+import hous.release.domain.entity.Photo
 import hous.release.domain.repository.PhotoRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
@@ -47,56 +45,70 @@ class PhotoRepositoryImpl @Inject constructor(
         )
 
     // path에 해당하는 remote 사진이 캐시되어 있는지 확인한 후, 캐시되어 있다면 반환한다.
-    override fun fetchRemotePhotosFlow(urls: List<PhotoURL>): Flow<List<PhotoUri?>> = flow {
-        val photos = MutableList<PhotoUri?>(urls.size) { null }
-        emit(photos)
-        urls.forEachIndexed { index, url ->
-            val urlPath = url.path
-            val fileName = urlPath.toFileName()
+    override fun fetchRemotePhotosFlow(photos: List<Photo>): Flow<List<Photo?>> = flow {
+        val _photos = MutableList<Photo?>(photos.size) { null }
+        emit(_photos)
+        photos.forEachIndexed { index, photo ->
+            val photoPath = photo.path
+            val fileName = photoPath.toFileName()
             if (isCached(fileName)) { // 만약 이미 캐시된 사진이라면
-                photos[index] = PhotoUri(File(cacheFolder, fileName).absolutePath)
-                emit(photos)
+                _photos[index] = Photo.from(File(cacheFolder, fileName).absolutePath)
+                emit(_photos)
             } else { // 캐시된 사진이 아니라면
-                val remotePhoto = remoteCacher.cacheImage(urlPath)
+                val remotePhoto = remoteCacher.cacheImage(photoPath)
                 remotePhoto?.let {
-                    photos[index] = PhotoUri(it.absolutePath)
-                    emit(photos)
+                    _photos[index] = Photo.from(it.absolutePath)
+                    emit(_photos)
                 }
             }
         }
-        emit(photos) // 마지막으로 캐시된 사진들을 emit한다.
+        emit(_photos) // 마지막으로 캐시된 사진들을 emit한다.
     }.flowOn(ioDispatchers)
 
-    // path에 해당하는 remote 사진이 캐시되어 있는지 확인한 후, 캐시되어 있다면 반환한다.
-    override suspend fun fetchPhotosByURL(urls: List<PhotoURL>): List<File> =
+    // path에 해당하는 사진이 캐시되어 있는지 확인한 후, 캐시되어 있다면 반환한다.
+    override suspend fun fetchPhotosBy(photos: List<Photo>): List<File> =
         withContext(ioDispatchers) {
-            urls.map {
-                val urlPath = it.path
-                val fileName = urlPath.toFileName()
-                if (isCached(fileName).not()) {
-                    remoteCacher.cacheImage(urlPath) ?: error("캐시된 사진이 없습니다.")
-                } else {
-                    File(cacheFolder, fileName)
+            photos.map { photo ->
+                val fileName = photo.path.toFileName()
+                if (isCached(fileName)) {
+                    return@map photo.toCachedFile()
                 }
+                return@map photo.cache() ?: error("캐시된 사진이 없습니다.")
             }
         }
 
-    // path에 해당하는 local 사진이 캐시되어 있는지 확인한 후, 캐시되어 있다면 반환한다.
-    override suspend fun fetchPhotosByUri(uris: List<PhotoUri>): List<File> =
-        withContext(ioDispatchers) {
-            val files = uris.map {
-                val uriPath = it.path
-                val fileName = uriPath.toFileName()
-
-                if (isCached(fileName).not()) {
-                    localCacher.cacheImage(uriPath) ?: error("캐시된 사진이 없습니다.")
-                } else {
-                    Timber.e("캐시된 사진이 있습니다.")
-                    File(tmpFolder, fileName)
-                }
+    private fun Photo.toCachedFile(): File {
+        return when (this) {
+            is Photo.Remote -> {
+                File(cacheFolder, path.toFileName())
             }
-            files
+
+            is Photo.Media -> {
+                File(tmpFolder, path.toFileName())
+            }
+
+            is Photo.Cache -> {
+                File(cacheFolder, path.toFileName())
+            }
         }
+    }
+
+    private fun Photo.cache(): File? {
+        return when (this) {
+            is Photo.Remote -> {
+                remoteCacher.cacheImage(path) ?: return null
+                File(cacheFolder, path.toFileName())
+            }
+
+            is Photo.Media -> {
+                localCacher.cacheImage(path) ?: return null
+            }
+
+            is Photo.Cache -> {
+                File(cacheFolder, path.toFileName())
+            }
+        }
+    }
 
     // path에 해당하는 사진이 캐시되어 있는지 확인한 후, 캐시되어 있다면 삭제한다.
     override suspend fun removePhoto(path: String): Boolean {

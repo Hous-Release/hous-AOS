@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.di.MainRules
 import hous.release.android.presentation.our_rules.model.DetailRuleUiModel
 import hous.release.android.util.event.Reducer
+import hous.release.domain.entity.Photo
 import hous.release.domain.entity.rule.DetailRule
 import hous.release.domain.entity.rule.MainRule
 import hous.release.domain.repository.PhotoRepository
@@ -13,10 +14,9 @@ import hous.release.domain.usecase.rule.CanAddRuleUseCase
 import hous.release.domain.usecase.rule.GetDetailRuleUseCase
 import hous.release.domain.usecase.rule.GetMainRulesUseCase
 import hous.release.domain.usecase.search.SearchRuleUseCase
-import hous.release.domain.value.PhotoUri
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.runningFold
 import kotlinx.coroutines.flow.stateIn
@@ -81,10 +81,12 @@ class MainRuleViewModel @Inject constructor(
             runCatching { getDetailRuleUseCase(id) }.onSuccess { _detailRule: DetailRule ->
                 uiEvents.send(MainRulesEvent.FetchDetailRule(_detailRule))
                 // image Url을 photo Uri로 변환하는 작업
-                photoSaver.fetchRemotePhotosFlow(_detailRule.images).collectLatest {
-                    Timber.d("fetchRemotePhotosFlow: $it")
-                    uiEvents.send(MainRulesEvent.LoadedImage(it))
-                }
+                photoSaver.fetchRemotePhotosFlow(_detailRule.images)
+                    .distinctUntilChanged()
+                    .collect {
+                        Timber.d("fetchRemotePhotosFlow: $it")
+                        uiEvents.send(MainRulesEvent.LoadedImage(it))
+                    }
             }.onFailure {
                 Timber.e(it.stackTraceToString())
             }
@@ -98,7 +100,7 @@ sealed class MainRuleSideEffect {
 }
 
 sealed class MainRulesEvent {
-    data class LoadedImage(val photoUris: List<PhotoUri?>) : MainRulesEvent()
+    data class LoadedImage(val photos: List<Photo?>) : MainRulesEvent()
 
     data class Refresh(val rules: List<MainRule>) : MainRulesEvent()
     data class FetchMainRules(val rules: List<MainRule>) : MainRulesEvent()
