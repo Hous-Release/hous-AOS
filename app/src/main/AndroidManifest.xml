@@ -135,7 +135,7 @@
         </activity>
         <activity
             android:name=".presentation.practice.GalleryPracticeActivity"
-            android:exported="true"
+            android:exported="false"
             android:screenOrientation="portrait">
 
         </activity>
