@@ -23,6 +23,7 @@ import hous.release.android.R
 import hous.release.android.presentation.our_rules.component.LoadingBar
 import hous.release.android.presentation.our_rules.component.dialog.AddRuleLimitedDialog
 import hous.release.android.presentation.our_rules.component.dialog.AddRuleOutDialog
+import hous.release.android.presentation.our_rules.component.dialog.DeleteRuleDialog
 import hous.release.android.presentation.our_rules.component.dialog.UpdateRuleOutDialog
 import hous.release.android.presentation.our_rules.model.DetailRuleUiModel
 import hous.release.android.presentation.our_rules.screen.AddRuleScreen
@@ -65,7 +66,7 @@ private fun NavGraphBuilder.mainRuleScreen(
         val activity = LocalContext.current.findActivity()
         val viewModel = hiltViewModel<MainRuleViewModel>()
         val uiState = viewModel.uiState.collectAsStateWithLifecycle()
-
+        var isLoading by remember { mutableStateOf(false) }
         var isShowLimitedAddRuleDialog by remember { mutableStateOf(false) }
         LaunchedEffect(Unit) {
             viewModel.sideEffect.collect { event ->
@@ -78,6 +79,11 @@ private fun NavGraphBuilder.mainRuleScreen(
                             isShowLimitedAddRuleDialog = true
                         }
                     }
+
+                    is MainRuleSideEffect.LoadingBar -> {
+                        Timber.d("LoadingBar: ${event.isLoading}")
+                        isLoading = event.isLoading
+                    }
                 }
             }
         }
@@ -86,6 +92,7 @@ private fun NavGraphBuilder.mainRuleScreen(
                 isShowLimitedAddRuleDialog = false
             })
         }
+        if (isLoading) LoadingBar()
 
         MainRuleScreen(
             detailRule = uiState.value.detailRule,
@@ -96,7 +103,8 @@ private fun NavGraphBuilder.mainRuleScreen(
             onNavigateToAddRule = viewModel::canAddRule,
             onNavigateToUpdateRule = navController::navigateUpdateRule,
             onFinish = activity::finish,
-            refresh = viewModel::fetchMainRules
+            refresh = viewModel::fetchMainRules,
+            deleteRule = viewModel::deleteRule,
         )
     }
 }

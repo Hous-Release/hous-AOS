@@ -11,6 +11,7 @@ import hous.release.domain.entity.rule.DetailRule
 import hous.release.domain.entity.rule.MainRule
 import hous.release.domain.repository.PhotoRepository
 import hous.release.domain.usecase.rule.CanAddRuleUseCase
+import hous.release.domain.usecase.rule.DeleteRuleUseCase
 import hous.release.domain.usecase.rule.GetDetailRuleUseCase
 import hous.release.domain.usecase.rule.GetMainRulesUseCase
 import hous.release.domain.usecase.search.SearchRuleUseCase
@@ -29,6 +30,7 @@ class MainRuleViewModel @Inject constructor(
     private val getMainRulesUseCase: GetMainRulesUseCase,
     private val getDetailRuleUseCase: GetDetailRuleUseCase,
     private val canAddRuleUseCase: CanAddRuleUseCase,
+    private val deleteRuleUseCase: DeleteRuleUseCase,
     private val searcher: SearchRuleUseCase,
     @MainRules private val reducer: Reducer<MainRulesState, MainRulesEvent>
 ) : ViewModel() {
@@ -64,6 +66,23 @@ class MainRuleViewModel @Inject constructor(
         }
     }
 
+    fun deleteRule() {
+        viewModelScope.launch {
+            val id = uiState.value.detailRule.id
+            val paths = uiState.value.detailRule.photos.mapNotNull { it.filePath }
+            _sideEffect.send(MainRuleSideEffect.LoadingBar(true))
+            runCatching { deleteRuleUseCase(id, paths) }
+                .onSuccess {
+                    fetchMainRules()
+                    _sideEffect.send(MainRuleSideEffect.LoadingBar(false))
+                }
+                .onFailure {
+                    Timber.e(it.stackTraceToString())
+                    _sideEffect.send(MainRuleSideEffect.LoadingBar(false))
+                }
+        }
+    }
+
     fun searchRule(searchQuery: String) {
         viewModelScope.launch {
             uiEvents.send(
@@ -94,6 +113,7 @@ class MainRuleViewModel @Inject constructor(
 
 sealed class MainRuleSideEffect {
     object IDLE : MainRuleSideEffect()
+    data class LoadingBar(val isLoading: Boolean) : MainRuleSideEffect()
     data class ShowLimitedAddRuleDialog(val isShow: Boolean) : MainRuleSideEffect()
 }
 
