@@ -1,13 +1,11 @@
 package hous.release.data.service
 
-import hous.release.data.entity.request.DeleteRulesRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.NoDataResponse
 import hous.release.data.entity.response.rule.CanAddRuleResponse
 import hous.release.data.entity.response.rule.DetailRuleResponse
 import hous.release.data.entity.response.rule.MainRulesResponse
 import okhttp3.MultipartBody
-import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.HTTP
 import retrofit2.http.Multipart

@@ -1,6 +1,5 @@
 package hous.release.data.datasource
 
-import hous.release.data.entity.request.DeleteRulesRequest
 import hous.release.data.entity.request.rule.AddRulesRequest
 import hous.release.data.entity.request.rule.UpdateRuleRequest
 import hous.release.data.entity.response.NoDataResponse

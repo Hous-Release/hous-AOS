@@ -23,7 +23,6 @@ import hous.release.android.R
 import hous.release.android.presentation.our_rules.component.LoadingBar
 import hous.release.android.presentation.our_rules.component.dialog.AddRuleLimitedDialog
 import hous.release.android.presentation.our_rules.component.dialog.AddRuleOutDialog
-import hous.release.android.presentation.our_rules.component.dialog.DeleteRuleDialog
 import hous.release.android.presentation.our_rules.component.dialog.UpdateRuleOutDialog
 import hous.release.android.presentation.our_rules.model.DetailRuleUiModel
 import hous.release.android.presentation.our_rules.screen.AddRuleScreen
