@@ -51,6 +51,6 @@ class RuleDataSource @Inject constructor(private val ruleService: RuleService) {
             )
         }
 
-    suspend fun deleteRuleContent(deleteRules: List<Int>): NoDataResponse =
-        ruleService.deleteRuleContent(DeleteRulesRequest(rulesIdList = deleteRules))
+    suspend fun deleteRule(ruleId: Int): NoDataResponse =
+        ruleService.deleteRule(ruleId)
 }

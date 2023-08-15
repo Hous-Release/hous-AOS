@@ -24,5 +24,5 @@ interface RuleRepository {
         imageFiles: List<File>
     )
 
-    fun deleteRuleContent(deleteRules: List<Int>): Flow<ApiResult<String>>
+    suspend fun deleteRule(ruleId: Int)
 }

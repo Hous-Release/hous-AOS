@@ -57,6 +57,6 @@ interface RuleService {
         @Query("name") name: String
     ): NoDataResponse
 
-    @HTTP(method = "DELETE", path = "/v1/rules", hasBody = true)
-    suspend fun deleteRuleContent(@Body body: DeleteRulesRequest): NoDataResponse
+    @HTTP(method = "DELETE", path = "/v2/rule/{id}")
+    suspend fun deleteRule(@Path("id") ruleId: Int): NoDataResponse
 }
