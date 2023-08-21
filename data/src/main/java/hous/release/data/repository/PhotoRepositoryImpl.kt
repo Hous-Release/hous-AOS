@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
@@ -124,11 +125,10 @@ class PhotoRepositoryImpl @Inject constructor(
 
     // 임시 캐시된 사진들을 삭제한다.
     override suspend fun removeTemporayPhotos() = withContext(ioDispatchers) {
-        var isDeleted = false
-        tmpFolder.listFiles()?.forEach {
-            isDeleted = it.delete() || isDeleted
+        tmpFolder.listFiles()?.all { it.delete() } ?: run {
+            Timber.e("임시 저장된 사진이 없습니다.")
+            true
         }
-        isDeleted
     }
 
     private fun String.toFileName() = fileNameFormatter.formatImageName(this)
