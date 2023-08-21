@@ -1,5 +1,6 @@
 package hous.release.android.presentation.personality.result
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,7 +51,26 @@ class PersonalityResultActivity :
         }
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            PERMISSION_REQUEST_CODE -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    personalityResultViewModel.downloadImage()
+                } else {
+                    showToast(this, "권한을 설정해주세요.")
+                }
+                return
+            }
+        }
+    }
+
     companion object {
         const val RESULT_COLOR = "resultColor"
+        private const val PERMISSION_REQUEST_CODE = 1
     }
 }
