@@ -17,6 +17,12 @@ interface RuleRepository {
         imageFiles: List<File>
     )
 
-    fun putEditedRuleContent(editedRuleList: List<MainRule>): Flow<ApiResult<String>>
+    suspend fun updateRule(
+        id: Int,
+        description: String,
+        name: String,
+        imageFiles: List<File>
+    )
+
     fun deleteRuleContent(deleteRules: List<Int>): Flow<ApiResult<String>>
 }

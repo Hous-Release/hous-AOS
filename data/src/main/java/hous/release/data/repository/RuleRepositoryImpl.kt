@@ -2,6 +2,7 @@ package hous.release.data.repository
 
 import hous.release.data.datasource.RuleDataSource
 import hous.release.data.entity.request.rule.AddRulesRequest
+import hous.release.data.entity.request.rule.UpdateRuleRequest
 import hous.release.domain.entity.rule.DetailRule
 import hous.release.domain.entity.rule.MainRule
 import hous.release.domain.repository.RuleRepository
@@ -42,19 +43,21 @@ class RuleRepositoryImpl @Inject constructor(
         )
     }
 
-    override fun putEditedRuleContent(editedRuleList: List<MainRule>): Flow<ApiResult<String>> =
-        flow {
-            val response = ruleDataSource.putEditedRuleContent(editedRuleList)
-            if (response.success) {
-                emit(ApiResult.Success(response.message))
-            } else {
-                emit(ApiResult.Error(response.message))
-            }
-        }.catch { e ->
-            if (e is HttpException) {
-                emit(ApiResult.Error(e.message))
-            }
-        }.flowOn(ioDispatcher)
+    override suspend fun updateRule(
+        id: Int,
+        description: String,
+        name: String,
+        imageFiles: List<File>
+    ) {
+        ruleDataSource.updateRule(
+            UpdateRuleRequest(
+                id = id,
+                description = description,
+                name = name,
+                imageFiles = imageFiles
+            )
+        )
+    }
 
     override fun deleteRuleContent(deleteRules: List<Int>): Flow<ApiResult<String>> = flow {
         val response = ruleDataSource.deleteRuleContent(deleteRules)
