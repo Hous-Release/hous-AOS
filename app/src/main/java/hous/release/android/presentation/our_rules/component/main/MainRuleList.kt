@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
 import hous.release.designsystem.component.HousDot
+import hous.release.designsystem.component.HousDotType
 import hous.release.designsystem.component.HousRuleSlot
 import hous.release.designsystem.theme.HousBlue
 import hous.release.designsystem.theme.HousG5
@@ -76,7 +77,7 @@ private fun MainRuleItem(
         text = mainRule.name,
         isShowTrailingIcon = mainRule.isNew,
         leadingIcon = {
-            HousDot(mainRule.isNew)
+            HousDot(HousDotType.from(isNew = mainRule.isNew, isRepresent = mainRule.isRepresent))
         },
         trailingIcon = {
             Text(
