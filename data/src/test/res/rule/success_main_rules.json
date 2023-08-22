@@ -7,12 +7,14 @@
       {
         "id": 34,
         "name": "dd123xd",
+        "isRepresent": true,
         "createdAt": "2023-03-16T17:19:42.158498",
         "isNew": true
       },
       {
         "id": 35,
         "name": "ㄷ슏슛ㄷ",
+        "isRepresent": false,
         "createdAt": "2023-05-05T19:31:34.794815",
         "isNew": false
       }

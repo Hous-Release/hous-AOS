@@ -35,12 +35,14 @@ internal class RuleRepositoryImplTest {
             MainRule(
                 34,
                 "dd123xd",
+                true,
                 "2023.03.16",
                 true
             ),
             MainRule(
                 35,
                 "ㄷ슏슛ㄷ",
+                true,
                 "2023.05.05",
                 false
             )
@@ -52,12 +54,14 @@ internal class RuleRepositoryImplTest {
                 MainRuleResponse(
                     34,
                     "dd123xd",
+                    true,
                     "2023-03-16T17:19:42.158498",
                     true
                 ),
                 MainRuleResponse(
                     35,
                     "ㄷ슏슛ㄷ",
+                    true,
                     "2023-05-05T19:31:34.794815",
                     false
                 )
