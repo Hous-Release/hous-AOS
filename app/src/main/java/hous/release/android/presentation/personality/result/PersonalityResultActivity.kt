@@ -1,14 +1,22 @@
 package hous.release.android.presentation.personality.result
 
+import android.Manifest
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityPersonalityResultBinding
+import hous.release.android.util.ToastMessageUtil.showToast
+import hous.release.android.util.UiEvent
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.component.PersonalityResultImage
+import hous.release.android.util.dialog.LoadingDialogFragment
 import hous.release.android.util.extension.repeatOnStarted
+import hous.release.android.util.extension.setOnSingleClickListener
 import hous.release.designsystem.theme.HousTheme
 
 @AndroidEntryPoint
@@ -22,6 +30,8 @@ class PersonalityResultActivity :
         initPersonalityResult()
         initBackBtnClickListener()
         initPersonalityImage()
+        initDownloadBtnClickListener()
+        collectUiEvent()
     }
 
     private fun initPersonalityResult() {
@@ -51,6 +61,28 @@ class PersonalityResultActivity :
         }
     }
 
+    private fun initDownloadBtnClickListener() {
+        binding.btnPersonalityResultDownload.setOnSingleClickListener {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                        PERMISSION_REQUEST_CODE
+                    )
+                } else {
+                    personalityResultViewModel.downloadImage()
+                }
+            } else {
+                personalityResultViewModel.downloadImage()
+            }
+        }
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -65,6 +97,31 @@ class PersonalityResultActivity :
                     showToast(this, "권한을 설정해주세요.")
                 }
                 return
+            }
+        }
+    }
+
+    private fun collectUiEvent() {
+        repeatOnStarted {
+            personalityResultViewModel.uiEvent.collect { uiEvent ->
+                val loadingDialogFragment =
+                    supportFragmentManager.findFragmentByTag(LoadingDialogFragment.TAG) as? LoadingDialogFragment
+
+                when (uiEvent) {
+                    UiEvent.LOADING -> {
+                        loadingDialogFragment?.show(
+                            supportFragmentManager, LoadingDialogFragment.TAG
+                        )
+                    }
+                    UiEvent.SUCCESS -> {
+                        loadingDialogFragment?.dismiss()
+                        showToast(this, getString(R.string.personality_result_download_success))
+                    }
+                    UiEvent.ERROR -> {
+                        loadingDialogFragment?.dismiss()
+                        showToast(this, getString(R.string.personality_result_download_failure))
+                    }
+                }
             }
         }
     }
