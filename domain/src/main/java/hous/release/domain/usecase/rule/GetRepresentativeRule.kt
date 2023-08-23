@@ -7,7 +7,7 @@ import javax.inject.Inject
 class GetRepresentativeRulesUseCase @Inject constructor(private val repository: RuleRepository) {
 
     suspend operator fun invoke(): List<RepresentativeRule> =
-        repository.fetchMainRules().map { mainRule ->
+        repository.fetchRules().map { mainRule ->
             RepresentativeRule(
                 id = mainRule.id,
                 name = mainRule.name,

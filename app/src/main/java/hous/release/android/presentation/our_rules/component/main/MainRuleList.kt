@@ -24,12 +24,12 @@ import hous.release.designsystem.component.HousRuleSlot
 import hous.release.designsystem.theme.HousBlue
 import hous.release.designsystem.theme.HousG5
 import hous.release.designsystem.theme.HousTheme
-import hous.release.domain.entity.rule.MainRule
+import hous.release.domain.entity.rule.Rule
 
 @Composable
 fun MainRuleList(
     onNavigateToDetailRule: (Int) -> Unit = {},
-    mainRules: List<MainRule> = emptyList()
+    mainRules: List<Rule> = emptyList()
 ) {
     if (mainRules.isEmpty()) {
         MainRuleEmptyContent()
@@ -63,7 +63,7 @@ private fun MainRuleEmptyContent() {
 @Composable
 private fun MainRuleItem(
     onClick: () -> Unit = {},
-    mainRule: MainRule = MainRule()
+    mainRule: Rule = Rule()
 ) {
     val focusManager = LocalFocusManager.current
     HousRuleSlot(
@@ -106,10 +106,10 @@ private fun MainRuleContentPreview() {
     HousTheme {
         MainRuleList(
             mainRules = listOf(
-                MainRule().copy(id = 1, name = "test1", isNew = true),
-                MainRule().copy(id = 2, name = "test2", isNew = false),
-                MainRule().copy(id = 3, name = "test3", isNew = true),
-                MainRule().copy(id = 4, name = "test4", isNew = false)
+                Rule().copy(id = 1, name = "test1", isNew = true),
+                Rule().copy(id = 2, name = "test2", isNew = false),
+                Rule().copy(id = 3, name = "test3", isNew = true),
+                Rule().copy(id = 4, name = "test4", isNew = false)
             )
         )
     }
@@ -131,7 +131,7 @@ private fun NewMainRulePreview() {
     HousTheme {
         Surface {
             MainRuleItem(
-                mainRule = MainRule().copy(isNew = true)
+                mainRule = Rule().copy(isNew = true)
             )
         }
     }

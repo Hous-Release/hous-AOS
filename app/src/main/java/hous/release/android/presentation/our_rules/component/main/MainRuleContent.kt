@@ -20,12 +20,12 @@ import hous.release.designsystem.component.FabScreenSlot
 import hous.release.designsystem.component.HousTextField
 import hous.release.designsystem.component.HousTextFieldMode
 import hous.release.designsystem.theme.HousTheme
-import hous.release.domain.entity.rule.MainRule
+import hous.release.domain.entity.rule.Rule
 import hous.release.feature.todo.R
 
 @Composable
 fun MainRuleContent(
-    mainRules: List<MainRule> = emptyList(),
+    mainRules: List<Rule> = emptyList(),
     searchQuery: String = "",
     onSearch: (String) -> Unit = {},
     onOpenDetailRule: (Int) -> Unit = {},
@@ -83,10 +83,10 @@ private fun MainRuleScreenPreView2() {
     HousTheme {
         MainRuleContent(
             mainRules = listOf(
-                MainRule().copy(id = 1, name = "test1", isNew = true),
-                MainRule().copy(id = 2, name = "test2", isNew = false),
-                MainRule().copy(id = 3, name = "test3", isNew = true),
-                MainRule().copy(id = 4, name = "test4", isNew = false)
+                Rule().copy(id = 1, name = "test1", isNew = true),
+                Rule().copy(id = 2, name = "test2", isNew = false),
+                Rule().copy(id = 3, name = "test3", isNew = true),
+                Rule().copy(id = 4, name = "test4", isNew = false)
             )
         )
     }

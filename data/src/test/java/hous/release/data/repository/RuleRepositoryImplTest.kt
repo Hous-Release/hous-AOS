@@ -2,9 +2,9 @@ package hous.release.data.repository
 
 import com.google.common.truth.Truth.assertThat
 import hous.release.data.datasource.RuleDataSource
-import hous.release.data.entity.response.rule.MainRuleResponse
-import hous.release.data.entity.response.rule.MainRulesResponse
-import hous.release.domain.entity.rule.MainRule
+import hous.release.data.entity.response.rule.RuleResponse
+import hous.release.data.entity.response.rule.RulesResponse
+import hous.release.domain.entity.rule.Rule
 import io.mockk.coEvery
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.junit5.MockKExtension
@@ -32,14 +32,14 @@ internal class RuleRepositoryImplTest {
     fun `MainRulesResponse 객체 에서 MainRule로 변환 하여 규칙들을 불러 온다`() = runTest {
         // given
         val expectedMainRules = listOf(
-            MainRule(
+            Rule(
                 34,
                 "dd123xd",
                 true,
                 "2023.03.16",
                 true
             ),
-            MainRule(
+            Rule(
                 35,
                 "ㄷ슏슛ㄷ",
                 true,
@@ -48,17 +48,17 @@ internal class RuleRepositoryImplTest {
             )
         )
         coEvery {
-            ruleDataSource.fetchMainRules()
-        } returns MainRulesResponse(
+            ruleDataSource.fetchRules()
+        } returns RulesResponse(
             rules = listOf(
-                MainRuleResponse(
+                RuleResponse(
                     34,
                     "dd123xd",
                     true,
                     "2023-03-16T17:19:42.158498",
                     true
                 ),
-                MainRuleResponse(
+                RuleResponse(
                     35,
                     "ㄷ슏슛ㄷ",
                     true,
@@ -69,7 +69,7 @@ internal class RuleRepositoryImplTest {
         )
 
         // when
-        val actualRules = defaultRuleRepository.fetchMainRules()
+        val actualRules = defaultRuleRepository.fetchRules()
         // then
         assertThat(actualRules).isEqualTo(expectedMainRules)
     }

@@ -5,7 +5,7 @@ import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.NoDataResponse
 import hous.release.data.entity.response.rule.CanAddRuleResponse
 import hous.release.data.entity.response.rule.DetailRuleResponse
-import hous.release.data.entity.response.rule.MainRulesResponse
+import hous.release.data.entity.response.rule.RulesResponse
 import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -19,7 +19,7 @@ import retrofit2.http.Query
 
 interface RuleService {
     @GET("/v1/rules")
-    suspend fun getMainRules(): BaseResponse<MainRulesResponse>
+    suspend fun getRules(): BaseResponse<RulesResponse>
 
     @GET("/v2/rule/{id}")
     suspend fun getDetailRuleBy(@Path("id") id: Int): BaseResponse<DetailRuleResponse>

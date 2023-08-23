@@ -8,11 +8,11 @@ import hous.release.android.presentation.our_rules.model.DetailRuleUiModel
 import hous.release.android.util.event.Reducer
 import hous.release.domain.entity.Photo
 import hous.release.domain.entity.rule.DetailRule
-import hous.release.domain.entity.rule.MainRule
+import hous.release.domain.entity.rule.Rule
 import hous.release.domain.repository.PhotoRepository
 import hous.release.domain.usecase.rule.CanAddRuleUseCase
 import hous.release.domain.usecase.rule.GetDetailRuleUseCase
-import hous.release.domain.usecase.rule.GetMainRulesUseCase
+import hous.release.domain.usecase.rule.GetRulesUseCase
 import hous.release.domain.usecase.search.SearchRuleUseCase
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
@@ -27,7 +27,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainRuleViewModel @Inject constructor(
     private val photoSaver: PhotoRepository,
-    private val getMainRulesUseCase: GetMainRulesUseCase,
+    private val getMainRulesUseCase: GetRulesUseCase,
     private val getDetailRuleUseCase: GetDetailRuleUseCase,
     private val canAddRuleUseCase: CanAddRuleUseCase,
     private val searcher: SearchRuleUseCase,
@@ -102,10 +102,10 @@ sealed class MainRuleSideEffect {
 sealed class MainRulesEvent {
     data class LoadedImage(val photos: List<Photo?>) : MainRulesEvent()
 
-    data class Refresh(val rules: List<MainRule>) : MainRulesEvent()
-    data class FetchMainRules(val rules: List<MainRule>) : MainRulesEvent()
+    data class Refresh(val rules: List<Rule>) : MainRulesEvent()
+    data class FetchMainRules(val rules: List<Rule>) : MainRulesEvent()
     data class FetchDetailRule(val rule: DetailRule) : MainRulesEvent()
-    data class SearchRule(val searchQuery: String, val filteredRules: List<MainRule>) :
+    data class SearchRule(val searchQuery: String, val filteredRules: List<Rule>) :
         MainRulesEvent()
 
     object DeleteAllFile : MainRulesEvent()
@@ -113,7 +113,7 @@ sealed class MainRulesEvent {
 
 data class MainRulesState(
     val detailRule: DetailRuleUiModel = DetailRuleUiModel(),
-    val originRules: List<MainRule> = emptyList(),
-    val filteredRules: List<MainRule> = emptyList(),
+    val originRules: List<Rule> = emptyList(),
+    val filteredRules: List<Rule> = emptyList(),
     val searchQuery: String = ""
 )
