@@ -16,7 +16,6 @@ import hous.release.domain.usecase.rule.GetMainRulesUseCase
 import hous.release.domain.usecase.search.SearchRuleUseCase
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.runningFold
 import kotlinx.coroutines.flow.stateIn
@@ -81,10 +80,9 @@ class MainRuleViewModel @Inject constructor(
             runCatching { getDetailRuleUseCase(id) }.onSuccess { _detailRule: DetailRule ->
                 uiEvents.send(MainRulesEvent.FetchDetailRule(_detailRule))
                 // image Url을 photo Uri로 변환하는 작업
-                photoSaver.fetchRemotePhotosFlow(_detailRule.images)
-                    .distinctUntilChanged()
+                photoSaver.fetchPhotosFlow(_detailRule.images)
                     .collect {
-                        Timber.d("fetchRemotePhotosFlow: $it")
+                        Timber.d("fetchPhotosFlow: $it")
                         uiEvents.send(MainRulesEvent.LoadedImage(it))
                     }
             }.onFailure {

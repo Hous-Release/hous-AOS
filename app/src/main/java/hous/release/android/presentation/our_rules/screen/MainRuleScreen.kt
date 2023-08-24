@@ -65,7 +65,12 @@ fun MainRuleScreen(
         sheetContent = {
             DetailRuleBottomSheetContent(
                 detailRule = detailRule,
-                onNavigateToUpdateRule = onNavigateToUpdateRule,
+                onNavigateToUpdateRule = { detailRule ->
+                    coroutineScope.launch {
+                        bottomSheetState.hide()
+                        onNavigateToUpdateRule(detailRule)
+                    }
+                },
                 onDeleteRule = {
                     coroutineScope.launch {
                         bottomSheetState.hide()
