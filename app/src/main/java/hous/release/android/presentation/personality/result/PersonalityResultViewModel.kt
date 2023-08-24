@@ -46,11 +46,11 @@ class PersonalityResultViewModel @Inject constructor(
             try {
                 imageDownloader.downloadAndSaveImage(
                     _uiState.value.firstDownloadImageUrl,
-                    _uiState.value.color.name + "1"
+                    _uiState.value.color.getSaveImageFileName(1)
                 )
                 imageDownloader.downloadAndSaveImage(
                     _uiState.value.secondDownloadImageUrl,
-                    _uiState.value.color.name + "2"
+                    _uiState.value.color.getSaveImageFileName(2)
                 )
                 _uiEvent.emit(UiEvent.SUCCESS)
             } catch (e: Exception) {
