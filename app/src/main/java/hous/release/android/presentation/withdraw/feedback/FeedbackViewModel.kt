@@ -46,7 +46,7 @@ class FeedbackViewModel @Inject constructor(
     fun onClickDone() {
         viewModelScope.launch {
             if (comment.value.isEmpty()) {
-                if(_isDeleting.value) {
+                if (_isDeleting.value) {
                     _isSkip.emit(true)
                 }
             } else {
