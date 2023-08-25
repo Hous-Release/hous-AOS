@@ -54,7 +54,7 @@ class PersonalityResultViewModel @Inject constructor(
                 )
                 _uiEvent.emit(UiEvent.SUCCESS)
             } catch (e: Exception) {
-                Timber.e(e.message)
+                Timber.e(e.stackTraceToString())
                 _uiEvent.emit(UiEvent.ERROR)
             }
         }
