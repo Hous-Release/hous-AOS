@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentFeedbackBinding
+import hous.release.android.presentation.settings.SettingsActivity
 import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.UiEvent
 import hous.release.android.util.binding.BindingFragment
@@ -21,10 +22,17 @@ class FeedbackFragment : BindingFragment<FragmentFeedbackBinding>(R.layout.fragm
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = feedbackViewModel
+        initIsDeleting()
         collectUiEvent()
         collectIsSkip()
         initEditTextClearFocus()
         initBackBtnClickListener()
+    }
+
+    private fun initIsDeleting() {
+        feedbackViewModel.initIsDeleting(
+            requireActivity().intent.getBooleanExtra(SettingsActivity.IS_DELETING, false)
+        )
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -63,7 +71,11 @@ class FeedbackFragment : BindingFragment<FragmentFeedbackBinding>(R.layout.fragm
                     }
                     UiEvent.SUCCESS -> {
                         loadingDialogFragment?.dismiss()
-                        findNavController().navigate(R.id.action_feedbackFragment_to_withdrawFragment)
+                        if (feedbackViewModel.isDeleting.value) {
+                            findNavController().navigate(R.id.action_feedbackFragment_to_withdrawFragment)
+                        } else {
+                            findNavController().navigate(R.id.action_feedbackFragment_to_withdrawDoneFragment)
+                        }
                     }
                     UiEvent.ERROR -> {
                         loadingDialogFragment?.dismiss()
