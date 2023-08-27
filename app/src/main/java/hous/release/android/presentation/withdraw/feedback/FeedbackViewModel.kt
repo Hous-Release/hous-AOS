@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.util.UiEvent
-import hous.release.domain.usecase.PostWithdrawFeedbackUseCase
+import hous.release.domain.usecase.PostFeedbackUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FeedbackViewModel @Inject constructor(
-    private val postWithdrawFeedbackUseCase: PostWithdrawFeedbackUseCase
+    private val postFeedbackUseCase: PostFeedbackUseCase
 ) : ViewModel() {
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent: SharedFlow<UiEvent> = _uiEvent.asSharedFlow()
