@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_feedbackFragment_to_withdrawFragment"
             app:destination="@id/withdrawFragment" />
+        <action
+            android:id="@+id/action_feedbackFragment_to_withdrawDoneFragment"
+            app:destination="@id/withdrawDoneFragment" />
     </fragment>
 
     <fragment
