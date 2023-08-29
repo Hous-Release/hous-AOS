@@ -38,7 +38,6 @@
             app:layout_constraintStart_toEndOf="@id/btn_withdraw_back"
             app:layout_constraintTop_toTopOf="@id/btn_withdraw_back" />
 
-        <!-- TODO 영주 : 회원탈퇴 api 호출 위치에 따라 onClick 없앨수도 -->
         <TextView
             android:id="@+id/tv_withdraw_done"
             android:layout_width="wrap_content"
