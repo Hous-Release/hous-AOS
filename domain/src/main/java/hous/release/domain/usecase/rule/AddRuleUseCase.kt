@@ -1,21 +1,21 @@
 package hous.release.domain.usecase.rule
 
-import hous.release.domain.enums.PhotoUri
+import hous.release.domain.entity.Photo
 import hous.release.domain.repository.PhotoRepository
 import hous.release.domain.repository.RuleRepository
 import javax.inject.Inject
 
-class AddNewRuleUseCase @Inject constructor(
+class AddRuleUseCase @Inject constructor(
     private val photoRepository: PhotoRepository,
-    private val ourRulesRepository: RuleRepository
+    private val ruleRepository: RuleRepository
 ) {
     suspend operator fun invoke(
         description: String,
         name: String,
-        imageUri: List<PhotoUri>
+        photos: List<Photo>
     ): Boolean {
-        val localFiles = photoRepository.fetchPhotosByUri(imageUri)
-        ourRulesRepository.postAddedRule(description, name, localFiles)
+        val localFiles = photoRepository.fetchPhotosBy(photos)
+        ruleRepository.addRule(description, name, localFiles)
         return photoRepository.removeTemporayPhotos()
     }
 }

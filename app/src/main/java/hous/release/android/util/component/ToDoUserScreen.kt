@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -22,22 +24,27 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
 import hous.release.android.presentation.our_rules.type.ButtonState
 import hous.release.android.presentation.todo.viewmodel.UpdateToDoUiState
-import hous.release.designsystem.component.HousLeftLimitedTextField
+import hous.release.designsystem.component.HousTextField
+import hous.release.designsystem.component.HousTextFieldMode
 import hous.release.designsystem.component.HousToolbarSlot
 import hous.release.designsystem.theme.HousBlack
 import hous.release.designsystem.theme.HousBlue
 import hous.release.designsystem.theme.HousBlueL1
-import hous.release.designsystem.theme.HousG1
 import hous.release.designsystem.theme.HousG4
 import hous.release.designsystem.theme.HousRed
 import hous.release.designsystem.theme.HousTheme
@@ -51,6 +58,7 @@ fun TodoUserScreen(
     todoText: String,
     buttonText: String,
     uiState: UpdateToDoUiState,
+    localFocusManager: FocusManager = LocalFocusManager.current,
     setTodoText: (String) -> Unit,
     checkUser: (Int) -> Unit,
     selectTodoDay: (Int, Int) -> Unit,
@@ -105,12 +113,21 @@ fun TodoUserScreen(
         )
         TodoTitleGuide()
         Spacer(modifier = Modifier.height(4.dp))
-        HousLeftLimitedTextField(
+        HousTextField(
+            textFielddMode = HousTextFieldMode.RIGHT_LIMITED,
             modifier = Modifier,
             text = todoText,
             onTextChange = setTodoText,
-            color = HousG1,
-            limitTextCount = 10
+            limitTextCount = 20,
+            keyboardOptions = KeyboardOptions.Default.copy(
+                capitalization = KeyboardCapitalization.Sentences,
+                autoCorrect = true,
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = { localFocusManager.clearFocus() }
+            )
         )
         Spacer(modifier = Modifier.height(8.dp))
         TodoNotificationCheckBox(

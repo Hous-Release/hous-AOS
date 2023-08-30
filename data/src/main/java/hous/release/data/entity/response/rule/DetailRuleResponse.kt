@@ -1,5 +1,6 @@
 package hous.release.data.entity.response.rule
 
+import hous.release.domain.entity.Photo
 import hous.release.domain.entity.rule.DetailRule
 
 data class DetailRuleResponse(
@@ -13,7 +14,7 @@ data class DetailRuleResponse(
         id = id,
         name = name,
         description = description ?: "",
-        images = images,
+        images = images.map { Photo.from(it) },
         updatedAt = updatedAt.substringBefore('T').replace('-', '.')
     )
 }

@@ -6,13 +6,10 @@ import hous.release.android.presentation.our_rules.viewmodel.MainRulesEvent
 import hous.release.android.presentation.our_rules.viewmodel.MainRulesState
 import hous.release.android.util.event.Reducer
 import hous.release.domain.entity.rule.DetailRule
-import hous.release.domain.usecase.search.SearchRuleUseCase
 import timber.log.Timber
 import javax.inject.Inject
 
-class MainRuleReducer @Inject constructor(
-    private val searcher: SearchRuleUseCase
-) : Reducer<MainRulesState, MainRulesEvent> {
+class MainRuleReducer @Inject constructor() : Reducer<MainRulesState, MainRulesEvent> {
     override fun dispatch(state: MainRulesState, event: MainRulesEvent): MainRulesState {
         return when (event) {
             is MainRulesEvent.Refresh -> {
@@ -36,24 +33,23 @@ class MainRuleReducer @Inject constructor(
             }
 
             is MainRulesEvent.LoadedImage -> {
-                val photoUris = event.photoUris
-                Timber.e("LoadedImage photoUris: $photoUris")
-                val updatedImages = state.detailRule.images.mapIndexed { index, photo ->
+                val photoPaths = event.photos.map { it?.path }
+                Timber.e("LoadedImage photoUris: $photoPaths")
+                val updatedImages = state.detailRule.photos.mapIndexed { index, photo ->
                     photo.copy(
-                        isUploading = photoUris[index] == null,
-                        filePath = photoUris[index]?.path
+                        filePath = photoPaths[index]
                     )
                 }
                 Timber.e("LoadedImage updatedImages: $updatedImages")
                 state.copy(
-                    detailRule = state.detailRule.copy(images = updatedImages)
+                    detailRule = state.detailRule.copy(photos = updatedImages)
                 )
             }
 
             is MainRulesEvent.SearchRule -> {
                 state.copy(
                     searchQuery = event.searchQuery,
-                    filteredRules = searcher(event.searchQuery, state.originRules)
+                    filteredRules = event.filteredRules
                 )
             }
 
@@ -65,11 +61,8 @@ class MainRuleReducer @Inject constructor(
         id = id,
         name = name,
         description = description,
-        images = images.map { url ->
-            PhotoUiModel(
-                url = url,
-                isUploading = true
-            )
+        photos = images.map { photo ->
+            PhotoUiModel.from(photo)
         },
         updatedAt = updatedAt
     )

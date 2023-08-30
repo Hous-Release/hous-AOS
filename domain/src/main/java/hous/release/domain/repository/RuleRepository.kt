@@ -9,12 +9,20 @@ import java.io.File
 interface RuleRepository {
     suspend fun fetchMainRules(): List<MainRule>
     suspend fun fetchDetailRule(id: Int): DetailRule
-    suspend fun postAddedRule(
+
+    suspend fun canAddRule(): Boolean
+    suspend fun addRule(
         description: String,
         name: String,
-        imageUri: List<File>
+        imageFiles: List<File>
     )
 
-    fun putEditedRuleContent(editedRuleList: List<MainRule>): Flow<ApiResult<String>>
+    suspend fun updateRule(
+        id: Int,
+        description: String,
+        name: String,
+        imageFiles: List<File>
+    )
+
     fun deleteRuleContent(deleteRules: List<Int>): Flow<ApiResult<String>>
 }
