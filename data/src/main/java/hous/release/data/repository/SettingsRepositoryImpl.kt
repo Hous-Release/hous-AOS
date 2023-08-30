@@ -41,6 +41,13 @@ class SettingsRepositoryImpl @Inject constructor(
         kotlin.runCatching { settingsDataSource.deleteRoom() }
             .map { response -> response.success }
 
-    override suspend fun postWithdrawFeedback(comment: String): Result<Unit> =
-        kotlin.runCatching { settingsDataSource.postWithdrawFeedback(comment = comment) }
+    override suspend fun postFeedback(
+        comment: String,
+        isDeleting: Boolean
+    ): Result<Unit> = kotlin.runCatching {
+        settingsDataSource.postFeedback(
+            comment = comment,
+            isDeleting = isDeleting
+        )
+    }
 }

@@ -27,8 +27,8 @@ interface SettingsService {
     @DELETE("/v1/room/leave")
     suspend fun deleteRoom(): NoDataResponse
 
-    @POST("/v1/user/delete/feedback")
-    suspend fun postWithdrawFeedback(
+    @POST("/v1/user/feedback")
+    suspend fun postFeedback(
         @Body body: FeedbackRequest
     ): NoDataResponse
 }

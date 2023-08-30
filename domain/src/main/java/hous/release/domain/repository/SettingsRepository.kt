@@ -19,5 +19,5 @@ interface SettingsRepository {
 
     suspend fun deleteRoom(): Result<Boolean>
 
-    suspend fun postWithdrawFeedback(comment: String): Result<Unit>
+    suspend fun postFeedback(comment: String, isDeleting: Boolean): Result<Unit>
 }
