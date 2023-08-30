@@ -31,9 +31,8 @@ class WithdrawFragment : BindingFragment<FragmentWithdrawBinding>(R.layout.fragm
 
                 when (uiEvent) {
                     UiEvent.LOADING -> {
-                        LoadingDialogFragment().show(
-                            childFragmentManager,
-                            LoadingDialogFragment.TAG
+                        loadingDialogFragment?.show(
+                            childFragmentManager, LoadingDialogFragment.TAG
                         )
                     }
                     UiEvent.SUCCESS -> {

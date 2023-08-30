@@ -17,7 +17,6 @@ import hous.release.android.util.extension.repeatOnStarted
 @AndroidEntryPoint
 class FeedbackFragment : BindingFragment<FragmentFeedbackBinding>(R.layout.fragment_feedback) {
     private val feedbackViewModel by viewModels<FeedbackViewModel>()
-    private val loadingDialog = LoadingDialogFragment()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,17 +53,20 @@ class FeedbackFragment : BindingFragment<FragmentFeedbackBinding>(R.layout.fragm
 
     private fun collectUiEvent() {
         repeatOnStarted {
+            val loadingDialogFragment =
+                childFragmentManager.findFragmentByTag(LoadingDialogFragment.TAG) as? LoadingDialogFragment
+
             feedbackViewModel.uiEvent.collect { uiEvent ->
                 when (uiEvent) {
                     UiEvent.LOADING -> {
-                        loadingDialog.show(childFragmentManager, LoadingDialogFragment.TAG)
+                        loadingDialogFragment?.show(childFragmentManager, LoadingDialogFragment.TAG)
                     }
                     UiEvent.SUCCESS -> {
-                        loadingDialog.dismiss()
+                        loadingDialogFragment?.dismiss()
                         findNavController().navigate(R.id.action_feedbackFragment_to_withdrawFragment)
                     }
                     UiEvent.ERROR -> {
-                        loadingDialog.dismiss()
+                        loadingDialogFragment?.dismiss()
                     }
                 }
             }
