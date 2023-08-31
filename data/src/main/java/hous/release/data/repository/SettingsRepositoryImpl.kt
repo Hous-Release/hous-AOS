@@ -40,4 +40,14 @@ class SettingsRepositoryImpl @Inject constructor(
     override suspend fun deleteRoom(): Result<Boolean> =
         kotlin.runCatching { settingsDataSource.deleteRoom() }
             .map { response -> response.success }
+
+    override suspend fun postFeedback(
+        comment: String,
+        isDeleting: Boolean
+    ): Result<Unit> = kotlin.runCatching {
+        settingsDataSource.postFeedback(
+            comment = comment,
+            isDeleting = isDeleting
+        )
+    }
 }

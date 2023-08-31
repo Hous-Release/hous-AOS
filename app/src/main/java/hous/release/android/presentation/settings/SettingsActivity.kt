@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import hous.release.android.BuildConfig
 import hous.release.android.R
 import hous.release.android.databinding.ActivitySettingsBinding
 import hous.release.android.presentation.login.LoginActivity
@@ -73,22 +72,8 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
     private fun initFeedbackClickListener() {
         binding.tvSettingsFeedback.setOnClickListener {
             startActivity(
-                Intent(Intent.ACTION_SEND).apply {
-                    type = "plain/text"
-                    putExtra(
-                        Intent.EXTRA_EMAIL,
-                        arrayOf(getString(R.string.settings_feedback_email))
-                    )
-                    putExtra(Intent.EXTRA_SUBJECT, getString(R.string.settings_feedback_subject))
-                    putExtra(
-                        Intent.EXTRA_TEXT,
-                        getString(
-                            R.string.settings_feedback_content,
-                            getDeviceName(),
-                            Build.VERSION.SDK_INT.toString(),
-                            BuildConfig.VERSION_NAME
-                        )
-                    )
+                Intent(this, WithdrawActivity::class.java).apply {
+                    putExtra(IS_DELETING, false)
                 }
             )
         }
@@ -102,7 +87,11 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
 
     private fun initWithdrawClickListener() {
         binding.tvSettingsWithdraw.setOnClickListener {
-            startActivity(Intent(this, WithdrawActivity::class.java))
+            startActivity(
+                Intent(this, WithdrawActivity::class.java).apply {
+                    putExtra(IS_DELETING, true)
+                }
+            )
         }
     }
 
@@ -175,5 +164,6 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
 
     companion object {
         const val HAS_ROOM = "HAS_ROOM"
+        const val IS_DELETING = "isDeleting"
     }
 }
