@@ -10,7 +10,6 @@ import android.os.Environment
 import android.provider.MediaStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.OutputStream
 import java.net.URL
 
 class ImageDownloader(
@@ -37,15 +36,14 @@ class ImageDownloader(
         val uri: Uri? = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
 
         uri?.let {
-            val os: OutputStream? = resolver.openOutputStream(it)
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os)
-            os?.flush()
-            os?.close()
+            resolver.openOutputStream(it).use { os ->
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os)
+            }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 contentValues.clear()
                 contentValues.put(MediaStore.MediaColumns.IS_PENDING, 0)
-                resolver.update(uri, contentValues, null, null)
+                resolver.update(it, contentValues, null, null)
             }
         }
     }
