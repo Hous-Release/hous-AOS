@@ -49,6 +49,7 @@ fun RuleNavGraph(
         mainRuleScreen(navController)
         addRuleScreen(navController::popBackStack)
         updateRuleScreen(navController)
+        representativeRuleScreen(navController::popBackStack)
     }
 }
 
@@ -214,6 +215,10 @@ private fun NavGraphBuilder.addRuleScreen(onBack: () -> Unit) {
     }
 }
 
+private fun NavGraphBuilder.representativeRuleScreen(onBack: () -> Unit) {
+    composable(RulesScreens.Represent.route) {
+    }
+}
 // Navigation
 
 fun NavController.navigateToAddRule() {

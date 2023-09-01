@@ -6,8 +6,9 @@ sealed class RulesScreens(val route: String) {
 
     object Update : RulesScreens("update")
 
+    object Represent : RulesScreens("represent")
+
     companion object {
-        private const val DETAIL_RULE_GRAPH_ROUTE = "detail_rules_graph"
         const val RULE_GRAPH_ROUTE = "rules"
         const val DETAIL_RULE_KEY = "id"
     }
