@@ -1,6 +1,5 @@
 package hous.release.domain.repository
 
-import hous.release.domain.entity.FeedbackType
 import hous.release.domain.entity.SplashState
 import hous.release.domain.entity.Token
 import hous.release.domain.entity.response.Login
@@ -25,7 +24,7 @@ interface AuthRepository {
 
     fun getFCMToken(setFCMToken: (String) -> Unit)
 
-    suspend fun deleteUser(feedbackType: FeedbackType, comment: String): Result<Boolean>
+    suspend fun deleteUser(): Result<Unit>
 
     suspend fun postLogout(): Result<Boolean>
 
