@@ -57,7 +57,7 @@ fun HousCheckBox(
                 painter = painterResource(id = R.drawable.ic_check),
                 tint = HousWhite,
                 contentDescription = "",
-                modifier = modifier.clickable(
+                modifier = Modifier.clickable(
                     interactionSource = interactionSource,
                     indication = indicator,
                     enabled = enabled,
