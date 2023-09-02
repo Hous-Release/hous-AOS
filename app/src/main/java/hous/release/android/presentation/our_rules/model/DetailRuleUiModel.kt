@@ -13,6 +13,7 @@ data class DetailRuleUiModel(
     val updatedAt: String = ""
 ) : Parcelable
 
+@Suppress("DataClassPrivateConstructor")
 @Parcelize
 data class PhotoUiModel private constructor(
     val url: String = "",
