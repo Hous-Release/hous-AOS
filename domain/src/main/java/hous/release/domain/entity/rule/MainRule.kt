@@ -5,6 +5,7 @@ import hous.release.domain.entity.Rule
 data class MainRule(
     override val id: Int = NO_ID,
     override val name: String = NO_NAME,
+    val isRepresent: Boolean = false,
     val createdAt: String = "",
     val isNew: Boolean = false
 ) : Rule(id, name) {

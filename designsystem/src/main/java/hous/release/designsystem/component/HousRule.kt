@@ -59,7 +59,7 @@ fun HousEditRulePreview() {
             text = "text",
             isShowTrailingIcon = false,
             leadingIcon = {
-                HousDot(true)
+                HousDot()
             },
             trailingIcon = {
                 Text(
