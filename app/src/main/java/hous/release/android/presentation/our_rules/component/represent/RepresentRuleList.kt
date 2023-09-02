@@ -53,7 +53,7 @@ private fun RepresentRuleItem(
                 onClick = { onClick(rule.id) },
                 indication = LocalIndication.current
             )
-            .padding(start = 24.dp, top = 12.dp, bottom = 12.dp, end = 16.dp),
+            .padding(start = 8.dp, top = 12.dp, bottom = 12.dp),
         text = rule.name,
         isShowTrailingIcon = true,
         leadingIcon = {

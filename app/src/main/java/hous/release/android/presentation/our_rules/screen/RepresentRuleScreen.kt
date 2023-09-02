@@ -37,6 +37,7 @@ fun RepresentRuleScreen(
         )
         Spacer(modifier = Modifier.height(20.dp))
         RepresentRuleList(
+            modifier = Modifier.padding(horizontal = 16.dp),
             rules = rules,
             onClick = onRuleClick
         )
