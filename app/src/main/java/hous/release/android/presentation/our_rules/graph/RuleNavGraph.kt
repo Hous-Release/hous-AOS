@@ -102,6 +102,7 @@ private fun NavGraphBuilder.mainRuleScreen(
             onSearch = viewModel::searchRule,
             onNavigateToAddRule = viewModel::canAddRule,
             onNavigateToUpdateRule = navController::navigateUpdateRule,
+            onNavigateToRepresentRule = navController::navigateToRepresentRule,
             onFinish = activity::finish,
             refresh = viewModel::fetchMainRules,
             deleteRule = viewModel::deleteRule,
@@ -309,7 +310,6 @@ private fun NavGraphBuilder.representativeRuleScreen(onBack: () -> Unit) {
     }
 }
 // Navigation
-
 fun NavController.navigateToAddRule() {
     navigate(RulesScreens.Add.route)
 }
@@ -320,4 +320,8 @@ fun NavController.navigateUpdateRule(detailRuleUiModel: DetailRuleUiModel) {
         detailRuleUiModel
     )
     navigate(RulesScreens.Update.route)
+}
+
+fun NavController.navigateToRepresentRule() {
+    navigate(RulesScreens.Represent.route)
 }
