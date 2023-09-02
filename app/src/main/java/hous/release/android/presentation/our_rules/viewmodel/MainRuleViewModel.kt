@@ -11,12 +11,12 @@ import hous.release.domain.entity.rule.DetailRule
 import hous.release.domain.entity.rule.Rule
 import hous.release.domain.repository.PhotoRepository
 import hous.release.domain.usecase.rule.CanAddRuleUseCase
+import hous.release.domain.usecase.rule.DeleteRuleUseCase
 import hous.release.domain.usecase.rule.GetDetailRuleUseCase
 import hous.release.domain.usecase.rule.GetRulesUseCase
 import hous.release.domain.usecase.search.SearchRuleUseCase
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.runningFold
 import kotlinx.coroutines.flow.stateIn
@@ -30,6 +30,7 @@ class MainRuleViewModel @Inject constructor(
     private val getMainRulesUseCase: GetRulesUseCase,
     private val getDetailRuleUseCase: GetDetailRuleUseCase,
     private val canAddRuleUseCase: CanAddRuleUseCase,
+    private val deleteRuleUseCase: DeleteRuleUseCase,
     private val searcher: SearchRuleUseCase,
     @MainRules private val reducer: Reducer<MainRulesState, MainRulesEvent>
 ) : ViewModel() {
@@ -65,6 +66,23 @@ class MainRuleViewModel @Inject constructor(
         }
     }
 
+    fun deleteRule() {
+        viewModelScope.launch {
+            val id = uiState.value.detailRule.id
+            val paths = uiState.value.detailRule.photos.mapNotNull { it.filePath }
+            _sideEffect.send(MainRuleSideEffect.LoadingBar(true))
+            runCatching { deleteRuleUseCase(id, paths) }
+                .onSuccess {
+                    fetchMainRules()
+                    _sideEffect.send(MainRuleSideEffect.LoadingBar(false))
+                }
+                .onFailure {
+                    Timber.e(it.stackTraceToString())
+                    _sideEffect.send(MainRuleSideEffect.LoadingBar(false))
+                }
+        }
+    }
+
     fun searchRule(searchQuery: String) {
         viewModelScope.launch {
             uiEvents.send(
@@ -81,10 +99,9 @@ class MainRuleViewModel @Inject constructor(
             runCatching { getDetailRuleUseCase(id) }.onSuccess { _detailRule: DetailRule ->
                 uiEvents.send(MainRulesEvent.FetchDetailRule(_detailRule))
                 // image Url을 photo Uri로 변환하는 작업
-                photoSaver.fetchRemotePhotosFlow(_detailRule.images)
-                    .distinctUntilChanged()
+                photoSaver.fetchPhotosFlow(_detailRule.images)
                     .collect {
-                        Timber.d("fetchRemotePhotosFlow: $it")
+                        Timber.d("fetchPhotosFlow: $it")
                         uiEvents.send(MainRulesEvent.LoadedImage(it))
                     }
             }.onFailure {
@@ -96,6 +113,7 @@ class MainRuleViewModel @Inject constructor(
 
 sealed class MainRuleSideEffect {
     object IDLE : MainRuleSideEffect()
+    data class LoadingBar(val isLoading: Boolean) : MainRuleSideEffect()
     data class ShowLimitedAddRuleDialog(val isShow: Boolean) : MainRuleSideEffect()
 }
 

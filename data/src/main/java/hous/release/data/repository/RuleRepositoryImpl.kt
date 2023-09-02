@@ -6,13 +6,7 @@ import hous.release.data.entity.request.rule.UpdateRuleRequest
 import hous.release.domain.entity.rule.DetailRule
 import hous.release.domain.entity.rule.Rule
 import hous.release.domain.repository.RuleRepository
-import hous.release.domain.util.ApiResult
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import retrofit2.HttpException
 import java.io.File
 import javax.inject.Inject
 
@@ -59,16 +53,7 @@ class RuleRepositoryImpl @Inject constructor(
         )
     }
 
-    override fun deleteRuleContent(deleteRules: List<Int>): Flow<ApiResult<String>> = flow {
-        val response = ruleDataSource.deleteRuleContent(deleteRules)
-        if (response.success) {
-            emit(ApiResult.Success(response.message))
-        } else {
-            emit(ApiResult.Error(response.message))
-        }
-    }.catch { e ->
-        if (e is HttpException) {
-            emit(ApiResult.Error(e.message))
-        }
-    }.flowOn(ioDispatcher)
+    override suspend fun deleteRule(ruleId: Int) {
+        ruleDataSource.deleteRule(ruleId)
+    }
 }

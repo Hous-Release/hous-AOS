@@ -1,5 +1,6 @@
 package hous.release.data.datasource
 
+import hous.release.data.entity.request.FeedbackRequest
 import hous.release.data.entity.request.NotificationSettingsRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.NoDataResponse
@@ -21,21 +22,29 @@ class SettingsDataSource @Inject constructor(
         startTodoStatus: String?,
         remindTodoStatus: String?,
         badgeStatus: String?
-    ): NoDataResponse =
-        settingsService.patchNotificationSettings(
-            NotificationSettingsRequest(
-                isPushNotification = notificationStatus,
-                rulesPushStatus = newRulesStatus,
-                newTodoPushStatus = newTodoStatus,
-                todayTodoPushStatus = startTodoStatus,
-                remindTodoPushStatus = remindTodoStatus,
-                badgePushStatus = badgeStatus
-            )
+    ): NoDataResponse = settingsService.patchNotificationSettings(
+        NotificationSettingsRequest(
+            isPushNotification = notificationStatus,
+            rulesPushStatus = newRulesStatus,
+            newTodoPushStatus = newTodoStatus,
+            todayTodoPushStatus = startTodoStatus,
+            remindTodoPushStatus = remindTodoStatus,
+            badgePushStatus = badgeStatus
         )
+    )
 
     suspend fun getSettingsMyToDo(): BaseResponse<SettingsMyToDoResponse> =
         settingsService.getSettingsMyToDo()
 
-    suspend fun deleteRoom(): NoDataResponse =
-        settingsService.deleteRoom()
+    suspend fun deleteRoom(): NoDataResponse = settingsService.deleteRoom()
+
+    suspend fun postFeedback(
+        comment: String,
+        isDeleting: Boolean
+    ): NoDataResponse = settingsService.postFeedback(
+        FeedbackRequest(
+            comment = comment,
+            isDeleting = isDeleting
+        )
+    )
 }

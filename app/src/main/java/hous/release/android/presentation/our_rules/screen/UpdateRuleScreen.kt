@@ -1,28 +1,44 @@
 package hous.release.android.presentation.our_rules.screen
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import hous.release.android.presentation.our_rules.model.DetailRuleUiModel
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import hous.release.android.R
+import hous.release.android.presentation.our_rules.component.update.BasicUpdateRuleScreen
+import hous.release.android.presentation.our_rules.model.PhotoUiModel
 import hous.release.designsystem.theme.HousTheme
 
 @Composable
 fun UpdateRuleScreen(
-    onBack: () -> Boolean,
-    rule: DetailRuleUiModel
+    ruleName: String = "",
+    description: String = "",
+    photos: List<PhotoUiModel> = emptyList(),
+    updateRule: () -> Unit = { },
+    changeName: (String) -> Unit = {},
+    changeDescription: (String) -> Unit = {},
+    deletePhoto: (photo: PhotoUiModel) -> Unit = {},
+    onOpenGallery: () -> Unit = {},
+    onBack: () -> Unit = {}
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = "Update Rule ${rule.id}",
-            style = HousTheme.typography.h1
-        )
+    BasicUpdateRuleScreen(
+        title = stringResource(id = R.string.our_rule_edit_rule_title),
+        trailingTitle = stringResource(id = R.string.our_rule_save_new_rule),
+        ruleName = ruleName,
+        description = description,
+        photos = photos,
+        addRule = updateRule,
+        changeName = changeName,
+        changeDescription = changeDescription,
+        deletePhoto = deletePhoto,
+        onOpenGallery = onOpenGallery,
+        onBack = onBack
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun UpdateRuleScreenPreview() {
+    HousTheme {
+        UpdateRuleScreen()
     }
 }

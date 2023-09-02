@@ -67,7 +67,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/tv_profile_edit_nickname"
@@ -102,8 +102,8 @@
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:maxLength="5"
+                    android:paddingHorizontal="16dp"
                     android:paddingVertical="12dp"
-                    android:paddingStart="16dp"
                     android:text="@={vm.nickname}"
                     android:textColor="@color/hous_black"
                     android:theme="@style/B2"
@@ -147,8 +147,8 @@
                     android:includeFontPadding="false"
                     android:inputType="date"
                     android:maxLength="10"
+                    android:paddingHorizontal="16dp"
                     android:paddingVertical="12dp"
-                    android:paddingStart="16dp"
                     android:singleLine="true"
                     android:text="@{vm.birthday}"
                     android:textColor="@color/hous_black"
@@ -204,8 +204,8 @@
                     android:inputType="textCapCharacters"
                     android:maxLength="4"
                     android:maxLines="1"
+                    android:paddingHorizontal="16dp"
                     android:paddingVertical="12dp"
-                    android:paddingStart="16dp"
                     android:text="@={vm.mbti}"
                     android:textColor="@color/hous_black"
                     android:theme="@style/B2"
@@ -249,8 +249,8 @@
                     android:inputType="text"
                     android:maxLength="5"
                     android:maxLines="1"
+                    android:paddingHorizontal="16dp"
                     android:paddingVertical="12dp"
-                    android:paddingStart="16dp"
                     android:text="@={vm.job}"
                     android:textColor="@color/hous_black"
                     android:theme="@style/B2"
@@ -294,8 +294,9 @@
                     android:imeOptions="actionNext"
                     android:inputType="textMultiLine"
                     android:maxLength="40"
-                    android:paddingVertical="12dp"
-                    android:paddingStart="16dp"
+                    android:paddingHorizontal="16dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="32dp"
                     android:text="@={vm.introduction}"
                     android:textColor="@color/hous_black"
                     android:theme="@style/B2"
