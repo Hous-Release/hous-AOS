@@ -24,13 +24,14 @@ import hous.release.domain.entity.rule.Rule
 
 @Composable
 fun RepresentRuleList(
+    modifier: Modifier = Modifier,
     rules: List<RepresentRuleUiModel> = emptyList(),
     onClick: (Int) -> Unit = {}
 ) {
     if (rules.isEmpty()) {
         RuleEmptyContent()
     }
-    LazyColumn {
+    LazyColumn(modifier = modifier) {
         itemsIndexed(rules, key = { _, rule -> rule.id }) { _, rule ->
             RepresentRuleItem(rule, onClick)
         }
@@ -52,7 +53,7 @@ private fun RepresentRuleItem(
                 onClick = { onClick(rule.id) },
                 indication = LocalIndication.current
             )
-            .padding(start = 16.dp, top = 12.dp, bottom = 12.dp, end = 16.dp),
+            .padding(start = 24.dp, top = 12.dp, bottom = 12.dp, end = 16.dp),
         text = rule.name,
         isShowTrailingIcon = true,
         leadingIcon = {
@@ -91,7 +92,7 @@ private fun Preview1() {
                 }
             }
         }
-        RepresentRuleList(rules, onClick)
+        RepresentRuleList(rules = rules, onClick = onClick)
     }
 }
 
