@@ -8,12 +8,17 @@ import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import hous.release.android.presentation.our_rules.component.dialog.DeleteRuleDialog
 import hous.release.android.presentation.our_rules.component.main.DetailRuleBottomSheetContent
 import hous.release.android.presentation.our_rules.component.main.MainRuleContent
 import hous.release.android.presentation.our_rules.model.DetailRuleUiModel
@@ -29,6 +34,7 @@ fun MainRuleScreen(
     mainRules: List<MainRule> = emptyList(),
     searchQuery: String = "",
     fetchDetailRuleById: (Int) -> Unit = {},
+    deleteRule: () -> Unit = {},
     onSearch: (String) -> Unit = {},
     onNavigateToUpdateRule: (DetailRuleUiModel) -> Unit = {},
     onNavigateToAddRule: () -> Unit = {},
@@ -40,6 +46,7 @@ fun MainRuleScreen(
         initialValue = ModalBottomSheetValue.Hidden,
         skipHalfExpanded = true
     )
+    var isShowDeleteRuleDialog by remember { mutableStateOf(false) }
     val lifecycleOwner = LocalLifecycleOwner.current
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
@@ -59,6 +66,18 @@ fun MainRuleScreen(
             bottomSheetState.hide()
         }
     }
+    if (isShowDeleteRuleDialog) {
+        DeleteRuleDialog(
+            onConfirm = {
+                coroutineScope.launch {
+                    deleteRule()
+                    isShowDeleteRuleDialog = false
+                    bottomSheetState.hide()
+                }
+            },
+            onDismiss = { isShowDeleteRuleDialog = false }
+        )
+    }
 
     ModalBottomSheetLayout(
         sheetState = bottomSheetState,
@@ -71,11 +90,7 @@ fun MainRuleScreen(
                         onNavigateToUpdateRule(detailRule)
                     }
                 },
-                onDeleteRule = {
-                    coroutineScope.launch {
-                        bottomSheetState.hide()
-                    }
-                }
+                onDeleteRule = { isShowDeleteRuleDialog = true }
             )
         },
         sheetShape = RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp),
