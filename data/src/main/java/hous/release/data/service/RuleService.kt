@@ -1,5 +1,6 @@
 package hous.release.data.service
 
+import hous.release.data.entity.request.rule.UpdateRepresentRulesRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.NoDataResponse
 import hous.release.data.entity.response.rule.CanAddRuleResponse
@@ -53,6 +54,11 @@ interface RuleService {
         @Path("id") id: Int,
         @Query("description") description: String,
         @Query("name") name: String
+    ): NoDataResponse
+
+    @PUT("/v1/rules/represent")
+    suspend fun updateRepresentRules(
+        req: UpdateRepresentRulesRequest
     ): NoDataResponse
 
     @HTTP(method = "DELETE", path = "/v2/rule/{id}")

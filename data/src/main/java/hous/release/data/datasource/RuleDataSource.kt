@@ -1,6 +1,7 @@
 package hous.release.data.datasource
 
 import hous.release.data.entity.request.rule.AddRulesRequest
+import hous.release.data.entity.request.rule.UpdateRepresentRulesRequest
 import hous.release.data.entity.request.rule.UpdateRuleRequest
 import hous.release.data.entity.response.NoDataResponse
 import hous.release.data.entity.response.rule.DetailRuleResponse
@@ -49,6 +50,11 @@ class RuleDataSource @Inject constructor(private val ruleService: RuleService) {
                 images = req.imageFiles.map { file -> file.toImagePart() }
             )
         }
+
+    suspend fun updateRepresentRules(rules: List<Int>): NoDataResponse =
+        ruleService.updateRepresentRules(
+            UpdateRepresentRulesRequest(rules)
+        )
 
     suspend fun deleteRule(ruleId: Int): NoDataResponse =
         ruleService.deleteRule(ruleId)
