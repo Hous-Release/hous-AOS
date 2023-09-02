@@ -1,4 +1,4 @@
-package hous.release.android.presentation.our_rules.component
+package hous.release.android.presentation.our_rules.component.update
 
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
@@ -25,6 +25,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
+import hous.release.android.presentation.our_rules.component.RuleToolbar
 import hous.release.android.presentation.our_rules.component.add.RuleTitleGuide
 import hous.release.android.presentation.our_rules.model.PhotoUiModel
 import hous.release.designsystem.component.HousTextField

@@ -1,4 +1,4 @@
-package hous.release.android.presentation.our_rules.component
+package hous.release.android.presentation.our_rules.component.update
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
