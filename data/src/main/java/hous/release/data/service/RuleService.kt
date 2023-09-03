@@ -1,13 +1,11 @@
 package hous.release.data.service
 
-import hous.release.data.entity.request.DeleteRulesRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.NoDataResponse
 import hous.release.data.entity.response.rule.CanAddRuleResponse
 import hous.release.data.entity.response.rule.DetailRuleResponse
 import hous.release.data.entity.response.rule.RulesResponse
 import okhttp3.MultipartBody
-import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.HTTP
 import retrofit2.http.Multipart
@@ -42,7 +40,7 @@ interface RuleService {
     )
 
     @Multipart
-    @PUT("/v2/rules/{id}")
+    @PUT("/v2/rule/{id}")
     suspend fun updateRule(
         @Path("id") id: Int,
         @Query("description") description: String,
@@ -50,13 +48,13 @@ interface RuleService {
         @Part images: List<MultipartBody.Part>
     ): NoDataResponse
 
-    @PUT("/v2/rules/{id}")
+    @PUT("/v2/rule/{id}")
     suspend fun updateRuleNoImage(
         @Path("id") id: Int,
         @Query("description") description: String,
         @Query("name") name: String
     ): NoDataResponse
 
-    @HTTP(method = "DELETE", path = "/v1/rules", hasBody = true)
-    suspend fun deleteRuleContent(@Body body: DeleteRulesRequest): NoDataResponse
+    @HTTP(method = "DELETE", path = "/v2/rule/{id}")
+    suspend fun deleteRule(@Path("id") ruleId: Int): NoDataResponse
 }

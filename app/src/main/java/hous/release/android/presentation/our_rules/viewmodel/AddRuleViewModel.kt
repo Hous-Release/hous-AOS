@@ -81,13 +81,16 @@ class AddRuleViewModel @Inject constructor(
                     photoUris
                 )
             }.onSuccess {
+                _sideEffect.send(AddRuleSideEffect.LoadingBar(false))
                 _sideEffect.send(AddRuleSideEffect.PopBackStack)
             }.onFailure { e ->
                 if (e is HttpException) {
                     when (e.code()) {
                         DUPLICATE_CODE -> _sideEffect.send(AddRuleSideEffect.DuplicateToast)
                         LIMITED_RULE_COUNT_CODE -> _sideEffect.send(AddRuleSideEffect.ShowLimitRuleCountDialog)
+                        else -> Timber.e("addRule() - onFailure() - e: ${e.stackTraceToString()}")
                     }
+                    _sideEffect.send(AddRuleSideEffect.LoadingBar(false))
                 } else {
                     Timber.e("addRule() - onFailure() - e: ${e.stackTraceToString()}")
                     _sideEffect.send(AddRuleSideEffect.LoadingBar(false))

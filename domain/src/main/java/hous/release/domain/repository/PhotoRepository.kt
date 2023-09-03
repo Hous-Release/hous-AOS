@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import java.io.File
 
 interface PhotoRepository {
-    fun fetchRemotePhotosFlow(paths: List<Photo>): Flow<List<Photo?>>
+    fun fetchPhotosFlow(paths: List<Photo>): Flow<List<Photo?>>
     suspend fun fetchPhotosBy(uris: List<Photo>): List<File>
     suspend fun removePhoto(path: String): Boolean
     suspend fun removeTemporayPhotos(): Boolean

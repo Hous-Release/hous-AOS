@@ -23,6 +23,7 @@ import hous.release.android.R
 import hous.release.android.presentation.our_rules.component.LoadingBar
 import hous.release.android.presentation.our_rules.component.dialog.AddRuleLimitedDialog
 import hous.release.android.presentation.our_rules.component.dialog.AddRuleOutDialog
+import hous.release.android.presentation.our_rules.component.dialog.UpdateRuleOutDialog
 import hous.release.android.presentation.our_rules.model.DetailRuleUiModel
 import hous.release.android.presentation.our_rules.screen.AddRuleScreen
 import hous.release.android.presentation.our_rules.screen.MainRuleScreen
@@ -32,6 +33,8 @@ import hous.release.android.presentation.our_rules.viewmodel.AddRuleSideEffect
 import hous.release.android.presentation.our_rules.viewmodel.AddRuleViewModel
 import hous.release.android.presentation.our_rules.viewmodel.MainRuleSideEffect
 import hous.release.android.presentation.our_rules.viewmodel.MainRuleViewModel
+import hous.release.android.presentation.our_rules.viewmodel.UpdateRuleSideEffect
+import hous.release.android.presentation.our_rules.viewmodel.UpdateRuleViewModel
 import hous.release.android.presentation.practice.findActivity
 import hous.release.android.util.ToastMessageUtil
 import hous.release.domain.entity.Photo
@@ -62,7 +65,7 @@ private fun NavGraphBuilder.mainRuleScreen(
         val activity = LocalContext.current.findActivity()
         val viewModel = hiltViewModel<MainRuleViewModel>()
         val uiState = viewModel.uiState.collectAsStateWithLifecycle()
-
+        var isLoading by remember { mutableStateOf(false) }
         var isShowLimitedAddRuleDialog by remember { mutableStateOf(false) }
         LaunchedEffect(Unit) {
             viewModel.sideEffect.collect { event ->
@@ -75,6 +78,11 @@ private fun NavGraphBuilder.mainRuleScreen(
                             isShowLimitedAddRuleDialog = true
                         }
                     }
+
+                    is MainRuleSideEffect.LoadingBar -> {
+                        Timber.d("LoadingBar: ${event.isLoading}")
+                        isLoading = event.isLoading
+                    }
                 }
             }
         }
@@ -83,6 +91,7 @@ private fun NavGraphBuilder.mainRuleScreen(
                 isShowLimitedAddRuleDialog = false
             })
         }
+        if (isLoading) LoadingBar()
 
         MainRuleScreen(
             detailRule = uiState.value.detailRule,
@@ -93,11 +102,13 @@ private fun NavGraphBuilder.mainRuleScreen(
             onNavigateToAddRule = viewModel::canAddRule,
             onNavigateToUpdateRule = navController::navigateUpdateRule,
             onFinish = activity::finish,
-            refresh = viewModel::fetchMainRules
+            refresh = viewModel::fetchMainRules,
+            deleteRule = viewModel::deleteRule,
         )
     }
 }
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 private fun NavGraphBuilder.updateRuleScreen(
     navController: NavController
 ) {
@@ -107,9 +118,90 @@ private fun NavGraphBuilder.updateRuleScreen(
         navController.previousBackStackEntry?.savedStateHandle?.get<DetailRuleUiModel>(
             RulesScreens.DETAIL_RULE_KEY
         )?.let { detailRule ->
+            val viewModel = hiltViewModel<UpdateRuleViewModel>()
+            val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+            var isOutDialogShow by remember { mutableStateOf(false) }
+            var isLoading by remember { mutableStateOf(false) }
+            val context = LocalContext.current
+            val takePhotoFromAlbumLauncher = rememberLauncherForActivityResult(
+                ActivityResultContracts.PickMultipleVisualMedia(5)
+            ) { uriList ->
+                if (uriList.isNotEmpty()) {
+                    viewModel.loadImage(uriList.map { Photo.from(it.toString()) })
+                }
+            }
+            val onBack: () -> Unit = { navController.popBackStack() }
+            val onOpenGallery = {
+                takePhotoFromAlbumLauncher.launch(
+                    PickVisualMediaRequest(
+                        ActivityResultContracts.PickVisualMedia.ImageOnly
+                    )
+                )
+            }
+            LaunchedEffect(Unit) {
+                viewModel.init(detailRule)
+            }
+            LaunchedEffect(Unit) {
+                viewModel.sideEffect.collect { event ->
+                    when (event) {
+                        is UpdateRuleSideEffect.IDLE -> Unit
+                        is UpdateRuleSideEffect.DuplicateToast -> {
+                            ToastMessageUtil.showToast(
+                                context,
+                                context.getString(R.string.our_rule_duplicate_rule)
+                            )
+                        }
+
+                        is UpdateRuleSideEffect.ShowLimitImageToast -> {
+                            ToastMessageUtil.showToast(
+                                context,
+                                context.getString(R.string.our_rule_limit_photo_count)
+                            )
+                        }
+
+                        is UpdateRuleSideEffect.LoadingBar -> {
+                            isLoading = event.isLoading
+                        }
+
+                        is UpdateRuleSideEffect.PopBackStack -> {
+                            onBack()
+                        }
+                    }
+                }
+            }
+
+            val onBackPressed = {
+                if (uiState.value.name.isNotBlank()) {
+                    isOutDialogShow = true
+                } else {
+                    Timber.d("onBackPressed")
+                    onBack()
+                }
+            }
+            BackHandler(viewModel.isChangeRuleContent(detailRule), onBackPressed)
+            if (isLoading) LoadingBar()
+
+            if (isOutDialogShow) {
+                UpdateRuleOutDialog(
+                    onConfirm = {
+                        isOutDialogShow = false
+                        onBack()
+                    },
+                    onDismiss = {
+                        isOutDialogShow = false
+                    }
+                )
+            }
             UpdateRuleScreen(
-                rule = detailRule,
-                onBack = navController::popBackStack
+                ruleName = uiState.value.name,
+                description = uiState.value.description,
+                photos = uiState.value.photos,
+                changeName = viewModel::changeName,
+                changeDescription = viewModel::changeDescription,
+                updateRule = viewModel::updateRule,
+                deletePhoto = viewModel::deleteImage,
+                onBack = onBackPressed,
+                onOpenGallery = onOpenGallery
             )
         } ?: run {
             Timber.e("DetailRuleUiModel is null")
@@ -145,7 +237,6 @@ private fun NavGraphBuilder.addRuleScreen(onBack: () -> Unit) {
                 when (event) {
                     is AddRuleSideEffect.IDLE -> Unit
                     is AddRuleSideEffect.DuplicateToast -> {
-                        isLoading = false
                         ToastMessageUtil.showToast(
                             context,
                             context.getString(R.string.our_rule_duplicate_rule)
@@ -164,12 +255,10 @@ private fun NavGraphBuilder.addRuleScreen(onBack: () -> Unit) {
                     }
 
                     is AddRuleSideEffect.PopBackStack -> {
-                        isLoading = false
                         onBack()
                     }
 
                     is AddRuleSideEffect.ShowLimitRuleCountDialog -> {
-                        isLoading = false
                         isShowLimitedDialog = true
                     }
                 }

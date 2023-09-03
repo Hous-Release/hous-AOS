@@ -39,6 +39,8 @@ fun BasicUpdateRuleScreen(
     ruleName: String = "",
     description: String = "",
     photos: List<PhotoUiModel> = emptyList(),
+    isFocusOn: Boolean = false,
+    onDisposeFocus: () -> Unit = {},
     addRule: () -> Unit = { },
     changeName: (String) -> Unit = {},
     changeDescription: (String) -> Unit = {},
@@ -48,7 +50,12 @@ fun BasicUpdateRuleScreen(
 ) {
     val focusManager = LocalFocusManager.current
     val (focusRequester) = FocusRequester.createRefs()
-    AutoFocusOnInitializeEffect { focusRequester.requestFocus() }
+    AutoFocusOnInitializeEffect {
+        if (isFocusOn) {
+            focusRequester.requestFocus()
+            onDisposeFocus()
+        }
+    }
 
     Column(
         modifier = Modifier.fillMaxSize().pointerInput(Unit) {

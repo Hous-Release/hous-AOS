@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="hous.release.android.presentation.withdraw.feedback.FeedbackViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.withdraw.feedback.FeedbackFragment">
+
+        <ImageButton
+            android:id="@+id/btn_feedback_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="14dp"
+            android:background="@null"
+            android:padding="10dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_feedback_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/feedback_title"
+            android:textColor="@color/hous_black"
+            android:theme="@style/B1"
+            app:layout_constraintBottom_toBottomOf="@id/btn_feedback_back"
+            app:layout_constraintStart_toEndOf="@id/btn_feedback_back"
+            app:layout_constraintTop_toTopOf="@id/btn_feedback_back" />
+
+        <TextView
+            android:id="@+id/tv_feedback_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14dp"
+            android:clickable="true"
+            android:enabled="@{viewModel.comment.length > 0 ? true : viewModel.isDeleting ? true : false}"
+            android:onClick="@{() -> viewModel.onClickDone()}"
+            android:padding="10dp"
+            android:text="@{viewModel.isDeleting == false || viewModel.comment.length > 0 ? @string/feedback_done : @string/feedback_skip}"
+            android:textColor="@{viewModel.comment.length > 0 ? @color/hous_blue : viewModel.isDeleting ? @color/hous_g_4 : @color/hous_blue_l1}"
+            android:theme="@style/B2"
+            app:layout_constraintBottom_toBottomOf="@id/tv_feedback_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_feedback_title"
+            tools:text="보내기" />
+
+        <View
+            android:id="@+id/view_feedback_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/hous_g_0"
+            app:layout_constraintTop_toBottomOf="@id/tv_feedback_title" />
+
+        <TextView
+            android:id="@+id/tv_feedback_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/feedback_help"
+            android:textColor="@color/hous_black"
+            android:theme="@style/H4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_feedback_line" />
+
+        <TextView
+            android:id="@+id/tv_feedback_help_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/feedback_help_desc"
+            android:textColor="@color/hous_g_4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_feedback_help" />
+
+        <EditText
+            android:id="@+id/et_feedback_comment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/selector_edit_text_pressed"
+            android:gravity="start"
+            android:inputType="textMultiLine"
+            android:maxLength="200"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="32dp"
+            android:text="@={viewModel.comment}"
+            android:textColor="@color/hous_black"
+            android:theme="@style/B2"
+            app:layout_constraintDimensionRatio="2.4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_feedback_help_desc" />
+
+        <TextView
+            android:id="@+id/tv_feedback_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="8dp"
+            android:text="@{@string/feedback_count(viewModel.comment.length)}"
+            android:textColor="@color/hous_g_5"
+            android:theme="@style/En2"
+            app:layout_constraintBottom_toBottomOf="@id/et_feedback_comment"
+            app:layout_constraintEnd_toEndOf="@id/et_feedback_comment"
+            tools:text="0/200" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
