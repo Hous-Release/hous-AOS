@@ -7,6 +7,7 @@ import hous.release.data.entity.response.rule.CanAddRuleResponse
 import hous.release.data.entity.response.rule.DetailRuleResponse
 import hous.release.data.entity.response.rule.RulesResponse
 import okhttp3.MultipartBody
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.HTTP
 import retrofit2.http.Multipart
@@ -58,7 +59,7 @@ interface RuleService {
 
     @PUT("/v1/rules/represent")
     suspend fun updateRepresentRules(
-        req: UpdateRepresentRulesRequest
+        @Body req: UpdateRepresentRulesRequest
     ): NoDataResponse
 
     @HTTP(method = "DELETE", path = "/v2/rule/{id}")
