@@ -15,7 +15,7 @@ import java.net.URL
 class ImageDownloader(
     private val context: Context
 ) {
-    suspend fun downloadAndSaveImage(imageUrl: String, fileName: String) {
+    suspend fun downloadImage(imageUrl: String, fileName: String) {
         withContext(Dispatchers.IO) {
             val bitmap = BitmapFactory.decodeStream(URL(imageUrl).openStream())
             saveImageToGallery(bitmap, fileName)

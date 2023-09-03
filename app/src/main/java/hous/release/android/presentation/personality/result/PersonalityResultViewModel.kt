@@ -44,11 +44,11 @@ class PersonalityResultViewModel @Inject constructor(
         viewModelScope.launch {
             _uiEvent.emit(UiEvent.LOADING)
             try {
-                imageDownloader.downloadAndSaveImage(
+                imageDownloader.downloadImage(
                     _uiState.value.firstDownloadImageUrl,
                     _uiState.value.color.getSaveImageFileName(1)
                 )
-                imageDownloader.downloadAndSaveImage(
+                imageDownloader.downloadImage(
                     _uiState.value.secondDownloadImageUrl,
                     _uiState.value.color.getSaveImageFileName(2)
                 )
