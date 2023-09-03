@@ -43,11 +43,11 @@ class RepresentRuleViewModel @Inject constructor(
         }
     }
 
-    val isSavable get() = uiState.value.rules == uiState.value.originRules
+    val isSavable get() = uiState.value.rules != uiState.value.originRules
 
     fun updateRuleBy(id: Int) {
         viewModelScope.launch {
-            if (canAddRepresentRule()) {
+            if (canUpdateRuleBy(id)) {
                 uiEvents.send(RepresentRulesEvent.UpdateRule(id))
                 return@launch
             }
@@ -78,8 +78,10 @@ class RepresentRuleViewModel @Inject constructor(
         }
     }
 
-    private fun canAddRepresentRule(): Boolean {
-        return uiState.value.rules.filter { it.isRepresent }.size < 3
+    private fun canUpdateRuleBy(id: Int): Boolean {
+        val isRepresent = uiState.value.rules.find { it.id == id }?.isRepresent ?: false
+        if (isRepresent) return true
+        return uiState.value.rules.count { it.isRepresent } + 1 <= 3
     }
 
     private companion object {
