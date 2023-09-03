@@ -20,10 +20,10 @@ import hous.release.domain.entity.rule.Rule
 @Composable
 fun RepresentRuleScreen(
     rules: List<RepresentRuleUiModel> = emptyList(),
-    isChanged: Boolean = false,
+    isSavable: () -> Boolean = { false },
     onSave: () -> Unit = {},
     onBack: () -> Unit = {},
-    onRuleClick: (Int) -> Unit = {}
+    onUpdateRule: (Int) -> Unit = {}
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -31,7 +31,7 @@ fun RepresentRuleScreen(
         RuleToolbar(
             title = stringResource(id = R.string.our_rule_represent_rule_title),
             trailingTitle = stringResource(id = R.string.our_rule_save_new_rule),
-            isButtonActive = isChanged,
+            isButtonActive = isSavable(),
             onBack = onBack,
             onAddButton = onSave
         )
@@ -39,7 +39,7 @@ fun RepresentRuleScreen(
         RepresentRuleList(
             modifier = Modifier.padding(horizontal = 16.dp),
             rules = rules,
-            onClick = onRuleClick
+            onClick = onUpdateRule
         )
     }
 }
