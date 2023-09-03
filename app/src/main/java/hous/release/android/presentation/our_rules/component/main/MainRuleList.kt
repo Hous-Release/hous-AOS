@@ -97,9 +97,9 @@ private fun MainRuleContentPreview() {
     }
 }
 
-@Preview(name = "main rule Item", showBackground = true)
+@Preview(name = "general rule Item", showBackground = true)
 @Composable
-private fun MainRulePreview() {
+private fun Preview1() {
     HousTheme {
         Surface {
             MainRuleItem()
@@ -107,13 +107,37 @@ private fun MainRulePreview() {
     }
 }
 
-@Preview(name = "new main rule Item", showBackground = true)
+@Preview(name = "Represent rule Item", showBackground = true)
 @Composable
-private fun NewMainRulePreview() {
+private fun Preview2() {
+    HousTheme {
+        Surface {
+            MainRuleItem(
+                mainRule = Rule().copy(isRepresent = true)
+            )
+        }
+    }
+}
+
+@Preview(name = "new rule Item", showBackground = true)
+@Composable
+private fun Preview3() {
     HousTheme {
         Surface {
             MainRuleItem(
                 mainRule = Rule().copy(isNew = true)
+            )
+        }
+    }
+}
+
+@Preview(name = "Represent and New rule Item", showBackground = true)
+@Composable
+private fun Preview4() {
+    HousTheme {
+        Surface {
+            MainRuleItem(
+                mainRule = Rule().copy(isNew = true, isRepresent = true)
             )
         }
     }
