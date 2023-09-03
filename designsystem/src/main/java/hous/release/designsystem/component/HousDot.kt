@@ -23,8 +23,8 @@ enum class HousDotType {
     companion object {
         fun from(isNew: Boolean = false, isRepresent: Boolean = false): HousDotType {
             return when {
-                isNew -> NEW
                 isRepresent -> REPRESENTATIVE
+                isNew -> NEW
                 else -> NORMAL
             }
         }
@@ -70,6 +70,6 @@ private fun HousDashPreview2() {
 @Composable
 private fun HousDashPreview3() {
     HousTheme {
-        HousDot(HousDotType.from(isRepresent = true))
+        HousDot(HousDotType.from(isRepresent = true, isNew = true))
     }
 }
