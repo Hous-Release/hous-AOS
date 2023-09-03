@@ -105,7 +105,7 @@ private fun NavGraphBuilder.mainRuleScreen(
             onNavigateToRepresentRule = navController::navigateToRepresentRule,
             onFinish = activity::finish,
             refresh = viewModel::fetchMainRules,
-            deleteRule = viewModel::deleteRule,
+            deleteRule = viewModel::deleteRule
         )
     }
 }
@@ -309,6 +309,7 @@ private fun NavGraphBuilder.representativeRuleScreen(onBack: () -> Unit) {
     composable(RulesScreens.Represent.route) {
     }
 }
+
 // Navigation
 fun NavController.navigateToAddRule() {
     navigate(RulesScreens.Add.route)
