@@ -117,8 +117,8 @@ fun PhotoItem(
 
 private fun Modifier.deleteButtonLayout() = this.layout { measurable, constraints ->
     val placeable = measurable.measure(constraints)
-    val placeableY = (placeable.height * 0.38f).toInt()
-    val placeableX = (placeable.width * 0.38f).toInt()
+    val placeableY = (placeable.height * 0.36f).toInt()
+    val placeableX = (placeable.width * 0.36f).toInt()
     layout(placeable.width, placeable.height) {
         placeable.place(
             x = placeableX,
