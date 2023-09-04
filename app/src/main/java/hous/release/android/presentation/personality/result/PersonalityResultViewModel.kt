@@ -46,11 +46,11 @@ class PersonalityResultViewModel @Inject constructor(
             try {
                 imageDownloader.downloadImage(
                     _uiState.value.firstDownloadImageUrl,
-                    _uiState.value.color.getSaveImageFileName(1)
+                    getSaveImageFileName(_uiState.value.color, 1)
                 )
                 imageDownloader.downloadImage(
                     _uiState.value.secondDownloadImageUrl,
-                    _uiState.value.color.getSaveImageFileName(2)
+                    getSaveImageFileName(_uiState.value.color, 2)
                 )
                 _uiEvent.emit(UiEvent.SUCCESS)
             } catch (e: Exception) {
@@ -59,4 +59,7 @@ class PersonalityResultViewModel @Inject constructor(
             }
         }
     }
+
+    private fun getSaveImageFileName(color: HomyType, number: Int): String =
+        "${color.name.lowercase()}_$number"
 }
