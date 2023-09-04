@@ -24,14 +24,14 @@ import hous.release.android.presentation.our_rules.component.main.MainRuleConten
 import hous.release.android.presentation.our_rules.model.DetailRuleUiModel
 import hous.release.designsystem.theme.HousTheme
 import hous.release.designsystem.theme.HousWhite
-import hous.release.domain.entity.rule.MainRule
+import hous.release.domain.entity.rule.Rule
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MainRuleScreen(
     detailRule: DetailRuleUiModel = DetailRuleUiModel(),
-    mainRules: List<MainRule> = emptyList(),
+    mainRules: List<Rule> = emptyList(),
     searchQuery: String = "",
     fetchDetailRuleById: (Int) -> Unit = {},
     deleteRule: () -> Unit = {},
@@ -119,10 +119,10 @@ private fun MainRuleScreenPreView2() {
     HousTheme {
         MainRuleScreen(
             mainRules = listOf(
-                MainRule().copy(id = 1, name = "test1", isNew = true),
-                MainRule().copy(id = 2, name = "test2", isNew = false),
-                MainRule().copy(id = 3, name = "test3", isNew = true),
-                MainRule().copy(id = 4, name = "test4", isNew = false)
+                Rule().copy(id = 1, name = "test1", isNew = true),
+                Rule().copy(id = 2, name = "test2", isNew = false),
+                Rule().copy(id = 3, name = "test3", isNew = true),
+                Rule().copy(id = 4, name = "test4", isNew = false)
             )
         )
     }

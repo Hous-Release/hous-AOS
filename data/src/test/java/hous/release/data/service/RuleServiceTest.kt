@@ -4,8 +4,8 @@ import com.google.common.truth.Truth.assertThat
 import com.google.gson.GsonBuilder
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.rule.DetailRuleResponse
-import hous.release.data.entity.response.rule.MainRuleResponse
-import hous.release.data.entity.response.rule.MainRulesResponse
+import hous.release.data.entity.response.rule.RuleResponse
+import hous.release.data.entity.response.rule.RulesResponse
 import io.mockk.junit5.MockKExtension
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -43,16 +43,16 @@ internal class RuleServiceTest {
             status = 200,
             success = true,
             message = "규칙 메인 페이지 조회 성공입니다.",
-            data = MainRulesResponse(
+            data = RulesResponse(
                 rules = listOf(
-                    MainRuleResponse(
+                    RuleResponse(
                         34,
                         "dd123xd",
                         true,
                         "2023-03-16T17:19:42.158498",
                         true
                     ),
-                    MainRuleResponse(
+                    RuleResponse(
                         35,
                         "ㄷ슏슛ㄷ",
                         false,
@@ -63,7 +63,7 @@ internal class RuleServiceTest {
             )
         )
         // when
-        val actualResponse = ruleService.getMainRules()
+        val actualResponse = ruleService.getRules()
         // then
         assertThat(actualResponse).isEqualTo(expectedResponse)
     }

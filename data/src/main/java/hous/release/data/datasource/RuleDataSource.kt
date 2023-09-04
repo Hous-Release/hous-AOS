@@ -4,15 +4,15 @@ import hous.release.data.entity.request.rule.AddRulesRequest
 import hous.release.data.entity.request.rule.UpdateRuleRequest
 import hous.release.data.entity.response.NoDataResponse
 import hous.release.data.entity.response.rule.DetailRuleResponse
-import hous.release.data.entity.response.rule.MainRulesResponse
+import hous.release.data.entity.response.rule.RulesResponse
 import hous.release.data.service.RuleService
 import hous.release.data.util.multipart.toImagePart
 import javax.inject.Inject
 
 class RuleDataSource @Inject constructor(private val ruleService: RuleService) {
 
-    suspend fun fetchMainRules(): MainRulesResponse =
-        ruleService.getMainRules().data
+    suspend fun fetchRules(): RulesResponse =
+        ruleService.getRules().data
 
     suspend fun fetchDetailRuleBy(id: Int): DetailRuleResponse =
         ruleService.getDetailRuleBy(id).data

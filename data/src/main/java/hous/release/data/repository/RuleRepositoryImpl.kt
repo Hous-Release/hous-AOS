@@ -4,7 +4,7 @@ import hous.release.data.datasource.RuleDataSource
 import hous.release.data.entity.request.rule.AddRulesRequest
 import hous.release.data.entity.request.rule.UpdateRuleRequest
 import hous.release.domain.entity.rule.DetailRule
-import hous.release.domain.entity.rule.MainRule
+import hous.release.domain.entity.rule.Rule
 import hous.release.domain.repository.RuleRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import java.io.File
@@ -15,8 +15,8 @@ class RuleRepositoryImpl @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher
 ) : RuleRepository {
 
-    override suspend fun fetchMainRules(): List<MainRule> =
-        ruleDataSource.fetchMainRules().rules.map { it.toMainRule() }
+    override suspend fun fetchRules(): List<Rule> =
+        ruleDataSource.fetchRules().rules.map { it.toRule() }
 
     override suspend fun fetchDetailRule(id: Int): DetailRule =
         ruleDataSource.fetchDetailRuleBy(id).toDetailRule()
