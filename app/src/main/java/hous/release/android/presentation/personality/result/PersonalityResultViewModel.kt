@@ -35,7 +35,7 @@ class PersonalityResultViewModel @Inject constructor(
                 .onSuccess { response ->
                     _uiState.value = response
                 }.onFailure {
-                    Timber.e(it.message)
+                    Timber.e(it.stackTraceToString())
                 }
         }
     }
