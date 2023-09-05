@@ -39,12 +39,12 @@ import hous.release.designsystem.theme.HousWhite
 @Composable
 fun HousCheckBox(
     modifier: Modifier = CheckBoxModifier,
+    isChecked: Boolean,
+    onCheckedChange: () -> Unit,
     shape: Shape = CircleShape,
     backgroundColor: Color = HousBlue,
     borderColor: Color = HousBlueL1,
     enabled: Boolean = true,
-    isChecked: Boolean = false,
-    onCheckedChange: () -> Unit = {},
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     indicator: Indication = rememberRipple(),
     content: (@Composable () -> Unit)? = null
