@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hous.release.android.util.ImageDownloader
 import hous.release.android.util.UiEvent
+import hous.release.domain.entity.HomyType
 import hous.release.domain.entity.response.PersonalityResult
 import hous.release.domain.usecase.GetPersonalityResultUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -27,7 +28,9 @@ class PersonalityResultViewModel @Inject constructor(
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
-    private val imageDownloader = ImageDownloader(application)
+    private val imageDownloader: ImageDownloader by lazy {
+        ImageDownloader(application)
+    }
 
     fun getPersonalityResult(personalityColor: String) {
         viewModelScope.launch {
