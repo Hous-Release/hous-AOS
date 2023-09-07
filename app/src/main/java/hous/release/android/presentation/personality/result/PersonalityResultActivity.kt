@@ -94,7 +94,7 @@ class PersonalityResultActivity :
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     personalityResultViewModel.downloadImage()
                 } else {
-                    showToast(this, "권한을 설정해주세요.")
+                    showToast(this, getString(R.string.personality_result_download_permission))
                 }
                 return
             }

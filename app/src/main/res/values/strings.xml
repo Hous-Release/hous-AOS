@@ -334,6 +334,8 @@
     <string name="test_index">%d/15</string>
     <string name="personality_result_download_success">이미지가 앨범에 저장되었어요!</string>
     <string name="personality_result_download_failure">다운로드 실패, 다시 시도해 주세요!</string>
+    <string name="personality_result_download_permission">이미지 저장을 위해 미디어 접근 권한을 허용해 주세요!</string>
+
 
     <!-- Profile Edit -->
     <string name="profile_edit_title">프로필 수정</string>
