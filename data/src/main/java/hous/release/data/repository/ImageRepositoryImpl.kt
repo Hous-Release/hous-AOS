@@ -1,4 +1,4 @@
-package hous.release.android.util
+package hous.release.data.repository
 
 import android.content.ContentValues
 import android.content.Context
@@ -8,14 +8,17 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import dagger.hilt.android.qualifiers.ActivityContext
+import hous.release.domain.repository.ImageRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.net.URL
+import javax.inject.Inject
 
-class ImageDownloader(
-    private val context: Context
-) {
-    suspend fun downloadImage(imageUrl: String, fileName: String) {
+class ImageRepositoryImpl @Inject constructor(
+    @ActivityContext private val context: Context
+) : ImageRepository {
+    override suspend fun downloadImage(imageUrl: String, fileName: String) {
         withContext(Dispatchers.IO) {
             val bitmap = BitmapFactory.decodeStream(URL(imageUrl).openStream())
             saveImageToGallery(bitmap, fileName)
