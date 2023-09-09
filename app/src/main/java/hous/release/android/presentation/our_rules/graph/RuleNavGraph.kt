@@ -52,6 +52,7 @@ fun RuleNavGraph(
         mainRuleScreen(navController)
         addRuleScreen(navController::popBackStack)
         updateRuleScreen(navController)
+        representativeRuleScreen(navController::popBackStack)
     }
 }
 
@@ -101,9 +102,10 @@ private fun NavGraphBuilder.mainRuleScreen(
             onSearch = viewModel::searchRule,
             onNavigateToAddRule = viewModel::canAddRule,
             onNavigateToUpdateRule = navController::navigateUpdateRule,
+            onNavigateToRepresentRule = navController::navigateToRepresentRule,
             onFinish = activity::finish,
             refresh = viewModel::fetchMainRules,
-            deleteRule = viewModel::deleteRule,
+            deleteRule = viewModel::deleteRule
         )
     }
 }
@@ -303,8 +305,12 @@ private fun NavGraphBuilder.addRuleScreen(onBack: () -> Unit) {
     }
 }
 
-// Navigation
+private fun NavGraphBuilder.representativeRuleScreen(onBack: () -> Unit) {
+    composable(RulesScreens.Represent.route) {
+    }
+}
 
+// Navigation
 fun NavController.navigateToAddRule() {
     navigate(RulesScreens.Add.route)
 }
@@ -315,4 +321,8 @@ fun NavController.navigateUpdateRule(detailRuleUiModel: DetailRuleUiModel) {
         detailRuleUiModel
     )
     navigate(RulesScreens.Update.route)
+}
+
+fun NavController.navigateToRepresentRule() {
+    navigate(RulesScreens.Represent.route)
 }

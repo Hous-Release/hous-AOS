@@ -38,6 +38,7 @@ fun MainRuleScreen(
     onSearch: (String) -> Unit = {},
     onNavigateToUpdateRule: (DetailRuleUiModel) -> Unit = {},
     onNavigateToAddRule: () -> Unit = {},
+    onNavigateToRepresentRule: () -> Unit = {},
     onFinish: () -> Unit = {},
     refresh: () -> Unit = {}
 ) {
@@ -108,6 +109,7 @@ fun MainRuleScreen(
                 }
             },
             onNavigateToAddRule = onNavigateToAddRule,
+            onNavigateToRepresentRule = onNavigateToRepresentRule,
             onFinish = onFinish
         )
     }

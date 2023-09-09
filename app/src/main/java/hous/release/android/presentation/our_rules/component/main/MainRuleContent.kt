@@ -30,6 +30,7 @@ fun MainRuleContent(
     onSearch: (String) -> Unit = {},
     onOpenDetailRule: (Int) -> Unit = {},
     onNavigateToAddRule: () -> Unit = {},
+    onNavigateToRepresentRule: () -> Unit = {},
     onFinish: () -> Unit = {}
 ) {
     val focusManager = LocalFocusManager.current
@@ -42,7 +43,8 @@ fun MainRuleContent(
                 .padding(
                     start = 16.dp,
                     end = 16.dp
-                ).pointerInput(Unit) {
+                )
+                .pointerInput(Unit) {
                     detectTapGestures(
                         onTap = {
                             focusManager.clearFocus()
@@ -52,7 +54,8 @@ fun MainRuleContent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             MainRuleToolbar(
-                onBack = onFinish
+                onBack = onFinish,
+                onNavigateToRepresentRule = onNavigateToRepresentRule
             )
             Spacer(modifier = Modifier.padding(top = 4.dp))
             HousTextField(
