@@ -71,13 +71,13 @@ class LocalImageCacher @Inject constructor(
                 resizedWidth = requiredWidth
                 resizedHeight = (requiredWidth * (height.toFloat() / width.toFloat())).toInt()
                 val resizedBitmap = scale(resizedWidth, resizedHeight)
-                if (isRecycled.not()) recycle()
+                if (isRecycled.not() && resizedBitmap != this) recycle()
                 return resizedBitmap
             }
             resizedWidth = (requiredHeight * (width.toFloat() / height.toFloat())).toInt()
             resizedHeight = requiredHeight
             val resizedBitmap = scale(resizedWidth, resizedHeight)
-            if (isRecycled.not()) recycle()
+            if (isRecycled.not() && resizedBitmap != this) recycle()
             return resizedBitmap
         }.onFailure {
             Timber.e(it.stackTraceToString())
@@ -97,7 +97,7 @@ class LocalImageCacher @Inject constructor(
                 postRotate(orientation.toFloat())
             }
             val rotatedBitmap = Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
-            if (isRecycled.not()) recycle()
+            if (isRecycled.not() && rotatedBitmap != this) recycle()
             rotatedBitmap
         }.onFailure {
             Timber.e(it.stackTraceToString())
