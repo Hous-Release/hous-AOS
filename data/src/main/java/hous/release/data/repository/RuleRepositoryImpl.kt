@@ -53,6 +53,10 @@ class RuleRepositoryImpl @Inject constructor(
         )
     }
 
+    override suspend fun updateRepresentRules(rules: List<Int>) {
+        ruleDataSource.updateRepresentRules(rules)
+    }
+
     override suspend fun deleteRule(ruleId: Int) {
         ruleDataSource.deleteRule(ruleId)
     }
