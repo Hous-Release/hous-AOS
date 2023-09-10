@@ -126,7 +126,7 @@
     <string name="our_rule_add">추가하기</string>
     <string name="our_rule_delete">삭제하기</string>
     <string name="our_rule_edit">수정하기</string>
-    <string name="our_rule_menu_edit_representation">대표 Rules 편집</string>
+    <string name="our_rule_menu_edit_representation">대표 Rules 선택</string>
     <string name="our_rule_menu_edit_guide">가이드 다시보기</string>
     <string name="our_rule_add_edit_title">제목</string>
     <string name="our_rule_add_edit_description">설명</string>
