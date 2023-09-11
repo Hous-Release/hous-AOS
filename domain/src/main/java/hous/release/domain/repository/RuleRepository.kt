@@ -22,5 +22,9 @@ interface RuleRepository {
         imageFiles: List<File>
     )
 
+    suspend fun updateRepresentRules(
+        rules: List<Int>
+    )
+
     suspend fun deleteRule(ruleId: Int)
 }

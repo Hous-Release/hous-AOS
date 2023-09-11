@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="http://schemas.android.com/tools">
     <string name="app_name">Hous-</string>
 
     <!-- Util -->
@@ -106,12 +106,14 @@
     <string name="hous_empty_our_rules">아직 우리 집 Rules가 없어요!</string>
     <string name="hous_empty_our_rules_add">다른 Rule도 추가해보세요!</string>
     <string name="our_rule_duplicate_rule">똑같은 이름의 Rule이 있어요!</string>
-    <string name="our_rule_limit_photo_count">사진은 5개까지만 추가할 수 있어요!</string>
+    <string name="our_rule_limit_photo_count">사진은 5개 까지만 추가할 수 있어요!</string>
+    <string name="our_rule_limit_represent_rules_count">대표 rule 은 3개 까지만 추가할 수 있어요!</string>
     <string name="our_rule_limit_title">Rules 개수 초과</string>
     <string name="our_rule_limit_content">우리 집 rule이 너무 많아요!\n필요하지 않은 rule을 삭제하고\n다시 시도해주세요~</string>
     <string name="our_rule_empty_description">아직 우리 집 Rules가 없어요!</string>
     <string name="our_rule_add_new_rule_title">Rules 추가</string>
     <string name="our_rule_edit_rule_title">Rules 수정</string>
+    <string name="our_rule_represent_rule_title">대표 Rules 선택</string>
     <string name="our_rule_add_new_rule">추가</string>
     <string name="our_rule_save_new_rule">저장</string>
     <string name="our_rule_delete_our_rule_button">삭제</string>
@@ -124,7 +126,7 @@
     <string name="our_rule_add">추가하기</string>
     <string name="our_rule_delete">삭제하기</string>
     <string name="our_rule_edit">수정하기</string>
-    <string name="our_rule_menu_edit_representation">Rules 편집</string>
+    <string name="our_rule_menu_edit_representation">대표 Rules 편집</string>
     <string name="our_rule_menu_edit_guide">가이드 다시보기</string>
     <string name="our_rule_add_edit_title">제목</string>
     <string name="our_rule_add_edit_description">설명</string>

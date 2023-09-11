@@ -8,7 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import hous.release.android.R
-import hous.release.android.presentation.our_rules.component.BasicUpdateRuleScreen
+import hous.release.android.presentation.our_rules.component.update.BasicUpdateRuleScreen
 import hous.release.android.presentation.our_rules.model.PhotoUiModel
 import hous.release.designsystem.theme.HousTheme
 

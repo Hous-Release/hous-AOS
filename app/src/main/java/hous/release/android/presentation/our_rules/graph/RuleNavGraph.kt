@@ -27,12 +27,15 @@ import hous.release.android.presentation.our_rules.component.dialog.UpdateRuleOu
 import hous.release.android.presentation.our_rules.model.DetailRuleUiModel
 import hous.release.android.presentation.our_rules.screen.AddRuleScreen
 import hous.release.android.presentation.our_rules.screen.MainRuleScreen
+import hous.release.android.presentation.our_rules.screen.RepresentRuleScreen
 import hous.release.android.presentation.our_rules.screen.UpdateRuleScreen
 import hous.release.android.presentation.our_rules.screen.type.RulesScreens
 import hous.release.android.presentation.our_rules.viewmodel.AddRuleSideEffect
 import hous.release.android.presentation.our_rules.viewmodel.AddRuleViewModel
 import hous.release.android.presentation.our_rules.viewmodel.MainRuleSideEffect
 import hous.release.android.presentation.our_rules.viewmodel.MainRuleViewModel
+import hous.release.android.presentation.our_rules.viewmodel.RepresentRuleViewModel
+import hous.release.android.presentation.our_rules.viewmodel.RepresentRulesSideEffect
 import hous.release.android.presentation.our_rules.viewmodel.UpdateRuleSideEffect
 import hous.release.android.presentation.our_rules.viewmodel.UpdateRuleViewModel
 import hous.release.android.presentation.practice.findActivity
@@ -52,6 +55,7 @@ fun RuleNavGraph(
         mainRuleScreen(navController)
         addRuleScreen(navController::popBackStack)
         updateRuleScreen(navController)
+        representativeRuleScreen(navController::popBackStack)
     }
 }
 
@@ -101,9 +105,10 @@ private fun NavGraphBuilder.mainRuleScreen(
             onSearch = viewModel::searchRule,
             onNavigateToAddRule = viewModel::canAddRule,
             onNavigateToUpdateRule = navController::navigateUpdateRule,
+            onNavigateToRepresentRule = navController::navigateToRepresentRule,
             onFinish = activity::finish,
             refresh = viewModel::fetchMainRules,
-            deleteRule = viewModel::deleteRule,
+            deleteRule = viewModel::deleteRule
         )
     }
 }
@@ -303,8 +308,71 @@ private fun NavGraphBuilder.addRuleScreen(onBack: () -> Unit) {
     }
 }
 
-// Navigation
+@OptIn(ExperimentalLifecycleComposeApi::class)
+private fun NavGraphBuilder.representativeRuleScreen(onBack: () -> Unit) {
+    composable(RulesScreens.Represent.route) {
+        val viewModel = hiltViewModel<RepresentRuleViewModel>()
+        val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+        var isLoading by remember { mutableStateOf(false) }
+        var isOutDialogShow by remember { mutableStateOf(false) }
 
+        val context = LocalContext.current
+
+        LaunchedEffect(Unit) {
+            viewModel.sideEffect.collect { event ->
+                when (event) {
+                    is RepresentRulesSideEffect.IDLE -> Unit
+
+                    is RepresentRulesSideEffect.ShowLimitRulesToast -> {
+                        ToastMessageUtil.showToast(
+                            context,
+                            context.getString(R.string.our_rule_limit_represent_rules_count)
+                        )
+                    }
+
+                    is RepresentRulesSideEffect.LoadingBar -> {
+                        isLoading = event.isLoading
+                    }
+
+                    is RepresentRulesSideEffect.PopBackStack -> {
+                        onBack()
+                    }
+                }
+            }
+        }
+
+        val onBackPressed = {
+            if (viewModel.isSavable) {
+                isOutDialogShow = true
+            } else {
+                onBack()
+            }
+        }
+
+        BackHandler(viewModel.isSavable, onBackPressed)
+        if (isLoading) LoadingBar()
+        if (isOutDialogShow) {
+            UpdateRuleOutDialog(
+                onConfirm = {
+                    isOutDialogShow = false
+                    onBack()
+                },
+                onDismiss = {
+                    isOutDialogShow = false
+                }
+            )
+        }
+        RepresentRuleScreen(
+            rules = uiState.value.rules,
+            onBack = onBackPressed,
+            onUpdateRule = viewModel::updateRuleBy,
+            isSavable = viewModel::isSavable,
+            onSave = viewModel::saveRules
+        )
+    }
+}
+
+// Navigation
 fun NavController.navigateToAddRule() {
     navigate(RulesScreens.Add.route)
 }
@@ -315,4 +383,8 @@ fun NavController.navigateUpdateRule(detailRuleUiModel: DetailRuleUiModel) {
         detailRuleUiModel
     )
     navigate(RulesScreens.Update.route)
+}
+
+fun NavController.navigateToRepresentRule() {
+    navigate(RulesScreens.Represent.route)
 }

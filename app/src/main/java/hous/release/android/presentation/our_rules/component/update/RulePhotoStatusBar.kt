@@ -1,4 +1,4 @@
-package hous.release.android.presentation.our_rules.component
+package hous.release.android.presentation.our_rules.component.update
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

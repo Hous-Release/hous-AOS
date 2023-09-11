@@ -1,11 +1,13 @@
 package hous.release.data.service
 
+import hous.release.data.entity.request.rule.UpdateRepresentRulesRequest
 import hous.release.data.entity.response.BaseResponse
 import hous.release.data.entity.response.NoDataResponse
 import hous.release.data.entity.response.rule.CanAddRuleResponse
 import hous.release.data.entity.response.rule.DetailRuleResponse
 import hous.release.data.entity.response.rule.RulesResponse
 import okhttp3.MultipartBody
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.HTTP
 import retrofit2.http.Multipart
@@ -53,6 +55,11 @@ interface RuleService {
         @Path("id") id: Int,
         @Query("description") description: String,
         @Query("name") name: String
+    ): NoDataResponse
+
+    @PUT("/v1/rules/represent")
+    suspend fun updateRepresentRules(
+        @Body req: UpdateRepresentRulesRequest
     ): NoDataResponse
 
     @HTTP(method = "DELETE", path = "/v2/rule/{id}")
