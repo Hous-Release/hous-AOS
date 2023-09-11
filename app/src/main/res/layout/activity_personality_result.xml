@@ -30,26 +30,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_personality_result_info"
+        <ImageButton
+            android:id="@+id/btn_personality_result_download"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="@string/personality_result_info"
-            android:textColor="@color/hous_black"
-            android:theme="@style/B1"
+            android:background="@null"
+            android:padding="10dp"
+            android:layout_marginEnd="6dp"
+            android:src="@drawable/ic_download"
             app:layout_constraintBottom_toBottomOf="@id/btn_personality_result_back"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/btn_personality_result_back" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_personality_result_info">
+            app:layout_constraintTop_toBottomOf="@id/btn_personality_result_back">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
