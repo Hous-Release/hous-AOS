@@ -26,14 +26,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- TODO 영주 : 추후 src 수정하기 -->
         <ImageView
             android:id="@+id/iv_withdraw_done_graphic"
-            android:layout_width="0dp"
-            android:layout_height="130dp"
-            android:layout_marginHorizontal="70dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="208dp"
-            android:background="@color/hous_g_5"
+            android:src="@drawable/ic_withdraw_done"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_withdraw_done_return" />
