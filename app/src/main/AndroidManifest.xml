@@ -4,6 +4,7 @@
     package="hous.release.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28"/>
 
     <application
         android:name=".HousApplication"
@@ -135,7 +136,7 @@
         </activity>
         <activity
             android:name=".presentation.practice.GalleryPracticeActivity"
-            android:exported="true"
+            android:exported="false"
             android:screenOrientation="portrait">
 
         </activity>

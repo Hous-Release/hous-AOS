@@ -96,16 +96,16 @@ class HousFragment : BindingFragment<FragmentHousBinding>(R.layout.fragment_hous
     }
 
     private fun initNavigateToOurRulesBtnClickListener() {
-        binding.btnHousOurRules.setOnClickListener {
+        binding.btnHousOurRules.setOnSingleClickListener {
             startActivity(Intent(requireContext(), OurRulesActivity::class.java))
         }
-        binding.layoutHousOurRules.setOnClickListener {
+        binding.layoutHousOurRules.setOnSingleClickListener {
             startActivity(Intent(requireContext(), OurRulesActivity::class.java))
         }
     }
 
     private fun initMoveToToDoClickListener() {
-        binding.layoutHousMyTodo.setOnClickListener {
+        binding.layoutHousMyTodo.setOnSingleClickListener {
             (requireActivity() as MainActivity).moveToToDoFragment()
         }
     }

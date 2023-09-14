@@ -1,21 +1,24 @@
 package hous.release.android.di
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import hous.release.data.datasource.RuleDataSource
 import hous.release.data.datasource.TodoDataSource
 import hous.release.data.repository.AuthRepositoryImpl
 import hous.release.data.repository.BadgeRepositoryImpl
-import hous.release.data.repository.RuleRepositoryImpl
 import hous.release.data.repository.EnterRoomRepositoryImpl
 import hous.release.data.repository.HousRepositoryImpl
+import hous.release.data.repository.ImageRepositoryImpl
 import hous.release.data.repository.NotificationRepositoryImpl
 import hous.release.data.repository.PersonalityRepositoryImpl
+import hous.release.data.repository.PhotoRepositoryImpl
 import hous.release.data.repository.ProfileRepositoryImpl
 import hous.release.data.repository.RefreshRepositoryImpl
-import hous.release.data.repository.PhotoRepositoryImpl
+import hous.release.data.repository.RuleRepositoryImpl
 import hous.release.data.repository.SettingsRepositoryImpl
 import hous.release.data.repository.TodoRepositoryImpl
 import hous.release.data.repository.VersionRepositoryImpl
@@ -23,6 +26,7 @@ import hous.release.domain.repository.AuthRepository
 import hous.release.domain.repository.BadgeRepository
 import hous.release.domain.repository.EnterRoomRepository
 import hous.release.domain.repository.HousRepository
+import hous.release.domain.repository.ImageRepository
 import hous.release.domain.repository.NotificationRepository
 import hous.release.domain.repository.PersonalityRepository
 import hous.release.domain.repository.PhotoRepository
@@ -38,6 +42,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
+    @Provides
+    @Singleton
+    fun provideImageRepository(@ApplicationContext context: Context): ImageRepository =
+        ImageRepositoryImpl(context)
+
     @Provides
     @Singleton
     fun providesRefreshRepository(refreshRepositoryImpl: RefreshRepositoryImpl): RefreshRepository =
