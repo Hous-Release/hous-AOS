@@ -14,14 +14,12 @@ import androidx.compose.material.Button
 import androidx.compose.material.Divider
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Shapes
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -37,7 +35,6 @@ import hous.release.designsystem.theme.HousTheme
 
 private val MinMenuWidth = 139.dp
 private val DropdownDividerPadding = 14.dp
-private val LocalShapes = staticCompositionLocalOf { Shapes() }
 
 @Composable
 fun MainRuleDropDownMenu(
