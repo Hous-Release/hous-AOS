@@ -2,7 +2,6 @@ package hous.release.android.presentation.our_rules.component.update
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -21,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.designsystem.R
+import hous.release.designsystem.modifier.clickableSingle
 import hous.release.designsystem.theme.HousBlue
 import hous.release.designsystem.theme.HousG4
 import hous.release.designsystem.theme.HousTheme
@@ -33,7 +33,7 @@ fun RuleAddPhotoButton(
 ) {
     val focusManager = LocalFocusManager.current
     Row(
-        modifier = Modifier.clickable(
+        modifier = Modifier.clickableSingle(
             enabled = isActiveButton,
             onClick = {
                 focusManager.clearFocus()

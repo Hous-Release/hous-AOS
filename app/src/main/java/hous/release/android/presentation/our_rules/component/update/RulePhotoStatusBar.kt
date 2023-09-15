@@ -10,7 +10,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import hous.release.designsystem.component.user_interaction.SingleEventArea
 import hous.release.designsystem.theme.HousG4
 import hous.release.designsystem.theme.HousTheme
 
@@ -27,12 +26,10 @@ fun RulePhotoStatusBar(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        SingleEventArea { handler ->
-            RuleAddPhotoButton(
-                isActiveButton = photoCount in (0..4),
-                onClick = { handler.handle(onOpenGallery) }
-            )
-        }
+        RuleAddPhotoButton(
+            isActiveButton = photoCount in (0..4),
+            onClick = onOpenGallery
+        )
 
         Text(
             text = "$photoCount/5",
