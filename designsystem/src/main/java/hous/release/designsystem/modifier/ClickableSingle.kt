@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.semantics.Role
-import hous.release.designsystem.util.SingleEventHandler
+import hous.release.designsystem.util.single_event.SingleEventHandler
 
 /**
  * 여러 번 클릭 이벤트를 막아주는 Modifier
@@ -27,11 +27,11 @@ fun Modifier.clickableSingle(
         properties["onClick"] = onClick
     }
 ) {
-    val singleEventHandler = remember { SingleEventHandler.instance() }
+    val manager = remember { SingleEventHandler() }
     Modifier.clickable(
         enabled = enabled,
         onClickLabel = onClickLabel,
-        onClick = { singleEventHandler.handle { onClick() } },
+        onClick = { manager.handle { onClick() } },
         role = role,
         indication = LocalIndication.current,
         interactionSource = remember { MutableInteractionSource() }

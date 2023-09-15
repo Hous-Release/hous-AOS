@@ -2,7 +2,7 @@ package hous.release.designsystem.component.user_interaction
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import hous.release.designsystem.util.SingleEventHandler
+import hous.release.designsystem.util.single_event.SingleEventHandler
 
 /**
  * 여러 번 클릭 이벤트를 막아주는 Wrapper Composable
@@ -11,7 +11,7 @@ import hous.release.designsystem.util.SingleEventHandler
 fun <T> SingleEventArea(
     content: @Composable (SingleEventHandler) -> T
 ) {
-    val singleEventHandler = remember { SingleEventHandler.instance() }
+    val singleEventHandler = remember { SingleEventHandler() }
 
     content(singleEventHandler)
 }
