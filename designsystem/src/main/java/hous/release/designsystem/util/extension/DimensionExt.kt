@@ -1,4 +1,4 @@
-package hous.release.designsystem.util
+package hous.release.designsystem.util.extension
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalDensity
