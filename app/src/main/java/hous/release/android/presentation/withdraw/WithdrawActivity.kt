@@ -11,4 +11,10 @@ class WithdrawActivity : BindingActivity<ActivityWithdrawBinding>(R.layout.activ
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
+
+    companion object {
+        const val LOCATION = "location"
+        const val FEEDBACK = "feedback"
+        const val WITHDRAW = "withdraw"
+    }
 }
