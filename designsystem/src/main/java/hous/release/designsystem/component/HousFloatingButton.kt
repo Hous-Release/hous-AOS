@@ -14,6 +14,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.designsystem.R
+import hous.release.designsystem.component.user_interaction.SingleEventArea
 import hous.release.designsystem.theme.HousBlue
 import hous.release.designsystem.theme.HousWhite
 
@@ -38,28 +39,31 @@ fun FabScreenSlot(
 fun HousFloatingButton(
     onClick: () -> Unit = {}
 ) {
-    FloatingActionButton(
-        onClick = onClick,
-        backgroundColor = HousBlue,
-        contentColor = HousWhite,
-        modifier = Modifier.size(92.dp).padding(16.dp)
-    ) {
-        Icon(
-            imageVector = ImageVector.vectorResource(id = R.drawable.ic_plus),
-            contentDescription = "Add"
-        )
+    SingleEventArea { cutter ->
+        FloatingActionButton(
+            onClick = { cutter.handle(onClick) },
+            backgroundColor = HousBlue,
+            contentColor = HousWhite,
+            modifier = Modifier.size(92.dp)
+                .padding(16.dp)
+        ) {
+            Icon(
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_plus),
+                contentDescription = "Add"
+            )
+        }
     }
 }
 
 @Composable
 @Preview(showBackground = true)
-fun Preview() {
+private fun Preview() {
     HousFloatingButton()
 }
 
 @Composable
 @Preview(widthDp = 360, heightDp = 640, showBackground = true)
-fun PreviewFabContainerWithContent() {
+private fun PreviewFabContainerWithContent() {
     FabScreenSlot(
         fabOnClick = {},
         content = {

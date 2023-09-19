@@ -25,12 +25,13 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+    java {
+        sourceCompatibility = javaVersion
+        targetCompatibility = javaVersion
     }
+
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = jvmVersion
     }
 
     buildFeatures {
@@ -42,6 +43,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":testing"))
+
     Deps.AndroidX.Compose.run {
         implementation(activity)
         implementation(material)
@@ -51,6 +54,8 @@ dependencies {
         implementation(mdcTheme)
         implementation(appCompatTheme)
     }
+    testImplementation()
+    androidTestImplementation()
 }
 
 ktlint {

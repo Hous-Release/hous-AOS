@@ -20,11 +20,16 @@ fun RulePhotoStatusBar(
     onOpenGallery: () -> Unit = {}
 ) {
     Row(
-        modifier = modifier.fillMaxWidth().padding(start = 16.dp, end = 28.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 28.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        RuleAddPhotoButton(photoCount in (0..4), onOpenGallery)
+        RuleAddPhotoButton(
+            isActiveButton = photoCount in (0..4),
+            onClick = onOpenGallery
+        )
 
         Text(
             text = "$photoCount/5",
