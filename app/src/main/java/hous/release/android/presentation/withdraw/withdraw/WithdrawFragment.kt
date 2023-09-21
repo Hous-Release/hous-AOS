@@ -7,6 +7,8 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentWithdrawBinding
+import hous.release.android.presentation.withdraw.WithdrawActivity.Companion.LOCATION
+import hous.release.android.presentation.withdraw.WithdrawActivity.Companion.WITHDRAW
 import hous.release.android.util.UiEvent
 import hous.release.android.util.binding.BindingFragment
 import hous.release.android.util.dialog.LoadingDialogFragment
@@ -15,6 +17,7 @@ import hous.release.android.util.extension.repeatOnStarted
 @AndroidEntryPoint
 class WithdrawFragment : BindingFragment<FragmentWithdrawBinding>(R.layout.fragment_withdraw) {
     private val withdrawViewModel by viewModels<WithdrawViewModel>()
+    private val bundle = Bundle()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,7 +40,11 @@ class WithdrawFragment : BindingFragment<FragmentWithdrawBinding>(R.layout.fragm
                     }
                     UiEvent.SUCCESS -> {
                         loadingDialogFragment?.dismiss()
-                        findNavController().navigate(R.id.action_withdrawFragment_to_withdrawDoneFragment)
+                        findNavController().navigate(R.id.action_withdrawFragment_to_withdrawDoneFragment,
+                            bundle.apply {
+                                putString(LOCATION, WITHDRAW)
+                            }
+                        )
                     }
                     UiEvent.ERROR -> {
                         loadingDialogFragment?.dismiss()

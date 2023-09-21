@@ -9,6 +9,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.FragmentFeedbackBinding
 import hous.release.android.presentation.settings.SettingsActivity
+import hous.release.android.presentation.withdraw.WithdrawActivity.Companion.FEEDBACK
+import hous.release.android.presentation.withdraw.WithdrawActivity.Companion.LOCATION
 import hous.release.android.util.KeyBoardUtil
 import hous.release.android.util.UiEvent
 import hous.release.android.util.binding.BindingFragment
@@ -18,6 +20,7 @@ import hous.release.android.util.extension.repeatOnStarted
 @AndroidEntryPoint
 class FeedbackFragment : BindingFragment<FragmentFeedbackBinding>(R.layout.fragment_feedback) {
     private val feedbackViewModel by viewModels<FeedbackViewModel>()
+    private val bundle = Bundle()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -74,7 +77,11 @@ class FeedbackFragment : BindingFragment<FragmentFeedbackBinding>(R.layout.fragm
                         if (feedbackViewModel.isDeleting.value) {
                             findNavController().navigate(R.id.action_feedbackFragment_to_withdrawFragment)
                         } else {
-                            findNavController().navigate(R.id.action_feedbackFragment_to_withdrawDoneFragment)
+                            findNavController().navigate(R.id.action_feedbackFragment_to_withdrawDoneFragment,
+                                bundle.apply {
+                                    putString(LOCATION, FEEDBACK)
+                                }
+                            )
                         }
                     }
                     UiEvent.ERROR -> {
