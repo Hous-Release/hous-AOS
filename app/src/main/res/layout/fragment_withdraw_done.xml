@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="hous.release.android.presentation.withdraw.withdrawDone.WithdrawDoneViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,34 +34,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="208dp"
-            android:src="@drawable/ic_withdraw_done"
+            android:src="@{viewModel.layout == `withdraw` ? @drawable/ic_withdraw_done : @drawable/ic_feedback_done}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_withdraw_done_return" />
+            app:layout_constraintTop_toBottomOf="@id/tv_withdraw_done_return"
+            tools:src="@drawable/ic_feedback_done" />
 
         <TextView
             android:id="@+id/tv_withdraw_done_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/withdraw_done_title"
+            android:text="@{viewModel.layout == `withdraw` ? @string/withdraw_done_title : @string/feedback_done_title}"
             android:textColor="@color/hous_black"
             android:theme="@style/H3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_withdraw_done_graphic" />
+            app:layout_constraintTop_toBottomOf="@id/iv_withdraw_done_graphic"
+            tools:text="@string/withdraw_done_title" />
 
         <TextView
             android:id="@+id/tv_withdraw_done_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/withdraw_done_desc"
+            android:gravity="center"
+            android:text="@{viewModel.layout == `withdraw` ? @string/withdraw_done_desc : @string/feedback_done_desc}"
             android:textColor="@color/hous_g_6"
             android:theme="@style/B1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_withdraw_done_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_withdraw_done_title"
+            tools:text="@string/withdraw_done_desc" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
