@@ -31,6 +31,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".presentation.feedback.FeedbackActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".presentation.todo.add.AddToDoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -137,9 +141,7 @@
         <activity
             android:name=".presentation.practice.GalleryPracticeActivity"
             android:exported="false"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".HousMessageService"

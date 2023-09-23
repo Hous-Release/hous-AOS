@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivitySettingsBinding
+import hous.release.android.presentation.feedback.FeedbackActivity
 import hous.release.android.presentation.login.LoginActivity
 import hous.release.android.presentation.out_room.OutRoomActivity
 import hous.release.android.presentation.withdraw.WithdrawActivity
@@ -70,7 +71,7 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
 
     private fun initFeedbackClickListener() {
         binding.tvSettingsFeedback.setOnClickListener {
-            // TODO by 이빵주 : FeedbackActivity 만들어서 띄우기
+            startActivity(Intent(this, FeedbackActivity::class.java))
         }
     }
 
