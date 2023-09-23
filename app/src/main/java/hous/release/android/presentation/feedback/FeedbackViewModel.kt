@@ -1,4 +1,4 @@
-package hous.release.android.presentation.withdraw.feedback
+package hous.release.android.presentation.feedback
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
