@@ -1,4 +1,4 @@
-package hous.release.android.presentation.feedback
+package hous.release.android.presentation.feedback.feedback
 
 import android.annotation.SuppressLint
 import android.os.Bundle

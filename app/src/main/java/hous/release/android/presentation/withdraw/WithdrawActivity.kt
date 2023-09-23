@@ -6,7 +6,7 @@ import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivityWithdrawBinding
-import hous.release.android.presentation.feedback.FeedbackViewModel
+import hous.release.android.presentation.feedback.feedback.FeedbackViewModel
 import hous.release.android.util.UiEvent
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.LoadingDialogFragment
