@@ -77,7 +77,8 @@ class FeedbackFragment : BindingFragment<FragmentFeedbackBinding>(R.layout.fragm
                         if (feedbackViewModel.isDeleting.value) {
                             findNavController().navigate(R.id.action_feedbackFragment_to_withdrawFragment)
                         } else {
-                            findNavController().navigate(R.id.action_feedbackFragment_to_withdrawDoneFragment,
+                            findNavController().navigate(
+                                R.id.action_feedbackFragment_to_withdrawDoneFragment,
                                 bundle.apply {
                                     putString(LOCATION, FEEDBACK)
                                 }
