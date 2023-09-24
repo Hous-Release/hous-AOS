@@ -2,19 +2,19 @@ import org.gradle.api.JavaVersion
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 
 const val ktlintVersion = "10.3.0"
-const val kotlinVersion = "1.7.20"
+const val kotlinVersion = "1.8.10"
 val javaVersion = JavaVersion.VERSION_11
 const val jvmVersion = "11"
 
 object AppConfig {
     const val applicationId = "hous.release.android"
     const val buildToolsVersion = "30.0.3"
-    const val compileSdkVersion = 33
+    const val compileSdkVersion = 34
     const val minSdkVersion = 26
-    const val targetSdkVersion = 33
+    const val targetSdkVersion = 34
     const val versionCode = 6
     const val versionName = "1.0.6"
-    const val kotlinCompilerExtensionVersion = "1.3.2"
+    const val kotlinCompilerExtensionVersion = "1.4.2"
 }
 
 object Deps {
@@ -48,6 +48,7 @@ object Deps {
             const val mdcTheme = "com.google.android.material:compose-theme-adapter:1.1.16"
             const val appCompatTheme = "com.google.accompanist:accompanist-appcompat-theme:0.25.1"
             const val lifecycle = "androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha01"
+            const val foundation = "androidx.compose.foundation:foundation:1.5.1"
         }
     }
 
