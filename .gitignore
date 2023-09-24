@@ -177,3 +177,9 @@ fabric.properties
 .idea/kotlinc.xml
 
 .idea/
+/.tmp/
+/caches/
+/daemon/7.3.3/
+/kotlin-profile/
+/native/
+/wrapper/dists/gradle-7.3.3-bin/6a41zxkdtcxs8rphpq6y0069z/
