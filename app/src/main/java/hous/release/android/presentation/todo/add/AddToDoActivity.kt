@@ -5,7 +5,6 @@ import androidx.activity.addCallback
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
@@ -25,7 +24,6 @@ import hous.release.designsystem.theme.HousTheme
 class AddToDoActivity : AppCompatActivity() {
     private val viewModel by viewModels<AddToDoVIewModel>()
 
-    @OptIn(ExperimentalLifecycleComposeApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

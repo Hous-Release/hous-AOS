@@ -39,7 +39,7 @@ class ImageRepositoryImpl @Inject constructor(
         val uri: Uri? = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
 
         uri?.let {
-            resolver.openOutputStream(it).use { os ->
+            resolver.openOutputStream(it)?.use { os ->
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os)
             }
 
