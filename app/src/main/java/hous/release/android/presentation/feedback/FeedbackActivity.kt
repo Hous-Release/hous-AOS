@@ -24,6 +24,7 @@ class FeedbackActivity : BindingActivity<ActivityFeedbackBinding>(R.layout.activ
 
     private val loadingDialogFragment by lazy {
         supportFragmentManager.findFragmentByTag(LoadingDialogFragment.TAG) as? LoadingDialogFragment
+            ?: LoadingDialogFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
