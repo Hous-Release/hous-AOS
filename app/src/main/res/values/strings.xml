@@ -374,6 +374,7 @@
     <string name="withdraw_done_title">그동안 사용해주셔서 감사합니다.</string>
     <string name="withdraw_done_desc">정상적으로 회원 탈퇴 되었습니다.\n언제든 돌아오세요!</string>
     <string name="withdraw_done_return">처음으로</string>
+    <string name="feedback_done_return">완료하기</string>
     <string name="feedback_done_title">피드백 접수가 완료되었어요!</string>
     <string name="feedback_done_desc">열심히 반영하여 더 좋은 Hous-가 되겠습니다.</string>
 

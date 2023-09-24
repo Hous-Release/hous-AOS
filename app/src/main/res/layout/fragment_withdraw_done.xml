@@ -23,11 +23,12 @@
             android:layout_marginEnd="14dp"
             android:clickable="true"
             android:padding="10dp"
-            android:text="@string/withdraw_done_return"
+            android:text="@{viewModel.layout == `withdraw` ? @string/withdraw_done_return : @string/feedback_done_return}"
             android:textColor="@color/hous_blue"
             android:theme="@style/B2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/withdraw_done_return" />
 
         <ImageView
             android:id="@+id/iv_withdraw_done_graphic"
