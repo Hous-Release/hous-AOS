@@ -15,6 +15,7 @@ import hous.release.android.util.extension.setOnSingleClickListener
 @AndroidEntryPoint
 class WithdrawDoneFragment :
     BindingFragment<FragmentWithdrawDoneBinding>(R.layout.fragment_withdraw_done) {
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initReturnBtnClickListener()

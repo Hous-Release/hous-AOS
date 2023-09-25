@@ -7,14 +7,14 @@
 
         <variable
             name="viewModel"
-            type="hous.release.android.presentation.withdraw.feedback.FeedbackViewModel" />
+            type="hous.release.android.presentation.feedback.feedback.FeedbackViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_feedback"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.withdraw.feedback.FeedbackFragment">
+        tools:context=".presentation.feedback.feedback.FeedbackFragment">
 
         <ImageButton
             android:id="@+id/btn_feedback_back"

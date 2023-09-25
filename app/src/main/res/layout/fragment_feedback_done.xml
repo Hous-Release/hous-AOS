@@ -10,56 +10,56 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.withdraw.withdrawDone.WithdrawDoneFragment">
+        tools:context=".presentation.feedback.feedbackDone.FeedbackDoneFragment">
 
         <TextView
-            android:id="@+id/tv_withdraw_done_return"
+            android:id="@+id/tv_feedback_done_return"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="14dp"
             android:clickable="true"
             android:padding="10dp"
-            android:text="@string/withdraw_done_return"
+            android:text="@string/feedback_done_return"
             android:textColor="@color/hous_blue"
             android:theme="@style/B2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/iv_withdraw_done_graphic"
+            android:id="@+id/iv_feedback_done_graphic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="208dp"
-            android:src="@drawable/ic_withdraw_done"
+            android:src="@drawable/ic_feedback_done"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_withdraw_done_return" />
+            app:layout_constraintTop_toBottomOf="@id/tv_feedback_done_return" />
 
         <TextView
-            android:id="@+id/tv_withdraw_done_title"
+            android:id="@+id/tv_feedback_done_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/withdraw_done_title"
+            android:text="@string/feedback_done_title"
             android:textColor="@color/hous_black"
             android:theme="@style/H3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_withdraw_done_graphic" />
+            app:layout_constraintTop_toBottomOf="@id/iv_feedback_done_graphic" />
 
         <TextView
-            android:id="@+id/tv_withdraw_done_desc"
+            android:id="@+id/tv_feedback_done_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="@string/withdraw_done_desc"
+            android:text="@string/feedback_done_desc"
             android:textColor="@color/hous_g_6"
             android:theme="@style/B1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_withdraw_done_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_feedback_done_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -16,6 +16,10 @@ import hous.release.android.util.extension.repeatOnStarted
 class WithdrawFragment : BindingFragment<FragmentWithdrawBinding>(R.layout.fragment_withdraw) {
     private val withdrawViewModel by viewModels<WithdrawViewModel>()
 
+    private val loadingDialogFragment by lazy {
+        childFragmentManager.findFragmentByTag(LoadingDialogFragment.TAG) as? LoadingDialogFragment
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = withdrawViewModel
@@ -26,9 +30,6 @@ class WithdrawFragment : BindingFragment<FragmentWithdrawBinding>(R.layout.fragm
     private fun collectUiEvent() {
         repeatOnStarted {
             withdrawViewModel.uiEvent.collect { uiEvent ->
-                val loadingDialogFragment =
-                    childFragmentManager.findFragmentByTag(LoadingDialogFragment.TAG) as? LoadingDialogFragment
-
                 when (uiEvent) {
                     UiEvent.LOADING -> {
                         loadingDialogFragment?.show(

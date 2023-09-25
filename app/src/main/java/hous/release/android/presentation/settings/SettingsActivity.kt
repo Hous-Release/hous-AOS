@@ -2,12 +2,12 @@ package hous.release.android.presentation.settings
 
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hous.release.android.R
 import hous.release.android.databinding.ActivitySettingsBinding
+import hous.release.android.presentation.feedback.FeedbackActivity
 import hous.release.android.presentation.login.LoginActivity
 import hous.release.android.presentation.out_room.OutRoomActivity
 import hous.release.android.presentation.withdraw.WithdrawActivity
@@ -71,11 +71,7 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
 
     private fun initFeedbackClickListener() {
         binding.tvSettingsFeedback.setOnClickListener {
-            startActivity(
-                Intent(this, WithdrawActivity::class.java).apply {
-                    putExtra(IS_DELETING, false)
-                }
-            )
+            startActivity(Intent(this, FeedbackActivity::class.java))
         }
     }
 
@@ -88,9 +84,7 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
     private fun initWithdrawClickListener() {
         binding.tvSettingsWithdraw.setOnClickListener {
             startActivity(
-                Intent(this, WithdrawActivity::class.java).apply {
-                    putExtra(IS_DELETING, true)
-                }
+                Intent(this, WithdrawActivity::class.java)
             )
         }
     }
@@ -143,27 +137,7 @@ class SettingsActivity : BindingActivity<ActivitySettingsBinding>(R.layout.activ
         }.show(supportFragmentManager, WarningDialogFragment.DIALOG_WARNING)
     }
 
-    private fun getDeviceName(): String {
-        val manufacturer = Build.MANUFACTURER
-        val model = Build.MODEL
-        return if (model.startsWith(manufacturer)) {
-            capitalize(model)
-        } else {
-            "${capitalize(manufacturer)} $model"
-        }
-    }
-
-    private fun capitalize(str: String?): String {
-        return if (str.isNullOrEmpty()) {
-            getString(R.string.settings_feedback_empty_string)
-        } else {
-            val first = str[0]
-            Character.toUpperCase(first).toString() + str.substring(1)
-        }
-    }
-
     companion object {
         const val HAS_ROOM = "HAS_ROOM"
-        const val IS_DELETING = "isDeleting"
     }
 }
