@@ -2,6 +2,7 @@ package hous.release.android.presentation.our_rules.component.main
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,6 +34,8 @@ import hous.release.designsystem.theme.HousG2
 import hous.release.designsystem.theme.HousG6
 import hous.release.designsystem.theme.HousTheme
 import hous.release.designsystem.theme.HousWhite
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 // https://github.com/android/snippets/blob/5ae1f7852164d98d055b3cc6b463705989cff231/compose/snippets/src/main/java/com/example/compose/snippets/layouts/PagerSnippets.kt#L93-L103
 
@@ -42,18 +46,19 @@ fun RuleGuideBottomSheetContent() {
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 20.dp, bottom = 14.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         val pageCount = 3
         val pagerState = rememberPagerState(pageCount = { pageCount })
+        val coroutineScope = rememberCoroutineScope()
         HorizontalPager(
             modifier = Modifier.fillMaxWidth(),
             beyondBoundsPageCount = 2, // to place more pages before and after the visible pages
             state = pagerState
         ) { page ->
             Column(
+                modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
             ) {
                 Text(
                     text = "룰스 고정하기",
@@ -83,18 +88,31 @@ fun RuleGuideBottomSheetContent() {
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-            repeat(pageCount) { idx ->
-                PageIndicator(pagerState.currentPage == idx)
-                if (idx != pageCount - 1) {
-                    Spacer(Modifier.width(14.dp))
+            PageIndicators(
+                pageCount,
+                pagerState.currentPage,
+                onSelected = { targetPage ->
+                    coroutineScope.launch {
+                        pagerState.animateScrollToPage(targetPage)
+                    }
                 }
-            }
+            )
         }
     }
 }
 
 @Composable
-private fun PageIndicator(isSelected: Boolean) {
+private fun PageIndicators(pageCount: Int, currentPage: Int, onSelected: (Int) -> Unit) {
+    repeat(pageCount) { idx ->
+        PageIndicator(currentPage == idx, onSelected = { onSelected(idx) })
+        if (idx != pageCount - 1) {
+            Spacer(Modifier.width(14.dp))
+        }
+    }
+}
+
+@Composable
+private fun PageIndicator(isSelected: Boolean, onSelected: () -> Unit) {
     Box(
         modifier = Modifier
             .padding(8.dp)
@@ -102,6 +120,9 @@ private fun PageIndicator(isSelected: Boolean) {
             .clip(CircleShape)
             .background(
                 color = if (isSelected) HousBlue else HousG2
+            )
+            .clickable(
+                onClick = onSelected
             )
     )
 }
