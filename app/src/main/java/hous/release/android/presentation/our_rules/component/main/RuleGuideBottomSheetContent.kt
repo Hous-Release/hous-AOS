@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -33,8 +32,6 @@ import hous.release.designsystem.theme.HousBlue
 import hous.release.designsystem.theme.HousG2
 import hous.release.designsystem.theme.HousG6
 import hous.release.designsystem.theme.HousTheme
-import hous.release.designsystem.theme.HousWhite
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 // https://github.com/android/snippets/blob/5ae1f7852164d98d055b3cc6b463705989cff231/compose/snippets/src/main/java/com/example/compose/snippets/layouts/PagerSnippets.kt#L93-L103
@@ -43,10 +40,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun RuleGuideBottomSheetContent() {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 20.dp, bottom = 14.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxWidth().padding(top = 20.dp, bottom = 14.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val pageCount = 3
         val pagerState = rememberPagerState(pageCount = { pageCount })
@@ -58,7 +53,7 @@ fun RuleGuideBottomSheetContent() {
         ) { page ->
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
                     text = "룰스 고정하기",
@@ -67,11 +62,11 @@ fun RuleGuideBottomSheetContent() {
                     style = HousTheme.typography.b1
                 )
                 Spacer(Modifier.height(13.dp))
-
                 Text(
                     text = "Page: $page",
                     textAlign = TextAlign.Center
                 )
+                RuleGuideLottie(idx = page)
                 Spacer(Modifier.height(20.dp))
 
                 Text(
@@ -84,19 +79,14 @@ fun RuleGuideBottomSheetContent() {
         }
         Spacer(Modifier.height(17.dp))
         Row(
-            Modifier
-                .fillMaxWidth(),
+            Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-            PageIndicators(
-                pageCount,
-                pagerState.currentPage,
-                onSelected = { targetPage ->
-                    coroutineScope.launch {
-                        pagerState.animateScrollToPage(targetPage)
-                    }
+            PageIndicators(pageCount, pagerState.currentPage, onSelected = { targetPage ->
+                coroutineScope.launch {
+                    pagerState.animateScrollToPage(targetPage)
                 }
-            )
+            })
         }
     }
 }
@@ -114,25 +104,18 @@ private fun PageIndicators(pageCount: Int, currentPage: Int, onSelected: (Int) -
 @Composable
 private fun PageIndicator(isSelected: Boolean, onSelected: () -> Unit) {
     Box(
-        modifier = Modifier
-            .padding(8.dp)
-            .size(8.dp)
-            .clip(CircleShape)
-            .background(
-                color = if (isSelected) HousBlue else HousG2
-            )
-            .clickable(
-                onClick = onSelected
-            )
+        modifier = Modifier.padding(8.dp).size(8.dp).clip(CircleShape).background(
+            color = if (isSelected) HousBlue else HousG2
+        ).clickable(
+            onClick = onSelected
+        )
     )
 }
 
 @Composable
 @Preview(showBackground = true)
-private fun Preview() {
+private fun RuleGuideBottomSheetContentPreview() {
     HousTheme {
-        Surface(color = HousWhite) {
-            RuleGuideBottomSheetContent()
-        }
+        RuleGuideBottomSheetContent()
     }
 }
