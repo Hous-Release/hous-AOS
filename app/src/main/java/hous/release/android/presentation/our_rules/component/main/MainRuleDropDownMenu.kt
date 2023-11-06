@@ -60,8 +60,14 @@ fun MainRuleDropDownMenu(
             onDismissRequest = onDismiss
         ) {
             RuleDropDownMenuContent(
-                onNavigateToRepresentation = onNavigateToRepresentation,
-                onNavigateToGuide = onNavigateToGuide
+                onNavigateToRepresentation = {
+                    onDismiss()
+                    onNavigateToRepresentation()
+                },
+                onNavigateToGuide = {
+                    onDismiss()
+                    onNavigateToGuide()
+                }
             )
         }
     }
