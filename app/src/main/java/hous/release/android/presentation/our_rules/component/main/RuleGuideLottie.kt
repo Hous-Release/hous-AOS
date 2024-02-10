@@ -6,12 +6,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import hous.release.android.R
+import hous.release.designsystem.theme.HousTheme
 
 @Composable
 fun RuleGuideLottie(
@@ -19,9 +21,7 @@ fun RuleGuideLottie(
 ) {
     val composition by rememberLottieComposition(
         LottieCompositionSpec.RawRes(
-            provideRuleGuideLottie(
-                0 // TODO : lottie json 파일 다시 받으면 idx로 바꾸기
-            )
+            provideRuleGuideLottie(idx)
         )
     )
 
@@ -44,5 +44,13 @@ private fun provideRuleGuideLottie(idx: Int): Int {
         1 -> R.raw.rule_guide_2
         2 -> R.raw.rule_guide_3
         else -> throw IllegalArgumentException("Invalid Index: $idx")
+    }
+}
+
+@Composable
+@Preview(showBackground = true)
+private fun RuleGuideBottomSheetContentPreview() {
+    HousTheme {
+        RuleGuideBottomSheetContent()
     }
 }
