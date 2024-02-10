@@ -25,6 +25,7 @@ import hous.release.designsystem.theme.HousTheme
 @Composable
 fun MainRuleToolbar(
     onNavigateToRepresentRule: () -> Unit = {},
+    onOpenRuleGuide: () -> Unit = {},
     modifier: Modifier = Modifier,
     title: String = "우리 집 Rules",
     onBack: () -> Unit = { }
@@ -62,7 +63,7 @@ fun MainRuleToolbar(
                 )
             }
         )
-        MainRuleDropDownMenu(expanded, onDismiss, onNavigateToRepresentRule)
+        MainRuleDropDownMenu(expanded, onDismiss, onNavigateToRepresentRule, onOpenRuleGuide)
     }
 }
 

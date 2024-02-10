@@ -21,6 +21,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import hous.release.android.presentation.our_rules.component.dialog.DeleteRuleDialog
 import hous.release.android.presentation.our_rules.component.main.DetailRuleBottomSheetContent
 import hous.release.android.presentation.our_rules.component.main.MainRuleContent
+import hous.release.android.presentation.our_rules.component.main.RuleGuideBottomSheetContent
 import hous.release.android.presentation.our_rules.model.DetailRuleUiModel
 import hous.release.designsystem.theme.HousTheme
 import hous.release.designsystem.theme.HousWhite
@@ -48,6 +49,8 @@ fun MainRuleScreen(
         skipHalfExpanded = true
     )
     var isShowDeleteRuleDialog by remember { mutableStateOf(false) }
+    var bottomSheetType: BottomSheetType by remember { mutableStateOf(BottomSheetType.DetailRule) }
+
     val lifecycleOwner = LocalLifecycleOwner.current
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
@@ -83,16 +86,21 @@ fun MainRuleScreen(
     ModalBottomSheetLayout(
         sheetState = bottomSheetState,
         sheetContent = {
-            DetailRuleBottomSheetContent(
-                detailRule = detailRule,
-                onNavigateToUpdateRule = { detailRule ->
-                    coroutineScope.launch {
-                        bottomSheetState.hide()
-                        onNavigateToUpdateRule(detailRule)
-                    }
-                },
-                onDeleteRule = { isShowDeleteRuleDialog = true }
-            )
+            if (bottomSheetType is BottomSheetType.DetailRule) {
+                DetailRuleBottomSheetContent(
+                    detailRule = detailRule,
+                    onNavigateToUpdateRule = { detailRule ->
+                        coroutineScope.launch {
+                            bottomSheetState.hide()
+                            onNavigateToUpdateRule(detailRule)
+                        }
+                    },
+                    onDeleteRule = { isShowDeleteRuleDialog = true }
+                )
+            }
+            if (bottomSheetType is BottomSheetType.RuleGuide) {
+                RuleGuideBottomSheetContent()
+            }
         },
         sheetShape = RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp),
         sheetElevation = 8.dp,
@@ -105,6 +113,13 @@ fun MainRuleScreen(
             onOpenDetailRule = { id ->
                 coroutineScope.launch {
                     fetchDetailRuleById(id)
+                    bottomSheetType = BottomSheetType.DetailRule
+                    bottomSheetState.show()
+                }
+            },
+            onOpenRuleGuide = {
+                coroutineScope.launch {
+                    bottomSheetType = BottomSheetType.RuleGuide
                     bottomSheetState.show()
                 }
             },
@@ -128,4 +143,9 @@ private fun MainRuleScreenPreView2() {
             )
         )
     }
+}
+
+sealed class BottomSheetType {
+    object DetailRule : BottomSheetType()
+    object RuleGuide : BottomSheetType()
 }

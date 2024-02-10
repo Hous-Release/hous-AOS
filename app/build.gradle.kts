@@ -148,6 +148,7 @@ dependencies {
         implementation(appCompatTheme)
         implementation(lifecycle)
         implementation(navigation)
+        implementation(foundation)
     }
 
     Deps.DI.run {

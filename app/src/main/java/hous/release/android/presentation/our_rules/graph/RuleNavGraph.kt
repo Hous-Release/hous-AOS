@@ -12,7 +12,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -61,7 +60,6 @@ fun RuleNavGraph(
 
 // Screens
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 private fun NavGraphBuilder.mainRuleScreen(
     navController: NavController
 ) {
@@ -113,7 +111,6 @@ private fun NavGraphBuilder.mainRuleScreen(
     }
 }
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 private fun NavGraphBuilder.updateRuleScreen(
     navController: NavController
 ) {
@@ -214,7 +211,6 @@ private fun NavGraphBuilder.updateRuleScreen(
     }
 }
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 private fun NavGraphBuilder.addRuleScreen(onBack: () -> Unit) {
     composable(RulesScreens.Add.route) {
         val viewModel = hiltViewModel<AddRuleViewModel>()
@@ -308,7 +304,6 @@ private fun NavGraphBuilder.addRuleScreen(onBack: () -> Unit) {
     }
 }
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 private fun NavGraphBuilder.representativeRuleScreen(onBack: () -> Unit) {
     composable(RulesScreens.Represent.route) {
         val viewModel = hiltViewModel<RepresentRuleViewModel>()

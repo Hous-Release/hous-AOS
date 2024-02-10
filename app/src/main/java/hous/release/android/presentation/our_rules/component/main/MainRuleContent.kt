@@ -29,6 +29,7 @@ fun MainRuleContent(
     searchQuery: String = "",
     onSearch: (String) -> Unit = {},
     onOpenDetailRule: (Int) -> Unit = {},
+    onOpenRuleGuide: () -> Unit = {},
     onNavigateToAddRule: () -> Unit = {},
     onNavigateToRepresentRule: () -> Unit = {},
     onFinish: () -> Unit = {}
@@ -55,6 +56,7 @@ fun MainRuleContent(
         ) {
             MainRuleToolbar(
                 onBack = onFinish,
+                onOpenRuleGuide = onOpenRuleGuide,
                 onNavigateToRepresentRule = onNavigateToRepresentRule
             )
             Spacer(modifier = Modifier.padding(top = 4.dp))
