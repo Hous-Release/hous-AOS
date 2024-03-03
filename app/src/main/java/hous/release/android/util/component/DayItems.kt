@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
@@ -14,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.android.R
 import hous.release.designsystem.component.DayItem
+import hous.release.designsystem.theme.HousTheme
 
 @Composable
 fun DayItems(
@@ -49,10 +49,14 @@ fun DayItemsPreView() {
     val selectedList = remember {
         mutableStateListOf<Boolean>().apply { addAll(List(7) { false }) }
     }
-    MaterialTheme {
+    val selectTodoDay: (userIdx: Int, dayIdx: Int) -> Unit = { _, dayIdx ->
+        selectedList[dayIdx] = !selectedList[dayIdx]
+    }
+    HousTheme {
         DayItems(
             userIdx = 0,
-            dayList = selectedList
+            dayList = selectedList,
+            selectTodoDay = selectTodoDay
         )
     }
 }
