@@ -17,7 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hous.release.designsystem.theme.HousBlue
-import hous.release.designsystem.theme.HousBlueL2
+import hous.release.designsystem.theme.HousBlueL1
 import hous.release.designsystem.theme.HousG1
 import hous.release.designsystem.theme.HousG4
 import hous.release.designsystem.theme.HousTheme
@@ -35,7 +35,7 @@ fun DayItem(
         modifier = Modifier
             .clip(CircleShape)
             .background(
-                color = if (isSelected) HousBlueL2 else HousG1
+                color = if (isSelected) HousBlueL1 else HousG1
             )
             .clickable {
                 selectTodoDay(userIdx, dayIdx)
@@ -62,7 +62,7 @@ fun DayItem(
     Box(
         modifier = Modifier
             .clip(CircleShape)
-            .background(color = if (isSelected) HousBlueL2 else HousG1)
+            .background(color = if (isSelected) HousBlueL1 else HousG1)
             .clickable { selectTodoDay(dayIdx) }
             .size(40.dp),
         contentAlignment = Alignment.Center
