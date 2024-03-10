@@ -78,7 +78,10 @@
 
     <!-- Kakao -->
     <string name="login_kakao_login">카카오톡으로 계속하기</string>
-    <string name="login_desc">로그인 시 이용약관 및 개인정보 처리 방침에 동의하게 됩니다.</string>
+    <string name="login_desc_use">로그인 시 이용약관 및</string>
+    <string name="login_desc_personal">" "개인정보 처리 방침에 동의하게 됩니다.</string>
+    <string name="login_link_use">https://sugared-lemming-812.notion.site/4dee0853cb154f2ab5162ce6c6849b54?pvs=4</string>
+    <string name="login_link_personal">https://sugared-lemming-812.notion.site/9b1363815906432a8bca42174a033a54?pvs=4</string>
 
     <!-- UserInput -->
     <string name="user_input_user_info">회원 정보 입력</string>
