@@ -107,17 +107,12 @@ class ProfileEditActivity :
                 putParcelable(
                     WarningDialogFragment.CONFIRM_ACTION,
                     DatePickerClickListener(
-                        confirmActionWithDate = { date -> initDate(date) }
+                        confirmActionWithDate = { date -> profileEditViewModel.initSelectedBirthDate(date) }
                     )
                 )
-
                 putString(DatePickerDialog.USER_BIRTHDAY, profileEditViewModel.birthday.value)
             }.show(supportFragmentManager, SELECT_BIRTHDAY)
         }
-    }
-
-    private fun initDate(date: String) {
-        profileEditViewModel.initSelectedBirthDate(date)
     }
 
     companion object {

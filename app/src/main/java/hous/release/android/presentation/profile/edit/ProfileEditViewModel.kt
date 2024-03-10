@@ -53,7 +53,7 @@ class ProfileEditViewModel @Inject constructor(
     fun updateProfile() {
         viewModelScope.launch {
             putProfileEditUseCase(
-                birthday = birthday.value.replace("/", "-"),
+                birthday = birthday.value,
                 introduction = introduction.value,
                 isPublic = !isPrivateBirthday.value,
                 job = job.value,
@@ -66,7 +66,7 @@ class ProfileEditViewModel @Inject constructor(
     }
 
     fun initSelectedBirthDate(birth: String) {
-        birthday.value = birth.replace("-", "/")
+        birthday.value = birth
     }
 
     fun isPrivateBirthday(checked: Boolean) {
@@ -75,7 +75,7 @@ class ProfileEditViewModel @Inject constructor(
 
     fun initData(profileData: ProfileEntity) {
         originData.value = profileData.copy(
-            birthday = profileData.birthday.replace(".", "/"),
+            birthday = profileData.birthday.replace(".", "-"),
             birthdayPublic = !profileData.birthdayPublic,
             mbti = profileData.mbti ?: "",
             job = profileData.job ?: "",
