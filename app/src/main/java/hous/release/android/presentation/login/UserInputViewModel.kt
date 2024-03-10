@@ -26,6 +26,10 @@ class UserInputViewModel @Inject constructor(
     private val _isSignedUp = MutableSharedFlow<Boolean>()
     val isSignedUp = _isSignedUp.asSharedFlow()
 
+    fun updateIsPrivateBirthday() {
+        isPrivateBirthday.value = !isPrivateBirthday.value
+    }
+
     fun signUp() {
         viewModelScope.launch {
             postSignUpUseCase(

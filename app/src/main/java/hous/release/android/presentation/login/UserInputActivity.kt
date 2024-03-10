@@ -29,11 +29,8 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
         super.onCreate(savedInstanceState)
         binding.vm = userInputViewModel
         initSignUpCollect()
-        initNextBtnOnClickListener()
+        initClickListener()
         initBackPressedCallback()
-        initBirthdayOnClickListener()
-        initEditTextClearFocus()
-        initKeyboardNextClickListener()
     }
 
     private fun initSignUpCollect() {
@@ -47,11 +44,42 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
         }
     }
 
-    private fun initNextBtnOnClickListener() {
-        binding.tvUserInputNext.setOnSingleClickListener {
+    @SuppressLint("ClickableViewAccessibility")
+    private fun initClickListener() {
+        binding.tvNavigateRoom.setOnSingleClickListener {
             val toEnterRoom = Intent(this, EnterRoomActivity::class.java)
             startActivity(toEnterRoom)
             finishAffinity()
+        }
+        binding.etUserName.setOnEditorActionListener { _, actionId, _ ->
+            var handled = false
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                binding.etUserInputBirthday.performClick()
+                handled = true
+            }
+            KeyBoardUtil.hide(activity = this)
+            handled
+        }
+        binding.etUserInputBirthday.setOnSingleClickListener {
+            DatePickerDialog().apply {
+                arguments = Bundle().apply {
+                    putParcelable(
+                        CONFIRM_ACTION,
+                        DatePickerClickListener(
+                            confirmActionWithDate = { date ->
+                                userInputViewModel.initSelectedBirthDate(date)
+                            }
+                        )
+                    )
+                }
+            }.show(supportFragmentManager, SELECT_BIRTHDAY)
+        }
+        binding.clUserInput.setOnTouchListener { _, _ ->
+            KeyBoardUtil.hide(activity = this)
+            return@setOnTouchListener false
+        }
+        binding.tvPrivateBirthday.setOnClickListener {
+            userInputViewModel.updateIsPrivateBirthday()
         }
     }
 
@@ -74,43 +102,6 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
                 }
             }
         )
-    }
-
-    private fun initBirthdayOnClickListener() {
-        binding.etUserInputBirthday.setOnSingleClickListener {
-            DatePickerDialog().apply {
-                arguments = Bundle().apply {
-                    putParcelable(
-                        CONFIRM_ACTION,
-                        DatePickerClickListener(
-                            confirmActionWithDate = { date ->
-                                userInputViewModel.initSelectedBirthDate(date)
-                            }
-                        )
-                    )
-                }
-            }.show(supportFragmentManager, SELECT_BIRTHDAY)
-        }
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private fun initEditTextClearFocus() {
-        binding.clUserInput.setOnTouchListener { _, _ ->
-            KeyBoardUtil.hide(activity = this)
-            return@setOnTouchListener false
-        }
-    }
-
-    private fun initKeyboardNextClickListener() {
-        binding.etUserInputNickname.setOnEditorActionListener { _, actionId, _ ->
-            var handled = false
-            if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                binding.etUserInputBirthday.performClick()
-                handled = true
-            }
-            KeyBoardUtil.hide(activity = this)
-            handled
-        }
     }
 
     companion object {
