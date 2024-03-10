@@ -15,9 +15,11 @@ import hous.release.android.util.ToastMessageUtil
 import hous.release.android.util.binding.BindingActivity
 import hous.release.android.util.dialog.DatePickerClickListener
 import hous.release.android.util.dialog.DatePickerDialog
+import hous.release.android.util.dialog.DatePickerDialog.Companion.USER_BIRTHDAY
 import hous.release.android.util.dialog.WarningDialogFragment.Companion.CONFIRM_ACTION
 import hous.release.android.util.extension.repeatOnStarted
 import hous.release.android.util.extension.setOnSingleClickListener
+import hous.release.android.util.extension.withArgs
 import kotlin.system.exitProcess
 
 @AndroidEntryPoint
@@ -61,17 +63,16 @@ class UserInputActivity : BindingActivity<ActivityUserInputBinding>(R.layout.act
             handled
         }
         binding.etUserInputBirthday.setOnSingleClickListener {
-            DatePickerDialog().apply {
-                arguments = Bundle().apply {
-                    putParcelable(
-                        CONFIRM_ACTION,
-                        DatePickerClickListener(
-                            confirmActionWithDate = { date ->
-                                userInputViewModel.initSelectedBirthDate(date)
-                            }
-                        )
+            DatePickerDialog().withArgs {
+                putParcelable(
+                    CONFIRM_ACTION,
+                    DatePickerClickListener(
+                        confirmActionWithDate = { date ->
+                            userInputViewModel.initSelectedBirthDate(date)
+                        }
                     )
-                }
+                )
+                putString(USER_BIRTHDAY, userInputViewModel.birthday.value)
             }.show(supportFragmentManager, SELECT_BIRTHDAY)
         }
         binding.clUserInput.setOnTouchListener { _, _ ->

@@ -103,15 +103,15 @@ class ProfileEditActivity :
 
     private fun initBirthdayOnClickListener() {
         binding.etProfileEditBirthday.setOnSingleClickListener {
-            DatePickerDialog().apply {
-                arguments = Bundle().apply {
-                    putParcelable(
-                        WarningDialogFragment.CONFIRM_ACTION,
-                        DatePickerClickListener(
-                            confirmActionWithDate = { date -> initDate(date) }
-                        )
+            DatePickerDialog().withArgs {
+                putParcelable(
+                    WarningDialogFragment.CONFIRM_ACTION,
+                    DatePickerClickListener(
+                        confirmActionWithDate = { date -> initDate(date) }
                     )
-                }
+                )
+
+                putString(DatePickerDialog.USER_BIRTHDAY, profileEditViewModel.birthday.value)
             }.show(supportFragmentManager, SELECT_BIRTHDAY)
         }
     }
