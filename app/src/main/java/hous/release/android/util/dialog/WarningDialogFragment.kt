@@ -81,6 +81,9 @@ class WarningDialogFragment : DialogFragment() {
 
                 WarningType.WARNING_STOP_TEST ->
                     WarningDialogContent().getWarningStopTest(requireContext())
+
+                WarningType.WARNING_PEED_BACK ->
+                    WarningDialogContent().getWarningFeedBack(requireContext())
             }
         }
     }

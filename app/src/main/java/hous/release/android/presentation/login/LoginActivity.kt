@@ -1,6 +1,7 @@
 package hous.release.android.presentation.login
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.addCallback
 import androidx.activity.viewModels
@@ -29,13 +30,28 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initKakaoLoginBtnClickListener()
+        initClickListener()
         initIsSuccessKakaoLoginObserver()
         initIsInitUserInfoObserver()
         initBackPressedCallback()
         initIsJoiningRoomObserve()
         initIsUserObserve()
         initIsPermitAccessObserve()
+    }
+
+    private fun initClickListener() {
+        binding.btnLoginKakao.setOnClickListener {
+            startKakaoLogin()
+        }
+        binding.tvLoginDescUse.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.login_link_use)))
+            startActivity(intent)
+        }
+        binding.tvLoginDescPersonal.setOnClickListener {
+            val intent =
+                Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.login_link_personal)))
+            startActivity(intent)
+        }
     }
 
     private fun initIsUserObserve() {
@@ -76,12 +92,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                 System.runFinalization()
                 exitProcess(0)
             }
-        }
-    }
-
-    private fun initKakaoLoginBtnClickListener() {
-        binding.btnLoginKakao.setOnClickListener {
-            startKakaoLogin()
         }
     }
 

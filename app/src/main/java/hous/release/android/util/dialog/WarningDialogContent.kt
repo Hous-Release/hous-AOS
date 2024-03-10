@@ -96,4 +96,11 @@ data class WarningDialogContent(
             cancel = context.getString(R.string.warning_stop_test_cancel),
             confirm = context.getString(R.string.warning_stop_test_confirm)
         )
+    fun getWarningFeedBack(context: Context): WarningDialogContent =
+        WarningDialogContent(
+            title = context.getString(R.string.waring_peed_back_title),
+            desc = context.getString(R.string.waring_peed_back_desc),
+            cancel = context.getString(R.string.waring_peed_back_cancel),
+            confirm = context.getString(R.string.waring_peed_back_confirm)
+        )
 }

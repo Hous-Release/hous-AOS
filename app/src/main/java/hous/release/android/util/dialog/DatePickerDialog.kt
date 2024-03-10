@@ -19,6 +19,7 @@ class DatePickerDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = DialogDatePickerBinding.inflate(requireActivity().layoutInflater)
+        initDatePicker()
         initConfirmTextClickListener()
         initCancelTextClickListener()
         initMaxDate()
@@ -42,11 +43,18 @@ class DatePickerDialog : DialogFragment() {
         binding.datePickerDialogDatePicker.maxDate = Calendar.getInstance().timeInMillis
     }
 
-    private fun getYearFormat(year: Int): String = year.toString()
-
-    private fun getMonthFormat(month: Int): String = "%02d".format(month + 1)
-
-    private fun getDayFormat(day: Int): String = "%02d".format(day)
+    private fun initDatePicker() {
+        val (year, month, day) = arguments?.getString(USER_BIRTHDAY)?.let {
+            if (it.isBlank()) return@let null
+            val date = it.split("-")
+            Triple(date[0].toInt(), date[1].toInt(), date[2].toInt())
+        } ?: Triple(
+            Calendar.getInstance()[Calendar.YEAR],
+            Calendar.getInstance()[Calendar.MONTH] + 1,
+            Calendar.getInstance()[Calendar.DAY_OF_MONTH]
+        )
+        binding.datePickerDialogDatePicker.init(year, month - 1, day, null)
+    }
 
     private fun initConfirmTextClickListener() {
         binding.tvDatePickerConfirm.setOnClickListener {
@@ -62,6 +70,9 @@ class DatePickerDialog : DialogFragment() {
             }
             dismiss()
         }
+        binding.datePickerDialogDatePicker.setOnDateChangedListener { _, year, month, dayOfMonth ->
+            Timber.e("year: $year, month: $month, dayOfMonth: $dayOfMonth")
+        }
     }
 
     private fun initCancelTextClickListener() {
@@ -70,8 +81,17 @@ class DatePickerDialog : DialogFragment() {
         }
     }
 
+    private fun getYearFormat(year: Int): String = year.toString()
+
+    private fun getMonthFormat(month: Int): String = "%02d".format(month + 1)
+
+    private fun getDayFormat(day: Int): String = "%02d".format(day)
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val USER_BIRTHDAY = "birthDAY"
     }
 }
