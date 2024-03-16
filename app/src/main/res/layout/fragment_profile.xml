@@ -255,7 +255,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="47dp"
+                    android:layout_marginTop="28dp"
                     android:background="@color/hous_g_0"
                     app:layout_constraintTop_toBottomOf="@id/tv_profile_introduction" />
 
