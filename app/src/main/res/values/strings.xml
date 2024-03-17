@@ -117,7 +117,7 @@
     <string name="our_rule_limit_photo_count">사진은 5개 까지만 추가할 수 있어요!</string>
     <string name="our_rule_limit_represent_rules_count">대표 rule 은 3개 까지만 추가할 수 있어요!</string>
     <string name="our_rule_limit_title">Rules 개수 초과</string>
-    <string name="our_rule_limit_content">우리 집 rule이 너무 많아요!\n필요하지 않은 rule을 삭제하고\n다시 시도해주세요~</string>
+    <string name="our_rule_limit_content">우리 집 Rules가 너무 많아요!\n필요하지 않은 rule을 삭제하고\n다시 시도해 주세요~</string>
     <string name="our_rule_empty_description">아직 우리 집 Rules가 없어요!</string>
     <string name="our_rule_add_new_rule_title">Rules 추가</string>
     <string name="our_rule_edit_rule_title">Rules 수정</string>
