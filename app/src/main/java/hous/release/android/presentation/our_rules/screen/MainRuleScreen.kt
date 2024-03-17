@@ -32,7 +32,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainRuleScreen(
     detailRule: DetailRuleUiModel = DetailRuleUiModel(),
-    mainRules: List<Rule> = emptyList(),
+    filteredRules: List<Rule> = emptyList(),
+    originRules: List<Rule> = emptyList(),
     searchQuery: String = "",
     fetchDetailRuleById: (Int) -> Unit = {},
     deleteRule: () -> Unit = {},
@@ -107,7 +108,8 @@ fun MainRuleScreen(
         sheetBackgroundColor = HousWhite
     ) {
         MainRuleContent(
-            mainRules = mainRules,
+            filteredRules = filteredRules,
+            originRules = originRules,
             searchQuery = searchQuery,
             onSearch = onSearch,
             onOpenDetailRule = { id ->
@@ -135,7 +137,7 @@ fun MainRuleScreen(
 private fun MainRuleScreenPreView2() {
     HousTheme {
         MainRuleScreen(
-            mainRules = listOf(
+            filteredRules = listOf(
                 Rule().copy(id = 1, name = "test1", isNew = true),
                 Rule().copy(id = 2, name = "test2", isNew = false),
                 Rule().copy(id = 3, name = "test3", isNew = true),

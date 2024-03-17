@@ -12,8 +12,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import hous.release.android.R
 import hous.release.android.presentation.our_rules.component.RuleEmptyContent
 import hous.release.designsystem.component.HousDot
 import hous.release.designsystem.component.HousDotType
@@ -25,18 +27,25 @@ import hous.release.domain.entity.rule.Rule
 @Composable
 fun MainRuleList(
     onNavigateToDetailRule: (Int) -> Unit = {},
-    mainRules: List<Rule> = emptyList()
+    originRules: List<Rule> = emptyList(),
+    filteredRules: List<Rule> = emptyList()
 ) {
-    if (mainRules.isEmpty()) {
-        RuleEmptyContent()
-    } else {
-        Spacer(modifier = Modifier.height(16.dp))
-        LazyColumn {
-            itemsIndexed(mainRules, key = { _, rule -> rule.id }) { _, rule ->
-                MainRuleItem(
-                    onClick = { onNavigateToDetailRule(rule.id) },
-                    mainRule = rule
-                )
+    when {
+        originRules.isEmpty() -> {
+            RuleEmptyContent(text = stringResource(id = R.string.hous_empty_our_rules))
+        }
+        filteredRules.isEmpty() -> {
+            RuleEmptyContent(text = stringResource(id = R.string.hous_filterd_empty_our_rules))
+        }
+        else -> {
+            Spacer(modifier = Modifier.height(16.dp))
+            LazyColumn {
+                itemsIndexed(filteredRules, key = { _, rule -> rule.id }) { _, rule ->
+                    MainRuleItem(
+                        onClick = { onNavigateToDetailRule(rule.id) },
+                        mainRule = rule
+                    )
+                }
             }
         }
     }
@@ -72,7 +81,7 @@ private fun MainRuleItem(
     )
 }
 
-@Preview(name = "empty content", showBackground = true)
+@Preview(name = "empty origin rules content", showBackground = true)
 @Composable
 private fun EmptyContentPreview() {
     HousTheme {
@@ -82,12 +91,22 @@ private fun EmptyContentPreview() {
     }
 }
 
+@Preview(name = "empty filtered Rules", showBackground = true)
+@Composable
+private fun EmptyContentPreview2() {
+    HousTheme {
+        Surface {
+            MainRuleList(originRules = listOf(Rule().copy(id = 1, name = "test1")))
+        }
+    }
+}
+
 @Preview(name = "MainRuleContent", showBackground = true)
 @Composable
 private fun MainRuleContentPreview() {
     HousTheme {
         MainRuleList(
-            mainRules = listOf(
+            filteredRules = listOf(
                 Rule().copy(id = 1, name = "test1", isNew = true),
                 Rule().copy(id = 2, name = "test2", isNew = false),
                 Rule().copy(id = 3, name = "test3", isNew = true),

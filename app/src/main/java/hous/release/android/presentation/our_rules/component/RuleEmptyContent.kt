@@ -16,14 +16,17 @@ import hous.release.designsystem.theme.HousTheme
 
 @Composable
 fun RuleEmptyContent(
-    modifier: Modifier = Modifier.fillMaxWidth().padding(top = 88.dp)
+    text: String = stringResource(id = R.string.hous_empty_our_rules),
+    modifier: Modifier = Modifier
+        .fillMaxWidth()
+        .padding(top = 88.dp)
 ) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = stringResource(id = R.string.hous_empty_our_rules),
+            text = text,
             color = HousG5,
             style = HousTheme.typography.b2
         )

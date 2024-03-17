@@ -111,6 +111,7 @@
     <string name="hous_our_rules">Our Rules</string>
     <string name="hous_our_rules_img_desc">btn_of_our_rules</string>
     <string name="hous_empty_our_rules">아직 우리 집 Rules가 없어요!</string>
+    <string name="hous_filterd_empty_our_rules">해당되는 Rules가 없어요!</string>
     <string name="hous_empty_our_rules_add">다른 Rule도 추가해보세요!</string>
     <string name="our_rule_duplicate_rule">똑같은 이름의 Rule이 있어요!</string>
     <string name="our_rule_limit_photo_count">사진은 5개 까지만 추가할 수 있어요!</string>

@@ -97,7 +97,8 @@ private fun NavGraphBuilder.mainRuleScreen(
 
         MainRuleScreen(
             detailRule = uiState.value.detailRule,
-            mainRules = uiState.value.filteredRules,
+            filteredRules = uiState.value.filteredRules,
+            originRules = uiState.value.originRules,
             searchQuery = uiState.value.searchQuery,
             fetchDetailRuleById = viewModel::fetchDetailRule,
             onSearch = viewModel::searchRule,
