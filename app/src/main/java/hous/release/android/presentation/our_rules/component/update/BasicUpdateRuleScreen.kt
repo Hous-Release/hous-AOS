@@ -85,7 +85,7 @@ fun BasicUpdateRuleScreen(
                 textFielddMode = HousTextFieldMode.RIGHT_LIMITED,
                 text = ruleName,
                 onTextChange = changeName,
-                limitTextCount = 10,
+                limitTextCount = 20,
                 keyboardOptions = KeyboardOptions.Default.copy(
                     imeAction = ImeAction.Next
                 ),
