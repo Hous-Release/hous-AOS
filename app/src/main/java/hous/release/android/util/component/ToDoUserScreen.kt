@@ -181,13 +181,13 @@ private fun TodoNotificationCheckBox(
     isCheck: Boolean
 ) {
     Row(
+        modifier = Modifier.clickable {
+            changeNotification()
+        },
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            modifier = Modifier.clickable {
-                changeNotification()
-            },
             painter = painterResource(id = if (isCheck) R.drawable.ic_check_on else R.drawable.ic_check_off),
             contentDescription = null
         )
