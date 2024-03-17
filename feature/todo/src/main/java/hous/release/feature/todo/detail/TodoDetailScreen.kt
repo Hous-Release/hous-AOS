@@ -43,6 +43,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
@@ -110,14 +111,22 @@ fun TodoDetailScreen(
                     bottomSheetState.hide()
                 }
             },
-            onDismissRequest = { isDeleteTodo = false }
+            onDismissRequest = { isDeleteTodo = false },
+            properties = DialogProperties(
+                dismissOnBackPress = false,
+                dismissOnClickOutside = false
+            )
         )
     }
     if (isLimitTodo) {
         HousLimitDialog(
             title = stringResource(R.string.todo_limit_title),
             content = stringResource(R.string.todo_limit_content),
-            onDismissRequest = { isLimitTodo = false }
+            onDismissRequest = { isLimitTodo = false },
+            properties = DialogProperties(
+                dismissOnBackPress = false,
+                dismissOnClickOutside = false
+            )
         )
     }
 
