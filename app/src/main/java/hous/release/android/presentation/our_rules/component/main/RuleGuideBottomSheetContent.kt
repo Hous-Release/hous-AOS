@@ -61,10 +61,6 @@ fun RuleGuideBottomSheetContent() {
                     style = HousTheme.typography.b1
                 )
                 Spacer(Modifier.height(13.dp))
-                Text(
-                    text = "Page: $page",
-                    textAlign = TextAlign.Center
-                )
                 RuleGuideLottie(idx = page)
                 Spacer(Modifier.height(20.dp))
 
