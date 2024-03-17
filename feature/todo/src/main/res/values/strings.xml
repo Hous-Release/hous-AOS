@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="filter_title">필터 설정</string>
+    <string name="filter_title">to-do 필터 설정</string>
     <string name="filter_day">요일</string>
     <string name="filter_homy">호미</string>
     <string name="filter_save">저장하기</string>
     <string name="todo_detail_title">우리 집 to-do</string>
     <string name="new_todo">new !</string>
-    <string name="todo_filter">필터</string>
+    <string name="todo_filter">to-do 필터</string>
     <string name="todo_filter_day_of_week">요일</string>
     <string name="todo_filter_homy">호미</string>
     <string name="filter_search_result">검색 결과</string>
     <string name="filter_search_result_postfix">개</string>
-    <string name="todo_detail_textfield_hint">Rules 검색하기</string>
+    <string name="todo_detail_textfield_hint">to-do 검색하기</string>
     <string name="todo_detail_empty">아직 우리집 to-do가 없어요!</string>
     <string name="todo_filter_empty">해당되는 to-do가 없어요!</string>
     <string name="todo_delete_title">안녕, to-do...</string>

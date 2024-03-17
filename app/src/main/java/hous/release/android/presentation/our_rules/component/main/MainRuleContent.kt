@@ -65,7 +65,7 @@ fun MainRuleContent(
                 textFielddMode = HousTextFieldMode.SEARCH,
                 text = searchQuery,
                 onTextChange = onSearch,
-                hint = stringResource(R.string.todo_detail_textfield_hint),
+                hint = "Rules 검색하기",
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Done
                 ),
