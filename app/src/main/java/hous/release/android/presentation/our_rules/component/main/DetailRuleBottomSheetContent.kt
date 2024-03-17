@@ -54,7 +54,7 @@ fun DetailRuleBottomSheetContent(
             Spacer(modifier = Modifier.height(7.dp))
             if (detailRule.description.isEmpty()) {
                 Text(
-                    text = detailRule.description,
+                    text = "설명 없음",
                     style = HousTheme.typography.b2,
                     color = HousG4
                 )
