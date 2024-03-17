@@ -243,7 +243,7 @@
     <string name="tutorial_4_body">생활 성향 테스트를 참여하면 나를 대신해\n나를 잘 설명해줄 호미 성향 카드를 받을 수 있어요.\n\n이제 Hous-와 함께 우리 집 호미들의 성향 카드를\n확인하며 즐거운 공동생활을 시작해볼까요?</string>
 
     <string name="to_do_limit_title">to-do 개수 초과</string>
-    <string name="to_do_limit_content">우리 집 to-do가 너무 많아요!\n필요하지 않은 to-do를 삭제하고\n다시 시도해주세요~</string>
+    <string name="to_do_limit_content">우리 집 to-do가 너무 많아요!\n필요하지 않은 to-do를 삭제하고\n다시 시도해 주세요~</string>
     <string name="todo_limit_confirm">알겠어요!</string>
     <string name="todo_main_empty_progress">아직 우리 집 to-do가 없어요!</string>
     <string name="to_do_my_empty">오늘은 쉬는 날! 내 담당 to-do가 없어요!</string>
@@ -336,7 +336,7 @@
     <string name="personality_result_good">찰떡궁합</string>
     <string name="personality_result_bad">맞춰가요</string>
     <string name="test_start_title">생활패턴 체크 시작!</string>
-    <string name="test_start_content">지금부터 15개의 질문에 답변해주세요 :)\n솔직한 답변은 서로를 배려할 수 있는\n좋은 기회가 될거에요!</string>
+    <string name="test_start_content">15개 질문을 통해 나의 생활 성향을 알아보아요!\n솔직한 답변은 서로를 배려할 수 있는\n좋은 기회가 될 거예요! :)</string>
     <string name="test_start">시작하기</string>
     <string name="test_loading_title">결과 나오는 중</string>
     <string name="test_loading_subtitle">조금만 기다려주세요!</string>
@@ -399,7 +399,7 @@
     <!-- NetworkError -->
     <string name="network_error_img_desc">네트워크 에러 이미지</string>
     <string name="network_error_title">인터넷에 연결되어 있지 않아요!</string>
-    <string name="network_error_desc">Hous-를 사용하려면 인터넷 연결이 필요해요.\nWi-Fi를 다시 한 번 확인해주세요!</string>
+    <string name="network_error_desc">Hous-를 사용하려면 인터넷 연결이 필요해요.\nWi-Fi를 다시 한 번 확인해 주세요!!</string>
     <string name="network_error_retry">다시 시도하기</string>
     <string name="network_error_toast">인터넷 연결 후 다시 시도해 주세요.</string>
 
