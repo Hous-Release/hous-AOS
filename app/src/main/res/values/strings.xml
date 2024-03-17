@@ -111,12 +111,13 @@
     <string name="hous_our_rules">Our Rules</string>
     <string name="hous_our_rules_img_desc">btn_of_our_rules</string>
     <string name="hous_empty_our_rules">아직 우리 집 Rules가 없어요!</string>
+    <string name="hous_filterd_empty_our_rules">해당되는 Rules가 없어요!</string>
     <string name="hous_empty_our_rules_add">다른 Rule도 추가해보세요!</string>
     <string name="our_rule_duplicate_rule">똑같은 이름의 Rule이 있어요!</string>
     <string name="our_rule_limit_photo_count">사진은 5개 까지만 추가할 수 있어요!</string>
     <string name="our_rule_limit_represent_rules_count">대표 rule 은 3개 까지만 추가할 수 있어요!</string>
     <string name="our_rule_limit_title">Rules 개수 초과</string>
-    <string name="our_rule_limit_content">우리 집 rule이 너무 많아요!\n필요하지 않은 rule을 삭제하고\n다시 시도해주세요~</string>
+    <string name="our_rule_limit_content">우리 집 Rules가 너무 많아요!\n필요하지 않은 rule을 삭제하고\n다시 시도해 주세요~</string>
     <string name="our_rule_empty_description">아직 우리 집 Rules가 없어요!</string>
     <string name="our_rule_add_new_rule_title">Rules 추가</string>
     <string name="our_rule_edit_rule_title">Rules 수정</string>
@@ -188,7 +189,7 @@
     <string name="edit_hous_name_back_img_desc">back button</string>
     <string name="edit_hous_name_done">저장</string>
     <string name="edit_hous_name_title">우리 집 별명 바꾸기</string>
-    <string name="edit_hous_name_description">멤버들이 확인할 수 있도록 방 이름을 설정해주세요.</string>
+    <string name="edit_hous_name_description">다른 호미들이 확인할 수 있도록 방 이름을 설정해주세요.</string>
     <string name="edit_hous_name_count">%d/8</string>
 
     <!-- To-Do -->

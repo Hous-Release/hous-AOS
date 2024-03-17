@@ -206,9 +206,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="48dp"
+                    android:layout_marginTop="20dp"
                     android:background="@color/hous_g_0"
-                    app:layout_constraintTop_toBottomOf="@id/iv_homie_profile_representation_image_empty" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_homie_profile_representation" />
 
                 <FrameLayout
                     android:id="@+id/fl_homie_profile_personality"

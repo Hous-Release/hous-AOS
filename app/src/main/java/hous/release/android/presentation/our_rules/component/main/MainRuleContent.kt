@@ -25,7 +25,8 @@ import hous.release.feature.todo.R
 
 @Composable
 fun MainRuleContent(
-    mainRules: List<Rule> = emptyList(),
+    filteredRules: List<Rule> = emptyList(),
+    originRules: List<Rule> = emptyList(),
     searchQuery: String = "",
     onSearch: (String) -> Unit = {},
     onOpenDetailRule: (Int) -> Unit = {},
@@ -75,7 +76,8 @@ fun MainRuleContent(
                 )
             )
             MainRuleList(
-                mainRules = mainRules,
+                originRules = originRules,
+                filteredRules = filteredRules,
                 onNavigateToDetailRule = onOpenDetailRule
             )
         }
@@ -87,7 +89,7 @@ fun MainRuleContent(
 private fun MainRuleScreenPreView2() {
     HousTheme {
         MainRuleContent(
-            mainRules = listOf(
+            filteredRules = listOf(
                 Rule().copy(id = 1, name = "test1", isNew = true),
                 Rule().copy(id = 2, name = "test2", isNew = false),
                 Rule().copy(id = 3, name = "test3", isNew = true),

@@ -35,6 +35,17 @@ import kotlinx.coroutines.launch
 
 // https://github.com/android/snippets/blob/5ae1f7852164d98d055b3cc6b463705989cff231/compose/snippets/src/main/java/com/example/compose/snippets/layouts/PagerSnippets.kt#L93-L103
 
+private val titleList = listOf(
+    "우리집 Rules란?",
+    "대표 Rules 선택하기",
+    "대표 Rules 선택 시 주의!"
+)
+
+private val descriptionList = listOf(
+    "Rules는 우리 호미들이 꼭 지켜야 하는 규칙이에요!",
+    "우리 집 대표 Rules를 선택하면 홈에서 바로 확인할 수 있어요!",
+    "대표 Rules는 딱 3개까지만 고정할 수 있어요!"
+)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun RuleGuideBottomSheetContent() {
@@ -55,21 +66,17 @@ fun RuleGuideBottomSheetContent() {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "룰스 고정하기",
+                    text = titleList[page],
                     color = HousBlack,
                     textAlign = TextAlign.Center,
                     style = HousTheme.typography.b1
                 )
                 Spacer(Modifier.height(13.dp))
-                Text(
-                    text = "Page: $page",
-                    textAlign = TextAlign.Center
-                )
                 RuleGuideLottie(idx = page)
                 Spacer(Modifier.height(20.dp))
 
                 Text(
-                    text = "룰스 고정 어쩌구 저쩌구",
+                    text = descriptionList[page],
                     color = HousG6,
                     textAlign = TextAlign.Center,
                     style = HousTheme.typography.description
