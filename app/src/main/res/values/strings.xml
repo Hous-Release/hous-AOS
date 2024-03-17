@@ -243,7 +243,7 @@
     <string name="tutorial_4_body">생활 성향 테스트를 참여하면 나를 대신해\n나를 잘 설명해줄 호미 성향 카드를 받을 수 있어요.\n\n이제 Hous-와 함께 우리 집 호미들의 성향 카드를\n확인하며 즐거운 공동생활을 시작해볼까요?</string>
 
     <string name="to_do_limit_title">to-do 개수 초과</string>
-    <string name="to_do_limit_content">우리 집 to-do가 너무 많아요!\n필요하지 않은 to-do를 삭제하고\n다시 시도해주세요~</string>
+    <string name="to_do_limit_content">우리 집 to-do가 너무 많아요!\n필요하지 않은 to-do를 삭제하고\n다시 시도해 주세요~</string>
     <string name="todo_limit_confirm">알겠어요!</string>
     <string name="todo_main_empty_progress">아직 우리 집 to-do가 없어요!</string>
     <string name="to_do_my_empty">오늘은 쉬는 날! 내 담당 to-do가 없어요!</string>
